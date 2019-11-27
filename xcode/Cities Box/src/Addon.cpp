@@ -2,10 +2,12 @@
 //  Addon.cpp
 //  Cities Box
 //
+//  Created by YotioSoft on 2019/11/27.
+//
 
 #include "Addon.hpp"
 
-bool getElement(string str, string search_element_name, string& ret) {
+bool Addon::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
 		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-3);
 		return true;
@@ -13,7 +15,7 @@ bool getElement(string str, string search_element_name, string& ret) {
 	return false;
 }
 
-bool getElement(string str, string search_element_name, int& ret) {
+bool Addon::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
 		ret = stoi(str.substr(str.find("\"")+1, str.length()-str.find("\"")-3));
 		return true;
@@ -21,7 +23,7 @@ bool getElement(string str, string search_element_name, int& ret) {
 	return false;
 }
 
-bool getTypes(string str, string search_element_name, vector<string>& ret) {
+bool Addon::getTypes(string str, string search_element_name, vector<string>& ret) {
 	string a_ret;
 	if (getElement(str, search_element_name, a_ret)) {
 		ret = split(a_ret, ", ");
@@ -30,7 +32,7 @@ bool getTypes(string str, string search_element_name, vector<string>& ret) {
 	return false;
 }
 
-Image set_alpha_color(string image_file_path, int clear_r, int clear_g, int clear_b) {
+Image Addon::set_alpha_color(string image_file_path, int clear_r, int clear_g, int clear_b) {
 	Image image_temp(Unicode::Widen(image_file_path));
 	
 	for (int h=0; h<image_temp.height(); h++) {
@@ -43,10 +45,6 @@ Image set_alpha_color(string image_file_path, int clear_r, int clear_g, int clea
 	
 	return image_temp;
 }
-
-Addon::Addon() {
-	
-};
 
 void Addon::load(FileStruct file_path) {
 	// アドオンファイルの読み込み

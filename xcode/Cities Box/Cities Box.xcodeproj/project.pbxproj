@@ -38,6 +38,7 @@
 		4B1DB865238D4DAA00CC2301 /* IOfunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB863238D4DAA00CC2301 /* IOfunctions.cpp */; };
 		4B1DB868238D54CB00CC2301 /* OtherFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB866238D54CB00CC2301 /* OtherFunctions.cpp */; };
 		4B1DB86B238E0A3D00CC2301 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB869238E0A3C00CC2301 /* Addon.cpp */; };
+		4B1DB871238EC62600CC2301 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB86F238EC62600CC2301 /* CityMap.cpp */; };
 		4BAB7EEC238CC8B200D3175E /* Images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB7EEA238CC8B200D3175E /* Images.cpp */; };
 		4BAB7EEE238CC95200D3175E /* Header.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB7EED238CC95200D3175E /* Header.hpp */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,8 @@
 		4B1DB867238D54CB00CC2301 /* OtherFunctions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OtherFunctions.hpp; sourceTree = "<group>"; };
 		4B1DB869238E0A3C00CC2301 /* Addon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Addon.cpp; sourceTree = "<group>"; };
 		4B1DB86A238E0A3D00CC2301 /* Addon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Addon.hpp; sourceTree = "<group>"; };
+		4B1DB86F238EC62600CC2301 /* CityMap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CityMap.cpp; sourceTree = "<group>"; };
+		4B1DB870238EC62600CC2301 /* CityMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CityMap.hpp; sourceTree = "<group>"; };
 		4BAB7EEA238CC8B200D3175E /* Images.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Images.cpp; sourceTree = "<group>"; };
 		4BAB7EEB238CC8B200D3175E /* Images.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Images.hpp; sourceTree = "<group>"; };
 		4BAB7EED238CC95200D3175E /* Header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
+				4B1DB86F238EC62600CC2301 /* CityMap.cpp */,
+				4B1DB870238EC62600CC2301 /* CityMap.hpp */,
 				4B1DB869238E0A3C00CC2301 /* Addon.cpp */,
 				4B1DB86A238E0A3D00CC2301 /* Addon.hpp */,
 				4BAB7EEA238CC8B200D3175E /* Images.cpp */,
@@ -260,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1DB86B238E0A3D00CC2301 /* Addon.cpp in Sources */,
+				4B1DB871238EC62600CC2301 /* CityMap.cpp in Sources */,
 				4BAB7EEE238CC95200D3175E /* Header.hpp in Sources */,
 				4B1DB865238D4DAA00CC2301 /* IOfunctions.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,

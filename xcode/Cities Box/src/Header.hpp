@@ -1,5 +1,8 @@
 //
 //  Header.hpp
+//  Cities Box
+//
+//  Created by YotioSoft on 2019/11/27.
 //
 #pragma once
 
@@ -11,6 +14,32 @@
 #include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
 using namespace std;
+
+class CityMap;
+class Addon;
+class Images;
+
+namespace RCOIFP {
+	enum Type {
+		None			= -1,
+		Residential		= 0,
+		Commercial		= 1,
+		Office			= 2,
+		Industrial		= 3,
+		Farm			= 4,
+		Public			= 5,
+	};
+}
+
+namespace School{
+	enum Type {
+		None				= -1,
+		ElementarySchool	= 0,
+		JuniorHighSchool	= 1,
+		HighSchool			= 2,
+		University			= 3,
+	};
+}
 
 typedef struct ImageStruct {
 	Texture texture;

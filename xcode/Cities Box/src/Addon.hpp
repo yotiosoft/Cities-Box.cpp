@@ -2,7 +2,8 @@
 //  Addon.hpp
 //  Cities Box
 //
-
+//  Created by YotioSoft on 2019/11/27.
+//
 #ifndef Addon_hpp
 #define Addon_hpp
 
@@ -38,9 +39,6 @@ typedef struct AddonTypeStruct {
 
 class Addon {
 public:
-	// コンストラクタ
-	Addon();
-	
 	// 内容の変更
 	void load(FileStruct file_path);
 	
@@ -92,6 +90,13 @@ private:
 	
 	// 各typeの情報
 	map<string, AddonTypeStruct> types;
+	
+	
+	// プライベート関数
+	bool getElement(string str, string search_element_name, string& ret);
+	bool getElement(string str, string search_element_name, int& ret);
+	bool getTypes(string str, string search_element_name, vector<string>& ret);
+	Image set_alpha_color(string image_file_path, int clear_r, int clear_g, int clear_b);
 };
 
 #endif /* Addon_hpp */

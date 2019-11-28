@@ -64,6 +64,9 @@ void Addon::load(FileStruct file_path) {
 	
 	vector<string> directions_name;
 	
+	bool loading_type = false;
+	bool loading_direction = false;
+	
 	while (getline(ifs, str_temp)) {
 		// 名前
 		getElement(str_temp, "addon_name", addon_name);
@@ -94,10 +97,16 @@ void Addon::load(FileStruct file_path) {
 		// 各typeの内容を取得
 		// 現在読込中のtypeを取得
 		for (int i=0; i<use_types.size(); i++) {
-			if (str_temp.find(use_types[i]) != string::npos && str_temp.find("{") != string::npos) {
+			if (str_temp.find(use_types[i]+" {") != string::npos && !loading_type) {
 				current_loading_type = use_types[i];
+				loading_type = true;
 			}
 		}
+		if (str_temp.find("}") == 0 && !loading_direction) {
+			current_direction = "";
+			loading_type = false;
+		}
+		
 		if (current_loading_type != "") {
 			// 画像のパス
 			getElement(str_temp, "image", types[current_loading_type].image);
@@ -114,10 +123,15 @@ void Addon::load(FileStruct file_path) {
 			getTypes(str_temp, "direction", directions_name);
 			
 			for (int i=0; i<directions_name.size(); i++) {
-				if (str_temp.find(directions_name[i]+" {") != string::npos) {
+				if (str_temp.find(directions_name[i]+" {") != string::npos && !loading_direction) {
 					current_direction = directions_name[i];
 				}
 			}
+			if (str_temp.find("}") == 0 && loading_direction) {
+				current_direction = "";
+				loading_direction = false;
+			}
+			
 			if (current_direction != "") {
 				AddonDirectionStruct direction_temp;
 				

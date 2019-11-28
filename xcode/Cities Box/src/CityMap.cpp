@@ -471,11 +471,10 @@ PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, Camera
 	default_camera.center = {0, 0};
 	
 	// 基準点となるx:0, y:0のマスの表示位置を算出する
-	PositionStruct square_0x0_position = PositionStruct{Scene::Width()/2 - 64/2, 0};
+	PositionStruct square_0x0_position = PositionStruct{Scene::Width()/2 - 64/2, Scene::Height()/2 - 32/2};
 	
-	PositionStruct square_position = PositionStruct{square_0x0_position.x+coordinate.x*32, square_0x0_position.y-coordinate.y*16};
+	PositionStruct square_position = PositionStruct{square_0x0_position.x+coordinate.x*32-coordinate.y*32, square_0x0_position.y+coordinate.y*16+coordinate.x*16};
 	
-	//PositionStruct square_0x0_position = {64*mapsize.width/2-Scene::Width()/2, 0};
 	return square_position;
 }
 

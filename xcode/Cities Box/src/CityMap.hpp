@@ -100,8 +100,11 @@ public:
 	
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
-	void draw_square(CoordinateStruct coordinate);
+	void draw_square(CoordinateStruct coordinate, CameraStruct camera);
 	void draw();
+	
+	// マップサイズの取得
+	SizeStruct getMapSize();
 	
 private:
 	int saved_version;

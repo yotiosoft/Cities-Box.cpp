@@ -37,6 +37,10 @@ void Main() {
 	
 	Font font16(16);
 	
+	// カメラの初期位置
+	CameraStruct camera;
+	camera.position = PositionStruct{64*map.getMapSize().width/2-Scene::Width()/2, 0};
+	
 	while (System::Update()) {
 		/*
 		// 背景画像
@@ -49,8 +53,22 @@ void Main() {
 		
 		for (int y=0; y<5; y++) {
 			for (int x=0; x<5; x++) {
-				map.draw_square(CoordinateStruct{x, y});
+				map.draw_square(CoordinateStruct{x, y}, camera);
 			}
+		}
+		
+		// カメラの操作
+		if (KeyLeft.pressed()) {
+			camera.position.x -= 5;
+		}
+		if (KeyRight.pressed()) {
+			camera.position.x += 5;
+		}
+		if (KeyUp.pressed()) {
+			camera.position.y -= 5;
+		}
+		if (KeyDown.pressed()) {
+			camera.position.y += 5;
 		}
 	}
 	

@@ -53,6 +53,21 @@ typedef struct PositionStruct {
 	int y;
 } PositionStruct;
 
+typedef struct CoordinateStruct {
+	int x;
+	int y;
+} CoordinateStruct;
+
+typedef struct CameraStruct {
+	PositionStruct position;
+	CoordinateStruct center;
+} CameraStruct;
+
+typedef struct SizeStruct {
+	int width;
+	int height;
+} SizeStruct;
+
 typedef struct RGBstruct {
 	int r;
 	int g;

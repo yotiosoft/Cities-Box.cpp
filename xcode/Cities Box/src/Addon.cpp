@@ -7,6 +7,9 @@
 
 #include "Addon.hpp"
 
+Addon::Addon() {
+}
+
 bool Addon::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
 		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-3);
@@ -111,26 +114,30 @@ void Addon::load(FileStruct file_path) {
 			getTypes(str_temp, "direction", directions_name);
 			
 			for (int i=0; i<directions_name.size(); i++) {
-				if (str_temp.find(directions_name[i]) != string::npos && str_temp.find("{") != string::npos) {
+				if (str_temp.find(directions_name[i]+" {") != string::npos) {
 					current_direction = directions_name[i];
 				}
 			}
 			if (current_direction != "") {
+				AddonDirectionStruct direction_temp;
+				
 				// アドオンの大きさ
-				getElement(str_temp, "size_x", types[current_loading_type].directions[current_direction].size_width);		// 横
-				getElement(str_temp, "size_y", types[current_loading_type].directions[current_direction].size_height);		// 縦
+				getElement(str_temp, "size_x", direction_temp.size_width);		// 横
+				getElement(str_temp, "size_y", direction_temp.size_height);		// 縦
 				
 				// アドオンが占めるマスの数
-				getElement(str_temp, "chip_x", types[current_loading_type].directions[current_direction].chip_x);			// 横
-				getElement(str_temp, "chip_y", types[current_loading_type].directions[current_direction].chip_y);			// 縦
+				getElement(str_temp, "chip_x", direction_temp.chip_x);			// 横
+				getElement(str_temp, "chip_y", direction_temp.chip_y);			// 縦
 				
 				// 画像上の左上の座標
-				getElement(str_temp, "top_left_x", types[current_loading_type].directions[current_direction].top_left_x);
-				getElement(str_temp, "top_left_y", types[current_loading_type].directions[current_direction].top_left_y);
+				getElement(str_temp, "top_left_x", direction_temp.top_left_x);
+				getElement(str_temp, "top_left_y", direction_temp.top_left_y);
 				
 				// 画面上の右下の座標
-				getElement(str_temp, "bottom_right_x", types[current_loading_type].directions[current_direction].bottom_right_x);
-				getElement(str_temp, "bottom_right_y", types[current_loading_type].directions[current_direction].bottom_right_y);
+				getElement(str_temp, "bottom_right_x", direction_temp.bottom_right_x);
+				getElement(str_temp, "bottom_right_y", direction_temp.bottom_right_y);
+				
+				types[current_loading_type].directions[current_direction] = direction_temp;
 			}
 		}
 	}
@@ -156,5 +163,5 @@ void Addon::draw(string type_name, string direction_name, PositionStruct positio
 	AddonDirectionStruct direction_temp = types[type_name].directions[direction_name];
 	
 	types[type_name].texture(direction_temp.top_left_x, direction_temp.top_left_y, direction_temp.bottom_right_x-direction_temp.top_left_x, direction_temp.bottom_right_y-direction_temp.top_left_y)
-	.draw(position.x, position.y);
+	 .draw(position.x, position.y);
 }

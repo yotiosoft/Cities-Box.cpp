@@ -88,7 +88,7 @@ typedef struct SquareStruct {
 	
 	RCOIFP::Type reservation;
 	
-	vector<Addon> addons;
+	vector<Addon*> addons;
 	
 } SquareStruct;
 
@@ -96,7 +96,12 @@ typedef struct SquareStruct {
 
 class CityMap {
 public:
-	void load(FileStruct map_file);
+	void load(FileStruct map_file, map<string, Addon*> addons);
+	
+	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
+	
+	void draw_square(CoordinateStruct coordinate);
+	void draw();
 	
 private:
 	int saved_version;
@@ -109,7 +114,7 @@ private:
 	int temperature;
 	bool dark_on_night;
 	
-	PositionStruct mapsize;
+	SizeStruct mapsize;
 	
 	TimeStruct time;
 	

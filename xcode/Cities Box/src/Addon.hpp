@@ -39,6 +39,8 @@ typedef struct AddonTypeStruct {
 
 class Addon {
 public:
+	Addon();
+	
 	// 内容の変更
 	void load(FileStruct file_path);
 	
@@ -54,9 +56,6 @@ public:
 	
 	// アイコンのImageStructの取得
 	ImageStruct getIconImageStruct();
-	
-	// 指定された座標に描画（描画位置を返す）
-	PositionStruct drow(PositionStruct position);
 	
 	// アドオンを描画する
 	void draw(string type_name, string direction_name, PositionStruct position);

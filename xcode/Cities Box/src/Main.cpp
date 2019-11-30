@@ -39,7 +39,7 @@ void Main() {
 	
 	// カメラの初期位置
 	CameraStruct camera;
-	camera.position = PositionStruct{64*map.getMapSize().width/2-Scene::Width()/2, 0};
+	camera.position = PositionStruct{-Scene::Width()/2+64/2, -150};
 	
 	while (System::Update()) {
 		/*
@@ -51,8 +51,9 @@ void Main() {
 		logo_texture.draw(Scene::Width()/2-logo_texture.width()/2, Scene::Height()/2-logo_texture.height()*1.75);
 		 */
 		
-		for (int y=0; y<5; y++) {
-			for (int x=0; x<5; x++) {
+		for (int y=0
+			 ; y<map.getMapSize().height; y++) {
+			for (int x=0; x<map.getMapSize().width; x++) {
 				map.draw_square(CoordinateStruct{x, y}, camera);
 			}
 		}
@@ -75,4 +76,6 @@ void Main() {
 	for (auto i = addons.begin(); i != addons.end() ; i++) {
 		free(i->second);
 	}
+	
+	map.free();
 }

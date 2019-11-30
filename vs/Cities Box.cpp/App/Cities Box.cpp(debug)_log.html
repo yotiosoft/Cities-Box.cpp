@@ -1,0 +1,564 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>Cities Box.cpp(debug) Log</title>
+<style>
+body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
+h2			{ color: #333333; text-align: center; font-size: 28px; }
+div			{ font-size: 14px; line-height: 2; word-wrap: break-word; }
+div.error	{ padding-left: 14px; background: #f44336; color: #ffffff; }
+div.fail	{ padding-left: 14px; background: #ff9800; color: #ffffff; }
+div.warning	{ padding-left: 14px; background: #ff9800; color: #ffffff; }
+div.script	{ padding-left: 14px; background: #d9eeda; color: #333333; }
+div.app		{ padding-left: 14px; background: #ffffff; color: #333333; }
+div.info	{ padding-left: 14px; background: #e3f2fd; color: #333333; }
+div.debug	{ padding-left: 14px; background: #f5f5f5; color: #333333; }
+div.trace	{ padding-left: 14px; background: #f5f5f5; color: #333333; }
+div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-color: #dddddd; border-radius: 2px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+</style>
+</head>
+<body>
+<h2>Cities Box.cpp(debug) Log</h2>
+<div class="messages">
+<div class="trace">75: CSystem::init()</div>
+<div class="info">76: ℹ️ 2019/11/30 17:06:15</div>
+<div class="info">76: ⌛ Preparing for setup...</div>
+<div class="info">76: ℹ️ Siv3D Engine (Debug build) version 0.4.1 (Windows Desktop)</div>
+<div class="trace">76: CCPU::init()</div>
+<div class="info">76: ℹ️ CPU vendor: GenuineIntel</div>
+<div class="info">76: ℹ️ CPU name: Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz</div>
+<div class="info">76: ℹ️ Instruction set extensions: SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AES-NI, AVX, FMA3, AVX2</div>
+<div class="info">76: ℹ️ CCPU initialized</div>
+<div class="trace">76: CProfiler::init()</div>
+<div class="info">76: ℹ️ CProfiler initialized</div>
+<div class="trace">76: CImageFormat::init()</div>
+<div class="debug">77: Supported image file extensions: bmp, png, jpg, jpeg, gif, ppm, pgm, pbm, pnm, tga, webp</div>
+<div class="info">77: ℹ️ CImageFormat initialized</div>
+<div class="trace">77: CObjectDetection::init()</div>
+<div class="info">78: ℹ️ CObjectDetection initialized</div>
+<div class="trace">78: CWindow::init()</div>
+<div class="trace">78: SetHighDPIAwareness(aware = false)</div>
+<div class="trace">78: DLL::LoadSystemLibrary(library = `user32.dll`)</div>
+<div class="trace">78: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetThreadDpiAwarenessContext`) p = 0x7ff9128b35c0</div>
+<div class="trace">78: CWindow::registerWindowClass()</div>
+<div class="trace">79: CWindow::createWindow()</div>
+<div class="trace">79: CWindow::m_state.frameSize: (8, 8), CWindow::m_state.titleBarHeight: 23</div>
+<div class="trace">83: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
+<div class="trace">84: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetWindowFeedbackSetting`) p = 0x7ff9128c0af0</div>
+<div class="info">85: ℹ️ CWindow initialized</div>
+<div class="trace">85: CCursor::init()</div>
+<div class="info">85: ℹ️ CCursor initialized</div>
+<div class="trace">85: CKeyboard::init()</div>
+<div class="info">85: ℹ️ CKeyboard initialized</div>
+<div class="trace">85: CMouse::init()</div>
+<div class="info">85: ℹ️ CMouse initialized</div>
+<div class="trace">85: CGamepad::init()</div>
+<div class="info">96: ℹ️ Gamepad initialized</div>
+<div class="trace">96: CXInput::init()</div>
+<div class="trace">96: DLL::LoadSystemLibrary(library = `xinput1_4.dll`)</div>
+<div class="trace">96: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputGetState`) p = 0x7ff90bc616b0</div>
+<div class="trace">97: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputSetState`) p = 0x7ff90bc61950</div>
+<div class="info">97: ℹ️ CXInput initialized</div>
+<div class="trace">97: CTextInput::init()</div>
+<div class="info">110: ℹ️ CTextInput initialized</div>
+<div class="trace">110: CTextToSpeech::init()</div>
+<div class="info">114: ℹ️ TextToSpeech available</div>
+<div class="info">114: ℹ️ CTextToSpeech initialized</div>
+<div class="trace">115: CClipboard::init()</div>
+<div class="info">115: ℹ️ CClipboard initialized</div>
+<div class="trace">115: CDragDrop::init()</div>
+<div class="info">118: ℹ️ CDragDrop initialized</div>
+<div class="trace">118: CCodec::init()</div>
+<div class="trace">119: DLL::LoadSystemLibrary(library = `Mfplat.dll`)</div>
+<div class="trace">120: DLL::LoadSystemLibrary(library = `Mf.dll`)</div>
+<div class="trace">120: DLL::LoadSystemLibrary(library = `Mfreadwrite.dll`)</div>
+<div class="trace">121: DLL::GetFunction::GetFunction(name = `MFStartup`) p = 0x7ff8e7ff9e70</div>
+<div class="trace">121: DLL::GetFunction::GetFunction(name = `MFShutdown`) p = 0x7ff8e7ffbaa0</div>
+<div class="trace">121: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeTopology`) p = 0x7ff8f217f840</div>
+<div class="trace">121: DLL::GetFunction::GetFunction(name = `MFCreateSourceResolver`) p = 0x7ff8e7ff4950</div>
+<div class="trace">121: DLL::GetFunction::GetFunction(name = `MFCreateAttributes`) p = 0x7ff8e7ff7f80</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFCreateMediaType`) p = 0x7ff8e7fdba20</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFCreateAsyncResult`) p = 0x7ff8f06b9f10</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFInvokeCallback`) p = 0x7ff8f06b3be0</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFCreateMemoryBuffer`) p = 0x7ff8e7fe8000</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFCreateSample`) p = 0x7ff8e7ff7d50</div>
+<div class="trace">122: DLL::GetFunction::GetFunction(name = `MFFrameRateToAverageTimePerFrame`) p = 0x7ff8e80667f0</div>
+<div class="trace">124: DLL::GetFunction::GetFunction(name = `MFCreateMediaSession`) p = 0x7ff8cd80fec0</div>
+<div class="trace">124: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeProfile`) p = 0x7ff8f21583c0</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFTranscodeGetAudioOutputAvailableTypes`) p = 0x7ff8f2180d80</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFGetService`) p = 0x7ff8cd7e1430</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateTopology`) p = 0x7ff8cd80f060</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateTopologyNode`) p = 0x7ff8cd7d4340</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateAudioRendererActivate`) p = 0x7ff8cd803c60</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateVideoRendererActivate`) p = 0x7ff8d02233d0</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromURL`) p = 0x7ff8cd482500</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromByteStream`) p = 0x7ff8cd4824d0</div>
+<div class="trace">125: DLL::GetFunction::GetFunction(name = `MFCreateSinkWriterFromURL`) p = 0x7ff8cd482330</div>
+<div class="info">126: ℹ️ Codec_MF initialized</div>
+<div class="trace">126: CAudioFormat::init()</div>
+<div class="info">126: ℹ️ CAudioFormat initialized</div>
+<div class="trace">126: CAudio_X28::init()</div>
+<div class="debug">132: 💠 Created Audio[0(null)]</div>
+<div class="info">132: ℹ️ CAudio_X28 initialized</div>
+<div class="trace">132: CFFT::init()</div>
+<div class="info">133: ℹ️ CFFT initialized</div>
+<div class="trace">133: CNetwork::init()</div>
+<div class="info">134: ℹ️ CNetwork initialized</div>
+<div class="trace">134: CGraphics_D3D11::init()</div>
+<div class="trace">134: D3D11Device::D3D11Device()</div>
+<div class="trace">134: DLL::LoadSystemLibrary(library = `d3d11.dll`)</div>
+<div class="trace">134: DLL::GetFunction::GetFunction(name = `D3D11CreateDevice`) p = 0x7ff90c295800</div>
+<div class="trace">135: DLL::LoadSystemLibrary(library = `dxgi.dll`)</div>
+<div class="trace">135: DLL::GetFunction::GetFunction(name = `CreateDXGIFactory1`) p = 0x7ff90dada200</div>
+<div class="trace">135: DLL::LoadSystemLibrary(library = `D3D11_1SDKLayers.dll`)</div>
+<div class="info">136: ℹ️ DXGIFactory5 is available</div>
+<div class="trace">136: GetAdapters()</div>
+<div class="info">137: ℹ️ IDXGIAdapter [0]: NVIDIA GeForce GTX 960 (Dedicated GPU memory: 1.97GiB, System: 0B, Shared: 7.96GiB) (supports Direct3D 11.1 runtime)</div>
+<div class="trace">137: CheckHardwareDevice()</div>
+<div class="info">178: ℹ️ - [D3D_DRIVER_TYPE_HARDWARE] selected: D3D_FEATURE_LEVEL_12_1 (max: D3D_FEATURE_LEVEL_12_1)</div>
+<div class="debug">188: ℹ️ IDXGIAdapter [1] is Microsoft Basics Display Driver (skipped)</div>
+<div class="info">188: ℹ️ 1 adapters available</div>
+<div class="trace">189: GetWARPFeatureLevel()</div>
+<div class="info">191: ℹ️ [D3D_DRIVER_TYPE_WARP] supports D3D_FEATURE_LEVEL_11_1</div>
+<div class="trace">191: GetREFFeatureLevel()</div>
+<div class="info">191: ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports D3D_FEATURE_LEVEL_10_1</div>
+<div class="trace">191: D3D11Device::createDevice(targetDevice = 0, targetAdapterIndex = none, deviceFlags = 0)</div>
+<div class="info">191: ℹ️ selectedAdapterIndex: 0 (NVIDIA GeForce GTX 960)</div>
+<div class="info">219: ✅ D3D11 device created. Driver type: Hardware (D3D_FEATURE_LEVEL_12_1)</div>
+<div class="trace">219: D3D11SwapChain::D3D11SwapChain()</div>
+<div class="trace">219: Use flip model = true</div>
+<div class="trace">219: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
+<div class="trace">219: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `GetDpiForWindow`) p = 0x7ff9128a7f40</div>
+<div class="trace">219: IDXGIFactory2::CreateSwapChainForHwnd()</div>
+<div class="trace">220: IDXGIFactory1::MakeWindowAssociation()</div>
+<div class="trace">220: D3D11RenderTarget::D3D11RenderTarget()</div>
+<div class="trace">220: D3D11RenderTarget::m_backBuffer.size = (800, 600)</div>
+<div class="trace">220: CreateRTVFromBackBuffer()</div>
+<div class="trace">220: CreateRenderTarget2D(size = (800, 600), sampleCount = 4)</div>
+<div class="trace">221: CShader_D3D11::init()</div>
+<div class="trace">221: DLL::LoadSystemLibrary(library = `d3dcompiler_47.dll`)</div>
+<div class="info">222: `d3dcompiler_47.dll` found</div>
+<div class="trace">222: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `D3DCompile2`) p = 0x7ff90c67b240</div>
+<div class="info">222: HLSL compiler is available</div>
+<div class="debug">223: 💠 Created VertexShader[0(null)]</div>
+<div class="debug">223: 💠 Created PixelShader[0(null)]</div>
+<div class="debug">223: 📤 BinaryReader: Opened resource &quot;/engine/shader/copy.ps&quot; size: 616B</div>
+<div class="debug">223: CShader_D3D11::createVSFromFile(): `/engine/shader/copy.ps` is a precompiled shader file</div>
+<div class="debug">223: 💠 Created PixelShader[1] </div>
+<div class="debug">224: 📥 BinaryReader: Closed resource &quot;/engine/shader/copy.ps&quot;</div>
+<div class="debug">224: 📤 BinaryReader: Opened resource &quot;/engine/shader/gaussian_blur_9.ps&quot; size: 1.36KiB</div>
+<div class="debug">224: CShader_D3D11::createVSFromFile(): `/engine/shader/gaussian_blur_9.ps` is a precompiled shader file</div>
+<div class="debug">224: 💠 Created PixelShader[2] </div>
+<div class="debug">224: 📥 BinaryReader: Closed resource &quot;/engine/shader/gaussian_blur_9.ps&quot;</div>
+<div class="info">224: ℹ️ CShader_D3D11 initialized</div>
+<div class="trace">224: CTexture_D3D11::init()</div>
+<div class="info">224: 4x MSAA support:</div>
+<div class="debug">224: R8G8B8A8_Unorm ✔</div>
+<div class="debug">224: R8G8B8A8_Unorm_SRGB ✔</div>
+<div class="debug">224: R16G16_Float ✔</div>
+<div class="debug">225: R32_Float ✔</div>
+<div class="debug">225: R10G10B10A2_Unorm ✔</div>
+<div class="debug">225: R11G11B10_UFloat ✔</div>
+<div class="debug">225: R16G16B16A16_Float ✔</div>
+<div class="debug">225: R32G32_Float ✔</div>
+<div class="debug">225: R32G32B32A32_Float ✔</div>
+<div class="debug">226: 💠 Created Texture[0(null)]</div>
+<div class="info">226: ℹ️ CTexture_D3D11 initialized</div>
+<div class="trace">226: CRenderer2D_D3D11::init()</div>
+<div class="debug">226: 📤 BinaryReader: Opened resource &quot;/engine/shader/sprite.vs&quot; size: 936B</div>
+<div class="debug">226: CShader_D3D11::createVSFromFile(): `/engine/shader/sprite.vs` is a precompiled shader file</div>
+<div class="debug">227: 💠 Created VertexShader[1] </div>
+<div class="debug">227: 📥 BinaryReader: Closed resource &quot;/engine/shader/sprite.vs&quot;</div>
+<div class="debug">227: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot; size: 1KiB</div>
+<div class="debug">227: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_resolve.vs` is a precompiled shader file</div>
+<div class="debug">227: 💠 Created VertexShader[2] </div>
+<div class="debug">227: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot;</div>
+<div class="debug">227: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot; size: 804B</div>
+<div class="debug">228: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.vs` is a precompiled shader file</div>
+<div class="debug">228: 💠 Created VertexShader[3] </div>
+<div class="debug">228: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot;</div>
+<div class="debug">228: 📤 BinaryReader: Opened resource &quot;/engine/shader/shape.ps&quot; size: 708B</div>
+<div class="debug">228: CShader_D3D11::createVSFromFile(): `/engine/shader/shape.ps` is a precompiled shader file</div>
+<div class="debug">228: 💠 Created PixelShader[3] </div>
+<div class="debug">228: 📥 BinaryReader: Closed resource &quot;/engine/shader/shape.ps&quot;</div>
+<div class="debug">228: 📤 BinaryReader: Opened resource &quot;/engine/shader/texture.ps&quot; size: 884B</div>
+<div class="debug">229: CShader_D3D11::createVSFromFile(): `/engine/shader/texture.ps` is a precompiled shader file</div>
+<div class="debug">229: 💠 Created PixelShader[4] </div>
+<div class="debug">229: 📥 BinaryReader: Closed resource &quot;/engine/shader/texture.ps&quot;</div>
+<div class="debug">229: 📤 BinaryReader: Opened resource &quot;/engine/shader/square_dot.ps&quot; size: 1.13KiB</div>
+<div class="debug">229: CShader_D3D11::createVSFromFile(): `/engine/shader/square_dot.ps` is a precompiled shader file</div>
+<div class="debug">229: 💠 Created PixelShader[5] </div>
+<div class="debug">229: 📥 BinaryReader: Closed resource &quot;/engine/shader/square_dot.ps&quot;</div>
+<div class="debug">229: 📤 BinaryReader: Opened resource &quot;/engine/shader/round_dot.ps&quot; size: 1.14KiB</div>
+<div class="debug">229: CShader_D3D11::createVSFromFile(): `/engine/shader/round_dot.ps` is a precompiled shader file</div>
+<div class="debug">230: 💠 Created PixelShader[6] </div>
+<div class="debug">230: 📥 BinaryReader: Closed resource &quot;/engine/shader/round_dot.ps&quot;</div>
+<div class="debug">230: 📤 BinaryReader: Opened resource &quot;/engine/shader/sdf.ps&quot; size: 1.27KiB</div>
+<div class="debug">230: CShader_D3D11::createVSFromFile(): `/engine/shader/sdf.ps` is a precompiled shader file</div>
+<div class="debug">230: 💠 Created PixelShader[7] </div>
+<div class="debug">230: 📥 BinaryReader: Closed resource &quot;/engine/shader/sdf.ps&quot;</div>
+<div class="debug">230: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot; size: 872B</div>
+<div class="debug">230: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_resolve.ps` is a precompiled shader file</div>
+<div class="debug">231: 💠 Created PixelShader[8] </div>
+<div class="debug">231: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot;</div>
+<div class="debug">231: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot; size: 664B</div>
+<div class="debug">231: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.ps` is a precompiled shader file</div>
+<div class="debug">231: 💠 Created PixelShader[9] </div>
+<div class="debug">231: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot;</div>
+<div class="debug">232: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/256.png&quot; size: 5.51KiB</div>
+<div class="debug">236: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/256.png&quot;</div>
+<div class="debug">236: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/128.png&quot; size: 2.5KiB</div>
+<div class="debug">238: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/128.png&quot;</div>
+<div class="debug">238: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/64.png&quot; size: 1.34KiB</div>
+<div class="debug">238: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/64.png&quot;</div>
+<div class="debug">238: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/32.png&quot; size: 617B</div>
+<div class="debug">238: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/32.png&quot;</div>
+<div class="debug">238: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/16.png&quot; size: 263B</div>
+<div class="debug">239: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/16.png&quot;</div>
+<div class="debug">239: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/8.png&quot; size: 140B</div>
+<div class="debug">239: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/8.png&quot;</div>
+<div class="debug">241: 💠 Created Texture[1] (type: Normal, size: 256x256, format: R8G8B8A8_Unorm)</div>
+<div class="info">241: ℹ️ CRenderer2D_D3D11 initialized</div>
+<div class="info">241: ℹ️ CGraphics_D3D11 initialized</div>
+<div class="trace">241: CScreenCapture::init()</div>
+<div class="debug">241: Default Screenshot directory: &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/Screenshot/&quot;</div>
+<div class="info">241: ℹ️ CScreenCapture initialized</div>
+<div class="trace">241: CFont::init()</div>
+<div class="debug">244: 💠 Created Font[0(null)]</div>
+<div class="info">244: ℹ️ CFont initialized</div>
+<div class="trace">245: CGUI::init()</div>
+<div class="debug">246: 💠 Created Font[1] (`M+ 1p medium` size: 20)</div>
+<div class="info">246: ℹ️ CGUI initialized</div>
+<div class="trace">246: CEffect::init()</div>
+<div class="debug">246: 💠 Created Effect[0(null)]</div>
+<div class="info">246: ℹ️ CEffect initialized</div>
+<div class="trace">246: CPrint::init()</div>
+<div class="debug">248: 💠 Created Font[2] (`M+ 1p medium` size: 16)</div>
+<div class="info">248: ℹ️ CPrint initialized</div>
+<div class="trace">248: CAsset::init()</div>
+<div class="info">248: ℹ️ Asset initialized</div>
+<div class="info">248: ✅ Siv3D engine setup completed</div>
+<div class="trace">248: MainThread</div>
+<hr width="99%"><div class="trace">249: CScript::init()</div>
+<div class="debug">314: 💠 Created Script[0(null)]</div>
+<div class="info">314: ℹ️ CScript initialized</div>
+<div class="debug">326: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">328: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">332: 💠 Created Texture[2] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">334: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">335: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">339: 💠 Created Texture[3] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">339: ♻️ Released Texture[2]</div>
+<div class="debug">340: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">342: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">345: 💠 Created Texture[4] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">345: ♻️ Released Texture[3]</div>
+<div class="debug">347: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">349: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">352: 💠 Created Texture[5] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">353: ♻️ Released Texture[4]</div>
+<div class="debug">354: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">356: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">359: 💠 Created Texture[6] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">359: ♻️ Released Texture[5]</div>
+<div class="debug">361: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">362: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">366: 💠 Created Texture[7] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">366: ♻️ Released Texture[6]</div>
+<div class="debug">368: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">370: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">374: 💠 Created Texture[8] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">374: ♻️ Released Texture[7]</div>
+<div class="debug">376: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">377: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">380: 💠 Created Texture[9] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">381: ♻️ Released Texture[8]</div>
+<div class="debug">383: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">384: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">388: 💠 Created Texture[10] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">388: ♻️ Released Texture[9]</div>
+<div class="debug">389: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">391: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">394: 💠 Created Texture[11] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">394: ♻️ Released Texture[10]</div>
+<div class="debug">396: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">398: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">402: 💠 Created Texture[12] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">402: ♻️ Released Texture[11]</div>
+<div class="debug">404: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">405: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">408: 💠 Created Texture[13] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">409: ♻️ Released Texture[12]</div>
+<div class="debug">410: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">412: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">416: 💠 Created Texture[14] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">416: ♻️ Released Texture[13]</div>
+<div class="debug">418: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">420: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">423: 💠 Created Texture[15] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">423: ♻️ Released Texture[14]</div>
+<div class="debug">425: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">427: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">431: 💠 Created Texture[16] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">431: ♻️ Released Texture[15]</div>
+<div class="debug">433: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">434: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">438: 💠 Created Texture[17] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">438: ♻️ Released Texture[16]</div>
+<div class="debug">440: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">442: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">446: 💠 Created Texture[18] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">446: ♻️ Released Texture[17]</div>
+<div class="debug">448: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">450: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">454: 💠 Created Texture[19] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">454: ♻️ Released Texture[18]</div>
+<div class="debug">455: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">457: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">461: 💠 Created Texture[20] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">461: ♻️ Released Texture[19]</div>
+<div class="debug">463: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">465: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">468: 💠 Created Texture[21] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">468: ♻️ Released Texture[20]</div>
+<div class="debug">470: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">471: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">477: 💠 Created Texture[22] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">477: ♻️ Released Texture[21]</div>
+<div class="debug">479: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">481: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">485: 💠 Created Texture[23] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">485: ♻️ Released Texture[22]</div>
+<div class="debug">487: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">488: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">493: 💠 Created Texture[24] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">493: ♻️ Released Texture[23]</div>
+<div class="debug">495: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">496: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">500: 💠 Created Texture[25] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">500: ♻️ Released Texture[24]</div>
+<div class="debug">502: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">504: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">508: 💠 Created Texture[26] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">509: ♻️ Released Texture[25]</div>
+<div class="debug">510: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">513: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">518: 💠 Created Texture[27] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">518: ♻️ Released Texture[26]</div>
+<div class="debug">519: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">521: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">525: 💠 Created Texture[28] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">525: ♻️ Released Texture[27]</div>
+<div class="debug">528: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">530: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">534: 💠 Created Texture[29] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">534: ♻️ Released Texture[28]</div>
+<div class="debug">536: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">538: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">542: 💠 Created Texture[30] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">542: ♻️ Released Texture[29]</div>
+<div class="debug">544: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">546: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">550: 💠 Created Texture[31] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">550: ♻️ Released Texture[30]</div>
+<div class="debug">552: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">554: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">559: 💠 Created Texture[32] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">559: ♻️ Released Texture[31]</div>
+<div class="debug">562: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">564: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">569: 💠 Created Texture[33] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">569: ♻️ Released Texture[32]</div>
+<div class="debug">572: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">574: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">578: 💠 Created Texture[34] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">578: ♻️ Released Texture[33]</div>
+<div class="debug">580: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">582: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">588: 💠 Created Texture[35] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">588: ♻️ Released Texture[34]</div>
+<div class="debug">590: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">592: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">597: 💠 Created Texture[36] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">597: ♻️ Released Texture[35]</div>
+<div class="debug">599: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">601: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">605: 💠 Created Texture[37] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">605: ♻️ Released Texture[36]</div>
+<div class="debug">607: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">608: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">612: 💠 Created Texture[38] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">612: ♻️ Released Texture[37]</div>
+<div class="debug">614: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">617: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">620: 💠 Created Texture[39] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">620: ♻️ Released Texture[38]</div>
+<div class="debug">622: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">624: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">628: 💠 Created Texture[40] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">628: ♻️ Released Texture[39]</div>
+<div class="debug">629: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">631: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">635: 💠 Created Texture[41] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">635: ♻️ Released Texture[40]</div>
+<div class="debug">636: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">638: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">642: 💠 Created Texture[42] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">642: ♻️ Released Texture[41]</div>
+<div class="debug">644: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">645: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">649: 💠 Created Texture[43] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">649: ♻️ Released Texture[42]</div>
+<div class="debug">650: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">652: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">656: 💠 Created Texture[44] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">656: ♻️ Released Texture[43]</div>
+<div class="debug">657: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">659: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">662: 💠 Created Texture[45] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">662: ♻️ Released Texture[44]</div>
+<div class="debug">664: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">666: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">670: 💠 Created Texture[46] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">670: ♻️ Released Texture[45]</div>
+<div class="debug">671: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">673: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">676: 💠 Created Texture[47] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">676: ♻️ Released Texture[46]</div>
+<div class="debug">678: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">679: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">683: 💠 Created Texture[48] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">684: ♻️ Released Texture[47]</div>
+<div class="debug">685: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">687: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">690: 💠 Created Texture[49] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">690: ♻️ Released Texture[48]</div>
+<div class="debug">692: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">694: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">697: 💠 Created Texture[50] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">698: ♻️ Released Texture[49]</div>
+<div class="debug">699: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">701: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">704: 💠 Created Texture[51] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">705: ♻️ Released Texture[50]</div>
+<div class="debug">706: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">708: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">712: 💠 Created Texture[52] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">712: ♻️ Released Texture[51]</div>
+<div class="debug">714: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">715: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">718: 💠 Created Texture[53] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">719: ♻️ Released Texture[52]</div>
+<div class="debug">720: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">721: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">725: 💠 Created Texture[54] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">725: ♻️ Released Texture[53]</div>
+<div class="debug">728: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">729: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">733: 💠 Created Texture[55] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">733: ♻️ Released Texture[54]</div>
+<div class="debug">735: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">736: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">740: 💠 Created Texture[56] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">740: ♻️ Released Texture[55]</div>
+<div class="debug">742: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">743: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">746: 💠 Created Texture[57] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">747: ♻️ Released Texture[56]</div>
+<div class="debug">749: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">750: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">754: 💠 Created Texture[58] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">754: ♻️ Released Texture[57]</div>
+<div class="debug">756: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">758: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">762: 💠 Created Texture[59] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">762: ♻️ Released Texture[58]</div>
+<div class="debug">764: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">765: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">769: 💠 Created Texture[60] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">769: ♻️ Released Texture[59]</div>
+<div class="debug">771: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">772: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">776: 💠 Created Texture[61] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">776: ♻️ Released Texture[60]</div>
+<div class="debug">777: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">779: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">783: 💠 Created Texture[62] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">783: ♻️ Released Texture[61]</div>
+<div class="debug">785: 📤 BinaryReader: Opened file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot; size: 2.27KiB</div>
+<div class="debug">786: 📥 BinaryReader: Closed file &quot;E:/Visual Studio/Cities Box.cpp/Cities Box.cpp/App/addons/Normal/buildings/residential/red_roof_house/red_roof_house.png&quot;</div>
+<div class="debug">789: 💠 Created Texture[63] (type: Normal, size:128x128, format: R8G8B8A8_Unorm)</div>
+<div class="debug">790: ♻️ Released Texture[62]</div>
+<div class="debug">791: 💠 Created Font[3] (`M+ 1p regular` size: 16)</div>
+<div class="trace">799: WM_PAINT</div>
+<div class="trace">801: WM_SIZE</div>
+<div class="trace">801: CWindow::updateWindowBounds(rect = (552, 200, 816, 639))</div>
+<div class="trace">801: CWindow::requestBackBufferResizing()</div>
+<div class="trace">801: CWindow::updateWindowBounds(rect = (552, 200, 816, 639))</div>
+<div class="debug">816: 💠 Created Texture[64] (type: Dynamic, size: 512x256, format: R8G8B8A8_Unorm)</div>
+<div class="debug">817: ℹ️ Created font texture (size: 512x256)</div>
+<div class="trace">12395: WM_CLOSE</div>
+<div class="info">12397: 🚪 System::Update(): `UserAction::CloseButtonClicked` has occurred</div>
+<div class="debug">12397: ♻️ Released Font[3]</div>
+<div class="debug">12398: ♻️ Released Texture[64]</div>
+<div class="debug">12398: ♻️ Released Texture[63]</div>
+<div class="debug">12398: ♻️ Released Script[0(null)]</div>
+<hr width="99%"><div class="trace">12406: CAsset::~CAsset()</div>
+<div class="trace">12407: CScript::~CScript()</div>
+<div class="trace">12407: CPrint::~CPrint()</div>
+<div class="debug">12407: ♻️ Released Font[2]</div>
+<div class="trace">12407: CEffect::~CEffect()</div>
+<div class="debug">12407: ♻️ Released Effect[0(null)]</div>
+<div class="trace">12407: CGUI::~CGUI()</div>
+<div class="debug">12407: ♻️ Released Font[1]</div>
+<div class="trace">12407: CFont::~CFont()</div>
+<div class="debug">12407: ♻️ Released Font[0(null)]</div>
+<div class="trace">12408: CScreenCapture::~CScreenCapture()</div>
+<div class="trace">12408: CRenderer2D_D3D11::~CRenderer2D_D3D11()</div>
+<div class="debug">12408: ♻️ Released Texture[1]</div>
+<div class="debug">12408: ♻️ Released PixelShader[9]</div>
+<div class="debug">12408: ♻️ Released PixelShader[8]</div>
+<div class="debug">12408: ♻️ Released PixelShader[7]</div>
+<div class="debug">12408: ♻️ Released PixelShader[6]</div>
+<div class="debug">12408: ♻️ Released PixelShader[5]</div>
+<div class="debug">12408: ♻️ Released PixelShader[4]</div>
+<div class="debug">12408: ♻️ Released PixelShader[3]</div>
+<div class="debug">12409: ♻️ Released VertexShader[3]</div>
+<div class="debug">12409: ♻️ Released VertexShader[2]</div>
+<div class="debug">12409: ♻️ Released VertexShader[1]</div>
+<div class="trace">12409: CTexture_D3D11::~CTexture_D3D11()</div>
+<div class="debug">12409: ♻️ Released Texture[0(null)]</div>
+<div class="trace">12409: CShader_D3D11::~CShader_D3D11()</div>
+<div class="debug">12409: ♻️ Released PixelShader[1]</div>
+<div class="debug">12409: ♻️ Released PixelShader[2]</div>
+<div class="debug">12409: ♻️ Released PixelShader[0(null)]</div>
+<div class="debug">12409: ♻️ Released VertexShader[0(null)]</div>
+<div class="trace">12409: CGraphics_D3D11::~CGraphics_D3D11()</div>
+<div class="trace">12448: CNetwork::~CNetwork()</div>
+<div class="trace">12449: CFFT::~CFFT()</div>
+<div class="debug">12459: ♻️ Released Audio[0(null)]</div>
+<div class="trace">12468: CSoundFont::~CSoundFont()</div>
+<div class="trace">12468: CAudioFormat::~CAudioFormat()</div>
+<div class="trace">12468: CCodec::~CCodec()</div>
+<div class="trace">12470: CDragDrop::~CDragDrop()</div>
+<div class="trace">12470: CClipboard::~CClipboard()</div>
+<div class="trace">12470: CTextToSpeech::~CTextToSpeech()</div>
+<div class="trace">12470: CTextInput::~CTextInput()</div>
+<div class="trace">12471: CXInput::~CXInput()</div>
+<div class="trace">12471: CGamepad::~CGamepad()</div>
+<div class="trace">12471: CMouse::~CMouse()</div>
+<div class="trace">12471: CKeyboard::CKeyboard()</div>
+<div class="trace">12471: CCursor::~CCursor()</div>
+<div class="trace">12471: CWindow::~CWindow()</div>
+<div class="trace">12480: WM_DESTROY</div>
+<div class="trace">12485: message.message == WM_QUIT</div>
+<div class="trace">12486: CObjectDetection::~CObjectDetection()</div>
+<div class="trace">12486: CImageFormat::~CImageFormat()</div>
+<div class="trace">12486: CProfiler::~CProfiler()</div>
+<div class="trace">12486: CCPU::~CCPU()</div>
+<div class="info">12491: ✅ Siv3D engine has terminated</div>
+<div class="info">12491: ℹ️ 2019/11/30 17:06:27</div>
+</div>
+</body>
+</html>

@@ -54,6 +54,12 @@ public:
 	// 説明文の取得
 	string getSummary();
 	
+	// Typeの名前の取得
+	string getTypeName(int type_num);
+	
+	// Directionの名前の取得
+	string getDirectionName(int type_num, int direction_num);
+	
 	// アイコンのImageStructの取得
 	ImageStruct getIconImageStruct();
 	
@@ -79,6 +85,9 @@ private:
 	
 	// 使用するtype
 	vector<string> use_types;
+	
+	// 使用するdirection
+	vector<vector<string>> directions_name;
 	
 	// 収容人数
 	int maxium_capacity;

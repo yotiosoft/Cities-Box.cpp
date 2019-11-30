@@ -106,6 +106,9 @@ public:
 	// マップサイズの取得
 	SizeStruct getMapSize();
 	
+	// メモリ解放
+	void free();
+	
 private:
 	int saved_version;
 	string addon_set;

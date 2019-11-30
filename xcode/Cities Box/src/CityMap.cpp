@@ -10,7 +10,7 @@
 
 bool CityMap::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-4);
+		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-3);
 		return true;
 	}
 	return false;
@@ -18,7 +18,7 @@ bool CityMap::getElement(string str, string search_element_name, string& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-3));
+		ret = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-2));
 		return true;
 	}
 	return false;
@@ -26,7 +26,7 @@ bool CityMap::getElement(string str, string search_element_name, int& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, bool& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		int int_temp = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-3));
+		int int_temp = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-2));
 		if (int_temp == 1) {
 			ret = true;
 			return true;
@@ -73,6 +73,8 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 	mapsize.height = -1;
 	
 	while (getline(ifs, str_temp)) {
+		str_temp = str_temp.substr(0, str_temp.length()-1);				// 改行コードは除く
+		
 		getElement(str_temp, "Version", saved_version);
 		getElement(str_temp, "Addons_Set", addon_set);
 		
@@ -83,8 +85,8 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 		getElement(str_temp, "Temperature", temperature);
 		getElement(str_temp, "Set_Dark_on_Night", dark_on_night);
 		
-		getElement(str_temp, "MAPSIZE_X", mapsize.width);
-		getElement(str_temp, "MAPSIZE_Y", mapsize.height);
+		getElement(str_temp, "mapsize_x", mapsize.width);
+		getElement(str_temp, "mapsize_y", mapsize.height);
 		
 		getElement(str_temp, "time_Year", time.year);
 		getElement(str_temp, "time_Month", time.month);
@@ -138,6 +140,9 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 				// アドオンのポインタを登録
 				if (addons.find(squares[array_count][x].addon_name[0]) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[0]]);
+				}
+				else {
+					cout << "!!" << squares[array_count][x].addon_name[0] << " at " << x << "," << array_count << endl;
 				}
 			}
 		}
@@ -467,22 +472,39 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera) {
 	// カメラの座標がデフォルト値（64*mapsize.width/2-Scene::Width()/2, 0）のときの描画位置を算出
 	CameraStruct default_camera;
-	default_camera.position = PositionStruct{64*mapsize.width/2-Scene::Width()/2, 0};
+	default_camera.position = PositionStruct{0, 0};
 	default_camera.center = {0, 0};
 	
 	// 基準点となるx:0, y:0のマスの表示位置を算出する
-	PositionStruct square_0x0_position = PositionStruct{Scene::Width()/2 - 64/2 + default_camera.position.x, Scene::Height()/2 - 32/2 + default_camera.position.y};
+	PositionStruct square_0x0_position = PositionStruct{default_camera.position.x - camera.position.x,
+		default_camera.position.y - camera.position.y};
 	
-	PositionStruct square_position = PositionStruct{square_0x0_position.x+coordinate.x*32-coordinate.y*32-camera.position.x, square_0x0_position.y+coordinate.y*16+coordinate.x*16-camera.position.y};
+	PositionStruct square_position = PositionStruct{square_0x0_position.x+coordinate.x*32-coordinate.y*32, square_0x0_position.y+coordinate.y*16+coordinate.x*16};
+	
+	PositionStruct mouse = {Cursor::Pos().x, Cursor::Pos().y};
+	
+		//cout << square_position.x << "," << square_position.y << endl;
+		//cout << (mouse.x-square_0x0_position.x) / 64 << "," << (mouse.y-square_0x0_position.y) / 32 << endl;
+		int mousex_ = mouse.x+camera.position.x-64/2;
+		int mousey_ = mouse.y+camera.position.y;
+		int mx = (mousey_ + mousex_/2) / (64/2);
+		int my = (-mousex_ + mousey_*2) / 64;
+		//cout << mx << "," << my << endl;
+	//cout << camera.position.x << "," << camera.position.y << endl;
 	
 	return square_position;
 }
 
 void CityMap::draw_square(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
-	squares[coordinate.y][coordinate.x].addons[0]->draw("null", "null", coordinateToPosition(coordinate, camera));
+	//cout << coordinate.x << "," << coordinate.y << ":" << squares[coordinate.y][coordinate.x].addon_name[0] << endl;
+	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera));
 }
 
 SizeStruct CityMap::getMapSize() {
 	return mapsize;
+}
+
+void CityMap::free() {
+	vector<vector<SquareStruct>>().swap(squares);
 }

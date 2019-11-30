@@ -62,8 +62,6 @@ void Addon::load(FileStruct file_path) {
 	string current_loading_type = "";
 	string current_direction = "";
 	
-	vector<string> directions_name;
-	
 	bool loading_type = false;
 	bool loading_direction = false;
 	
@@ -100,6 +98,8 @@ void Addon::load(FileStruct file_path) {
 			if (str_temp.find(use_types[i]+" {") != string::npos && !loading_type) {
 				current_loading_type = use_types[i];
 				loading_type = true;
+				
+				directions_name.push_back(vector<string>());
 			}
 		}
 		if (str_temp.find("}") == 0 && !loading_direction) {
@@ -120,11 +120,11 @@ void Addon::load(FileStruct file_path) {
 			getElement(str_temp, "night_mask", types[current_loading_type].night_mask);
 			
 			// typeに含まれる方向と各方向の情報を取得
-			getTypes(str_temp, "direction", directions_name);
+			getTypes(str_temp, "direction", directions_name.back());
 			
-			for (int i=0; i<directions_name.size(); i++) {
-				if (str_temp.find(directions_name[i]+" {") != string::npos && !loading_direction) {
-					current_direction = directions_name[i];
+			for (int i=0; i<directions_name.back().size(); i++) {
+				if (str_temp.find(directions_name.back()[i]+" {") != string::npos && !loading_direction) {
+					current_direction = directions_name.back()[i];
 				}
 			}
 			if (str_temp.find("}") == 0 && loading_direction) {
@@ -173,9 +173,16 @@ string Addon::getSummary() {
 	return addon_summary;
 }
 
+string Addon::getTypeName(int type_num) {
+	return use_types[type_num];
+}
+
+string Addon::getDirectionName(int type_num, int direction_num) {
+	return directions_name[type_num][direction_num];
+}
+
 void Addon::draw(string type_name, string direction_name, PositionStruct position) {
 	AddonDirectionStruct direction_temp = types[type_name].directions[direction_name];
-	
-	types[type_name].texture(direction_temp.top_left_x, direction_temp.top_left_y, direction_temp.bottom_right_x-direction_temp.top_left_x, direction_temp.bottom_right_y-direction_temp.top_left_y)
+	types[type_name].texture(direction_temp.top_left_x, direction_temp.top_left_y, direction_temp.size_width, direction_temp.size_height)
 	 .draw(position.x, position.y);
 }

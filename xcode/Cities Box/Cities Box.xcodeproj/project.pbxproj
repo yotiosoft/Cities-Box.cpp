@@ -39,6 +39,10 @@
 		4B1DB868238D54CB00CC2301 /* OtherFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB866238D54CB00CC2301 /* OtherFunctions.cpp */; };
 		4B1DB86B238E0A3D00CC2301 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB869238E0A3C00CC2301 /* Addon.cpp */; };
 		4B1DB871238EC62600CC2301 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB86F238EC62600CC2301 /* CityMap.cpp */; };
+		4B7510D52392DC86008DFD03 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7510D42392DC86008DFD03 /* Specific.cpp */; };
+		4B7510D82393557A008DFD03 /* TitleMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7510D62393557A008DFD03 /* TitleMenu.cpp */; };
+		4B7510DB239355D4008DFD03 /* StartUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7510D9239355D4008DFD03 /* StartUp.cpp */; };
+		4B7510DE23935C09008DFD03 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7510DC23935C09008DFD03 /* Button.cpp */; };
 		4BAB7EEC238CC8B200D3175E /* Images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB7EEA238CC8B200D3175E /* Images.cpp */; };
 		4BAB7EEE238CC95200D3175E /* Header.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB7EED238CC95200D3175E /* Header.hpp */; };
 /* End PBXBuildFile section */
@@ -82,6 +86,14 @@
 		4B1DB86A238E0A3D00CC2301 /* Addon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Addon.hpp; sourceTree = "<group>"; };
 		4B1DB86F238EC62600CC2301 /* CityMap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CityMap.cpp; sourceTree = "<group>"; };
 		4B1DB870238EC62600CC2301 /* CityMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CityMap.hpp; sourceTree = "<group>"; };
+		4B7510D32392DB3B008DFD03 /* Specific.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Specific.hpp; sourceTree = "<group>"; };
+		4B7510D42392DC86008DFD03 /* Specific.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
+		4B7510D62393557A008DFD03 /* TitleMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TitleMenu.cpp; sourceTree = "<group>"; };
+		4B7510D72393557A008DFD03 /* TitleMenu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TitleMenu.hpp; sourceTree = "<group>"; };
+		4B7510D9239355D4008DFD03 /* StartUp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StartUp.cpp; sourceTree = "<group>"; };
+		4B7510DA239355D4008DFD03 /* StartUp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StartUp.hpp; sourceTree = "<group>"; };
+		4B7510DC23935C09008DFD03 /* Button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		4B7510DD23935C09008DFD03 /* Button.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Button.hpp; sourceTree = "<group>"; };
 		4BAB7EEA238CC8B200D3175E /* Images.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Images.cpp; sourceTree = "<group>"; };
 		4BAB7EEB238CC8B200D3175E /* Images.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Images.hpp; sourceTree = "<group>"; };
 		4BAB7EED238CC95200D3175E /* Header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
@@ -149,6 +161,14 @@
 			isa = PBXGroup;
 			children = (
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
+				4B7510D62393557A008DFD03 /* TitleMenu.cpp */,
+				4B7510D72393557A008DFD03 /* TitleMenu.hpp */,
+				4B7510DC23935C09008DFD03 /* Button.cpp */,
+				4B7510DD23935C09008DFD03 /* Button.hpp */,
+				4B7510D9239355D4008DFD03 /* StartUp.cpp */,
+				4B7510DA239355D4008DFD03 /* StartUp.hpp */,
+				4B7510D42392DC86008DFD03 /* Specific.cpp */,
+				4B7510D32392DB3B008DFD03 /* Specific.hpp */,
 				4B1DB86F238EC62600CC2301 /* CityMap.cpp */,
 				4B1DB870238EC62600CC2301 /* CityMap.hpp */,
 				4B1DB869238E0A3C00CC2301 /* Addon.cpp */,
@@ -267,10 +287,14 @@
 				4B1DB86B238E0A3D00CC2301 /* Addon.cpp in Sources */,
 				4B1DB871238EC62600CC2301 /* CityMap.cpp in Sources */,
 				4BAB7EEE238CC95200D3175E /* Header.hpp in Sources */,
+				4B7510D52392DC86008DFD03 /* Specific.cpp in Sources */,
 				4B1DB865238D4DAA00CC2301 /* IOfunctions.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
+				4B7510D82393557A008DFD03 /* TitleMenu.cpp in Sources */,
 				4BAB7EEC238CC8B200D3175E /* Images.cpp in Sources */,
 				4B1DB868238D54CB00CC2301 /* OtherFunctions.cpp in Sources */,
+				4B7510DE23935C09008DFD03 /* Button.cpp in Sources */,
+				4B7510DB239355D4008DFD03 /* StartUp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

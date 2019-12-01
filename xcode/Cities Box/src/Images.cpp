@@ -7,7 +7,7 @@
 
 #include "Images.hpp"
 
-void Images::load(string file_path, string tag, int transparent_r, int transparent_g, int transparent_b) {
+void Images::load(string file_path, string tag, Color transparent) {
 	// ファイル一覧を取得
 	vector<FileStruct> image_files = getAllFilesName(file_path, "png");
 	
@@ -15,11 +15,11 @@ void Images::load(string file_path, string tag, int transparent_r, int transpare
 	for (int i=0; i<image_files.size(); i++) {
 		Image image_temp(Unicode::Widen(image_files[i].file_path));
 		
-		if (transparent_r >= 0 && transparent_g >= 0 && transparent_b >= 0) {
+		if (transparent.r >= 0 && transparent.g >= 0 && transparent.b >= 0) {
 			for (int h=0; h<image_temp.height(); h++) {
 				for (int w=0; w<image_temp.width(); w++) {
-					if (image_temp[w][h].r == transparent_r && image_temp[w][h].g == transparent_g && image_temp[w][h].b == transparent_b) {
-						image_temp[w][h].setA(0);		// アルファ値を0に設定
+					if (image_temp[h][w].r == transparent.r && image_temp[h][w].g == transparent.g && image_temp[h][w].b == transparent.b) {
+						image_temp[h][w].setA(0);		// アルファ値を0に設定
 					}
 				}
 			}
@@ -36,6 +36,11 @@ void Images::load(string file_path, string tag, int transparent_r, int transpare
 }
 
 void Images::load(string file_path, string tag) {
-	load(file_path, tag, -1, -1, -1);
+	Color none_clear;
+	none_clear.r = -1;
+	none_clear.g = -1;
+	none_clear.b = -1;
+	
+	load(file_path, tag, none_clear);
 }
 

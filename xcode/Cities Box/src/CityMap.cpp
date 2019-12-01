@@ -219,6 +219,38 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 			}
 		}
 		
+		if (current_array_name == "obj_use_tiles_x" && array_count >= 0) {
+			vector<string> temp = split(str_temp, ", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].use_tiles.x = stoi(temp[x]);
+			}
+		}
+		
+		if (current_array_name == "obj_use_tiles_y" && array_count >= 0) {
+			vector<string> temp = split(str_temp, ", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].use_tiles.y = stoi(temp[x]);
+			}
+		}
+		
+		if (current_array_name == "obj_tiles_x" && array_count >= 0) {
+			vector<string> temp = split(str_temp, ", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].tiles_count.x = stoi(temp[x]);
+			}
+		}
+		
+		if (current_array_name == "obj_tiles_y" && array_count >= 0) {
+			vector<string> temp = split(str_temp, ", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].tiles_count.y = stoi(temp[x]);
+			}
+		}
+		
 		if (current_array_name == "residents" && array_count >= 0) {
 			vector<string> temp = split(str_temp, ", ");
 			
@@ -469,6 +501,15 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 	}
 }
 
+void CityMap::draw_square(CoordinateStruct coordinate, CameraStruct camera) {
+	// 描画する座標を算出
+	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+}
+
+SizeStruct CityMap::getMapSize() {
+	return mapsize;
+}
+
 PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera) {
 	// カメラの座標がデフォルト値（64*mapsize.width/2-Scene::Width()/2, 0）のときの描画位置を算出
 	CameraStruct default_camera;
@@ -481,28 +522,75 @@ PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, Camera
 	
 	PositionStruct square_position = PositionStruct{square_0x0_position.x+coordinate.x*32-coordinate.y*32, square_0x0_position.y+coordinate.y*16+coordinate.x*16};
 	
-	PositionStruct mouse = {Cursor::Pos().x, Cursor::Pos().y};
-	
-		//cout << square_position.x << "," << square_position.y << endl;
-		//cout << (mouse.x-square_0x0_position.x) / 64 << "," << (mouse.y-square_0x0_position.y) / 32 << endl;
-		int mousex_ = mouse.x+camera.position.x-64/2;
-		int mousey_ = mouse.y+camera.position.y;
-		int mx = (mousey_ + mousex_/2) / (64/2);
-		int my = (-mousex_ + mousey_*2) / 64;
-		//cout << mx << "," << my << endl;
-	//cout << camera.position.x << "," << camera.position.y << endl;
-	
 	return square_position;
 }
 
-void CityMap::draw_square(CoordinateStruct coordinate, CameraStruct camera) {
-	// 描画する座標を算出
-	//cout << coordinate.x << "," << coordinate.y << ":" << squares[coordinate.y][coordinate.x].addon_name[0] << endl;
-	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera));
+CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraStruct camera) {
+	int temp_mx = position.x+camera.position.x-CHIP_SIZE/2;
+	int temp_my = position.y+camera.position.y;
+	
+	CoordinateStruct ret;
+	ret.x = (temp_my + temp_mx/2) / (CHIP_SIZE/2) - 1;
+	ret.y = (-temp_mx + temp_my*2) / CHIP_SIZE - 1;
+	
+	if (ret.x < 0) {
+		ret.x = 0;
+	}
+	if (ret.y < 0) {
+		ret.y = 0;
+	}
+	
+	if (ret.x >= mapsize.width) {
+		ret.x = mapsize.width-1;
+	}
+	if (ret.y >= mapsize.height) {
+		ret.y = mapsize.height-1;
+	}
+	
+	return ret;
 }
 
-SizeStruct CityMap::getMapSize() {
-	return mapsize;
+vector<CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
+	// 描画できる範囲
+	int range = (sqrt(powf(Scene::Width(), 2)+powf(Scene::Height(), 2))/sqrt(powf(CHIP_SIZE/2, 2)+powf(CHIP_SIZE/4, 2)));
+	
+	// 画面中央の座標
+	CoordinateStruct center_coordinate = positionToCoordinate(PositionStruct{Scene::Width()/2, Scene::Height()/2}, camera);
+	
+	vector<CoordinateStruct> ret;
+	// 左上の座標
+	ret.push_back(CoordinateStruct{center_coordinate.x-range, center_coordinate.y-range});
+	
+	if (ret[0].x < 0) {
+		ret[0].x = 0;
+	}
+	if (ret[0].y < 0) {
+		ret[0].y = 0;
+	}
+	if (ret[0].x >= mapsize.width) {
+		ret[0].x = mapsize.width-1;
+	}
+	if (ret[0].y >= mapsize.height) {
+		ret[0].y = mapsize.height-1;
+	}
+	
+	// 右下の座標
+	ret.push_back(CoordinateStruct{center_coordinate.x+range, center_coordinate.y+range});
+	
+	if (ret[1].x < 0) {
+		ret[1].x = 0;
+	}
+	if (ret[1].y < 0) {
+		ret[1].y = 0;
+	}
+	if (ret[1].x >= mapsize.width) {
+		ret[1].x = mapsize.width-1;
+	}
+	if (ret[1].y >= mapsize.height) {
+		ret[1].y = mapsize.height-1;
+	}
+	
+	return ret;
 }
 
 void CityMap::free() {

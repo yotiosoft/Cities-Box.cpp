@@ -13,6 +13,10 @@
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
+#include "Specific.hpp"
+
+#define CHIP_SIZE		64
+
 using namespace std;
 
 class CityMap;
@@ -31,13 +35,20 @@ namespace RCOIFP {
 	};
 }
 
-namespace School{
+namespace School {
 	enum Type {
 		None				= -1,
 		ElementarySchool	= 0,
 		JuniorHighSchool	= 1,
 		HighSchool			= 2,
 		University			= 3,
+	};
+}
+
+namespace IconFont {
+	enum ID {
+		Floppy				= 0xf0c7,
+		Plus				= 0xf067,
 	};
 }
 

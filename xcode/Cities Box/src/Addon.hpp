@@ -64,7 +64,7 @@ public:
 	ImageStruct getIconImageStruct();
 	
 	// アドオンを描画する
-	void draw(string type_name, string direction_name, PositionStruct position);
+	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
 	
 private:
 	// アドオン名
@@ -104,7 +104,7 @@ private:
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
 	bool getTypes(string str, string search_element_name, vector<string>& ret);
-	Image set_alpha_color(string image_file_path, int clear_r, int clear_g, int clear_b);
+	Image set_alpha_color(string image_file_path, Color transparent_rgb);
 };
 
 #endif /* Addon_hpp */

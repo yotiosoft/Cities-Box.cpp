@@ -18,7 +18,7 @@
 typedef struct Images {
 	// 指定したパスから画像ファイルをすべて読み込み
 	void load(string file_path, string tag);
-	void load(string file_path, string tag, int transparent_r, int transparent_g, int transparent_b);
+	void load(string file_path, string tag, Color transparent);
 	
 	// 画像の格納する構造体の連想配列
 	map<string, map<string, ImageStruct>> images;

@@ -12,7 +12,7 @@ Addon::Addon() {
 
 bool Addon::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-3);
+		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-2);
 		return true;
 	}
 	return false;
@@ -20,7 +20,7 @@ bool Addon::getElement(string str, string search_element_name, string& ret) {
 
 bool Addon::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = stoi(str.substr(str.find("\"")+1, str.length()-str.find("\"")-3));
+		ret = stoi(str.substr(str.find("\"")+1, str.length()-str.find("\"")-2));
 		return true;
 	}
 	return false;
@@ -35,13 +35,15 @@ bool Addon::getTypes(string str, string search_element_name, vector<string>& ret
 	return false;
 }
 
-Image Addon::set_alpha_color(string image_file_path, int clear_r, int clear_g, int clear_b) {
+Image Addon::set_alpha_color(string image_file_path, Color transparent_rgb) {
 	Image image_temp(Unicode::Widen(image_file_path));
+	if (image_file_path.find("Two_lane_normal_road(none_line).png") != string::npos)
+		image_temp.resize(128, 64);
 	
 	for (int h=0; h<image_temp.height(); h++) {
 		for (int w=0; w<image_temp.width(); w++) {
-			if (image_temp[w][h].r == 0 && image_temp[w][h].g == 0 && image_temp[w][h].b == 0) {
-				image_temp[w][h].setA(0);
+			if (image_temp[h][w].r == transparent_rgb.r && image_temp[h][w].g == transparent_rgb.g && image_temp[h][w].b == transparent_rgb.b) {
+				image_temp[h][w].a = 0;
 			}
 		}
 	}
@@ -65,7 +67,14 @@ void Addon::load(FileStruct file_path) {
 	bool loading_type = false;
 	bool loading_direction = false;
 	
+	Color transparent_color;
+	transparent_color.r = 0;
+	transparent_color.g = 0;
+	transparent_color.b = 0;
+	
 	while (getline(ifs, str_temp)) {
+		str_temp = str_temp.substr(0, str_temp.length()-1);
+		
 		// 名前
 		getElement(str_temp, "addon_name", addon_name);
 		getElement(str_temp, "addon_jp_name", addon_jp_name);
@@ -103,6 +112,11 @@ void Addon::load(FileStruct file_path) {
 			}
 		}
 		if (str_temp.find("}") == 0 && !loading_direction) {
+			// typeが切り替わるときにTextureの設定
+			if (types[current_loading_type].image.length() > 0) {
+				types[current_loading_type].texture = Texture(set_alpha_color(file_path.folder_path+"/"+types[current_loading_type].image, transparent_color));
+			}
+			
 			current_direction = "";
 			loading_type = false;
 		}
@@ -111,9 +125,18 @@ void Addon::load(FileStruct file_path) {
 			// 画像のパス
 			getElement(str_temp, "image", types[current_loading_type].image);
 			
-			// Textureの設定
-			if (types[current_loading_type].image.size() > 0) {
-				types[current_loading_type].texture = Texture(set_alpha_color(file_path.folder_path+"/"+types[current_loading_type].image, 0, 0, 0));
+			// 透過色
+			string rgb_str;
+			getElement(str_temp, "transparent_color", rgb_str);
+			
+			if (rgb_str.length() > 0) {
+				vector<string> rgb_strv = split(rgb_str, ", ");
+				
+				if (rgb_strv.size() == 3) {
+					transparent_color.r = stoi(rgb_strv[0]);
+					transparent_color.g = stoi(rgb_strv[1]);
+					transparent_color.b = stoi(rgb_strv[2]);
+				}
 			}
 			
 			// ナイトマスク画像のパス
@@ -181,8 +204,21 @@ string Addon::getDirectionName(int type_num, int direction_num) {
 	return directions_name[type_num][direction_num];
 }
 
-void Addon::draw(string type_name, string direction_name, PositionStruct position) {
+void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
 	AddonDirectionStruct direction_temp = types[type_name].directions[direction_name];
-	types[type_name].texture(direction_temp.top_left_x, direction_temp.top_left_y, direction_temp.size_width, direction_temp.size_height)
+	
+	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
+	position.y = position.y + CHIP_SIZE/2 - direction_temp.size_height;// + (use_tiles.x - 1 - tiles_count.x) * CHIP_SIZE/8;
+	
+	int top_left_x = direction_temp.top_left_x;
+	top_left_x += CHIP_SIZE/2 * tiles_count.x;
+	
+	int top_left_y = direction_temp.top_left_y;
+	top_left_y += CHIP_SIZE/2 * tiles_count.y;
+	
+	int size_width = direction_temp.size_width;
+	size_width = CHIP_SIZE;
+	
+	types[type_name].texture(top_left_x, top_left_y, size_width, direction_temp.size_height)
 	 .draw(position.x, position.y);
 }

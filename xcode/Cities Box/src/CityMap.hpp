@@ -68,6 +68,9 @@ typedef struct SquareStruct {
 	
 	int serial_number;
 	
+	CoordinateStruct tiles_count;
+	CoordinateStruct use_tiles;
+	
 	int residents;
 	WorkersStruct workers;
 	int students;
@@ -96,15 +99,26 @@ typedef struct SquareStruct {
 
 class CityMap {
 public:
+	// マップの読み込み
 	void load(FileStruct map_file, map<string, Addon*> addons);
 	
-	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
+	// 読込中画面
+	void loadingScreen();
 	
+	// マップの描画
 	void draw_square(CoordinateStruct coordinate, CameraStruct camera);
 	void draw();
 	
 	// マップサイズの取得
 	SizeStruct getMapSize();
+	
+	// 座標から描画位置を取得
+	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
+	
+	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
+	
+	// 描画範囲を取得
+	vector<CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// メモリ解放
 	void free();

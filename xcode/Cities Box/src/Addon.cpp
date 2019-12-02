@@ -51,7 +51,7 @@ Image Addon::set_alpha_color(string image_file_path, Color transparent_rgb) {
 	return image_temp;
 }
 
-void Addon::load(FileStruct file_path) {
+bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 	// アドオンファイルの読み込み
 	ifstream ifs(file_path.file_path.c_str());
 	string str_temp;
@@ -85,6 +85,15 @@ void Addon::load(FileStruct file_path) {
 		// 説明文
 		getElement(str_temp, "addon_summary", addon_summary);
 		
+		// 所属するアドオンセットの名前
+		getElement(str_temp, "belong_addons_set_name", belong_addons_set_name);
+		
+		if (belong_addons_set_name.length() > 0) {
+			if (belong_addons_set_name != loading_addons_set_name && !(loading_addons_set_name.length() > 0)) {
+				return false;
+			}
+		}
+		
 		// アイコン画像のパス
 		getElement(str_temp, "addon_icon", addon_icon);
 		
@@ -114,6 +123,7 @@ void Addon::load(FileStruct file_path) {
 		if (str_temp.find("}") == 0 && !loading_direction) {
 			// typeが切り替わるときにTextureの設定
 			if (types[current_loading_type].image.length() > 0) {
+				types[current_loading_type].processing = false;
 				types[current_loading_type].texture = Texture(set_alpha_color(file_path.folder_path+"/"+types[current_loading_type].image, transparent_color));
 			}
 			
@@ -178,6 +188,8 @@ void Addon::load(FileStruct file_path) {
 			}
 		}
 	}
+	
+	return true;
 }
 
 string Addon::getName() {
@@ -219,6 +231,10 @@ void Addon::draw(string type_name, string direction_name, PositionStruct positio
 	int size_width = direction_temp.size_width;
 	size_width = CHIP_SIZE;
 	
-	types[type_name].texture(top_left_x, top_left_y, size_width, direction_temp.size_height)
-	 .draw(position.x, position.y);
+	if (!types[type_name].processing) {
+		types[type_name].processing = true;
+		types[type_name].texture(top_left_x, top_left_y, size_width, direction_temp.size_height)
+		.draw(position.x, position.y);
+		types[type_name].processing = false;
+	}
 }

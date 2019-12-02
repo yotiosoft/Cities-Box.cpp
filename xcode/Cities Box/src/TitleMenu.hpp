@@ -12,6 +12,8 @@
 #include "Images.hpp"
 #include "Button.hpp"
 
-void titleMenu(Images& images);
+bool titleMenu(Images& images, Font& font16);
+
+bool loadingScreen(Font& font16);
 
 #endif /* TitleMenu_hpp */

@@ -27,6 +27,8 @@ typedef struct AddonDirectionStruct {
 typedef struct AddonTypeStruct {
 	string type;
 	
+	bool processing;
+	
 	string image;					// アドオン画像のパス
 	string night_mask;				// ナイトマスク画像のパス
 	vector<string> direction;		// typeに含まれる方向
@@ -42,7 +44,7 @@ public:
 	Addon();
 	
 	// 内容の変更
-	void load(FileStruct file_path);
+	bool load(FileStruct file_path, string loading_addons_set_name);
 	
 	// 名前の取得
 	string getName();		// 原名
@@ -76,6 +78,9 @@ private:
 	
 	// 説明文
 	string addon_summary;
+	
+	// 所属するアドオンセットの名前（空白はNormalとみなす）
+	string belong_addons_set_name;
 	
 	// アドオンのタイプ
 	string addon_type;

@@ -19,6 +19,14 @@ Button::Button(ImageStruct& image, int new_size) {
 	isIcon = false;
 }
 
+Button::Button(ImageStruct& image, int new_size, String new_label, Font& new_font) {
+	size = SizeStruct{new_size, new_size};
+	button_texture = image.texture.resized(size.width, size.height).texture;
+	isIcon = false;
+	font = new_font;
+	label = new_label;
+}
+
 Button::Button(IconFont::ID icon_id) {
 	size = SizeStruct{64, 64};
 	button_texture = Texture(Icon(icon_id, size.width));
@@ -31,11 +39,23 @@ Button::Button(IconFont::ID icon_id, int new_size) {
 	isIcon = true;
 }
 
+Button::Button(IconFont::ID icon_id, int new_size, String new_label, Font& new_font) {
+	size = SizeStruct{new_size, new_size};
+	button_texture = Texture(Icon(icon_id, size.width));
+	isIcon = true;
+	font = new_font;
+	label = new_label;
+}
+
 void Button::put(PositionStruct new_position) {
 	position = new_position;
 	
 	if (Cursor::Pos().x >= position.x && Cursor::Pos().y >= position.y && Cursor::Pos().x <= position.x+size.width && Cursor::Pos().y <= position.y+size.height) {
 		Rect(position.x, position.y, size.width, size.height).draw(Color(0, 162, 232, 128));
+		
+		if (label.length() > 0) {
+			font(label).draw(position.x+size.width/2-font(label).region(Scene::Width()/2, Scene::Height()/2).w/2, position.y+size.height);
+		}
 	}
 	
 	if (isIcon) {

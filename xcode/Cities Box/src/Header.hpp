@@ -10,6 +10,7 @@
 #include <vector>
 #include <dirent.h>
 #include <fstream>
+#include <thread>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.1
 

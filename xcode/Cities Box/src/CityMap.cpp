@@ -49,7 +49,7 @@ bool CityMap::getTypes(string str, string search_element_name, vector<string>& r
 }
 
 
-void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
+void CityMap::load(FileStruct map_file) {
 	// マップファイルの読み込み
 	ifstream ifs(map_file.file_path.c_str());
 	string str_temp;
@@ -72,11 +72,19 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 	mapsize.width = -1;
 	mapsize.height = -1;
 	
+	bool addon_loaded = false;
+	
 	while (getline(ifs, str_temp)) {
 		str_temp = str_temp.substr(0, str_temp.length()-1);				// 改行コードは除く
 		
 		getElement(str_temp, "Version", saved_version);
 		getElement(str_temp, "Addons_Set", addon_set);
+		
+		// アドオン読み込み
+		if (!addon_loaded && addon_set.length() > 0) {
+			loadAddons(addon_set);
+			addon_loaded = true;
+		}
 		
 		getElement(str_temp, "City_Name", city_name);
 		getElement(str_temp, "Mayor_Name", mayor_name);
@@ -137,12 +145,16 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
 				
+				// マップにAddon_Setが定義されていない場合はNormalとみなしアドオン読み込み
+				if (!addon_loaded) {
+					loadAddons("");
+					addon_loaded = true;
+					addon_set = "Normal";
+				}
+				
 				// アドオンのポインタを登録
 				if (addons.find(squares[array_count][x].addon_name[0]) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[0]]);
-				}
-				else {
-					cout << "!!" << squares[array_count][x].addon_name[0] << " at " << x << "," << array_count << endl;
 				}
 			}
 		}
@@ -501,7 +513,22 @@ void CityMap::load(FileStruct map_file, map<string, Addon*> addons) {
 	}
 }
 
-void CityMap::draw_square(CoordinateStruct coordinate, CameraStruct camera) {
+void CityMap::loadAddons(string addon_set_name) {
+	vector<FileStruct> addons_path = getAllFilesName("../addons", "adat");
+	
+	for (int i=0; i<addons_path.size(); i++) {
+		FileStruct file_temp = addons_path[i];
+		
+		Addon* new_addon = new Addon();
+		if (new_addon->load(addons_path[i], addon_set_name)) {
+			addons[split(file_temp.file_name, ".")[0]] = new_addon;
+		}
+		
+		specific::sleep(100);
+	}
+}
+
+void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
 }
@@ -593,6 +620,10 @@ vector<CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
 	return ret;
 }
 
-void CityMap::free() {
+void CityMap::freeMapAndAddons() {
+	for (auto i = addons.begin(); i != addons.end() ; i++) {
+		free(i->second);
+	}
+	
 	vector<vector<SquareStruct>>().swap(squares);
 }

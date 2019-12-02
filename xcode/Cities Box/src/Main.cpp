@@ -7,7 +7,7 @@
 #include "CityMap.hpp"
 #include "IOfunctions.hpp"
 
-void Main() {
+int Main() {
 	Window::SetTitle(U"Cities Box.cpp");
 	Scene::SetBackground(Color(50, 50, 50));
 	
@@ -18,27 +18,18 @@ void Main() {
 	Images images;
 	loadImages(images);
 	
+	// フォントの宣言
+	Font font16(16);
+	
 	// タイトルメニュー画面
-	titleMenu(images);
-	
-	map<string, Addon*> addons;
-	vector<FileStruct> addons_path = getAllFilesName("../addons", "adat");
-	
-	for (int i=0; i<addons_path.size(); i++) {
-		FileStruct file_temp = addons_path[i];
-		addons[split(file_temp.file_name, ".")[0]] = new Addon();
-		addons[split(file_temp.file_name, ".")[0]]->load(addons_path[i]);
-		
-		specific::sleep(100);
+	if (!titleMenu(images, font16)) {
+		return 0;				// 画面を閉じたらプログラム終了
 	}
 	
 	
 	CityMap map;
 	vector<FileStruct> maps_path = getAllFilesName("../data/maps", "cbd");
-	map.load(maps_path[0], addons);
-	
-	
-	Font font16(16);
+	map.load(maps_path[0]);
 	
 	// カメラの初期位置
 	CameraStruct camera;
@@ -48,11 +39,14 @@ void Main() {
 	
 	Image buffer;
 	
-	
 	while (System::Update()) {
 		for (int y=map.getDrawArea(camera)[0].y; y<map.getDrawArea(camera)[1].y; y++) {
 			for (int x=map.getDrawArea(camera)[0].x; x<map.getDrawArea(camera)[1].x; x++) {
-				map.draw_square(CoordinateStruct{x, y}, camera);
+				PositionStruct draw_pos = map.coordinateToPosition(CoordinateStruct{x, y}, camera);
+				
+				if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
+					map.drawSquare(CoordinateStruct{x, y}, camera);
+				}
 			}
 		}
 		
@@ -69,13 +63,11 @@ void Main() {
 		if (KeyDown.pressed()) {
 			camera.position.y += 5;
 		}
+		
+		specific::sleep(3);
 	}
 	
-	for (auto i = addons.begin(); i != addons.end() ; i++) {
-		free(i->second);
-	}
+	map.freeMapAndAddons();
 	
-	map.free();
-	
-	specific::sleep(50);
+	return 0;
 }

@@ -100,13 +100,16 @@ typedef struct SquareStruct {
 class CityMap {
 public:
 	// マップの読み込み
-	void load(FileStruct map_file, map<string, Addon*> addons);
+	void load(FileStruct map_file);
+	
+	// アドオンの読み込み
+	void loadAddons(string addon_set_name);
 	
 	// 読込中画面
 	void loadingScreen();
 	
 	// マップの描画
-	void draw_square(CoordinateStruct coordinate, CameraStruct camera);
+	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
 	void draw();
 	
 	// マップサイズの取得
@@ -121,7 +124,7 @@ public:
 	vector<CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// メモリ解放
-	void free();
+	void freeMapAndAddons();
 	
 private:
 	int saved_version;
@@ -146,6 +149,10 @@ private:
 	RCOIFstruct tax;
 	
 	vector<vector<SquareStruct>> squares;
+	
+	bool loading_complete;
+	
+	map<string, Addon*> addons;
 	
 	// プライベート関数
 	bool getElement(string str, string search_element_name, string& ret);

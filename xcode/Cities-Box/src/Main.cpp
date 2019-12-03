@@ -1,11 +1,10 @@
-#include "Header.hpp"
+#include "Specific.hpp"
 
 #include "StartUp.hpp"
 #include "TitleMenu.hpp"
 #include "Images.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
-#include "IOfunctions.hpp"
 
 int Main() {
 	Window::SetTitle(U"Cities Box.cpp");
@@ -27,7 +26,7 @@ int Main() {
 	}
 	
 	CityMap map;
-	Array<FileStruct> maps_path = getAllFilesName("../data/maps", "cbd");
+	Array<FileStruct> maps_path = specific::getAllFilesName("../data/maps", "cbd");
 	map.load(maps_path[0]);
 	
 	// カメラの初期位置
@@ -56,7 +55,7 @@ int Main() {
 			camera.position.y += 10;
 		}
 		
-		specific::sleep(20);
+		System::Sleep(20);
 	}
 	
 	map.freeMapAndAddons();

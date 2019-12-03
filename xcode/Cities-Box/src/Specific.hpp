@@ -12,8 +12,11 @@
 
 #include <unistd.h>
 
+#include "Header.hpp"
+#include "OtherFunctions.hpp"
+
 namespace specific {
-	void sleep(int ms);
+	Array<FileStruct> getAllFilesName(string folder_path, string extension);
 }
 
 #endif /* Specific_h */

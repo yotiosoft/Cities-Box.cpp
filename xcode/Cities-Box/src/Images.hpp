@@ -9,8 +9,7 @@
 #ifndef Images_hpp
 #define Images_hpp
 
-#include "Header.hpp"
-#include "IOfunctions.hpp"
+#include "Specific.hpp"
 #include "OtherFunctions.hpp"
 
 #endif /* Images_hpp */

@@ -9,7 +9,7 @@
 
 void Images::load(string file_path, string tag, Color transparent) {
 	// ファイル一覧を取得
-	Array<FileStruct> image_files = getAllFilesName(file_path, "png");
+	Array<FileStruct> image_files = specific::getAllFilesName(file_path, "png");
 	
 	// 各ファイルを読み込み
 	for (int i=0; i<image_files.size(); i++) {

@@ -14,8 +14,6 @@
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
-#include "Specific.hpp"
-
 #define CHIP_SIZE		64
 
 using namespace std;

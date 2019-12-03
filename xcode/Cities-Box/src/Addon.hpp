@@ -7,7 +7,7 @@
 #ifndef Addon_hpp
 #define Addon_hpp
 
-#include "Header.hpp"
+#include "Specific.hpp"
 #include "Images.hpp"
 
 typedef struct AddonDirectionStruct {

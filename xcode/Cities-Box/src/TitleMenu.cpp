@@ -39,7 +39,7 @@ bool titleMenu(Images& images, Font& font16) {
 			return true;
 		}
 		
-		specific::sleep(50);
+		System::Sleep(50);
 	}
 	
 	return false;

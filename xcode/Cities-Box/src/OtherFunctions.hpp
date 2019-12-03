@@ -8,7 +8,7 @@
 #ifndef OtherFunctions_hpp
 #define OtherFunctions_hpp
 
-#include "Header.hpp"
+#include "Specific.hpp"
 
 Array<string> split(string str, string separator);
 

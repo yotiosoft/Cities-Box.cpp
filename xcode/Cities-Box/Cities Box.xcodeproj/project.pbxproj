@@ -38,7 +38,6 @@
 		2CE5C85B237FDE6000082EEC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6906B12298123200A427D0 /* OpenAL.framework */; };
 		2CEACB67233A61C900C6EE98 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB65233A61C900C6EE98 /* libgif.a */; };
 		2CEACB68233A61C900C6EE98 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB66233A61C900C6EE98 /* libutil.a */; };
-		4B75112C23966B3A008DFD03 /* IOfunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111923966B37008DFD03 /* IOfunctions.cpp */; };
 		4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111D23966B37008DFD03 /* TitleMenu.cpp */; };
 		4B75112E23966B3A008DFD03 /* OtherFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111E23966B38008DFD03 /* OtherFunctions.cpp */; };
 		4B75112F23966B3A008DFD03 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111F23966B38008DFD03 /* CityMap.cpp */; };
@@ -83,7 +82,6 @@
 		2CE5C859237FDE5100082EEC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CEACB65233A61C900C6EE98 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../../lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2CEACB66233A61C900C6EE98 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../../lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
-		4B75111923966B37008DFD03 /* IOfunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOfunctions.cpp; sourceTree = "<group>"; };
 		4B75111A23966B37008DFD03 /* StartUp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StartUp.hpp; sourceTree = "<group>"; };
 		4B75111B23966B37008DFD03 /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CityMap.hpp; sourceTree = "<group>"; };
 		4B75111C23966B37008DFD03 /* Specific.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Specific.hpp; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		4B75112123966B38008DFD03 /* TitleMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TitleMenu.hpp; sourceTree = "<group>"; };
 		4B75112223966B38008DFD03 /* Images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Images.cpp; sourceTree = "<group>"; };
 		4B75112323966B38008DFD03 /* Button.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Button.hpp; sourceTree = "<group>"; };
-		4B75112423966B38008DFD03 /* IOfunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IOfunctions.hpp; sourceTree = "<group>"; };
 		4B75112523966B39008DFD03 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
 		4B75112623966B39008DFD03 /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
 		4B75112723966B39008DFD03 /* OtherFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OtherFunctions.hpp; sourceTree = "<group>"; };
@@ -176,8 +173,6 @@
 				4B75112623966B39008DFD03 /* Header.hpp */,
 				4B75112223966B38008DFD03 /* Images.cpp */,
 				4B75112923966B39008DFD03 /* Images.hpp */,
-				4B75111923966B37008DFD03 /* IOfunctions.cpp */,
-				4B75112423966B38008DFD03 /* IOfunctions.hpp */,
 				4B75111E23966B38008DFD03 /* OtherFunctions.cpp */,
 				4B75112723966B39008DFD03 /* OtherFunctions.hpp */,
 				4B75112B23966B39008DFD03 /* Specific.cpp */,
@@ -301,7 +296,6 @@
 				4B75113123966B3A008DFD03 /* Button.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
 				4B75112E23966B3A008DFD03 /* OtherFunctions.cpp in Sources */,
-				4B75112C23966B3A008DFD03 /* IOfunctions.cpp in Sources */,
 				4B75113223966B3A008DFD03 /* StartUp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,7 @@
 dependencies: \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/OtherFunctions.cpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/OtherFunctions.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Specific.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Header.hpp \
   ../../include/Siv3D.hpp ../../include/Siv3D/Platform.hpp \
   ../../include/Siv3D/Version.hpp ../../include/Siv3D/Types.hpp \
@@ -217,5 +218,4 @@ dependencies: \
   ../../include/Siv3D/../ThirdParty/cereal/types/vector.hpp \
   ../../include/Siv3D/DiscreteGPU.hpp \
   ../../include/Siv3D/WindowsStaticLibs.hpp \
-  ../../include/Siv3D/SceneManager.hpp \
-  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Specific.hpp
+  ../../include/Siv3D/SceneManager.hpp

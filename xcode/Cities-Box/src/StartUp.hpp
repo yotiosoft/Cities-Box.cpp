@@ -8,7 +8,7 @@
 #ifndef StartUp_hpp
 #define StartUp_hpp
 
-#include "Header.hpp"
+#include "Specific.hpp"
 #include "Images.hpp"
 
 void loadImages(Images& images);

@@ -27,11 +27,9 @@ typedef struct AddonDirectionStruct {
 typedef struct AddonTypeStruct {
 	string type;
 	
-	bool processing;
-	
 	string image;					// アドオン画像のパス
 	string night_mask;				// ナイトマスク画像のパス
-	vector<string> direction;		// typeに含まれる方向
+	Array<string> direction;		// typeに含まれる方向
 	RGBstruct transparent_color;	// 透過色のRGB値
 	
 	map<string, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
@@ -89,10 +87,10 @@ private:
 	string addon_icon;
 	
 	// 使用するtype
-	vector<string> use_types;
+	Array<string> use_types;
 	
 	// 使用するdirection
-	vector<vector<string>> directions_name;
+	Array<Array<string>> directions_name;
 	
 	// 収容人数
 	int maxium_capacity;
@@ -108,8 +106,8 @@ private:
 	// プライベート関数
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
-	bool getTypes(string str, string search_element_name, vector<string>& ret);
-	Image set_alpha_color(string image_file_path, Color transparent_rgb);
+	bool getTypes(string str, string search_element_name, Array<string>& ret);
+	void set_alpha_color(Image& image_temp, Color transparent_rgb);
 };
 
 #endif /* Addon_hpp */

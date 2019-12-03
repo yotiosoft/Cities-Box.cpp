@@ -59,12 +59,12 @@ typedef struct SchoolStruct {
 } SchoolStruct;
 
 typedef struct SquareStruct {
-	vector<string> addon_name;
+	Array<string> addon_name;
 	string original_name;
-	vector<string> category;
+	Array<string> category;
 	
-	vector<int> type_number;
-	vector<int> direction_number;
+	Array<int> type_number;
+	Array<int> direction_number;
 	
 	int serial_number;
 	
@@ -83,15 +83,15 @@ typedef struct SquareStruct {
 	
 	CropStruct crop;
 	
-	vector<int> age;
-	vector<string> gender;
+	Array<int> age;
+	Array<string> gender;
 	
-	vector<WorkPlaceStruct> work_places;
-	vector<SchoolStruct> schools;
+	Array<WorkPlaceStruct> work_places;
+	Array<SchoolStruct> schools;
 	
 	RCOIFP::Type reservation;
 	
-	vector<Addon*> addons;
+	Array<Addon*> addons;
 	
 } SquareStruct;
 
@@ -110,7 +110,7 @@ public:
 	
 	// マップの描画
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
-	void draw();
+	void draw(CameraStruct camera);
 	
 	// マップサイズの取得
 	SizeStruct getMapSize();
@@ -121,7 +121,7 @@ public:
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
 	// 描画範囲を取得
-	vector<CoordinateStruct> getDrawArea(CameraStruct camera);
+	Array<CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// メモリ解放
 	void freeMapAndAddons();
@@ -148,7 +148,7 @@ private:
 	BudgetStruct budget;
 	RCOIFstruct tax;
 	
-	vector<vector<SquareStruct>> squares;
+	Array<Array<SquareStruct>> squares;
 	
 	bool loading_complete;
 	
@@ -158,7 +158,7 @@ private:
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
 	bool getElement(string str, string search_element_name, bool& ret);
-	bool getTypes(string str, string search_element_name, vector<string>& ret);
+	bool getTypes(string str, string search_element_name, Array<string>& ret);
 };
 
 #endif /* CityMap_hpp */

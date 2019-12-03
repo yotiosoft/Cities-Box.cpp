@@ -17,11 +17,13 @@ bool titleMenu(Images& images, Font& font16) {
 	Button new_map_button(IconFont::Plus, 50, U"新しいマップ", font16);		// 新しいマップ
 	
 	bool b;
+	Color color_white = Color(Palette::White);
 	
 	while (System::Update()) {
 		logo->texture.draw(Scene::Width()/2-logo->texture.width()/2, Scene::Height()/2-logo->texture.height()*1.75);
 		
 		//font16(U"ver.2.0 alpha").draw(Scene::Width()/2-)
+		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, SizeStruct{Scene::Width(), 20}, color_white);
 		
 		load_button.put(PositionStruct{Scene::Width()/2-75, Scene::Height()*3/5});
 		new_map_button.put(PositionStruct{Scene::Width()/2+25, Scene::Height()*3/5});

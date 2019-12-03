@@ -7,7 +7,7 @@
 #pragma once
 
 #include <stdio.h>
-#include <vector>
+#include <list>
 #include <dirent.h>
 #include <fstream>
 #include <thread>
@@ -81,9 +81,9 @@ typedef struct SizeStruct {
 } SizeStruct;
 
 typedef struct RGBstruct {
-	int r;
-	int g;
-	int b;
+	unsigned short int r;
+	unsigned short int g;
+	unsigned short int b;
 } RGBstruct;
 
 typedef struct FileStruct {

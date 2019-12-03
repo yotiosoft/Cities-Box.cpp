@@ -11,6 +11,6 @@
 
 #include "Header.hpp"
 
-vector<FileStruct> getAllFilesName(string folder_path, string extension);
+Array<FileStruct> getAllFilesName(string folder_path, string extension);
 
 #endif /* IOfunctions_hpp */

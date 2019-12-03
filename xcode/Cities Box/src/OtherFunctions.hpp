@@ -10,6 +10,9 @@
 
 #include "Header.hpp"
 
-vector<string> split(string str, string separator);
+Array<string> split(string str, string separator);
+
+void cMes(Font& font, String str, PositionStruct top_left, PositionStruct bottom_right, Color& color);
+void cMes(Font& font, String str, PositionStruct top_left, SizeStruct size, Color& color);
 
 #endif /* OtherFunctions_hpp */

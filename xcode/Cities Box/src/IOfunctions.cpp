@@ -8,8 +8,8 @@
 #include "IOfunctions.hpp"
 #include "OtherFunctions.hpp"
 
-vector<FileStruct> getAllFilesName(string folder_path, string extension) {
-	vector<FileStruct> ret_str;
+Array<FileStruct> getAllFilesName(string folder_path, string extension) {
+	Array<FileStruct> ret_str;
 	
 	const char* target_dirlog = folder_path.c_str();
 	const char* target_file_extension = ("."+extension).c_str();
@@ -31,7 +31,7 @@ vector<FileStruct> getAllFilesName(string folder_path, string extension) {
 		if (dent != NULL && file_name != "." && file_name != "..") {
 			// サブディレクトリの中身も検索
 			if (file_name.find(".") == string::npos) {
-				vector<FileStruct> sub_dir_str = getAllFilesName(folder_path+"/"+file_name, extension);
+				Array<FileStruct> sub_dir_str = getAllFilesName(folder_path+"/"+file_name, extension);
 				copy(sub_dir_str.begin(), sub_dir_str.end(), back_inserter(ret_str));
 			}
 			

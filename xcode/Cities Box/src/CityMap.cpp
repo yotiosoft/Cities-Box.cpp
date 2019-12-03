@@ -39,7 +39,7 @@ bool CityMap::getElement(string str, string search_element_name, bool& ret) {
 	return false;
 }
 
-bool CityMap::getTypes(string str, string search_element_name, vector<string>& ret) {
+bool CityMap::getTypes(string str, string search_element_name, Array<string>& ret) {
 	string a_ret;
 	if (getElement(str, search_element_name, a_ret)) {
 		ret = split(a_ret, ", ");
@@ -60,7 +60,7 @@ void CityMap::load(FileStruct map_file) {
 	
 	// 各要素の読み出し
 	string current_array_name = "";
-	vector<string> array_names =
+	Array<string> array_names =
 	{"name", "name2", "category", "category_2", "category_3", "obj_type", "obj_type2", "obj_dire", "obj_dire2",
 		"obj_serial_num", "obj_use_tiles_x", "obj_use_tiles_y", "obj_tiles_x", "obj_tiles_y", "residents",
 		"workers_Commercial", "workers_Office", "workers_Industrial", "workers_Farm", "workers_Public",
@@ -124,7 +124,7 @@ void CityMap::load(FileStruct map_file) {
 		if (!map_cleared && mapsize.width > 0 && mapsize.height > 0) {
 			for (int y=0; y<mapsize.height; y++) {
 				SquareStruct new_ss;
-				squares.push_back(vector<SquareStruct>(mapsize.width, new_ss));
+				squares.push_back(Array<SquareStruct>(mapsize.width, new_ss));
 			}
 			map_cleared = true;
 		}
@@ -140,7 +140,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "name" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
@@ -160,7 +160,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "name2" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
@@ -168,7 +168,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "category" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].category.push_back(temp[x]);
@@ -176,7 +176,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "category_2" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].category.push_back(temp[x]);
@@ -184,7 +184,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "category_3" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].category.push_back(temp[x]);
@@ -192,7 +192,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_type" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].type_number.push_back(stoi(temp[x]));
@@ -200,7 +200,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_type2" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].type_number.push_back(stoi(temp[x]));
@@ -208,7 +208,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_dire" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].direction_number.push_back(stoi(temp[x]));
@@ -216,7 +216,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_dire2" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].direction_number.push_back(stoi(temp[x]));
@@ -224,7 +224,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_serial_num" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].serial_number = stoi(temp[x]);
@@ -232,7 +232,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_use_tiles_x" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].use_tiles.x = stoi(temp[x]);
@@ -240,7 +240,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_use_tiles_y" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].use_tiles.y = stoi(temp[x]);
@@ -248,7 +248,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_tiles_x" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].tiles_count.x = stoi(temp[x]);
@@ -256,7 +256,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "obj_tiles_y" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].tiles_count.y = stoi(temp[x]);
@@ -264,7 +264,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "residents" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].residents = stoi(temp[x]);
@@ -272,7 +272,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "wokers_Commercial" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].workers.commercial = stoi(temp[x]);
@@ -280,7 +280,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "wokers_Office" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].workers.office = stoi(temp[x]);
@@ -288,7 +288,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "wokers_Industrial" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].workers.industrial = stoi(temp[x]);
@@ -296,7 +296,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "wokers_Farm" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].workers.farm = stoi(temp[x]);
@@ -304,7 +304,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "wokers_Public" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].workers.public_facility = stoi(temp[x]);
@@ -312,7 +312,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "students" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].students = stoi(temp[x]);
@@ -320,7 +320,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "land_price" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].land_price = stoi(temp[x]);
@@ -328,7 +328,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "crime_rate" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].crime_rate = stoi(temp[x]);
@@ -336,7 +336,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "education_rate" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].education_rate = stoi(temp[x]);
@@ -344,7 +344,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "happiness" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].happiness_rate = stoi(temp[x]);
@@ -352,7 +352,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "noise" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].noise = stoi(temp[x]);
@@ -360,7 +360,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "crop" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].crop.name = temp[x];
@@ -368,7 +368,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "crop_amount" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].crop.amount = stoi(temp[x]);
@@ -376,10 +376,10 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "age" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
-				vector<string> ages_str = split(temp[x], "]");
+				Array<string> ages_str = split(temp[x], "]");
 				
 				for (int i=0; i<ages_str.size(); i++) {
 					if (ages_str[i].length() <= 1 || ages_str[i] == " ") {
@@ -391,10 +391,10 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "gender" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
-				vector<string> gender_str = split(temp[x], "]");
+				Array<string> gender_str = split(temp[x], "]");
 				
 				for (int i=0; i<gender_str.size(); i++) {
 					if (gender_str[i].length() <= 1 || gender_str[i] == " ") {
@@ -406,10 +406,10 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "workplace" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
-				vector<string> workplace_str = split(temp[x], "]");
+				Array<string> workplace_str = split(temp[x], "]");
 				
 				for (int i=0; i<workplace_str.size(); i++) {
 					if (workplace_str[i].length() <= 1 || workplace_str[i] == " ") {
@@ -442,10 +442,10 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "school" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
-				vector<string> school_str = split(temp[x], "]");
+				Array<string> school_str = split(temp[x], "]");
 				
 				for (int i=0; i<school_str.size(); i++) {
 					if (school_str[i].length() <= 1 || school_str[i] == " ") {
@@ -474,7 +474,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "reservation" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				if (temp[x] == "none") {
@@ -502,7 +502,7 @@ void CityMap::load(FileStruct map_file) {
 		}
 		
 		if (current_array_name == "original_name" && array_count >= 0) {
-			vector<string> temp = split(str_temp, ", ");
+			Array<string> temp = split(str_temp, ", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].original_name = temp[x];
@@ -514,7 +514,7 @@ void CityMap::load(FileStruct map_file) {
 }
 
 void CityMap::loadAddons(string addon_set_name) {
-	vector<FileStruct> addons_path = getAllFilesName("../addons", "adat");
+	Array<FileStruct> addons_path = getAllFilesName("../addons", "adat");
 	
 	for (int i=0; i<addons_path.size(); i++) {
 		FileStruct file_temp = addons_path[i];
@@ -531,6 +531,18 @@ void CityMap::loadAddons(string addon_set_name) {
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+}
+
+void CityMap::draw(CameraStruct camera) {
+	for (short int y=getDrawArea(camera)[0].y; y<getDrawArea(camera)[1].y; y++) {
+		for (short int x=getDrawArea(camera)[0].x; x<getDrawArea(camera)[1].x; x++) {
+			PositionStruct draw_pos = coordinateToPosition(CoordinateStruct{x, y}, camera);
+			
+			if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
+				drawSquare(CoordinateStruct{x, y}, camera);
+			}
+		}
+	}
 }
 
 SizeStruct CityMap::getMapSize() {
@@ -577,14 +589,14 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 	return ret;
 }
 
-vector<CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
+Array<CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
 	// 描画できる範囲
 	int range = (sqrt(powf(Scene::Width(), 2)+powf(Scene::Height(), 2))/sqrt(powf(CHIP_SIZE/2, 2)+powf(CHIP_SIZE/4, 2)));
 	
 	// 画面中央の座標
 	CoordinateStruct center_coordinate = positionToCoordinate(PositionStruct{Scene::Width()/2, Scene::Height()/2}, camera);
 	
-	vector<CoordinateStruct> ret;
+	Array<CoordinateStruct> ret;
 	// 左上の座標
 	ret.push_back(CoordinateStruct{center_coordinate.x-range, center_coordinate.y-range});
 	
@@ -625,5 +637,5 @@ void CityMap::freeMapAndAddons() {
 		free(i->second);
 	}
 	
-	vector<vector<SquareStruct>>().swap(squares);
+	Array<Array<SquareStruct>>().swap(squares);
 }

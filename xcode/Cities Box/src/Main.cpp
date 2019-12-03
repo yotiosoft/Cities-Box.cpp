@@ -23,12 +23,11 @@ int Main() {
 	
 	// タイトルメニュー画面
 	if (!titleMenu(images, font16)) {
-		return 0;				// 画面を閉じたらプログラム終了
+		return 0;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
 	
-	
 	CityMap map;
-	vector<FileStruct> maps_path = getAllFilesName("../data/maps", "cbd");
+	Array<FileStruct> maps_path = getAllFilesName("../data/maps", "cbd");
 	map.load(maps_path[0]);
 	
 	// カメラの初期位置
@@ -40,15 +39,8 @@ int Main() {
 	Image buffer;
 	
 	while (System::Update()) {
-		for (int y=map.getDrawArea(camera)[0].y; y<map.getDrawArea(camera)[1].y; y++) {
-			for (int x=map.getDrawArea(camera)[0].x; x<map.getDrawArea(camera)[1].x; x++) {
-				PositionStruct draw_pos = map.coordinateToPosition(CoordinateStruct{x, y}, camera);
-				
-				if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
-					map.drawSquare(CoordinateStruct{x, y}, camera);
-				}
-			}
-		}
+		// マップの描画
+		map.draw(camera);
 		
 		// カメラの操作
 		if (KeyLeft.pressed()) {
@@ -64,7 +56,7 @@ int Main() {
 			camera.position.y += 5;
 		}
 		
-		specific::sleep(3);
+		specific::sleep(10);
 	}
 	
 	map.freeMapAndAddons();

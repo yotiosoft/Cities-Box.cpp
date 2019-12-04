@@ -37,24 +37,45 @@ int Main() {
 	
 	Image buffer;
 	
+	// 描画処理
+	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(50, 50, 50));
+	bool update_map = true, first_loop = true;
+	
 	while (System::Update()) {
 		// マップの描画
-		map.draw(camera);
+		if (update_map) {
+			buffer_texture.clear(Color(50, 50, 50));
+			
+			ScopedRenderTarget2D target(buffer_texture);
+			map.draw(camera);
+			
+			if (first_loop) {
+				first_loop = false;
+			}
+			else {
+				update_map = false;
+			}
+		}
 		
 		// カメラの操作
 		if (KeyLeft.pressed()) {
 			camera.position.x -= 20;
+			update_map = true;
 		}
 		if (KeyRight.pressed()) {
 			camera.position.x += 20;
+			update_map = true;
 		}
 		if (KeyUp.pressed()) {
 			camera.position.y -= 10;
+			update_map = true;
 		}
 		if (KeyDown.pressed()) {
 			camera.position.y += 10;
+			update_map = true;
 		}
 		
+		buffer_texture.draw(0, 0);
 		System::Sleep(20);
 	}
 	

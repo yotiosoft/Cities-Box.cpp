@@ -99,10 +99,25 @@
     <ClCompile Include="OtherFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IOfunctions.cpp">
+    <ClCompile Include="Addon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Addon.cpp">
+    <ClCompile Include="Specific.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -364,19 +379,31 @@
     <ClInclude Include="Header.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpecificHeader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Images.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OtherFunctions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOfunctions.hpp">
+    <ClInclude Include="Addon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Addon.hpp">
+    <ClInclude Include="Specific.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CityMap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartUp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

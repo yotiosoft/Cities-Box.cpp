@@ -2,4 +2,9 @@
 /lib
 /xcode/Cities-Box/DerivedData
 /vs/.vs
+<<<<<<< HEAD
+=======
+*.ilk
+*.pdb
+>>>>>>> windows
 *.res

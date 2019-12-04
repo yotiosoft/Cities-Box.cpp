@@ -7,35 +7,39 @@
 
 #include "Images.hpp"
 
-void Images::load(string file_path, string tag, int transparent_r, int transparent_g, int transparent_b) {
-	// ƒtƒ@ƒCƒ‹ˆê——‚ğæ“¾
-	vector<FileStruct> image_files = specific::getAllFilesName(file_path, "png");
-
-	// Šeƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
-	for (int i = 0; i < image_files.size(); i++) {
+void Images::load(string file_path, string tag, Color transparent) {
+	// ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã‚’å–å¾—
+	Array<FileStruct> image_files = specific::getAllFilesName(file_path, "png");
+	
+	// å„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
+	for (int i=0; i<image_files.size(); i++) {
 		Image image_temp(Unicode::Widen(image_files[i].file_path));
-
-		if (transparent_r >= 0 && transparent_g >= 0 && transparent_b >= 0) {
-			for (int h = 0; h < image_temp.height(); h++) {
-				for (int w = 0; w < image_temp.width(); w++) {
-					if (image_temp[w][h].r == transparent_r && image_temp[w][h].g == transparent_g && image_temp[w][h].b == transparent_b) {
-						image_temp[w][h].setA(0);		// ƒAƒ‹ƒtƒ@’l‚ğ0‚Éİ’è
+		
+		if (transparent.r >= 0 && transparent.g >= 0 && transparent.b >= 0) {
+			for (int h=0; h<image_temp.height(); h++) {
+				for (int w=0; w<image_temp.width(); w++) {
+					if (image_temp[h][w].r == transparent.r && image_temp[h][w].g == transparent.g && image_temp[h][w].b == transparent.b) {
+						image_temp[h][w].setA(0);		// ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’0ã«è¨­å®š
 					}
 				}
 			}
 		}
-
+		
 		ImageStruct new_image;
 		new_image.texture = Texture(image_temp);
 		new_image.file_path = file_path;
 		new_image.file_name = image_files[i].file_path;
 		new_image.tag = tag;
-
+		
 		images[tag][split(image_files[i].file_name, ".")[0]] = new_image;
 	}
 }
 
 void Images::load(string file_path, string tag) {
-	load(file_path, tag, -1, -1, -1);
+	Color none_clear;
+	none_clear.r = -1;
+	none_clear.g = -1;
+	none_clear.b = -1;
+	
+	load(file_path, tag, none_clear);
 }
-

@@ -8,10 +8,10 @@
 #include "Images.hpp"
 
 void Images::load(string file_path, string tag, Color transparent) {
-	// ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã‚’å–å¾—
+	// ƒtƒ@ƒCƒ‹ˆê——‚ğæ“¾
 	Array<FileStruct> image_files = specific::getAllFilesName(file_path, "png");
 	
-	// å„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
+	// Šeƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
 	for (int i=0; i<image_files.size(); i++) {
 		Image image_temp(Unicode::Widen(image_files[i].file_path));
 		
@@ -19,7 +19,7 @@ void Images::load(string file_path, string tag, Color transparent) {
 			for (int h=0; h<image_temp.height(); h++) {
 				for (int w=0; w<image_temp.width(); w++) {
 					if (image_temp[h][w].r == transparent.r && image_temp[h][w].g == transparent.g && image_temp[h][w].b == transparent.b) {
-						image_temp[h][w].setA(0);		// ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’0ã«è¨­å®š
+						image_temp[h][w].setA(0);		// ƒAƒ‹ƒtƒ@’l‚ğ0‚Éİ’è
 					}
 				}
 			}

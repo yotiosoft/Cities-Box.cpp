@@ -12,44 +12,44 @@ void Main() {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	/*---------------------------------------------
-	 				ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+	 				ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
 	 --------------------------------------------*/	
-	// ç”»åƒã®èª­ã¿è¾¼ã¿
+	// ‰æ‘œ‚Ì“Ç‚İ‚İ
 	Images images;
 	loadImages(images);
 	
-	// ãƒ•ã‚©ãƒ³ãƒˆã®å®£è¨€
+	// ƒtƒHƒ“ƒg‚ÌéŒ¾
 	Font font16(16);
 	
-	// ã‚¿ã‚¤ãƒˆãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢
+	// ƒ^ƒCƒgƒ‹ƒƒjƒ…[‰æ–Ê
 	if (!titleMenu(images, font16)) {
-		return;				// ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã§ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ãŸã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†
+		return;				// ƒ^ƒCƒgƒ‹‰æ–Ê‚ÅƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚½‚çƒvƒƒOƒ‰ƒ€I—¹
 	}
 	
 	CityMap map;
 	Array<FileStruct> maps_path = specific::getAllFilesName("./data/maps", "cbd");
 	map.load(maps_path[0]);
 	
-	// ã‚«ãƒ¡ãƒ©ã®åˆæœŸä½ç½®
+	// ƒJƒƒ‰‚Ì‰ŠúˆÊ’u
 	CameraStruct camera;
 	camera.position = PositionStruct{-Scene::Width()/2+64/2, -150};
 	
-	// ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®
+	// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u
 	CursorStruct cursor;
 	cursor.texture = &(images.images["pointer"]["blue"].texture);
 	
 	PositionStruct cursor_position, cursor_position_before;
 	
-	// æç”»å‡¦ç†
+	// •`‰æˆ—
 	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(50, 50, 50));
 	bool update_map = true, first_loop = true;
 	
-	// ã‚µãƒ–ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+	// ƒTƒuƒEƒBƒ“ƒhƒE
 	SubWindow sub_window(U"Test Window", &font16, SizeStruct{400, 200}, Color(Palette::White));
 	SubWindow sub_window2(U"Test Window2", &font16, SizeStruct{300, 150}, Color(Palette::White));
 	
 	while (System::Update()) {
-		// ã‚«ãƒ¡ãƒ©ã®æ“ä½œ
+		// ƒJƒƒ‰‚Ì‘€ì
 		if (KeyLeft.pressed()) {
 			camera.position.x -= 20;
 			update_map = true;
@@ -67,7 +67,7 @@ void Main() {
 			update_map = true;
 		}
 		
-		// ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’å–å¾—
+		// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğæ“¾
 		cursor_position = PositionStruct{Cursor::Pos().x, Cursor::Pos().y};
 		
 		if (update_map || (cursor_position.x != cursor_position_before.x && cursor_position.y != cursor_position_before.y)) {
@@ -80,8 +80,8 @@ void Main() {
 		
 		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
 		
-		// ãƒãƒƒãƒ—ã®æç”»
-		// ãƒãƒƒãƒ—ã‚’æ›´æ–°ã™ã‚‹å¿…è¦ãŒã‚ã‚‹å ´åˆã¯ãƒãƒƒãƒ•ã‚¡ã«æç”»ï¼ˆæ›´æ–°ï¼‰ã™ã‚‹
+		// ƒ}ƒbƒv‚Ì•`‰æ
+		// ƒ}ƒbƒv‚ğXV‚·‚é•K—v‚ª‚ ‚éê‡‚Íƒoƒbƒtƒ@‚É•`‰æiXVj‚·‚é
 		if (update_map) {
 			buffer_texture.clear(Color(50, 50, 50));
 			
@@ -91,15 +91,15 @@ void Main() {
 			if (first_loop) {
 				first_loop = false;
 				
-				// ã‚µãƒ–ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æç”»
+				// ƒTƒuƒEƒBƒ“ƒhƒE‚Ì•`‰æ
 				sub_window.getRenderTexture()->clear(Color(Palette::White));
 				ScopedRenderTarget2D target(*sub_window.getRenderTexture());
-				font16(U"ãƒ†ã‚¹ãƒˆã§ã™ã¨").draw(0, 0, Color(Palette::Black));
+				font16(U"ƒeƒXƒg‚Å‚·‚Æ").draw(0, 0, Color(Palette::Black));
 				sub_window.update();
 				
 				sub_window2.getRenderTexture()->clear(Color(Palette::White));
 				target = ScopedRenderTarget2D(*sub_window2.getRenderTexture());
-				font16(U"ãƒ†ã‚¹ãƒˆã§ã™ã‚ˆ").draw(0, 0, Color(Palette::Black));
+				font16(U"ƒeƒXƒg‚Å‚·‚æ").draw(0, 0, Color(Palette::Black));
 				sub_window2.update();
 			}
 			else {
@@ -107,7 +107,7 @@ void Main() {
 			}
 		}
 		
-		// ãƒãƒƒãƒ•ã‚¡ã‚’æç”»
+		// ƒoƒbƒtƒ@‚ğ•`‰æ
 		buffer_texture.draw(0, 0);
 		sub_window.draw();
 		sub_window2.draw();

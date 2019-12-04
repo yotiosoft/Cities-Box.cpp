@@ -12,18 +12,18 @@
 
 class Button {
 public:
-	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-	Button(ImageStruct& image);														// ç”»åƒã‹ã‚‰
-	Button(ImageStruct& image, int new_size);										// ç”»åƒã‹ã‚‰
-	Button(ImageStruct& image, int new_size, String new_label, Font& new_font);		// ç”»åƒã‹ã‚‰
-	Button(IconFont::ID icon_id);													// ãƒ­ã‚´ãƒ•ã‚©ãƒ³ãƒˆã‹ã‚‰
-	Button(IconFont::ID icon_id, int new_size);										// ãƒ­ã‚´ãƒ•ã‚©ãƒ³ãƒˆã‹ã‚‰
-	Button(IconFont::ID icon_id, int new_size, String new_label, Font& new_font);	// ãƒ­ã‚´ãƒ•ã‚©ãƒ³ãƒˆã‹ã‚‰
+	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	Button(ImageStruct& image);														// ‰æ‘œ‚©‚ç
+	Button(ImageStruct& image, int new_size);										// ‰æ‘œ‚©‚ç
+	Button(ImageStruct& image, int new_size, String new_label, Font& new_font);		// ‰æ‘œ‚©‚ç
+	Button(IconFont::ID icon_id);													// ƒƒSƒtƒHƒ“ƒg‚©‚ç
+	Button(IconFont::ID icon_id, int new_size);										// ƒƒSƒtƒHƒ“ƒg‚©‚ç
+	Button(IconFont::ID icon_id, int new_size, String new_label, Font& new_font);	// ƒƒSƒtƒHƒ“ƒg‚©‚ç
 	
-	// é…ç½®
+	// ”z’u
 	void put(PositionStruct new_position);
 	
-	// æŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
+	// ‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
 	bool push();
 	
 private:

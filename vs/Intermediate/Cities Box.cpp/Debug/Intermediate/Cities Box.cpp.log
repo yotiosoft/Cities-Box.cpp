@@ -1,14 +1,6 @@
-﻿  Main.cpp
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Main.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Images.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+﻿  TitleMenu.cpp
 F:\git\Cities Box.cpp\vs\Cities Box.cpp\Images.hpp(17,23): warning C4099: 'Images': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。
 F:\git\Cities Box.cpp\vs\Cities Box.cpp\Images.hpp(17): message : 'Images' の宣言を確認してください
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Button.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Addon.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\CityMap.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Main.cpp(96,63): warning C4456: 'target' を宣言すると、以前のローカル宣言が隠蔽されます
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Main.cpp(88,25): message : 'target' の宣言を確認してください
-F:\git\Cities Box.cpp\vs\Cities Box.cpp\Main.cpp(73): warning C4701: 初期化されていない可能性のあるローカル変数 'cursor_position_before' が使用されます
      ライブラリ F:\git\Cities Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).lib とオブジェクト F:\git\Cities Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exp を作成中
   Cities Box.cpp.vcxproj -> F:\git\Cities Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe
   F:\git\Cities Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe

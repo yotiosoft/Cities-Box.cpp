@@ -110,7 +110,7 @@ public:
 	
 	// マップの描画
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
-	void draw(CameraStruct camera);
+	void draw(CameraStruct camera, CursorStruct& cursor);
 	
 	// マップサイズの取得
 	SizeStruct getMapSize();

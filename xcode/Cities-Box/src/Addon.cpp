@@ -211,11 +211,15 @@ string Addon::getDirectionName(int type_num, int direction_num) {
 	return directions_name[type_num][direction_num];
 }
 
-void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
+void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count,CoordinateStruct coordinate) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	
+	if ((coordinate.x == 28 || coordinate.x == 29) && coordinate.y == 49) {
+		cout << coordinate.x << "," << coordinate.y << " :  " << tiles_count.x << "," << tiles_count.y << endl;
+	}
+	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height;// + (use_tiles.x - 1 - tiles_count.x) * CHIP_SIZE/8;
+	position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x);
 	
 	unsigned short int top_left_x = direction_temp->top_left_x;
 	top_left_x += CHIP_SIZE/2 * tiles_count.x;
@@ -226,5 +230,7 @@ void Addon::draw(string type_name, string direction_name, PositionStruct positio
 	unsigned short int size_width = direction_temp->size_width;
 	size_width = CHIP_SIZE;
 	
-	types[type_name].texture(top_left_x, top_left_y, size_width, direction_temp->size_height).draw(position.x, position.y);
+	unsigned short int size_height = direction_temp->size_height;
+	
+	types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
 }

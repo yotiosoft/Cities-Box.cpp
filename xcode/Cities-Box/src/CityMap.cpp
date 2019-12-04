@@ -530,16 +530,23 @@ void CityMap::loadAddons(string addon_set_name) {
 
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
-	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count, coordinate);
 }
 
-void CityMap::draw(CameraStruct camera) {
+void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
+	// マップを描画
 	for (short int y=getDrawArea(camera).first.y; y<getDrawArea(camera).second.y; y++) {
 		for (short int x=getDrawArea(camera).first.x; x<getDrawArea(camera).second.x; x++) {
 			PositionStruct draw_pos = coordinateToPosition(CoordinateStruct{x, y}, camera);
 			
+			// 一マス分描画
 			if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
 				drawSquare(CoordinateStruct{x, y}, camera);
+			}
+			
+			// カーソルの描画
+			if (x == cursor.coordinate.x && y == cursor.coordinate.y) {
+				cursor.texture->draw(cursor.position.x, cursor.position.y, Alpha(128));
 			}
 		}
 	}
@@ -569,8 +576,8 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 	int temp_my = position.y+camera.position.y;
 	
 	CoordinateStruct ret;
-	ret.x = (temp_my + temp_mx/2) / (CHIP_SIZE/2) - 1;
-	ret.y = (-temp_mx + temp_my*2) / CHIP_SIZE - 1;
+	ret.x = (temp_my + temp_mx/2) / (CHIP_SIZE/2);
+	ret.y = (-temp_mx + temp_my*2) / CHIP_SIZE;
 	
 	if (ret.x < 0) {
 		ret.x = 0;

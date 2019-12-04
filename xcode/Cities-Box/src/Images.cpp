@@ -43,4 +43,3 @@ void Images::load(string file_path, string tag) {
 	
 	load(file_path, tag, none_clear);
 }
-

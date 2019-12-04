@@ -33,30 +33,17 @@ int Main() {
 	CameraStruct camera;
 	camera.position = PositionStruct{-Scene::Width()/2+64/2, -150};
 	
-	DynamicTexture dtexture(Scene::Width(), Scene::Height());
+	// カーソルの位置
+	CursorStruct cursor;
+	cursor.texture = &(images.images["pointer"]["blue"].texture);
 	
-	Image buffer;
+	PositionStruct cursor_position, cursor_position_before;
 	
 	// 描画処理
 	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(50, 50, 50));
 	bool update_map = true, first_loop = true;
 	
 	while (System::Update()) {
-		// マップの描画
-		if (update_map) {
-			buffer_texture.clear(Color(50, 50, 50));
-			
-			ScopedRenderTarget2D target(buffer_texture);
-			map.draw(camera);
-			
-			if (first_loop) {
-				first_loop = false;
-			}
-			else {
-				update_map = false;
-			}
-		}
-		
 		// カメラの操作
 		if (KeyLeft.pressed()) {
 			camera.position.x -= 20;
@@ -75,7 +62,38 @@ int Main() {
 			update_map = true;
 		}
 		
+		// カーソルの位置を取得
+		cursor_position = PositionStruct{Cursor::Pos().x, Cursor::Pos().y};
+		
+		if (update_map || (cursor_position.x != cursor_position_before.x && cursor_position.y != cursor_position_before.y)) {
+			cursor.coordinate = map.positionToCoordinate(cursor_position, camera);
+			cursor.position = map.coordinateToPosition(cursor.coordinate, camera);
+			
+			cursor_position_before = cursor_position;
+			update_map = true;
+		}
+		
+		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+		
+		// マップの描画
+		// マップを更新する必要がある場合はバッファに描画（更新）する
+		if (update_map) {
+			buffer_texture.clear(Color(50, 50, 50));
+			
+			ScopedRenderTarget2D target(buffer_texture);
+			map.draw(camera, cursor);
+			
+			if (first_loop) {
+				first_loop = false;
+			}
+			else {
+				update_map = false;
+			}
+		}
+		
+		// バッファを描画
 		buffer_texture.draw(0, 0);
+		
 		System::Sleep(20);
 	}
 	

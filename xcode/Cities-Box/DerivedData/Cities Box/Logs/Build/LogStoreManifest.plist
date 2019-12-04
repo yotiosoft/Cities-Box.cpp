@@ -326,6 +326,38 @@
 			<key>uniqueIdentifier</key>
 			<string>0970FDBF-5E71-410A-A3C5-84CE9DE252F8</string>
 		</dict>
+		<key>0EDB41A9-64CC-4C15-BEAF-E6C705F45E0F</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>0EDB41A9-64CC-4C15-BEAF-E6C705F45E0F.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151598.54650998</real>
+			<key>timeStoppedRecording</key>
+			<real>597151603.82326305</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>0EDB41A9-64CC-4C15-BEAF-E6C705F45E0F</string>
+		</dict>
 		<key>1077D017-99C0-47CB-8E2B-221A7A24E1D4</key>
 		<dict>
 			<key>className</key>
@@ -422,6 +454,38 @@
 			<key>uniqueIdentifier</key>
 			<string>190AC9A9-DFD4-49E0-932D-66C3B70183AB</string>
 		</dict>
+		<key>1A1AF3EA-69BD-4294-B9AE-40D624B142C6</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>1A1AF3EA-69BD-4294-B9AE-40D624B142C6.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149558.95852304</real>
+			<key>timeStoppedRecording</key>
+			<real>597149563.53328896</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>1A1AF3EA-69BD-4294-B9AE-40D624B142C6</string>
+		</dict>
 		<key>1A3C2615-CFFB-4B63-AE45-178E5EBF7E99</key>
 		<dict>
 			<key>className</key>
@@ -453,6 +517,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>1A3C2615-CFFB-4B63-AE45-178E5EBF7E99</string>
+		</dict>
+		<key>1ADDC8F9-9CD3-4B32-9085-CAFA6984642D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>1ADDC8F9-9CD3-4B32-9085-CAFA6984642D.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151388.98435199</real>
+			<key>timeStoppedRecording</key>
+			<real>597151401.707376</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>1ADDC8F9-9CD3-4B32-9085-CAFA6984642D</string>
 		</dict>
 		<key>1F6AD9AA-0CC3-4A16-A358-21D9D994F735</key>
 		<dict>
@@ -486,6 +582,38 @@
 			<key>uniqueIdentifier</key>
 			<string>1F6AD9AA-0CC3-4A16-A358-21D9D994F735</string>
 		</dict>
+		<key>20859A91-E42E-48DA-A812-3B2048D8D89B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>20859A91-E42E-48DA-A812-3B2048D8D89B.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153052.71624994</real>
+			<key>timeStoppedRecording</key>
+			<real>597153060.69532704</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>20859A91-E42E-48DA-A812-3B2048D8D89B</string>
+		</dict>
 		<key>20D3F6BC-2B9C-4144-AE72-731DD8304203</key>
 		<dict>
 			<key>className</key>
@@ -517,6 +645,70 @@
 			<string>Build Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>20D3F6BC-2B9C-4144-AE72-731DD8304203</string>
+		</dict>
+		<key>21363107-998E-4069-9005-8BBE8ED17ED3</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>21363107-998E-4069-9005-8BBE8ED17ED3.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152574.198825</real>
+			<key>timeStoppedRecording</key>
+			<real>597152578.80834103</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>21363107-998E-4069-9005-8BBE8ED17ED3</string>
+		</dict>
+		<key>223D6B78-E796-41A4-8E31-E625A7E15F29</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>223D6B78-E796-41A4-8E31-E625A7E15F29.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149525.05664897</real>
+			<key>timeStoppedRecording</key>
+			<real>597149529.68928695</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>223D6B78-E796-41A4-8E31-E625A7E15F29</string>
 		</dict>
 		<key>278B634B-0587-4264-8C8A-26EF33CECF7A</key>
 		<dict>
@@ -550,6 +742,38 @@
 			<key>uniqueIdentifier</key>
 			<string>278B634B-0587-4264-8C8A-26EF33CECF7A</string>
 		</dict>
+		<key>2A49223E-7510-45F5-BC68-CDEFD94C5F5E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2A49223E-7510-45F5-BC68-CDEFD94C5F5E.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151651.23240197</real>
+			<key>timeStoppedRecording</key>
+			<real>597151653.84007597</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>2A49223E-7510-45F5-BC68-CDEFD94C5F5E</string>
+		</dict>
 		<key>2B144455-1C4E-481B-B1AB-7DD87C0E005E</key>
 		<dict>
 			<key>className</key>
@@ -582,6 +806,38 @@
 			<key>uniqueIdentifier</key>
 			<string>2B144455-1C4E-481B-B1AB-7DD87C0E005E</string>
 		</dict>
+		<key>2B99D28F-BCB7-4006-9854-B81EB46B8151</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2B99D28F-BCB7-4006-9854-B81EB46B8151.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152021.98108494</real>
+			<key>timeStoppedRecording</key>
+			<real>597152028.87620604</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>2B99D28F-BCB7-4006-9854-B81EB46B8151</string>
+		</dict>
 		<key>2C146127-75D8-4373-A95F-F41A257F4C54</key>
 		<dict>
 			<key>className</key>
@@ -613,6 +869,70 @@
 			<string>Build Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>2C146127-75D8-4373-A95F-F41A257F4C54</string>
+		</dict>
+		<key>2C619179-B591-4444-AFF8-00B48882DF97</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2C619179-B591-4444-AFF8-00B48882DF97.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149465.45489395</real>
+			<key>timeStoppedRecording</key>
+			<real>597149473.31852496</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>2C619179-B591-4444-AFF8-00B48882DF97</string>
+		</dict>
+		<key>2E97DBE9-EA49-4BE4-A495-3690732818EE</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2E97DBE9-EA49-4BE4-A495-3690732818EE.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153285.28788102</real>
+			<key>timeStoppedRecording</key>
+			<real>597153289.64822996</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>2E97DBE9-EA49-4BE4-A495-3690732818EE</string>
 		</dict>
 		<key>3787C9D4-D85D-4448-BC0D-36906D69C909</key>
 		<dict>
@@ -998,6 +1318,102 @@
 			<key>uniqueIdentifier</key>
 			<string>516413DD-25E0-4334-8149-FA449AA2CFDC</string>
 		</dict>
+		<key>5574016B-F8BF-44C7-BB03-BDB7D8F86C13</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5574016B-F8BF-44C7-BB03-BDB7D8F86C13.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149042.00562</real>
+			<key>timeStoppedRecording</key>
+			<real>597149047.05471301</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>5574016B-F8BF-44C7-BB03-BDB7D8F86C13</string>
+		</dict>
+		<key>56E6CD3F-8751-4506-99AE-7D1DB27C54CC</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>56E6CD3F-8751-4506-99AE-7D1DB27C54CC.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152303.21293402</real>
+			<key>timeStoppedRecording</key>
+			<real>597152308.76208305</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>56E6CD3F-8751-4506-99AE-7D1DB27C54CC</string>
+		</dict>
+		<key>58671F4D-E87D-4A45-BB38-0ECB06D40434</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>58671F4D-E87D-4A45-BB38-0ECB06D40434.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151444.84137106</real>
+			<key>timeStoppedRecording</key>
+			<real>597151449.87451398</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>58671F4D-E87D-4A45-BB38-0ECB06D40434</string>
+		</dict>
 		<key>588F3A94-C12C-4977-B345-F2C19725F1AB</key>
 		<dict>
 			<key>className</key>
@@ -1062,6 +1478,38 @@
 			<key>uniqueIdentifier</key>
 			<string>5905D608-A727-4AF9-847C-E7378BCC391A</string>
 		</dict>
+		<key>598DCC80-9C07-4FC3-8C22-A2AEFE0F5784</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>598DCC80-9C07-4FC3-8C22-A2AEFE0F5784.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151661.01868498</real>
+			<key>timeStoppedRecording</key>
+			<real>597151668.45467806</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>598DCC80-9C07-4FC3-8C22-A2AEFE0F5784</string>
+		</dict>
 		<key>5B409FC0-48F5-4636-AE78-5E7C559DB631</key>
 		<dict>
 			<key>className</key>
@@ -1094,6 +1542,38 @@
 			<key>uniqueIdentifier</key>
 			<string>5B409FC0-48F5-4636-AE78-5E7C559DB631</string>
 		</dict>
+		<key>5C7EEA06-9A0A-4F5E-A0DD-C78171A02D8B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5C7EEA06-9A0A-4F5E-A0DD-C78171A02D8B.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152470.49969196</real>
+			<key>timeStoppedRecording</key>
+			<real>597152475.12453401</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>5C7EEA06-9A0A-4F5E-A0DD-C78171A02D8B</string>
+		</dict>
 		<key>5D765406-AD01-42C7-B1CE-34B41DBF6D95</key>
 		<dict>
 			<key>className</key>
@@ -1125,6 +1605,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>5D765406-AD01-42C7-B1CE-34B41DBF6D95</string>
+		</dict>
+		<key>5FB051BA-30DB-4520-B1A3-4FD31B3F409B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5FB051BA-30DB-4520-B1A3-4FD31B3F409B.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153396.01221395</real>
+			<key>timeStoppedRecording</key>
+			<real>597153400.95832205</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>5FB051BA-30DB-4520-B1A3-4FD31B3F409B</string>
 		</dict>
 		<key>63CE5263-276C-42F1-96D4-C7831803B476</key>
 		<dict>
@@ -1190,6 +1702,102 @@
 			<key>uniqueIdentifier</key>
 			<string>6748F2CF-1C05-478E-B48A-F3B9A0954A26</string>
 		</dict>
+		<key>6A541AC2-E378-4350-A5F3-DC0378630158</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6A541AC2-E378-4350-A5F3-DC0378630158.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152071.10754001</real>
+			<key>timeStoppedRecording</key>
+			<real>597152075.63686395</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>6A541AC2-E378-4350-A5F3-DC0378630158</string>
+		</dict>
+		<key>6BA768B5-CDD0-4964-B652-24EC752DA5C1</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6BA768B5-CDD0-4964-B652-24EC752DA5C1.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151497.60250294</real>
+			<key>timeStoppedRecording</key>
+			<real>597151503.04237604</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>6BA768B5-CDD0-4964-B652-24EC752DA5C1</string>
+		</dict>
+		<key>6C96212E-EA54-4190-8553-8A287D38D132</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6C96212E-EA54-4190-8553-8A287D38D132.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153484.31419098</real>
+			<key>timeStoppedRecording</key>
+			<real>597153488.65931904</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>6C96212E-EA54-4190-8553-8A287D38D132</string>
+		</dict>
 		<key>6D1E7517-0FCC-41DD-B37C-FEFE3CE207B0</key>
 		<dict>
 			<key>className</key>
@@ -1221,6 +1829,70 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>6D1E7517-0FCC-41DD-B37C-FEFE3CE207B0</string>
+		</dict>
+		<key>6D2ED8ED-25C1-4393-9F08-C61EE6E89C41</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6D2ED8ED-25C1-4393-9F08-C61EE6E89C41.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152800.83374798</real>
+			<key>timeStoppedRecording</key>
+			<real>597152808.97628403</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>6D2ED8ED-25C1-4393-9F08-C61EE6E89C41</string>
+		</dict>
+		<key>6FC3DEA5-99E9-4287-88B5-1CCDF0127525</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6FC3DEA5-99E9-4287-88B5-1CCDF0127525.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152357.87160003</real>
+			<key>timeStoppedRecording</key>
+			<real>597152362.63530195</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>6FC3DEA5-99E9-4287-88B5-1CCDF0127525</string>
 		</dict>
 		<key>702227F3-0E21-414F-9F01-44ED69E52377</key>
 		<dict>
@@ -1286,6 +1958,38 @@
 			<key>uniqueIdentifier</key>
 			<string>7064DB95-CD94-45FA-8D44-03D9E37A22D3</string>
 		</dict>
+		<key>708E2865-C878-4E41-ACCA-A664693602D5</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>708E2865-C878-4E41-ACCA-A664693602D5.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151430.16470098</real>
+			<key>timeStoppedRecording</key>
+			<real>597151432.96877599</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>708E2865-C878-4E41-ACCA-A664693602D5</string>
+		</dict>
 		<key>73ADB12C-EA8B-4372-858B-D05635503CF3</key>
 		<dict>
 			<key>className</key>
@@ -1317,6 +2021,70 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>73ADB12C-EA8B-4372-858B-D05635503CF3</string>
+		</dict>
+		<key>744CB31A-3BD7-4894-9901-F543B4738EAA</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>744CB31A-3BD7-4894-9901-F543B4738EAA.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153451.197263</real>
+			<key>timeStoppedRecording</key>
+			<real>597153455.34549701</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>744CB31A-3BD7-4894-9901-F543B4738EAA</string>
+		</dict>
+		<key>7683FA84-7A4B-43D4-B55C-E7A6D584592A</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>7683FA84-7A4B-43D4-B55C-E7A6D584592A.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149134.14152598</real>
+			<key>timeStoppedRecording</key>
+			<real>597149139.44861901</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>7683FA84-7A4B-43D4-B55C-E7A6D584592A</string>
 		</dict>
 		<key>7C1B4C86-F9FF-4527-974E-E0456A80DDAA</key>
 		<dict>
@@ -1413,6 +2181,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>8409EFB4-2787-444E-B685-CA721B7536FB</string>
+		</dict>
+		<key>8B5CDC2B-64F4-4E52-B41D-B7C2DDD4FAF4</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>8B5CDC2B-64F4-4E52-B41D-B7C2DDD4FAF4.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149508.00824904</real>
+			<key>timeStoppedRecording</key>
+			<real>597149512.41946101</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>8B5CDC2B-64F4-4E52-B41D-B7C2DDD4FAF4</string>
 		</dict>
 		<key>8D707E62-256E-4B4F-B3C2-E690BBC90506</key>
 		<dict>
@@ -1638,6 +2438,38 @@
 			<key>uniqueIdentifier</key>
 			<string>96B7EFA6-0C6C-4FB3-AA32-FEB66C6B5DC8</string>
 		</dict>
+		<key>97F52074-0B39-44AF-A66A-1A332FF4F6EF</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>97F52074-0B39-44AF-A66A-1A332FF4F6EF.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153174.16294098</real>
+			<key>timeStoppedRecording</key>
+			<real>597153178.25738394</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>97F52074-0B39-44AF-A66A-1A332FF4F6EF</string>
+		</dict>
 		<key>9B57E8C4-DD2D-48D4-A446-38FB32EA0ED2</key>
 		<dict>
 			<key>className</key>
@@ -1669,6 +2501,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>9B57E8C4-DD2D-48D4-A446-38FB32EA0ED2</string>
+		</dict>
+		<key>9B95A2B2-A692-46DE-B624-0711A1C26521</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>9B95A2B2-A692-46DE-B624-0711A1C26521.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597152145.30166197</real>
+			<key>timeStoppedRecording</key>
+			<real>597152149.787202</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>9B95A2B2-A692-46DE-B624-0711A1C26521</string>
 		</dict>
 		<key>A64B3274-DA87-46D4-80DA-F8C8B19C94D4</key>
 		<dict>
@@ -1798,6 +2662,38 @@
 			<key>uniqueIdentifier</key>
 			<string>B483AD0E-66A9-4059-96DF-C13E7ED187F4</string>
 		</dict>
+		<key>B78CBEC4-891E-4427-92D4-640F79604F84</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>B78CBEC4-891E-4427-92D4-640F79604F84.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153250.56378305</real>
+			<key>timeStoppedRecording</key>
+			<real>597153254.77896905</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>B78CBEC4-891E-4427-92D4-640F79604F84</string>
+		</dict>
 		<key>B94CF352-9ADC-42F7-BB00-8E970E1ECF84</key>
 		<dict>
 			<key>className</key>
@@ -1925,6 +2821,70 @@
 			<string>Build Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>BCD86A3F-23CF-47B3-9F83-DDD09D022A1E</string>
+		</dict>
+		<key>C27BBF32-6152-4D29-8E06-E2E68F49E5BA</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>C27BBF32-6152-4D29-8E06-E2E68F49E5BA.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597151865.22323895</real>
+			<key>timeStoppedRecording</key>
+			<real>597151869.40900803</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>C27BBF32-6152-4D29-8E06-E2E68F49E5BA</string>
+		</dict>
+		<key>C58C05AD-A96A-4442-B021-B7E3BB19444F</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>C58C05AD-A96A-4442-B021-B7E3BB19444F.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597150646.48807395</real>
+			<key>timeStoppedRecording</key>
+			<real>597150664.02988994</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>C58C05AD-A96A-4442-B021-B7E3BB19444F</string>
 		</dict>
 		<key>C5ADD451-F730-4C66-AC4D-0AAA783248CA</key>
 		<dict>
@@ -2118,6 +3078,38 @@
 			<key>uniqueIdentifier</key>
 			<string>CE5E009F-1884-4DB0-979C-CEE2FB507938</string>
 		</dict>
+		<key>D1D2A430-B799-4206-9D17-2684F1F3BA9B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>D1D2A430-B799-4206-9D17-2684F1F3BA9B.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153367.28246295</real>
+			<key>timeStoppedRecording</key>
+			<real>597153370.21200502</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>D1D2A430-B799-4206-9D17-2684F1F3BA9B</string>
+		</dict>
 		<key>D5212760-1FD3-4876-BD68-BBE298BC8385</key>
 		<dict>
 			<key>className</key>
@@ -2213,6 +3205,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>D9A92CC0-7DD5-4F92-B771-AE5DF6799170</string>
+		</dict>
+		<key>DBF34318-738C-44CF-BDFD-7E1757DB9A31</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>DBF34318-738C-44CF-BDFD-7E1757DB9A31.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597150633.36940503</real>
+			<key>timeStoppedRecording</key>
+			<real>597150635.31215596</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>DBF34318-738C-44CF-BDFD-7E1757DB9A31</string>
 		</dict>
 		<key>DD75C9A2-8CE4-4AD6-984B-FD33AAE305B6</key>
 		<dict>
@@ -2310,6 +3334,38 @@
 			<key>uniqueIdentifier</key>
 			<string>E685FDEF-CE58-498C-B995-A4E15978CBD3</string>
 		</dict>
+		<key>EAA0D194-8C3D-470E-8D23-8812B066E876</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>EAA0D194-8C3D-470E-8D23-8812B066E876.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597149600.57355797</real>
+			<key>timeStoppedRecording</key>
+			<real>597149604.63559198</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>EAA0D194-8C3D-470E-8D23-8812B066E876</string>
+		</dict>
 		<key>EED3725E-506B-43FF-9242-E77B03048282</key>
 		<dict>
 			<key>className</key>
@@ -2373,6 +3429,38 @@
 			<string>Build empty</string>
 			<key>uniqueIdentifier</key>
 			<string>F06E0141-AE05-4A91-B263-5E3805E57E02</string>
+		</dict>
+		<key>F0A89685-F327-4E1D-82EB-37191E47685D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F0A89685-F327-4E1D-82EB-37191E47685D.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597153119.61872196</real>
+			<key>timeStoppedRecording</key>
+			<real>597153123.78941202</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>F0A89685-F327-4E1D-82EB-37191E47685D</string>
 		</dict>
 		<key>F3A8EDC2-BCDC-461B-9C48-B9CAB27B6DC0</key>
 		<dict>

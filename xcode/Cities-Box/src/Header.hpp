@@ -91,3 +91,9 @@ typedef struct FileStruct {
 	string folder_name;
 	string file_name;
 } FileStruct;
+
+typedef struct CursorStruct {
+	Texture* texture;
+	CoordinateStruct coordinate;
+	PositionStruct position;
+} CursorStruct;

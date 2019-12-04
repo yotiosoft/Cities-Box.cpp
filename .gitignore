@@ -2,3 +2,5 @@
 /lib
 /xcode/Cities-Box/DerivedData
 /vs/.vs
+*.ilk
+*.pdb

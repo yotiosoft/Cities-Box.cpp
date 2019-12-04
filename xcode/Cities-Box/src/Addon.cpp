@@ -214,7 +214,7 @@ string Addon::getDirectionName(int type_num, int direction_num) {
 void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count,CoordinateStruct coordinate) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	
-	if ((coordinate.x == 28 || coordinate.x == 29) && coordinate.y == 49) {
+	if ((coordinate.x == 23 || coordinate.x == 23) && (coordinate.y == 54 || coordinate.y == 55)) {
 		cout << coordinate.x << "," << coordinate.y << " :  " << tiles_count.x << "," << tiles_count.y << endl;
 	}
 	

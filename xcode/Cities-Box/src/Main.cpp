@@ -5,6 +5,7 @@
 #include "Images.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
+#include "SubWindow.hpp"
 
 int Main() {
 	Window::SetTitle(U"Cities Box.cpp");
@@ -42,6 +43,10 @@ int Main() {
 	// 描画処理
 	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(50, 50, 50));
 	bool update_map = true, first_loop = true;
+	
+	// サブウィンドウ
+	SubWindow sub_window(U"Test Window", &font16, SizeStruct{400, 200}, Color(Palette::White));
+	SubWindow sub_window2(U"Test Window2", &font16, SizeStruct{300, 150}, Color(Palette::White));
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -85,6 +90,17 @@ int Main() {
 			
 			if (first_loop) {
 				first_loop = false;
+				
+				// サブウィンドウの描画
+				sub_window.getRenderTexture()->clear(Color(Palette::White));
+				ScopedRenderTarget2D target(*sub_window.getRenderTexture());
+				font16(U"テストですと").draw(0, 0, Color(Palette::Black));
+				sub_window.update();
+				
+				sub_window2.getRenderTexture()->clear(Color(Palette::White));
+				target = ScopedRenderTarget2D(*sub_window2.getRenderTexture());
+				font16(U"テストですよ").draw(0, 0, Color(Palette::Black));
+				sub_window2.update();
 			}
 			else {
 				update_map = false;
@@ -93,6 +109,8 @@ int Main() {
 		
 		// バッファを描画
 		buffer_texture.draw(0, 0);
+		sub_window.draw();
+		sub_window2.draw();
 		
 		System::Sleep(20);
 	}

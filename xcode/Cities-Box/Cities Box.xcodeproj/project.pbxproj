@@ -46,6 +46,7 @@
 		4B75113223966B3A008DFD03 /* StartUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112823966B39008DFD03 /* StartUp.cpp */; };
 		4B75113323966B3A008DFD03 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112A23966B39008DFD03 /* Addon.cpp */; };
 		4B75113423966B3A008DFD03 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112B23966B39008DFD03 /* Specific.cpp */; };
+		4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7511362397DF81008DFD03 /* SubWindow.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,8 @@
 		4B75112923966B39008DFD03 /* Images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Images.hpp; sourceTree = "<group>"; };
 		4B75112A23966B39008DFD03 /* Addon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Addon.cpp; sourceTree = "<group>"; };
 		4B75112B23966B39008DFD03 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
+		4B7511362397DF81008DFD03 /* SubWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubWindow.cpp; sourceTree = "<group>"; };
+		4B7511372397DF81008DFD03 /* SubWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubWindow.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 				4B75111C23966B37008DFD03 /* Specific.hpp */,
 				4B75112823966B39008DFD03 /* StartUp.cpp */,
 				4B75111A23966B37008DFD03 /* StartUp.hpp */,
+				4B7511362397DF81008DFD03 /* SubWindow.cpp */,
+				4B7511372397DF81008DFD03 /* SubWindow.hpp */,
 				4B75111D23966B37008DFD03 /* TitleMenu.cpp */,
 				4B75112123966B38008DFD03 /* TitleMenu.hpp */,
 			);
@@ -288,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */,
 				4B75113323966B3A008DFD03 /* Addon.cpp in Sources */,
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,

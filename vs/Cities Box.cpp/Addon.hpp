@@ -13,97 +13,97 @@
 typedef struct AddonDirectionStruct {
 	string direction;
 	
-	int size_width;					// ç”»åƒã®æ¨ªæ–¹å‘ã®ã‚µã‚¤ã‚º
-	int size_height;				// ç”»åƒã®ç¸¦æ–¹å‘ã®ã‚µã‚¤ã‚º
-	int chip_x;						// ã‚¢ãƒ‰ã‚ªãƒ³ãŒå ã‚ã‚‹æ¨ªæ–¹å‘ã®ãƒã‚¹ã®æ•°
-	int chip_y;						// ã‚¢ãƒ‰ã‚ªãƒ³ãŒå ã‚ã‚‹ç¸¦æ–¹å‘ã®ãƒã‚¹ã®æ•°
+	int size_width;					// ‰æ‘œ‚Ì‰¡•ûŒü‚ÌƒTƒCƒY
+	int size_height;				// ‰æ‘œ‚Ìc•ûŒü‚ÌƒTƒCƒY
+	int chip_x;						// ƒAƒhƒIƒ“‚ªè‚ß‚é‰¡•ûŒü‚Ìƒ}ƒX‚Ì”
+	int chip_y;						// ƒAƒhƒIƒ“‚ªè‚ß‚éc•ûŒü‚Ìƒ}ƒX‚Ì”
 	
-	int top_left_x;					// å·¦ä¸Šã®xåº§æ¨™
-	int top_left_y;					// å·¦ä¸Šã®yåº§æ¨™
-	int bottom_right_x;				// å³ä¸‹ã®xåº§æ¨™
-	int bottom_right_y;				// å³ä¸‹ã®yåº§æ¨™
+	int top_left_x;					// ¶ã‚ÌxÀ•W
+	int top_left_y;					// ¶ã‚ÌyÀ•W
+	int bottom_right_x;				// ‰E‰º‚ÌxÀ•W
+	int bottom_right_y;				// ‰E‰º‚ÌyÀ•W
 } AddonDirectionStruct;
 
 typedef struct AddonTypeStruct {
 	string type;
 	
-	string image;					// ã‚¢ãƒ‰ã‚ªãƒ³ç”»åƒã®ãƒ‘ã‚¹
-	string night_mask;				// ãƒŠã‚¤ãƒˆãƒã‚¹ã‚¯ç”»åƒã®ãƒ‘ã‚¹
-	Array<string> direction;		// typeã«å«ã¾ã‚Œã‚‹æ–¹å‘
-	RGBstruct transparent_color;	// é€éè‰²ã®RGBå€¤
+	string image;					// ƒAƒhƒIƒ“‰æ‘œ‚ÌƒpƒX
+	string night_mask;				// ƒiƒCƒgƒ}ƒXƒN‰æ‘œ‚ÌƒpƒX
+	Array<string> direction;		// type‚ÉŠÜ‚Ü‚ê‚é•ûŒü
+	RGBstruct transparent_color;	// “§‰ßF‚ÌRGB’l
 	
-	map<string, AddonDirectionStruct> directions;	// typeã«å«ã¾ã‚Œã‚‹å„æ–¹å‘ã®æƒ…å ±
+	map<string, AddonDirectionStruct> directions;	// type‚ÉŠÜ‚Ü‚ê‚éŠe•ûŒü‚Ìî•ñ
 	
-	Texture texture;				// ã‚¢ãƒ‰ã‚ªãƒ³ç”»åƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	Texture texture;				// ƒAƒhƒIƒ“‰æ‘œ‚ÌƒeƒNƒXƒ`ƒƒ
 } AddonTypeStruct;
 
 class Addon {
 public:
 	Addon();
 	
-	// å†…å®¹ã®å¤‰æ›´
+	// “à—e‚Ì•ÏX
 	bool load(FileStruct file_path, string loading_addons_set_name);
 	
-	// åå‰ã®å–å¾—
-	string getName();		// åŸå
-	string getNameJP();		// æ—¥æœ¬èªå
+	// –¼‘O‚Ìæ“¾
+	string getName();		// Œ´–¼
+	string getNameJP();		// “ú–{Œê–¼
 	
-	// è£½ä½œè€…åã®å–å¾—
+	// »ìÒ–¼‚Ìæ“¾
 	string getAuthorName();
 	
-	// èª¬æ˜æ–‡ã®å–å¾—
+	// à–¾•¶‚Ìæ“¾
 	string getSummary();
 	
-	// Typeã®åå‰ã®å–å¾—
+	// Type‚Ì–¼‘O‚Ìæ“¾
 	string getTypeName(int type_num);
 	
-	// Directionã®åå‰ã®å–å¾—
+	// Direction‚Ì–¼‘O‚Ìæ“¾
 	string getDirectionName(int type_num, int direction_num);
 	
-	// ã‚¢ã‚¤ã‚³ãƒ³ã®ImageStructã®å–å¾—
+	// ƒAƒCƒRƒ“‚ÌImageStruct‚Ìæ“¾
 	ImageStruct getIconImageStruct();
 	
-	// ã‚¢ãƒ‰ã‚ªãƒ³ã‚’æç”»ã™ã‚‹
+	// ƒAƒhƒIƒ“‚ğ•`‰æ‚·‚é
 	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count, CoordinateStruct coordinate);
 	
 private:
-	// ã‚¢ãƒ‰ã‚ªãƒ³å
-	string addon_name;				// è‹±èªå
-	string addon_jp_name;			// æ—¥æœ¬èªå
+	// ƒAƒhƒIƒ“–¼
+	string addon_name;				// ‰pŒê–¼
+	string addon_jp_name;			// “ú–{Œê–¼
 	
-	// è£½ä½œè€…å
+	// »ìÒ–¼
 	string addon_author;
 	
-	// èª¬æ˜æ–‡
+	// à–¾•¶
 	string addon_summary;
 	
-	// æ‰€å±ã™ã‚‹ã‚¢ãƒ‰ã‚ªãƒ³ã‚»ãƒƒãƒˆã®åå‰ï¼ˆç©ºç™½ã¯Normalã¨ã¿ãªã™ï¼‰
+	// Š‘®‚·‚éƒAƒhƒIƒ“ƒZƒbƒg‚Ì–¼‘Oi‹ó”’‚ÍNormal‚Æ‚İ‚È‚·j
 	string belong_addons_set_name;
 	
-	// ã‚¢ãƒ‰ã‚ªãƒ³ã®ã‚¿ã‚¤ãƒ—
+	// ƒAƒhƒIƒ“‚Ìƒ^ƒCƒv
 	string addon_type;
 	
-	// ã‚¢ã‚¤ã‚³ãƒ³ç”»åƒã®ãƒ‘ã‚¹
+	// ƒAƒCƒRƒ“‰æ‘œ‚ÌƒpƒX
 	string addon_icon;
 	
-	// ä½¿ç”¨ã™ã‚‹type
+	// g—p‚·‚étype
 	Array<string> use_types;
 	
-	// ä½¿ç”¨ã™ã‚‹direction
+	// g—p‚·‚édirection
 	Array<Array<string>> directions_name;
 	
-	// åå®¹äººæ•°
+	// û—el”
 	int maxium_capacity;
 	
-	// åœ°ä¾¡
-	int land_price_influence;		// ä¸Šæ˜‡é¡
-	int land_price_influence_grid;	// åœ°ä¾¡ã®ä¸Šä¸‹ãŒå½±éŸ¿ã™ã‚‹ãƒã‚¹
+	// ’n‰¿
+	int land_price_influence;		// ã¸Šz
+	int land_price_influence_grid;	// ’n‰¿‚Ìã‰º‚ª‰e‹¿‚·‚éƒ}ƒX
 	
-	// å„typeã®æƒ…å ±
+	// Šetype‚Ìî•ñ
 	map<string, AddonTypeStruct> types;
 	
 	
-	// ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆé–¢æ•°
+	// ƒvƒ‰ƒCƒx[ƒgŠÖ”
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
 	bool getTypes(string str, string search_element_name, Array<string>& ret);

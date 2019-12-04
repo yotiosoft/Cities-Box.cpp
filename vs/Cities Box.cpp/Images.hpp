@@ -15,10 +15,10 @@
 #endif /* Images_hpp */
 
 typedef struct Images {
-	// 指定したパスから画像ファイルをすべて読み込み
+	// �w�肵���p�X����摜�t�@�C�������ׂēǂݍ���
 	void load(string file_path, string tag);
 	void load(string file_path, string tag, Color transparent);
 	
-	// 画像の格納する構造体の連想配列
+	// �摜�̊i�[����\���̘̂A�z�z��
 	map<string, map<string, ImageStruct>> images;
 } Images;

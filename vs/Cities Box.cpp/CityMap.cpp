@@ -50,7 +50,7 @@ bool CityMap::getTypes(string str, string search_element_name, Array<string>& re
 
 
 void CityMap::load(FileStruct map_file) {
-	// ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+	// ƒ}ƒbƒvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
 	ifstream ifs(map_file.file_path.c_str());
 	string str_temp;
 	
@@ -58,7 +58,7 @@ void CityMap::load(FileStruct map_file) {
 		cerr << "Failed to open file." << endl;
 	}
 	
-	// å„è¦ç´ ã®èª­ã¿å‡ºã—
+	// Še—v‘f‚Ì“Ç‚İo‚µ
 	string current_array_name = "";
 	Array<string> array_names =
 	{"name", "name2", "category", "category_2", "category_3", "obj_type", "obj_type2", "obj_dire", "obj_dire2",
@@ -75,12 +75,12 @@ void CityMap::load(FileStruct map_file) {
 	bool addon_loaded = false;
 	
 	while (getline(ifs, str_temp)) {
-		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã¯é™¤ã
+		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// ‰üsƒR[ƒh‚Íœ‚­
 		
 		getElement(str_temp, "Version", saved_version);
 		getElement(str_temp, "Addons_Set", addon_set);
 		
-		// ã‚¢ãƒ‰ã‚ªãƒ³èª­ã¿è¾¼ã¿
+		// ƒAƒhƒIƒ““Ç‚İ‚İ
 		if (!addon_loaded && addon_set.length() > 0) {
 			loadAddons(addon_set);
 			addon_loaded = true;
@@ -145,14 +145,14 @@ void CityMap::load(FileStruct map_file) {
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
 				
-				// ãƒãƒƒãƒ—ã«Addon_SetãŒå®šç¾©ã•ã‚Œã¦ã„ãªã„å ´åˆã¯Normalã¨ã¿ãªã—ã‚¢ãƒ‰ã‚ªãƒ³èª­ã¿è¾¼ã¿
+				// ƒ}ƒbƒv‚ÉAddon_Set‚ª’è‹`‚³‚ê‚Ä‚¢‚È‚¢ê‡‚ÍNormal‚Æ‚İ‚È‚µƒAƒhƒIƒ““Ç‚İ‚İ
 				if (!addon_loaded) {
 					loadAddons("");
 					addon_loaded = true;
 					addon_set = "Normal";
 				}
 				
-				// ã‚¢ãƒ‰ã‚ªãƒ³ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ç™»éŒ²
+				// ƒAƒhƒIƒ“‚Ìƒ|ƒCƒ“ƒ^‚ğ“o˜^
 				if (addons.find(squares[array_count][x].addon_name[0]) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[0]]);
 				}
@@ -529,22 +529,22 @@ void CityMap::loadAddons(string addon_set_name) {
 }
 
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
-	// æç”»ã™ã‚‹åº§æ¨™ã‚’ç®—å‡º
+	// •`‰æ‚·‚éÀ•W‚ğZo
 	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count, coordinate);
 }
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
-	// ãƒãƒƒãƒ—ã‚’æç”»
+	// ƒ}ƒbƒv‚ğ•`‰æ
 	for (short int y=getDrawArea(camera).first.y; y<getDrawArea(camera).second.y; y++) {
 		for (short int x=getDrawArea(camera).first.x; x<getDrawArea(camera).second.x; x++) {
 			PositionStruct draw_pos = coordinateToPosition(CoordinateStruct{x, y}, camera);
 			
-			// ä¸€ãƒã‚¹åˆ†æç”»
+			// ˆêƒ}ƒX•ª•`‰æ
 			if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
 				drawSquare(CoordinateStruct{x, y}, camera);
 			}
 			
-			// ã‚«ãƒ¼ã‚½ãƒ«ã®æç”»
+			// ƒJ[ƒ\ƒ‹‚Ì•`‰æ
 			if (x == cursor.coordinate.x && y == cursor.coordinate.y) {
 				cursor.texture->draw(cursor.position.x, cursor.position.y, Alpha(128));
 			}
@@ -557,12 +557,12 @@ SizeStruct CityMap::getMapSize() {
 }
 
 PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera) {
-	// ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ãŒãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ï¼ˆ64*mapsize.width/2-Scene::Width()/2, 0ï¼‰ã®ã¨ãã®æç”»ä½ç½®ã‚’ç®—å‡º
+	// ƒJƒƒ‰‚ÌÀ•W‚ªƒfƒtƒHƒ‹ƒg’li64*mapsize.width/2-Scene::Width()/2, 0j‚Ì‚Æ‚«‚Ì•`‰æˆÊ’u‚ğZo
 	CameraStruct default_camera;
 	default_camera.position = PositionStruct{0, 0};
 	default_camera.center = {0, 0};
 	
-	// åŸºæº–ç‚¹ã¨ãªã‚‹x:0, y:0ã®ãƒã‚¹ã®è¡¨ç¤ºä½ç½®ã‚’ç®—å‡ºã™ã‚‹
+	// Šî€“_‚Æ‚È‚éx:0, y:0‚Ìƒ}ƒX‚Ì•\¦ˆÊ’u‚ğZo‚·‚é
 	PositionStruct square_0x0_position = PositionStruct{default_camera.position.x - camera.position.x,
 		default_camera.position.y - camera.position.y};
 	
@@ -597,20 +597,20 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 }
 
 pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
-	// ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ãŒå¤‰ã‚ã£ã¦ã„ãªã‘ã‚Œã°rangeã‚’è¿”ã™
+	// ƒJƒƒ‰‚ÌÀ•W‚ª•Ï‚í‚Á‚Ä‚¢‚È‚¯‚ê‚Îrange‚ğ•Ô‚·
 	if (camera.position.x == camera_before.position.x && camera.position.y == camera_before.position.y) {
 		return range;
 	}
 	camera_before = camera;
 	
-	// æç”»ã§ãã‚‹ç¯„å›²
+	// •`‰æ‚Å‚«‚é”ÍˆÍ
 	int range_one_direction = (sqrt(powf(Scene::Width(), 2)+powf(Scene::Height(), 2))/sqrt(powf(CHIP_SIZE/2, 2)+powf(CHIP_SIZE/4, 2)));
 	
-	// ç”»é¢ä¸­å¤®ã®åº§æ¨™
+	// ‰æ–Ê’†‰›‚ÌÀ•W
 	CoordinateStruct center_coordinate = positionToCoordinate(PositionStruct{Scene::Width()/2, Scene::Height()/2}, camera);
 	
 	pair<CoordinateStruct, CoordinateStruct> ret;
-	// å·¦ä¸Šã®åº§æ¨™
+	// ¶ã‚ÌÀ•W
 	ret.first = CoordinateStruct{center_coordinate.x-range_one_direction, center_coordinate.y-range_one_direction};
 	
 	if (ret.first.x < 0) {
@@ -626,7 +626,7 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 		ret.first.y = mapsize.height-1;
 	}
 	
-	// å³ä¸‹ã®åº§æ¨™
+	// ‰E‰º‚ÌÀ•W
 	ret.second = CoordinateStruct{center_coordinate.x+range_one_direction, center_coordinate.y+range_one_direction};
 	
 	if (ret.second.x < 0) {

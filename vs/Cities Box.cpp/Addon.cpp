@@ -46,7 +46,7 @@ void Addon::set_alpha_color(Image& image_temp, Color transparent_rgb) {
 }
 
 bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
-	// ã‚¢ãƒ‰ã‚ªãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+	// ƒAƒhƒIƒ“ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
 	ifstream ifs(file_path.file_path.c_str());
 	string str_temp;
 	
@@ -54,7 +54,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 		cerr << "Failed to open file." << endl;
 	}
 	
-	// å„è¦ç´ ã®èª­ã¿å‡ºã—
+	// Še—v‘f‚Ì“Ç‚İo‚µ
 	string current_loading_type = "";
 	string current_direction = "";
 	
@@ -69,17 +69,17 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 	while (getline(ifs, str_temp)) {
 		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);
 		
-		// åå‰
+		// –¼‘O
 		getElement(str_temp, "addon_name", addon_name);
 		getElement(str_temp, "addon_jp_name", addon_jp_name);
 		
-		// è£½ä½œè€…å
+		// »ìÒ–¼
 		getElement(str_temp, "addon_author", addon_author);
 		
-		// èª¬æ˜æ–‡
+		// à–¾•¶
 		getElement(str_temp, "addon_summary", addon_summary);
 		
-		// æ‰€å±ã™ã‚‹ã‚¢ãƒ‰ã‚ªãƒ³ã‚»ãƒƒãƒˆã®åå‰
+		// Š‘®‚·‚éƒAƒhƒIƒ“ƒZƒbƒg‚Ì–¼‘O
 		getElement(str_temp, "belong_addons_set_name", belong_addons_set_name);
 		
 		if (belong_addons_set_name.length() > 0) {
@@ -88,24 +88,24 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 			}
 		}
 		
-		// ã‚¢ã‚¤ã‚³ãƒ³ç”»åƒã®ãƒ‘ã‚¹
+		// ƒAƒCƒRƒ“‰æ‘œ‚ÌƒpƒX
 		getElement(str_temp, "addon_icon", addon_icon);
 		
-		// ã‚¢ãƒ‰ã‚ªãƒ³ã®type
+		// ƒAƒhƒIƒ“‚Ìtype
 		getElement(str_temp, "addon_type", addon_type);
 		
-		// æœ€å¤§åå®¹äººæ•°
+		// Å‘åû—el”
 		getElement(str_temp, "maxium_capacity", maxium_capacity);
 		
-		// åœ°ä¾¡
+		// ’n‰¿
 		getElement(str_temp, "land_price_influence", land_price_influence);
 		getElement(str_temp, "land_price_influence_grid", land_price_influence_grid);
 		
-		// ä½¿ç”¨ã™ã‚‹type
+		// g—p‚·‚étype
 		getTypes(str_temp, "use_types", use_types);
 		
-		// å„typeã®å†…å®¹ã‚’å–å¾—
-		// ç¾åœ¨èª­è¾¼ä¸­ã®typeã‚’å–å¾—
+		// Šetype‚Ì“à—e‚ğæ“¾
+		// Œ»İ“Ç’†‚Ìtype‚ğæ“¾
 		for (int i=0; i<use_types.size(); i++) {
 			if (str_temp.find(use_types[i]+" {") != string::npos && !loading_type) {
 				current_loading_type = use_types[i];
@@ -115,7 +115,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 			}
 		}
 		if (str_temp.find("}") == 0 && !loading_direction) {
-			// typeãŒåˆ‡ã‚Šæ›¿ã‚ã‚‹ã¨ãã«Textureã®è¨­å®š
+			// type‚ªØ‚è‘Ö‚í‚é‚Æ‚«‚ÉTexture‚Ìİ’è
 			if (types[current_loading_type].image.length() > 0) {
 				Image itemp(Unicode::Widen(file_path.folder_path+"/"+types[current_loading_type].image));
 				set_alpha_color(itemp, transparent_color);
@@ -127,10 +127,10 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 		}
 		
 		if (current_loading_type != "") {
-			// ç”»åƒã®ãƒ‘ã‚¹
+			// ‰æ‘œ‚ÌƒpƒX
 			getElement(str_temp, "image", types[current_loading_type].image);
 			
-			// é€éè‰²
+			// “§‰ßF
 			string rgb_str;
 			getElement(str_temp, "transparent_color", rgb_str);
 			
@@ -144,10 +144,10 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 				}
 			}
 			
-			// ãƒŠã‚¤ãƒˆãƒã‚¹ã‚¯ç”»åƒã®ãƒ‘ã‚¹
+			// ƒiƒCƒgƒ}ƒXƒN‰æ‘œ‚ÌƒpƒX
 			getElement(str_temp, "night_mask", types[current_loading_type].night_mask);
 			
-			// typeã«å«ã¾ã‚Œã‚‹æ–¹å‘ã¨å„æ–¹å‘ã®æƒ…å ±ã‚’å–å¾—
+			// type‚ÉŠÜ‚Ü‚ê‚é•ûŒü‚ÆŠe•ûŒü‚Ìî•ñ‚ğæ“¾
 			getTypes(str_temp, "direction", directions_name.back());
 			
 			for (int i=0; i<directions_name.back().size(); i++) {
@@ -163,19 +163,19 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 			if (current_direction != "") {
 				AddonDirectionStruct direction_temp;
 				
-				// ã‚¢ãƒ‰ã‚ªãƒ³ã®å¤§ãã•
-				getElement(str_temp, "size_x", direction_temp.size_width);		// æ¨ª
-				getElement(str_temp, "size_y", direction_temp.size_height);		// ç¸¦
+				// ƒAƒhƒIƒ“‚Ì‘å‚«‚³
+				getElement(str_temp, "size_x", direction_temp.size_width);		// ‰¡
+				getElement(str_temp, "size_y", direction_temp.size_height);		// c
 				
-				// ã‚¢ãƒ‰ã‚ªãƒ³ãŒå ã‚ã‚‹ãƒã‚¹ã®æ•°
-				getElement(str_temp, "chip_x", direction_temp.chip_x);			// æ¨ª
-				getElement(str_temp, "chip_y", direction_temp.chip_y);			// ç¸¦
+				// ƒAƒhƒIƒ“‚ªè‚ß‚éƒ}ƒX‚Ì”
+				getElement(str_temp, "chip_x", direction_temp.chip_x);			// ‰¡
+				getElement(str_temp, "chip_y", direction_temp.chip_y);			// c
 				
-				// ç”»åƒä¸Šã®å·¦ä¸Šã®åº§æ¨™
+				// ‰æ‘œã‚Ì¶ã‚ÌÀ•W
 				getElement(str_temp, "top_left_x", direction_temp.top_left_x);
 				getElement(str_temp, "top_left_y", direction_temp.top_left_y);
 				
-				// ç”»é¢ä¸Šã®å³ä¸‹ã®åº§æ¨™
+				// ‰æ–Êã‚Ì‰E‰º‚ÌÀ•W
 				getElement(str_temp, "bottom_right_x", direction_temp.bottom_right_x);
 				getElement(str_temp, "bottom_right_y", direction_temp.bottom_right_y);
 				

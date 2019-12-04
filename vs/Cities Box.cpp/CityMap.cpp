@@ -10,7 +10,7 @@
 
 bool CityMap::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = str.substr(str.find("\"") + 1, str.find(";") - (str.find("\"") + 2) - LINE_FEED_CODE);
+		ret = str.substr(str.find("\"") + 1, str.find(";") - (str.find("\"") + 2));
 		return true;
 	}
 	return false;
@@ -18,7 +18,7 @@ bool CityMap::getElement(string str, string search_element_name, string& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2) - LINE_FEED_CODE));
+		ret = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2)));
 		return true;
 	}
 	return false;
@@ -26,7 +26,7 @@ bool CityMap::getElement(string str, string search_element_name, int& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, bool& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		int int_temp = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2) - LINE_FEED_CODE));
+		int int_temp = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2)));
 		if (int_temp == 1) {
 			ret = true;
 			return true;
@@ -50,7 +50,7 @@ bool CityMap::getTypes(string str, string search_element_name, Array<string>& re
 
 
 void CityMap::load(FileStruct map_file) {
-	// ƒ}ƒbƒvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+	// ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	ifstream ifs(map_file.file_path.c_str());
 	string str_temp;
 	
@@ -58,7 +58,7 @@ void CityMap::load(FileStruct map_file) {
 		cerr << "Failed to open file." << endl;
 	}
 	
-	// Še—v‘f‚Ì“Ç‚İo‚µ
+	// å„è¦ç´ ã®èª­ã¿å‡ºã—
 	string current_array_name = "";
 	Array<string> array_names =
 	{"name", "name2", "category", "category_2", "category_3", "obj_type", "obj_type2", "obj_dire", "obj_dire2",
@@ -68,18 +68,19 @@ void CityMap::load(FileStruct map_file) {
 		"age", "gender", "workplace", "school", "reservation", "original_name"};
 	int array_count = 0;
 	bool map_cleared = false;
-
+	
 	mapsize.width = -1;
 	mapsize.height = -1;
 	
 	bool addon_loaded = false;
 	
 	while (getline(ifs, str_temp)) {
-		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// ‰üsƒR[ƒh‚Íœ‚­
+		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã¯é™¤ã
 		
 		getElement(str_temp, "Version", saved_version);
 		getElement(str_temp, "Addons_Set", addon_set);
-		// ƒAƒhƒIƒ““Ç‚İ‚İ
+		
+		// ã‚¢ãƒ‰ã‚ªãƒ³èª­ã¿è¾¼ã¿
 		if (!addon_loaded && addon_set.length() > 0) {
 			loadAddons(addon_set);
 			addon_loaded = true;
@@ -140,18 +141,18 @@ void CityMap::load(FileStruct map_file) {
 		
 		if (current_array_name == "name" && array_count >= 0) {
 			Array<string> temp = split(str_temp, ", ");
-
+			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
 				
-				// ƒ}ƒbƒv‚ÉAddon_Set‚ª’è‹`‚³‚ê‚Ä‚¢‚È‚¢ê‡‚ÍNormal‚Æ‚İ‚È‚µƒAƒhƒIƒ““Ç‚İ‚İ
+				// ãƒãƒƒãƒ—ã«Addon_SetãŒå®šç¾©ã•ã‚Œã¦ã„ãªã„å ´åˆã¯Normalã¨ã¿ãªã—ã‚¢ãƒ‰ã‚ªãƒ³èª­ã¿è¾¼ã¿
 				if (!addon_loaded) {
 					loadAddons("");
 					addon_loaded = true;
 					addon_set = "Normal";
 				}
 				
-				// ƒAƒhƒIƒ“‚Ìƒ|ƒCƒ“ƒ^‚ğ“o˜^
+				// ã‚¢ãƒ‰ã‚ªãƒ³ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ç™»éŒ²
 				if (addons.find(squares[array_count][x].addon_name[0]) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[0]]);
 				}
@@ -528,17 +529,24 @@ void CityMap::loadAddons(string addon_set_name) {
 }
 
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
-	// •`‰æ‚·‚éÀ•W‚ğZo
-	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+	// æç”»ã™ã‚‹åº§æ¨™ã‚’ç®—å‡º
+	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count, coordinate);
 }
 
-void CityMap::draw(CameraStruct camera) {
+void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
+	// ãƒãƒƒãƒ—ã‚’æç”»
 	for (short int y=getDrawArea(camera).first.y; y<getDrawArea(camera).second.y; y++) {
 		for (short int x=getDrawArea(camera).first.x; x<getDrawArea(camera).second.x; x++) {
 			PositionStruct draw_pos = coordinateToPosition(CoordinateStruct{x, y}, camera);
 			
+			// ä¸€ãƒã‚¹åˆ†æç”»
 			if (draw_pos.x >= -CHIP_SIZE && draw_pos.y >= -CHIP_SIZE/2 && draw_pos.x <= Scene::Width() && draw_pos.y <= Scene::Height() + CHIP_SIZE*2) {
 				drawSquare(CoordinateStruct{x, y}, camera);
+			}
+			
+			// ã‚«ãƒ¼ã‚½ãƒ«ã®æç”»
+			if (x == cursor.coordinate.x && y == cursor.coordinate.y) {
+				cursor.texture->draw(cursor.position.x, cursor.position.y, Alpha(128));
 			}
 		}
 	}
@@ -549,12 +557,12 @@ SizeStruct CityMap::getMapSize() {
 }
 
 PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera) {
-	// ƒJƒƒ‰‚ÌÀ•W‚ªƒfƒtƒHƒ‹ƒg’li64*mapsize.width/2-Scene::Width()/2, 0j‚Ì‚Æ‚«‚Ì•`‰æˆÊ’u‚ğZo
+	// ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ãŒãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ï¼ˆ64*mapsize.width/2-Scene::Width()/2, 0ï¼‰ã®ã¨ãã®æç”»ä½ç½®ã‚’ç®—å‡º
 	CameraStruct default_camera;
 	default_camera.position = PositionStruct{0, 0};
 	default_camera.center = {0, 0};
 	
-	// Šî€“_‚Æ‚È‚éx:0, y:0‚Ìƒ}ƒX‚Ì•\¦ˆÊ’u‚ğZo‚·‚é
+	// åŸºæº–ç‚¹ã¨ãªã‚‹x:0, y:0ã®ãƒã‚¹ã®è¡¨ç¤ºä½ç½®ã‚’ç®—å‡ºã™ã‚‹
 	PositionStruct square_0x0_position = PositionStruct{default_camera.position.x - camera.position.x,
 		default_camera.position.y - camera.position.y};
 	
@@ -568,8 +576,8 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 	int temp_my = position.y+camera.position.y;
 	
 	CoordinateStruct ret;
-	ret.x = (temp_my + temp_mx/2) / (CHIP_SIZE/2) - 1;
-	ret.y = (-temp_mx + temp_my*2) / CHIP_SIZE - 1;
+	ret.x = (temp_my + temp_mx/2) / (CHIP_SIZE/2);
+	ret.y = (-temp_mx + temp_my*2) / CHIP_SIZE;
 	
 	if (ret.x < 0) {
 		ret.x = 0;
@@ -589,20 +597,20 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 }
 
 pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camera) {
-	// ƒJƒƒ‰‚ÌÀ•W‚ª•Ï‚í‚Á‚Ä‚¢‚È‚¯‚ê‚Îrange‚ğ•Ô‚·
+	// ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ãŒå¤‰ã‚ã£ã¦ã„ãªã‘ã‚Œã°rangeã‚’è¿”ã™
 	if (camera.position.x == camera_before.position.x && camera.position.y == camera_before.position.y) {
 		return range;
 	}
 	camera_before = camera;
 	
-	// •`‰æ‚Å‚«‚é”ÍˆÍ
+	// æç”»ã§ãã‚‹ç¯„å›²
 	int range_one_direction = (sqrt(powf(Scene::Width(), 2)+powf(Scene::Height(), 2))/sqrt(powf(CHIP_SIZE/2, 2)+powf(CHIP_SIZE/4, 2)));
 	
-	// ‰æ–Ê’†‰›‚ÌÀ•W
+	// ç”»é¢ä¸­å¤®ã®åº§æ¨™
 	CoordinateStruct center_coordinate = positionToCoordinate(PositionStruct{Scene::Width()/2, Scene::Height()/2}, camera);
 	
 	pair<CoordinateStruct, CoordinateStruct> ret;
-	// ¶ã‚ÌÀ•W
+	// å·¦ä¸Šã®åº§æ¨™
 	ret.first = CoordinateStruct{center_coordinate.x-range_one_direction, center_coordinate.y-range_one_direction};
 	
 	if (ret.first.x < 0) {
@@ -618,7 +626,7 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 		ret.first.y = mapsize.height-1;
 	}
 	
-	// ‰E‰º‚ÌÀ•W
+	// å³ä¸‹ã®åº§æ¨™
 	ret.second = CoordinateStruct{center_coordinate.x+range_one_direction, center_coordinate.y+range_one_direction};
 	
 	if (ret.second.x < 0) {

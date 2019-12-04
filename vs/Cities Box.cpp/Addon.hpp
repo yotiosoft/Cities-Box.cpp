@@ -12,98 +12,98 @@
 
 typedef struct AddonDirectionStruct {
 	string direction;
-
-	int size_width;					// ‰æ‘œ‚Ì‰¡•ûŒü‚ÌƒTƒCƒY
-	int size_height;				// ‰æ‘œ‚Ìc•ûŒü‚ÌƒTƒCƒY
-	int chip_x;						// ƒAƒhƒIƒ“‚ªè‚ß‚é‰¡•ûŒü‚Ìƒ}ƒX‚Ì”
-	int chip_y;						// ƒAƒhƒIƒ“‚ªè‚ß‚éc•ûŒü‚Ìƒ}ƒX‚Ì”
-
-	int top_left_x;					// ¶ã‚ÌxÀ•W
-	int top_left_y;					// ¶ã‚ÌyÀ•W
-	int bottom_right_x;				// ‰E‰º‚ÌxÀ•W
-	int bottom_right_y;				// ‰E‰º‚ÌyÀ•W
+	
+	int size_width;					// ç”»åƒã®æ¨ªæ–¹å‘ã®ã‚µã‚¤ã‚º
+	int size_height;				// ç”»åƒã®ç¸¦æ–¹å‘ã®ã‚µã‚¤ã‚º
+	int chip_x;						// ã‚¢ãƒ‰ã‚ªãƒ³ãŒå ã‚ã‚‹æ¨ªæ–¹å‘ã®ãƒã‚¹ã®æ•°
+	int chip_y;						// ã‚¢ãƒ‰ã‚ªãƒ³ãŒå ã‚ã‚‹ç¸¦æ–¹å‘ã®ãƒã‚¹ã®æ•°
+	
+	int top_left_x;					// å·¦ä¸Šã®xåº§æ¨™
+	int top_left_y;					// å·¦ä¸Šã®yåº§æ¨™
+	int bottom_right_x;				// å³ä¸‹ã®xåº§æ¨™
+	int bottom_right_y;				// å³ä¸‹ã®yåº§æ¨™
 } AddonDirectionStruct;
 
 typedef struct AddonTypeStruct {
 	string type;
-
-	string image;					// ƒAƒhƒIƒ“‰æ‘œ‚ÌƒpƒX
-	string night_mask;				// ƒiƒCƒgƒ}ƒXƒN‰æ‘œ‚ÌƒpƒX
-	Array<string> direction;		// type‚ÉŠÜ‚Ü‚ê‚é•ûŒü
-	RGBstruct transparent_color;	// “§‰ßF‚ÌRGB’l
-
-	map<string, AddonDirectionStruct> directions;	// type‚ÉŠÜ‚Ü‚ê‚éŠe•ûŒü‚Ìî•ñ
-
-	Texture texture;				// ƒAƒhƒIƒ“‰æ‘œ‚ÌƒeƒNƒXƒ`ƒƒ
+	
+	string image;					// ã‚¢ãƒ‰ã‚ªãƒ³ç”»åƒã®ãƒ‘ã‚¹
+	string night_mask;				// ãƒŠã‚¤ãƒˆãƒã‚¹ã‚¯ç”»åƒã®ãƒ‘ã‚¹
+	Array<string> direction;		// typeã«å«ã¾ã‚Œã‚‹æ–¹å‘
+	RGBstruct transparent_color;	// é€éè‰²ã®RGBå€¤
+	
+	map<string, AddonDirectionStruct> directions;	// typeã«å«ã¾ã‚Œã‚‹å„æ–¹å‘ã®æƒ…å ±
+	
+	Texture texture;				// ã‚¢ãƒ‰ã‚ªãƒ³ç”»åƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
 } AddonTypeStruct;
 
 class Addon {
 public:
 	Addon();
-
-	// “à—e‚Ì•ÏX
+	
+	// å†…å®¹ã®å¤‰æ›´
 	bool load(FileStruct file_path, string loading_addons_set_name);
-
-	// –¼‘O‚Ìæ“¾
-	string getName();		// Œ´–¼
-	string getNameJP();		// “ú–{Œê–¼
-
-	// »ìÒ–¼‚Ìæ“¾
+	
+	// åå‰ã®å–å¾—
+	string getName();		// åŸå
+	string getNameJP();		// æ—¥æœ¬èªå
+	
+	// è£½ä½œè€…åã®å–å¾—
 	string getAuthorName();
-
-	// à–¾•¶‚Ìæ“¾
+	
+	// èª¬æ˜æ–‡ã®å–å¾—
 	string getSummary();
-
-	// Type‚Ì–¼‘O‚Ìæ“¾
+	
+	// Typeã®åå‰ã®å–å¾—
 	string getTypeName(int type_num);
-
-	// Direction‚Ì–¼‘O‚Ìæ“¾
+	
+	// Directionã®åå‰ã®å–å¾—
 	string getDirectionName(int type_num, int direction_num);
-
-	// ƒAƒCƒRƒ“‚ÌImageStruct‚Ìæ“¾
+	
+	// ã‚¢ã‚¤ã‚³ãƒ³ã®ImageStructã®å–å¾—
 	ImageStruct getIconImageStruct();
-
-	// ƒAƒhƒIƒ“‚ğ•`‰æ‚·‚é
-	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
-
+	
+	// ã‚¢ãƒ‰ã‚ªãƒ³ã‚’æç”»ã™ã‚‹
+	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count, CoordinateStruct coordinate);
+	
 private:
-	// ƒAƒhƒIƒ“–¼
-	string addon_name;				// ‰pŒê–¼
-	string addon_jp_name;			// “ú–{Œê–¼
-
-	// »ìÒ–¼
+	// ã‚¢ãƒ‰ã‚ªãƒ³å
+	string addon_name;				// è‹±èªå
+	string addon_jp_name;			// æ—¥æœ¬èªå
+	
+	// è£½ä½œè€…å
 	string addon_author;
-
-	// à–¾•¶
+	
+	// èª¬æ˜æ–‡
 	string addon_summary;
-
-	// Š‘®‚·‚éƒAƒhƒIƒ“ƒZƒbƒg‚Ì–¼‘Oi‹ó”’‚ÍNormal‚Æ‚İ‚È‚·j
+	
+	// æ‰€å±ã™ã‚‹ã‚¢ãƒ‰ã‚ªãƒ³ã‚»ãƒƒãƒˆã®åå‰ï¼ˆç©ºç™½ã¯Normalã¨ã¿ãªã™ï¼‰
 	string belong_addons_set_name;
-
-	// ƒAƒhƒIƒ“‚Ìƒ^ƒCƒv
+	
+	// ã‚¢ãƒ‰ã‚ªãƒ³ã®ã‚¿ã‚¤ãƒ—
 	string addon_type;
-
-	// ƒAƒCƒRƒ“‰æ‘œ‚ÌƒpƒX
+	
+	// ã‚¢ã‚¤ã‚³ãƒ³ç”»åƒã®ãƒ‘ã‚¹
 	string addon_icon;
-
-	// g—p‚·‚étype
+	
+	// ä½¿ç”¨ã™ã‚‹type
 	Array<string> use_types;
-
-	// g—p‚·‚édirection
+	
+	// ä½¿ç”¨ã™ã‚‹direction
 	Array<Array<string>> directions_name;
-
-	// û—el”
+	
+	// åå®¹äººæ•°
 	int maxium_capacity;
-
-	// ’n‰¿
-	int land_price_influence;		// ã¸Šz
-	int land_price_influence_grid;	// ’n‰¿‚Ìã‰º‚ª‰e‹¿‚·‚éƒ}ƒX
-
-	// Šetype‚Ìî•ñ
+	
+	// åœ°ä¾¡
+	int land_price_influence;		// ä¸Šæ˜‡é¡
+	int land_price_influence_grid;	// åœ°ä¾¡ã®ä¸Šä¸‹ãŒå½±éŸ¿ã™ã‚‹ãƒã‚¹
+	
+	// å„typeã®æƒ…å ±
 	map<string, AddonTypeStruct> types;
-
-
-	// ƒvƒ‰ƒCƒx[ƒgŠÖ”
+	
+	
+	// ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆé–¢æ•°
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
 	bool getTypes(string str, string search_element_name, Array<string>& ret);

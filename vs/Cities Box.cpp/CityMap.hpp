@@ -99,31 +99,31 @@ typedef struct SquareStruct {
 
 class CityMap {
 public:
-	// ƒ}ƒbƒv‚Ì“Ç‚İ‚İ
+	// ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿
 	void load(FileStruct map_file);
 	
-	// ƒAƒhƒIƒ“‚Ì“Ç‚İ‚İ
+	// ã‚¢ãƒ‰ã‚ªãƒ³ã®èª­ã¿è¾¼ã¿
 	void loadAddons(string addon_set_name);
 	
-	// “Ç’†‰æ–Ê
+	// èª­è¾¼ä¸­ç”»é¢
 	void loadingScreen();
 	
-	// ƒ}ƒbƒv‚Ì•`‰æ
+	// ãƒãƒƒãƒ—ã®æç”»
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
-	void draw(CameraStruct camera);
+	void draw(CameraStruct camera, CursorStruct& cursor);
 	
-	// ƒ}ƒbƒvƒTƒCƒY‚Ìæ“¾
+	// ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºã®å–å¾—
 	SizeStruct getMapSize();
 	
-	// À•W‚©‚ç•`‰æˆÊ’u‚ğæ“¾
+	// åº§æ¨™ã‹ã‚‰æç”»ä½ç½®ã‚’å–å¾—
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
 	
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
-	// •`‰æ”ÍˆÍ‚ğæ“¾
+	// æç”»ç¯„å›²ã‚’å–å¾—
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
-	// ƒƒ‚ƒŠ‰ğ•ú
+	// ãƒ¡ãƒ¢ãƒªè§£æ”¾
 	void freeMapAndAddons();
 	
 private:
@@ -157,7 +157,7 @@ private:
 	CameraStruct camera_before;
 	pair<CoordinateStruct, CoordinateStruct> range;
 	
-	// ƒvƒ‰ƒCƒx[ƒgŠÖ”
+	// ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆé–¢æ•°
 	bool getElement(string str, string search_element_name, string& ret);
 	bool getElement(string str, string search_element_name, int& ret);
 	bool getElement(string str, string search_element_name, bool& ret);

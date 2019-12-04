@@ -12,9 +12,9 @@ bool titleMenu(Images& images, Font& font16) {
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
 	
-	// ƒ{ƒ^ƒ“‚ÌéŒ¾
-	Button load_button(IconFont::Floppy, 50, U"“Ç‚İ‚İ", font16);			// “Ç‚İ‚İ
-	Button new_map_button(IconFont::Plus, 50, U"V‚µ‚¢ƒ}ƒbƒv", font16);		// V‚µ‚¢ƒ}ƒbƒv
+	// ãƒœã‚¿ãƒ³ã®å®£è¨€
+	Button load_button(IconFont::Floppy, 50, U"èª­ã¿è¾¼ã¿", font16);			// èª­ã¿è¾¼ã¿
+	Button new_map_button(IconFont::Plus, 50, U"æ–°ã—ã„ãƒãƒƒãƒ—", font16);		// æ–°ã—ã„ãƒãƒƒãƒ—
 	
 	bool b;
 	Color color_white = Color(Palette::White);
@@ -29,13 +29,13 @@ bool titleMenu(Images& images, Font& font16) {
 		new_map_button.put(PositionStruct{Scene::Width()/2+25, Scene::Height()*3/5});
 		
 		if (load_button.push()) {
-			//b = System::Update();
-			//loadingScreen(font16);
+			b = System::Update();
+			loadingScreen(font16);
 			return true;
 		}
 		if (new_map_button.push()) {
-			//b = System::Update();
-			//loadingScreen(font16);
+			b = System::Update();
+			loadingScreen(font16);
 			return true;
 		}
 		

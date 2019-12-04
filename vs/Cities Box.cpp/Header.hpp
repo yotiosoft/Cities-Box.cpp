@@ -7,10 +7,10 @@
 #pragma once
 
 #include <stdio.h>
-#include <Array>
+#include <list>
 #include <fstream>
 
-#include <Siv3D.hpp> // OpenSiv3D v0.4.1
+#include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 #define CHIP_SIZE		64
 
@@ -22,30 +22,30 @@ class Images;
 
 namespace RCOIFP {
 	enum Type {
-		None = -1,
-		Residential = 0,
-		Commercial = 1,
-		Office = 2,
-		Industrial = 3,
-		Farm = 4,
-		Public = 5,
+		None			= -1,
+		Residential		= 0,
+		Commercial		= 1,
+		Office			= 2,
+		Industrial		= 3,
+		Farm			= 4,
+		Public			= 5,
 	};
 }
 
 namespace School {
 	enum Type {
-		None = -1,
-		ElementarySchool = 0,
-		JuniorHighSchool = 1,
-		HighSchool = 2,
-		University = 3,
+		None				= -1,
+		ElementarySchool	= 0,
+		JuniorHighSchool	= 1,
+		HighSchool			= 2,
+		University			= 3,
 	};
 }
 
 namespace IconFont {
 	enum ID {
-		Floppy = 0xf0c7,
-		Plus = 0xf067,
+		Floppy				= 0xf0c7,
+		Plus				= 0xf067,
 	};
 }
 
@@ -84,8 +84,14 @@ typedef struct RGBstruct {
 
 typedef struct FileStruct {
 	string file_path;
-
+	
 	string folder_path;
 	string folder_name;
 	string file_name;
 } FileStruct;
+
+typedef struct CursorStruct {
+	Texture* texture;
+	CoordinateStruct coordinate;
+	PositionStruct position;
+} CursorStruct;

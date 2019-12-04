@@ -9,17 +9,16 @@
 #ifndef Images_hpp
 #define Images_hpp
 
-#include "Header.hpp"
-#include "IOfunctions.hpp"
+#include "Specific.hpp"
 #include "OtherFunctions.hpp"
 
 #endif /* Images_hpp */
 
 typedef struct Images {
-	// �w�肵���p�X����摜�t�@�C�������ׂēǂݍ���
+	// 指定したパスから画像ファイルをすべて読み込み
 	void load(string file_path, string tag);
-	void load(string file_path, string tag, int transparent_r, int transparent_g, int transparent_b);
-
-	// �摜�̊i�[����\���̘̂A�z�z��
+	void load(string file_path, string tag, Color transparent);
+	
+	// 画像の格納する構造体の連想配列
 	map<string, map<string, ImageStruct>> images;
 } Images;

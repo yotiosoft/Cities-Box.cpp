@@ -1,9 +1,27 @@
-﻿  Addon.cpp
-E:\Visual Studio\Cities Box.cpp\Cities Box.cpp\Images.hpp(18,23): warning C4099: 'Images': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。
-E:\Visual Studio\Cities Box.cpp\Cities Box.cpp\Images.hpp(18): message : 'Images' の宣言を確認してください
-E:\Visual Studio\Cities Box.cpp\Cities Box.cpp\Addon.cpp(36,84): warning C4100: 'clear_b': 引数は関数の本体部で 1 度も参照されません。
-E:\Visual Studio\Cities Box.cpp\Cities Box.cpp\Addon.cpp(36,71): warning C4100: 'clear_g': 引数は関数の本体部で 1 度も参照されません。
-E:\Visual Studio\Cities Box.cpp\Cities Box.cpp\Addon.cpp(36,58): warning C4100: 'clear_r': 引数は関数の本体部で 1 度も参照されません。
-  Cities Box.cpp.vcxproj -> E:\Visual Studio\Cities Box.cpp\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe
-  E:\Visual Studio\Cities Box.cpp\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe
+﻿  Button.cpp
+  CityMap.cpp
+  Specific.cpp
+  StartUp.cpp
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Button.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。 (ソース ファイルをコンパイルしています Button.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。 (ソース ファイルをコンパイルしています CityMap.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17,23): warning C4099: 'Images': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています CityMap.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17): message : 'Images' の宣言を確認してください (ソース ファイルをコンパイルしています CityMap.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。 (ソース ファイルをコンパイルしています StartUp.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17,23): warning C4099: 'Images': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています StartUp.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17): message : 'Images' の宣言を確認してください (ソース ファイルをコンパイルしています StartUp.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\CityMap.cpp(536,18): warning C4244: '初期化中': 'int' から 'short' への変換です。データが失われる可能性があります。
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\CityMap.cpp(537,19): warning C4244: '初期化中': 'int' から 'short' への変換です。データが失われる可能性があります。
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\CityMap.cpp(599,51): warning C4244: '引数': 's3d::int32' から 'float' への変換です。データが失われる可能性があります。
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\CityMap.cpp(599,76): warning C4244: '引数': 's3d::int32' から 'float' への変換です。データが失われる可能性があります。
+  TitleMenu.cpp
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\CityMap.cpp(599,26): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。 (ソース ファイルをコンパイルしています TitleMenu.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17,23): warning C4099: 'Images': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています TitleMenu.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Images.hpp(17): message : 'Images' の宣言を確認してください (ソース ファイルをコンパイルしています TitleMenu.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\Button.hpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。 (ソース ファイルをコンパイルしています TitleMenu.cpp)
+F:\git\Cities-Box.cpp\vs\Cities Box.cpp\TitleMenu.cpp(19,7): warning C4101: 'b': ローカル変数は 1 度も使われていません。
+  LINK : 前回のインクリメンタル リンクで F:\git\Cities-Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+     ライブラリ F:\git\Cities-Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).lib とオブジェクト F:\git\Cities-Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exp を作成中
+  Cities Box.cpp.vcxproj -> F:\git\Cities-Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe
+  F:\git\Cities-Box.cpp\vs\Intermediate\Cities Box.cpp\Debug\Cities Box.cpp(debug).exe
   1 個のファイルをコピーしました

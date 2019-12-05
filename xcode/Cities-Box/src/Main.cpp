@@ -7,7 +7,7 @@
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
 
-int Main() {
+void Main() {
 	Window::SetTitle(U"Cities Box.cpp");
 	Scene::SetBackground(Color(50, 50, 50));
 	
@@ -23,12 +23,23 @@ int Main() {
 	
 	// タイトルメニュー画面
 	if (!titleMenu(images, font16)) {
-		return 0;				// タイトル画面でウィンドウを閉じたらプログラム終了
+		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
 	
+	// ファイル選択ダイアログ
+	Array<FileFilter> ff = {{U"セーブデータ", {U"cbd"}}};
+	String file_path;
+	if (const auto open = Dialog::OpenFile(ff)) {
+		file_path = open.value();
+	}
+	else {
+		return;
+	}
+	
+	// マップとアドオンの読み込み
 	CityMap map;
-	Array<FileStruct> maps_path = specific::getAllFilesName("../data/maps", "cbd");
-	map.load(maps_path[0]);
+	//Array<FileStruct> maps_path = specific::getAllFilesName("../data/maps", "cbd");
+	map.load(file_path.toUTF8());
 	
 	// カメラの初期位置
 	CameraStruct camera;
@@ -92,6 +103,7 @@ int Main() {
 				first_loop = false;
 				
 				// サブウィンドウの描画
+				/*
 				sub_window.getRenderTexture()->clear(Color(Palette::White));
 				ScopedRenderTarget2D target(*sub_window.getRenderTexture());
 				font16(U"テストですと").draw(0, 0, Color(Palette::Black));
@@ -100,7 +112,7 @@ int Main() {
 				sub_window2.getRenderTexture()->clear(Color(Palette::White));
 				target = ScopedRenderTarget2D(*sub_window2.getRenderTexture());
 				font16(U"テストですよ").draw(0, 0, Color(Palette::Black));
-				sub_window2.update();
+				sub_window2.update();*/
 			}
 			else {
 				update_map = false;
@@ -109,13 +121,13 @@ int Main() {
 		
 		// バッファを描画
 		buffer_texture.draw(0, 0);
-		sub_window.draw();
-		sub_window2.draw();
+		//sub_window.draw();
+		//sub_window2.draw();
 		
 		System::Sleep(20);
 	}
 	
 	map.freeMapAndAddons();
 	
-	return 0;
+	return;
 }

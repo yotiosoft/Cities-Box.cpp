@@ -10,7 +10,7 @@
 
 bool CityMap::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-3);
+		ret = str.substr(str.find("\"") + 1, str.find(";") - (str.find("\"") + 2));
 		return true;
 	}
 	return false;
@@ -18,7 +18,7 @@ bool CityMap::getElement(string str, string search_element_name, string& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-2));
+		ret = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2)));
 		return true;
 	}
 	return false;
@@ -26,7 +26,7 @@ bool CityMap::getElement(string str, string search_element_name, int& ret) {
 
 bool CityMap::getElement(string str, string search_element_name, bool& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		int int_temp = stoi(str.substr(str.find("= ")+1, str.length()-str.find(";")-2));
+		int int_temp = stoi(str.substr(str.find("= ") + 2, str.find(";") - (str.find("= ") + 2)));
 		if (int_temp == 1) {
 			ret = true;
 			return true;
@@ -49,9 +49,9 @@ bool CityMap::getTypes(string str, string search_element_name, Array<string>& re
 }
 
 
-void CityMap::load(FileStruct map_file) {
+void CityMap::load(string map_file_path) {
 	// マップファイルの読み込み
-	ifstream ifs(map_file.file_path.c_str());
+	ifstream ifs(map_file_path.c_str());
 	string str_temp;
 	
 	if (ifs.fail()) {
@@ -75,7 +75,7 @@ void CityMap::load(FileStruct map_file) {
 	bool addon_loaded = false;
 	
 	while (getline(ifs, str_temp)) {
-		str_temp = str_temp.substr(0, str_temp.length()-1);				// 改行コードは除く
+		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// 改行コードは除く
 		
 		getElement(str_temp, "Version", saved_version);
 		getElement(str_temp, "Addons_Set", addon_set);

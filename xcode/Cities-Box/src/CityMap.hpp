@@ -100,7 +100,7 @@ typedef struct SquareStruct {
 class CityMap {
 public:
 	// マップの読み込み
-	void load(FileStruct map_file);
+	void load(string map_file_path);
 	
 	// アドオンの読み込み
 	void loadAddons(string addon_set_name);

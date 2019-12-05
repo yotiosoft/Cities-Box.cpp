@@ -7,10 +7,7 @@
 #pragma once
 
 #include <stdio.h>
-#include <list>
-#include <dirent.h>
 #include <fstream>
-#include <thread>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 

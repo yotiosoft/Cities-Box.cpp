@@ -12,7 +12,7 @@ Addon::Addon() {
 
 bool Addon::getElement(string str, string search_element_name, string& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = str.substr(str.find("\"")+1, str.length()-str.find("\"")-2);
+		ret = str.substr(str.find("\"") + 1, str.length() - (str.find("\"") + 2));
 		return true;
 	}
 	return false;
@@ -20,7 +20,7 @@ bool Addon::getElement(string str, string search_element_name, string& ret) {
 
 bool Addon::getElement(string str, string search_element_name, int& ret) {
 	if (str.find(search_element_name) != string::npos && str.find("=") != string::npos) {
-		ret = stoi(str.substr(str.find("\"")+1, str.length()-str.find("\"")-2));
+		ret = stoi(str.substr(str.find("\"") + 1, str.length() - (str.find("\"") + 2)));
 		return true;
 	}
 	return false;
@@ -67,7 +67,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 	transparent_color.b = 0;
 	
 	while (getline(ifs, str_temp)) {
-		str_temp = str_temp.substr(0, str_temp.length()-1);
+		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);
 		
 		// 名前
 		getElement(str_temp, "addon_name", addon_name);

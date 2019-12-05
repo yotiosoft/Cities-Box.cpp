@@ -7,7 +7,7 @@
 
 #include "TitleMenu.hpp"
 
-bool titleMenu(Images& images, Font& font16) {
+bool titleMenu(Images& images, Font& font16, string& file_path) {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
@@ -29,14 +29,20 @@ bool titleMenu(Images& images, Font& font16) {
 		new_map_button.put(PositionStruct{Scene::Width()/2+25, Scene::Height()*3/5});
 		
 		if (load_button.push()) {
-			b = System::Update();
-			loadingScreen(font16);
-			return true;
+			// ファイル選択ダイアログ
+			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd"}}};
+			String file_path_temp;
+			if (const auto open = Dialog::OpenFile(ff)) {
+				file_path_temp = open.value();
+				file_path = file_path_temp.toUTF8();
+				
+				b = System::Update();
+				loadingScreen(font16);
+				return true;
+			}
 		}
 		if (new_map_button.push()) {
-			b = System::Update();
-			loadingScreen(font16);
-			return true;
+			return false;
 		}
 		
 		System::Sleep(50);

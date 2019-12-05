@@ -22,13 +22,14 @@ void Main() {
 	Font font16(16);
 	
 	// タイトルメニュー画面
-	if (!titleMenu(images, font16)) {
+	string map_file_path;
+	if (!titleMenu(images, font16, map_file_path)) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
 	
+	// マップとアドオンの読み込み
 	CityMap map;
-	Array<FileStruct> maps_path = specific::getAllFilesName("./data/maps", "cbd");
-	map.load(maps_path[0]);
+	map.load(map_file_path);
 	
 	// カメラの初期位置
 	CameraStruct camera;
@@ -92,6 +93,7 @@ void Main() {
 				first_loop = false;
 				
 				// サブウィンドウの描画
+				/*
 				sub_window.getRenderTexture()->clear(Color(Palette::White));
 				ScopedRenderTarget2D target(*sub_window.getRenderTexture());
 				font16(U"テストですと").draw(0, 0, Color(Palette::Black));
@@ -100,7 +102,7 @@ void Main() {
 				sub_window2.getRenderTexture()->clear(Color(Palette::White));
 				target = ScopedRenderTarget2D(*sub_window2.getRenderTexture());
 				font16(U"テストですよ").draw(0, 0, Color(Palette::Black));
-				sub_window2.update();
+				sub_window2.update();*/
 			}
 			else {
 				update_map = false;
@@ -109,8 +111,8 @@ void Main() {
 		
 		// バッファを描画
 		buffer_texture.draw(0, 0);
-		sub_window.draw();
-		sub_window2.draw();
+		//sub_window.draw();
+		//sub_window2.draw();
 		
 		System::Sleep(20);
 	}

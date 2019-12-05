@@ -12,7 +12,7 @@
 #include "Images.hpp"
 #include "Button.hpp"
 
-bool titleMenu(Images& images, Font& font16);
+bool titleMenu(Images& images, Font& font16, string& file_path);
 
 bool loadingScreen(Font& font16);
 

@@ -64,7 +64,7 @@ public:
 	ImageStruct getIconImageStruct();
 	
 	// アドオンを描画する
-	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count, CoordinateStruct coordinate);
+	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
 	
 private:
 	// アドオン名

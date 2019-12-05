@@ -211,18 +211,19 @@ string Addon::getDirectionName(int type_num, int direction_num) {
 	return directions_name[type_num][direction_num];
 }
 
-void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count,CoordinateStruct coordinate) {
+void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	
-	if ((coordinate.x == 23 || coordinate.x == 23) && (coordinate.y == 54 || coordinate.y == 55)) {
+	/*
+	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
 		cout << coordinate.x << "," << coordinate.y << " :  " << tiles_count.x << "," << tiles_count.y << endl;
-	}
+	}*/
 	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x);
+	position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x) + CHIP_SIZE*3/4 * tiles_count.y;
 	
 	unsigned short int top_left_x = direction_temp->top_left_x;
-	top_left_x += CHIP_SIZE/2 * tiles_count.x;
+	top_left_x += CHIP_SIZE/2 * tiles_count.x + CHIP_SIZE/2 * tiles_count.y;
 	
 	unsigned short int top_left_y = direction_temp->top_left_y;
 	top_left_y += CHIP_SIZE/2 * tiles_count.y;

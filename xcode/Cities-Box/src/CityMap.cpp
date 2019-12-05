@@ -252,6 +252,31 @@ void CityMap::load(string map_file_path) {
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].tiles_count.x = stoi(temp[x]);
+				
+				// obj_tiles_xを修正(r140以前のバージョンで保存した場合)
+				if (saved_version <= 140) {
+					if (squares[array_count][x].use_tiles.x > 0) {
+						// 左向き
+						if (squares[array_count][x].direction_number[0] == 0) {
+							
+						}
+						
+						// 上向き
+						if (squares[array_count][x].direction_number[0] == 1) {
+							
+						}
+						
+						// 下向き
+						if (squares[array_count][x].direction_number[0] == 2) {
+							
+						}
+						
+						// 右向き
+						if (squares[array_count][x].direction_number[0] == 3) {
+							squares[array_count][x].tiles_count.x += squares[array_count][x].use_tiles.x - 1;
+						}
+					}
+				}
 			}
 		}
 		
@@ -260,6 +285,31 @@ void CityMap::load(string map_file_path) {
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].tiles_count.y = stoi(temp[x]);
+				
+				// obj_tiles_yを修正(r140以前のバージョンで保存した場合)
+				if (saved_version <= 140) {
+					if (squares[array_count][x].use_tiles.y > 0) {
+						// 左向き
+						if (squares[array_count][x].direction_number[0] == 0) {
+							
+						}
+						
+						// 上向き
+						if (squares[array_count][x].direction_number[0] == 1) {
+							squares[array_count][x].tiles_count.y = squares[array_count][x].use_tiles.y - 1 - squares[array_count][x].tiles_count.y;
+						}
+						
+						// 下向き
+						if (squares[array_count][x].direction_number[0] == 2) {
+							squares[array_count][x].tiles_count.y = abs(squares[array_count][x].tiles_count.y);
+						}
+						
+						// 右向き
+						if (squares[array_count][x].direction_number[0] == 3) {
+							squares[array_count][x].tiles_count.y = squares[array_count][x].use_tiles.y - 1 - squares[array_count][x].tiles_count.y;
+						}
+					}
+				}
 			}
 		}
 		
@@ -530,7 +580,7 @@ void CityMap::loadAddons(string addon_set_name) {
 
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
-	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count, coordinate);
+	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
 }
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {

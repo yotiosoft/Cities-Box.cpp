@@ -22,24 +22,14 @@ void Main() {
 	Font font16(16);
 	
 	// タイトルメニュー画面
-	if (!titleMenu(images, font16)) {
+	string map_file_path;
+	if (!titleMenu(images, font16, map_file_path)) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
-	}
-	
-	// ファイル選択ダイアログ
-	Array<FileFilter> ff = {{U"セーブデータ", {U"cbd"}}};
-	String file_path;
-	if (const auto open = Dialog::OpenFile(ff)) {
-		file_path = open.value();
-	}
-	else {
-		return;
 	}
 	
 	// マップとアドオンの読み込み
 	CityMap map;
-	//Array<FileStruct> maps_path = specific::getAllFilesName("../data/maps", "cbd");
-	map.load(file_path.toUTF8());
+	map.load(map_file_path);
 	
 	// カメラの初期位置
 	CameraStruct camera;

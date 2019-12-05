@@ -564,7 +564,7 @@ void CityMap::load(string map_file_path) {
 }
 
 void CityMap::loadAddons(string addon_set_name) {
-	Array<FileStruct> addons_path = specific::getAllFilesName("../addons", "adat");
+	Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
 	
 	for (int i=0; i<addons_path.size(); i++) {
 		FileStruct file_temp = addons_path[i];

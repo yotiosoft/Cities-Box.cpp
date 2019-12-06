@@ -40,7 +40,7 @@ Array<FileStruct> specific::getAllFilesName(string folder_path, string extension
 				new_fs.file_path = folder_path+"/"+file_name;
 				
 				new_fs.folder_path = folder_path;
-				new_fs.folder_name = split(folder_path, "/").back();
+				new_fs.folder_name = splitUTF8(folder_path, "/").back();
 				new_fs.file_name = file_name;
 				
 				ret_str.push_back(new_fs);

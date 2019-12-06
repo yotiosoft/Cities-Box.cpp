@@ -29,7 +29,7 @@ bool Addon::getElement(string str, string search_element_name, int& ret) {
 bool Addon::getTypes(string str, string search_element_name, Array<string>& ret) {
 	string a_ret;
 	if (getElement(str, search_element_name, a_ret)) {
-		ret = split(a_ret, ", ");
+		ret = splitUTF8(a_ret, ", ");
 		return true;
 	}
 	return false;
@@ -83,7 +83,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 		getElement(str_temp, "belong_addons_set_name", belong_addons_set_name);
 		
 		if (belong_addons_set_name.length() > 0) {
-			if (belong_addons_set_name != loading_addons_set_name && !(loading_addons_set_name.length() > 0)) {
+			if (belong_addons_set_name != loading_addons_set_name || !(loading_addons_set_name.length() > 0)) {
 				return false;
 			}
 		}
@@ -135,7 +135,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 			getElement(str_temp, "transparent_color", rgb_str);
 			
 			if (rgb_str.length() > 0) {
-				Array<string> rgb_strv = split(rgb_str, ", ");
+				Array<string> rgb_strv = splitUTF8(rgb_str, ", ");
 				
 				if (rgb_strv.size() == 3) {
 					transparent_color.r = stoi(rgb_strv[0]);

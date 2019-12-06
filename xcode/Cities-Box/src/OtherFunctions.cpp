@@ -4,7 +4,7 @@
 
 #include "OtherFunctions.hpp"
 
-Array<string> split(string str, string separator) {
+Array<string> splitUTF8(string str, string separator) {
 	auto separator_length = separator.length();
 	
 	Array<string> list = Array<string>();
@@ -20,6 +20,31 @@ Array<string> split(string str, string separator) {
 				break;
 			}
 			list.push_back(str.substr(offset, pos - offset));
+			offset = pos + separator_length;
+		}
+	}
+	
+	return list;
+}
+Array<String> split(String str, String separator) {
+	string str_utf8 = str.toUTF8();
+	string separator_utf8 = separator.toUTF8();
+	
+	auto separator_length = separator.length();
+	
+	Array<String> list = Array<String>();
+	
+	if (separator_length == 0) {
+		list.push_back(str);
+	} else {
+		auto offset = std::string::size_type(0);
+		while (1) {
+			auto pos = str_utf8.find(separator_utf8, offset);
+			if (pos == std::string::npos) {
+				list.push_back(Unicode::Widen(str_utf8.substr(offset)));
+				break;
+			}
+			list.push_back(Unicode::Widen(str_utf8.substr(offset, pos - offset)));
 			offset = pos + separator_length;
 		}
 	}
@@ -87,4 +112,38 @@ string replaceString(string before_str, string search_str, string after_str) {
 	}
 	
 	return before_str;
+}
+
+RCOIFP::Type getRCOIFP(int number) {
+	switch (number) {
+		case 0:
+			return RCOIFP::Residential;
+		case 1:
+			return RCOIFP::Commercial;
+		case 2:
+			return RCOIFP::Office;
+		case 3:
+			return RCOIFP::Industrial;
+		case 4:
+			return RCOIFP::Farm;
+		case 5:
+			return RCOIFP::Public;
+		default:
+			return RCOIFP::None;
+	}
+}
+
+School::Type getSchool(int number) {
+	switch (number) {
+		case 0:
+			return School::ElementarySchool;
+		case 1:
+			return School::JuniorHighSchool;
+		case 2:
+			return School::HighSchool;
+		case 3:
+			return School::University;
+		default:
+			return School::None;
+	}
 }

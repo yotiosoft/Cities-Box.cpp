@@ -25,7 +25,9 @@ private:
 	RenderTexture render;
 	
 	Button cursorButton;
-	
+		
+	Button roadButton;
+	Button railRoadButton;
 	Button residentialButton;
 	Button commercialButton;
 	Button officeButton;

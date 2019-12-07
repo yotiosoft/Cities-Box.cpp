@@ -26,4 +26,6 @@ string replaceString(string before_str, string search_str, string after_str);
 RCOIFP::Type getRCOIFP(int number);
 School::Type getSchool(int number);
 
+string str_xor(const std::string &data, const std::string &key);
+
 #endif /* OtherFunctions_hpp */

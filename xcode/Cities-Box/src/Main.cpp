@@ -31,7 +31,7 @@ void Main() {
 	CityMap map;
 	map.load(map_file_path);
 	
-	map.save();
+	//map.save();
 	
 	// カメラの初期位置
 	CameraStruct camera;

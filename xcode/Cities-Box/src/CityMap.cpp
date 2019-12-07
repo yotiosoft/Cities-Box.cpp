@@ -185,6 +185,10 @@ void CityMap::loadCBD(String new_map_file_path) {
 			Array<String> temp = split(str_temp, U", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
+				if (temp[x].length() == 0) {
+					continue;
+				}
+				
 				squares[array_count][x].addon_name.push_back(temp[x]);
 				
 				// アドオンのポインタを登録
@@ -588,10 +592,26 @@ void CityMap::loadCBD(String new_map_file_path) {
 		
 		array_count ++;
 	}
+	
+	System::ShowMessageBox(U"旧形式のマップデータ(*.cbd)が読み込まれました。\n保存時は新形式(*.cbj)で保存されます。", MessageBoxStyle::Warning, MessageBoxButtons::OK);
 }
 
 void CityMap::loadCBJ(String new_map_file_path) {
-	JSONReader map_file(new_map_file_path);
+	map_file_path = new_map_file_path;
+	
+	ifstream ifs(map_file_path.toUTF8().c_str());
+	
+	std::stringstream strstream;
+	strstream << ifs.rdbuf();
+	ifs.close();
+	
+	string map_xor(strstream.str());
+	string map_data = str_xor(map_xor, "citiesboxmapdatafilexor");
+	
+	saveTextFile("./data/map_temp.cbj_temp", map_data);
+	
+	JSONReader map_file(U"./data/map_temp.cbj_temp");
+	remove("./data/map_temp.cbj_temp");
 	
 	saved_version = map_file[U"Version"].get<int>();
 	
@@ -1038,7 +1058,9 @@ bool CityMap::save() {
 	}
 	map_file.endObject();
 	
-	map_file.save(map_file_path+U".cbj");
+	saveTextFile(map_file_path.toUTF8()+".cbj", str_xor(map_file.get().toUTF8(), "citiesboxmapdatafilexor"));
+	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
+	//map_file.save(map_file_path+U".cbj");
 	
 	return true;
 }

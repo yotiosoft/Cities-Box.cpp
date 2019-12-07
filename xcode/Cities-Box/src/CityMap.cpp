@@ -186,6 +186,11 @@ void CityMap::loadCBD(String new_map_file_path) {
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].addon_name.push_back(temp[x]);
+				
+				// アドオンのポインタを登録
+				if (addons.find(squares[array_count][x].addon_name[1].toUTF8()) != addons.end()) {
+					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[1].toUTF8()]);
+				}
 			}
 		}
 		
@@ -649,7 +654,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 				
 				// アドオンのポインタを登録
 				if (addons.find(squares[y][x].addon_name.back().toUTF8()) != addons.end()) {
-					squares[y][x].addons.push_back(addons[squares[y][x].addon_name[0].toUTF8()]);
+					squares[y][x].addons.push_back(addons[squares[y][x].addon_name.back().toUTF8()]);
 				}
 			}
 			
@@ -727,7 +732,9 @@ void CityMap::loadAddons(string addon_set_name) {
 
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
-	squares[coordinate.y][coordinate.x].addons[0]->draw(squares[coordinate.y][coordinate.x].addons[0]->getTypeName(squares[coordinate.y][coordinate.x].type_number[0]), squares[coordinate.y][coordinate.x].addons[0]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[0], squares[coordinate.y][coordinate.x].direction_number[0]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+	for (int i=(int)squares[coordinate.y][coordinate.x].addons.size()-1; i>=0; i--) {
+		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].addons[i]->getTypeName(squares[coordinate.y][coordinate.x].type_number[i]), squares[coordinate.y][coordinate.x].addons[i]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[i], squares[coordinate.y][coordinate.x].direction_number[i]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+	}
 }
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {

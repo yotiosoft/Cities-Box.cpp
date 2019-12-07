@@ -599,13 +599,9 @@ void CityMap::loadCBD(String new_map_file_path) {
 void CityMap::loadCBJ(String new_map_file_path) {
 	map_file_path = new_map_file_path;
 	
-	ifstream ifs(map_file_path.toUTF8().c_str());
+	ifstream ifs(map_file_path.toUTF8().c_str(), ios::in | ios::binary);
 	
-	std::stringstream strstream;
-	strstream << ifs.rdbuf();
-	ifs.close();
-	
-	string map_xor(strstream.str());
+	std::string map_xor((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
 	string map_data = str_xor(map_xor, "citiesboxmapdatafilexor");
 	
 	saveTextFile("./data/map_temp.cbj_temp", map_data);
@@ -729,7 +725,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 			
 			squares[y][x].original_name = square[U"original_name"].getString();
 			
- 			x++;
+			x++;
 		}
 		y++;
 	}

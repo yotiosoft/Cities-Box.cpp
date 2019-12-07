@@ -1,5 +1,8 @@
 //
 //  OtherFunctions.cpp
+//  Cities Box
+//
+//  Created by YotioSoft on 2019/11/27.
 //
 
 #include "OtherFunctions.hpp"
@@ -67,14 +70,14 @@ void cMes(Font& font, String str, PositionStruct top_left, SizeStruct size, Colo
 
 void saveTextFile(string file_path, string str) {
 	ofstream ofs;
-	ofs.open(file_path, ios::out);
+	ofs.open(file_path, ios::out | ios::binary);
 	
 	ofs << str;
 }
 
 void saveTextFile(string file_path, Array<string> str_v) {
 	ofstream ofs;
-	ofs.open(file_path, ios::out);
+	ofs.open(file_path, ios::out | ios::binary);
 	
 	for (int i = 0; i < str_v.size(); i++) {
 		ofs << str_v[i] << endl;
@@ -83,7 +86,7 @@ void saveTextFile(string file_path, Array<string> str_v) {
 
 void saveTextFile(string file_path, Array<FileStruct> fs) {
 	ofstream ofs;
-	ofs.open(file_path, ios::out);
+	ofs.open(file_path, ios::out | ios::binary);
 	
 	for (int i = 0; i < fs.size(); i++) {
 		ofs << fs[i].file_path << endl;
@@ -95,7 +98,7 @@ void saveTextFile(string file_path, Array<FileStruct> fs) {
 
 void saveTextFile(string file_path, FileStruct fs) {
 	ofstream ofs;
-	ofs.open(file_path, ios::out);
+	ofs.open(file_path, ios::out | ios::binary);
 	
 	ofs << fs.file_path << endl;
 	ofs << "    file_name   : " << fs.file_name << endl;

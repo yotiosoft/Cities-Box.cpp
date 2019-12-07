@@ -130,7 +130,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 		getElement(str_temp, U"demand_Industrial", demand.industrial);
 		getElement(str_temp, U"demand_Farm", demand.farm);
 		
-		getElement(str_temp, U"money", money);
+		getElement(str_temp, U"Money", money);
 		
 		getElement(str_temp, U"budget_of_Police", budget.police);
 		getElement(str_temp, U"budget_of_Fire_Depertment", budget.fire_depertment);
@@ -600,9 +600,9 @@ void CityMap::loadCBJ(String new_map_file_path) {
 	map_file_path = new_map_file_path;
 	
 	ifstream ifs(map_file_path.toUTF8().c_str(), ios::in | ios::binary);
-
+	
 	std::string map_xor((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-	string map_data = str_xor(map_xor, "citiesboxmapdatafilexor");
+	string map_data = stringXOR(map_xor, "citiesboxmapdatafilexor");
 	
 	saveTextFile("./data/map_temp.cbj_temp", map_data);
 	
@@ -725,7 +725,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 			
 			squares[y][x].original_name = square[U"original_name"].getString();
 			
- 			x++;
+			x++;
 		}
 		y++;
 	}
@@ -742,7 +742,7 @@ void CityMap::loadAddons(string addon_set_name) {
 			addons[splitUTF8(file_temp.file_name, ".")[0]] = new_addon;
 		}
 		
-		System::Sleep(100);
+		System::Sleep(20);
 	}
 }
 
@@ -770,6 +770,28 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
 			}
 		}
 	}
+}
+
+Array<Addon> CityMap::getAddon(CoordinateStruct coordinate) {
+	Array<Addon> ret_addons;
+	
+	for (int i=0; i<squares[coordinate.y][coordinate.x].addons.size(); i++) {
+		ret_addons << *(squares[coordinate.y][coordinate.x].addons[i]);
+	}
+	
+	return ret_addons;
+}
+
+RCOIFstruct CityMap::getDemand() {
+	return demand;
+}
+
+int CityMap::getPopulation() {
+	return total_population;
+}
+
+int CityMap::getMoney() {
+	return money;
 }
 
 SizeStruct CityMap::getMapSize() {
@@ -1054,7 +1076,7 @@ bool CityMap::save() {
 	}
 	map_file.endObject();
 	
-	saveTextFile(map_file_path.toUTF8()+".cbj", str_xor(map_file.get().toUTF8(), "citiesboxmapdatafilexor"));
+	saveTextFile(map_file_path.toUTF8()+".cbj", stringXOR(map_file.get().toUTF8(), "citiesboxmapdatafilexor"));
 	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
 	//map_file.save(map_file_path+U".cbj");
 	

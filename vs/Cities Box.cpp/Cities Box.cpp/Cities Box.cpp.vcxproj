@@ -113,6 +113,7 @@
     <ClCompile Include="CityMap.cpp" />
     <ClCompile Include="Images.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="OtherFunctions.cpp" />
     <ClCompile Include="Specific.cpp" />
     <ClCompile Include="StartUp.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="CityMap.hpp" />
     <ClInclude Include="Header.hpp" />
     <ClInclude Include="Images.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="OtherFunctions.hpp" />
     <ClInclude Include="Specific.hpp" />
     <ClInclude Include="StartUp.hpp" />

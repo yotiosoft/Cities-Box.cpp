@@ -107,7 +107,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 		// Šetype‚Ì“à—e‚ğæ“¾
 		// Œ»İ“Ç’†‚Ìtype‚ğæ“¾
 		for (int i=0; i<use_types.size(); i++) {
-			if (str_temp.find(use_types[i]+" {") != string::npos && !loading_type) {
+			if (str_temp.find(use_types[i] + " {") == 0 && !loading_type) {
 				current_loading_type = use_types[i];
 				loading_type = true;
 				
@@ -155,7 +155,7 @@ bool Addon::load(FileStruct file_path, string loading_addons_set_name) {
 					current_direction = directions_name.back()[i];
 				}
 			}
-			if (str_temp.find("}") == 0 && loading_direction) {
+			if (str_temp.find("}") != string::npos && loading_direction) {
 				current_direction = "";
 				loading_direction = false;
 			}
@@ -211,6 +211,14 @@ string Addon::getDirectionName(int type_num, int direction_num) {
 	return directions_name[type_num][direction_num];
 }
 
+PositionStruct Addon::getPosition(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
+	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
+	if (direction_temp != nullptr)
+		position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x) + CHIP_SIZE*3/4 * tiles_count.y;
+	
+	return position;
+}
+
 void Addon::draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	
@@ -220,7 +228,7 @@ void Addon::draw(string type_name, string direction_name, PositionStruct positio
 	}*/
 	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x) + CHIP_SIZE*3/4 * tiles_count.y;
+	position = getPosition(type_name, direction_name, position, use_tiles, tiles_count);
 	
 	unsigned short int top_left_x = direction_temp->top_left_x;
 	top_left_x += CHIP_SIZE/2 * tiles_count.x + CHIP_SIZE/2 * tiles_count.y;

@@ -7,19 +7,46 @@
 
 #include "Button.hpp"
 
+Button::Button() {
+}
+
 Button::Button(ImageStruct& image) {
+	set(image);
+}
+
+Button::Button(ImageStruct& image, int new_size) {
+	set(image, new_size);
+}
+
+Button::Button(ImageStruct& image, int new_size, String new_label, Font& new_font) {
+	set(image, new_size, new_label, new_font);
+}
+
+Button::Button(IconFont::ID icon_id) {
+	set(icon_id);
+}
+
+Button::Button(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift) {
+	set(icon_id, new_size, new_icon_size, new_shift);
+}
+
+Button::Button(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift, String new_label, Font& new_font) {
+	set(icon_id, new_size, new_icon_size, new_shift, new_label, new_font);
+}
+
+void Button::set(ImageStruct& image) {
 	size = SizeStruct{image.texture.size().x, image.texture.size().y};
 	button_texture = image.texture;
 	isIcon = false;
 }
 
-Button::Button(ImageStruct& image, int new_size) {
+void Button::set(ImageStruct& image, int new_size) {
 	size = SizeStruct{new_size, new_size};
 	button_texture = image.texture.resized(size.width, size.height).texture;
 	isIcon = false;
 }
 
-Button::Button(ImageStruct& image, int new_size, String new_label, Font& new_font) {
+void Button::set(ImageStruct& image, int new_size, String new_label, Font& new_font) {
 	size = SizeStruct{new_size, new_size};
 	button_texture = image.texture.resized(size.width, size.height).texture;
 	isIcon = false;
@@ -27,24 +54,28 @@ Button::Button(ImageStruct& image, int new_size, String new_label, Font& new_fon
 	label = new_label;
 }
 
-Button::Button(IconFont::ID icon_id) {
+void Button::set(IconFont::ID icon_id) {
 	size = SizeStruct{64, 64};
 	button_texture = Texture(Icon(icon_id, size.width));
 	isIcon = true;
 }
 
-Button::Button(IconFont::ID icon_id, int new_size) {
+void Button::set(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift) {
 	size = SizeStruct{new_size, new_size};
-	button_texture = Texture(Icon(icon_id, size.width));
+	icon_size = SizeStruct{new_icon_size, new_icon_size};
+	button_texture = Texture(Icon(icon_id, icon_size.width));
+	shift = new_shift;
 	isIcon = true;
 }
 
-Button::Button(IconFont::ID icon_id, int new_size, String new_label, Font& new_font) {
+void Button::set(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift, String new_label, Font& new_font) {
 	size = SizeStruct{new_size, new_size};
-	button_texture = Texture(Icon(icon_id, size.width));
+	icon_size = SizeStruct{new_icon_size, new_icon_size};
+	button_texture = Texture(Icon(icon_id, icon_size.width));
 	isIcon = true;
 	font = new_font;
 	label = new_label;
+	shift = new_shift;
 }
 
 void Button::put(PositionStruct new_position) {
@@ -59,8 +90,8 @@ void Button::put(PositionStruct new_position) {
 	}
 	
 	if (isIcon) {
-		position.x += 3;
-		position.y += 3;
+		position.x += shift.x;
+		position.y += shift.y;
 	}
 	button_texture.draw(position.x, position.y);
 }

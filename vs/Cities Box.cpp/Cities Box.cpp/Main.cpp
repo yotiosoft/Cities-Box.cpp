@@ -6,6 +6,7 @@
 #include "Addon.hpp"
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
+#include "Menu.hpp"
 
 void Main() {
 	Window::SetTitle(U"Cities Box.cpp");
@@ -20,6 +21,7 @@ void Main() {
 	
 	// フォントの宣言
 	Font font16(16);
+	Font font8(8);
 	
 	// タイトルメニュー画面
 	String map_file_path;
@@ -44,12 +46,16 @@ void Main() {
 	PositionStruct cursor_position, cursor_position_before;
 	
 	// 描画処理
-	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(50, 50, 50));
+	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(30, 30, 30));
 	bool update_map = true, first_loop = true;
 	
 	// サブウィンドウ
 	SubWindow sub_window(U"Test Window", &font16, SizeStruct{400, 200}, Color(Palette::White));
 	SubWindow sub_window2(U"Test Window2", &font16, SizeStruct{300, 150}, Color(Palette::White));
+	
+	// メニュー
+	Menu menu;
+	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &font8, &font16);
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -83,11 +89,11 @@ void Main() {
 		
 		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
 		
-		// マップの描画
-		// マップを更新する必要がある場合はバッファに描画（更新）する
+		// マップなどを更新する必要がある場合はバッファに描画（更新）する
 		if (update_map) {
-			buffer_texture.clear(Color(50, 50, 50));
+			buffer_texture.clear(Color(30, 30, 30));
 			
+			// マップの描画
 			ScopedRenderTarget2D target(buffer_texture);
 			map.draw(camera, cursor);
 			
@@ -115,6 +121,8 @@ void Main() {
 		buffer_texture.draw(0, 0);
 		//sub_window.draw();
 		//sub_window2.draw();
+		
+		menu.draw(map.getDemand(), map.getPopulation(), map.getMoney());
 		
 		System::Sleep(20);
 	}

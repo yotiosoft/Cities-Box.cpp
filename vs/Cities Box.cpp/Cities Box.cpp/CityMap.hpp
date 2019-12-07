@@ -114,6 +114,18 @@ public:
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
+	// Addon構造体の取得
+	Array<Addon> getAddon(CoordinateStruct coordinate);
+	
+	// 需要度の取得
+	RCOIFstruct getDemand();
+	
+	// 人口の取得
+	int getPopulation();
+	
+	// 資金の取得
+	int getMoney();
+	
 	// マップサイズの取得
 	SizeStruct getMapSize();
 	

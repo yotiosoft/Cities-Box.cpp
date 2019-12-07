@@ -772,6 +772,16 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
 	}
 }
 
+Array<Addon> CityMap::getAddon(CoordinateStruct coordinate) {
+	Array<Addon> ret_addons;
+	
+	for (int i=0; i<squares[coordinate.y][coordinate.x].addons.size(); i++) {
+		ret_addons << *(squares[coordinate.y][coordinate.x].addons[i]);
+	}
+	
+	return ret_addons;
+}
+
 SizeStruct CityMap::getMapSize() {
 	return mapsize;
 }

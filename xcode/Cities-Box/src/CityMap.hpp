@@ -114,6 +114,9 @@ public:
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
+	// Addon構造体を返す
+	Array<Addon> getAddon(CoordinateStruct coordinate);
+	
 	// マップサイズの取得
 	SizeStruct getMapSize();
 	

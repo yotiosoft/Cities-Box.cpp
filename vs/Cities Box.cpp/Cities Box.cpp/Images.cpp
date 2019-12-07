@@ -31,7 +31,7 @@ void Images::load(string file_path, string tag, Color transparent) {
 		new_image.file_name = image_files[i].file_path;
 		new_image.tag = tag;
 		
-		images[tag][split(image_files[i].file_name, ".")[0]] = new_image;
+		images[tag][splitUTF8(image_files[i].file_name, ".")[0]] = new_image;
 	}
 }
 

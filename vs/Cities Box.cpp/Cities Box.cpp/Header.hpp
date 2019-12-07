@@ -12,6 +12,7 @@
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 #define CHIP_SIZE		64
+#define RELEASE_NUMBER	141
 
 using namespace std;
 

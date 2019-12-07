@@ -21,7 +21,7 @@ Array<FileStruct> specific::getAllFilesName(string folder_path, string extension
 
 		string entry_str = replaceString(entry.path().string(), "\\", "/");
 		s.push_back(entry_str);
-		Array<string> spl = split(entry_str, "/");
+		Array<string> spl = splitUTF8(entry_str, "/");
 		
 		// サブディレクトリの中身も検索
 		if (spl.back().find(".") == string::npos) {

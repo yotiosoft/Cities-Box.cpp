@@ -22,7 +22,7 @@ void Main() {
 	Font font16(16);
 	
 	// タイトルメニュー画面
-	string map_file_path;
+	String map_file_path;
 	if (!titleMenu(images, font16, map_file_path)) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
@@ -30,6 +30,8 @@ void Main() {
 	// マップとアドオンの読み込み
 	CityMap map;
 	map.load(map_file_path);
+	
+	//map.save();
 	
 	// カメラの初期位置
 	CameraStruct camera;

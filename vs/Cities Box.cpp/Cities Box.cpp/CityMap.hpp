@@ -44,7 +44,7 @@ typedef struct BudgetStruct {
 } BudgetStruct;
 
 typedef struct CropStruct {
-	string name;
+	String name;
 	int amount;
 } CropStruct;
 
@@ -59,9 +59,9 @@ typedef struct SchoolStruct {
 } SchoolStruct;
 
 typedef struct SquareStruct {
-	Array<string> addon_name;
-	string original_name;
-	Array<string> category;
+	Array<String> addon_name;
+	String original_name;
+	Array<String> category;
 	
 	Array<int> type_number;
 	Array<int> direction_number;
@@ -84,7 +84,7 @@ typedef struct SquareStruct {
 	CropStruct crop;
 	
 	Array<int> age;
-	Array<string> gender;
+	Array<String> gender;
 	
 	Array<WorkPlaceStruct> work_places;
 	Array<SchoolStruct> schools;
@@ -100,7 +100,9 @@ typedef struct SquareStruct {
 class CityMap {
 public:
 	// マップの読み込み
-	void load(string map_file_path);
+	void load(String new_map_file_path);
+	void loadCBD(String new_map_file_path);
+	void loadCBJ(String new_map_file_path);
 	
 	// アドオンの読み込み
 	void loadAddons(string addon_set_name);
@@ -123,15 +125,18 @@ public:
 	// 描画範囲を取得
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
+	// マップ保存
+	bool save();
+	
 	// メモリ解放
 	void freeMapAndAddons();
 	
 private:
 	int saved_version;
-	string addon_set;
+	String addon_set;
 	
-	string city_name;
-	string mayor_name;
+	String city_name;
+	String mayor_name;
 	int total_population;
 	bool change_weather;
 	int temperature;
@@ -157,11 +162,13 @@ private:
 	CameraStruct camera_before;
 	pair<CoordinateStruct, CoordinateStruct> range;
 	
+	String map_file_path;
+	
 	// プライベート関数
-	bool getElement(string str, string search_element_name, string& ret);
-	bool getElement(string str, string search_element_name, int& ret);
-	bool getElement(string str, string search_element_name, bool& ret);
-	bool getTypes(string str, string search_element_name, Array<string>& ret);
+	bool getElement(String str, String search_element_name, String& ret);
+	bool getElement(String str, String search_element_name, int& ret);
+	bool getElement(String str, String search_element_name, bool& ret);
+	bool getTypes(String str, String search_element_name, Array<String>& ret);
 };
 
 #endif /* CityMap_hpp */

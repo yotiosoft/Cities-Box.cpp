@@ -18,5 +18,4 @@ void loadImages(Images& images) {
 	images.load("./data/images/pointer", "pointer", black);
 	images.load("./data/images/quarter", "quarter", black);
 	images.load("./data/images/title_menu", "title_menu", black);
-		images.load("./data/images/title_menu", "title_menu", black);
 }

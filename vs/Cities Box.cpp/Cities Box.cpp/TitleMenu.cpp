@@ -7,7 +7,7 @@
 
 #include "TitleMenu.hpp"
 
-bool titleMenu(Images& images, Font& font16, string& file_path) {
+bool titleMenu(Images& images, Font& font16, String& file_path) {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
@@ -30,11 +30,10 @@ bool titleMenu(Images& images, Font& font16, string& file_path) {
 		
 		if (load_button.push()) {
 			// ファイル選択ダイアログ
-			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd"}}};
+			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd", U"cbj"}}};
 			String file_path_temp;
 			if (const auto open = Dialog::OpenFile(ff)) {
-				file_path_temp = open.value();
-				file_path = file_path_temp.toUTF8();
+				file_path = open.value();
 				
 				b = System::Update();
 				loadingScreen(font16);

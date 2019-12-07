@@ -47,6 +47,7 @@
 		4B75113323966B3A008DFD03 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112A23966B39008DFD03 /* Addon.cpp */; };
 		4B75113423966B3A008DFD03 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112B23966B39008DFD03 /* Specific.cpp */; };
 		4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7511362397DF81008DFD03 /* SubWindow.cpp */; };
+		4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BDD0C22239BA06500780F93 /* Menu.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,8 @@
 		4B75112B23966B39008DFD03 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
 		4B7511362397DF81008DFD03 /* SubWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubWindow.cpp; sourceTree = "<group>"; };
 		4B7511372397DF81008DFD03 /* SubWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubWindow.hpp; sourceTree = "<group>"; };
+		4BDD0C22239BA06500780F93 /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
+		4BDD0C23239BA06500780F93 /* Menu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Menu.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,8 @@
 				4B75112623966B39008DFD03 /* Header.hpp */,
 				4B75112223966B38008DFD03 /* Images.cpp */,
 				4B75112923966B39008DFD03 /* Images.hpp */,
+				4BDD0C22239BA06500780F93 /* Menu.cpp */,
+				4BDD0C23239BA06500780F93 /* Menu.hpp */,
 				4B75111E23966B38008DFD03 /* OtherFunctions.cpp */,
 				4B75112723966B39008DFD03 /* OtherFunctions.hpp */,
 				4B75112B23966B39008DFD03 /* Specific.cpp */,
@@ -298,6 +303,7 @@
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,
 				4B75113023966B3A008DFD03 /* Images.cpp in Sources */,
+				4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */,
 				4B75112F23966B3A008DFD03 /* CityMap.cpp in Sources */,
 				4B75113123966B3A008DFD03 /* Button.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,

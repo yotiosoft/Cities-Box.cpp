@@ -13,8 +13,8 @@ bool titleMenu(Images& images, Font& font16, String& file_path) {
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
 	
 	// ボタンの宣言
-	Button load_button(IconFont::Floppy, 50, U"読み込み", font16);			// 読み込み
-	Button new_map_button(IconFont::Plus, 50, U"新しいマップ", font16);		// 新しいマップ
+	Button load_button(IconFont::Floppy, 50, 50, PositionStruct{3, 3}, U"読み込み", font16);			// 読み込み
+	Button new_map_button(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);		// 新しいマップ
 	
 	bool b;
 	Color color_white = Color(Palette::White);

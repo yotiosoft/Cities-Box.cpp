@@ -225,4 +225,5 @@ dependencies: \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Button.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Addon.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/CityMap.hpp \
-  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/SubWindow.hpp
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/SubWindow.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Menu.hpp

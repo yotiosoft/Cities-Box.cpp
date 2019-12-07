@@ -130,7 +130,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 		getElement(str_temp, U"demand_Industrial", demand.industrial);
 		getElement(str_temp, U"demand_Farm", demand.farm);
 		
-		getElement(str_temp, U"money", money);
+		getElement(str_temp, U"Money", money);
 		
 		getElement(str_temp, U"budget_of_Police", budget.police);
 		getElement(str_temp, U"budget_of_Fire_Depertment", budget.fire_depertment);
@@ -742,7 +742,7 @@ void CityMap::loadAddons(string addon_set_name) {
 			addons[splitUTF8(file_temp.file_name, ".")[0]] = new_addon;
 		}
 		
-		System::Sleep(100);
+		System::Sleep(20);
 	}
 }
 
@@ -780,6 +780,18 @@ Array<Addon> CityMap::getAddon(CoordinateStruct coordinate) {
 	}
 	
 	return ret_addons;
+}
+
+RCOIFstruct CityMap::getDemand() {
+	return demand;
+}
+
+int CityMap::getPopulation() {
+	return total_population;
+}
+
+int CityMap::getMoney() {
+	return money;
 }
 
 SizeStruct CityMap::getMapSize() {

@@ -602,7 +602,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 	ifstream ifs(map_file_path.toUTF8().c_str(), ios::in | ios::binary);
 	
 	std::string map_xor((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-	string map_data = str_xor(map_xor, "citiesboxmapdatafilexor");
+	string map_data = stringXOR(map_xor, "citiesboxmapdatafilexor");
 	
 	saveTextFile("./data/map_temp.cbj_temp", map_data);
 	
@@ -1054,7 +1054,7 @@ bool CityMap::save() {
 	}
 	map_file.endObject();
 	
-	saveTextFile(map_file_path.toUTF8()+".cbj", str_xor(map_file.get().toUTF8(), "citiesboxmapdatafilexor"));
+	saveTextFile(map_file_path.toUTF8()+".cbj", stringXOR(map_file.get().toUTF8(), "citiesboxmapdatafilexor"));
 	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
 	//map_file.save(map_file_path+U".cbj");
 	

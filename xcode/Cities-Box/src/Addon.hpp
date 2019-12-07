@@ -60,6 +60,9 @@ public:
 	// Directionの名前の取得
 	string getDirectionName(int type_num, int direction_num);
 	
+	// 最終的に表示する座標を取得
+	PositionStruct getPosition(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
+	
 	// アイコンのImageStructの取得
 	ImageStruct getIconImageStruct();
 	

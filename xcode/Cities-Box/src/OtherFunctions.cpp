@@ -151,7 +151,7 @@ School::Type getSchool(int number) {
 	}
 }
 
-string str_xor(const std::string &data, const std::string &key) {
+string stringXOR(const std::string &data, const std::string &key) {
 	std::string result(data.size(), '\0');
 	for (std::size_t i = 0; i < data.size(); i++) {
 		result[i] = data[i] ^ key[i % key.size()];

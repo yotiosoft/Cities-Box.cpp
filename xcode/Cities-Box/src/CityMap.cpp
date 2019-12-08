@@ -169,9 +169,9 @@ void CityMap::loadCBD(String new_map_file_path) {
 				
 				// マップにAddon_Setが定義されていない場合はNormalとみなしアドオン読み込み
 				if (!addon_loaded) {
-					loadAddons(U"");
-					addon_loaded = true;
 					addon_set = U"Normal";
+					loadAddons(addon_set);
+					addon_loaded = true;
 				}
 				
 				// アドオンのポインタを登録

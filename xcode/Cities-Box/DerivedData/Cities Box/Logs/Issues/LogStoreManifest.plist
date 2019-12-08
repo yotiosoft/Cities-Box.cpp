@@ -32,7 +32,7 @@
 			<key>uniqueIdentifier</key>
 			<string>36F5474B-D778-4448-9F14-906A320E1F2B</string>
 		</dict>
-		<key>A1374BFB-46E6-40A8-B4C0-9D023B114E33</key>
+		<key>A1522641-8767-4B03-94FA-9F63CCB076D4</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -41,7 +41,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>A1374BFB-46E6-40A8-B4C0-9D023B114E33.xcactivitylog</string>
+			<string>A1522641-8767-4B03-94FA-9F63CCB076D4.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -50,13 +50,13 @@
 			<key>signature</key>
 			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
 			<key>timeStartedRecording</key>
-			<real>597480487.06892097</real>
+			<real>597487163.89256597</real>
 			<key>timeStoppedRecording</key>
-			<real>597480494.57969296</real>
+			<real>597487168.89195395</real>
 			<key>title</key>
 			<string>Build target Cities-Box</string>
 			<key>uniqueIdentifier</key>
-			<string>A1374BFB-46E6-40A8-B4C0-9D023B114E33</string>
+			<string>A1522641-8767-4B03-94FA-9F63CCB076D4</string>
 		</dict>
 		<key>A38C3FF8-071F-441B-903B-8508FF5E9110</key>
 		<dict>

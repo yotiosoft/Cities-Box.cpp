@@ -64,7 +64,7 @@ typedef struct SquareStruct {
 	int serial_number;
 	
 	CoordinateStruct tiles_count;
-	//CoordinateStruct use_tiles;
+	CoordinateStruct use_tiles;
 	
 	int residents;
 	WorkersStruct workers;

@@ -12,10 +12,30 @@
 #include "Button.hpp"
 #include "CityMap.hpp"
 
+namespace MenuMode {
+	enum Type {
+		None = -1,
+		Cursor = 0,
+		Road = 1,
+		Train = 2,
+		Residential = 3,
+		Commercial = 4,
+		Office = 5,
+		Industrial = 6,
+		Farm = 7,
+		Public = 8,
+		Park = 9,
+		Ship = 10,
+		AirPort = 11,
+		Tile = 12,
+	};
+}
+
 class Menu {
 public:
 	void set(PositionStruct new_position, SizeStruct new_size, Font* new_font8, Font* new_font16);
 	
+	void releaseBeforeButton(MenuMode::Type before_selected_button);
 	void draw(RCOIFstruct demand, int population_count, int money);
 	
 private:
@@ -24,28 +44,9 @@ private:
 	
 	RenderTexture render;
 	
-	Button cursorButton;
+	map<String, Button> button;
 	
-	Button roadButton;
-	Button railRoadButton;
-	Button residentialButton;
-	Button commercialButton;
-	Button officeButton;
-	Button industrialButton;
-	Button farmButton;
-	Button publicButton;
-	
-	Button parkButton;
-	Button waterWayButton;
-	Button airPortButton;
-	Button fieldButton;
-	
-	Button informationButton;
-	Button rateButton;
-	Button deleteButton;
-	Button budgetButton;
-	Button settingButton;
-	Button saveButton;
+	MenuMode::Type menu_mode;
 	
 	Font* font8;
 	Font* font16;

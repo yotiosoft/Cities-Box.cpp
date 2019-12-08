@@ -35,6 +35,9 @@ public:
 	// 押されたかどうか
 	bool push();
 	
+	// 選択解除
+	void release();
+	
 private:
 	Texture button_texture;
 	
@@ -49,6 +52,8 @@ private:
 	Font font;
 	String label;
 	PositionStruct label_position;
+	
+	bool active;
 };
 
 #endif /* Button_hpp */

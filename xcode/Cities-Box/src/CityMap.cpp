@@ -268,7 +268,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				squares[array_count][x].serial_number = stoi(temp[x].toUTF8());
 			}
 		}
-		
+		/*
 		if (current_array_name == "obj_use_tiles_x" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
@@ -292,7 +292,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				}
 			}
 		}
-		
+		*/
 		if (current_array_name == "obj_tiles_x" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
@@ -301,7 +301,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				
 				// obj_tiles_xを修正(r140以前のバージョンで保存した場合)
 				if (saved_version <= 140) {
-					if (squares[array_count][x].use_tiles.x > 0) {
+					if (squares[array_count][x].addons[0]->getUseTiles(squares[array_count][x].type_number[0], squares[array_count][x].direction_number[0]).x > 0) {
 						// 左向き
 						if (squares[array_count][x].direction_number[0] == 0) {
 							
@@ -319,7 +319,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 						
 						// 右向き
 						if (squares[array_count][x].direction_number[0] == 3) {
-							squares[array_count][x].tiles_count.x += squares[array_count][x].use_tiles.x - 1;
+							squares[array_count][x].tiles_count.x += squares[array_count][x].addons[0]->getUseTiles(squares[array_count][x].type_number[0], squares[array_count][x].direction_number[0]).x - 1;
 						}
 					}
 				}
@@ -334,7 +334,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				
 				// obj_tiles_yを修正(r140以前のバージョンで保存した場合)
 				if (saved_version <= 140) {
-					if (squares[array_count][x].use_tiles.y > 0) {
+					if (squares[array_count][x].addons[0]->getUseTiles(squares[array_count][x].type_number[0], squares[array_count][x].direction_number[0]).y > 0) {
 						// 左向き
 						if (squares[array_count][x].direction_number[0] == 0) {
 							
@@ -342,7 +342,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 						
 						// 上向き
 						if (squares[array_count][x].direction_number[0] == 1) {
-							squares[array_count][x].tiles_count.y = squares[array_count][x].use_tiles.y - 1 - squares[array_count][x].tiles_count.y;
+							squares[array_count][x].tiles_count.y = squares[array_count][x].addons[0]->getUseTiles(squares[array_count][x].type_number[0], squares[array_count][x].direction_number[0]).y - 1 - squares[array_count][x].tiles_count.y;
 						}
 						
 						// 下向き
@@ -352,7 +352,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 						
 						// 右向き
 						if (squares[array_count][x].direction_number[0] == 3) {
-							squares[array_count][x].tiles_count.y = squares[array_count][x].use_tiles.y - 1 - squares[array_count][x].tiles_count.y;
+							squares[array_count][x].tiles_count.y = squares[array_count][x].addons[0]->getUseTiles(squares[array_count][x].type_number[0], squares[array_count][x].direction_number[0]).y - 1 - squares[array_count][x].tiles_count.y;
 						}
 					}
 				}
@@ -689,8 +689,8 @@ void CityMap::loadCBJ(String new_map_file_path) {
 				}
 			}
 			
-			squares[y][x].use_tiles.x = square[U"use_tiles.x"].get<int>();
-			squares[y][x].use_tiles.y = square[U"use_tiles.y"].get<int>();
+			//squares[y][x].use_tiles.x = square[U"use_tiles.x"].get<int>();
+			//squares[y][x].use_tiles.y = square[U"use_tiles.y"].get<int>();
 			
 			squares[y][x].tiles_count.x = square[U"tiles_count.x"].get<int>();
 			squares[y][x].tiles_count.y = square[U"tiles_count.y"].get<int>();
@@ -749,8 +749,8 @@ void CityMap::loadCBJ(String new_map_file_path) {
 }
 
 void CityMap::loadAddons(String addon_set_name) {
-	//Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
-	Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adj");
+	Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
+	//Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adj");
 	
 	for (int i=0; i<addons_path.size(); i++) {
 		FileStruct file_temp = addons_path[i];
@@ -770,7 +770,7 @@ void CityMap::loadAddons(String addon_set_name) {
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=(int)squares[coordinate.y][coordinate.x].addons.size()-1; i>=0; i--) {
-		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].addons[i]->getTypeName(squares[coordinate.y][coordinate.x].type_number[i]), squares[coordinate.y][coordinate.x].addons[i]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[i], squares[coordinate.y][coordinate.x].direction_number[i]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].use_tiles, squares[coordinate.y][coordinate.x].tiles_count);
+		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].addons[i]->getTypeName(squares[coordinate.y][coordinate.x].type_number[i]), squares[coordinate.y][coordinate.x].addons[i]->getDirectionName(squares[coordinate.y][coordinate.x].type_number[i], squares[coordinate.y][coordinate.x].direction_number[i]), coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].addons[i]->getUseTiles(squares[coordinate.y][coordinate.x].type_number[i], squares[coordinate.y][coordinate.x].type_number[i]), squares[coordinate.y][coordinate.x].tiles_count);
 	}
 }
 
@@ -995,14 +995,14 @@ bool CityMap::save() {
 								}
 							}
 							map_file.endArray();
-							
+							/*
 							map_file.key(U"use_tiles").startObject();
 							{
 								map_file.key(U"x").write(squares[y][x].use_tiles.x);
 								map_file.key(U"y").write(squares[y][x].use_tiles.y);
 							}
 							map_file.endObject();
-							
+							*/
 							map_file.key(U"tiles_count").startObject();
 							{
 								map_file.key(U"x").write(squares[y][x].tiles_count.x);

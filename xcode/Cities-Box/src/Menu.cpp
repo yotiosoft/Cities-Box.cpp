@@ -157,67 +157,117 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 	if (button[U"cursor"].push()) {
 		if (menu_mode != MenuMode::Cursor)
 			releaseBeforeButton(menu_mode);
+		
 		menu_mode = MenuMode::Cursor;
+		button[U"cursor"].release();
 	}
 	if (button[U"road"].push()) {
-		if (menu_mode != MenuMode::Road)
+		if (menu_mode != MenuMode::Road) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Road;
+			menu_mode = MenuMode::Road;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"train"].push()) {
-		if (menu_mode != MenuMode::Train)
+		if (menu_mode != MenuMode::Train) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Train;
+			menu_mode = MenuMode::Train;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"residential"].push()) {
-		if (menu_mode != MenuMode::Residential)
+		if (menu_mode != MenuMode::Residential){
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Residential;
+			menu_mode = MenuMode::Residential;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"commercial"].push()) {
-		if (menu_mode != MenuMode::Commercial)
+		if (menu_mode != MenuMode::Commercial) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Commercial;
+			menu_mode = MenuMode::Commercial;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"office"].push()) {
-		if (menu_mode != MenuMode::Office)
+		if (menu_mode != MenuMode::Office) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Office;
+			menu_mode = MenuMode::Office;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"industrial"].push()) {
-		if (menu_mode != MenuMode::Industrial)
+		if (menu_mode != MenuMode::Industrial) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Industrial;
+			menu_mode = MenuMode::Industrial;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"farm"].push()) {
-		if (menu_mode != MenuMode::Farm)
+		if (menu_mode != MenuMode::Farm) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Farm;
+			menu_mode = MenuMode::Farm;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"public"].push()) {
-		if (menu_mode != MenuMode::Public)
+		if (menu_mode != MenuMode::Public) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Public;
+			menu_mode = MenuMode::Public;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"park"].push()) {
-		if (menu_mode != MenuMode::Park)
+		if (menu_mode != MenuMode::Park) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Park;
+			menu_mode = MenuMode::Park;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"ship"].push()) {
-		if (menu_mode != MenuMode::Ship)
+		if (menu_mode != MenuMode::Ship) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Ship;
+			menu_mode = MenuMode::Ship;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"air_port"].push()) {
-		if (menu_mode != MenuMode::AirPort)
+		if (menu_mode != MenuMode::AirPort) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::AirPort;
+			menu_mode = MenuMode::AirPort;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	if (button[U"tile"].push()) {
-		if (menu_mode != MenuMode::Tile)
+		if (menu_mode != MenuMode::Tile) {
 			releaseBeforeButton(menu_mode);
-		menu_mode = MenuMode::Tile;
+			menu_mode = MenuMode::Tile;
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
 	}
 	
 	if (menu_mode != MenuMode::None && menu_mode != MenuMode::Cursor) {
@@ -231,6 +281,12 @@ void Menu::addonMenu() {
 	Array<Addon*> show_addons;
 	
 	switch (menu_mode) {
+		case MenuMode::None:
+			show_addons = Array<Addon*>();
+			break;
+		case MenuMode::Cursor:
+			show_addons = Array<Addon*>();
+			break;
 		case MenuMode::Residential:
 			show_addons = addons_categorized[U"residential"][U"low_density"];
 			break;

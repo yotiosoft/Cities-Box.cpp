@@ -5510,6 +5510,38 @@
 			<key>uniqueIdentifier</key>
 			<string>5D34746F-7058-4C58-9A19-7AC5263362C9</string>
 		</dict>
+		<key>5D513A8B-B296-4716-B17C-77B575AD2320</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>5D513A8B-B296-4716-B17C-77B575AD2320.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597508972.633425</real>
+			<key>timeStoppedRecording</key>
+			<real>597508988.188218</real>
+			<key>title</key>
+			<string>Debug Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>5D513A8B-B296-4716-B17C-77B575AD2320</string>
+		</dict>
 		<key>5D906210-8ED2-451B-9111-E882A56DAF3A</key>
 		<dict>
 			<key>className</key>
@@ -7622,6 +7654,38 @@
 			<key>uniqueIdentifier</key>
 			<string>8251D57E-A08E-4EA5-9535-13FBBCCAD684</string>
 		</dict>
+		<key>825AB2C2-6980-4B99-AE21-6A9166EB2190</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>825AB2C2-6980-4B99-AE21-6A9166EB2190.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597508896.51466596</real>
+			<key>timeStoppedRecording</key>
+			<real>597508914.57575297</real>
+			<key>title</key>
+			<string>Debug Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>825AB2C2-6980-4B99-AE21-6A9166EB2190</string>
+		</dict>
 		<key>82ED27DE-E9D5-4160-B76C-C545A6F33823</key>
 		<dict>
 			<key>className</key>
@@ -8517,6 +8581,38 @@
 			<string>Debug Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>92221CA5-560F-4A34-8418-E9A1CC175F93</string>
+		</dict>
+		<key>928D2169-BBD9-4E04-A9F4-47A959DFDFF1</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>928D2169-BBD9-4E04-A9F4-47A959DFDFF1.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597508636.08459604</real>
+			<key>timeStoppedRecording</key>
+			<real>597508704.17393804</real>
+			<key>title</key>
+			<string>Debug Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>928D2169-BBD9-4E04-A9F4-47A959DFDFF1</string>
 		</dict>
 		<key>92F912B4-CF50-4C50-B0AB-637BE6CFF20D</key>
 		<dict>
@@ -12230,6 +12326,38 @@
 			<key>uniqueIdentifier</key>
 			<string>CE3C607A-81DA-4930-807E-8A90827DFC76</string>
 		</dict>
+		<key>CE52866F-68DC-4610-ABD5-DE5303295761</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>CE52866F-68DC-4610-ABD5-DE5303295761.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597508736.37386596</real>
+			<key>timeStoppedRecording</key>
+			<real>597508774.95424294</real>
+			<key>title</key>
+			<string>Debug Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>CE52866F-68DC-4610-ABD5-DE5303295761</string>
+		</dict>
 		<key>CE54834F-5FEC-4AC0-9569-3164D75F1841</key>
 		<dict>
 			<key>className</key>
@@ -13893,6 +14021,38 @@
 			<string>Debug Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>EFCB5024-4B97-417A-9C67-D3930E97DD62</string>
+		</dict>
+		<key>F093F4AE-ED32-403A-AA19-A36522DC166D</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>F093F4AE-ED32-403A-AA19-A36522DC166D.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>597509084.55278003</real>
+			<key>timeStoppedRecording</key>
+			<real>597509269.31531501</real>
+			<key>title</key>
+			<string>Debug Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>F093F4AE-ED32-403A-AA19-A36522DC166D</string>
 		</dict>
 		<key>F11EE95A-0A8D-497A-8477-01C59E914692</key>
 		<dict>

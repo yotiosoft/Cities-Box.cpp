@@ -50,6 +50,16 @@ void Addon::set_alpha_color(Image& image_temp, Color transparent_rgb) {
 }
 
 bool Addon::load(FileStruct new_file_path, String loading_addons_set_name) {
+	if (FileSystem::Extension(Unicode::Widen(new_file_path.file_path)) == U"adat") {
+		return loadADAT(new_file_path, loading_addons_set_name);
+	}
+	else if (FileSystem::Extension(Unicode::Widen(new_file_path.file_path)) == U"adj") {
+		return loadADJ(new_file_path, loading_addons_set_name);
+	}
+	return false;
+}
+
+bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 	// アドオンファイルの読み込み
 	addon_file_path = new_file_path;
 	
@@ -118,8 +128,6 @@ bool Addon::load(FileStruct new_file_path, String loading_addons_set_name) {
 				
 				current_loading_type = use_types[i];
 				loading_type = true;
-				
-				direction_names.push_back(Array<String>());
 			}
 		}
 		if (str_temp_utf8.find("}") == 0 && !loading_direction) {
@@ -156,15 +164,14 @@ bool Addon::load(FileStruct new_file_path, String loading_addons_set_name) {
 			getElement(str_temp, U"night_mask", types[current_loading_type].night_mask);
 			
 			// typeに含まれる方向と各方向の情報を取得
-			getTypes(str_temp, U"direction", direction_names.back());
+			getTypes(str_temp, U"direction", types[current_loading_type].direction_names);
 			
-			for (int i=0; i<direction_names.back().size(); i++) {
-				if (str_temp_utf8.find(direction_names.back()[i].toUTF8()+" {") != string::npos && !loading_direction) {
-					if (direction_names.back()[i] == U"null") {
-						direction_names.back()[i] = U"normal";
+			for (int i=0; i<types[current_loading_type].direction_names.size(); i++) {
+				if (str_temp_utf8.find(types[current_loading_type].direction_names[i].toUTF8()+" {") != string::npos && !loading_direction) {
+					if (types[current_loading_type].direction_names[i] == U"null") {
+						types[current_loading_type].direction_names[i] = U"normal";
 					}
-					current_direction = direction_names.back()[i];
-					types[current_loading_type].direction_names.push_back(direction_names.back()[i]);
+					current_direction = types[current_loading_type].direction_names[i];
 				}
 			}
 			if (str_temp_utf8.find("}") != string::npos && loading_direction) {
@@ -201,6 +208,56 @@ bool Addon::load(FileStruct new_file_path, String loading_addons_set_name) {
 	return true;
 }
 
+bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
+	addon_file_path = new_file_path;
+	JSONReader addon_data(Unicode::Widen(addon_file_path.file_path));
+	
+	addon_name = addon_data[U"name"].getString();
+	addon_jp_name = addon_data[U"jp_name"].getString();
+	
+	addon_author = addon_data[U"author"].getString();
+	addon_summary = addon_data[U"summary"].getString();
+	
+	addon_icon = addon_data[U"icon"].getString();
+	addon_types = addon_data[U"type_names"].getString();
+	
+	use_types = addon_data[U"use_types"].getArray<String>();
+	
+	for (const auto& type : addon_data[U"Types"].arrayView()) {
+		String type_name = type[U"type_name"].getString();
+		
+		types[type_name].image = type[U"image"].getString();
+		
+		types[type_name].transparent_color.r = type[U"transparent_color.R"].get<int>();
+		types[type_name].transparent_color.g = type[U"transparent_color.G"].get<int>();
+		types[type_name].transparent_color.b = type[U"transparent_color.B"].get<int>();
+		
+		Image itemp(Unicode::Widen(addon_file_path.folder_path)+U"/"+types[type_name].image);
+		set_alpha_color(itemp, Color(types[type_name].transparent_color.r, types[type_name].transparent_color.g, types[type_name].transparent_color.b));
+		types[type_name].texture = Texture(itemp);
+		
+		types[type_name].direction_names = type[U"direction_names"].getArray<String>();
+		
+		for (const auto& direction : type[U"Directions"].arrayView()) {
+			String direction_name = direction[U"direction_name"].getString();
+			
+			types[type_name].directions[direction_name].size_width = direction[U"size.width"].get<int>();
+			types[type_name].directions[direction_name].size_height = direction[U"size.height"].get<int>();
+			
+			types[type_name].directions[direction_name].chip_x = direction[U"squares.width"].get<int>();
+			types[type_name].directions[direction_name].chip_y = direction[U"squares.height"].get<int>();
+			
+			types[type_name].directions[direction_name].top_left_x = direction[U"top_left.x"].get<int>();
+			types[type_name].directions[direction_name].top_left_y = direction[U"top_left.y"].get<int>();
+			
+			types[type_name].directions[direction_name].bottom_right_x = direction[U"bottom_right.x"].get<int>();
+			types[type_name].directions[direction_name].bottom_right_y = direction[U"bottom_right.y"].get<int>();
+		}
+	}
+	
+	return true;
+}
+
 String Addon::getName() {
 	return addon_name;
 }
@@ -222,7 +279,7 @@ String Addon::getTypeName(int type_num) {
 }
 
 String Addon::getDirectionName(int type_num, int direction_num) {
-	return direction_names[type_num][direction_num];
+	return types[getTypeName(type_num)].direction_names[direction_num];
 }
 
 PositionStruct Addon::getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
@@ -272,7 +329,14 @@ void Addon::converter() {
 		addon_data.key(U"icon").write(addon_icon);
 		
 		addon_data.key(U"types_names").write(addon_types);
-		addon_data.key(U"use_types").write(use_types);
+		
+		addon_data.key(U"use_types").startArray();
+		{
+			for (auto type_name = use_types.begin(); type_name != use_types.end() ; type_name++) {
+				addon_data.write(*type_name);
+			}
+		}
+		addon_data.endArray();
 		
 		addon_data.key(U"Types").startArray();
 		{
@@ -281,6 +345,7 @@ void Addon::converter() {
 				{
 					addon_data.key(U"type_name").write(type->first);
 					addon_data.key(U"image").write(type->second.image);
+					addon_data.key(U"night_mask").write(type->second.night_mask);
 					addon_data.key(U"transparent_color").startObject();
 					{
 						addon_data.key(U"R").write(type->second.transparent_color.r);
@@ -289,7 +354,13 @@ void Addon::converter() {
 					}
 					addon_data.endObject();
 					
-					addon_data.key(U"direction_names").write(type->second.direction_names);
+					addon_data.key(U"direction_names").startArray();
+					{
+						for (auto direction_name = type->second.direction_names.begin(); direction_name != type->second.direction_names.end() ; direction_name++) {
+							addon_data.write(*direction_name);
+						}
+					}
+					addon_data.endArray();
 					
 					addon_data.key(U"Directions").startArray();
 					{

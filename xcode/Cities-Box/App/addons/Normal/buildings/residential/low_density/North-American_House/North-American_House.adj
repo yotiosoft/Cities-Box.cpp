@@ -5,17 +5,25 @@
   "summary": "アメリカやカナダによくありそうな一軒家。",
   "icon": "icon_North-American_House.png",
   "types_names": "low_density_residential",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "North-American_House.png",
+      "night_mask": "North-American_House__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

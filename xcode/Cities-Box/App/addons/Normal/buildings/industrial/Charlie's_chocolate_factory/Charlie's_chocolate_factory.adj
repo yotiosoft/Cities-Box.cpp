@@ -5,17 +5,25 @@
   "summary": "世界的に有名なチョコレート工場。中は完全非公開。",
   "icon": "icon_Charlie's_chocolate_factory.png",
   "types_names": "industrial",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Charlie's_chocolate_factory.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

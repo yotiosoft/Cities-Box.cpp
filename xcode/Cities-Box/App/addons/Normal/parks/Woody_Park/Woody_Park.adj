@@ -5,17 +5,25 @@
   "summary": "大きな木がある広場です。",
   "icon": "icon_Woody_Park.png",
   "types_names": "park",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Woody_Park.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

@@ -5,17 +5,25 @@
   "summary": "2階建ての一軒家、3LDKで23年ローンです。",
   "icon": "icon_blue_roof_house.png",
   "types_names": "low_density_residential",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "blue_roof_house.png",
+      "night_mask": "blue_roof_house__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

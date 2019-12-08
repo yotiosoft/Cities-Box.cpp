@@ -5,17 +5,25 @@
   "summary": "街なかによくある1×1サイズの小さい公園です。周辺の地価や都市の人気度を高めます。",
   "icon": "icon_Small_Park.png",
   "types_names": "park",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Small_Park.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

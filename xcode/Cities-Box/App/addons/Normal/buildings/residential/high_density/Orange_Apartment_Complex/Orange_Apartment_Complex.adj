@@ -5,17 +5,25 @@
   "summary": "オレンジ色の壁の団地です。",
   "icon": "icon_Orange_Apartment_Complex.png",
   "types_names": "high_density_residential",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Orange_Apartment_Complex.png",
+      "night_mask": "Orange_Apartment_Complex__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

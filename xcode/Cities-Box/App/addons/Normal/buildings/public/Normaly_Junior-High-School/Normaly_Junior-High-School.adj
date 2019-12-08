@@ -5,17 +5,25 @@
   "summary": "3階建ての中学校。",
   "icon": "icon_Normaly_Junior-High-School.png",
   "types_names": "junior-high-school",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Normaly_Junior-High-School.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

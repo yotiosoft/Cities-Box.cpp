@@ -5,17 +5,25 @@
   "summary": "この街の開拓者を後世に残すための立派な像です。",
   "icon": "icon_Statue_of_Mayor.png",
   "types_names": "park",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Statue_of_Mayor.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

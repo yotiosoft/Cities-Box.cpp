@@ -5,17 +5,30 @@
   "summary": "木でつくられた街路樹付きの遊歩道です",
   "icon": "icon_Wooden_Promenade_with_Tree.png",
   "types_names": "Promenade",
-  "use_types": "{default, dead_end, turn, intersection_T, intersection_cross, train_crossing, bridge, under_construction}",
+  "use_types": [
+    "default",
+    "dead_end",
+    "turn",
+    "intersection_T",
+    "intersection_cross",
+    "train_crossing",
+    "bridge",
+    "under_construction"
+  ],
   "Types": [
     {
       "type_name": "bridge",
       "image": "Wooden_Promenade_bridge.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{width, depth}",
+      "direction_names": [
+        "width",
+        "depth"
+      ],
       "Directions": [
         {
           "direction_name": "depth",
@@ -60,12 +73,18 @@
     {
       "type_name": "dead_end",
       "image": "Wooden_Promenade_with_Tree_dead_end.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",
@@ -148,12 +167,16 @@
     {
       "type_name": "default",
       "image": "Wooden_Promenade_with_Tree.png",
+      "night_mask": "Wooden_Promenade_with_Tree__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{width, depth}",
+      "direction_names": [
+        "width",
+        "depth"
+      ],
       "Directions": [
         {
           "direction_name": "depth",
@@ -198,12 +221,18 @@
     {
       "type_name": "intersection_T",
       "image": "Wooden_Promenade_with_Tree_intersection_T.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left-top-bottom, left-right-top, left-right-bottom, right-top-bottom}",
+      "direction_names": [
+        "left-top-bottom",
+        "left-right-top",
+        "left-right-bottom",
+        "right-top-bottom"
+      ],
       "Directions": [
         {
           "direction_name": "left-right-bottom",
@@ -286,12 +315,15 @@
     {
       "type_name": "intersection_cross",
       "image": "Wooden_Promenade_with_Tree_intersection_cross.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",
@@ -317,12 +349,16 @@
     {
       "type_name": "train_crossing",
       "image": "Wooden_Promenade_with_Tree_train_crossing.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{width, depth}",
+      "direction_names": [
+        "width",
+        "depth"
+      ],
       "Directions": [
         {
           "direction_name": "depth",
@@ -367,12 +403,18 @@
     {
       "type_name": "turn",
       "image": "Wooden_Promenade_with_Tree_turn.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left-top, right-top, left-bottom, right-bottom}",
+      "direction_names": [
+        "left-top",
+        "right-top",
+        "left-bottom",
+        "right-bottom"
+      ],
       "Directions": [
         {
           "direction_name": "left-bottom",
@@ -455,12 +497,15 @@
     {
       "type_name": "under_construction",
       "image": "Wooden_Promenade_with_Tree_under_construction.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",

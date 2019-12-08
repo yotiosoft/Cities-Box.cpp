@@ -5,17 +5,25 @@
   "summary": "日当たりの良い最近できた風のオフィスです。",
   "icon": "icon_Glazed_Office.png",
   "types_names": "office",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Glazed_Office.png",
+      "night_mask": "Glazed_Office__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

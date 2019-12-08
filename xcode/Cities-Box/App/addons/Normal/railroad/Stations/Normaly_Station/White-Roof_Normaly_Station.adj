@@ -5,17 +5,27 @@
   "summary": "よくありそうなごく普通の屋根付きの駅。",
   "icon": "icon_White-Roof_Normaly_Station.png",
   "types_names": "station",
-  "use_types": "{default, dead_end, under_construction}",
+  "use_types": [
+    "default",
+    "dead_end",
+    "under_construction"
+  ],
   "Types": [
     {
       "type_name": "dead_end",
       "image": "White-Roof_Normaly_Station_dead_end.png",
+      "night_mask": "White-Roof_Normaly_Station_dead_end__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",
@@ -98,12 +108,16 @@
     {
       "type_name": "default",
       "image": "White-Roof_Normaly_Station.png",
+      "night_mask": "White-Roof_Normaly_Station__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{width, depth}",
+      "direction_names": [
+        "width",
+        "depth"
+      ],
       "Directions": [
         {
           "direction_name": "depth",
@@ -148,12 +162,15 @@
     {
       "type_name": "under_construction",
       "image": "White-Roof_Normaly_Station_under_construction.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",

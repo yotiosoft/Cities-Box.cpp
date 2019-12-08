@@ -5,17 +5,25 @@
   "summary": "8階建ての白い壁のオフィスです。外観が白いからといって中の会社がホワイト企業とは限りません！",
   "icon": "icon_white_office.png",
   "types_names": "office",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "white_office.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

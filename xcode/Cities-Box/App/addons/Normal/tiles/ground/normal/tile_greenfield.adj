@@ -5,17 +5,24 @@
   "summary": "草生える",
   "icon": "icon_tile_greenfield.png",
   "types_names": "tile",
-  "use_types": "{normal, autumn, snow}",
+  "use_types": [
+    "normal",
+    "autumn",
+    "snow"
+  ],
   "Types": [
     {
       "type_name": "autumn",
       "image": "tile_greenfield.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",
@@ -41,12 +48,15 @@
     {
       "type_name": "normal",
       "image": "tile_greenfield.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",
@@ -72,12 +82,15 @@
     {
       "type_name": "snow",
       "image": "tile_greenfield.png",
+      "night_mask": "",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{normal}",
+      "direction_names": [
+        "normal"
+      ],
       "Directions": [
         {
           "direction_name": "normal",

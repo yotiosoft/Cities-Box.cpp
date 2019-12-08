@@ -43,6 +43,8 @@ public:
 	
 	// 内容の変更
 	bool load(FileStruct new_file_path, String loading_addons_set_name);
+	bool loadADAT(FileStruct new_file_path, String loading_addons_set_name);
+	bool loadADJ(FileStruct new_file_path, String loading_addons_set_name);
 	
 	// 名前の取得
 	String getName();		// 原名
@@ -97,9 +99,6 @@ private:
 	
 	// 使用するtype
 	Array<String> use_types;
-	
-	// 使用するdirection
-	Array<Array<String>> direction_names;
 	
 	// 収容人数
 	int maxium_capacity;

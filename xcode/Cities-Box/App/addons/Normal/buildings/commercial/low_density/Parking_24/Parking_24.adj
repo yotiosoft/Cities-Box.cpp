@@ -5,17 +5,25 @@
   "summary": "60分100円の小さなコインパーキングです。",
   "icon": "icon_Parking_24.png",
   "types_names": "low_density_commercial",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Parking_24.png",
+      "night_mask": "Parking_24__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

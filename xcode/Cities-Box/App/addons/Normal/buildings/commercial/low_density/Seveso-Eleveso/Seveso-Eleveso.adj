@@ -5,17 +5,25 @@
   "summary": "近くて便利！セブソ イレブソ♪いいキブソ♪（開いててよかったぁ...）",
   "icon": "icon_Seveso-Eleveso.png",
   "types_names": "low_density_commercial",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Seveso-Eleveso.png",
+      "night_mask": "Seveso-Eleveso__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

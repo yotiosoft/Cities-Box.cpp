@@ -5,17 +5,25 @@
   "summary": "木製の柱が特長の超高級マンションです。最上階にはプールやジムがあります。",
   "icon": "icon_Wood_Apartment.png",
   "types_names": "high_density_residential",
-  "use_types": "{normal}",
+  "use_types": [
+    "normal"
+  ],
   "Types": [
     {
       "type_name": "normal",
       "image": "Wood_Apartment.png",
+      "night_mask": "Wood_Apartment__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
         "B": 0
       },
-      "direction_names": "{left, top, bottom, right}",
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
       "Directions": [
         {
           "direction_name": "bottom",

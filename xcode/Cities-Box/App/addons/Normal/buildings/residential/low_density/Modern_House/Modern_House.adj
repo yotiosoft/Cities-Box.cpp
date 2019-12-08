@@ -3,8 +3,12 @@
   "jp_name": "モダンな家",
   "author": "YotioSoft",
   "summary": "某不動産会社がよく立ててそうなデザインの家。",
+  "version": 141,
   "icon": "icon_Modern_House.png",
-  "types_names": "low_density_residential",
+  "categories": [
+    "residential",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

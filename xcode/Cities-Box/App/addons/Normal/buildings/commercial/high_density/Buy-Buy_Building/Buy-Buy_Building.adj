@@ -3,8 +3,12 @@
   "jp_name": "買え買えビル",
   "author": "YotioSoft",
   "summary": "ひやかし客お断りの商業ビル。",
+  "version": 141,
   "icon": "icon_Buy-Buy_Building.png",
-  "types_names": "high_density_commercial",
+  "categories": [
+    "commercial",
+    "high_density"
+  ],
   "use_types": [
     "normal"
   ],

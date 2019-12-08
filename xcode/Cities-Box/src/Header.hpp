@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <fstream>
+#include <algorithm>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 

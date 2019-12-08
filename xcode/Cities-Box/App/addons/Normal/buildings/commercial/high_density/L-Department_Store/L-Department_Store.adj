@@ -3,8 +3,12 @@
   "jp_name": "L字デパート",
   "author": "YotioSoft",
   "summary": "街角によくありそうなデパート。",
+  "version": 141,
   "icon": "icon_L-Department_Store.png",
-  "types_names": "high_density_commercial",
+  "categories": [
+    "commercial",
+    "high_density"
+  ],
   "use_types": [
     "normal"
   ],

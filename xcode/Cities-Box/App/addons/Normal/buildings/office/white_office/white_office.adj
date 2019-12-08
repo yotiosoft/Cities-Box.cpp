@@ -3,8 +3,11 @@
   "jp_name": "白い壁のオフィス",
   "author": "YotioSoft",
   "summary": "8階建ての白い壁のオフィスです。外観が白いからといって中の会社がホワイト企業とは限りません！",
+  "version": 141,
   "icon": "icon_white_office.png",
-  "types_names": "office",
+  "categories": [
+    "office"
+  ],
   "use_types": [
     "normal"
   ],

@@ -3,8 +3,12 @@
   "jp_name": "北米風の一軒家",
   "author": "YotioSoft",
   "summary": "アメリカやカナダによくありそうな一軒家。",
+  "version": 141,
   "icon": "icon_North-American_House.png",
-  "types_names": "low_density_residential",
+  "categories": [
+    "residential",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

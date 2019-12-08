@@ -3,8 +3,12 @@
   "jp_name": "そば処 吉田屋",
   "author": "YotioSoft",
   "summary": "年越しそばは吉田屋へ。年末だけ客が殺到するお店。",
+  "version": 141,
   "icon": "icon_Soba_Restaurant.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

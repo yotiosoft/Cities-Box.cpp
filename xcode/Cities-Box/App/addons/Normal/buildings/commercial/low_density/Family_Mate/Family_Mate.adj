@@ -3,8 +3,12 @@
   "jp_name": "ファミリーメート",
   "author": "YotioSoft",
   "summary": "あなたとコンビに ファミリーメート。店に入ればおなじみの入店音が流れます。",
+  "version": 141,
   "icon": "icon_Family_Mate.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

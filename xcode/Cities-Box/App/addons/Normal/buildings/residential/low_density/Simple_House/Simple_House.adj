@@ -3,8 +3,12 @@
   "jp_name": "シンプルな一軒家",
   "author": "YotioSoft",
   "summary": "とてもシンプルな一軒家です。",
+  "version": 141,
   "icon": "Simple_House_icon.png",
-  "types_names": "low_density_residential",
+  "categories": [
+    "residential",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

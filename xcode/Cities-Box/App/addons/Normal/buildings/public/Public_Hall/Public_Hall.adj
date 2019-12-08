@@ -3,8 +3,11 @@
   "jp_name": "大きな公民館",
   "author": "YotioSoft",
   "summary": "2x2の公民館です。屋上庭園つき。",
+  "version": 141,
   "icon": "icon_Public_Hall.png",
-  "types_names": "public",
+  "categories": [
+    "public"
+  ],
   "use_types": [
     "normal"
   ],

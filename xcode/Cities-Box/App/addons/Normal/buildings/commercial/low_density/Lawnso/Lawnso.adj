@@ -3,8 +3,12 @@
   "jp_name": "ローンソ",
   "author": "YotioSoft",
   "summary": "あなたの町のホットステーション。",
+  "version": 141,
   "icon": "icon_Lawnso.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

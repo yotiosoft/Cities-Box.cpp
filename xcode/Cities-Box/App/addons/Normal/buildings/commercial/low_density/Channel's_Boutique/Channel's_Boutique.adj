@@ -3,8 +3,12 @@
   "jp_name": "Channelのブティック",
   "author": "YotioSoft",
   "summary": "世界的に有名なブランドによく似たブティック。",
+  "version": 141,
   "icon": "icon_Channel's_Boutique.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

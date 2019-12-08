@@ -3,8 +3,12 @@
   "jp_name": "青い屋根の家",
   "author": "YotioSoft",
   "summary": "2階建ての一軒家、3LDKで23年ローンです。",
+  "version": 141,
   "icon": "icon_blue_roof_house.png",
-  "types_names": "low_density_residential",
+  "categories": [
+    "residential",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

@@ -3,8 +3,11 @@
   "jp_name": "チャーリーのチョコレート工場",
   "author": "YotioSoft",
   "summary": "世界的に有名なチョコレート工場。中は完全非公開。",
+  "version": 141,
   "icon": "icon_Charlie's_chocolate_factory.png",
-  "types_names": "industrial",
+  "categories": [
+    "industrial"
+  ],
   "use_types": [
     "normal"
   ],

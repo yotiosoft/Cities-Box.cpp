@@ -3,8 +3,11 @@
   "jp_name": "木がある十字広場",
   "author": "",
   "summary": "十字型の歩道がある広場です。単体で使うことも、複数設置して使うこともでき汎用性が高いです。",
+  "version": 141,
   "icon": "icon_Cross_Plaza_with_Trees.png",
-  "types_names": "park",
+  "categories": [
+    "park"
+  ],
   "use_types": [
     "normal"
   ],

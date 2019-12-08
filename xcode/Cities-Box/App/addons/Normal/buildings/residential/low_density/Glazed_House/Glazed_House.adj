@@ -3,8 +3,12 @@
   "jp_name": "ガラス張りの家",
   "author": "YotioSoft",
   "summary": "ガラス張りでモダンな一軒家。外から丸見えです。トイレも丸見え。",
+  "version": 141,
   "icon": "icon_Glazed_House.png",
-  "types_names": "low_density_residential",
+  "categories": [
+    "residential",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

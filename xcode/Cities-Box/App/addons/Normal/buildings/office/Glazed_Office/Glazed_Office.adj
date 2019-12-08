@@ -3,8 +3,11 @@
   "jp_name": "ガラス張りのオフィス",
   "author": "YotioSoft",
   "summary": "日当たりの良い最近できた風のオフィスです。",
+  "version": 141,
   "icon": "icon_Glazed_Office.png",
-  "types_names": "office",
+  "categories": [
+    "office"
+  ],
   "use_types": [
     "normal"
   ],

@@ -92,7 +92,7 @@ private:
 	String belong_addons_set_name;
 	
 	// アドオンのタイプ
-	String addon_types;
+	Array<String> addon_categories;
 	
 	// アイコン画像のパス
 	String addon_icon;

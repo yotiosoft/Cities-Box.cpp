@@ -3,8 +3,12 @@
   "jp_name": "普通のスーパーマーケット",
   "author": "YotioSoft",
   "summary": "安心と信頼の地域密着型スーパー。",
+  "version": 141,
   "icon": "icon_Normal_Supermarket.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

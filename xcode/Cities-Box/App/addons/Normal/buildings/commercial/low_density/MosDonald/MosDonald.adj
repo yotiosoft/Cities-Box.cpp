@@ -3,8 +3,12 @@
   "jp_name": "モスドナルド",
   "author": "YotioSoft",
   "summary": "世界的に有名なハンバーガーチェーン店。ポテトの匂いと音があなたを誘います。ドライブスルー付き。",
+  "version": 141,
   "icon": "icon_MosDonald.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

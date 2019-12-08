@@ -3,8 +3,12 @@
   "jp_name": "サイコーマート",
   "author": "YotioSoft",
   "summary": "家族わーくわっくサイコーマート。北の大地に展開するコンビニです。",
+  "version": 141,
   "icon": "icon_Saico_Mart.png",
-  "types_names": "low_density_commercial",
+  "categories": [
+    "commercial",
+    "low_density"
+  ],
   "use_types": [
     "normal"
   ],

@@ -3,8 +3,12 @@
   "jp_name": "2車線道路（白線）",
   "author": "",
   "summary": "普通の2車線道路です。白線の実線は「はみ出し禁止」の意味。",
+  "version": 141,
   "icon": "icon_Two_lane_normal_road(white_line).png",
-  "types_names": "Two_lane_road",
+  "categories": [
+    "road",
+    "two_lane"
+  ],
   "use_types": [
     "default",
     "dead_end",

@@ -3,8 +3,13 @@
   "jp_name": "中学校",
   "author": "YotioSoft",
   "summary": "3階建ての中学校。",
+  "version": 141,
   "icon": "icon_Normaly_Junior-High-School.png",
-  "types_names": "junior-high-school",
+  "categories": [
+    "public",
+    "education",
+    "junior_high_school"
+  ],
   "use_types": [
     "normal"
   ],

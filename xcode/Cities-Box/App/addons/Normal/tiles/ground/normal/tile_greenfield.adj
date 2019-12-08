@@ -1,0 +1,104 @@
+﻿{
+  "name": "tile_greenfield",
+  "jp_name": "更地",
+  "author": "",
+  "summary": "草生える",
+  "icon": "icon_tile_greenfield.png",
+  "types_names": "tile",
+  "use_types": "{normal, autumn, snow}",
+  "Types": [
+    {
+      "type_name": "autumn",
+      "image": "tile_greenfield.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{normal}",
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 32
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 96
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ]
+    },
+    {
+      "type_name": "normal",
+      "image": "tile_greenfield.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{normal}",
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 32
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 32
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        }
+      ]
+    },
+    {
+      "type_name": "snow",
+      "image": "tile_greenfield.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{normal}",
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 32
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 160
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 192
+          }
+        }
+      ]
+    }
+  ]
+}

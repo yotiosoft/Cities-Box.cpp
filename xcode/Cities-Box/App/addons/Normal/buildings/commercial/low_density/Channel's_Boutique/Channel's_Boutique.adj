@@ -1,0 +1,99 @@
+﻿{
+  "name": "Channel's_Boutique",
+  "jp_name": "Channelのブティック",
+  "author": "YotioSoft",
+  "summary": "世界的に有名なブランドによく似たブティック。",
+  "icon": "icon_Channel's_Boutique.png",
+  "types_names": "low_density_commercial",
+  "use_types": "{normal}",
+  "Types": [
+    {
+      "type_name": "normal",
+      "image": "Channel's_Boutique.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{left, top, bottom, right}",
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -105,7 +105,7 @@ public:
 	void loadCBJ(String new_map_file_path);
 	
 	// アドオンの読み込み
-	void loadAddons(string addon_set_name);
+	void loadAddons(String addon_set_name);
 	
 	// 読込中画面
 	void loadingScreen();

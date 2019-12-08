@@ -18,7 +18,7 @@ null {
 	direction = "left-top, right-top, left-bottom, right-bottom"
 	transparent_color = "0, 0, 0"
 	
-	left-top {
+	left {
 		size_x = "64"
 		size_y = "64"
 		chip_x = "1"
@@ -29,7 +29,7 @@ null {
 		bottom_right_x = "64"
 		bottom_right_y = "64"
 	}
-	right-top {
+	top {
 		size_x = "64"
 		size_y = "64"
 		chip_x = "1"
@@ -40,7 +40,7 @@ null {
 		bottom_right_x = "128"
 		bottom_right_y = "64"
 	}
-	left-bottom {
+	bottom {
 		size_x = "64"
 		size_y = "64"
 		chip_x = "1"
@@ -51,7 +51,7 @@ null {
 		bottom_right_x = "64"
 		bottom_right_y = "128"
 	}
-	right-bottom {
+	right {
 		size_x = "64"
 		size_y = "64"
 		chip_x = "1"

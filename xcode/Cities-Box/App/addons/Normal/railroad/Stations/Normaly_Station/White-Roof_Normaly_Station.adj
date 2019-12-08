@@ -1,0 +1,180 @@
+﻿{
+  "name": "White-Roof_Normaly_Station",
+  "jp_name": "普通の駅",
+  "author": "YotioSoft",
+  "summary": "よくありそうなごく普通の屋根付きの駅。",
+  "icon": "icon_White-Roof_Normaly_Station.png",
+  "types_names": "station",
+  "use_types": "{default, dead_end, under_construction}",
+  "Types": [
+    {
+      "type_name": "dead_end",
+      "image": "White-Roof_Normaly_Station_dead_end.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{left, top, bottom, right}",
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 66
+          },
+          "bottom_right": {
+            "x": 65,
+            "y": 130
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 66,
+            "y": 65
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 66,
+            "y": 66
+          },
+          "bottom_right": {
+            "x": 132,
+            "y": 130
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 66,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 132,
+            "y": 65
+          }
+        }
+      ]
+    },
+    {
+      "type_name": "default",
+      "image": "White-Roof_Normaly_Station.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{width, depth}",
+      "Directions": [
+        {
+          "direction_name": "depth",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 66,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 132,
+            "y": 65
+          }
+        },
+        {
+          "direction_name": "width",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 66,
+            "y": 65
+          }
+        }
+      ]
+    },
+    {
+      "type_name": "under_construction",
+      "image": "White-Roof_Normaly_Station_under_construction.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": "{normal}",
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 32
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 32
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        }
+      ]
+    }
+  ]
+}

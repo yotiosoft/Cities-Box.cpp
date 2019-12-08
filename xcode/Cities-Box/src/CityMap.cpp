@@ -104,7 +104,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 		
 		// アドオン読み込み
 		if (!addon_loaded && addon_set.length() > 0) {
-			loadAddons(addon_set.toUTF8());
+			loadAddons(addon_set);
 			addon_loaded = true;
 		}
 		
@@ -169,7 +169,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				
 				// マップにAddon_Setが定義されていない場合はNormalとみなしアドオン読み込み
 				if (!addon_loaded) {
-					loadAddons("");
+					loadAddons(U"");
 					addon_loaded = true;
 					addon_set = U"Normal";
 				}
@@ -613,7 +613,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 	
 	addon_set = map_file[U"Addon_Set"].getString();
 	// -> アドオン読み込み
-	loadAddons(addon_set.toUTF8());
+	loadAddons(addon_set);
 	
 	city_name = map_file[U"City_Name"].getString();
 	
@@ -731,7 +731,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 	}
 }
 
-void CityMap::loadAddons(string addon_set_name) {
+void CityMap::loadAddons(String addon_set_name) {
 	Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
 	
 	for (int i=0; i<addons_path.size(); i++) {

@@ -7,7 +7,7 @@
 
 #include "Menu.hpp"
 
-void Menu::set(PositionStruct new_position, SizeStruct new_size, Font* new_font8, Font* new_font16) {
+void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap& map, Font* new_font8, Font* new_font16) {
 	position = new_position;
 	size = new_size;
 	
@@ -43,6 +43,23 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, Font* new_font8
 	
 	population = Texture(Icon(IconFont::Population, 20));
 	
+	// アドオンをカテゴライズする
+	addons_categorized[U"road"][U"two_lane"] = map.getFitAddons(Array<String>{U"road", U"two_lane"});
+	addons_categorized[U"road"][U"promenade"] = map.getFitAddons(Array<String>{U"road", U"promenade"});
+	addons_categorized[U"train"][U"rail_road"] = map.getFitAddons(Array<String>{U"train", U"rail_road"});
+	addons_categorized[U"train"][U"station"] = map.getFitAddons(Array<String>{U"train", U"station"});
+	
+	addons_categorized[U"residential"][U"low_density"] = map.getFitAddons(Array<String>{U"residential", U"low_density"});
+	addons_categorized[U"residential"][U"high_density"] = map.getFitAddons(Array<String>{U"residential", U"high_density"});
+	addons_categorized[U"commercial"][U"low_density"] = map.getFitAddons(Array<String>{U"commercial", U"low_density"});
+	addons_categorized[U"commercial"][U"high_density"] = map.getFitAddons(Array<String>{U"commercial", U"high_density"});
+	addons_categorized[U"office"][U""] = map.getFitAddons(Array<String>{U"office"});
+	addons_categorized[U"industrial"][U""] = map.getFitAddons(Array<String>{U"industrial"});
+	addons_categorized[U"farm"][U""] = map.getFitAddons(Array<String>{U"farm"});
+	/*
+	addons_categorized[U"public"][U"low_density"] = map.getFitAddons(Array<String>{U"residential", U"low_density"});
+	addons_categorized[U"residential"][U"high_density"] = map.getFitAddons(Array<String>{U"residential", U"high_density"});
+	*/
 	// レンダテクスチャに描画
 	ScopedRenderTarget2D target(render);
 }
@@ -201,5 +218,27 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Tile)
 			releaseBeforeButton(menu_mode);
 		menu_mode = MenuMode::Tile;
+	}
+	
+	if (menu_mode != MenuMode::None && menu_mode != MenuMode::Cursor) {
+		addonMenu();
+	}
+}
+
+void Menu::addonMenu() {
+	Rect(position.x, position.y-48, size.width, 48).draw(Color(0, 162, 232, 200));
+	
+	Array<Addon*> show_addons;
+	
+	switch (menu_mode) {
+		case MenuMode::Residential:
+			show_addons = addons_categorized[U"residential"][U"low_density"];
+			break;
+	}
+	
+	if (show_addons.size() > 0) {
+		for (int i=0; i<show_addons.size(); i++) {
+			show_addons[i]->drawIcon(PositionStruct{10+40*i, position.y-40}, PositionStruct{0, 0}, SizeStruct{32, 32});
+		}
 	}
 }

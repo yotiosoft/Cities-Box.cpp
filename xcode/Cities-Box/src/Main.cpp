@@ -55,7 +55,7 @@ void Main() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &font8, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, map, &font8, &font16);
 	
 	while (System::Update()) {
 		// カメラの操作

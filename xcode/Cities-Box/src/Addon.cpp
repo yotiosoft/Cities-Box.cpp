@@ -113,6 +113,11 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 		// アイコン画像のパス
 		getElement(str_temp, U"addon_icon", addon_icon);
 		
+		// アイコンを読み込み
+		Image icon_image(FileSystem::ParentPath(Unicode::Widen(addon_file_path.file_path))+addon_icon);
+		set_alpha_color(icon_image, Color(0, 0, 0));
+		icon_texture = Texture(icon_image);
+		
 		// アドオンのtype
 		String category_name_temp;
 		getElement(str_temp, U"addon_type", category_name_temp);
@@ -370,7 +375,13 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 	addon_summary = addon_data[U"summary"].getString();
 	
 	addon_icon = addon_data[U"icon"].getString();
-	addon_categories = addon_data[U"type_names"].getArray<String>();
+	
+	// アイコンを読み込み
+	Image icon_image(FileSystem::ParentPath(Unicode::Widen(addon_file_path.file_path))+addon_icon);
+	set_alpha_color(icon_image, Color(0, 0, 0));
+	icon_texture = Texture(icon_image);
+	
+	addon_categories = addon_data[U"categories"].getArray<String>();
 	
 	use_types = addon_data[U"use_types"].getArray<String>();
 	
@@ -435,6 +446,10 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 
 Array<String> Addon::getCategories() {
 	return addon_categories;
+}
+
+void Addon::drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size) {
+	icon_texture(left_top.x, left_top.y, size.width, size.height).draw(position.x, position.y);
 }
 
 CoordinateStruct Addon::getUseTiles(int type_num, int direction_num) {

@@ -9,6 +9,7 @@
 #define Menu_hpp
 
 #include "Specific.hpp"
+#include "Addon.hpp"
 #include "Button.hpp"
 #include "CityMap.hpp"
 
@@ -33,10 +34,12 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct new_position, SizeStruct new_size, Font* new_font8, Font* new_font16);
+	void set(PositionStruct new_position, SizeStruct new_size, CityMap& map, Font* new_font8, Font* new_font16);
 	
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
 	void draw(RCOIFstruct demand, int population_count, int money);
+	
+	void addonMenu();
 	
 private:
 	PositionStruct position;
@@ -47,6 +50,8 @@ private:
 	map<String, Button> button;
 	
 	MenuMode::Type menu_mode;
+	
+	map<String, map<String, Array<Addon*>>> addons_categorized;
 	
 	Font* font8;
 	Font* font16;

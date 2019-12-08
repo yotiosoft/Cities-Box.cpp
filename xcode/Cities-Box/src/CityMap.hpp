@@ -102,6 +102,9 @@ public:
 	// アドオンの読み込み
 	void loadAddons(String addon_set_name);
 	
+	// カテゴリに当てはまるアドオンの一覧を返す
+	Array<Addon*> getFitAddons(Array<String> selected_categories);
+	
 	// 読込中画面
 	void loadingScreen();
 	

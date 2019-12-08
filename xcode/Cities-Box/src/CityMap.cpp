@@ -767,6 +767,37 @@ void CityMap::loadAddons(String addon_set_name) {
 	}
 }
 
+Array<Addon*> CityMap::getFitAddons(Array<String> selected_categories) {
+	Array<Addon*> ret_addons;
+	
+	for (auto addon = addons.begin(); addon != addons.end(); addon++) {
+		
+		Array<String> an_addon_categories = addon->second->getCategories();
+		vector<bool> fit = vector<bool>(selected_categories.size(), false);
+		
+		for (auto category_name = an_addon_categories.begin(); category_name != an_addon_categories.end(); category_name++) {
+			for (int i=0; i<selected_categories.size(); i++) {
+				if (selected_categories[i] == *category_name) {
+					fit[i] = true;
+					break;
+				}
+			}
+		}
+		
+		bool fitted = true;
+		for (int i=0; i<fit.size(); i++) {
+			if (!fit[i]) {
+				fitted = false;
+			}
+		}
+		if (fitted) {
+			ret_addons << addon->second;
+		}
+	}
+	
+	return ret_addons;
+}
+
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=(int)squares[coordinate.y][coordinate.x].addons.size()-1; i>=0; i--) {

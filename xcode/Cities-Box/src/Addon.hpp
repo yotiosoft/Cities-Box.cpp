@@ -70,14 +70,14 @@ public:
 	// カテゴリを取得
 	Array<String> getCategories();
 	
+	// アイコンのテクスチャの取得
+	void drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size);
+	
 	// 使用するタイルを取得
 	CoordinateStruct getUseTiles(int type_num, int direction_num);
 	
 	// 最終的に表示する座標を取得
 	PositionStruct getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
-	
-	// アイコンのImageStructの取得
-	ImageStruct getIconImageStruct();
 	
 	// アドオンを描画する
 	void draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
@@ -107,6 +107,9 @@ private:
 	
 	// アイコン画像のパス
 	String addon_icon;
+	
+	// アイコンのテクスチャ
+	Texture icon_texture;
 	
 	// 使用するtype
 	Array<String> use_types;

@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "ガラス張りの日当たりの良い図書館。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Modern_Library.png",
   "categories": [
     "public",

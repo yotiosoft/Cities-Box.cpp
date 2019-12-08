@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "お洒落なコーヒーチェーン店。マカーの憩いの場です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Starbooks_Coffee.png",
   "categories": [
     "commercial",

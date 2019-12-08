@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "8階建ての白い壁のオフィスです。外観が白いからといって中の会社がホワイト企業とは限りません！",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_white_office.png",
   "categories": [
     "office"

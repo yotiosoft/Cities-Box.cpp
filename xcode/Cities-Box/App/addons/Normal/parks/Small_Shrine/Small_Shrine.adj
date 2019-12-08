@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "小さな神社です。お参り、初詣、七五三に。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Small_Shrine.png",
   "categories": [
     "park"

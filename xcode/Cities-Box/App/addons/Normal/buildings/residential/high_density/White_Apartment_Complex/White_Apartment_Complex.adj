@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "白い壁の団地です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_White_Apartment_Complex.png",
   "categories": [
     "residential",

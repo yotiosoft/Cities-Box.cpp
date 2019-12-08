@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "街なかによくある1×1サイズの小さい公園です。周辺の地価や都市の人気度を高めます。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Small_Park.png",
   "categories": [
     "park"

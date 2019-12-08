@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "60分100円の小さなコインパーキングです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Parking_24.png",
   "categories": [
     "commercial",

@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "街角によくありそうなデパート。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_L-Department_Store.png",
   "categories": [
     "commercial",

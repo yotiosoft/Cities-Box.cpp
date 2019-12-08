@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "大きな木がある広場です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Woody_Park.png",
   "categories": [
     "park"

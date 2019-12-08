@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "建設費良し、賃料良し、商品の価格も良しのリーズナブルな雑居ビル。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Reasonable_Multi-tenant_Building.png",
   "categories": [
     "commercial",

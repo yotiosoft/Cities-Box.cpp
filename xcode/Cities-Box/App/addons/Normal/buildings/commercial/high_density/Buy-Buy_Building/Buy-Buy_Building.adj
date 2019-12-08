@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "ひやかし客お断りの商業ビル。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Buy-Buy_Building.png",
   "categories": [
     "commercial",

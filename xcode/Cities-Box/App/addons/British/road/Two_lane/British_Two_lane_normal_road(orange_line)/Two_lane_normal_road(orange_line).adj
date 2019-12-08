@@ -1,16 +1,16 @@
 ﻿{
-  "name": "Wooden_Promenade_with_Tree",
-  "jp_name": "木がある木の遊歩道",
-  "author": "YotioSoft",
-  "summary": "木でつくられた街路樹付きの遊歩道です",
+  "name": "British_Two_lane_normal_road(orange_line)",
+  "jp_name": "英国風2車線道路（オレンジ線）",
+  "author": "",
+  "summary": "英国風の普通の2車線道路です。",
   "version": 141,
   "belong_addon_set_name": [
-    "Normal"
+    "British"
   ],
-  "icon": "icon_Wooden_Promenade_with_Tree.png",
+  "icon": "icon_Two_lane_normal_road(orange_line).png",
   "categories": [
     "road",
-    "promenade"
+    "two_lane"
   ],
   "use_types": [
     "default",
@@ -25,8 +25,8 @@
   "Types": [
     {
       "type_name": "bridge",
-      "image": "Wooden_Promenade_bridge.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road(orange_line)_bridge.png",
+      "night_mask": "Two_lane_normal_road(orange_line)_bridge__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -79,8 +79,8 @@
     },
     {
       "type_name": "dead_end",
-      "image": "Wooden_Promenade_with_Tree_dead_end.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road(orange_line)_dead_end.png",
+      "night_mask": "Two_lane_normal_road(orange_line)_dead_end__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -146,7 +146,7 @@
             "y": 64
           },
           "bottom_right": {
-            "x": 128,
+            "x": 64,
             "y": 128
           }
         },
@@ -173,8 +173,8 @@
     },
     {
       "type_name": "default",
-      "image": "Wooden_Promenade_with_Tree.png",
-      "night_mask": "Wooden_Promenade_with_Tree__night_mask.png",
+      "image": "Two_lane_normal_road(orange_line).png",
+      "night_mask": "Two_lane_normal_road(orange_line)__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -227,8 +227,8 @@
     },
     {
       "type_name": "intersection_T",
-      "image": "Wooden_Promenade_with_Tree_intersection_T.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road_intersection_T.png",
+      "night_mask": "Two_lane_normal_road_intersection_T__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -313,7 +313,7 @@
             "y": 64
           },
           "bottom_right": {
-            "x": 128,
+            "x": 64,
             "y": 128
           }
         }
@@ -321,8 +321,8 @@
     },
     {
       "type_name": "intersection_cross",
-      "image": "Wooden_Promenade_with_Tree_intersection_cross.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road_intersection_cross.png",
+      "night_mask": "Two_lane_normal_road_intersection_cross__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -355,8 +355,8 @@
     },
     {
       "type_name": "train_crossing",
-      "image": "Wooden_Promenade_with_Tree_train_crossing.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road_train_crossing.png",
+      "night_mask": "Two_lane_normal_road_train_crossing__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -409,8 +409,8 @@
     },
     {
       "type_name": "turn",
-      "image": "Wooden_Promenade_with_Tree_turn.png",
-      "night_mask": "",
+      "image": "Two_lane_normal_road(orange_line)_turn.png",
+      "night_mask": "Two_lane_normal_road(orange_line)_turn__night_mask.png",
       "transparent_color": {
         "R": 0,
         "G": 0,
@@ -476,7 +476,7 @@
             "y": 64
           },
           "bottom_right": {
-            "x": 128,
+            "x": 64,
             "y": 128
           }
         },
@@ -503,7 +503,7 @@
     },
     {
       "type_name": "under_construction",
-      "image": "Wooden_Promenade_with_Tree_under_construction.png",
+      "image": "Two_lane_normal_road_under_construction.png",
       "night_mask": "",
       "transparent_color": {
         "R": 0,

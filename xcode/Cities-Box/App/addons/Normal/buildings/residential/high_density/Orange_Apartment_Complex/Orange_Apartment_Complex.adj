@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "オレンジ色の壁の団地です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Orange_Apartment_Complex.png",
   "categories": [
     "residential",

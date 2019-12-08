@@ -80,6 +80,7 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 	transparent_color.b = 0;
 	
 	bool categories[3] = {false, false, false};
+	bool belong = false;
 	
 	while (addon_data.readLine(str_temp)) {
 		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);
@@ -96,12 +97,17 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 		getElement(str_temp, U"addon_summary", addon_summary);
 		
 		// 所属するアドオンセットの名前
-		getElement(str_temp, U"belong_addons_set_name", belong_addons_set_name);
-		
-		if (belong_addons_set_name.length() > 0) {
-			if (belong_addons_set_name != loading_addons_set_name || !(loading_addons_set_name.length() > 0)) {
-				return false;
+		String belong_temp;
+		if (getElement(str_temp, U"belong_addons_set_name", belong_temp) && !belong) {
+			belong_addons_set_name << belong_temp;
+			
+			if (belong_temp.length() > 0) {
+				if (belong_temp != loading_addons_set_name || !(loading_addons_set_name.length() > 0)) {
+					return false;
+				}
 			}
+			
+			belong = true;
 		}
 		
 		// アイコン画像のパス
@@ -331,6 +337,10 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 		}
 	}
 	
+	if (!belong) {
+		belong_addons_set_name << U"Normal";
+	}
+	
 	converter();
 	
 	return true;
@@ -339,6 +349,19 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 	addon_file_path = new_file_path;
 	JSONReader addon_data(Unicode::Widen(addon_file_path.file_path));
+	
+	belong_addons_set_name = addon_data[U"belong_addon_set_name"].getArray<String>();
+	bool belong = false;
+	for (int i=0; i<belong_addons_set_name.size(); i++) {
+		if (belong_addons_set_name[i].length() > 0) {
+			if (belong_addons_set_name[i] == loading_addons_set_name) {
+				belong = true;
+			}
+		}
+	}
+	if (!belong) {
+		return false;
+	}
 	
 	addon_name = addon_data[U"name"].getString();
 	addon_jp_name = addon_data[U"jp_name"].getString();
@@ -455,6 +478,14 @@ void Addon::converter() {
 		addon_data.key(U"summary").write(addon_summary);
 		
 		addon_data.key(U"version").write(RELEASE_NUMBER);
+		
+		addon_data.key(U"belong_addon_set_name").startArray();
+		{
+			for (auto belong = belong_addons_set_name.begin(); belong!= belong_addons_set_name.end() ; belong++) {
+				addon_data.write(*belong);
+			}
+		}
+		addon_data.endArray();
 		
 		addon_data.key(U"icon").write(addon_icon);
 		

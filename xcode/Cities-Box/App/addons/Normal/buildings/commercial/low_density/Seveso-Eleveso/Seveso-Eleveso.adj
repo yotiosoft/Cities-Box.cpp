@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "近くて便利！セブソ イレブソ♪いいキブソ♪（開いててよかったぁ...）",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Seveso-Eleveso.png",
   "categories": [
     "commercial",

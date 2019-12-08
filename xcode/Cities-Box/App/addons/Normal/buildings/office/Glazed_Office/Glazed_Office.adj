@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "日当たりの良い最近できた風のオフィスです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Glazed_Office.png",
   "categories": [
     "office"

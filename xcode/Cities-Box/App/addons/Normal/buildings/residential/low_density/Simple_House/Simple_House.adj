@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "とてもシンプルな一軒家です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "Simple_House_icon.png",
   "categories": [
     "residential",

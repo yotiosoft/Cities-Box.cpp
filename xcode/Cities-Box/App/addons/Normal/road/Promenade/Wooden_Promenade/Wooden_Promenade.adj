@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "木でつくられた遊歩道です",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Wooden_Promenade.png",
   "categories": [
     "road",

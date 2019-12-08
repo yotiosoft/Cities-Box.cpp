@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "十字型の歩道がある広場です。単体で使うことも、複数設置して使うこともでき汎用性が高いです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Cross_Plaza.png",
   "categories": [
     "park"

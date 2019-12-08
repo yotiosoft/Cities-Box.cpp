@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "木製の柱が特長の超高級マンションです。最上階にはプールやジムがあります。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Wood_Apartment.png",
   "categories": [
     "residential",

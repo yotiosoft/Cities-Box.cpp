@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "2x2の公民館です。屋上庭園つき。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Public_Hall.png",
   "categories": [
     "public"

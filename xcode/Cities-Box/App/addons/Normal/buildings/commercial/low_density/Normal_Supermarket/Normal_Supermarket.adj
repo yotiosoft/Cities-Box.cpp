@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "安心と信頼の地域密着型スーパー。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Normal_Supermarket.png",
   "categories": [
     "commercial",

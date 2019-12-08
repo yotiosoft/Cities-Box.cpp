@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "あなたとコンビに ファミリーメート。店に入ればおなじみの入店音が流れます。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Family_Mate.png",
   "categories": [
     "commercial",

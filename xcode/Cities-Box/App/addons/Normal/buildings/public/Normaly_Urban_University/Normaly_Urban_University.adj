@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "都市部に多い高層ビルの大学のキャンパス。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Normaly_Urban_University.png",
   "categories": [
     "public",

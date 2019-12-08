@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "ガラス張りの21階建てのオフィスです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Tall_Office.png",
   "categories": [
     "office"

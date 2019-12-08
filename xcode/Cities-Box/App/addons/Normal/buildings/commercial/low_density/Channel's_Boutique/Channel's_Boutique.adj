@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "世界的に有名なブランドによく似たブティック。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Channel's_Boutique.png",
   "categories": [
     "commercial",

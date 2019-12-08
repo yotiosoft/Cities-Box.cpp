@@ -742,6 +742,9 @@ void CityMap::loadAddons(String addon_set_name) {
 		if (new_addon->load(addons_path[i], addon_set_name)) {
 			addons[splitUTF8(file_temp.file_name, ".")[0]] = new_addon;
 		}
+		else {
+			free(new_addon);
+		}
 		
 		System::Sleep(20);
 	}

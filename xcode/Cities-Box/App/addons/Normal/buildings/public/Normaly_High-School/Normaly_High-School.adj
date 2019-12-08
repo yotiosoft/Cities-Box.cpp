@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "4階建ての高校。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Normaly_High-School.png",
   "categories": [
     "public",

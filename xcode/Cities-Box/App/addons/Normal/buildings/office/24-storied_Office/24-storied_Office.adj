@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "24階建てのオフィスです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_24-storied_Office.png",
   "categories": [
     "office"

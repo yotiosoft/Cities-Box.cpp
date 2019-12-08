@@ -1,15 +1,16 @@
 ﻿{
-  "name": "Black_proof_Warehouse",
-  "jp_name": "黒屋根の倉庫",
+  "name": "British_Normaly_Apartment",
+  "jp_name": "英国風のアパート - British Normaly Apartment",
   "author": "YotioSoft",
-  "summary": "100人乗っても大丈夫！セキュリティ対策が甘いので、周辺の治安が少し悪化します。",
+  "summary": "英国風の2階建てのアパートです。",
   "version": 141,
   "belong_addon_set_name": [
-    "Normal"
+    "British"
   ],
-  "icon": "icon_Black_proof_Warehouse.png",
+  "icon": "icon_British_Normaly_Apartment.png",
   "categories": [
-    "industrial"
+    "residential",
+    "high_density"
   ],
   "use_types": [
     "normal"
@@ -17,7 +18,7 @@
   "Types": [
     {
       "type_name": "normal",
-      "image": "Black_proof_Warehouse.png",
+      "image": "British_Normaly_Apartment.png",
       "night_mask": "",
       "transparent_color": {
         "R": 0,

@@ -89,7 +89,7 @@ private:
 	String addon_summary;
 	
 	// 所属するアドオンセットの名前（空白はNormalとみなす）
-	String belong_addons_set_name;
+	Array<String> belong_addons_set_name;
 	
 	// アドオンのタイプ
 	Array<String> addon_categories;

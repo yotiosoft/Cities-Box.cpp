@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "池だけがある公園です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Pond_Park.png",
   "categories": [
     "park"

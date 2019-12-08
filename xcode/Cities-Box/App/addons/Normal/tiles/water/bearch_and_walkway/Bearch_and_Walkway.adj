@@ -4,6 +4,9 @@
   "author": "",
   "summary": "この水路を敷設すると、川沿いには歩道が、海沿いにはビーチが作られます。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Bearch_and_Walkway.png",
   "categories": [
     "ship",

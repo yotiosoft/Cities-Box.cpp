@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "敷地上の都合で体育館を設置できなかった小学校。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Normaly_Elementary-School.png",
   "categories": [
     "public",

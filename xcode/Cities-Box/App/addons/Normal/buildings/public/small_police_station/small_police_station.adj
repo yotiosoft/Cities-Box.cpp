@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "この街の安全と平和を守るために必要な施設です。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_small_police_station.png",
   "categories": [
     "public",

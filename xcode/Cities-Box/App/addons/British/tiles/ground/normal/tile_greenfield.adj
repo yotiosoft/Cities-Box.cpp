@@ -1,23 +1,25 @@
 ﻿{
-  "name": "Black_proof_Warehouse",
-  "jp_name": "黒屋根の倉庫",
-  "author": "YotioSoft",
-  "summary": "100人乗っても大丈夫！セキュリティ対策が甘いので、周辺の治安が少し悪化します。",
+  "name": "tile_greenfield",
+  "jp_name": "更地",
+  "author": "",
+  "summary": "草生える",
   "version": 141,
   "belong_addon_set_name": [
-    "Normal"
+    "British"
   ],
-  "icon": "icon_Black_proof_Warehouse.png",
+  "icon": "icon_tile_greenfield.png",
   "categories": [
-    "industrial"
+    "tile"
   ],
   "use_types": [
-    "normal"
+    "normal",
+    "autumn",
+    "snow"
   ],
   "Types": [
     {
-      "type_name": "normal",
-      "image": "Black_proof_Warehouse.png",
+      "type_name": "autumn",
+      "image": "tile_greenfield.png",
       "night_mask": "",
       "transparent_color": {
         "R": 0,
@@ -25,17 +27,14 @@
         "B": 0
       },
       "direction_names": [
-        "left",
-        "top",
-        "bottom",
-        "right"
+        "normal"
       ],
       "Directions": [
         {
-          "direction_name": "bottom",
+          "direction_name": "normal",
           "size": {
             "width": 64,
-            "height": 64
+            "height": 32
           },
           "squares": {
             "width": 1,
@@ -43,18 +42,33 @@
           },
           "top_left": {
             "x": 0,
-            "y": 64
+            "y": 96
           },
           "bottom_right": {
             "x": 64,
             "y": 128
           }
-        },
+        }
+      ]
+    },
+    {
+      "type_name": "normal",
+      "image": "tile_greenfield.png",
+      "night_mask": "",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "normal"
+      ],
+      "Directions": [
         {
-          "direction_name": "left",
+          "direction_name": "normal",
           "size": {
             "width": 64,
-            "height": 64
+            "height": 32
           },
           "squares": {
             "width": 1,
@@ -62,49 +76,45 @@
           },
           "top_left": {
             "x": 0,
-            "y": 0
+            "y": 32
           },
           "bottom_right": {
             "x": 64,
             "y": 64
           }
-        },
+        }
+      ]
+    },
+    {
+      "type_name": "snow",
+      "image": "tile_greenfield.png",
+      "night_mask": "",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "normal"
+      ],
+      "Directions": [
         {
-          "direction_name": "right",
+          "direction_name": "normal",
           "size": {
             "width": 64,
-            "height": 64
+            "height": 32
           },
           "squares": {
             "width": 1,
             "height": 1
           },
           "top_left": {
-            "x": 64,
-            "y": 64
+            "x": 0,
+            "y": 160
           },
           "bottom_right": {
-            "x": 128,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
             "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
+            "y": 192
           }
         }
       ]

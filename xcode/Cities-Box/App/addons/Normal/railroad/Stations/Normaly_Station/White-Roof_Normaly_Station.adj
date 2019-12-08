@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "よくありそうなごく普通の屋根付きの駅。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_White-Roof_Normaly_Station.png",
   "categories": [
     "train",

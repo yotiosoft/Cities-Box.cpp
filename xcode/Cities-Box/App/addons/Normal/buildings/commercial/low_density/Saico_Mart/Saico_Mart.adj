@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "家族わーくわっくサイコーマート。北の大地に展開するコンビニです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Saico_Mart.png",
   "categories": [
     "commercial",

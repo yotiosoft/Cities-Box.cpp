@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "ガラス張りでモダンな一軒家。外から丸見えです。トイレも丸見え。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Glazed_House.png",
   "categories": [
     "residential",

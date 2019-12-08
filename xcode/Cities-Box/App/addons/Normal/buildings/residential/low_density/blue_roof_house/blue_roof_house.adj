@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "2階建ての一軒家、3LDKで23年ローンです。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_blue_roof_house.png",
   "categories": [
     "residential",

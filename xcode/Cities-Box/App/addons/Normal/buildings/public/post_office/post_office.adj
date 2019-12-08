@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "どこにでもありそうな普通の郵便局。今日も無数の郵便物を取り扱っています。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_post_office.png",
   "categories": [
     "public",

@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "3階建ての中学校。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_Normaly_Junior-High-School.png",
   "categories": [
     "public",

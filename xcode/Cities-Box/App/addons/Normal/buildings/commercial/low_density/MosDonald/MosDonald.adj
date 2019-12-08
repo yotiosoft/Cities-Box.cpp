@@ -4,6 +4,9 @@
   "author": "YotioSoft",
   "summary": "世界的に有名なハンバーガーチェーン店。ポテトの匂いと音があなたを誘います。ドライブスルー付き。",
   "version": 141,
+  "belong_addon_set_name": [
+    "Normal"
+  ],
   "icon": "icon_MosDonald.png",
   "categories": [
     "commercial",

@@ -43,11 +43,6 @@ typedef struct BudgetStruct {
 	int education;
 } BudgetStruct;
 
-typedef struct CropStruct {
-	String name;
-	int amount;
-} CropStruct;
-
 typedef struct WorkPlaceStruct {
 	RCOIFP::Type work_place;
 	int work_places_serial_number;
@@ -61,7 +56,7 @@ typedef struct SchoolStruct {
 typedef struct SquareStruct {
 	Array<String> addon_name;
 	String original_name;
-	Array<String> category;
+	//Array<String> category;
 	
 	Array<int> type_number;
 	Array<int> direction_number;
@@ -81,7 +76,7 @@ typedef struct SquareStruct {
 	int happiness_rate;
 	int noise;
 	
-	CropStruct crop;
+	//CropStruct crop;
 	
 	Array<int> age;
 	Array<String> gender;

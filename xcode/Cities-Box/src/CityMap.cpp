@@ -177,6 +177,8 @@ void CityMap::loadCBD(String new_map_file_path) {
 				// アドオンのポインタを登録
 				if (addons.find(squares[array_count][x].addon_name[0].toUTF8()) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[0].toUTF8()]);
+					
+					//squares[array_count][x].category = squares[array_count][x].addons.back()->getCategories();
 				}
 			}
 		}
@@ -194,10 +196,15 @@ void CityMap::loadCBD(String new_map_file_path) {
 				// アドオンのポインタを登録
 				if (addons.find(squares[array_count][x].addon_name[1].toUTF8()) != addons.end()) {
 					squares[array_count][x].addons.push_back(addons[squares[array_count][x].addon_name[1].toUTF8()]);
+					
+					/*Array<String> categories = squares[array_count][x].addons.back()->getCategories();
+					for (int i=0; i<categories.size(); i++) {
+						squares[array_count][x].category.push_back(categories[i]);
+					}*/
 				}
 			}
 		}
-		
+		/*
 		if (current_array_name == "category" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
@@ -220,7 +227,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].category.push_back(temp[x]);
 			}
-		}
+		}*/
 		
 		if (current_array_name == "obj_type" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
@@ -267,6 +274,10 @@ void CityMap::loadCBD(String new_map_file_path) {
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].use_tiles.x = stoi(temp[x].toUTF8());
+				
+				if (squares[array_count][x].use_tiles.x == 0) {
+					squares[array_count][x].use_tiles.x = 1;
+				}
 			}
 		}
 		
@@ -275,6 +286,10 @@ void CityMap::loadCBD(String new_map_file_path) {
 			
 			for (int x=0; x<mapsize.width; x++) {
 				squares[array_count][x].use_tiles.y = stoi(temp[x].toUTF8());
+				
+				if (squares[array_count][x].use_tiles.y == 0) {
+					squares[array_count][x].use_tiles.y = 1;
+				}
 			}
 		}
 		
@@ -439,7 +454,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				squares[array_count][x].noise = stoi(temp[x].toUTF8());
 			}
 		}
-		
+		/*
 		if (current_array_name == "crop" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
@@ -455,7 +470,7 @@ void CityMap::loadCBD(String new_map_file_path) {
 				squares[array_count][x].crop.amount = stoi(temp[x].toUTF8());
 			}
 		}
-		
+		*/
 		if (current_array_name == "age" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
@@ -607,7 +622,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 	saveTextFile("./data/map_temp.cbj_temp", map_data);
 	
 	JSONReader map_file(U"./data/map_temp.cbj_temp");
-	remove("./data/map_temp.cbj_temp");
+	//remove("./data/map_temp.cbj_temp");
 	
 	saved_version = map_file[U"Version"].get<int>();
 	
@@ -664,7 +679,7 @@ void CityMap::loadCBJ(String new_map_file_path) {
 			
 			for (const auto& j_addons : square[U"addons"].arrayView()) {
 				squares[y][x].addon_name.push_back(j_addons[U"name"].getString());
-				squares[y][x].category.push_back(j_addons[U"category"].getString());
+				//squares[y][x].category.push_back(j_addons[U"category"].getString());
 				squares[y][x].type_number.push_back(j_addons[U"type_number"].get<int>());
 				squares[y][x].direction_number.push_back(j_addons[U"direction_number"].get<int>());
 				
@@ -700,8 +715,10 @@ void CityMap::loadCBJ(String new_map_file_path) {
 			
 			squares[y][x].happiness_rate = square[U"happiness_rate"].get<int>();
 			
+			/*
 			squares[y][x].crop.name = square[U"crop.name"].getString();
 			squares[y][x].crop.amount = square[U"crop.amount"].get<int>();
+			*/
 			
 			squares[y][x].age = square[U"age"].getArray<int>();
 			
@@ -970,7 +987,7 @@ bool CityMap::save() {
 									map_file.startObject();
 									{
 										map_file.key(U"name").write(squares[y][x].addon_name[i]);
-										map_file.key(U"category").write(squares[y][x].category[i]);
+										//map_file.key(U"category").write(squares[y][x].category[i]);
 										map_file.key(U"type_number").write(squares[y][x].type_number[i]);
 										map_file.key(U"direction_number").write(squares[y][x].direction_number[i]);
 									}
@@ -1017,12 +1034,14 @@ bool CityMap::save() {
 							
 							map_file.key(U"happiness_rate").write(squares[y][x].happiness_rate);
 							
+							/*
 							map_file.key(U"crop").startObject();
 							{
 								map_file.key(U"name").write(squares[y][x].crop.name);
 								map_file.key(U"amount").write(squares[y][x].crop.amount);
 							}
 							map_file.endObject();
+							 */
 							
 							map_file.key(U"age").startArray();
 							{

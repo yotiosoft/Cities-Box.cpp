@@ -433,6 +433,14 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 	return types[getTypeName(type_num)].direction_names[direction_num];
 }
 
+Array<String> Addon::getCategories() {
+	return addon_categories;
+}
+
+CoordinateStruct Addon::getUseTiles(int type_num, int direction_num) {
+	return CoordinateStruct{types[getTypeName(type_num)].directions[getDirectionName(type_num, direction_num)].chip_x, types[getTypeName(type_num)].directions[getDirectionName(type_num, direction_num)].chip_y};
+}
+
 PositionStruct Addon::getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	if (direction_temp != nullptr)

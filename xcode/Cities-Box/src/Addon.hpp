@@ -37,6 +37,11 @@ typedef struct AddonTypeStruct {
 	Texture texture;				// アドオン画像のテクスチャ
 } AddonTypeStruct;
 
+typedef struct CropStruct {
+	String name;
+	int amount;
+} CropStruct;
+
 class Addon {
 public:
 	Addon();
@@ -61,6 +66,12 @@ public:
 	
 	// Directionの名前の取得
 	String getDirectionName(int type_num, int direction_num);
+	
+	// カテゴリを取得
+	Array<String> getCategories();
+	
+	// 使用するタイルを取得
+	CoordinateStruct getUseTiles(int type_num, int direction_num);
 	
 	// 最終的に表示する座標を取得
 	PositionStruct getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);

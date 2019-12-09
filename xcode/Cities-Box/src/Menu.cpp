@@ -368,29 +368,35 @@ void Menu::addonMenu() {
 		
 		if (cursor_i == selected_i && selected_i >= 0) {
 			// 名前と説明
-			(*font16)(show_addons[selected_i]->getNameJP()).draw(position.x+30, position.y-80+2);
+			String name_jp = show_addons[selected_i]->getNameJP();
+			(*font16)(name_jp).draw(position.x+30, position.y-80+2);
 			(*font12)(show_addons[selected_i]->getSummary()).draw(position.x+30, position.y-60+2);
 			
 			// 効果アイコン
 			::map<String, EffectStruct> effects = show_addons[selected_i]->getEffects();
 			int i = 0;
+			int leftmost = (*font16)(name_jp).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 				if (!effect_icons[effect->first].isEmpty()) {
-					effect_icons[effect->first].draw(500+i*30, position.y-70);
+					effect_icons[effect->first].draw(leftmost+i*48, position.y-75);
+					(*font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, position.y-75);
 					i++;
 				}
 			}
 		}
 		else if (cursor_i >= 0) {
-			(*font16)(show_addons[cursor_i]->getNameJP()).draw(position.x+30, position.y-80+2);
+			String name_jp = show_addons[selected_i]->getNameJP();
+			(*font16)(name_jp).draw(position.x+30, position.y-80+2);
 			(*font12)(show_addons[cursor_i]->getSummary()).draw(position.x+30, position.y-60+2);
 			
 			// 効果アイコン
 			::map<String, EffectStruct> effects = show_addons[cursor_i]->getEffects();
 			int i = 0;
+			int leftmost = (*font16)(name_jp).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 				if (!effect_icons[effect->first].isEmpty()) {
-					effect_icons[effect->first].draw(500+i*30, position.y-70);
+					effect_icons[effect->first].draw(leftmost+i*48, position.y-75);
+					(*font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, position.y-75);
 					i++;
 				}
 			}

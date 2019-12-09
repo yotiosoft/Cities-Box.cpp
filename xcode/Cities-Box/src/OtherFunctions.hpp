@@ -16,6 +16,9 @@ Array<String> split(String str, String separator);
 void cMes(Font& font, String str, PositionStruct top_left, PositionStruct bottom_right, Color& color);
 void cMes(Font& font, String str, PositionStruct top_left, SizeStruct size, Color& color);
 
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct top_left, PositionStruct bottom_right);
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct top_left, SizeStruct size);
+
 void saveTextFile(string file_path, string str);
 void saveTextFile(string file_path, Array<string> str_v);
 void saveTextFile(string file_path, Array<FileStruct> fs);

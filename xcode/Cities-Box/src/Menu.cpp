@@ -47,10 +47,21 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	selected_addon_name = U"";
 	
 	population = Texture(Icon(IconFont::Population, 20));
-	/*
-	addons_categorized[U"public"][U"low_density"] = map.getFitAddons(Array<String>{U"residential", U"low_density"});
-	addons_categorized[U"residential"][U"high_density"] = map.getFitAddons(Array<String>{U"residential", U"high_density"});
-	*/
+	
+	// 効果テクスチャを用意
+	effect_icons[U"crime_rate"] = Texture(Icon(IconFont::Crime, 16));
+	effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
+	effect_icons[U"education_rate"] = Texture(Icon(IconFont::Education, 16));
+	effect_icons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
+	effect_icons[U"garbage_disposal"] = Texture(Icon(IconFont::Garbage, 16));
+	effect_icons[U"land_price"] = Texture(Icon(IconFont::LandPrice, 16));
+	effect_icons[U"mobile_communication"] = Texture(Icon(IconFont::MobileCommunication, 16));
+	effect_icons[U"noise"] = Texture(Icon(IconFont::Noise, 16));
+	effect_icons[U"post"] = Texture(Icon(IconFont::Post, 16));
+	effect_icons[U"television"] = Texture(Icon(IconFont::Television, 16));
+	effect_icons[U"tourist_attraction"] = Texture(Icon(IconFont::Tourist, 16));
+	effect_icons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
+	
 	// レンダテクスチャに描画
 	ScopedRenderTarget2D target(render);
 }
@@ -356,12 +367,33 @@ void Menu::addonMenu() {
 		}
 		
 		if (cursor_i == selected_i && selected_i >= 0) {
+			// 名前と説明
 			(*font16)(show_addons[selected_i]->getNameJP()).draw(position.x+30, position.y-80+2);
 			(*font12)(show_addons[selected_i]->getSummary()).draw(position.x+30, position.y-60+2);
+			
+			// 効果アイコン
+			::map<String, EffectStruct> effects = show_addons[selected_i]->getEffects();
+			int i = 0;
+			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
+				if (!effect_icons[effect->first].isEmpty()) {
+					effect_icons[effect->first].draw(500+i*30, position.y-70);
+					i++;
+				}
+			}
 		}
 		else if (cursor_i >= 0) {
 			(*font16)(show_addons[cursor_i]->getNameJP()).draw(position.x+30, position.y-80+2);
 			(*font12)(show_addons[cursor_i]->getSummary()).draw(position.x+30, position.y-60+2);
+			
+			// 効果アイコン
+			::map<String, EffectStruct> effects = show_addons[cursor_i]->getEffects();
+			int i = 0;
+			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
+				if (!effect_icons[effect->first].isEmpty()) {
+					effect_icons[effect->first].draw(500+i*30, position.y-70);
+					i++;
+				}
+			}
 		}
 		
 		for (int i=0; i<category_buttons.size(); i++) {

@@ -465,6 +465,10 @@ Array<String> Addon::getCategories() {
 	return addon_categories;
 }
 
+map<String, EffectStruct> Addon::getEffects() {
+	return effects;
+}
+
 void Addon::drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size) {
 	icon_texture(left_top.x, left_top.y, size.width, size.height).draw(position.x, position.y);
 }

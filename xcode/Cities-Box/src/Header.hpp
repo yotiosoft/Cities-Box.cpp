@@ -45,6 +45,8 @@ namespace School {
 
 namespace IconFont {
 	enum ID {
+		None				= 0x0000,
+		
 		Floppy				= 0xf0c7,
 		Plus				= 0xf067,
 		
@@ -70,6 +72,20 @@ namespace IconFont {
 		Budget				= 0xf53c,
 		Setting				= 0xf013,
 		Save				= 0xf0c7,
+		
+		Crime				= 0xf6de,
+		Durability			= 0xf72e,
+		Education			= 0xf549,
+		Firing				= 0xf06d,
+		FreeWiFi			= 0xf1eb,
+		Garbage				= 0xf2ed,
+		LandPrice			= 0xf53a,
+		MobileCommunication = 0xf012,
+		Noise				= 0xf028,
+		Post				= 0xf7d7,
+		Television			= 0xf26c,
+		Radio				= 0xf519,
+		Tourist				= 0xf6fc,
 		
 		Population			= 0xf0c0,
 	};

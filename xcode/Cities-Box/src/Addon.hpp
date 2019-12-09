@@ -91,6 +91,9 @@ public:
 	// カテゴリを取得
 	Array<String> getCategories();
 	
+	// 効果を取得
+	map<String, EffectStruct> getEffects();
+	
 	// アイコンのテクスチャの取得
 	void drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size);
 	

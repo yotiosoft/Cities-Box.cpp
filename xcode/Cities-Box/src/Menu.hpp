@@ -59,6 +59,8 @@ private:
 	
 	CityMap* map;
 	
+	::map<String, Texture> effect_icons;
+	
 	String selected_addon_name;
 	
 	Array<pair<String, Button>> category_buttons;

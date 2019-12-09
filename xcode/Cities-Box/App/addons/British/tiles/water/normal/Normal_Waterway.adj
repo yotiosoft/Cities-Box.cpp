@@ -4,15 +4,17 @@
   "author": "",
   "summary": "普通の水路です。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Normal_Waterway.png",
-  "categories": [
+  "Categories": [
     "ship",
     "waterway"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 47,
+  "Use_types": [
     "turn",
     "intersection_T",
     "intersection_cross",

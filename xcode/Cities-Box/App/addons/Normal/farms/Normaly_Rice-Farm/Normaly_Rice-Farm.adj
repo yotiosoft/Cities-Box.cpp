@@ -4,14 +4,16 @@
   "author": "YotioSoft",
   "summary": "稲が実る田んぼは、町に田園風景を作り出してくれます。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Normaly_Rice-Farm.png",
-  "categories": [
+  "Categories": [
     "farm"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 10,
+  "Use_types": [
     "normal"
   ],
   "Types": [

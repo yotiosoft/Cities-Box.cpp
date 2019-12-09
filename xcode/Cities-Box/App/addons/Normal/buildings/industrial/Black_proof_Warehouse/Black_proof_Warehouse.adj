@@ -4,14 +4,25 @@
   "author": "YotioSoft",
   "summary": "100人乗っても大丈夫！セキュリティ対策が甘いので、周辺の治安が少し悪化します。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Black_proof_Warehouse.png",
-  "categories": [
+  "Categories": [
     "industrial"
   ],
-  "use_types": [
+  "effects": {
+    "crime_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 2,
+      "grid": 2
+    }
+  },
+  "maximum_capacity": 30,
+  "Use_types": [
     "normal"
   ],
   "Types": [

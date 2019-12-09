@@ -4,15 +4,17 @@
   "author": "YotioSoft",
   "summary": "某不動産会社がよく立ててそうなデザインの家。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Modern_House.png",
-  "categories": [
+  "Categories": [
     "residential",
     "low_density"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 8,
+  "Use_types": [
     "normal"
   ],
   "Types": [

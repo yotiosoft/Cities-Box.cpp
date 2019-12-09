@@ -4,15 +4,18 @@
   "author": "",
   "summary": "普通の2車線道路です。白線の実線は「はみ出し禁止」の意味。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Two_lane_normal_road(white_line).png",
-  "categories": [
+  "Categories": [
     "road",
+    "car",
     "two_lane"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 117,
+  "Use_types": [
     "default",
     "dead_end",
     "turn",

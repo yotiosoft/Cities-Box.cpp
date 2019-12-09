@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "よくありそうなごく普通の屋根付きの駅。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_White-Roof_Normaly_Station.png",
-  "categories": [
+  "Categories": [
     "train",
     "station"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 8,
+      "grid": 8
+    }
+  },
+  "maximum_capacity": 30,
+  "Use_types": [
     "default",
     "dead_end",
     "under_construction"

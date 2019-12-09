@@ -4,16 +4,27 @@
   "author": "YotioSoft",
   "summary": "この街の安全と平和を守るために必要な施設です。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_small_police_station.png",
-  "categories": [
+  "Categories": [
     "public",
     "police",
     "police_station"
   ],
-  "use_types": [
+  "effects": {
+    "crime_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 8,
+      "grid": 8
+    }
+  },
+  "maximum_capacity": 200,
+  "Use_types": [
     "normal"
   ],
   "Types": [

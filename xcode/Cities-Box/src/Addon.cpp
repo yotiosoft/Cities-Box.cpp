@@ -129,6 +129,7 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 			
 			if (category_name_temp_utf8.find("road") != string::npos && category_name_temp_utf8.find("railroad") == string::npos) {
 				addon_categories << U"road";
+				addon_categories << U"car";
 			}
 			else if (category_name_temp_utf8.find("promenade") != string::npos) {
 				addon_categories << U"road";
@@ -248,11 +249,20 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 		}
 		
 		// 最大収容人数
-		getElement(str_temp, U"maxium_capacity", maxium_capacity);
+		getElement(str_temp, U"maximum_capacity", maximum_capacity);
 		
-		// 地価
-		getElement(str_temp, U"land_price_influence", land_price_influence);
-		getElement(str_temp, U"land_price_influence_grid", land_price_influence_grid);
+		// 建物の効果
+		getElement(str_temp, U"land_price_influence", effects[U"land_price"].influence);
+		getElement(str_temp, U"land_price_influence_grid", effects[U"land_price"].grid);
+		
+		getElement(str_temp, U"education_rate_influence", effects[U"education_rate"].influence);
+		getElement(str_temp, U"education_rate_influence_grid", effects[U"education_rate"].grid);
+		
+		getElement(str_temp, U"crime_rate_influence", effects[U"crime_rate"].influence);
+		getElement(str_temp, U"crime_rate_influence_grid", effects[U"crime_rate"].grid);
+		
+		getElement(str_temp, U"noise_influence", effects[U"noise"].influence);
+		getElement(str_temp, U"noise_influence_grid", effects[U"noise"].grid);
 		
 		// 使用するtype
 		getTypes(str_temp, U"use_types", use_types);
@@ -355,7 +365,7 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 	addon_file_path = new_file_path;
 	JSONReader addon_data(Unicode::Widen(addon_file_path.file_path));
 	
-	belong_addons_set_name = addon_data[U"belong_addon_set_name"].getArray<String>();
+	belong_addons_set_name = addon_data[U"Belong_addon_set_name"].getArray<String>();
 	bool belong = false;
 	for (int i=0; i<belong_addons_set_name.size(); i++) {
 		if (belong_addons_set_name[i].length() > 0) {
@@ -381,9 +391,16 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 	set_alpha_color(icon_image, Color(0, 0, 0));
 	icon_texture = Texture(icon_image);
 	
-	addon_categories = addon_data[U"categories"].getArray<String>();
+	// カテゴリ
+	addon_categories = addon_data[U"Categories"].getArray<String>();
 	
-	use_types = addon_data[U"use_types"].getArray<String>();
+	// 建物の効果
+	for (const auto& effect : addon_data[U"effects"].objectView()) {
+		effects[effect.name].influence = effect.value[U"influence"].get<int>();
+		effects[effect.name].grid = effect.value[U"grid"].get<int>();
+	}
+	
+	use_types = addon_data[U"Use_types"].getArray<String>();
 	
 	for (const auto& type : addon_data[U"Types"].arrayView()) {
 		String type_name = type[U"type_name"].getString();
@@ -502,7 +519,7 @@ void Addon::converter() {
 		
 		addon_data.key(U"version").write(RELEASE_NUMBER);
 		
-		addon_data.key(U"belong_addon_set_name").startArray();
+		addon_data.key(U"Belong_addon_set_name").startArray();
 		{
 			for (auto belong = belong_addons_set_name.begin(); belong!= belong_addons_set_name.end() ; belong++) {
 				addon_data.write(*belong);
@@ -512,7 +529,7 @@ void Addon::converter() {
 		
 		addon_data.key(U"icon").write(addon_icon);
 		
-		addon_data.key(U"categories").startArray();
+		addon_data.key(U"Categories").startArray();
 		{
 			for (auto category_name = addon_categories.begin(); category_name != addon_categories.end(); category_name++) {
 				addon_data.write(*category_name);
@@ -520,7 +537,24 @@ void Addon::converter() {
 		}
 		addon_data.endArray();
 		
-		addon_data.key(U"use_types").startArray();
+		addon_data.key(U"effects").startObject();
+		{
+			for (auto e = effects.begin(); e != effects.end() ; e++) {
+				if (e->second.influence != 0) {
+					addon_data.key(e->first).startObject();
+					{
+						addon_data.key(U"influence").write(e->second.influence);
+						addon_data.key(U"grid").write(e->second.grid);
+					}
+					addon_data.endObject();
+				}
+			}
+		}
+		addon_data.endObject();
+		
+		addon_data.key(U"maximum_capacity").write(maximum_capacity);
+		
+		addon_data.key(U"Use_types").startArray();
 		{
 			for (auto type_name = use_types.begin(); type_name != use_types.end() ; type_name++) {
 				addon_data.write(*type_name);

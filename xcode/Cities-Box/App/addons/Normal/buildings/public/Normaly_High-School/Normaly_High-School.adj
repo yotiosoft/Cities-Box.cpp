@@ -4,16 +4,27 @@
   "author": "YotioSoft",
   "summary": "4階建ての高校。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Normaly_High-School.png",
-  "categories": [
+  "Categories": [
     "public",
     "education",
     "high_school"
   ],
-  "use_types": [
+  "effects": {
+    "education_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 1000,
+  "Use_types": [
     "normal"
   ],
   "Types": [

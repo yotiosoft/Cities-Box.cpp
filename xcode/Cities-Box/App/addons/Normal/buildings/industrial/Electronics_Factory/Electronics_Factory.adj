@@ -4,14 +4,25 @@
   "author": "YotioSoft",
   "summary": "テレビ、パソコン、家電からロボットまで何でも生産可能な工場。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Electronics_Factory.png",
-  "categories": [
+  "Categories": [
     "industrial"
   ],
-  "use_types": [
+  "effects": {
+    "crime_rate": {
+      "influence": 5,
+      "grid": 5
+    },
+    "education_rate": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 111,
+  "Use_types": [
     "normal"
   ],
   "Types": [

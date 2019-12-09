@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "この街の安心と安全を守るために必要な施設です。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_small_fire_depertment.png",
-  "categories": [
+  "Categories": [
     "public",
     "fire_depertment"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 8,
+      "grid": 8
+    }
+  },
+  "maximum_capacity": 50,
+  "Use_types": [
     "normal"
   ],
   "Types": [

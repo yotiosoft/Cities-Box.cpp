@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "街角によくありそうなデパート。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_L-Department_Store.png",
-  "categories": [
+  "Categories": [
     "commercial",
     "high_density"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 8,
+      "grid": 8
+    }
+  },
+  "maximum_capacity": 400,
+  "Use_types": [
     "normal"
   ],
   "Types": [

@@ -4,14 +4,21 @@
   "author": "YotioSoft",
   "summary": "ガラス張りの21階建てのオフィスです。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Tall_Office.png",
-  "categories": [
+  "Categories": [
     "office"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 800,
+  "Use_types": [
     "normal"
   ],
   "Types": [

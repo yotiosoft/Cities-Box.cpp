@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "ガラス張りでモダンな一軒家。外から丸見えです。トイレも丸見え。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Glazed_House.png",
-  "categories": [
+  "Categories": [
     "residential",
     "low_density"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 4,
+      "grid": 4
+    }
+  },
+  "maximum_capacity": 8,
+  "Use_types": [
     "normal"
   ],
   "Types": [

@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "屋上庭園がある、ガラス張りの日当たりの良い市役所。市役所は市民に市政情報を提供し、市民の安定した暮らしを守ります。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Modern_City_Hall.png",
-  "categories": [
+  "Categories": [
     "public",
     "city_hall"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 100,
+  "Use_types": [
     "normal"
   ],
   "Types": [

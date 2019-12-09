@@ -4,14 +4,25 @@
   "author": "YotioSoft",
   "summary": "この街の開拓者を後世に残すための立派な像です。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Statue_of_Mayor.png",
-  "categories": [
+  "Categories": [
     "park"
   ],
-  "use_types": [
+  "effects": {
+    "education_rate": {
+      "influence": 5,
+      "grid": 5
+    },
+    "land_price": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 270260105,
+  "Use_types": [
     "normal"
   ],
   "Types": [

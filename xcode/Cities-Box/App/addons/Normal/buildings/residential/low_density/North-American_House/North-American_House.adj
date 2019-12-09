@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "アメリカやカナダによくありそうな一軒家。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_North-American_House.png",
-  "categories": [
+  "Categories": [
     "residential",
     "low_density"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 2,
+      "grid": 2
+    }
+  },
+  "maximum_capacity": 6,
+  "Use_types": [
     "normal"
   ],
   "Types": [

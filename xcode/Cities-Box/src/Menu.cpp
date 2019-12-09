@@ -161,6 +161,8 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
 			category_buttons.clear();
+			category_buttons << pair<String, Button>(U"promenade", Button(IconFont::WALK, 16, 16, PositionStruct{2, 0}));
+			category_buttons << pair<String, Button>(U"car", Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -329,9 +331,9 @@ void Menu::addonMenu() {
 		for (int i=0; i<show_addons.size(); i++) {
 			String addon_name = show_addons[i]->getName();
 			
-			bool cursor_on = (Cursor::Pos().x >= 30+40*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x <= 30+40*i+32 && Cursor::Pos().y <= position.y-40+32);
+			bool cursor_on = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= position.y-40+32);
 			if (cursor_on || selected_addon_name == addon_name) {
-				show_addons[i]->drawIcon(PositionStruct{30+40*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
+				show_addons[i]->drawIcon(PositionStruct{30+32*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
 				
 				if (MouseL.down()) {
 					if (selected_addon_name == addon_name) {
@@ -349,7 +351,7 @@ void Menu::addonMenu() {
 				}
 			}
 			else {
-				show_addons[i]->drawIcon(PositionStruct{30+40*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
+				show_addons[i]->drawIcon(PositionStruct{30+32*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
 			}
 		}
 		

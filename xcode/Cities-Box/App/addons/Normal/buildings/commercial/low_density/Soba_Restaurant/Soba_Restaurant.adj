@@ -4,15 +4,17 @@
   "author": "YotioSoft",
   "summary": "年越しそばは吉田屋へ。年末だけ客が殺到するお店。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Soba_Restaurant.png",
-  "categories": [
+  "Categories": [
     "commercial",
     "low_density"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 30,
+  "Use_types": [
     "normal"
   ],
   "Types": [

@@ -4,14 +4,21 @@
   "author": "YotioSoft",
   "summary": "世界的に有名なチョコレート工場。中は完全非公開。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Charlie's_chocolate_factory.png",
-  "categories": [
+  "Categories": [
     "industrial"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 100,
+  "Use_types": [
     "normal"
   ],
   "Types": [

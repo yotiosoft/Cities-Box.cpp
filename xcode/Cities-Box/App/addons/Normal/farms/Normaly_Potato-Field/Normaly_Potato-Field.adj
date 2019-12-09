@@ -4,14 +4,16 @@
   "author": "YotioSoft",
   "summary": "食べる部分は土の中に埋まっています。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_Normaly_Potato-Field.png",
-  "categories": [
+  "Categories": [
     "farm"
   ],
-  "use_types": [
+  "effects": {},
+  "maximum_capacity": 3,
+  "Use_types": [
     "normal"
   ],
   "Types": [

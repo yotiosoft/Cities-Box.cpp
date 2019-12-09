@@ -50,6 +50,8 @@ namespace IconFont {
 		
 		Cursor				= 0xf245,
 		Road				= 0xf018,
+		WALK				= 0xf554,
+		CAR					= 0xf1b9,
 		Railroad			= 0xf238,
 		Residential			= 0xf015,
 		Commercial			= 0xf54f,

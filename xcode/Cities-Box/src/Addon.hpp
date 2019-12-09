@@ -37,6 +37,27 @@ typedef struct AddonTypeStruct {
 	Texture texture;				// アドオン画像のテクスチャ
 } AddonTypeStruct;
 
+typedef struct EffectStruct {
+	int influence;
+	int grid;
+} EffectStruct;
+
+typedef struct EffectsStruct {
+	EffectStruct land_price 			= {0, 0};	// 地価
+	EffectStruct crime_rate 			= {0, 0};	// 犯罪率
+	EffectStruct education_rate 		= {0, 0};	// 教育度
+	EffectStruct noise 					= {0, 0};	// 騒音
+	EffectStruct garbage_disposal 		= {0, 0};	// ごみ処理効率
+	EffectStruct firing_rate 			= {0, 0};	// 発火率
+	EffectStruct post					= {0, 0};	// 郵便充足度
+	EffectStruct mobile_communication	= {0, 0};	// モバイル通信
+	EffectStruct free_wifi				= {0, 0};	// 無料Wi-Fiスポット
+	EffectStruct television				= {0, 0};	// テレビ放送
+	EffectStruct radio					= {0, 0};	// ラジオ放送
+	EffectStruct tourist_attraction		= {0, 0};	// 観光魅力度
+	EffectStruct durability				= {0, 0};	// 耐久安全性
+} EffectsStruct;
+
 typedef struct CropStruct {
 	String name;
 	int amount;
@@ -114,8 +135,11 @@ private:
 	// 使用するtype
 	Array<String> use_types;
 	
-	// 収容人数
-	int maxium_capacity;
+	// 収容人数 or 最大従業員数
+	int maximum_capacity;
+	
+	// 建物の効果
+	map<String, EffectStruct> effects;
 	
 	// 地価
 	int land_price_influence;		// 上昇額

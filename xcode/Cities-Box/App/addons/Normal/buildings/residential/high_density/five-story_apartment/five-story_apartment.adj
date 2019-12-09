@@ -4,15 +4,22 @@
   "author": "YotioSoft",
   "summary": "5階建ての賃貸マンションです。大家さんは家賃を払わない住民を屋上から落とすほどの怖い人。",
   "version": 141,
-  "belong_addon_set_name": [
+  "Belong_addon_set_name": [
     "Normal"
   ],
   "icon": "icon_five-story_apartment.png",
-  "categories": [
+  "Categories": [
     "residential",
     "high_density"
   ],
-  "use_types": [
+  "effects": {
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 100,
+  "Use_types": [
     "normal"
   ],
   "Types": [

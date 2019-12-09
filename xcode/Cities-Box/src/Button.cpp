@@ -89,14 +89,14 @@ void Button::put(PositionStruct new_position) {
 	position = new_position;
 	
 	if (Cursor::Pos().x >= position.x && Cursor::Pos().y >= position.y && Cursor::Pos().x <= position.x+size.width && Cursor::Pos().y <= position.y+size.height) {
-		Rect(position.x, position.y, size.width, size.height).draw(Color(0, 162, 232, 128));
+		Rect(position.x, position.y, size.width, size.height).draw(Color(9, 132, 227, 128));
 		
 		if (label.length() > 0) {
 			font(label).draw(position.x+size.width/2-font(label).region(Scene::Width()/2, Scene::Height()/2).w/2, position.y+size.height);
 		}
 	}
 	if (active) {
-		Rect(position.x, position.y, size.width, size.height).draw(Color(0, 162, 232));
+		Rect(position.x, position.y, size.width, size.height).draw(Color(9, 132, 227));
 	}
 	
 	if (isIcon) {
@@ -115,6 +115,10 @@ bool Button::push() {
 	}
 	
 	return false;
+}
+
+bool Button::isActive() {
+	return active;
 }
 
 void Button::release() {

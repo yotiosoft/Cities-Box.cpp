@@ -34,7 +34,7 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct new_position, SizeStruct new_size, CityMap& map, Font* new_font8, Font* new_font16);
+	void set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16);
 	
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
 	void draw(RCOIFstruct demand, int population_count, int money);
@@ -51,10 +51,18 @@ private:
 	
 	MenuMode::Type menu_mode;
 	
-	map<String, map<String, Array<Addon*>>> addons_categorized;
+	Array<Addon*> show_addons;
 	
 	Font* font8;
+	Font* font12;
 	Font* font16;
+	
+	CityMap* map;
+	
+	String selected_addon_name;
+	
+	Array<pair<String, Button>> category_buttons;
+	String mode_str;
 	
 	Texture population;
 };

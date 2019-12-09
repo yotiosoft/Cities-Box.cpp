@@ -7,14 +7,17 @@
 
 #include "Menu.hpp"
 
-void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap& map, Font* new_font8, Font* new_font16) {
+void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16) {
 	position = new_position;
 	size = new_size;
 	
 	font8 = new_font8;
+	font12 = new_font12;
 	font16 = new_font16;
 	
-	render = RenderTexture(size.width, size.height, Color(50, 50, 50));
+	map = new_map;
+	
+	render = RenderTexture(size.width, size.height, Color(45, 52, 54));
 	
 	button[U"cursor"].set(IconFont::Cursor, 30, 26, PositionStruct{8, 2});
 	
@@ -41,21 +44,9 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap& map, F
 	
 	menu_mode = MenuMode::None;
 	
+	selected_addon_name = U"";
+	
 	population = Texture(Icon(IconFont::Population, 20));
-	
-	// アドオンをカテゴライズする
-	addons_categorized[U"road"][U"two_lane"] = map.getFitAddons(Array<String>{U"road", U"two_lane"});
-	addons_categorized[U"road"][U"promenade"] = map.getFitAddons(Array<String>{U"road", U"promenade"});
-	addons_categorized[U"train"][U"rail_road"] = map.getFitAddons(Array<String>{U"train", U"rail_road"});
-	addons_categorized[U"train"][U"station"] = map.getFitAddons(Array<String>{U"train", U"station"});
-	
-	addons_categorized[U"residential"][U"low_density"] = map.getFitAddons(Array<String>{U"residential", U"low_density"});
-	addons_categorized[U"residential"][U"high_density"] = map.getFitAddons(Array<String>{U"residential", U"high_density"});
-	addons_categorized[U"commercial"][U"low_density"] = map.getFitAddons(Array<String>{U"commercial", U"low_density"});
-	addons_categorized[U"commercial"][U"high_density"] = map.getFitAddons(Array<String>{U"commercial", U"high_density"});
-	addons_categorized[U"office"][U""] = map.getFitAddons(Array<String>{U"office"});
-	addons_categorized[U"industrial"][U""] = map.getFitAddons(Array<String>{U"industrial"});
-	addons_categorized[U"farm"][U""] = map.getFitAddons(Array<String>{U"farm"});
 	/*
 	addons_categorized[U"public"][U"low_density"] = map.getFitAddons(Array<String>{U"residential", U"low_density"});
 	addons_categorized[U"residential"][U"high_density"] = map.getFitAddons(Array<String>{U"residential", U"high_density"});
@@ -136,17 +127,18 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 	button[U"setting"].put(PositionStruct{position.x+495+140, position.y});
 	button[U"save"].put(PositionStruct{position.x+495+175, position.y});
 	
+	// RCOIFメータを表示
 	(*font8)(U"R").draw(position.x+size.width-80+3, position.y+size.height-15+2, Color(Palette::White));
 	(*font8)(U"C").draw(position.x+size.width-80+3+8, position.y+size.height-15+2, Color(Palette::White));
 	(*font8)(U"O").draw(position.x+size.width-80+3+16, position.y+size.height-15+2, Color(Palette::White));
 	(*font8)(U"I").draw(position.x+size.width-80+3+24, position.y+size.height-15+2, Color(Palette::White));
 	(*font8)(U"F").draw(position.x+size.width-80+3+32, position.y+size.height-15+2, Color(Palette::White));
 	
-	Rect(position.x+size.width-80, position.y+size.height-15, 8, -max(demand.residential*0.4, 1.0)).draw(Color(34, 177, 76));
-	Rect(position.x+size.width-80+8, position.y+size.height-15, 8, -max(demand.commercial*0.4, 1.0)).draw(Color(63, 72, 204));
-	Rect(position.x+size.width-80+16, position.y+size.height-15, 8, -max(demand.office*0.4, 1.0)).draw(Color(0, 162, 232));
-	Rect(position.x+size.width-80+24, position.y+size.height-15, 8, -max(demand.industrial*0.4, 1.0)).draw(Color(255, 242, 0));
-	Rect(position.x+size.width-80+32, position.y+size.height-15, 8, -max(demand.farm*0.4, 1.0)).draw(Color(185, 122, 87));
+	Rect(position.x+size.width-80, position.y+size.height-15, 8, -max(demand.residential*0.4, 1.0)).draw(Color(39, 174, 96));
+	Rect(position.x+size.width-80+8, position.y+size.height-15, 8, -max(demand.commercial*0.4, 1.0)).draw(Color(9, 132, 227));
+	Rect(position.x+size.width-80+16, position.y+size.height-15, 8, -max(demand.office*0.4, 1.0)).draw(Color(0, 206, 201));
+	Rect(position.x+size.width-80+24, position.y+size.height-15, 8, -max(demand.industrial*0.4, 1.0)).draw(Color(253, 203, 110));
+	Rect(position.x+size.width-80+32, position.y+size.height-15, 8, -max(demand.farm*0.4, 1.0)).draw(Color(211, 84, 0));
 	
 	population.draw(position.x+10, position.y+size.height-25);
 	(*font16)(Format(population_count)).draw(position.x+10+30, position.y+size.height-25-3, Color(Palette::White));
@@ -165,6 +157,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Road) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Road;
+			mode_str = U"road";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -174,6 +170,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Train) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Train;
+			mode_str = U"train";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -183,6 +183,12 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Residential){
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Residential;
+			mode_str = U"residential";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
+			category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Residential, 16, 16, PositionStruct{0, 0}));
+			category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -192,6 +198,12 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Commercial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Commercial;
+			mode_str = U"commercial";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
+			category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Commercial, 16, 14, PositionStruct{0, 0}));
+			category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -201,6 +213,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Office) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Office;
+			mode_str = U"office";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -210,6 +226,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Industrial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Industrial;
+			mode_str = U"industrial";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -219,6 +239,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Farm) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Farm;
+			mode_str = U"farm";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -228,6 +252,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Public) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Public;
+			mode_str = U"public";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -237,6 +265,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Park) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Park;
+			mode_str = U"park";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -246,6 +278,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Ship) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Ship;
+			mode_str = U"ship";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -255,6 +291,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::AirPort) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::AirPort;
+			mode_str = U"air_port";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -264,6 +304,10 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Tile) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Tile;
+			mode_str = U"tile";
+			show_addons = map->getFitAddons(Array<String>{mode_str});
+			
+			category_buttons.clear();
 		}
 		else {
 			menu_mode = MenuMode::Cursor;
@@ -276,25 +320,65 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 }
 
 void Menu::addonMenu() {
-	Rect(position.x, position.y-48, size.width, 48).draw(Color(0, 162, 232, 200));
-	
-	Array<Addon*> show_addons;
-	
-	switch (menu_mode) {
-		case MenuMode::None:
-			show_addons = Array<Addon*>();
-			break;
-		case MenuMode::Cursor:
-			show_addons = Array<Addon*>();
-			break;
-		case MenuMode::Residential:
-			show_addons = addons_categorized[U"residential"][U"low_density"];
-			break;
-	}
+	Rect(position.x+16, position.y-42, size.width, 42).draw(Color(9, 132, 227, 200));
+	Rect(position.x+16, position.y-80, size.width, 38).draw(Color(45, 52, 54, 200));
+	Rect(position.x, position.y-80, 16, 80).draw(Color(45, 52, 54, 200));
 	
 	if (show_addons.size() > 0) {
+		int selected_i = -1, cursor_i = -1;
 		for (int i=0; i<show_addons.size(); i++) {
-			show_addons[i]->drawIcon(PositionStruct{10+40*i, position.y-40}, PositionStruct{0, 0}, SizeStruct{32, 32});
+			String addon_name = show_addons[i]->getName();
+			
+			bool cursor_on = (Cursor::Pos().x >= 30+40*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x <= 30+40*i+32 && Cursor::Pos().y <= position.y-40+32);
+			if (cursor_on || selected_addon_name == addon_name) {
+				show_addons[i]->drawIcon(PositionStruct{30+40*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
+				
+				if (MouseL.down()) {
+					if (selected_addon_name == addon_name) {
+						selected_addon_name = U"";
+					}
+					else {
+						selected_addon_name = addon_name;
+					}
+				}
+				
+				selected_i = i;
+				
+				if (cursor_on || cursor_i == -1) {
+					cursor_i = i;
+				}
+			}
+			else {
+				show_addons[i]->drawIcon(PositionStruct{30+40*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
+			}
+		}
+		
+		if (cursor_i == selected_i && selected_i >= 0) {
+			(*font16)(show_addons[selected_i]->getNameJP()).draw(position.x+30, position.y-80+2);
+			(*font12)(show_addons[selected_i]->getSummary()).draw(position.x+30, position.y-60+2);
+		}
+		else if (cursor_i >= 0) {
+			(*font16)(show_addons[cursor_i]->getNameJP()).draw(position.x+30, position.y-80+2);
+			(*font12)(show_addons[cursor_i]->getSummary()).draw(position.x+30, position.y-60+2);
+		}
+		
+		for (int i=0; i<category_buttons.size(); i++) {
+			category_buttons[i].second.put(PositionStruct{0, position.y-37+16*i});
+			
+			if (category_buttons[i].second.push()) {
+				if (category_buttons[i].second.isActive()) {
+					show_addons = map->getFitAddons(Array<String>{mode_str, category_buttons[i].first});
+					
+					for (int j=0; j<category_buttons.size(); j++) {
+						if (j != i) {
+							category_buttons[j].second.release();
+						}
+					}
+				}
+				else {
+					show_addons = map->getFitAddons(Array<String>{mode_str});
+				}
+			}
 		}
 	}
 }

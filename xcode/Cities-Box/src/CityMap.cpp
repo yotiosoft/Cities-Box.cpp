@@ -71,13 +71,9 @@ void CityMap::loadCBD(String new_map_file_path) {
 	// マップファイルの読み込み
 	map_file_path = new_map_file_path;
 	
-	ifstream ifs(map_file_path.toUTF8().c_str());
+	TextReader map_data(map_file_path);
 	string str_temp_utf8;
 	String str_temp;
-	
-	if (ifs.fail()) {
-		cerr << "Failed to open file." << endl;
-	}
 	
 	// 各要素の読み出し
 	string current_array_name = "";
@@ -95,9 +91,9 @@ void CityMap::loadCBD(String new_map_file_path) {
 	
 	bool addon_loaded = false;
 	
-	while (getline(ifs, str_temp_utf8)) {
-		str_temp = Unicode::Widen(str_temp_utf8);
+	while (map_data.readLine(str_temp)) {
 		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);				// 改行コードは除く
+		str_temp_utf8 = str_temp.toUTF8();
 		
 		getElement(str_temp, U"Version", saved_version);
 		getElement(str_temp, U"Addons_Set", addon_set);

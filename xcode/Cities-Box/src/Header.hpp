@@ -77,7 +77,7 @@ namespace RCOIFcolor {
 	enum Color {
 		Residential			= Color(34, 177, 76),
 		Commercial			= Color(63, 72, 204),
-		Office				= Color(0, 162, 232),
+		Office				= Color(9, 132, 227),
 		Industrial			= Color(255, 242, 0),
 		Farm				= Color(185, 122, 87),
 	}

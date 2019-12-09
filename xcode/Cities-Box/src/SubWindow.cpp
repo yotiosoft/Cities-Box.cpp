@@ -24,7 +24,7 @@ SubWindow::SubWindow(String new_title, Font* new_font, SizeStruct new_size, Colo
 	
 	// テンプレートの描画
 	ScopedRenderTarget2D target(render_window);
-	Rect(0, 0, size.width, font->fontSize()+6).draw(Color(0, 162, 232));
+	Rect(0, 0, size.width, font->fontSize()+6).draw(Color(9, 132, 227));
 	
 	(*font)(title).draw(2, 2);
 }

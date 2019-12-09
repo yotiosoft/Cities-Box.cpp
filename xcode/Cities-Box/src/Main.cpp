@@ -21,6 +21,7 @@ void Main() {
 	
 	// フォントの宣言
 	Font font16(16);
+	Font font12(12);
 	Font font8(8);
 	
 	// タイトルメニュー画面
@@ -55,7 +56,7 @@ void Main() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, map, &font8, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &map, &font8, &font12, &font16);
 	
 	while (System::Update()) {
 		// カメラの操作

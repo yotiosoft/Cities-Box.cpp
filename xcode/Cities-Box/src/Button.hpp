@@ -35,6 +35,9 @@ public:
 	// 押されたかどうか
 	bool push();
 	
+	// アクティブかどうか
+	bool isActive();
+	
 	// 選択解除
 	void release();
 	

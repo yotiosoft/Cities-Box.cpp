@@ -127,7 +127,7 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 			
 			transform(category_name_temp_utf8.begin(), category_name_temp_utf8.end(), category_name_temp_utf8.begin(), ::tolower);
 			
-			if (category_name_temp_utf8.find("road") != string::npos) {
+			if (category_name_temp_utf8.find("road") != string::npos && category_name_temp_utf8.find("railroad") == string::npos) {
 				addon_categories << U"road";
 			}
 			else if (category_name_temp_utf8.find("promenade") != string::npos) {

@@ -9,7 +9,8 @@
   ],
   "icon": "icon_Two_lane_Normal_Railroad.png",
   "categories": [
-    "road",
+    "train",
+    "railroad",
     "two_lane"
   ],
   "use_types": [

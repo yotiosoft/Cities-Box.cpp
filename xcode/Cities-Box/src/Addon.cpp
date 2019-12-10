@@ -473,6 +473,10 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 	return types[getTypeName(type_num)].direction_names[direction_num];
 }
 
+String Addon::getDirectionName(String type_name, int direction_num) {
+	return types[type_name].direction_names[direction_num];
+}
+
 Array<String> Addon::getCategories() {
 	return addon_categories;
 }

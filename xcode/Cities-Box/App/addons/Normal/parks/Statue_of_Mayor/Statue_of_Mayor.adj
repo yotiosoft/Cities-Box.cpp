@@ -21,7 +21,7 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 270260105,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],

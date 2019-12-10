@@ -13,7 +13,7 @@
     "waterway"
   ],
   "effects": {},
-  "maximum_capacity": 116,
+  "maximum_capacity": 0,
   "Use_types": [
     "turn",
     "intersection_T",

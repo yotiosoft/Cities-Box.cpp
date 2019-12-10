@@ -14,7 +14,7 @@
     "two_lane"
   ],
   "effects": {},
-  "maximum_capacity": 100,
+  "maximum_capacity": 0,
   "Use_types": [
     "default",
     "dead_end",

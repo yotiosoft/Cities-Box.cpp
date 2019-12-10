@@ -87,6 +87,7 @@ public:
 	
 	// Directionの名前の取得
 	String getDirectionName(int type_num, int direction_num);
+	String getDirectionName(String type_name, int direction_num);
 	
 	// カテゴリを取得
 	Array<String> getCategories();

@@ -12,7 +12,7 @@
     "tile"
   ],
   "effects": {},
-  "maximum_capacity": 115,
+  "maximum_capacity": 111,
   "Use_types": [
     "normal",
     "autumn",

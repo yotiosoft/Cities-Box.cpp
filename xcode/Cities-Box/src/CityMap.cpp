@@ -907,8 +907,9 @@ bool CityMap::build(CoordinateStruct position, Addon* addon) {
 	Addon* selected_addon = addons[U"tile_greenfield"];
 	
 	current_square->addons.clear();
+	current_square->types.clear();
+	current_square->directions.clear();
 	
-	current_square->addon_name << selected_addon->getName();
 	current_square->types << U"normal";
 	current_square->directions << U"normal";
 	current_square->serial_number = 0;

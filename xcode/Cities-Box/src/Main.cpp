@@ -127,9 +127,9 @@ void Main() {
 		selected_addon = menu.draw(map.getDemand(), map.getPopulation(), map.getMoney());
 		
 		// マップ上でクリックされたらアドオンを設置
-		if (selected_addon != nullptr && MouseL.pressed() && Cursor::Pos().y <= Scene::Height()-80) {
-			cout << map.positionToCoordinate(cursor.position, camera).x << "," << map.positionToCoordinate(cursor.position, camera).y << endl;
+		if (selected_addon != nullptr && MouseL.pressed() && Cursor::Pos().y <= Scene::Height()-60-80) {
 			map.build(map.positionToCoordinate(cursor.position, camera), selected_addon);
+			update_map = true;
 		}
 		
 		System::Sleep(20);

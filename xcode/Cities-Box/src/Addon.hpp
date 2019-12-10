@@ -92,6 +92,9 @@ public:
 	// カテゴリを取得
 	Array<String> getCategories();
 	
+	// 指定したカテゴリに該当するか
+	bool isInCategories(String category);
+	
 	// 効果を取得
 	map<String, EffectStruct> getEffects();
 	

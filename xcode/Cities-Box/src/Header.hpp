@@ -14,6 +14,7 @@
 
 #define CHIP_SIZE		64
 #define RELEASE_NUMBER	141
+#define AROUND_TILES	4
 
 using namespace std;
 
@@ -148,3 +149,8 @@ typedef struct CursorStruct {
 	PositionStruct position;
 	PositionStruct position_per_tiles;
 } CursorStruct;
+
+// 周囲4方向
+const pair<String, CoordinateStruct> AroundTiles[4] = {
+	{U"top", {0, -1}}, {U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"left", {-1, 0}}
+};

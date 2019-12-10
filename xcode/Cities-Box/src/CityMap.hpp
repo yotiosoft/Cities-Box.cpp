@@ -130,7 +130,13 @@ public:
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// アドオンを設置
-	bool build(CoordinateStruct position, Addon* addon);
+	bool build(CoordinateStruct position, Addon* selected_addon);
+	
+	// 指定した場所に合うアドオンのTypeを取得
+	String getBuildType(CoordinateStruct coordinate, Addon* selected_addon);
+	
+	// 指定した場所に合うアドオンのDirectionを取得
+	String getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);

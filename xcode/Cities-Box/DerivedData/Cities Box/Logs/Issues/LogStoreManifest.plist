@@ -6,6 +6,32 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
+		<key>1968AE2E-C561-4896-8510-6C8059D96C32</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
+			<key>fileName</key>
+			<string>1968AE2E-C561-4896-8510-6C8059D96C32.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>signature</key>
+			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
+			<key>timeStartedRecording</key>
+			<real>597711517.56121099</real>
+			<key>timeStoppedRecording</key>
+			<real>597711533.77924299</real>
+			<key>title</key>
+			<string>Build target Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>1968AE2E-C561-4896-8510-6C8059D96C32</string>
+		</dict>
 		<key>36F5474B-D778-4448-9F14-906A320E1F2B</key>
 		<dict>
 			<key>className</key>
@@ -57,32 +83,6 @@
 			<string>Build target empty</string>
 			<key>uniqueIdentifier</key>
 			<string>A38C3FF8-071F-441B-903B-8508FF5E9110</string>
-		</dict>
-		<key>CAB3E309-B999-4E0C-82AC-E8E013EBFF55</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
-			<key>fileName</key>
-			<string>CAB3E309-B999-4E0C-82AC-E8E013EBFF55.xcactivitylog</string>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>signature</key>
-			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
-			<key>timeStartedRecording</key>
-			<real>597709969.41428399</real>
-			<key>timeStoppedRecording</key>
-			<real>597709973.905177</real>
-			<key>title</key>
-			<string>Build target Cities-Box</string>
-			<key>uniqueIdentifier</key>
-			<string>CAB3E309-B999-4E0C-82AC-E8E013EBFF55</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

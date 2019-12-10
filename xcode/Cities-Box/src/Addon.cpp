@@ -481,6 +481,15 @@ Array<String> Addon::getCategories() {
 	return addon_categories;
 }
 
+bool Addon::isInCategories(String category) {
+	for (int i=0; i<addon_categories.size(); i++) {
+		if (addon_categories[i] == category) {
+			return true;
+		}
+	}
+	return false;
+}
+
 map<String, EffectStruct> Addon::getEffects() {
 	return effects;
 }

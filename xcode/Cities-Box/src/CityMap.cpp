@@ -897,19 +897,19 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 }
 
 // アドオンの設置
-bool CityMap::build(CoordinateStruct position, Addon* addon) {
+bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 	SquareStruct* current_square = &squares[position.y][position.x];
-	Addon* selected_addon = addons[U"tile_greenfield"];
-	
+	/*
+	// 配列のクリア
 	current_square->addons.clear();
 	current_square->types.clear();
 	current_square->directions.clear();
 	
 	current_square->types << U"normal";
 	current_square->directions << U"normal";
+	
 	current_square->serial_number = 0;
 	current_square->tiles_count = {0, 0};
-	//current_square->use_tiles = {1, 1};
 	current_square->tiles_count = {0, 0};
 	current_square->residents = 0;
 	current_square->workers = {0, 0, 0, 0, 0};
@@ -919,8 +919,31 @@ bool CityMap::build(CoordinateStruct position, Addon* addon) {
 	current_square->addons << selected_addon;
 	
 	// 幸福度を戻す
+	*/
 	
+	cout << getBuildDirection(position, selected_addon).toUTF8() << endl;
 	return true;
+}
+
+// 設置する場所に合うDirectionを取得
+String CityMap::getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon) {
+	// 道路など特殊なアドオンの場合
+	if (selected_addon->isInCategories(U"road")) {
+		return U"normal";
+	}
+	
+	// 周囲に道路があるか確認する
+	for (int i=0; i<AROUND_TILES; i++) {
+		CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+		
+		for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
+			if (squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
+				return AroundTiles[i].first;
+			}
+		}
+	}
+	
+	return U"None";
 }
 
 // アドオンを削除

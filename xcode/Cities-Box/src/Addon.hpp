@@ -99,7 +99,7 @@ public:
 	void drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size);
 	
 	// 使用するタイルを取得
-	CoordinateStruct getUseTiles(int type_num, int direction_num);
+	CoordinateStruct getUseTiles(String type_name, String direction_name);
 	
 	// 最終的に表示する座標を取得
 	PositionStruct getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);

@@ -54,7 +54,6 @@ typedef struct SchoolStruct {
 } SchoolStruct;
 
 typedef struct SquareStruct {
-	Array<String> addon_name;
 	String original_name;
 	//Array<String> category;
 	
@@ -64,7 +63,6 @@ typedef struct SquareStruct {
 	int serial_number;
 	
 	CoordinateStruct tiles_count;
-	CoordinateStruct use_tiles;
 	
 	int residents;
 	WorkersStruct workers;

@@ -489,8 +489,8 @@ void Addon::drawIcon(PositionStruct position, PositionStruct left_top, SizeStruc
 	icon_texture(left_top.x, left_top.y, size.width, size.height).draw(position.x, position.y);
 }
 
-CoordinateStruct Addon::getUseTiles(int type_num, int direction_num) {
-	return CoordinateStruct{types[getTypeName(type_num)].directions[getDirectionName(type_num, direction_num)].chip_x, types[getTypeName(type_num)].directions[getDirectionName(type_num, direction_num)].chip_y};
+CoordinateStruct Addon::getUseTiles(String type_name, String direction_name) {
+	return CoordinateStruct{types[type_name].directions[direction_name].chip_x, types[type_name].directions[direction_name].chip_y};
 }
 
 PositionStruct Addon::getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {

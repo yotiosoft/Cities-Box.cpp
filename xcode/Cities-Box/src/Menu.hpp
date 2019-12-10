@@ -37,7 +37,7 @@ public:
 	void set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16);
 	
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
-	void draw(RCOIFstruct demand, int population_count, int money);
+	Addon* draw(RCOIFstruct demand, int population_count, int money);
 	
 	void addonMenu();
 	
@@ -52,6 +52,7 @@ private:
 	MenuMode::Type menu_mode;
 	
 	Array<Addon*> show_addons;
+	Addon* selected_addon;
 	
 	Font* font8;
 	Font* font12;

@@ -58,8 +58,8 @@ typedef struct SquareStruct {
 	String original_name;
 	//Array<String> category;
 	
-	Array<int> type_number;
-	Array<int> direction_number;
+	Array<String> types;
+	Array<String> directions;
 	
 	int serial_number;
 	
@@ -70,11 +70,7 @@ typedef struct SquareStruct {
 	WorkersStruct workers;
 	int students;
 	
-	int land_price;
-	int crime_rate;
-	int education_rate;
 	int happiness_rate;
-	int noise;
 	
 	//CropStruct crop;
 	
@@ -135,6 +131,12 @@ public:
 	// 描画範囲を取得
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
+	// アドオンを設置
+	bool build(CoordinateStruct position, Addon* addon);
+	
+	// アドオンを削除
+	void clear(CoordinateStruct position);
+	
 	// マップ保存
 	bool save();
 	
@@ -167,7 +169,7 @@ private:
 	
 	bool loading_complete;
 	
-	map<string, Addon*> addons;
+	map<String, Addon*> addons;
 	
 	CameraStruct camera_before;
 	pair<CoordinateStruct, CoordinateStruct> range;

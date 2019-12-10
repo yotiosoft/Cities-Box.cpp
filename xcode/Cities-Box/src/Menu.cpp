@@ -112,7 +112,7 @@ void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
 	}
 }
 
-void Menu::draw(RCOIFstruct demand, int population_count, int money) {
+Addon* Menu::draw(RCOIFstruct demand, int population_count, int money) {
 	render.draw(position.x, position.y);
 	
 	button[U"cursor"].put(PositionStruct{position.x+10, position.y});
@@ -162,12 +162,14 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 			releaseBeforeButton(menu_mode);
 		
 		menu_mode = MenuMode::Cursor;
+		selected_addon = nullptr;
 		button[U"cursor"].release();
 	}
 	if (button[U"road"].push()) {
 		if (menu_mode != MenuMode::Road) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Road;
+			selected_addon = nullptr;
 			mode_str = U"road";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -183,6 +185,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Train) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Train;
+			selected_addon = nullptr;
 			mode_str = U"train";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -196,6 +199,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Residential){
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Residential;
+			selected_addon = nullptr;
 			mode_str = U"residential";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -211,6 +215,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Commercial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Commercial;
+			selected_addon = nullptr;
 			mode_str = U"commercial";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -226,6 +231,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Office) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Office;
+			selected_addon = nullptr;
 			mode_str = U"office";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -239,6 +245,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Industrial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Industrial;
+			selected_addon = nullptr;
 			mode_str = U"industrial";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -252,6 +259,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Farm) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Farm;
+			selected_addon = nullptr;
 			mode_str = U"farm";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -265,6 +273,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Public) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Public;
+			selected_addon = nullptr;
 			mode_str = U"public";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -278,6 +287,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Park) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Park;
+			selected_addon = nullptr;
 			mode_str = U"park";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -291,6 +301,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Ship) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Ship;
+			selected_addon = nullptr;
 			mode_str = U"ship";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -304,6 +315,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::AirPort) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::AirPort;
+			selected_addon = nullptr;
 			mode_str = U"air_port";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -317,6 +329,7 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		if (menu_mode != MenuMode::Tile) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Tile;
+			selected_addon = nullptr;
 			mode_str = U"tile";
 			show_addons = map->getFitAddons(Array<String>{mode_str});
 			
@@ -330,6 +343,8 @@ void Menu::draw(RCOIFstruct demand, int population_count, int money) {
 	if (menu_mode != MenuMode::None && menu_mode != MenuMode::Cursor) {
 		addonMenu();
 	}
+	
+	return selected_addon;
 }
 
 void Menu::addonMenu() {
@@ -344,14 +359,18 @@ void Menu::addonMenu() {
 			
 			bool cursor_on = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= position.y-40+32);
 			if (cursor_on || selected_addon_name == addon_name) {
-				show_addons[i]->drawIcon(PositionStruct{30+32*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
+				show_addons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
 				
-				if (MouseL.down()) {
+				if (MouseL.down() &&
+					Cursor::Pos().x >= position.x+30 && Cursor::Pos().x <= position.x-30+size.width &&
+					Cursor::Pos().y >= position.y-37 && Cursor::Pos().y <= position.y-37+32) {
 					if (selected_addon_name == addon_name) {
 						selected_addon_name = U"";
+						selected_addon = nullptr;
 					}
 					else {
 						selected_addon_name = addon_name;
+						selected_addon = show_addons[i];
 					}
 				}
 				
@@ -362,7 +381,7 @@ void Menu::addonMenu() {
 				}
 			}
 			else {
-				show_addons[i]->drawIcon(PositionStruct{30+32*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
+				show_addons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
 			}
 		}
 		

@@ -452,7 +452,19 @@ String Addon::getAuthorName() {
 String Addon::getSummary() {
 	return addon_summary;
 }
+/*
+String Addon::getTypeName(int type_num) {
+	map<String, AddonTypeStruct>::iterator ite = types.begin();
+	advance(ite, type_num);
+	return ite->first;
+}
 
+String Addon::getDirectionName(int type_num, int direction_num) {
+	map<String, AddonDirectionStruct>::iterator ite = types[getTypeName(type_num)].directions.begin();
+	advance(ite, direction_num);
+	return ite->first;
+}
+*/
 String Addon::getTypeName(int type_num) {
 	return use_types[type_num];
 }

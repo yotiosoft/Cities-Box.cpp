@@ -146,4 +146,5 @@ typedef struct CursorStruct {
 	Texture* texture;
 	CoordinateStruct coordinate;
 	PositionStruct position;
+	PositionStruct position_per_tiles;
 } CursorStruct;

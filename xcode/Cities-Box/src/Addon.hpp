@@ -93,7 +93,8 @@ public:
 	Array<String> getCategories();
 	
 	// 指定したカテゴリに該当するか
-	bool isInCategories(String category);
+	bool isInCategories(String search_category);
+	bool isInCategories(Array<String> search_categories);
 	
 	// 効果を取得
 	map<String, EffectStruct> getEffects();

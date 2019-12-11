@@ -9,11 +9,12 @@
   ],
   "icon": "icon_Bearch_and_Walkway.png",
   "Categories": [
+    "connectable_type",
     "ship",
     "waterway"
   ],
   "effects": {},
-  "maximum_capacity": 110,
+  "maximum_capacity": 0,
   "Use_types": [
     "turn",
     "intersection_T",

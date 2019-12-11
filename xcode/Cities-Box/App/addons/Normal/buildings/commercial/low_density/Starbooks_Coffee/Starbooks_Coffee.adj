@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Starbooks_Coffee.png",
   "Categories": [
+    "object_type",
     "commercial",
     "low_density"
   ],

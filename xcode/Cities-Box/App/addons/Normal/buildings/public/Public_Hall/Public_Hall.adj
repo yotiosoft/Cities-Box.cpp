@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Public_Hall.png",
   "Categories": [
+    "object_type",
     "public"
   ],
   "effects": {

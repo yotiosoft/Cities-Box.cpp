@@ -9,6 +9,7 @@
   ],
   "icon": "icon_White_Apartment_Complex.png",
   "Categories": [
+    "object_type",
     "residential",
     "high_density"
   ],

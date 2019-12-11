@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Modern_City_Hall.png",
   "Categories": [
+    "object_type",
     "public",
     "city_hall"
   ],

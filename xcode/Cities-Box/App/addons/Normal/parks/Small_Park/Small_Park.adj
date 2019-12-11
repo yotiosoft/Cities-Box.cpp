@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Small_Park.png",
   "Categories": [
+    "object_type",
     "park"
   ],
   "effects": {
@@ -21,7 +22,7 @@
       "grid": 7
     }
   },
-  "maximum_capacity": 115,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],

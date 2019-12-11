@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Charlie's_chocolate_factory.png",
   "Categories": [
+    "object_type",
     "industrial"
   ],
   "effects": {

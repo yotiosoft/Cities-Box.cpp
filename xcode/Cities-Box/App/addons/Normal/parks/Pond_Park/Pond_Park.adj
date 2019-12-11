@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Pond_Park.png",
   "Categories": [
+    "object_type",
     "park"
   ],
   "effects": {
@@ -21,7 +22,7 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 97,
+  "maximum_capacity": 111,
   "Use_types": [
     "normal"
   ],

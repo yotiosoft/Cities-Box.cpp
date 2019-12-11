@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Reasonable_Multi-tenant_Building.png",
   "Categories": [
+    "object_type",
     "commercial",
     "high_density"
   ],

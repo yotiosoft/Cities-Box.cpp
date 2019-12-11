@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Normaly_Potato-Field.png",
   "Categories": [
+    "object_type",
     "farm"
   ],
   "effects": {},

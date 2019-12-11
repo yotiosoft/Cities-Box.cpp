@@ -128,47 +128,60 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 			transform(category_name_temp_utf8.begin(), category_name_temp_utf8.end(), category_name_temp_utf8.begin(), ::tolower);
 			
 			if (category_name_temp_utf8.find("road") != string::npos && category_name_temp_utf8.find("railroad") == string::npos) {
+				addon_categories << U"connectable_type";
 				addon_categories << U"road";
 				addon_categories << U"car";
 			}
 			else if (category_name_temp_utf8.find("promenade") != string::npos) {
+				addon_categories << U"connectable_type";
 				addon_categories << U"road";
 				addon_categories << U"promenade";
 			}
 			else if (category_name_temp_utf8.find("railroad") != string::npos) {
+				addon_categories << U"connectable_type";
 				addon_categories << U"train";
 				addon_categories << U"railroad";
 			}
 			else if (category_name_temp_utf8.find("station") != string::npos) {
+				addon_categories << U"connectable_type";
 				addon_categories << U"train";
 				addon_categories << U"station";
 			}
 			else if (category_name_temp_utf8.find("residential") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"residential";
 			}
 			else if (category_name_temp_utf8.find("commercial") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"commercial";
 			}
 			else if (category_name_temp_utf8.find("office") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"office";
 			}
 			else if (category_name_temp_utf8.find("industrial") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"industrial";
 			}
 			else if (category_name_temp_utf8.find("farm") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"farm";
 			}
 			else if (category_name_temp_utf8.find("public") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"public";
 			}
 			else if (category_name_temp_utf8.find("park") != string::npos) {
+				addon_categories << U"object_type";
 				addon_categories << U"park";
 			}
 			else if (category_name_temp_utf8.find("port") != string::npos) {
+				addon_categories << U"on_waterway_type";
 				addon_categories << U"ship";
 				addon_categories << U"port";
 			}
 			else if (category_name_temp_utf8.find("waterway") != string::npos) {
+				addon_categories << U"connectable_type";
 				addon_categories << U"ship";
 				addon_categories << U"waterway";
 			}
@@ -176,6 +189,7 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 				addon_categories << U"airport";
 			}
 			else if (category_name_temp_utf8.find("tile") != string::npos) {
+				addon_categories << U"put_type";
 				addon_categories << U"tile";
 			}
 			
@@ -481,10 +495,21 @@ Array<String> Addon::getCategories() {
 	return addon_categories;
 }
 
-bool Addon::isInCategories(String category) {
+bool Addon::isInCategories(String search_category) {
 	for (int i=0; i<addon_categories.size(); i++) {
-		if (addon_categories[i] == category) {
+		if (addon_categories[i] == search_category) {
 			return true;
+		}
+	}
+	return false;
+}
+
+bool Addon::isInCategories(Array<String> search_categories) {
+	for (int i=0; i<addon_categories.size(); i++) {
+		for (int j=0; j<search_categories.size(); j++) {
+			if (addon_categories[i] == search_categories[j]) {
+				return true;
+			}
 		}
 	}
 	return false;

@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Normaly_Elementary-School.png",
   "Categories": [
+    "object_type",
     "public",
     "education",
     "elementary_school"

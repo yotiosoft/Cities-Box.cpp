@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Two_lane_normal_road(white_broken_line).png",
   "Categories": [
+    "connectable_type",
     "road",
     "car",
     "two_lane"

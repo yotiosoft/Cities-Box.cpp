@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Electronics_Factory.png",
   "Categories": [
+    "object_type",
     "industrial"
   ],
   "effects": {
@@ -21,7 +22,7 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 43626368,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],

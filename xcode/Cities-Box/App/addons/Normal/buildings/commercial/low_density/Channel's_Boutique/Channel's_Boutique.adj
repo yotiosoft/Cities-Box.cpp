@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Channel's_Boutique.png",
   "Categories": [
+    "object_type",
     "commercial",
     "low_density"
   ],

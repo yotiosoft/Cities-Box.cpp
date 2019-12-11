@@ -9,6 +9,7 @@
   ],
   "icon": "icon_red_roof_house.png",
   "Categories": [
+    "object_type",
     "residential",
     "low_density"
   ],

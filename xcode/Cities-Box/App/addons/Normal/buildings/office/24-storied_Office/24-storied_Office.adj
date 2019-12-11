@@ -9,6 +9,7 @@
   ],
   "icon": "icon_24-storied_Office.png",
   "Categories": [
+    "object_type",
     "office"
   ],
   "effects": {

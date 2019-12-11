@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Bearch_and_Walkway.png",
   "Categories": [
+    "connectable_type",
     "ship",
     "waterway"
   ],

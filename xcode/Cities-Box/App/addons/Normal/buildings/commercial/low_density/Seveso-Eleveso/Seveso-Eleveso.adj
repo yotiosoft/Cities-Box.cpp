@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Seveso-Eleveso.png",
   "Categories": [
+    "object_type",
     "commercial",
     "low_density"
   ],

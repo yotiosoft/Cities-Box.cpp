@@ -17,6 +17,8 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	
 	map = new_map;
 	
+	selected_addon = nullptr;
+	
 	render = RenderTexture(size.width, size.height, Color(45, 52, 54));
 	
 	button[U"cursor"].set(IconFont::Cursor, 30, 26, PositionStruct{8, 2});

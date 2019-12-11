@@ -9,6 +9,7 @@
   ],
   "icon": "icon_small_fire_depertment.png",
   "Categories": [
+    "object_type",
     "public",
     "fire_depertment"
   ],

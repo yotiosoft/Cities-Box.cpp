@@ -9,6 +9,7 @@
   ],
   "icon": "icon_five-story_apartment.png",
   "Categories": [
+    "object_type",
     "residential",
     "high_density"
   ],

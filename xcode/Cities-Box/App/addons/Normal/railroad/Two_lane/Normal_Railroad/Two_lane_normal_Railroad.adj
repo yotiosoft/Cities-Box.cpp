@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Two_lane_Normal_Railroad.png",
   "Categories": [
+    "connectable_type",
     "train",
     "railroad",
     "two_lane"

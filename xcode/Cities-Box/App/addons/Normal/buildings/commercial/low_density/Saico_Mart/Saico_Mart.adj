@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Saico_Mart.png",
   "Categories": [
+    "object_type",
     "commercial",
     "low_density"
   ],

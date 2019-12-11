@@ -9,6 +9,7 @@
   ],
   "icon": "icon_small_police_station.png",
   "Categories": [
+    "object_type",
     "public",
     "police",
     "police_station"

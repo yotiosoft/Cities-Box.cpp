@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Wooden_Promenade_with_Tree.png",
   "Categories": [
+    "connectable_type",
     "road",
     "promenade"
   ],

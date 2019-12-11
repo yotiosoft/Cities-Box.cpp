@@ -9,6 +9,7 @@
   ],
   "icon": "icon_tile_greenfield.png",
   "Categories": [
+    "put_type",
     "tile"
   ],
   "effects": {},

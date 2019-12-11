@@ -921,29 +921,230 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 	// 幸福度を戻す
 	*/
 	
-	cout << getBuildDirection(position, selected_addon).toUTF8() << endl;
-	return true;
-}
-
-// 設置する場所に合うDirectionを取得
-String CityMap::getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon) {
-	// 道路など特殊なアドオンの場合
-	if (selected_addon->isInCategories(U"road")) {
-		return U"normal";
-	}
-	
-	// 周囲に道路があるか確認する
-	for (int i=0; i<AROUND_TILES; i++) {
-		CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+	String type, direction;
+	Array<CoordinateStruct> need_update;
+	if (getBuildTypeAndDirection(position, selected_addon, type, direction, need_update)) {
+		current_square->addons.clear();
+		current_square->types.clear();
+		current_square->directions.clear();
 		
-		for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
-			if (squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
-				return AroundTiles[i].first;
+		current_square->types << type;
+		current_square->directions << direction;
+		
+		current_square->serial_number = 0;
+		current_square->tiles_count = {0, 0};
+		current_square->residents = 0;
+		current_square->workers = {0, 0, 0, 0, 0};
+		current_square->students = 0;
+		current_square->reservation = RCOIFP::None;
+		
+		current_square->addons << selected_addon;
+		
+		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
+		if (need_update.size() > 0) {
+			Array<String> search_categories = {U"road", U"train", U"waterway"};
+			
+			for (int i=0; i<need_update.size(); i++) {
+				for (int j=0; j<squares[need_update[i].y][need_update[i].x].addons.size(); j++) {
+					if (squares[need_update[i].y][need_update[i].x].addons[j]->isInCategories(search_categories)) {
+						update(need_update[i], squares[need_update[i].y][need_update[i].x].addons[j], need_update);
+					}
+				}
 			}
 		}
 	}
 	
-	return U"None";
+	return true;
+}
+
+bool CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update) {
+	SquareStruct* current_square = &squares[position.y][position.x];
+	
+	String type, direction;
+	if (getBuildTypeAndDirection(position, selected_addon, type, direction, need_update)) {
+		current_square->addons.clear();
+		current_square->types.clear();
+		current_square->directions.clear();
+		
+		current_square->types << type;
+		current_square->directions << direction;
+		
+		current_square->serial_number = 0;
+		current_square->tiles_count = {0, 0};
+		current_square->residents = 0;
+		current_square->workers = {0, 0, 0, 0, 0};
+		current_square->students = 0;
+		current_square->reservation = RCOIFP::None;
+		
+		current_square->addons << selected_addon;
+	}
+	
+	return true;
+}
+
+// 設置する場所に合うTypeを取得
+bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update) {
+	// 接続タイプ（道路など）アドオンの場合
+	if (selected_addon->isInCategories(U"connectable_type")) {
+		// 周囲に道路があるか確認する
+		int total_around_road = 0;
+		Array<pair<String, CoordinateStruct>> around_road_coordinate;
+		
+		bool need_update_more = true;
+		if (need_update.size() > 0) {
+			need_update_more = false;
+		}
+		
+		for (int i=0; i<AROUND_TILES; i++) {
+			CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+			
+			for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
+				// 道路の場合
+				if (selected_addon->isInCategories(U"road") && squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
+					total_around_road ++;
+					around_road_coordinate << AroundTiles[i];
+					
+					if (need_update_more) {
+						need_update << current_square;
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		if (total_around_road == 0) {
+			ret_type = U"intersection_cross";
+			ret_direction = U"normal";
+			return true;
+		}
+		if (total_around_road == 1) {
+			ret_type = U"dead_end";
+			ret_direction = around_road_coordinate[0].first;
+			return true;
+		}
+		if (total_around_road == 2) {
+			CoordinateStruct road_delta = {0, 0};
+			
+			for (int i=0; i<2; i++) {
+				road_delta.x += around_road_coordinate[i].second.x;
+				road_delta.y += around_road_coordinate[i].second.y;
+			}
+			
+			// 縦横方向
+			if (road_delta.x == 0 && road_delta.y == 0) {
+				ret_type = U"default";
+				
+				if (around_road_coordinate[0].second.x != 0) {
+					ret_direction = U"depth";
+				}
+				else {
+					ret_direction = U"width";
+				}
+				
+				return true;
+			}
+			// 曲がり角
+			else {
+				ret_type = U"turn";
+				
+				if (findStringArray(around_road_coordinate, Array<String>{U"left", U"top"})){
+					ret_direction = U"left-top";
+					return true;
+				}
+				if (findStringArray(around_road_coordinate, Array<String>{U"right", U"top"})){
+					ret_direction = U"right-top";
+					return true;
+				}
+				if (findStringArray(around_road_coordinate, Array<String>{U"left", U"bottom"})){
+					ret_direction = U"left-bottom";
+					return true;
+				}
+				if (findStringArray(around_road_coordinate, Array<String>{U"right", U"bottom"})){
+					ret_direction = U"right-bottom";
+					return true;
+				}
+				
+				return false;
+			}
+		}
+		if (total_around_road == 3) {
+			ret_type = U"intersection_T";
+			
+			if (findStringArray(around_road_coordinate, Array<String>{U"left", U"top", U"bottom"})){
+				ret_direction = U"left-top-bottom";
+				return true;
+			}
+			if (findStringArray(around_road_coordinate, Array<String>{U"right", U"top", U"bottom"})){
+				ret_direction = U"right-top-bottom";
+				return true;
+			}
+			if (findStringArray(around_road_coordinate, Array<String>{U"left", U"right", U"top"})){
+				ret_direction = U"left-right-top";
+				return true;
+			}
+			if (findStringArray(around_road_coordinate, Array<String>{U"left", U"right", U"bottom"})){
+				ret_direction = U"left-right-bottom";
+				return true;
+			}
+			
+			return false;
+		}
+		if (total_around_road == 4) {
+			ret_type = U"intersection_cross";
+			ret_direction = U"normal";
+			return true;
+		}
+	}
+	
+	// オブジェクトタイプの場合
+	if (selected_addon->isInCategories(U"object_type")) {
+		// 周囲に道路があるか確認する
+		for (int i=0; i<AROUND_TILES; i++) {
+			CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+			
+			for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
+				if (squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
+					ret_type = U"normal";
+					ret_direction = AroundTiles[i].first;
+					return true;
+				}
+			}
+		}
+	}
+	
+	// タイルの場合
+	if (selected_addon->isInCategories(U"put_type")) {
+		ret_type = U"normal";
+		ret_direction = U"normal";
+		return true;
+	}
+	
+	return false;					// 存在しない or 設置不可能な場合
+}
+
+// 設置する場所に合うDirectionを取得
+String CityMap::getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon) {
+	// オブジェクトタイプの場合
+	if (selected_addon->isInCategories(U"object_type")) {
+		// 周囲に道路があるか確認する
+		for (int i=0; i<AROUND_TILES; i++) {
+			CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+			
+			for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
+				if (squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
+					return AroundTiles[i].first;
+				}
+			}
+		}
+	}
+	
+	// タイルの場合
+	if (selected_addon->isInCategories(U"put_type")) {
+		return U"normal";
+	}
+	
+	return U"Nothing";				// 存在しない or 設置不可能な場合
 }
 
 // アドオンを削除

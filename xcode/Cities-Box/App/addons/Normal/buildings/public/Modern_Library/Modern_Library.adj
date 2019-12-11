@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Modern_Library.png",
   "Categories": [
+    "object_type",
     "public",
     "education"
   ],
@@ -22,7 +23,7 @@
       "grid": 3
     }
   },
-  "maximum_capacity": 111,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],

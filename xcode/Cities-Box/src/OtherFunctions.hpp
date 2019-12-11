@@ -31,4 +31,6 @@ School::Type getSchool(int number);
 
 string stringXOR(const std::string &data, const std::string &key);
 
+bool findStringArray(Array<pair<String, CoordinateStruct>> arr_str, Array<String> search_str);
+
 #endif /* OtherFunctions_hpp */

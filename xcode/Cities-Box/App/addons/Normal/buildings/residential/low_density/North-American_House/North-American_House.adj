@@ -9,6 +9,7 @@
   ],
   "icon": "icon_North-American_House.png",
   "Categories": [
+    "object_type",
     "residential",
     "low_density"
   ],

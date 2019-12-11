@@ -9,6 +9,7 @@
   ],
   "icon": "icon_White-Roof_Normaly_Station.png",
   "Categories": [
+    "connectable_type",
     "train",
     "station"
   ],

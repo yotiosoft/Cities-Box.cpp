@@ -9,11 +9,12 @@
   ],
   "icon": "icon_Normal_Waterway.png",
   "Categories": [
+    "connectable_type",
     "ship",
     "waterway"
   ],
   "effects": {},
-  "maximum_capacity": 114,
+  "maximum_capacity": 0,
   "Use_types": [
     "turn",
     "intersection_T",

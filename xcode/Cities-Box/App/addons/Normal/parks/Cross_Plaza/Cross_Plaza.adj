@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Cross_Plaza.png",
   "Categories": [
+    "object_type",
     "park"
   ],
   "effects": {

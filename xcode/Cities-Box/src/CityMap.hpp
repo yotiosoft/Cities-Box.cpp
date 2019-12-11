@@ -132,8 +132,11 @@ public:
 	// アドオンを設置
 	bool build(CoordinateStruct position, Addon* selected_addon);
 	
-	// 指定した場所に合うアドオンのTypeを取得
-	String getBuildType(CoordinateStruct coordinate, Addon* selected_addon);
+	// アドオンを更新
+	bool update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update);
+	
+	// 指定した場所に合うアドオンのTypeとDirectionを取得
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update);
 	
 	// 指定した場所に合うアドオンのDirectionを取得
 	String getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon);

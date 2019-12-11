@@ -9,6 +9,7 @@
   ],
   "icon": "icon_post_office.png",
   "Categories": [
+    "object_type",
     "public",
     "post_office"
   ],

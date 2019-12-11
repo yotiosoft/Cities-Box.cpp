@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Parking_24.png",
   "Categories": [
+    "object_type",
     "commercial",
     "low_density"
   ],

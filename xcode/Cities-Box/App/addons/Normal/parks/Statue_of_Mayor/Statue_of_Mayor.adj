@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Statue_of_Mayor.png",
   "Categories": [
+    "object_type",
     "park"
   ],
   "effects": {
@@ -21,7 +22,7 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 0,
+  "maximum_capacity": 105,
   "Use_types": [
     "normal"
   ],

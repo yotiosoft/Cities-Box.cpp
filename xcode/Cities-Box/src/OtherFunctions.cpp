@@ -167,3 +167,19 @@ string stringXOR(const std::string &data, const std::string &key) {
 	}
 	return result;
 }
+
+bool findStringArray(Array<pair<String, CoordinateStruct>> arr_str, Array<String> search_str) {
+	int total = 0;
+	for (int i=0; i<arr_str.size(); i++) {
+		for (int j=0; j<search_str.size(); j++) {
+			if (arr_str[i].first == search_str[j]) {
+				total ++;
+			}
+		}
+	}
+	
+	if (total == search_str.size()) {
+		return true;
+	}
+	return false;
+}

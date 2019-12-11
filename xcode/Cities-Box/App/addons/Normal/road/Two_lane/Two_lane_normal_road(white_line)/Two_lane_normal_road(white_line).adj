@@ -9,12 +9,13 @@
   ],
   "icon": "icon_Two_lane_normal_road(white_line).png",
   "Categories": [
+    "connectable_type",
     "road",
     "car",
     "two_lane"
   ],
   "effects": {},
-  "maximum_capacity": 115,
+  "maximum_capacity": 0,
   "Use_types": [
     "default",
     "dead_end",

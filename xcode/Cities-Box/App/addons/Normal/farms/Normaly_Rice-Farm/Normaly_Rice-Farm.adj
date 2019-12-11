@@ -9,6 +9,7 @@
   ],
   "icon": "icon_Normaly_Rice-Farm.png",
   "Categories": [
+    "object_type",
     "farm"
   ],
   "effects": {},

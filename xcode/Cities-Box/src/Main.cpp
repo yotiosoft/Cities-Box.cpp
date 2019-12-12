@@ -101,6 +101,8 @@ void Main() {
 			ScopedRenderTarget2D target(buffer_texture);
 			map.draw(camera, cursor);
 			
+			menu.update();
+			
 			if (first_loop) {
 				first_loop = false;
 				
@@ -122,13 +124,14 @@ void Main() {
 		}
 		
 		// バッファを描画
-		buffer_texture.draw(0, 0);
+		//buffer_texture.draw(0, 0);
 		//sub_window.draw();
 		//sub_window2.draw();
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
-		selected_addon = menu.draw(map.getDemand(), map.getPopulation(), map.getMoney());
+		selected_addon = menu.draw(update_map);
+		menu.addonMenu();
 		
 		// マップ上でクリックされたらアドオンを設置
 		if (selected_addon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {

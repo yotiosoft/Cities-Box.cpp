@@ -44,7 +44,10 @@ public:
 	void set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16);
 	
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
-	Addon* draw(RCOIFstruct demand, int population_count, int money);
+	
+	void update();
+	RenderTexture* getRenderTexture();
+	Addon* draw(bool need_update);
 	
 	void addonMenu();
 	

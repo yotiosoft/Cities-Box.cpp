@@ -31,9 +31,11 @@ public:
 	
 	// 配置
 	void put(PositionStruct new_position);
+	void putRelative(PositionStruct new_position, PositionStruct left_top);
 	
 	// 押されたかどうか
 	bool push();
+	bool pushRelative(PositionStruct left_top);
 	
 	// アクティブかどうか
 	bool isActive();

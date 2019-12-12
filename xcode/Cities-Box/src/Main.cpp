@@ -124,7 +124,7 @@ void Main() {
 		}
 		
 		// バッファを描画
-		//buffer_texture.draw(0, 0);
+		buffer_texture.draw(0, 0);
 		//sub_window.draw();
 		//sub_window2.draw();
 		

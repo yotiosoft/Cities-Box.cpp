@@ -160,22 +160,22 @@ void Menu::update() {
 	 (*font16)(U"§ "+Format(map->getMoney())).draw(position.x+10+100, position.y+size.height-25-3, Color(Palette::White));*/
 }
 
-Addon* Menu::draw(bool need_update) {
+Addon* Menu::draw(bool& need_update) {
 	render.draw(position.x, position.y);
 	
 	// ボタンが押されたときの動作
 	if (button[U"cursor"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Cursor) {
 			releaseBeforeButton(menu_mode);
 		}
 		
 		menu_mode = MenuMode::Cursor;
 		selected_addon = nullptr;
+		show_addons.clear();
 		button[U"cursor"].release();
+		need_update = true;
 	}
 	if (button[U"road"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Road) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Road;
@@ -190,9 +190,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"train"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Train) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Train;
@@ -205,9 +205,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"residential"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Residential){
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Residential;
@@ -222,9 +222,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"commercial"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Commercial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Commercial;
@@ -239,9 +239,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"office"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Office) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Office;
@@ -254,9 +254,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"industrial"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Industrial) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Industrial;
@@ -269,9 +269,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"farm"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Farm) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Farm;
@@ -284,9 +284,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"public"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Public) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Public;
@@ -299,9 +299,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"park"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Park) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Park;
@@ -314,9 +314,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"ship"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Ship) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Ship;
@@ -329,9 +329,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"air_port"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::AirPort) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::AirPort;
@@ -344,9 +344,9 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	if (button[U"tile"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Tile) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Tile;
@@ -359,10 +359,10 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	
 	if (button[U"delete"].pushRelative(position)) {
-		update();
 		if (menu_mode != MenuMode::Delete) {
 			releaseBeforeButton(menu_mode);
 			menu_mode = MenuMode::Delete;
@@ -374,6 +374,7 @@ Addon* Menu::draw(bool need_update) {
 		else {
 			menu_mode = MenuMode::Cursor;
 		}
+		need_update = true;
 	}
 	
 	return selected_addon;

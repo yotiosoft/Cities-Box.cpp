@@ -46,8 +46,7 @@ public:
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
 	
 	void update();
-	RenderTexture* getRenderTexture();
-	Addon* draw(bool need_update);
+	Addon* draw(bool& need_update);
 	
 	void addonMenu();
 	

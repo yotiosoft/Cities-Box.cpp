@@ -45,6 +45,7 @@ public:
 	
 	void releaseBeforeButton(MenuMode::Type before_selected_button);
 	
+	void getSelectedAddon();
 	void update();
 	Addon* draw(bool& need_update);
 	

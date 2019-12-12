@@ -91,7 +91,7 @@ void Main() {
 			update_map = true;
 		}
 		
-		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << " : " << map.getAddon(cursor.coordinate)[0].getName() << endl;
 		
 		// マップなどを更新する必要がある場合はバッファに描画（更新）する
 		if (update_map) {

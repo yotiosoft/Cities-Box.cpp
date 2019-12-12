@@ -109,9 +109,16 @@ void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
 		case MenuMode::Delete:
 			button[U"delete"].release();
 			return;
+		case MenuMode::Save:
+			button[U"save"].release();
+			return;
 		case MenuMode::None:
 			return;
 	}
+}
+
+void Menu::getSelectedAddon() {
+	
 }
 
 void Menu::update() {
@@ -153,11 +160,11 @@ void Menu::update() {
 	Rect(size.width-80+16, size.height-15, 8, -max(map->getDemand().office*0.4, 1.0)).draw(Color(0, 206, 201));
 	Rect(size.width-80+24, size.height-15, 8, -max(map->getDemand().industrial*0.4, 1.0)).draw(Color(253, 203, 110));
 	Rect(size.width-80+32, size.height-15, 8, -max(map->getDemand().farm*0.4, 1.0)).draw(Color(211, 84, 0));
-	/*
-	 population.draw(position.x+10, position.y+size.height-25);
-	 (*font16)(Format(map->getPopulation())).draw(position.x+10+30, position.y+size.height-25-3, Color(Palette::White));
+	
+	population.draw(10, size.height-25);
+	(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
 	 
-	 (*font16)(U"§ "+Format(map->getMoney())).draw(position.x+10+100, position.y+size.height-25-3, Color(Palette::White));*/
+	(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
 }
 
 Addon* Menu::draw(bool& need_update) {
@@ -377,6 +384,11 @@ Addon* Menu::draw(bool& need_update) {
 		need_update = true;
 	}
 	
+	if (button[U"save"].pushRelative(position)) {
+		map->save();
+		button[U"save"].release();
+	}
+	
 	return selected_addon;
 }
 
@@ -408,7 +420,6 @@ void Menu::addonMenu() {
 					else {
 						selected_addon_name = addon_name;
 						selected_addon = show_addons[i];
-						cout << "  selected: " << selected_addon->getName();
 					}
 				}
 				

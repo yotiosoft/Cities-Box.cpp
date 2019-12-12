@@ -648,6 +648,9 @@ void CityMap::loadCBJ(String new_map_file_path) {
 				if (addons.find(j_addons[U"name"].getString()) != addons.end()) {
 					squares[y][x].addons.push_back(addons[j_addons[U"name"].getString()]);
 				}
+				else {
+					cout << "Cant't find " << j_addons[U"name"].getString() << endl;
+				}
 			}
 			
 			//squares[y][x].use_tiles.x = square[U"use_tiles.x"].get<int>();
@@ -712,7 +715,7 @@ void CityMap::loadAddons(String addon_set_name) {
 		
 		Addon* new_addon = new Addon();
 		if (new_addon->load(addons_path[i], addon_set_name)) {
-			addons[Unicode::Widen(splitUTF8(file_temp.file_name, ".")[0])] = new_addon;
+			addons[new_addon->getName()] = new_addon;
 		}
 		else {
 			free(new_addon);

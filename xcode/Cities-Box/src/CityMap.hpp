@@ -99,6 +99,9 @@ public:
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<Addon*> getFitAddons(Array<String> selected_categories);
 	
+	// アドオンリストを返す
+	map<String, Addon*> getAllAddons();
+	
 	// 読込中画面
 	void loadingScreen();
 	

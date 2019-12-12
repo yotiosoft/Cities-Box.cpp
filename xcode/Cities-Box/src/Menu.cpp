@@ -109,6 +109,9 @@ void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
 		case MenuMode::Tile:
 			button[U"tile"].release();
 			return;
+		case MenuMode::Delete:
+			button[U"delete"].release();
+			return;
 		case MenuMode::None:
 			return;
 	}
@@ -160,8 +163,9 @@ Addon* Menu::draw(RCOIFstruct demand, int population_count, int money) {
 	
 	// ボタンが押されたときの動作
 	if (button[U"cursor"].push()) {
-		if (menu_mode != MenuMode::Cursor)
+		if (menu_mode != MenuMode::Cursor) {
 			releaseBeforeButton(menu_mode);
+		}
 		
 		menu_mode = MenuMode::Cursor;
 		selected_addon = nullptr;
@@ -342,7 +346,21 @@ Addon* Menu::draw(RCOIFstruct demand, int population_count, int money) {
 		}
 	}
 	
-	if (menu_mode != MenuMode::None && menu_mode != MenuMode::Cursor) {
+	if (button[U"delete"].push()) {
+		if (menu_mode != MenuMode::Delete) {
+			releaseBeforeButton(menu_mode);
+			menu_mode = MenuMode::Delete;
+			selected_addon = map->getAllAddons()[U"tile_greenfield"];
+			selected_addon_name = selected_addon->getName();
+			mode_str = U"delete";
+			show_addons.clear();
+		}
+		else {
+			menu_mode = MenuMode::Cursor;
+		}
+	}
+	
+	if (menu_mode != MenuMode::None && menu_mode != MenuMode::Cursor && show_addons.size() > 0) {
 		addonMenu();
 	}
 	
@@ -373,6 +391,7 @@ void Menu::addonMenu() {
 					else {
 						selected_addon_name = addon_name;
 						selected_addon = show_addons[i];
+						cout << "  selected: " << selected_addon->getName();
 					}
 				}
 				
@@ -406,7 +425,7 @@ void Menu::addonMenu() {
 			}
 		}
 		else if (cursor_i >= 0) {
-			String name_jp = show_addons[selected_i]->getNameJP();
+			String name_jp = show_addons[cursor_i]->getNameJP();
 			(*font16)(name_jp).draw(position.x+30, position.y-80+2);
 			(*font12)(show_addons[cursor_i]->getSummary()).draw(position.x+30, position.y-60+2);
 			

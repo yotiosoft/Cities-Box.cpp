@@ -61,6 +61,7 @@ void Main() {
 	
 	// 前回左クリックしたときのマップ上の座標
 	CoordinateStruct before_mouse_pressed_coordinate;
+	bool pressing = false;
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -130,11 +131,18 @@ void Main() {
 		selected_addon = menu.draw(map.getDemand(), map.getPopulation(), map.getMoney());
 		
 		// マップ上でクリックされたらアドオンを設置
-		if (selected_addon != nullptr && MouseL.pressed() && Cursor::Pos().y <= Scene::Height()-60-80) {
+		if (selected_addon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
 			if (cursor.coordinate.x != before_mouse_pressed_coordinate.x || cursor.coordinate.y != before_mouse_pressed_coordinate.y) {
 				map.build(cursor.coordinate, selected_addon);
 				before_mouse_pressed_coordinate = cursor.coordinate;
 				update_map = true;
+				pressing = true;
+			}
+		}
+		if (pressing) {
+			if (!MouseL.pressed()) {
+				before_mouse_pressed_coordinate = {-1, -1};
+				pressing = false;
 			}
 		}
 		

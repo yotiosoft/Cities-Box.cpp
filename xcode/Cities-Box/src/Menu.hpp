@@ -29,6 +29,13 @@ namespace MenuMode {
 		Ship = 10,
 		AirPort = 11,
 		Tile = 12,
+		
+		Information = 13,
+		Rate = 14,
+		Delete = 15,
+		Budget = 16,
+		Setting = 17,
+		Save = 18,
 	};
 }
 

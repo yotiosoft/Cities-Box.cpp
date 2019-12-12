@@ -753,6 +753,10 @@ Array<Addon*> CityMap::getFitAddons(Array<String> selected_categories) {
 	return ret_addons;
 }
 
+map<String, Addon*> CityMap::getAllAddons() {
+	return addons;
+}
+
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=(int)squares[coordinate.y][coordinate.x].addons.size()-1; i>=0; i--) {

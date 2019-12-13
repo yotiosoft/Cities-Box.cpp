@@ -136,7 +136,10 @@ public:
 	bool build(CoordinateStruct position, Addon* selected_addon);
 	
 	// アドオンを更新
-	bool update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update);
+	void update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update);
+	
+	// アドオンを除去
+	void breaking(CoordinateStruct position);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update);

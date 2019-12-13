@@ -152,5 +152,5 @@ typedef struct CursorStruct {
 
 // 周囲4方向
 const pair<String, CoordinateStruct> AroundTiles[4] = {
-	{U"top", {0, -1}}, {U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"left", {-1, 0}}
+	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}
 };

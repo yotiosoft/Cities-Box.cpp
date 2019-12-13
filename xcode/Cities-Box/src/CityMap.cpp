@@ -931,21 +931,49 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 	String type, direction;
 	Array<CoordinateStruct> need_update;
 	if (getBuildTypeAndDirection(position, selected_addon, type, direction, need_update)) {
-		current_square->addons.clear();
-		current_square->types.clear();
-		current_square->directions.clear();
+		CoordinateStruct use_tiles = selected_addon->getUseTiles(type, direction);
 		
-		current_square->types << type;
-		current_square->directions << direction;
+		if (direction == U"left") {
+			position.y += use_tiles.y-1;
+		}
+		if (direction == U"right") {
+			position.x -= use_tiles.x-1;
+			position.y += use_tiles.y-1;
+		}
+		else if (direction == U"top") {
+			position.y += use_tiles.y-1;
+		}
 		
-		current_square->serial_number = 0;
-		current_square->tiles_count = {0, 0};
-		current_square->residents = 0;
-		current_square->workers = {0, 0, 0, 0, 0};
-		current_square->students = 0;
-		current_square->reservation = RCOIFP::None;
-		
-		current_square->addons << selected_addon;
+		for (int y=0; abs(y)<use_tiles.y; y--) {
+			for (int x=0; abs(x)<use_tiles.x; x++) {
+				if (selected_addon->getName() != U"tile_greenfield") {
+					breaking(CoordinateStruct{position.x+x, position.y+y});
+				}
+				
+				current_square = &squares[position.y+y][position.x+x];
+				
+				current_square->addons.clear();
+				current_square->types.clear();
+				current_square->directions.clear();
+				
+				current_square->types << type;
+				current_square->directions << direction;
+				
+				current_square->serial_number = 0;
+				
+				current_square->tiles_count = {abs(x), abs(y)};
+				
+				current_square->residents = 0;
+				current_square->workers = {0, 0, 0, 0, 0};
+				current_square->students = 0;
+				current_square->reservation = RCOIFP::None;
+				
+				current_square->addons << selected_addon;
+				
+				cout << position.x+x << "," << position.y+y << "->" << x << "," << y << endl;
+			}
+		}
+		cout << endl;
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (need_update.size() > 0) {
@@ -964,7 +992,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 	return true;
 }
 
-bool CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update) {
+void CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update) {
 	SquareStruct* current_square = &squares[position.y][position.x];
 	
 	String type, direction;
@@ -985,15 +1013,53 @@ bool CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<Coo
 		
 		current_square->addons << selected_addon;
 	}
-	
-	return true;
 }
 
-// 設置する場所に合うTypeを取得
+void CityMap::breaking(CoordinateStruct coordinate) {
+	SquareStruct* current_square = &squares[coordinate.y][coordinate.x];
+	Array<Addon*> break_addons = current_square->addons;
+	cout << "delete: " << coordinate.x << "," << coordinate.y << endl;
+	for (int i=0; i<break_addons.size(); i++) {
+		CoordinateStruct use_tiles = break_addons[i]->getUseTiles(current_square->types[i], current_square->directions[i]);
+		
+		for (int y=0; y<use_tiles.y; y++) {
+			for (int x=0; x<use_tiles.x; x++) {
+				SquareStruct before_break = squares[coordinate.y+y][coordinate.x+x];
+				build(CoordinateStruct{coordinate.x+x, coordinate.y+y}, addons[U"tile_greenfield"]);
+				
+				if (before_break.addons[i]->isInCategories(U"connectable_type")) {
+					cout << "delete: conectable_type" << endl;
+					Array<CoordinateStruct> need_update;
+					
+					for (int j=0; j<AROUND_TILES; j++) {
+						for (int k=0; k<squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons.size(); k++) {
+							if ((before_break.addons[i]->isInCategories(U"road") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"road")) ||
+								(before_break.addons[i]->isInCategories(U"train") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"train")) ||
+								(before_break.addons[i]->isInCategories(U"waterway") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"waterway")) ||
+								(before_break.addons[i]->isInCategories(U"airport") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"airport"))) {
+								cout << "delete: conectable_type: " << coordinate.x+x+AroundTiles[j].second.x << "," << coordinate.y+y+AroundTiles[j].second.y << endl;
+								need_update << CoordinateStruct{coordinate.x+x+AroundTiles[j].second.x, coordinate.y+y+AroundTiles[j].second.y};
+							}
+						}
+					}
+					
+					for (int j=0; j<need_update.size(); j++) {
+						for (int k=0; k<squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons.size(); k++) {
+							update(need_update[j], squares[need_update[j].y][need_update[j].x].addons[k], need_update);
+						}
+					}
+					
+				}
+			}
+		}
+	}
+}
+
+// 設置する場所に合うTypeとDirectionを取得
 bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update) {
 	// 接続タイプ（道路など）アドオンの場合
 	if (selected_addon->isInCategories(U"connectable_type")) {
-		// 周囲に道路があるか確認する
+		// 周囲に道路があるか（建設可能か）確認する
 		int total_around_road = 0;
 		Array<pair<String, CoordinateStruct>> around_road_coordinate;
 		
@@ -1004,6 +1070,10 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		
 		for (int i=0; i<AROUND_TILES; i++) {
 			CoordinateStruct current_square = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
+			
+			if (current_square.x < 0 || current_square.y < 0 || current_square.x >= mapsize.width || current_square.y >= mapsize.height) {
+				continue;
+			}
 			
 			for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
 				// 道路の場合
@@ -1112,9 +1182,38 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 			
 			for (int j=0; j<squares[current_square.y][current_square.x].addons.size(); j++) {
 				if (squares[current_square.y][current_square.x].addons[j]->isInCategories(U"road")) {
-					ret_type = U"normal";
-					ret_direction = AroundTiles[i].first;
-					return true;
+					String ret_type_temp = U"normal";
+					String ret_direction_temp = AroundTiles[i].first;
+					
+					// 複数のタイルを使う場合、建てる方向に障害物などがないか確認する
+					bool cannot_build = false;
+					
+					int add_x = 1, add_y = 1;
+					if (ret_type_temp == U"right") {
+						add_x = -1;
+					}
+					else if (ret_type_temp == U"bottom") {
+						add_y = -1;
+					}
+					
+					for (int y=0; y<selected_addon->getUseTiles(ret_type, ret_direction).y; y+=add_y) {
+						for (int x=0; y<selected_addon->getUseTiles(ret_type, ret_direction).x; x+=add_x) {
+							for (int k=0; k<squares[y][x].addons.size(); k++) {
+								if (squares[y][x].addons[k]->isInCategories(U"connectable_type")) {
+									cannot_build = true;
+									break;
+								}
+							}
+							if (cannot_build) break;
+						}
+						if (cannot_build) break;
+					}
+					
+					if (!cannot_build) {
+						ret_type = ret_type_temp;
+						ret_direction = ret_direction_temp;
+						return true;
+					}
 				}
 			}
 		}

@@ -924,6 +924,19 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 	return ret;
 }
 
+// いずれかのアドオンがカテゴリに含まれているか
+bool CityMap::isInCategories(String search_category, CoordinateStruct coordinate) {
+	SquareStruct* current_square = &squares[coordinate.y][coordinate.x];
+	
+	for (int i=0; i<current_square->addons.size(); i++) {
+		if (current_square->addons[i]->isInCategories(search_category)) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
 // アドオンの設置
 bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 	SquareStruct* current_square = &squares[position.y][position.x];
@@ -1005,7 +1018,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 				for (int j=0; j<squares[need_update[i].y][need_update[i].x].addons.size(); j++) {
 					if (squares[need_update[i].y][need_update[i].x].addons[j]->isInCategories(search_categories)) {
 						if (!(need_update[j].x == -1 && need_update[j].y == -1)) {
-							cout << "build update: " << need_update[j].x << "," << need_update[j].y << endl;
+							cout << "update for " << need_update[i].x << "," << need_update[i].y << endl;
 							update(need_update[i], squares[need_update[i].y][need_update[i].x].addons[j], need_update);
 						}
 					}
@@ -1019,6 +1032,13 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 
 void CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update) {
 	SquareStruct* current_square = &squares[position.y][position.x];
+	
+	// 踏切の場合は更新不要
+	for (int i=0; i<current_square->types.size(); i++) {
+		if (current_square->types[i] == U"train_crossing") {
+			return;
+		}
+	}
 	
 	String type, direction;
 	if (getBuildTypeAndDirection(position, selected_addon, type, direction, need_update)) {
@@ -1155,7 +1175,6 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 					
 					for (int j=0; j<need_update.size(); j++) {
 						if (squares[need_update[j].y][need_update[j].x].addons[i]->isInCategories(U"railroad")) {
-							cout << "will be deleted: " << need_update[j].x << "," << need_update[j].y << endl;
 							need_update[j] = {-1, -1};
 						}
 					}

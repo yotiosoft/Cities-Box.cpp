@@ -132,6 +132,9 @@ public:
 	// 描画範囲を取得
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
+	// いずれかのアドオンがカテゴリに含まれているか
+	bool isInCategories(String search_category, CoordinateStruct coordinate);
+	
 	// アドオンを設置
 	bool build(CoordinateStruct position, Addon* selected_addon);
 	

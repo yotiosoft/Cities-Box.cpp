@@ -58,7 +58,7 @@
 			<key>uniqueIdentifier</key>
 			<string>A38C3FF8-071F-441B-903B-8508FF5E9110</string>
 		</dict>
-		<key>C931235F-191B-425B-B5E1-49BBE1234343</key>
+		<key>D83223A0-E926-4322-B499-A8C412A981A0</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -67,7 +67,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>C931235F-191B-425B-B5E1-49BBE1234343.xcactivitylog</string>
+			<string>D83223A0-E926-4322-B499-A8C412A981A0.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -76,13 +76,13 @@
 			<key>signature</key>
 			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
 			<key>timeStartedRecording</key>
-			<real>598008409.47708297</real>
+			<real>598016532.445737</real>
 			<key>timeStoppedRecording</key>
-			<real>598008415.92924702</real>
+			<real>598016538.03578997</real>
 			<key>title</key>
 			<string>Build target Cities-Box</string>
 			<key>uniqueIdentifier</key>
-			<string>C931235F-191B-425B-B5E1-49BBE1234343</string>
+			<string>D83223A0-E926-4322-B499-A8C412A981A0</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

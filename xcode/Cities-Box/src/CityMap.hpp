@@ -147,9 +147,6 @@ public:
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update);
 	
-	// 指定した場所に合うアドオンのDirectionを取得
-	String getBuildDirection(CoordinateStruct coordinate, Addon* selected_addon);
-	
 	// アドオンを削除
 	void clear(CoordinateStruct position);
 	

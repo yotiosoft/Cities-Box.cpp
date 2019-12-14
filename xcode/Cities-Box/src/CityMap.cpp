@@ -969,8 +969,6 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 				current_square->reservation = RCOIFP::None;
 				
 				current_square->addons << selected_addon;
-				
-				cout << position.x+x << "," << position.y+y << "->" << x << "," << y << endl;
 			}
 		}
 		cout << endl;
@@ -1019,32 +1017,38 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 	SquareStruct* current_square = &squares[coordinate.y][coordinate.x];
 	Array<Addon*> break_addons = current_square->addons;
 	cout << "delete: " << coordinate.x << "," << coordinate.y << endl;
+	
 	for (int i=0; i<break_addons.size(); i++) {
+		current_square = &squares[coordinate.y][coordinate.x];
 		CoordinateStruct use_tiles = break_addons[i]->getUseTiles(current_square->types[i], current_square->directions[i]);
 		
-		for (int y=0; y<use_tiles.y; y++) {
+		CoordinateStruct start_point = moveToAddonStartSquare(coordinate, i);
+		current_square = &squares[start_point.y][start_point.x];
+		
+		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; x<use_tiles.x; x++) {
-				SquareStruct before_break = squares[coordinate.y+y][coordinate.x+x];
-				build(CoordinateStruct{coordinate.x+x, coordinate.y+y}, addons[U"tile_greenfield"]);
+				cout << "  breaking: " << start_point.x+x << "," << start_point.y+y << endl;
+				SquareStruct before_break = squares[start_point.y+y][start_point.x+x];
+				build(CoordinateStruct{start_point.x+x, start_point.y+y}, addons[U"tile_greenfield"]);
 				
 				if (before_break.addons[i]->isInCategories(U"connectable_type")) {
 					cout << "delete: conectable_type" << endl;
 					Array<CoordinateStruct> need_update;
 					
 					for (int j=0; j<AROUND_TILES; j++) {
-						for (int k=0; k<squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons.size(); k++) {
-							if ((before_break.addons[i]->isInCategories(U"road") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"road")) ||
-								(before_break.addons[i]->isInCategories(U"train") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"train")) ||
-								(before_break.addons[i]->isInCategories(U"waterway") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"waterway")) ||
-								(before_break.addons[i]->isInCategories(U"airport") && squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"airport"))) {
-								cout << "delete: conectable_type: " << coordinate.x+x+AroundTiles[j].second.x << "," << coordinate.y+y+AroundTiles[j].second.y << endl;
-								need_update << CoordinateStruct{coordinate.x+x+AroundTiles[j].second.x, coordinate.y+y+AroundTiles[j].second.y};
+						for (int k=0; k<squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons.size(); k++) {
+							if ((before_break.addons[i]->isInCategories(U"road") && squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"road")) ||
+								(before_break.addons[i]->isInCategories(U"train") && squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"train")) ||
+								(before_break.addons[i]->isInCategories(U"waterway") && squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"waterway")) ||
+								(before_break.addons[i]->isInCategories(U"airport") && squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons[k]->isInCategories(U"airport"))) {
+								cout << "delete: conectable_type: " << start_point.x+x+AroundTiles[j].second.x << "," << start_point.y+y+AroundTiles[j].second.y << endl;
+								need_update << CoordinateStruct{start_point.x+x+AroundTiles[j].second.x, start_point.y+y+AroundTiles[j].second.y};
 							}
 						}
 					}
 					
 					for (int j=0; j<need_update.size(); j++) {
-						for (int k=0; k<squares[coordinate.y+y+AroundTiles[j].second.y][coordinate.x+x+AroundTiles[j].second.x].addons.size(); k++) {
+						for (int k=0; k<squares[start_point.y+y+AroundTiles[j].second.y][start_point.x+x+AroundTiles[j].second.x].addons.size(); k++) {
 							update(need_update[j], squares[need_update[j].y][need_update[j].x].addons[k], need_update);
 						}
 					}
@@ -1053,6 +1057,15 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 			}
 		}
 	}
+}
+
+CoordinateStruct CityMap::moveToAddonStartSquare(CoordinateStruct search_coordinate, int addon_number) {
+	SquareStruct* search_square = &squares[search_coordinate.y][search_coordinate.x];
+	
+	search_coordinate.x -= search_square->tiles_count.x;
+	search_coordinate.y += search_square->tiles_count.y;
+	
+	return CoordinateStruct{search_coordinate.x, search_coordinate.y};
 }
 
 // 設置する場所に合うTypeとDirectionを取得

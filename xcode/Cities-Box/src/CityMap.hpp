@@ -141,6 +141,9 @@ public:
 	// アドオンを除去
 	void breaking(CoordinateStruct position);
 	
+	// アドオンの始点となるマスに移動する
+	CoordinateStruct moveToAddonStartSquare(CoordinateStruct search_coordinate, int addon_number);
+	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update);
 	

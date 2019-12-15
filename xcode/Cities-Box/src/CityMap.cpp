@@ -938,29 +938,8 @@ bool CityMap::isInCategories(String search_category, CoordinateStruct coordinate
 }
 
 // アドオンの設置
-bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
+bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_to_break) {
 	SquareStruct* current_square = &squares[position.y][position.x];
-	/*
-	// 配列のクリア
-	current_square->addons.clear();
-	current_square->types.clear();
-	current_square->directions.clear();
-	
-	current_square->types << U"normal";
-	current_square->directions << U"normal";
-	
-	current_square->serial_number = 0;
-	current_square->tiles_count = {0, 0};
-	current_square->tiles_count = {0, 0};
-	current_square->residents = 0;
-	current_square->workers = {0, 0, 0, 0, 0};
-	current_square->students = 0;
-	current_square->reservation = RCOIFP::None;
-	
-	current_square->addons << selected_addon;
-	
-	// 幸福度を戻す
-	*/
 	
 	String type, direction;
 	Array<CoordinateStruct> need_update;
@@ -981,7 +960,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon) {
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; abs(x)<use_tiles.x; x++) {
 				cout << "build at: " << position.x+x << "," << position.y+y << endl;
-				if (selected_addon->getName() != U"tile_greenfield" && type != U"train_crossing") {
+				if (need_to_break && type != U"train_crossing") {
 					breaking(CoordinateStruct{position.x+x, position.y+y});
 				}
 				
@@ -1074,7 +1053,9 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; x<use_tiles.x; x++) {
 				SquareStruct before_break = squares[start_point.y+y][start_point.x+x];
-				build(CoordinateStruct{start_point.x+x, start_point.y+y}, addons[U"tile_greenfield"]);
+				build(CoordinateStruct{start_point.x+x, start_point.y+y}, addons[U"tile_greenfield"], false);
+				
+				cout << "break at " << start_point.x+x << "," << start_point.y+y << endl;
 				
 				if (before_break.addons[i]->isInCategories(U"connectable_type")) {
 					Array<CoordinateStruct> need_update;

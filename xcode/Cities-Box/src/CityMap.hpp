@@ -136,7 +136,7 @@ public:
 	bool isInCategories(String search_category, CoordinateStruct coordinate);
 	
 	// アドオンを設置
-	bool build(CoordinateStruct position, Addon* selected_addon);
+	bool build(CoordinateStruct position, Addon* selected_addon, bool need_to_break);
 	
 	// アドオンを更新
 	void update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update);

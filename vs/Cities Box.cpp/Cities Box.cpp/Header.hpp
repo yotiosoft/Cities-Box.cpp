@@ -8,11 +8,13 @@
 
 #include <stdio.h>
 #include <fstream>
+#include <algorithm>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 #define CHIP_SIZE		64
 #define RELEASE_NUMBER	141
+#define AROUND_TILES	4
 
 using namespace std;
 
@@ -44,11 +46,15 @@ namespace School {
 
 namespace IconFont {
 	enum ID {
+		None				= 0x0000,
+		
 		Floppy				= 0xf0c7,
 		Plus				= 0xf067,
 		
 		Cursor				= 0xf245,
 		Road				= 0xf018,
+		WALK				= 0xf554,
+		CAR					= 0xf1b9,
 		Railroad			= 0xf238,
 		Residential			= 0xf015,
 		Commercial			= 0xf54f,
@@ -68,6 +74,20 @@ namespace IconFont {
 		Setting				= 0xf013,
 		Save				= 0xf0c7,
 		
+		Crime				= 0xf6de,
+		Durability			= 0xf72e,
+		Education			= 0xf549,
+		Firing				= 0xf06d,
+		FreeWiFi			= 0xf1eb,
+		Garbage				= 0xf2ed,
+		LandPrice			= 0xf53a,
+		MobileCommunication = 0xf012,
+		Noise				= 0xf028,
+		Post				= 0xf7d7,
+		Television			= 0xf26c,
+		Radio				= 0xf519,
+		Tourist				= 0xf6fc,
+		
 		Population			= 0xf0c0,
 	};
 }
@@ -76,7 +96,7 @@ namespace RCOIFcolor {
 	enum Color {
 		Residential			= Color(34, 177, 76),
 		Commercial			= Color(63, 72, 204),
-		Office				= Color(0, 162, 232),
+		Office				= Color(9, 132, 227),
 		Industrial			= Color(255, 242, 0),
 		Farm				= Color(185, 122, 87),
 	}
@@ -127,4 +147,10 @@ typedef struct CursorStruct {
 	Texture* texture;
 	CoordinateStruct coordinate;
 	PositionStruct position;
+	PositionStruct position_per_tiles;
 } CursorStruct;
+
+// ŽüˆÍ4•ûŒü
+const pair<String, CoordinateStruct> AroundTiles[4] = {
+	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}
+};

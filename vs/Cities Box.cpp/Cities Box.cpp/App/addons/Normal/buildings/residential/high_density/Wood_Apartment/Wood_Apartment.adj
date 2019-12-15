@@ -1,0 +1,122 @@
+﻿{
+  "name": "Wood_Apartment",
+  "jp_name": "ヴィラ・ウッド・カネモチ",
+  "author": "YotioSoft",
+  "summary": "木製の柱が特長の超高級マンションです。最上階にはプールやジムがあります。",
+  "version": 141,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Wood_Apartment.png",
+  "Categories": [
+    "object_type",
+    "residential",
+    "high_density"
+  ],
+  "effects": {
+    "land_price": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 130,
+  "Use_types": [
+    "normal"
+  ],
+  "Types": [
+    {
+      "type_name": "normal",
+      "image": "Wood_Apartment.png",
+      "night_mask": "Wood_Apartment__night_mask.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        }
+      ]
+    }
+  ]
+}

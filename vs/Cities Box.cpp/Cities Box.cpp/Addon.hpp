@@ -27,89 +27,140 @@ typedef struct AddonDirectionStruct {
 typedef struct AddonTypeStruct {
 	string type;
 	
-	string image;					// アドオン画像のパス
-	string night_mask;				// ナイトマスク画像のパス
-	Array<string> direction;		// typeに含まれる方向
+	String image;					// アドオン画像のパス
+	String night_mask;				// ナイトマスク画像のパス
+	Array<String> direction_names;	// typeに含まれる方向
 	RGBstruct transparent_color;	// 透過色のRGB値
 	
-	map<string, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
+	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
 	
 	Texture texture;				// アドオン画像のテクスチャ
 } AddonTypeStruct;
+
+typedef struct EffectStruct {
+	int influence;
+	int grid;
+} EffectStruct;
+
+typedef struct EffectsStruct {
+	EffectStruct land_price 			= {0, 0};	// 地価
+	EffectStruct crime_rate 			= {0, 0};	// 犯罪率
+	EffectStruct education_rate 		= {0, 0};	// 教育度
+	EffectStruct noise 					= {0, 0};	// 騒音
+	EffectStruct garbage_disposal 		= {0, 0};	// ごみ処理効率
+	EffectStruct firing_rate 			= {0, 0};	// 発火率
+	EffectStruct post					= {0, 0};	// 郵便充足度
+	EffectStruct mobile_communication	= {0, 0};	// モバイル通信
+	EffectStruct free_wifi				= {0, 0};	// 無料Wi-Fiスポット
+	EffectStruct television				= {0, 0};	// テレビ放送
+	EffectStruct radio					= {0, 0};	// ラジオ放送
+	EffectStruct tourist_attraction		= {0, 0};	// 観光魅力度
+	EffectStruct durability				= {0, 0};	// 耐久安全性
+} EffectsStruct;
+
+typedef struct CropStruct {
+	String name;
+	int amount;
+} CropStruct;
 
 class Addon {
 public:
 	Addon();
 	
 	// 内容の変更
-	bool load(FileStruct file_path, string loading_addons_set_name);
+	bool load(FileStruct new_file_path, String loading_addons_set_name);
+	bool loadADAT(FileStruct new_file_path, String loading_addons_set_name);
+	bool loadADJ(FileStruct new_file_path, String loading_addons_set_name);
 	
 	// 名前の取得
-	string getName();		// 原名
-	string getNameJP();		// 日本語名
+	String getName();		// 原名
+	String getNameJP();		// 日本語名
 	
 	// 製作者名の取得
-	string getAuthorName();
+	String getAuthorName();
 	
 	// 説明文の取得
-	string getSummary();
+	String getSummary();
 	
 	// Typeの名前の取得
-	string getTypeName(int type_num);
+	String getTypeName(int type_num);
 	
 	// Directionの名前の取得
-	string getDirectionName(int type_num, int direction_num);
+	String getDirectionName(int type_num, int direction_num);
+	String getDirectionName(String type_name, int direction_num);
+	
+	// カテゴリを取得
+	Array<String> getCategories();
+	
+	// 指定したカテゴリに該当するか
+	bool isInCategories(String search_category);
+	bool isInCategories(Array<String> search_categories);
+	
+	// 効果を取得
+	map<String, EffectStruct> getEffects();
+	
+	// アイコンのテクスチャの取得
+	void drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size);
+	
+	// 使用するタイルを取得
+	CoordinateStruct getUseTiles(String type_name, String direction_name);
 	
 	// 最終的に表示する座標を取得
-	PositionStruct getPosition(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
-	
-	// アイコンのImageStructの取得
-	ImageStruct getIconImageStruct();
+	PositionStruct getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
 	
 	// アドオンを描画する
-	void draw(string type_name, string direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
+	void draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
+	
+	// JSON形式に変換する
+	void converter();
 	
 private:
+	// アドオンファイルのパス
+	FileStruct addon_file_path;
+	
 	// アドオン名
-	string addon_name;				// 英語名
-	string addon_jp_name;			// 日本語名
+	String addon_name;				// 英語名
+	String addon_jp_name;			// 日本語名
 	
 	// 製作者名
-	string addon_author;
+	String addon_author;
 	
 	// 説明文
-	string addon_summary;
+	String addon_summary;
 	
 	// 所属するアドオンセットの名前（空白はNormalとみなす）
-	string belong_addons_set_name;
+	Array<String> belong_addons_set_name;
 	
 	// アドオンのタイプ
-	string addon_type;
+	Array<String> addon_categories;
 	
 	// アイコン画像のパス
-	string addon_icon;
+	String addon_icon;
+	
+	// アイコンのテクスチャ
+	Texture icon_texture;
 	
 	// 使用するtype
-	Array<string> use_types;
+	Array<String> use_types;
 	
-	// 使用するdirection
-	Array<Array<string>> directions_name;
+	// 収容人数 or 最大従業員数
+	int maximum_capacity;
 	
-	// 収容人数
-	int maxium_capacity;
+	// 建物の効果
+	map<String, EffectStruct> effects;
 	
 	// 地価
 	int land_price_influence;		// 上昇額
 	int land_price_influence_grid;	// 地価の上下が影響するマス
 	
 	// 各typeの情報
-	map<string, AddonTypeStruct> types;
+	map<String, AddonTypeStruct> types;
 	
 	
 	// プライベート関数
-	bool getElement(string str, string search_element_name, string& ret);
-	bool getElement(string str, string search_element_name, int& ret);
-	bool getTypes(string str, string search_element_name, Array<string>& ret);
+	bool getElement(String str, String search_element_name, String& ret);
+	bool getElement(String str, String search_element_name, int& ret);
+	bool getTypes(String str, String search_element_name, Array<String>& ret);
 	void set_alpha_color(Image& image_temp, Color transparent_rgb);
 };
 

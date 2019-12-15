@@ -21,6 +21,7 @@ void Main() {
 	
 	// フォントの宣言
 	Font font16(16);
+	Font font12(12);
 	Font font8(8);
 	
 	// タイトルメニュー画面
@@ -43,8 +44,6 @@ void Main() {
 	CursorStruct cursor;
 	cursor.texture = &(images.images["pointer"]["blue"].texture);
 	
-	PositionStruct cursor_position, cursor_position_before;
-	
 	// 描画処理
 	RenderTexture buffer_texture(Scene::Width(), Scene::Height(), Color(30, 30, 30));
 	bool update_map = true, first_loop = true;
@@ -55,7 +54,14 @@ void Main() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &font8, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &map, &font8, &font12, &font16);
+	
+	// 選択されたアドオン
+	Addon* selected_addon;
+	
+	// 前回左クリックしたときのマップ上の座標
+	CoordinateStruct before_mouse_pressed_coordinate = { 0, 0 };
+	bool pressing = false;
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -77,17 +83,15 @@ void Main() {
 		}
 		
 		// カーソルの位置を取得
-		cursor_position = PositionStruct{Cursor::Pos().x, Cursor::Pos().y};
-		
-		if (update_map || (cursor_position.x != cursor_position_before.x && cursor_position.y != cursor_position_before.y)) {
-			cursor.coordinate = map.positionToCoordinate(cursor_position, camera);
-			cursor.position = map.coordinateToPosition(cursor.coordinate, camera);
+		if (update_map || Cursor::Delta().x != 0 || Cursor::Delta().y != 0) {
+			cursor.position = PositionStruct{Cursor::Pos().x, Cursor::Pos().y};
+			cursor.coordinate = map.positionToCoordinate(cursor.position, camera);
+			cursor.position_per_tiles = map.coordinateToPosition(cursor.coordinate, camera);
 			
-			cursor_position_before = cursor_position;
 			update_map = true;
 		}
 		
-		//cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+		//cout << "cursor: " << cursor.coordinate.x << "," << cursor.coordinate.y << " : " << map.getAddon(cursor.coordinate)[0].getName() << endl;
 		
 		// マップなどを更新する必要がある場合はバッファに描画（更新）する
 		if (update_map) {
@@ -96,6 +100,8 @@ void Main() {
 			// マップの描画
 			ScopedRenderTarget2D target(buffer_texture);
 			map.draw(camera, cursor);
+			
+			menu.update();
 			
 			if (first_loop) {
 				first_loop = false;
@@ -122,7 +128,27 @@ void Main() {
 		//sub_window.draw();
 		//sub_window2.draw();
 		
-		menu.draw(map.getDemand(), map.getPopulation(), map.getMoney());
+		// メニュー及びアドオン選択メニューの表示
+		// アドオンが選択されたら、選択されたアドオンのポインタを返す
+		selected_addon = menu.draw(update_map);
+		menu.addonMenu();
+		
+		// マップ上でクリックされたらアドオンを設置
+		if (selected_addon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
+			if (cursor.coordinate.x != before_mouse_pressed_coordinate.x || cursor.coordinate.y != before_mouse_pressed_coordinate.y) {
+				cout << selected_addon->getName() << endl;
+				map.build(cursor.coordinate, selected_addon, true);
+				before_mouse_pressed_coordinate = cursor.coordinate;
+				update_map = true;
+				pressing = true;
+			}
+		}
+		if (pressing) {
+			if (!MouseL.pressed()) {
+				before_mouse_pressed_coordinate = {-1, -1};
+				pressing = false;
+			}
+		}
 		
 		System::Sleep(20);
 	}

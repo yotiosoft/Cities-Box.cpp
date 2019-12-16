@@ -462,6 +462,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "yotiosoft.cities-box";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};
 			name = Debug;
 		};
@@ -531,6 +532,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "yotiosoft.cities-box";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};
 			name = Release;
 		};

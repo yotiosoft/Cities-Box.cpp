@@ -60,8 +60,11 @@ void Main() {
 	Addon* selected_addon;
 	
 	// 前回左クリックしたときのマップ上の座標
-	CoordinateStruct before_mouse_pressed_coordinate;
+	CoordinateStruct before_mouse_pressed_coordinate = {0, 0};
 	bool pressing = false;
+	
+	// 時間
+	TimeStruct time;
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -132,6 +135,11 @@ void Main() {
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
 		selected_addon = menu.draw(update_map);
 		menu.addonMenu();
+		
+		// 時間を進ませて表示する
+		time = map.cityTime(1);
+		
+		font16(Format(time.year)+U"/"+Format(time.month)+U"/"+Format(time.date)+U" "+Format(time.hour)+U":"+Format(time.minutes)).draw(230, Scene::Height()-25-3);
 		
 		// マップ上でクリックされたらアドオンを設置
 		if (selected_addon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {

@@ -153,6 +153,9 @@ public:
 	// アドオンを削除
 	void clear(CoordinateStruct position);
 	
+	// 時間を進ませて取得
+	TimeStruct cityTime(int minutes_delta);
+	
 	// マップ保存
 	bool save();
 	

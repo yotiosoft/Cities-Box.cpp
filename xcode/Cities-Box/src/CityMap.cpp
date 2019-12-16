@@ -1330,6 +1330,49 @@ void CityMap::clear(CoordinateStruct position) {
 	// 幸福度を戻す
 }
 
+TimeStruct CityMap::cityTime(int minutes_delta) {
+	time.minutes += minutes_delta;
+	
+	if (time.minutes >= 60) {
+		time.hour ++;
+		time.minutes -= 60;
+		
+		if (time.hour >= 24) {
+			time.date ++;
+			time.hour -= 24;
+			
+			if (time.month == 4 || time.month == 6 || time.month == 9 || time.month == 11) {
+				if (time.date >= 31) {
+					time.month ++;
+					time.date -= 30;
+				}
+			}
+			else if (time.month == 2) {
+				if (time.year % 4 == 0 && time.date >= 30) {
+					time.month ++;
+					time.date -= 29;
+				}
+				else if (time.date >= 29) {
+					time.month ++;
+					time.date -= 28;
+				}
+			}
+			else if (time.date >= 32) {
+				time.month ++;
+				time.date -= 31;
+				
+				if (time.month >= 13) {
+					time.year ++;
+					time.month -= 12;
+				}
+			}
+		}
+	}
+	
+	
+	return time;
+}
+
 bool CityMap::save() {
 	// JsonWriterを宣言
 	JSONWriter map_file;

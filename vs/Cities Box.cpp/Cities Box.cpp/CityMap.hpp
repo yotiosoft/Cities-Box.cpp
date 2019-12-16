@@ -43,11 +43,6 @@ typedef struct BudgetStruct {
 	int education;
 } BudgetStruct;
 
-typedef struct CropStruct {
-	String name;
-	int amount;
-} CropStruct;
-
 typedef struct WorkPlaceStruct {
 	RCOIFP::Type work_place;
 	int work_places_serial_number;
@@ -59,29 +54,23 @@ typedef struct SchoolStruct {
 } SchoolStruct;
 
 typedef struct SquareStruct {
-	Array<String> addon_name;
 	String original_name;
-	Array<String> category;
+	//Array<String> category;
 	
-	Array<int> type_number;
-	Array<int> direction_number;
+	Array<String> types;
+	Array<String> directions;
 	
 	int serial_number;
 	
 	CoordinateStruct tiles_count;
-	CoordinateStruct use_tiles;
 	
 	int residents;
 	WorkersStruct workers;
 	int students;
 	
-	int land_price;
-	int crime_rate;
-	int education_rate;
 	int happiness_rate;
-	int noise;
 	
-	CropStruct crop;
+	//CropStruct crop;
 	
 	Array<int> age;
 	Array<String> gender;
@@ -105,7 +94,13 @@ public:
 	void loadCBJ(String new_map_file_path);
 	
 	// アドオンの読み込み
-	void loadAddons(string addon_set_name);
+	void loadAddons(String addon_set_name);
+	
+	// カテゴリに当てはまるアドオンの一覧を返す
+	Array<Addon*> getFitAddons(Array<String> selected_categories);
+	
+	// アドオンリストを返す
+	map<String, Addon*> getAllAddons();
 	
 	// 読込中画面
 	void loadingScreen();
@@ -136,6 +131,27 @@ public:
 	
 	// 描画範囲を取得
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
+	
+	// いずれかのアドオンがカテゴリに含まれているか
+	bool isInCategories(String search_category, CoordinateStruct coordinate);
+	
+	// アドオンを設置
+	bool build(CoordinateStruct position, Addon* selected_addon, bool need_to_break);
+	
+	// アドオンを更新
+	void update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update);
+	
+	// アドオンを除去
+	void breaking(CoordinateStruct position);
+	
+	// アドオンの始点となるマスに移動する
+	CoordinateStruct moveToAddonStartSquare(CoordinateStruct search_coordinate, int addon_number);
+	
+	// 指定した場所に合うアドオンのTypeとDirectionを取得
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selected_addon, String& ret_type, String& ret_direction, Array<CoordinateStruct>& need_update);
+	
+	// アドオンを削除
+	void clear(CoordinateStruct position);
 	
 	// マップ保存
 	bool save();
@@ -169,7 +185,7 @@ private:
 	
 	bool loading_complete;
 	
-	map<string, Addon*> addons;
+	map<String, Addon*> addons;
 	
 	CameraStruct camera_before;
 	pair<CoordinateStruct, CoordinateStruct> range;

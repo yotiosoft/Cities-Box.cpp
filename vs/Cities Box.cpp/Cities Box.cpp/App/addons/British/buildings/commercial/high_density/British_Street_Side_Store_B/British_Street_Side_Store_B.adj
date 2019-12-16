@@ -1,0 +1,114 @@
+﻿{
+  "name": "British_Street_Side_Store_B",
+  "jp_name": "英国風ショッピングビルB",
+  "author": "YotioSoft",
+  "summary": "通り沿いにありそうなお店。",
+  "version": 141,
+  "belong_addon_set_name": [
+    "British"
+  ],
+  "icon": "icon_British_Street_Side_Store_B.png",
+  "categories": [
+    "commercial",
+    "high_density"
+  ],
+  "use_types": [
+    "normal"
+  ],
+  "Types": [
+    {
+      "type_name": "normal",
+      "image": "British_Street_Side_Store_B.png",
+      "night_mask": "",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        }
+      ]
+    }
+  ]
+}

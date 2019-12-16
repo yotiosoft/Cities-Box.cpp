@@ -56,16 +56,25 @@ Array<String> split(String str, String separator) {
 }
 
 void cMes(Font& font, String str, PositionStruct top_left, PositionStruct bottom_right, Color& color) {
-	int x = (bottom_right.x + top_left.x) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
-	int y = (bottom_right.y + top_left.y) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
-	
-	font(str).draw(x, y, color);
+	PositionStruct str_long = getStringTopLeft(font, str, top_left, bottom_right);
+	font(str).draw(str_long.x, str_long.y, color);
 }
 void cMes(Font& font, String str, PositionStruct top_left, SizeStruct size, Color& color) {
-	int x = (top_left.x * 2 + size.width) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
-	int y = (top_left.y * 2 + size.height) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
-	
-	font(str).draw(x, y, color);
+	PositionStruct str_long = getStringTopLeft(font, str, top_left, size);
+	font(str).draw(str_long.x, str_long.y, color);
+}
+
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct top_left, PositionStruct bottom_right) {
+	PositionStruct ret_size;
+	ret_size.x = (bottom_right.x + top_left.x) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
+	ret_size.y = (bottom_right.y + top_left.y) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
+	return ret_size;
+}
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct top_left, SizeStruct size) {
+	PositionStruct ret_size;
+	ret_size.x = (top_left.x * 2 + size.width) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
+	ret_size.y = (top_left.y * 2 + size.height) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
+	return ret_size;
 }
 
 void saveTextFile(string file_path, string str) {
@@ -157,4 +166,20 @@ string stringXOR(const std::string &data, const std::string &key) {
 		result[i] = data[i] ^ key[i % key.size()];
 	}
 	return result;
+}
+
+bool findStringArray(Array<pair<String, CoordinateStruct>> arr_str, Array<String> search_str) {
+	int total = 0;
+	for (int i=0; i<arr_str.size(); i++) {
+		for (int j=0; j<search_str.size(); j++) {
+			if (arr_str[i].first == search_str[j]) {
+				total ++;
+			}
+		}
+	}
+	
+	if (total == search_str.size()) {
+		return true;
+	}
+	return false;
 }

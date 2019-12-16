@@ -31,9 +31,17 @@ public:
 	
 	// 配置
 	void put(PositionStruct new_position);
+	void putRelative(PositionStruct new_position, PositionStruct left_top);
 	
 	// 押されたかどうか
 	bool push();
+	bool pushRelative(PositionStruct left_top);
+	
+	// アクティブかどうか
+	bool isActive();
+	
+	// 選択解除
+	void release();
 	
 private:
 	Texture button_texture;
@@ -49,6 +57,8 @@ private:
 	Font font;
 	String label;
 	PositionStruct label_position;
+	
+	bool active;
 };
 
 #endif /* Button_hpp */

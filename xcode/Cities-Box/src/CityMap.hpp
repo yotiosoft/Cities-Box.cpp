@@ -69,6 +69,7 @@ typedef struct SquareStruct {
 	int students;
 	
 	int happiness_rate;
+	map<String, int> rate;
 	
 	//CropStruct crop;
 	

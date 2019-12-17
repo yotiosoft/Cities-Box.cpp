@@ -430,11 +430,43 @@ void CityMap::loadCBD(String new_map_file_path) {
 			}
 		}
 		
+		if (current_array_name == "land_price" && array_count >= 0) {
+			Array<String> temp = split(str_temp, U", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].rate[U"land_price"] = stoi(temp[x].toUTF8());
+			}
+		}
+		
 		if (current_array_name == "happiness" && array_count >= 0) {
 			Array<String> temp = split(str_temp, U", ");
 			
 			for (int x=0; x<mapsize.width; x++) {
-				squares[array_count][x].happiness_rate = stoi(temp[x].toUTF8());
+				squares[array_count][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
+			}
+		}
+		
+		if (current_array_name == "crime_rate" && array_count >= 0) {
+			Array<String> temp = split(str_temp, U", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].rate[U"crime_rate"] = stoi(temp[x].toUTF8());
+			}
+		}
+		
+		if (current_array_name == "happiness" && array_count >= 0) {
+			Array<String> temp = split(str_temp, U", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
+			}
+		}
+		
+		if (current_array_name == "education_rate" && array_count >= 0) {
+			Array<String> temp = split(str_temp, U", ");
+			
+			for (int x=0; x<mapsize.width; x++) {
+				squares[array_count][x].rate[U"education_rate"] = stoi(temp[x].toUTF8());
 			}
 		}
 		/*
@@ -1489,7 +1521,15 @@ bool CityMap::save() {
 							
 							map_file.key(U"students").write(squares[y][x].students);
 							
-							map_file.key(U"happiness_rate").write(squares[y][x].happiness_rate);
+							map_file.key(U"rate").startObject();
+							{
+								for (auto rate = squares[y][x].rate.begin(); rate != squares[y][x].rate.end() ; rate++) {
+									if (rate->second != 0) {
+										map_file.key(rate->first).write(rate->second);
+									}
+								}
+							}
+							map_file.endObject();
 							
 							/*
 							map_file.key(U"crop").startObject();

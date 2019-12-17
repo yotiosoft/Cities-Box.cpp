@@ -139,7 +139,7 @@ void Main() {
 		// 時間を進ませて表示する
 		time = map.cityTime(1);
 		
-		font16(Format(time.year)+U"/"+Format(time.month)+U"/"+Format(time.date)+U" "+Format(time.hour)+U":"+Format(time.minutes)).draw(230, Scene::Height()-25-3);
+		font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		
 		// マップ上でクリックされたらアドオンを設置
 		if (selected_addon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {

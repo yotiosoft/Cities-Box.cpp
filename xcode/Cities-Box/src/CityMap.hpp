@@ -157,6 +157,13 @@ public:
 	// 時間を進ませて取得
 	TimeStruct cityTime(int minutes_delta);
 	
+	// 各率を取得
+	map<String, int> getRate(CoordinateStruct coordinate);
+	int getRate(CoordinateStruct coordinate, String rate_name);
+	
+	// 各率を表示するときの色を取得
+	Color getRateColor(int rate, bool upper);
+	
 	// マップ保存
 	bool save();
 	

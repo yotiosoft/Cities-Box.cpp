@@ -726,6 +726,11 @@ void CityMap::loadCBJ(String new_map_file_path) {
 			
 			squares[y][x].happiness_rate = square[U"happiness_rate"].get<int>();
 			
+			// 各率の読み込み
+			for (const auto& rate : square[U"rate"].objectView()) {
+				squares[y][x].rate[rate.name] = rate.value.get<int>();
+			}
+			
 			/*
 			squares[y][x].crop.name = square[U"crop.name"].getString();
 			squares[y][x].crop.amount = square[U"crop.amount"].get<int>();
@@ -816,7 +821,10 @@ map<String, Addon*> CityMap::getAllAddons() {
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=0; i<(int)squares[coordinate.y][coordinate.x].addons.size(); i++) {
-		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i], coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].addons[i]->getUseTiles(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i]), squares[coordinate.y][coordinate.x].tiles_count);
+		int rate = getRate(coordinate, U"education_rate");
+		Color rate_color = getRateColor(rate, true);
+		
+		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i], coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].addons[i]->getUseTiles(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i]), squares[coordinate.y][coordinate.x].tiles_count, &rate_color);
 	}
 }
 
@@ -1403,6 +1411,46 @@ TimeStruct CityMap::cityTime(int minutes_delta) {
 	
 	
 	return time;
+}
+
+map<String, int> CityMap::getRate(CoordinateStruct coordinate) {
+	return squares[coordinate.y][coordinate.x].rate;
+}
+
+int CityMap::getRate(CoordinateStruct coordinate, String rate_name) {
+	if (squares[coordinate.y][coordinate.x].rate.find(rate_name) != squares[coordinate.y][coordinate.x].rate.end()) {
+		return squares[coordinate.y][coordinate.x].rate[rate_name];
+	}
+	else {
+		return 0;
+	}
+}
+
+Color CityMap::getRateColor(int rate, bool upper) {
+	Color ret(127, 0, 127);
+	
+	if (upper) {
+		if (rate > 0) {
+			ret.r -= rate * 1.27;
+			ret.b += rate * 1.27;
+		}
+		else if (rate < 0) {
+			ret.r += rate * 1.27;
+			ret.b -= rate * 1.27;
+		}
+		return ret;
+	}
+	
+	if (rate < 0) {
+		ret.r += rate * 1.27;
+		ret.b -= rate * 1.27;
+	}
+	else if (rate > 0) {
+		ret.r -= rate * 1.27;
+		ret.b += rate * 1.27;
+	}
+	
+	return ret;
 }
 
 bool CityMap::save() {

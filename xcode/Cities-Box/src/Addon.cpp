@@ -535,7 +535,7 @@ PositionStruct Addon::getPosition(String type_name, String direction_name, Posit
 	return position;
 }
 
-void Addon::draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
+void Addon::draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count, Color* add_color) {
 	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
 	
 	/*
@@ -557,7 +557,12 @@ void Addon::draw(String type_name, String direction_name, PositionStruct positio
 	
 	unsigned short int size_height = direction_temp->size_height;
 	
-	types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
+	if (add_color == nullptr) {
+		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
+	}
+	else {
+		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y, *add_color);
+	}
 }
 
 void Addon::converter() {

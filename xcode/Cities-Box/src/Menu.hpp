@@ -51,6 +51,8 @@ public:
 	
 	void addonMenu();
 	
+	bool rateMenu();
+	
 private:
 	PositionStruct position;
 	SizeStruct size;
@@ -76,6 +78,9 @@ private:
 	
 	Array<pair<String, Button>> category_buttons;
 	String mode_str;
+	
+	bool show_rate_menu;
+	String show_rate_name;
 	
 	Texture population;
 };

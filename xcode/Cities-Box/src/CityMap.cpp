@@ -821,8 +821,12 @@ map<String, Addon*> CityMap::getAllAddons() {
 void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=0; i<(int)squares[coordinate.y][coordinate.x].addons.size(); i++) {
-		int rate = getRate(coordinate, U"education_rate");
-		Color rate_color = getRateColor(rate, true);
+		int rate;
+		Color rate_color;
+		if (show_rate.length() > 0) {
+			rate = getRate(coordinate, show_rate);
+			rate_color = getRateColor(rate, true, 50);
+		}
 		
 		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i], coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].addons[i]->getUseTiles(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i]), squares[coordinate.y][coordinate.x].tiles_count, &rate_color);
 	}
@@ -1426,31 +1430,31 @@ int CityMap::getRate(CoordinateStruct coordinate, String rate_name) {
 	}
 }
 
-Color CityMap::getRateColor(int rate, bool upper) {
-	Color ret(127, 0, 127);
+Color CityMap::getRateColor(int rate, bool upper, int standard) {
+	Color ret(50, 50, 50);
 	
 	if (upper) {
-		if (rate > 0) {
-			ret.r -= rate * 1.27;
-			ret.b += rate * 1.27;
+		if (rate > standard) {
+			ret.b += (rate-standard) * 1.27;
 		}
-		else if (rate < 0) {
-			ret.r += rate * 1.27;
-			ret.b -= rate * 1.27;
+		else if (rate < standard) {
+			ret.r += (standard-rate) * 1.27;
 		}
 		return ret;
 	}
 	
-	if (rate < 0) {
-		ret.r += rate * 1.27;
-		ret.b -= rate * 1.27;
+	if (rate > standard) {
+		ret.b += (standard-rate) * 1.27;
 	}
-	else if (rate > 0) {
-		ret.r -= rate * 1.27;
-		ret.b += rate * 1.27;
+	else if (rate < standard) {
+		ret.r += (rate-standard) * 1.27;
 	}
 	
 	return ret;
+}
+
+void CityMap::setShowRate(String rate_name) {
+	show_rate = rate_name;
 }
 
 bool CityMap::save() {

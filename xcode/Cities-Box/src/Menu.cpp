@@ -50,6 +50,8 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	
 	render = RenderTexture(size.width, size.height, Color(45, 52, 54));
 	
+	show_rate_menu = false;
+	
 	// 効果テクスチャを用意
 	effect_icons[U"crime_rate"] = Texture(Icon(IconFont::Crime, 16));
 	effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
@@ -63,6 +65,9 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	effect_icons[U"television"] = Texture(Icon(IconFont::Television, 16));
 	effect_icons[U"tourist_attraction"] = Texture(Icon(IconFont::Tourist, 16));
 	effect_icons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
+	
+	// レート表示用ボタン
+	button[U"rate_land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
 }
 
 void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
@@ -384,9 +389,20 @@ Addon* Menu::draw(bool& need_update) {
 		need_update = true;
 	}
 	
+	if (button[U"rate"].pushRelative(position)) {
+		show_rate_menu = !show_rate_menu;
+		need_update = true;
+	}
+	
 	if (button[U"save"].pushRelative(position)) {
 		map->save();
 		button[U"save"].release();
+	}
+	
+	if (show_rate_menu) {
+		if (rateMenu()) {
+			need_update = true;
+		}
 	}
 	
 	return selected_addon;
@@ -489,4 +505,25 @@ void Menu::addonMenu() {
 			}
 		}
 	}
+}
+
+bool Menu::rateMenu() {
+	Rect(position.x+495+35+16-32*4/2, position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
+	
+	button[U"rate_land_price"].put(PositionStruct{position.x+495+35+16-32*4/2+5, position.y-32*3+5});
+	
+	if (button[U"rate_land_price"].push()) {
+		if (show_rate_name != U"land_price") {
+			show_rate_name = U"land_price";
+			map->setShowRate(show_rate_name);
+			return true;
+		}
+		else {
+			show_rate_name = U"";
+			map->setShowRate(show_rate_name);
+			return true;
+		}
+	}
+	
+	return false;
 }

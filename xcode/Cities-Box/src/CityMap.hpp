@@ -162,7 +162,10 @@ public:
 	int getRate(CoordinateStruct coordinate, String rate_name);
 	
 	// 各率を表示するときの色を取得
-	Color getRateColor(int rate, bool upper);
+	Color getRateColor(int rate, bool upper, int standard);
+	
+	// レート表示モード
+	void setShowRate(String rate_name);
 	
 	// マップ保存
 	bool save();
@@ -202,6 +205,8 @@ private:
 	pair<CoordinateStruct, CoordinateStruct> range;
 	
 	String map_file_path;
+	
+	String show_rate = U"";
 	
 	// プライベート関数
 	bool getElement(String str, String search_element_name, String& ret);

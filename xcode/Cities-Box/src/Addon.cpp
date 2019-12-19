@@ -557,11 +557,11 @@ void Addon::draw(String type_name, String direction_name, PositionStruct positio
 	
 	unsigned short int size_height = direction_temp->size_height;
 	
-	if (add_color == nullptr) {
-		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
+	if (add_color->a > 0) {
+		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y, *add_color);
 	}
 	else {
-		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y, *add_color);
+		types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
 	}
 }
 

@@ -67,7 +67,10 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	effect_icons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
 	
 	// レート表示用ボタン
-	button[U"rate_land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
+	rate_button[U"land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
+	rate_button[U"crime_rate"].set(IconFont::Crime, 16, 16, PositionStruct{0, 0});
+	rate_button[U"education_rate"].set(IconFont::Education, 16, 16, PositionStruct{0, 0});
+	rate_button[U"happiness_rate"].set(IconFont::Happiness, 16, 16, PositionStruct{0, 0});
 }
 
 void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
@@ -510,17 +513,87 @@ void Menu::addonMenu() {
 bool Menu::rateMenu() {
 	Rect(position.x+495+35+16-32*4/2, position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
 	
-	button[U"rate_land_price"].put(PositionStruct{position.x+495+35+16-32*4/2+5, position.y-32*3+5});
+	rate_button[U"land_price"].put(PositionStruct{position.x+495+35+16-32*4/2+7, position.y-32*3+5});
+	rate_button[U"crime_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32, position.y-32*3+5});
+	rate_button[U"education_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*2, position.y-32*3+5});
+	rate_button[U"happiness_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*3, position.y-32*3+5});
 	
-	if (button[U"rate_land_price"].push()) {
+	if (rate_button[U"land_price"].push()) {
 		if (show_rate_name != U"land_price") {
 			show_rate_name = U"land_price";
+			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
+				if (b->first != show_rate_name) {
+					b->second.release();
+				}
+			}
+			
 			map->setShowRate(show_rate_name);
 			return true;
 		}
 		else {
 			show_rate_name = U"";
 			map->setShowRate(show_rate_name);
+			rate_button[U"land_price"].release();
+			return true;
+		}
+	}
+	
+	if (rate_button[U"crime_rate"].push()) {
+		if (show_rate_name != U"crime_rate") {
+			show_rate_name = U"crime_rate";
+			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
+				if (b->first != show_rate_name) {
+					b->second.release();
+				}
+			}
+			
+			map->setShowRate(show_rate_name);
+			return true;
+		}
+		else {
+			show_rate_name = U"";
+			map->setShowRate(show_rate_name);
+			rate_button[U"crime_rate"].release();
+			return true;
+		}
+	}
+	
+	if (rate_button[U"education_rate"].push()) {
+		if (show_rate_name != U"education_rate") {
+			show_rate_name = U"education_rate";
+			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
+				if (b->first != show_rate_name) {
+					b->second.release();
+				}
+			}
+			
+			map->setShowRate(show_rate_name);
+			return true;
+		}
+		else {
+			show_rate_name = U"";
+			map->setShowRate(show_rate_name);
+			rate_button[U"education_rate"].release();
+			return true;
+		}
+	}
+	
+	if (rate_button[U"happiness_rate"].push()) {
+		if (show_rate_name != U"happiness_rate") {
+			show_rate_name = U"happiness_rate";
+			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
+				if (b->first != show_rate_name) {
+					b->second.release();
+				}
+			}
+			
+			map->setShowRate(show_rate_name);
+			return true;
+		}
+		else {
+			show_rate_name = U"";
+			map->setShowRate(show_rate_name);
+			rate_button[U"happiness_rate"].release();
 			return true;
 		}
 	}

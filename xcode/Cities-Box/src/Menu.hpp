@@ -60,6 +60,7 @@ private:
 	RenderTexture render;
 	
 	map<String, Button> button;
+	map<String, Button> rate_button;
 	
 	MenuMode::Type menu_mode;
 	

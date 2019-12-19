@@ -825,7 +825,12 @@ void CityMap::drawSquare(CoordinateStruct coordinate, CameraStruct camera) {
 		Color rate_color;
 		if (show_rate.length() > 0) {
 			rate = getRate(coordinate, show_rate);
-			rate_color = getRateColor(rate, true, 50);
+			if (show_rate == U"crime_rate") {
+				rate_color = getRateColor(rate, false, 0);
+			}
+			else {
+				rate_color = getRateColor(rate, true, 50);
+			}
 		}
 		
 		squares[coordinate.y][coordinate.x].addons[i]->draw(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i], coordinateToPosition(coordinate, camera), squares[coordinate.y][coordinate.x].addons[i]->getUseTiles(squares[coordinate.y][coordinate.x].types[i], squares[coordinate.y][coordinate.x].directions[i]), squares[coordinate.y][coordinate.x].tiles_count, &rate_color);
@@ -1443,10 +1448,10 @@ Color CityMap::getRateColor(int rate, bool upper, int standard) {
 		return ret;
 	}
 	
-	if (rate > standard) {
+	if (rate < standard) {
 		ret.b += (standard-rate) * 1.27;
 	}
-	else if (rate < standard) {
+	else if (rate > standard) {
 		ret.r += (rate-standard) * 1.27;
 	}
 	

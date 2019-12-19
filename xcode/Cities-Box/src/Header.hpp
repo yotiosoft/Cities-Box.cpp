@@ -87,6 +87,7 @@ namespace IconFont {
 		Television			= 0xf26c,
 		Radio				= 0xf519,
 		Tourist				= 0xf6fc,
+		Happiness			= 0xf4da,
 		
 		Population			= 0xf0c0,
 	};

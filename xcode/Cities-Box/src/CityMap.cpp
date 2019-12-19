@@ -1006,9 +1006,10 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 			position.y += use_tiles.y-1;
 		}
 		
+		map<String, EffectStruct> effects = selected_addon->getEffects();
+		
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; abs(x)<use_tiles.x; x++) {
-				cout << "build at: " << position.x+x << "," << position.y+y << endl;
 				if (need_to_break && type != U"train_crossing") {
 					breaking(CoordinateStruct{position.x+x, position.y+y});
 				}
@@ -1034,6 +1035,16 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 				current_square->reservation = RCOIFP::None;
 				
 				current_square->addons << selected_addon;
+				
+				for (auto effect = effects.begin(); effect != effects.end(); effect++) {
+					double effect_per_grid = effect->second.influence / effect->second.grid;
+					for (int ey=0; ey<effect->second.grid; ey++) {
+						for (int ex=0; ex<effect->second.grid; ex++) {
+							//cout << effect_per_grid*max(ey, effect->second.grid-1-ex) << endl;
+							current_square->rate[effect->first] += effect_per_grid*max(ey, effect->second.grid-1-ex);
+						}
+					}
+				}
 			}
 		}
 		cout << endl;

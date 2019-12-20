@@ -1038,10 +1038,10 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 				
 				for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 					double effect_per_grid = effect->second.influence / effect->second.grid;
-					for (int ey=0; ey<effect->second.grid; ey++) {
-						for (int ex=0; ex<effect->second.grid; ex++) {
+					for (int ey=-effect->second.grid; ey<effect->second.grid; ey++) {
+						for (int ex=-effect->second.grid; ex<effect->second.grid; ex++) {
 							//cout << effect_per_grid*max(ey, effect->second.grid-1-ex) << endl;
-							current_square->rate[effect->first] += effect_per_grid*max(ey, effect->second.grid-1-ex);
+							squares[position.y+y+ey][position.x+x+ex].rate[effect->first] += effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
 						}
 					}
 				}

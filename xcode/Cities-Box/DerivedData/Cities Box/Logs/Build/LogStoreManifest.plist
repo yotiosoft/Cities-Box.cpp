@@ -998,6 +998,38 @@
 			<key>uniqueIdentifier</key>
 			<string>4D757723-3BDD-49E5-ABD9-0615DB32048E</string>
 		</dict>
+		<key>5431D67E-3B75-404C-A087-16A0FEB731F0</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5431D67E-3B75-404C-A087-16A0FEB731F0.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>598506907.59817898</real>
+			<key>timeStoppedRecording</key>
+			<real>598506917.64421999</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>5431D67E-3B75-404C-A087-16A0FEB731F0</string>
+		</dict>
 		<key>55ABE4F6-ECAE-4C46-835B-F28EFB41C42F</key>
 		<dict>
 			<key>className</key>
@@ -2693,6 +2725,38 @@
 			<string>Build Cities-Box</string>
 			<key>uniqueIdentifier</key>
 			<string>C558DCA8-A679-4D74-9F7B-0B2FE15D1235</string>
+		</dict>
+		<key>C5A67566-3814-47DB-B098-D82B72D84989</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>C5A67566-3814-47DB-B098-D82B72D84989.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Cities Box project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Cities-Box</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Cities-Box</string>
+			<key>timeStartedRecording</key>
+			<real>598506458.37637806</real>
+			<key>timeStoppedRecording</key>
+			<real>598506465.58980596</real>
+			<key>title</key>
+			<string>Build Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>C5A67566-3814-47DB-B098-D82B72D84989</string>
 		</dict>
 		<key>C66776C3-4384-4A4F-A443-3D98EFB647C5</key>
 		<dict>

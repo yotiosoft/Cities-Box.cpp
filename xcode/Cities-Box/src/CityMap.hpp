@@ -154,6 +154,9 @@ public:
 	// アドオンを削除
 	void clear(CoordinateStruct position);
 	
+	// 座標がマップ範囲内に入っているか
+	bool isPositionAvailable(CoordinateStruct coordinate);
+	
 	// 時間を進ませて取得
 	TimeStruct cityTime(int minutes_delta);
 	

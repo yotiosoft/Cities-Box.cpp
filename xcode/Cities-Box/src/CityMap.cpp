@@ -1036,12 +1036,14 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 				
 				current_square->addons << selected_addon;
 				
+				// 効果を地図へ反映
 				for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 					double effect_per_grid = effect->second.influence / effect->second.grid;
-					for (int ey=-effect->second.grid; ey<effect->second.grid; ey++) {
-						for (int ex=-effect->second.grid; ex<effect->second.grid; ex++) {
-							//cout << effect_per_grid*max(ey, effect->second.grid-1-ex) << endl;
-							squares[position.y+y+ey][position.x+x+ex].rate[effect->first] += effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
+					for (int ey=-effect->second.grid; ey<=effect->second.grid; ey++) {
+						for (int ex=-effect->second.grid; ex<=effect->second.grid; ex++) {
+							if (isPositionAvailable(CoordinateStruct{position.x+x+ex, position.y+y+ey})) {
+								squares[position.y+y+ey][position.x+x+ex].rate[effect->first] += effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
+							}
 						}
 					}
 				}
@@ -1388,6 +1390,15 @@ void CityMap::clear(CoordinateStruct position) {
 	current_square->addons << selected_addon;
 	
 	// 幸福度を戻す
+}
+
+bool CityMap::isPositionAvailable(CoordinateStruct coordinate) {
+	if (coordinate.x >= 0 && coordinate.x <= mapsize.width-1 && coordinate.y >= 0 && coordinate.y <= mapsize.height-1) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 TimeStruct CityMap::cityTime(int minutes_delta) {

@@ -1010,13 +1010,13 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 		
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; abs(x)<use_tiles.x; x++) {
-				if (need_to_break && type != U"train_crossing") {
+				if (need_to_break && type != U"train_crossing" && type != U"bridge") {
 					breaking(CoordinateStruct{position.x+x, position.y+y});
 				}
 				
 				current_square = &squares[position.y+y][position.x+x];
 				
-				if (type != U"train_crossing") {
+				if (type != U"train_crossing" && type != U"bridge") {
 					current_square->addons.clear();
 					current_square->types.clear();
 					current_square->directions.clear();
@@ -1049,7 +1049,6 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 				}
 			}
 		}
-		cout << endl;
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (need_update.size() > 0) {
@@ -1074,9 +1073,9 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 void CityMap::update(CoordinateStruct position, Addon* selected_addon, Array<CoordinateStruct>& need_update) {
 	SquareStruct* current_square = &squares[position.y][position.x];
 	
-	// 踏切の場合は更新不要
+	// 踏切と橋の場合は更新不要
 	for (int i=0; i<current_square->types.size(); i++) {
-		if (current_square->types[i] == U"train_crossing") {
+		if (current_square->types[i] == U"train_crossing" || current_square->types[i] == U"bridge") {
 			return;
 		}
 	}
@@ -1218,6 +1217,30 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 					
 					for (int j=0; j<need_update.size(); j++) {
 						if (squares[need_update[j].y][need_update[j].x].addons[i]->isInCategories(U"railroad")) {
+							need_update[j] = {-1, -1};
+						}
+					}
+					
+					return true;
+				}
+			}
+		}
+		
+		// 橋を設置する必要がある場合
+		if (selected_addon->isInCategories(U"road")) {
+			for (int i=0; i<squares[coordinate.y][coordinate.x].addons.size(); i++) {
+				if (squares[coordinate.y][coordinate.x].addons[i]->isInCategories(U"waterway")) {
+					ret_type = U"bridge";
+					
+					if (squares[coordinate.y][coordinate.x].directions[i] == U"width") {
+						ret_direction = U"depth";
+					}
+					else {
+						ret_direction = U"width";
+					}
+					
+					for (int j=0; j<need_update.size(); j++) {
+						if (squares[need_update[j].y][need_update[j].x].addons[i]->isInCategories(U"waterway")) {
 							need_update[j] = {-1, -1};
 						}
 					}

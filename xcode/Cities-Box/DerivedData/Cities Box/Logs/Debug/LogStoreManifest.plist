@@ -6,38 +6,6 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>1C94D681-109D-4A88-9BF9-420D21125223</key>
-		<dict>
-			<key>className</key>
-			<string>DBGConsoleLog</string>
-			<key>documentTypeString</key>
-			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
-			<key>fileName</key>
-			<string>1C94D681-109D-4A88-9BF9-420D21125223.xcactivitylog</string>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Cities Box project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Cities-Box</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Debug Cities-Box</string>
-			<key>timeStartedRecording</key>
-			<real>598876106.25296903</real>
-			<key>timeStoppedRecording</key>
-			<real>598876178.40514803</real>
-			<key>title</key>
-			<string>Debug Cities-Box</string>
-			<key>uniqueIdentifier</key>
-			<string>1C94D681-109D-4A88-9BF9-420D21125223</string>
-		</dict>
 		<key>5C977662-0144-4CD8-A8FA-773DF75C0FFD</key>
 		<dict>
 			<key>className</key>
@@ -70,7 +38,7 @@
 			<key>uniqueIdentifier</key>
 			<string>5C977662-0144-4CD8-A8FA-773DF75C0FFD</string>
 		</dict>
-		<key>72310414-BA5F-4F48-8456-808B8CD65396</key>
+		<key>7C6DF6AE-DFCB-4228-BDC3-983344847E05</key>
 		<dict>
 			<key>className</key>
 			<string>DBGConsoleLog</string>
@@ -79,7 +47,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
 			<key>fileName</key>
-			<string>72310414-BA5F-4F48-8456-808B8CD65396.xcactivitylog</string>
+			<string>7C6DF6AE-DFCB-4228-BDC3-983344847E05.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -94,15 +62,15 @@
 			<key>signature</key>
 			<string>Debug Cities-Box</string>
 			<key>timeStartedRecording</key>
-			<real>598876980.42283797</real>
+			<real>598909319.04004395</real>
 			<key>timeStoppedRecording</key>
-			<real>598877013.21094596</real>
+			<real>598909391.06023204</real>
 			<key>title</key>
 			<string>Debug Cities-Box</string>
 			<key>uniqueIdentifier</key>
-			<string>72310414-BA5F-4F48-8456-808B8CD65396</string>
+			<string>7C6DF6AE-DFCB-4228-BDC3-983344847E05</string>
 		</dict>
-		<key>7E3D4A75-4454-4CF3-8998-336220AFF1C7</key>
+		<key>BA3E3E7F-233A-4586-AED7-8BD736842E67</key>
 		<dict>
 			<key>className</key>
 			<string>DBGConsoleLog</string>
@@ -111,7 +79,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
 			<key>fileName</key>
-			<string>7E3D4A75-4454-4CF3-8998-336220AFF1C7.xcactivitylog</string>
+			<string>BA3E3E7F-233A-4586-AED7-8BD736842E67.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -126,15 +94,15 @@
 			<key>signature</key>
 			<string>Debug Cities-Box</string>
 			<key>timeStartedRecording</key>
-			<real>598876933.25766695</real>
+			<real>598909566.93748403</real>
 			<key>timeStoppedRecording</key>
-			<real>598876959.72099102</real>
+			<real>598909592.735425</real>
 			<key>title</key>
 			<string>Debug Cities-Box</string>
 			<key>uniqueIdentifier</key>
-			<string>7E3D4A75-4454-4CF3-8998-336220AFF1C7</string>
+			<string>BA3E3E7F-233A-4586-AED7-8BD736842E67</string>
 		</dict>
-		<key>CAF83035-8EC1-48BB-B35C-D46A60387AF3</key>
+		<key>D413F9F6-F87E-4A3B-A05C-5C330460360C</key>
 		<dict>
 			<key>className</key>
 			<string>DBGConsoleLog</string>
@@ -143,7 +111,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
 			<key>fileName</key>
-			<string>CAF83035-8EC1-48BB-B35C-D46A60387AF3.xcactivitylog</string>
+			<string>D413F9F6-F87E-4A3B-A05C-5C330460360C.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -158,13 +126,13 @@
 			<key>signature</key>
 			<string>Debug Cities-Box</string>
 			<key>timeStartedRecording</key>
-			<real>598586140.09982395</real>
+			<real>598909497.37987697</real>
 			<key>timeStoppedRecording</key>
-			<real>598586270.96691895</real>
+			<real>598909551.47321606</real>
 			<key>title</key>
 			<string>Debug Cities-Box</string>
 			<key>uniqueIdentifier</key>
-			<string>CAF83035-8EC1-48BB-B35C-D46A60387AF3</string>
+			<string>D413F9F6-F87E-4A3B-A05C-5C330460360C</string>
 		</dict>
 	</dict>
 </dict>

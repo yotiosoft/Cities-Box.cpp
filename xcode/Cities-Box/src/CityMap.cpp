@@ -1055,6 +1055,11 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 			Array<String> search_categories = {U"road", U"train", U"waterway"};
 			
 			for (int i=0; i<need_update.size(); i++) {
+				
+				if (need_update[i].x < 0 || need_update[i].y < 0) {
+					continue;
+				}
+				
 				for (int j=0; j<squares[need_update[i].y][need_update[i].x].addons.size(); j++) {
 					if (squares[need_update[i].y][need_update[i].x].addons[j]->isInCategories(search_categories)) {
 						if (!(need_update[j].x == -1 && need_update[j].y == -1)) {

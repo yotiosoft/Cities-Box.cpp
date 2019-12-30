@@ -1006,7 +1006,12 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 			position.y += use_tiles.y-1;
 		}
 		
+		// 効果を取得
 		map<String, EffectStruct> effects = selected_addon->getEffects();
+		
+		// 中央となる座標を取得
+		int center_x = use_tiles.x/2;
+		int center_y = use_tiles.y/2;
 		
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; abs(x)<use_tiles.x; x++) {
@@ -1037,12 +1042,14 @@ bool CityMap::build(CoordinateStruct position, Addon* selected_addon, bool need_
 				current_square->addons << selected_addon;
 				
 				// 効果を地図へ反映
-				for (auto effect = effects.begin(); effect != effects.end(); effect++) {
-					double effect_per_grid = effect->second.influence / effect->second.grid;
-					for (int ey=-effect->second.grid; ey<=effect->second.grid; ey++) {
-						for (int ex=-effect->second.grid; ex<=effect->second.grid; ex++) {
-							if (isPositionAvailable(CoordinateStruct{position.x+x+ex, position.y+y+ey})) {
-								squares[position.y+y+ey][position.x+x+ex].rate[effect->first] += effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
+				if (abs(x) == center_x && abs(y) == center_y) {
+					for (auto effect = effects.begin(); effect != effects.end(); effect++) {
+						double effect_per_grid = effect->second.influence / effect->second.grid;
+						for (int ey=-effect->second.grid; ey<=effect->second.grid; ey++) {
+							for (int ex=-effect->second.grid; ex<=effect->second.grid; ex++) {
+								if (isPositionAvailable(CoordinateStruct{position.x+x+ex, position.y+y+ey})) {
+									squares[position.y+y+ey][position.x+x+ex].rate[effect->first] += effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
+								}
 							}
 						}
 					}
@@ -1116,12 +1123,31 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 		CoordinateStruct start_point = moveToAddonStartSquare(coordinate, i);
 		current_square = &squares[start_point.y][start_point.x];
 		
+		// 効果を取得
+		map<String, EffectStruct> effects = break_addons[i]->getEffects();
+		
+		// 中央となる座標を取得
+		int center_x = use_tiles.x/2;
+		int center_y = use_tiles.y/2;
+		
 		for (int y=0; abs(y)<use_tiles.y; y--) {
 			for (int x=0; x<use_tiles.x; x++) {
 				SquareStruct before_break = squares[start_point.y+y][start_point.x+x];
 				build(CoordinateStruct{start_point.x+x, start_point.y+y}, addons[U"tile_greenfield"], false);
 				
-				cout << "break at " << start_point.x+x << "," << start_point.y+y << endl;
+				// 効果を除去
+				if (abs(x) == center_x && abs(y) == center_y) {
+					for (auto effect = effects.begin(); effect != effects.end(); effect++) {
+						double effect_per_grid = effect->second.influence / effect->second.grid;
+						for (int ey=-effect->second.grid; ey<=effect->second.grid; ey++) {
+							for (int ex=-effect->second.grid; ex<=effect->second.grid; ex++) {
+								if (isPositionAvailable(CoordinateStruct{start_point.x+x+ex, start_point.y+y+ey})) {
+									squares[start_point.y+y+ey][start_point.x+x+ex].rate[effect->first] -= effect_per_grid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
+								}
+							}
+						}
+					}
+				}
 				
 				if (before_break.addons[i]->isInCategories(U"connectable_type")) {
 					Array<CoordinateStruct> need_update;

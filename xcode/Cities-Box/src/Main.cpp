@@ -10,6 +10,10 @@
 
 void Main() {
 	Window::SetTitle(U"Cities Box.cpp");
+	
+	Window::SetStyle(WindowStyle::Sizable);
+	Scene::SetScaleMode(ScaleMode::ResizeFill);
+	
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	/*---------------------------------------------

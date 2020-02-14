@@ -13,8 +13,9 @@ bool titleMenu(Images& images, Font& font16, String& file_path) {
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
 	
 	// ボタンの宣言
-	Button load_button(IconFont::Floppy, 50, 50, PositionStruct{3, 3}, U"読み込み", font16);			// 読み込み
-	Button new_map_button(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);		// 新しいマップ
+	Button load_button(IconFont::Floppy, 50, 50, PositionStruct{3, 3}, U"読み込み", font16);				// 読み込み
+	Button new_map_button(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);			// 新しいマップ
+	Button new_addon_button(IconFont::Compass, 50, 50, PositionStruct{3, 3}, U"アドオンを作成する", font16);	// 新しいアドオン
 	
 	bool b;
 	Color color_white = Color(Palette::White);
@@ -25,8 +26,9 @@ bool titleMenu(Images& images, Font& font16, String& file_path) {
 		//font16(U"ver.2.0 alpha").draw(Scene::Width()/2-)
 		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, SizeStruct{Scene::Width(), 20}, color_white);
 		
-		load_button.put(PositionStruct{Scene::Width()/2-75, Scene::Height()*3/5});
-		new_map_button.put(PositionStruct{Scene::Width()/2+25, Scene::Height()*3/5});
+		load_button.put(PositionStruct{Scene::Width()/2-75-50, Scene::Height()*3/5});
+		new_map_button.put(PositionStruct{Scene::Width()/2-25, Scene::Height()*3/5});
+		new_addon_button.put(PositionStruct{Scene::Width()/2+75, Scene::Height()*3/5});
 		
 		if (load_button.push()) {
 			// ファイル選択ダイアログ
@@ -42,6 +44,11 @@ bool titleMenu(Images& images, Font& font16, String& file_path) {
 		}
 		if (new_map_button.push()) {
 			return false;
+		}
+		if (new_addon_button.push()) {
+			new_addon_button.release();
+			AddonMaker addon_maker;
+			addon_maker.menu(font16);
 		}
 		
 		System::Sleep(50);

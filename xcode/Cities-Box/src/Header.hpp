@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <algorithm>
+#include <random>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
@@ -50,6 +51,7 @@ namespace IconFont {
 		
 		Floppy				= 0xf0c7,
 		Plus				= 0xf067,
+		Compass				= 0xf568,
 		
 		Cursor				= 0xf245,
 		Road				= 0xf018,
@@ -90,6 +92,9 @@ namespace IconFont {
 		Happiness			= 0xf4da,
 		
 		Population			= 0xf0c0,
+		
+		LeftWithCircle		= 0xf0a8,
+		RightWithCircle		= 0xf0a9,
 	};
 }
 /*

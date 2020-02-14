@@ -382,6 +382,7 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 	belong_addons_set_name = addon_data[U"Belong_addon_set_name"].getArray<String>();
 	bool belong = false;
 	for (int i=0; i<belong_addons_set_name.size(); i++) {
+		cout << "  " << addon_data[U"name"].getString() << ":" << belong_addons_set_name[i] << endl;
 		if (belong_addons_set_name[i].length() > 0) {
 			if (belong_addons_set_name[i] == loading_addons_set_name) {
 				belong = true;

@@ -47,6 +47,7 @@
 		4B75113323966B3A008DFD03 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112A23966B39008DFD03 /* Addon.cpp */; };
 		4B75113423966B3A008DFD03 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75112B23966B39008DFD03 /* Specific.cpp */; };
 		4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B7511362397DF81008DFD03 /* SubWindow.cpp */; };
+		4BA99CCF23D2BB5C00CF53D9 /* Weather.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BA99CCD23D2BB5C00CF53D9 /* Weather.cpp */; };
 		4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BDD0C22239BA06500780F93 /* Menu.cpp */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,8 @@
 		4B75112B23966B39008DFD03 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
 		4B7511362397DF81008DFD03 /* SubWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubWindow.cpp; sourceTree = "<group>"; };
 		4B7511372397DF81008DFD03 /* SubWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubWindow.hpp; sourceTree = "<group>"; };
+		4BA99CCD23D2BB5C00CF53D9 /* Weather.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Weather.cpp; sourceTree = "<group>"; };
+		4BA99CCE23D2BB5C00CF53D9 /* Weather.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Weather.hpp; sourceTree = "<group>"; };
 		4BCCE24A23B460CF0006308A /* Cities-Box.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cities-Box.entitlements"; sourceTree = "<group>"; };
 		4BDD0C22239BA06500780F93 /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
 		4BDD0C23239BA06500780F93 /* Menu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Menu.hpp; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				4B7511372397DF81008DFD03 /* SubWindow.hpp */,
 				4B75111D23966B37008DFD03 /* TitleMenu.cpp */,
 				4B75112123966B38008DFD03 /* TitleMenu.hpp */,
+				4BA99CCD23D2BB5C00CF53D9 /* Weather.cpp */,
+				4BA99CCE23D2BB5C00CF53D9 /* Weather.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				4B75113323966B3A008DFD03 /* Addon.cpp in Sources */,
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,
+				4BA99CCF23D2BB5C00CF53D9 /* Weather.cpp in Sources */,
 				4B75113023966B3A008DFD03 /* Images.cpp in Sources */,
 				4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */,
 				4B75112F23966B3A008DFD03 /* CityMap.cpp in Sources */,

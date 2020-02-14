@@ -114,7 +114,7 @@ public:
 	// JSON形式に変換する
 	void converter();
 	
-private:
+protected:
 	// アドオンファイルのパス
 	FileStruct addon_file_path;
 	

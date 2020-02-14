@@ -221,4 +221,7 @@ dependencies: \
   ../../include/Siv3D/SceneManager.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/OtherFunctions.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Images.hpp \
-  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Button.hpp
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Button.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/AddonMaker.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Addon.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/PulldownMenu.hpp

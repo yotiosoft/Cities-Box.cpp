@@ -38,6 +38,9 @@
 		2CE5C85B237FDE6000082EEC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6906B12298123200A427D0 /* OpenAL.framework */; };
 		2CEACB67233A61C900C6EE98 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB65233A61C900C6EE98 /* libgif.a */; };
 		2CEACB68233A61C900C6EE98 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB66233A61C900C6EE98 /* libutil.a */; };
+		4B6C06EB23F546E70095C719 /* AddonMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06E923F546E70095C719 /* AddonMaker.cpp */; };
+		4B6C06EE23F54C8D0095C719 /* PulldownMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06EC23F54C8D0095C719 /* PulldownMenu.cpp */; };
+		4B6C06F123F6AC0C0095C719 /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06EF23F6AC0C0095C719 /* RouteSolver.cpp */; };
 		4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111D23966B37008DFD03 /* TitleMenu.cpp */; };
 		4B75112E23966B3A008DFD03 /* OtherFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111E23966B38008DFD03 /* OtherFunctions.cpp */; };
 		4B75112F23966B3A008DFD03 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B75111F23966B38008DFD03 /* CityMap.cpp */; };
@@ -84,6 +87,12 @@
 		2CE5C859237FDE5100082EEC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CEACB65233A61C900C6EE98 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../../lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2CEACB66233A61C900C6EE98 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../../lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
+		4B6C06E923F546E70095C719 /* AddonMaker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddonMaker.cpp; sourceTree = "<group>"; };
+		4B6C06EA23F546E70095C719 /* AddonMaker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AddonMaker.hpp; sourceTree = "<group>"; };
+		4B6C06EC23F54C8D0095C719 /* PulldownMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PulldownMenu.cpp; sourceTree = "<group>"; };
+		4B6C06ED23F54C8D0095C719 /* PulldownMenu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PulldownMenu.hpp; sourceTree = "<group>"; };
+		4B6C06EF23F6AC0C0095C719 /* RouteSolver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RouteSolver.cpp; sourceTree = "<group>"; };
+		4B6C06F023F6AC0C0095C719 /* RouteSolver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RouteSolver.hpp; sourceTree = "<group>"; };
 		4B75111A23966B37008DFD03 /* StartUp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StartUp.hpp; sourceTree = "<group>"; };
 		4B75111B23966B37008DFD03 /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CityMap.hpp; sourceTree = "<group>"; };
 		4B75111C23966B37008DFD03 /* Specific.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Specific.hpp; sourceTree = "<group>"; };
@@ -169,20 +178,26 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4B75112623966B39008DFD03 /* Header.hpp */,
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4B75112A23966B39008DFD03 /* Addon.cpp */,
 				4B75112023966B38008DFD03 /* Addon.hpp */,
+				4B6C06E923F546E70095C719 /* AddonMaker.cpp */,
+				4B6C06EA23F546E70095C719 /* AddonMaker.hpp */,
 				4B75112523966B39008DFD03 /* Button.cpp */,
 				4B75112323966B38008DFD03 /* Button.hpp */,
 				4B75111F23966B38008DFD03 /* CityMap.cpp */,
 				4B75111B23966B37008DFD03 /* CityMap.hpp */,
-				4B75112623966B39008DFD03 /* Header.hpp */,
 				4B75112223966B38008DFD03 /* Images.cpp */,
 				4B75112923966B39008DFD03 /* Images.hpp */,
 				4BDD0C22239BA06500780F93 /* Menu.cpp */,
 				4BDD0C23239BA06500780F93 /* Menu.hpp */,
 				4B75111E23966B38008DFD03 /* OtherFunctions.cpp */,
 				4B75112723966B39008DFD03 /* OtherFunctions.hpp */,
+				4B6C06EC23F54C8D0095C719 /* PulldownMenu.cpp */,
+				4B6C06ED23F54C8D0095C719 /* PulldownMenu.hpp */,
+				4B6C06EF23F6AC0C0095C719 /* RouteSolver.cpp */,
+				4B6C06F023F6AC0C0095C719 /* RouteSolver.hpp */,
 				4B75112B23966B39008DFD03 /* Specific.cpp */,
 				4B75111C23966B37008DFD03 /* Specific.hpp */,
 				4B75112823966B39008DFD03 /* StartUp.cpp */,
@@ -302,10 +317,13 @@
 				4B75113323966B3A008DFD03 /* Addon.cpp in Sources */,
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,
+				4B6C06EE23F54C8D0095C719 /* PulldownMenu.cpp in Sources */,
 				4B75113023966B3A008DFD03 /* Images.cpp in Sources */,
+				4B6C06EB23F546E70095C719 /* AddonMaker.cpp in Sources */,
 				4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */,
 				4B75112F23966B3A008DFD03 /* CityMap.cpp in Sources */,
 				4B75113123966B3A008DFD03 /* Button.cpp in Sources */,
+				4B6C06F123F6AC0C0095C719 /* RouteSolver.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
 				4B75112E23966B3A008DFD03 /* OtherFunctions.cpp in Sources */,
 				4B75113223966B3A008DFD03 /* StartUp.cpp in Sources */,

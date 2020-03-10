@@ -95,6 +95,8 @@ namespace IconFont {
 		
 		LeftWithCircle		= 0xf0a8,
 		RightWithCircle		= 0xf0a9,
+		
+		Clock				= 0xf017,
 	};
 }
 /*

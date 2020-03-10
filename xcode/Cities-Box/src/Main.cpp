@@ -6,6 +6,7 @@
 #include "Addon.hpp"
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
+#include "DetailsBar.hpp"
 #include "Menu.hpp"
 
 void Main() {
@@ -24,9 +25,9 @@ void Main() {
 	loadImages(images);
 	
 	// フォントの宣言
-	Font font16(16);
-	Font font12(12);
-	Font font8(8);
+	Font font16(16, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
+	Font font12(12, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font8(8, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
 	
 	// タイトルメニュー画面
 	String mapFilePath;
@@ -69,6 +70,9 @@ void Main() {
 	
 	// 時間
 	TimeStruct time;
+	
+	// Details Barの設定
+	DetailsBar detailsBar(PositionStruct{Scene::Size().x-400, 10}, &font16);
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -135,13 +139,18 @@ void Main() {
 		//sub_window.draw();
 		//sub_window2.draw();
 		
+		// 時間を進ませて表示する
+		time = map.cityTime(1);
+		
+		// Details Barの表示
+		detailsBar.printPopulation(map.getPopulation());
+		detailsBar.printMoney(map.getMoney());
+		detailsBar.printTime(time);
+		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
 		selectedAddon = menu.draw(updateMap);
 		menu.addonMenu();
-		
-		// 時間を進ませて表示する
-		time = map.cityTime(1);
 		
 		font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		

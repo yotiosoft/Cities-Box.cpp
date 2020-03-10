@@ -7,17 +7,17 @@
 
 #include "Menu.hpp"
 
-void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16) {
-	position = new_position;
-	size = new_size;
+void Menu::set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16) {
+	position = newPosition;
+	size = newSize;
 	
-	font8 = new_font8;
-	font12 = new_font12;
-	font16 = new_font16;
+	font8 = newFont8;
+	font12 = newFont12;
+	font16 = newFont16;
 	
-	map = new_map;
+	map = newMap;
 	
-	selected_addon = nullptr;
+	selectedAddon = nullptr;
 	
 	button[U"cursor"].set(IconFont::Cursor, 30, 26, PositionStruct{8, 2});
 	
@@ -42,39 +42,39 @@ void Menu::set(PositionStruct new_position, SizeStruct new_size, CityMap* new_ma
 	button[U"setting"].set(IconFont::Setting, 30, 28, PositionStruct{1, 1});
 	button[U"save"].set(IconFont::Save, 30, 30, PositionStruct{2, 2});
 	
-	menu_mode = MenuMode::None;
+	menuMode = MenuMode::None;
 	
-	selected_addon_name = U"";
+	selectedAddonName = U"";
 	
 	population = Texture(Icon(IconFont::Population, 20));
 	
 	render = RenderTexture(size.width, size.height, Color(45, 52, 54));
 	
-	show_rate_menu = false;
+	showRateMenu = false;
 	
 	// 効果テクスチャを用意
-	effect_icons[U"crime_rate"] = Texture(Icon(IconFont::Crime, 16));
-	effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
-	effect_icons[U"education_rate"] = Texture(Icon(IconFont::Education, 16));
-	effect_icons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
-	effect_icons[U"garbage_disposal"] = Texture(Icon(IconFont::Garbage, 16));
-	effect_icons[U"land_price"] = Texture(Icon(IconFont::LandPrice, 16));
-	effect_icons[U"mobile_communication"] = Texture(Icon(IconFont::MobileCommunication, 16));
-	effect_icons[U"noise"] = Texture(Icon(IconFont::Noise, 16));
-	effect_icons[U"post"] = Texture(Icon(IconFont::Post, 16));
-	effect_icons[U"television"] = Texture(Icon(IconFont::Television, 16));
-	effect_icons[U"tourist_attraction"] = Texture(Icon(IconFont::Tourist, 16));
-	effect_icons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
+	effectIcons[U"crime_rate"] = Texture(Icon(IconFont::Crime, 16));
+	effectIcons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
+	effectIcons[U"education_rate"] = Texture(Icon(IconFont::Education, 16));
+	effectIcons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
+	effectIcons[U"garbage_disposal"] = Texture(Icon(IconFont::Garbage, 16));
+	effectIcons[U"land_price"] = Texture(Icon(IconFont::LandPrice, 16));
+	effectIcons[U"mobile_communication"] = Texture(Icon(IconFont::MobileCommunication, 16));
+	effectIcons[U"noise"] = Texture(Icon(IconFont::Noise, 16));
+	effectIcons[U"post"] = Texture(Icon(IconFont::Post, 16));
+	effectIcons[U"television"] = Texture(Icon(IconFont::Television, 16));
+	effectIcons[U"tourist_attraction"] = Texture(Icon(IconFont::Tourist, 16));
+	effectIcons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
 	
 	// レート表示用ボタン
-	rate_button[U"land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
-	rate_button[U"crime_rate"].set(IconFont::Crime, 16, 16, PositionStruct{0, 0});
-	rate_button[U"education_rate"].set(IconFont::Education, 16, 16, PositionStruct{0, 0});
-	rate_button[U"happiness_rate"].set(IconFont::Happiness, 16, 16, PositionStruct{0, 0});
+	rateButton[U"land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
+	rateButton[U"crime_rate"].set(IconFont::Crime, 16, 16, PositionStruct{0, 0});
+	rateButton[U"education_rate"].set(IconFont::Education, 16, 16, PositionStruct{0, 0});
+	rateButton[U"happiness_rate"].set(IconFont::Happiness, 16, 16, PositionStruct{0, 0});
 }
 
-void Menu::releaseBeforeButton(MenuMode::Type before_selected_button) {
-	switch (before_selected_button) {
+void Menu::releaseBeforeButton(MenuMode::Type beforeSelectedButton) {
+	switch (beforeSelectedButton) {
 		case MenuMode::Cursor:
 			button[U"cursor"].release();
 			return;
@@ -175,226 +175,226 @@ void Menu::update() {
 	(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
 }
 
-Addon* Menu::draw(bool& need_update) {
+Addon* Menu::draw(bool& needUpdate) {
 	render.draw(position.x, position.y);
 	
 	// ボタンが押されたときの動作
 	if (button[U"cursor"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Cursor) {
-			releaseBeforeButton(menu_mode);
+		if (menuMode != MenuMode::Cursor) {
+			releaseBeforeButton(menuMode);
 		}
 		
-		menu_mode = MenuMode::Cursor;
-		selected_addon = nullptr;
-		show_addons.clear();
+		menuMode = MenuMode::Cursor;
+		selectedAddon = nullptr;
+		showAddons.clear();
 		button[U"cursor"].release();
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"road"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Road) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Road;
-			selected_addon = nullptr;
-			mode_str = U"road";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Road) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Road;
+			selectedAddon = nullptr;
+			modeStr = U"road";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
-			category_buttons << pair<String, Button>(U"promenade", Button(IconFont::WALK, 16, 16, PositionStruct{2, 0}));
-			category_buttons << pair<String, Button>(U"car", Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
+			categoryButtons.clear();
+			categoryButtons << pair<String, Button>(U"promenade", Button(IconFont::WALK, 16, 16, PositionStruct{2, 0}));
+			categoryButtons << pair<String, Button>(U"car", Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"train"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Train) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Train;
-			selected_addon = nullptr;
-			mode_str = U"train";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Train) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Train;
+			selectedAddon = nullptr;
+			modeStr = U"train";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"residential"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Residential){
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Residential;
-			selected_addon = nullptr;
-			mode_str = U"residential";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Residential){
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Residential;
+			selectedAddon = nullptr;
+			modeStr = U"residential";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
-			category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Residential, 16, 16, PositionStruct{0, 0}));
-			category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
+			categoryButtons.clear();
+			categoryButtons << pair<String, Button>(U"low_density", Button(IconFont::Residential, 16, 16, PositionStruct{0, 0}));
+			categoryButtons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"commercial"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Commercial) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Commercial;
-			selected_addon = nullptr;
-			mode_str = U"commercial";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Commercial) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Commercial;
+			selectedAddon = nullptr;
+			modeStr = U"commercial";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
-			category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Commercial, 16, 14, PositionStruct{0, 0}));
-			category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
+			categoryButtons.clear();
+			categoryButtons << pair<String, Button>(U"low_density", Button(IconFont::Commercial, 16, 14, PositionStruct{0, 0}));
+			categoryButtons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"office"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Office) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Office;
-			selected_addon = nullptr;
-			mode_str = U"office";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Office) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Office;
+			selectedAddon = nullptr;
+			modeStr = U"office";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"industrial"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Industrial) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Industrial;
-			selected_addon = nullptr;
-			mode_str = U"industrial";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Industrial) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Industrial;
+			selectedAddon = nullptr;
+			modeStr = U"industrial";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"farm"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Farm) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Farm;
-			selected_addon = nullptr;
-			mode_str = U"farm";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Farm) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Farm;
+			selectedAddon = nullptr;
+			modeStr = U"farm";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"public"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Public) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Public;
-			selected_addon = nullptr;
-			mode_str = U"public";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Public) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Public;
+			selectedAddon = nullptr;
+			modeStr = U"public";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"park"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Park) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Park;
-			selected_addon = nullptr;
-			mode_str = U"park";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Park) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Park;
+			selectedAddon = nullptr;
+			modeStr = U"park";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"ship"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Ship) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Ship;
-			selected_addon = nullptr;
-			mode_str = U"ship";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Ship) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Ship;
+			selectedAddon = nullptr;
+			modeStr = U"ship";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"air_port"].pushRelative(position)) {
-		if (menu_mode != MenuMode::AirPort) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::AirPort;
-			selected_addon = nullptr;
-			mode_str = U"air_port";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::AirPort) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::AirPort;
+			selectedAddon = nullptr;
+			modeStr = U"air_port";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	if (button[U"tile"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Tile) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Tile;
-			selected_addon = nullptr;
-			mode_str = U"tile";
-			show_addons = map->getFitAddons(Array<String>{mode_str});
+		if (menuMode != MenuMode::Tile) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Tile;
+			selectedAddon = nullptr;
+			modeStr = U"tile";
+			showAddons = map->getFitAddons(Array<String>{modeStr});
 			
-			category_buttons.clear();
+			categoryButtons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	
 	if (button[U"delete"].pushRelative(position)) {
-		if (menu_mode != MenuMode::Delete) {
-			releaseBeforeButton(menu_mode);
-			menu_mode = MenuMode::Delete;
-			selected_addon = map->getAllAddons()[U"tile_greenfield"];
-			selected_addon_name = selected_addon->getName();
-			mode_str = U"delete";
-			show_addons.clear();
+		if (menuMode != MenuMode::Delete) {
+			releaseBeforeButton(menuMode);
+			menuMode = MenuMode::Delete;
+			selectedAddon = map->getAllAddons()[U"tile_greenfield"];
+			selectedAddonName = selectedAddon->getName();
+			modeStr = U"delete";
+			showAddons.clear();
 		}
 		else {
-			menu_mode = MenuMode::Cursor;
+			menuMode = MenuMode::Cursor;
 		}
-		need_update = true;
+		needUpdate = true;
 	}
 	
 	if (button[U"rate"].pushRelative(position)) {
-		show_rate_menu = !show_rate_menu;
-		need_update = true;
+		showRateMenu = !showRateMenu;
+		needUpdate = true;
 	}
 	
 	if (button[U"save"].pushRelative(position)) {
@@ -402,17 +402,17 @@ Addon* Menu::draw(bool& need_update) {
 		button[U"save"].release();
 	}
 	
-	if (show_rate_menu) {
+	if (showRateMenu) {
 		if (rateMenu()) {
-			need_update = true;
+			needUpdate = true;
 		}
 	}
 	
-	return selected_addon;
+	return selectedAddon;
 }
 
 void Menu::addonMenu() {
-	if (show_addons.size() == 0) {
+	if (showAddons.size() == 0) {
 		return;
 	}
 	
@@ -420,90 +420,90 @@ void Menu::addonMenu() {
 	Rect(position.x+16, position.y-80, size.width, 38).draw(Color(45, 52, 54, 200));
 	Rect(position.x, position.y-80, 16, 80).draw(Color(45, 52, 54, 200));
 	
-	if (show_addons.size() > 0) {
-		int selected_i = -1, cursor_i = -1;
-		for (int i=0; i<show_addons.size(); i++) {
-			String addon_name = show_addons[i]->getName();
+	if (showAddons.size() > 0) {
+		int selectedI = -1, cursorI = -1;
+		for (int i=0; i<showAddons.size(); i++) {
+			String addonName = showAddons[i]->getName();
 			
-			bool cursor_on = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= position.y-40+32);
-			if (cursor_on || selected_addon_name == addon_name) {
-				show_addons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
+			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= position.y-40+32);
+			if (cursorOn || selectedAddonName == addonName) {
+				showAddons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
 				
 				if (MouseL.down() &&
 					Cursor::Pos().x >= position.x+30 && Cursor::Pos().x <= position.x-30+size.width &&
 					Cursor::Pos().y >= position.y-37 && Cursor::Pos().y <= position.y-37+32) {
-					if (selected_addon_name == addon_name) {
-						selected_addon_name = U"";
-						selected_addon = nullptr;
+					if (selectedAddonName == addonName) {
+						selectedAddonName = U"";
+						selectedAddon = nullptr;
 					}
 					else {
-						selected_addon_name = addon_name;
-						selected_addon = show_addons[i];
+						selectedAddonName = addonName;
+						selectedAddon = showAddons[i];
 					}
 				}
 				
-				selected_i = i;
+				selectedI = i;
 				
-				if (cursor_on || cursor_i == -1) {
-					cursor_i = i;
+				if (cursorOn || cursorI == -1) {
+					cursorI = i;
 				}
 			}
 			else {
-				show_addons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
+				showAddons[i]->drawIcon(PositionStruct{position.x+30+32*i, position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
 			}
 		}
 		
-		if (cursor_i == selected_i && selected_i >= 0) {
+		if (cursorI == selectedI && selectedI >= 0) {
 			// 名前と説明
-			String name_jp = show_addons[selected_i]->getNameJP();
-			(*font16)(name_jp).draw(position.x+30, position.y-80+2);
-			(*font12)(show_addons[selected_i]->getSummary()).draw(position.x+30, position.y-60+2);
+			String nameJP = showAddons[selectedI]->getNameJP();
+			(*font16)(nameJP).draw(position.x+30, position.y-80+2);
+			(*font12)(showAddons[selectedI]->getSummary()).draw(position.x+30, position.y-60+2);
 			
 			// 効果アイコン
-			::map<String, EffectStruct> effects = show_addons[selected_i]->getEffects();
+			::map<String, EffectStruct> effects = showAddons[selectedI]->getEffects();
 			int i = 0;
-			int leftmost = (*font16)(name_jp).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
+			int leftmost = (*font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
-				if (!effect_icons[effect->first].isEmpty()) {
-					effect_icons[effect->first].draw(leftmost+i*48, position.y-75);
+				if (!effectIcons[effect->first].isEmpty()) {
+					effectIcons[effect->first].draw(leftmost+i*48, position.y-75);
 					(*font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, position.y-75);
 					i++;
 				}
 			}
 		}
-		else if (cursor_i >= 0) {
-			String name_jp = show_addons[cursor_i]->getNameJP();
-			(*font16)(name_jp).draw(position.x+30, position.y-80+2);
-			(*font12)(show_addons[cursor_i]->getSummary()).draw(position.x+30, position.y-60+2);
+		else if (cursorI >= 0) {
+			String nameJP = showAddons[cursorI]->getNameJP();
+			(*font16)(nameJP).draw(position.x+30, position.y-80+2);
+			(*font12)(showAddons[cursorI]->getSummary()).draw(position.x+30, position.y-60+2);
 			
 			// 効果アイコン
-			::map<String, EffectStruct> effects = show_addons[cursor_i]->getEffects();
+			::map<String, EffectStruct> effects = showAddons[cursorI]->getEffects();
 			int i = 0;
-			int leftmost = (*font16)(name_jp).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
+			int leftmost = (*font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
-				if (!effect_icons[effect->first].isEmpty()) {
-					effect_icons[effect->first].draw(leftmost+i*48, position.y-75);
+				if (!effectIcons[effect->first].isEmpty()) {
+					effectIcons[effect->first].draw(leftmost+i*48, position.y-75);
 					(*font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, position.y-75);
 					i++;
 				}
 			}
 		}
 		
-		for (int i=0; i<category_buttons.size(); i++) {
-			category_buttons[i].second.put(PositionStruct{0, position.y-37+16*i});
+		for (int i=0; i<categoryButtons.size(); i++) {
+			categoryButtons[i].second.put(PositionStruct{0, position.y-37+16*i});
 			
-			if (category_buttons[i].second.push()) {
-				if (category_buttons[i].second.isActive()) {
-					show_addons = map->getFitAddons(Array<String>{mode_str, category_buttons[i].first});
+			if (categoryButtons[i].second.push()) {
+				if (categoryButtons[i].second.isActive()) {
+					showAddons = map->getFitAddons(Array<String>{modeStr, categoryButtons[i].first});
 					
-					for (int j=0; j<category_buttons.size(); j++) {
+					for (int j=0; j<categoryButtons.size(); j++) {
 						if (j != i) {
-							category_buttons[j].second.release();
+							categoryButtons[j].second.release();
 						}
 					}
 				}
 				else {
-					show_addons = map->getFitAddons(Array<String>{mode_str});
+					showAddons = map->getFitAddons(Array<String>{modeStr});
 				}
 			}
 		}
@@ -513,87 +513,87 @@ void Menu::addonMenu() {
 bool Menu::rateMenu() {
 	Rect(position.x+495+35+16-32*4/2, position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
 	
-	rate_button[U"land_price"].put(PositionStruct{position.x+495+35+16-32*4/2+7, position.y-32*3+5});
-	rate_button[U"crime_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32, position.y-32*3+5});
-	rate_button[U"education_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*2, position.y-32*3+5});
-	rate_button[U"happiness_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*3, position.y-32*3+5});
+	rateButton[U"land_price"].put(PositionStruct{position.x+495+35+16-32*4/2+7, position.y-32*3+5});
+	rateButton[U"crime_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32, position.y-32*3+5});
+	rateButton[U"education_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*2, position.y-32*3+5});
+	rateButton[U"happiness_rate"].put(PositionStruct{position.x+495+35+16-32*4/2+7+32*3, position.y-32*3+5});
 	
-	if (rate_button[U"land_price"].push()) {
-		if (show_rate_name != U"land_price") {
-			show_rate_name = U"land_price";
-			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
-				if (b->first != show_rate_name) {
+	if (rateButton[U"land_price"].push()) {
+		if (showRateName != U"land_price") {
+			showRateName = U"land_price";
+			for (auto b = rateButton.begin(); b != rateButton.end(); b++) {
+				if (b->first != showRateName) {
 					b->second.release();
 				}
 			}
 			
-			map->setShowRate(show_rate_name);
+			map->setShowRate(showRateName);
 			return true;
 		}
 		else {
-			show_rate_name = U"";
-			map->setShowRate(show_rate_name);
-			rate_button[U"land_price"].release();
+			showRateName = U"";
+			map->setShowRate(showRateName);
+			rateButton[U"land_price"].release();
 			return true;
 		}
 	}
 	
-	if (rate_button[U"crime_rate"].push()) {
-		if (show_rate_name != U"crime_rate") {
-			show_rate_name = U"crime_rate";
-			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
-				if (b->first != show_rate_name) {
+	if (rateButton[U"crime_rate"].push()) {
+		if (showRateName != U"crime_rate") {
+			showRateName = U"crime_rate";
+			for (auto b = rateButton.begin(); b != rateButton.end(); b++) {
+				if (b->first != showRateName) {
 					b->second.release();
 				}
 			}
 			
-			map->setShowRate(show_rate_name);
+			map->setShowRate(showRateName);
 			return true;
 		}
 		else {
-			show_rate_name = U"";
-			map->setShowRate(show_rate_name);
-			rate_button[U"crime_rate"].release();
+			showRateName = U"";
+			map->setShowRate(showRateName);
+			rateButton[U"crime_rate"].release();
 			return true;
 		}
 	}
 	
-	if (rate_button[U"education_rate"].push()) {
-		if (show_rate_name != U"education_rate") {
-			show_rate_name = U"education_rate";
-			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
-				if (b->first != show_rate_name) {
+	if (rateButton[U"education_rate"].push()) {
+		if (showRateName != U"education_rate") {
+			showRateName = U"education_rate";
+			for (auto b = rateButton.begin(); b != rateButton.end(); b++) {
+				if (b->first != showRateName) {
 					b->second.release();
 				}
 			}
 			
-			map->setShowRate(show_rate_name);
+			map->setShowRate(showRateName);
 			return true;
 		}
 		else {
-			show_rate_name = U"";
-			map->setShowRate(show_rate_name);
-			rate_button[U"education_rate"].release();
+			showRateName = U"";
+			map->setShowRate(showRateName);
+			rateButton[U"education_rate"].release();
 			return true;
 		}
 	}
 	
-	if (rate_button[U"happiness_rate"].push()) {
-		if (show_rate_name != U"happiness_rate") {
-			show_rate_name = U"happiness_rate";
-			for (auto b = rate_button.begin(); b != rate_button.end(); b++) {
-				if (b->first != show_rate_name) {
+	if (rateButton[U"happiness_rate"].push()) {
+		if (showRateName != U"happiness_rate") {
+			showRateName = U"happiness_rate";
+			for (auto b = rateButton.begin(); b != rateButton.end(); b++) {
+				if (b->first != showRateName) {
 					b->second.release();
 				}
 			}
 			
-			map->setShowRate(show_rate_name);
+			map->setShowRate(showRateName);
 			return true;
 		}
 		else {
-			show_rate_name = U"";
-			map->setShowRate(show_rate_name);
-			rate_button[U"happiness_rate"].release();
+			showRateName = U"";
+			map->setShowRate(showRateName);
+			rateButton[U"happiness_rate"].release();
 			return true;
 		}
 	}

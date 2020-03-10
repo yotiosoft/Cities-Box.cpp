@@ -20,7 +20,7 @@
 #define LINE_FEED_CODE			0	// 改行コードに用いる文字数
 
 namespace specific {
-	Array<FileStruct> getAllFilesName(string folder_path, string extension);
+	Array<FileStruct> getAllFilesName(string folderPath, string extension);
 }
 
 #endif /* Specific_h */

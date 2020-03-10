@@ -12,19 +12,19 @@
 
 class PulldownMenu {
 public:
-	PulldownMenu(Array<String>& arg_list, Font& arg_font, SizeStruct arg_size, PositionStruct arg_position);
+	PulldownMenu(Array<String>& argList, Font& argFont, SizeStruct argSize, PositionStruct argPosition);
 	
 	void draw();
 	
-	int selected_number();
+	int selectedNumber();
 	
 private:
 	Array<String> list;
 	Font font;
 	SizeStruct size;
 	PositionStruct position;
-	int selected_element_num;
-	bool pulling_down;
+	int selectedElementNum;
+	bool pullingDown;
 };
 
 #endif /* PulldownMenu_hpp */

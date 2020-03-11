@@ -882,6 +882,10 @@ int CityMap::getMoney() {
 	return money;
 }
 
+int CityMap::getTemperature() {
+	return temperature;
+}
+
 SizeStruct CityMap::getMapSize() {
 	return mapsize;
 }

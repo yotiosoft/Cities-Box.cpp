@@ -97,6 +97,15 @@ namespace IconFont {
 		RightWithCircle		= 0xf0a9,
 		
 		Clock				= 0xf017,
+		
+		Sunny				= 0xf185,
+		Cloudy				= 0xf0c2,
+		Rainy				= 0xf740,
+		Snowy				= 0xf2dc,
+		
+		TemperatureLow		= 0xf2ca,
+		TemperatureMiddle	= 0xf2c9,
+		TemperatureHigh		= 0xf2c8,
 	};
 }
 /*
@@ -110,6 +119,16 @@ namespace RCOIFcolor {
 	}
 }
 */
+
+namespace WeatherStruct {
+	enum Type {
+		Sunny	= 0,
+		Cloudy	= 1,
+		Rainy	= 2,
+		Snowy	= 3,
+	};
+}
+
 typedef struct ImageStruct {
 	Texture texture;
 	string file_path;

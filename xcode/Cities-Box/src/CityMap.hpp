@@ -122,6 +122,9 @@ public:
 	// 資金の取得
 	int getMoney();
 	
+	// 気温の取得
+	int getTemperature();
+	
 	// マップサイズの取得
 	SizeStruct getMapSize();
 	

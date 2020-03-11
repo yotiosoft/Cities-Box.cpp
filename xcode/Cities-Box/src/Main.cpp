@@ -72,7 +72,7 @@ void Main() {
 	TimeStruct time;
 	
 	// Details Barの設定
-	DetailsBar detailsBar(PositionStruct{Scene::Size().x-400, 10}, &font16);
+	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -143,9 +143,11 @@ void Main() {
 		time = map.cityTime(1);
 		
 		// Details Barの表示
+		detailsBar.printWeather(WeatherStruct::Sunny);
+		detailsBar.printTemperature(map.getTemperature());
+		detailsBar.printTime(time);
 		detailsBar.printPopulation(map.getPopulation());
 		detailsBar.printMoney(map.getMoney());
-		detailsBar.printTime(time);
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す

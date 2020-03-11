@@ -6,6 +6,34 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
+		<key>32A6D9E8-7E9B-4EC8-AF64-F6E152D88993</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogMajorGroupSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
+			<key>fileName</key>
+			<string>32A6D9E8-7E9B-4EC8-AF64-F6E152D88993.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>signature</key>
+			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
+			<key>timeStartedRecording</key>
+			<real>605623332.13136303</real>
+			<key>timeStoppedRecording</key>
+			<real>605623338.45203102</real>
+			<key>title</key>
+			<string>Build target Cities-Box</string>
+			<key>uniqueIdentifier</key>
+			<string>32A6D9E8-7E9B-4EC8-AF64-F6E152D88993</string>
+		</dict>
 		<key>36F5474B-D778-4448-9F14-906A320E1F2B</key>
 		<dict>
 			<key>className</key>
@@ -57,34 +85,6 @@
 			<string>Build target empty</string>
 			<key>uniqueIdentifier</key>
 			<string>A38C3FF8-071F-441B-903B-8508FF5E9110</string>
-		</dict>
-		<key>DD30DA29-1F6F-4717-B5E5-527542FAC3EF</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogMajorGroupSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
-			<key>fileName</key>
-			<string>DD30DA29-1F6F-4717-B5E5-527542FAC3EF.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>signature</key>
-			<string>Cities-Box-cslajqbpskzkruanpisajghbwxby</string>
-			<key>timeStartedRecording</key>
-			<real>605561462.25520504</real>
-			<key>timeStoppedRecording</key>
-			<real>605561469.18825197</real>
-			<key>title</key>
-			<string>Build target Cities-Box</string>
-			<key>uniqueIdentifier</key>
-			<string>DD30DA29-1F6F-4717-B5E5-527542FAC3EF</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

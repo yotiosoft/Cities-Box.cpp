@@ -10,99 +10,99 @@
 Addon::Addon() {
 }
 
-bool Addon::getElement(String str, String search_element_name, String& ret) {
-	string str_utf8 = str.toUTF8();
+bool Addon::getElement(String str, String searchElementName, String& ret) {
+	string strUTF8 = str.toUTF8();
 	
-	if (str_utf8.find(search_element_name.toUTF8()) != string::npos && str_utf8.find("=") != string::npos) {
-		ret = str.substr(str_utf8.find("\"") + 1, str.length() - (str_utf8.find("\"") + 2));
+	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
+		ret = str.substr(strUTF8.find("\"") + 1, str.length() - (strUTF8.find("\"") + 2));
 		return true;
 	}
 	return false;
 }
 
-bool Addon::getElement(String str, String search_element_name, int& ret) {
-	string str_utf8 = str.toUTF8();
+bool Addon::getElement(String str, String searchElementName, int& ret) {
+	string strUTF8 = str.toUTF8();
 	
-	if (str_utf8.find(search_element_name.toUTF8()) != string::npos && str_utf8.find("=") != string::npos) {
-		ret = stoi(str_utf8.substr(str_utf8.find("\"") + 1, str.length() - (str_utf8.find("\"") + 2)));
+	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
+		ret = stoi(strUTF8.substr(strUTF8.find("\"") + 1, str.length() - (strUTF8.find("\"") + 2)));
 		return true;
 	}
 	return false;
 }
 
-bool Addon::getTypes(String str, String search_element_name, Array<String>& ret) {
-	String a_ret;
-	if (getElement(str, search_element_name, a_ret)) {
-		ret = split(a_ret, U", ");
+bool Addon::getTypes(String str, String searchElementName, Array<String>& ret) {
+	String aRet;
+	if (getElement(str, searchElementName, aRet)) {
+		ret = split(aRet, U", ");
 		return true;
 	}
 	return false;
 }
 
-void Addon::set_alpha_color(Image& image_temp, Color transparent_rgb) {
-	for (int h=0; h<image_temp.height(); h++) {
-		for (int w=0; w<image_temp.width(); w++) {
-			if (image_temp[h][w].r == transparent_rgb.r && image_temp[h][w].g == transparent_rgb.g && image_temp[h][w].b == transparent_rgb.b) {
-				image_temp[h][w].a = 0;
+void Addon::setAlphaColor(Image& imageTemp, Color transparentRGB) {
+	for (int h=0; h<imageTemp.height(); h++) {
+		for (int w=0; w<imageTemp.width(); w++) {
+			if (imageTemp[h][w].r == transparentRGB.r && imageTemp[h][w].g == transparentRGB.g && imageTemp[h][w].b == transparentRGB.b) {
+				imageTemp[h][w].a = 0;
 			}
 		}
 	}
 }
 
-bool Addon::load(FileStruct new_file_path, String loading_addons_set_name) {
-	if (FileSystem::Extension(Unicode::Widen(new_file_path.file_path)) == U"adat") {
-		return loadADAT(new_file_path, loading_addons_set_name);
+bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
+	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
+		return loadADAT(newFilePath, loadingAddonsSetName);
 	}
-	else if (FileSystem::Extension(Unicode::Widen(new_file_path.file_path)) == U"adj") {
-		return loadADJ(new_file_path, loading_addons_set_name);
+	else if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adj") {
+		return loadADJ(newFilePath, loadingAddonsSetName);
 	}
 	return false;
 }
 
-bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
-	// ÉAÉhÉIÉìÉtÉ@ÉCÉãÇÃì«Ç›çûÇ›
-	addon_file_path = new_file_path;
+bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
+	// „Ç¢„Éâ„Ç™„É≥„Éï„Ç°„Ç§„É´„ÅÆË™≠„ÅøËæº„Åø
+	addonFilePath = newFilePath;
 	
-	TextReader addon_data(Unicode::Widen(addon_file_path.file_path));
-	string str_temp_utf8;
-	String str_temp;
+	TextReader addonData(Unicode::Widen(addonFilePath.file_path));
+	string strTempUTF8;
+	String strTemp;
 	
-	// äeóvëfÇÃì«Ç›èoÇµ
-	String current_loading_type = U"";
-	String current_direction = U"";
+	// ÂêÑË¶ÅÁ¥†„ÅÆË™≠„ÅøÂá∫„Åó
+	String currentLoadingType = U"";
+	String currentDirection = U"";
 	
-	bool loading_type = false;
-	bool loading_direction = false;
+	bool loadingType = false;
+	bool loadingDirection = false;
 	
-	Color transparent_color;
-	transparent_color.r = 0;
-	transparent_color.g = 0;
-	transparent_color.b = 0;
+	Color transparentColor;
+	transparentColor.r = 0;
+	transparentColor.g = 0;
+	transparentColor.b = 0;
 	
 	bool categories[3] = {false, false, false};
 	bool belong = false;
 	
-	while (addon_data.readLine(str_temp)) {
-		str_temp = str_temp.substr(0, str_temp.length()-LINE_FEED_CODE);
-		str_temp_utf8 = str_temp.toUTF8();
+	while (addonData.readLine(strTemp)) {
+		strTemp = strTemp.substr(0, strTemp.length()-LINE_FEED_CODE);
+		strTempUTF8 = strTemp.toUTF8();
 		
-		// ñºëO
-		getElement(str_temp, U"addon_name", addon_name);
-		getElement(str_temp, U"addon_jp_name", addon_jp_name);
+		// ÂêçÂâç
+		getElement(strTemp, U"addon_name", addonName);
+		getElement(strTemp, U"addon_jp_name", addonJPName);
 		
-		// êªçÏé“ñº
-		getElement(str_temp, U"addon_author", addon_author);
+		// Ë£Ω‰ΩúËÄÖÂêç
+		getElement(strTemp, U"addon_author", addonAuthor);
 		
-		// ê‡ñæï∂
-		getElement(str_temp, U"addon_summary", addon_summary);
+		// Ë™¨ÊòéÊñá
+		getElement(strTemp, U"addon_summary", addonSummary);
 		
-		// èäëÆÇ∑ÇÈÉAÉhÉIÉìÉZÉbÉgÇÃñºëO
-		String belong_temp;
-		if (getElement(str_temp, U"belong_addons_set_name", belong_temp) && !belong) {
-			belong_addons_set_name << belong_temp;
+		// ÊâÄÂ±û„Åô„Çã„Ç¢„Éâ„Ç™„É≥„Çª„ÉÉ„Éà„ÅÆÂêçÂâç
+		String belongTemp;
+		if (getElement(strTemp, U"belong_addons_set_name", belongTemp) && !belong) {
+			belongAddonsSetName << belongTemp;
 			
-			if (belong_temp.length() > 0) {
-				if (belong_temp != loading_addons_set_name || !(loading_addons_set_name.length() > 0)) {
+			if (belongTemp.length() > 0) {
+				if (belongTemp != loadingAddonsSetName || !(loadingAddonsSetName.length() > 0)) {
 					return false;
 				}
 			}
@@ -110,264 +110,264 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 			belong = true;
 		}
 		
-		// ÉAÉCÉRÉìâÊëúÇÃÉpÉX
-		getElement(str_temp, U"addon_icon", addon_icon);
+		// „Ç¢„Ç§„Ç≥„É≥ÁîªÂÉè„ÅÆ„Éë„Çπ
+		getElement(strTemp, U"addon_icon", addonIcon);
 		
-		// ÉAÉCÉRÉìÇì«Ç›çûÇ›
-		Image icon_image(FileSystem::ParentPath(Unicode::Widen(addon_file_path.file_path))+addon_icon);
-		set_alpha_color(icon_image, Color(0, 0, 0));
-		icon_texture = Texture(icon_image);
+		// „Ç¢„Ç§„Ç≥„É≥„ÇíË™≠„ÅøËæº„Åø
+		Image iconImage(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+addonIcon);
+		setAlphaColor(iconImage, Color(0, 0, 0));
+		iconTexture = Texture(iconImage);
 		
-		// ÉAÉhÉIÉìÇÃtype
-		String category_name_temp;
-		getElement(str_temp, U"addon_type", category_name_temp);
+		// „Ç¢„Éâ„Ç™„É≥„ÅÆtype
+		String categoryNameTemp;
+		getElement(strTemp, U"addon_type", categoryNameTemp);
 		
-		if (category_name_temp.length() > 0 && !categories[0]) {
-			string category_name_temp_utf8 = category_name_temp.toUTF8();
+		if (categoryNameTemp.length() > 0 && !categories[0]) {
+			string categoryNameTempUTF8 = categoryNameTemp.toUTF8();
 			
-			transform(category_name_temp_utf8.begin(), category_name_temp_utf8.end(), category_name_temp_utf8.begin(), ::tolower);
+			transform(categoryNameTempUTF8.begin(), categoryNameTempUTF8.end(), categoryNameTempUTF8.begin(), ::tolower);
 			
-			if (category_name_temp_utf8.find("road") != string::npos && category_name_temp_utf8.find("railroad") == string::npos) {
-				addon_categories << U"connectable_type";
-				addon_categories << U"road";
-				addon_categories << U"car";
+			if (categoryNameTempUTF8.find("road") != string::npos && categoryNameTempUTF8.find("railroad") == string::npos) {
+				addonCategories << U"connectable_type";
+				addonCategories << U"road";
+				addonCategories << U"car";
 			}
-			else if (category_name_temp_utf8.find("promenade") != string::npos) {
-				addon_categories << U"connectable_type";
-				addon_categories << U"road";
-				addon_categories << U"promenade";
+			else if (categoryNameTempUTF8.find("promenade") != string::npos) {
+				addonCategories << U"connectable_type";
+				addonCategories << U"road";
+				addonCategories << U"promenade";
 			}
-			else if (category_name_temp_utf8.find("railroad") != string::npos) {
-				addon_categories << U"connectable_type";
-				addon_categories << U"train";
-				addon_categories << U"railroad";
+			else if (categoryNameTempUTF8.find("railroad") != string::npos) {
+				addonCategories << U"connectable_type";
+				addonCategories << U"train";
+				addonCategories << U"railroad";
 			}
-			else if (category_name_temp_utf8.find("station") != string::npos) {
-				addon_categories << U"connectable_type";
-				addon_categories << U"train";
-				addon_categories << U"station";
+			else if (categoryNameTempUTF8.find("station") != string::npos) {
+				addonCategories << U"connectable_type";
+				addonCategories << U"train";
+				addonCategories << U"station";
 			}
-			else if (category_name_temp_utf8.find("residential") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"residential";
+			else if (categoryNameTempUTF8.find("residential") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"residential";
 			}
-			else if (category_name_temp_utf8.find("commercial") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"commercial";
+			else if (categoryNameTempUTF8.find("commercial") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"commercial";
 			}
-			else if (category_name_temp_utf8.find("office") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"office";
+			else if (categoryNameTempUTF8.find("office") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"office";
 			}
-			else if (category_name_temp_utf8.find("industrial") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"industrial";
+			else if (categoryNameTempUTF8.find("industrial") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"industrial";
 			}
-			else if (category_name_temp_utf8.find("farm") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"farm";
+			else if (categoryNameTempUTF8.find("farm") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"farm";
 			}
-			else if (category_name_temp_utf8.find("public") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"public";
+			else if (categoryNameTempUTF8.find("public") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"public";
 			}
-			else if (category_name_temp_utf8.find("park") != string::npos) {
-				addon_categories << U"object_type";
-				addon_categories << U"park";
+			else if (categoryNameTempUTF8.find("park") != string::npos) {
+				addonCategories << U"object_type";
+				addonCategories << U"park";
 			}
-			else if (category_name_temp_utf8.find("port") != string::npos) {
-				addon_categories << U"on_waterway_type";
-				addon_categories << U"ship";
-				addon_categories << U"port";
+			else if (categoryNameTempUTF8.find("port") != string::npos) {
+				addonCategories << U"on_waterway_type";
+				addonCategories << U"ship";
+				addonCategories << U"port";
 			}
-			else if (category_name_temp_utf8.find("waterway") != string::npos) {
-				addon_categories << U"connectable_type";
-				addon_categories << U"ship";
-				addon_categories << U"waterway";
+			else if (categoryNameTempUTF8.find("waterway") != string::npos) {
+				addonCategories << U"connectable_type";
+				addonCategories << U"ship";
+				addonCategories << U"waterway";
 			}
-			else if (category_name_temp_utf8.find("airport") != string::npos) {
-				addon_categories << U"airport";
+			else if (categoryNameTempUTF8.find("airport") != string::npos) {
+				addonCategories << U"airport";
 			}
-			else if (category_name_temp_utf8.find("tile") != string::npos) {
-				addon_categories << U"put_type";
-				addon_categories << U"tile";
-			}
-			
-			if (category_name_temp_utf8.find("low_density") != string::npos) {
-				addon_categories << U"low_density";
-			}
-			else if (category_name_temp_utf8.find("high_density") != string::npos) {
-				addon_categories << U"high_density";
+			else if (categoryNameTempUTF8.find("tile") != string::npos) {
+				addonCategories << U"put_type";
+				addonCategories << U"tile";
 			}
 			
-			if (category_name_temp_utf8.find("two_lane") != string::npos) {
-				addon_categories << U"two_lane";
+			if (categoryNameTempUTF8.find("low_density") != string::npos) {
+				addonCategories << U"low_density";
+			}
+			else if (categoryNameTempUTF8.find("high_density") != string::npos) {
+				addonCategories << U"high_density";
+			}
+			
+			if (categoryNameTempUTF8.find("two_lane") != string::npos) {
+				addonCategories << U"two_lane";
 			}
 			
 			categories[0] = true;
 		}
 		
-		String category_name_temp_2;
-		getElement(str_temp, U"addon_type_2", category_name_temp_2);
+		String categoryNameTemp2;
+		getElement(strTemp, U"addon_type_2", categoryNameTemp2);
 		
-		if (category_name_temp_2.length() > 0 && !categories[1]) {
-			string category_name_temp_2_utf8 = category_name_temp_2.toUTF8();
+		if (categoryNameTemp2.length() > 0 && !categories[1]) {
+			string categoryNameTemp2UTF8 = categoryNameTemp2.toUTF8();
 			
-			transform(category_name_temp_2_utf8.begin(), category_name_temp_2_utf8.end(), category_name_temp_2_utf8.begin(), ::tolower);
+			transform(categoryNameTemp2UTF8.begin(), categoryNameTemp2UTF8.end(), categoryNameTemp2UTF8.begin(), ::tolower);
 			
-			if (category_name_temp_2_utf8.find("city_hall") != string::npos) {
-				addon_categories << U"city_hall";
+			if (categoryNameTemp2UTF8.find("city_hall") != string::npos) {
+				addonCategories << U"city_hall";
 			}
-			else if (category_name_temp_2_utf8.find("education") != string::npos) {
-				addon_categories << U"education";
+			else if (categoryNameTemp2UTF8.find("education") != string::npos) {
+				addonCategories << U"education";
 			}
-			else if (category_name_temp_2_utf8.find("post_office") != string::npos) {
-				addon_categories << U"post_office";
+			else if (categoryNameTemp2UTF8.find("post_office") != string::npos) {
+				addonCategories << U"post_office";
 			}
-			else if (category_name_temp_2_utf8.find("education") != string::npos) {
-				addon_categories << U"education";
+			else if (categoryNameTemp2UTF8.find("education") != string::npos) {
+				addonCategories << U"education";
 			}
-			else if (category_name_temp_2_utf8.find("fire_depertment") != string::npos) {
-				addon_categories << U"fire_depertment";
+			else if (categoryNameTemp2UTF8.find("fire_depertment") != string::npos) {
+				addonCategories << U"fire_depertment";
 			}
-			else if (category_name_temp_2_utf8.find("police_station") != string::npos) {
-				addon_categories << U"police";
-				addon_categories << U"police_station";
+			else if (categoryNameTemp2UTF8.find("police_station") != string::npos) {
+				addonCategories << U"police";
+				addonCategories << U"police_station";
 			}
 			
 			categories[1] = true;
 		}
 		
-		String category_name_temp_3;
-		getElement(str_temp, U"addon_type_3", category_name_temp_3);
+		String categoryNameTemp3;
+		getElement(strTemp, U"addon_type_3", categoryNameTemp3);
 		
-		if (category_name_temp_3.length() > 0 && !categories[2]) {
-			string category_name_temp_3_utf8 = category_name_temp_3.toUTF8();
+		if (categoryNameTemp3.length() > 0 && !categories[2]) {
+			string categoryNameTemp3UTF8 = categoryNameTemp3.toUTF8();
 			
-			transform(category_name_temp_3_utf8.begin(), category_name_temp_3_utf8.end(), category_name_temp_3_utf8.begin(), ::tolower);
+			transform(categoryNameTemp3UTF8.begin(), categoryNameTemp3UTF8.end(), categoryNameTemp3UTF8.begin(), ::tolower);
 			
-			if (category_name_temp_3_utf8.find("elementary-school") != string::npos) {
-				addon_categories << U"elementary_school";
+			if (categoryNameTemp3UTF8.find("elementary-school") != string::npos) {
+				addonCategories << U"elementary_school";
 			}
-			else if (category_name_temp_3_utf8.find("junior-high-school") != string::npos) {
-				addon_categories << U"junior_high_school";
+			else if (categoryNameTemp3UTF8.find("junior-high-school") != string::npos) {
+				addonCategories << U"junior_high_school";
 			}
-			else if (category_name_temp_3_utf8.find("high-school") != string::npos) {
-				addon_categories << U"high_school";
+			else if (categoryNameTemp3UTF8.find("high-school") != string::npos) {
+				addonCategories << U"high_school";
 			}
-			else if (category_name_temp_3_utf8.find("university") != string::npos) {
-				addon_categories << U"university";
+			else if (categoryNameTemp3UTF8.find("university") != string::npos) {
+				addonCategories << U"university";
 			}
 			
 			categories[2] = true;
 		}
 		
-		// ç≈ëÂé˚óeêlêî
-		getElement(str_temp, U"maximum_capacity", maximum_capacity);
+		// ÊúÄÂ§ßÂèéÂÆπ‰∫∫Êï∞
+		getElement(strTemp, U"maximum_capacity", maximumCapacity);
 		
-		// åöï®ÇÃå¯â 
-		getElement(str_temp, U"land_price_influence", effects[U"land_price"].influence);
-		getElement(str_temp, U"land_price_influence_grid", effects[U"land_price"].grid);
+		// Âª∫Áâ©„ÅÆÂäπÊûú
+		getElement(strTemp, U"land_price_influence", effects[U"land_price"].influence);
+		getElement(strTemp, U"land_price_influence_grid", effects[U"land_price"].grid);
 		
-		getElement(str_temp, U"education_rate_influence", effects[U"education_rate"].influence);
-		getElement(str_temp, U"education_rate_influence_grid", effects[U"education_rate"].grid);
+		getElement(strTemp, U"education_rate_influence", effects[U"education_rate"].influence);
+		getElement(strTemp, U"education_rate_influence_grid", effects[U"education_rate"].grid);
 		
-		getElement(str_temp, U"crime_rate_influence", effects[U"crime_rate"].influence);
-		getElement(str_temp, U"crime_rate_influence_grid", effects[U"crime_rate"].grid);
+		getElement(strTemp, U"crime_rate_influence", effects[U"crime_rate"].influence);
+		getElement(strTemp, U"crime_rate_influence_grid", effects[U"crime_rate"].grid);
 		
-		getElement(str_temp, U"noise_influence", effects[U"noise"].influence);
-		getElement(str_temp, U"noise_influence_grid", effects[U"noise"].grid);
+		getElement(strTemp, U"noise_influence", effects[U"noise"].influence);
+		getElement(strTemp, U"noise_influence_grid", effects[U"noise"].grid);
 		
-		// égópÇ∑ÇÈtype
-		getTypes(str_temp, U"use_types", use_types);
+		// ‰ΩøÁî®„Åô„Çãtype
+		getTypes(strTemp, U"use_types", useTypes);
 		
-		// äetypeÇÃì‡óeÇéÊìæ
-		// åªç›ì«çûíÜÇÃtypeÇéÊìæ
-		for (int i=0; i<use_types.size(); i++) {
-			if (str_temp_utf8.find(use_types[i].toUTF8() + " {") == 0 && !loading_type) {
-				if (use_types[i] == U"null") {
-					use_types[i] = U"normal";
+		// ÂêÑtype„ÅÆÂÜÖÂÆπ„ÇíÂèñÂæó
+		// ÁèæÂú®Ë™≠Ëæº‰∏≠„ÅÆtype„ÇíÂèñÂæó
+		for (int i=0; i<useTypes.size(); i++) {
+			if (strTempUTF8.find(useTypes[i].toUTF8() + " {") == 0 && !loadingType) {
+				if (useTypes[i] == U"null") {
+					useTypes[i] = U"normal";
 				}
 				
-				current_loading_type = use_types[i];
-				loading_type = true;
+				currentLoadingType = useTypes[i];
+				loadingType = true;
 			}
 		}
-		if (str_temp_utf8.find("}") == 0 && !loading_direction) {
-			// typeÇ™êÿÇËë÷ÇÌÇÈÇ∆Ç´Ç…TextureÇÃê›íË
-			if (types[current_loading_type].image.length() > 0) {
-				Image itemp(Unicode::Widen(addon_file_path.folder_path)+U"/"+types[current_loading_type].image);
-				set_alpha_color(itemp, transparent_color);
-				types[current_loading_type].texture = Texture(itemp);
+		if (strTempUTF8.find("}") == 0 && !loadingDirection) {
+			// type„ÅåÂàá„ÇäÊõø„Çè„Çã„Å®„Åç„Å´Texture„ÅÆË®≠ÂÆö
+			if (types[currentLoadingType].image.length() > 0) {
+				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
+				setAlphaColor(iTemp, transparentColor);
+				types[currentLoadingType].texture = Texture(iTemp);
 			}
 			
-			current_direction = U"";
-			loading_type = false;
+			currentDirection = U"";
+			loadingType = false;
 		}
 		
-		if (current_loading_type != U"") {
-			// âÊëúÇÃÉpÉX
-			getElement(str_temp, U"image", types[current_loading_type].image);
+		if (currentLoadingType != U"") {
+			// ÁîªÂÉè„ÅÆ„Éë„Çπ
+			getElement(strTemp, U"image", types[currentLoadingType].image);
 			
-			// ìßâﬂêF
-			String rgb_str;
-			getElement(str_temp, U"transparent_color", rgb_str);
+			// ÈÄèÈÅéËâ≤
+			String RGBStr;
+			getElement(strTemp, U"transparent_color", RGBStr);
 			
-			if (rgb_str.length() > 0) {
-				Array<String> rgb_strv = split(rgb_str, U", ");
+			if (RGBStr.length() > 0) {
+				Array<String> RGBStrV = split(RGBStr, U", ");
 				
-				if (rgb_strv.size() == 3) {
-					transparent_color.r = stoi(rgb_strv[0].toUTF8());
-					transparent_color.g = stoi(rgb_strv[1].toUTF8());
-					transparent_color.b = stoi(rgb_strv[2].toUTF8());
+				if (RGBStrV.size() == 3) {
+					transparentColor.r = stoi(RGBStrV[0].toUTF8());
+					transparentColor.g = stoi(RGBStrV[1].toUTF8());
+					transparentColor.b = stoi(RGBStrV[2].toUTF8());
 				}
 			}
 			
-			// ÉiÉCÉgÉ}ÉXÉNâÊëúÇÃÉpÉX
-			getElement(str_temp, U"night_mask", types[current_loading_type].night_mask);
+			// „Éä„Ç§„Éà„Éû„Çπ„ÇØÁîªÂÉè„ÅÆ„Éë„Çπ
+			getElement(strTemp, U"night_mask", types[currentLoadingType].nightMask);
 			
-			// typeÇ…ä‹Ç‹ÇÍÇÈï˚å¸Ç∆äeï˚å¸ÇÃèÓïÒÇéÊìæ
-			getTypes(str_temp, U"direction", types[current_loading_type].direction_names);
+			// type„Å´Âê´„Åæ„Çå„ÇãÊñπÂêë„Å®ÂêÑÊñπÂêë„ÅÆÊÉÖÂ†±„ÇíÂèñÂæó
+			getTypes(strTemp, U"direction", types[currentLoadingType].directionNames);
 			
-			for (int i=0; i<types[current_loading_type].direction_names.size(); i++) {
-				if (str_temp_utf8.find(types[current_loading_type].direction_names[i].toUTF8()+" {") != string::npos && !loading_direction) {
-					if (types[current_loading_type].direction_names[i] == U"null") {
-						types[current_loading_type].direction_names[i] = U"normal";
+			for (int i=0; i<types[currentLoadingType].directionNames.size(); i++) {
+				if (strTempUTF8.find(types[currentLoadingType].directionNames[i].toUTF8()+" {") != string::npos && !loadingDirection) {
+					if (types[currentLoadingType].directionNames[i] == U"null") {
+						types[currentLoadingType].directionNames[i] = U"normal";
 					}
-					current_direction = types[current_loading_type].direction_names[i];
+					currentDirection = types[currentLoadingType].directionNames[i];
 				}
 			}
-			if (str_temp_utf8.find("}") != string::npos && loading_direction) {
-				current_direction = U"";
-				loading_direction = false;
+			if (strTempUTF8.find("}") != string::npos && loadingDirection) {
+				currentDirection = U"";
+				loadingDirection = false;
 			}
 			
-			if (current_direction != U"") {
+			if (currentDirection != U"") {
 				AddonDirectionStruct direction_temp;
 				
-				// ÉAÉhÉIÉìÇÃëÂÇ´Ç≥
-				getElement(str_temp, U"size_x", direction_temp.size_width);		// â°
-				getElement(str_temp, U"size_y", direction_temp.size_height);		// èc
+				// „Ç¢„Éâ„Ç™„É≥„ÅÆÂ§ß„Åç„Åï
+				getElement(strTemp, U"size_x", direction_temp.sizeWidth);		// Ê®™
+				getElement(strTemp, U"size_y", direction_temp.sizeHeight);		// Á∏¶
 				
-				// ÉAÉhÉIÉìÇ™êËÇﬂÇÈÉ}ÉXÇÃêî
-				getElement(str_temp, U"chip_x", direction_temp.chip_x);			// â°
-				getElement(str_temp, U"chip_y", direction_temp.chip_y);			// èc
+				// „Ç¢„Éâ„Ç™„É≥„ÅåÂç†„ÇÅ„Çã„Éû„Çπ„ÅÆÊï∞
+				getElement(strTemp, U"chip_x", direction_temp.chipX);			// Ê®™
+				getElement(strTemp, U"chip_y", direction_temp.chipY);			// Á∏¶
 				
-				// âÊëúè„ÇÃç∂è„ÇÃç¿ïW
-				getElement(str_temp, U"top_left_x", direction_temp.top_left_x);
-				getElement(str_temp, U"top_left_y", direction_temp.top_left_y);
+				// ÁîªÂÉè‰∏ä„ÅÆÂ∑¶‰∏ä„ÅÆÂ∫ßÊ®ô
+				getElement(strTemp, U"top_left_x", direction_temp.topLeftX);
+				getElement(strTemp, U"top_left_y", direction_temp.topLeftY);
 				
-				// âÊñ è„ÇÃâEâ∫ÇÃç¿ïW
-				getElement(str_temp, U"bottom_right_x", direction_temp.bottom_right_x);
-				getElement(str_temp, U"bottom_right_y", direction_temp.bottom_right_y);
+				// ÁîªÈù¢‰∏ä„ÅÆÂè≥‰∏ã„ÅÆÂ∫ßÊ®ô
+				getElement(strTemp, U"bottom_right_x", direction_temp.bottomRightX);
+				getElement(strTemp, U"bottom_right_y", direction_temp.bottomRightY);
 				
-				types[current_loading_type].directions[current_direction] = direction_temp;
+				types[currentLoadingType].directions[currentDirection] = direction_temp;
 			}
 		}
 	}
 	
 	if (!belong) {
-		belong_addons_set_name << U"Normal";
+		belongAddonsSetName << U"Normal";
 	}
 	
 	converter();
@@ -375,15 +375,16 @@ bool Addon::loadADAT(FileStruct new_file_path, String loading_addons_set_name) {
 	return true;
 }
 
-bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
-	addon_file_path = new_file_path;
-	JSONReader addon_data(Unicode::Widen(addon_file_path.file_path));
+bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
+	addonFilePath = newFilePath;
+	JSONReader addonData(Unicode::Widen(addonFilePath.file_path));
 	
-	belong_addons_set_name = addon_data[U"Belong_addon_set_name"].getArray<String>();
+	belongAddonsSetName = addonData[U"Belong_addon_set_name"].getArray<String>();
 	bool belong = false;
-	for (int i=0; i<belong_addons_set_name.size(); i++) {
-		if (belong_addons_set_name[i].length() > 0) {
-			if (belong_addons_set_name[i] == loading_addons_set_name) {
+	for (int i=0; i<belongAddonsSetName.size(); i++) {
+		cout << "  " << addonData[U"name"].getString() << ":" << belongAddonsSetName[i] << endl;
+		if (belongAddonsSetName[i].length() > 0) {
+			if (belongAddonsSetName[i] == loading_addons_set_name) {
 				belong = true;
 			}
 		}
@@ -392,59 +393,59 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 		return false;
 	}
 	
-	addon_name = addon_data[U"name"].getString();
-	addon_jp_name = addon_data[U"jp_name"].getString();
+	addonName = addonData[U"name"].getString();
+	addonJPName = addonData[U"jp_name"].getString();
 	
-	addon_author = addon_data[U"author"].getString();
-	addon_summary = addon_data[U"summary"].getString();
+	addonAuthor = addonData[U"author"].getString();
+	addonSummary = addonData[U"summary"].getString();
 	
-	addon_icon = addon_data[U"icon"].getString();
+	addonIcon = addonData[U"icon"].getString();
 	
-	// ÉAÉCÉRÉìÇì«Ç›çûÇ›
-	Image icon_image(FileSystem::ParentPath(Unicode::Widen(addon_file_path.file_path))+addon_icon);
-	set_alpha_color(icon_image, Color(0, 0, 0));
-	icon_texture = Texture(icon_image);
+	// „Ç¢„Ç§„Ç≥„É≥„ÇíË™≠„ÅøËæº„Åø
+	Image iconImage(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+addonIcon);
+	setAlphaColor(iconImage, Color(0, 0, 0));
+	iconTexture = Texture(iconImage);
 	
-	// ÉJÉeÉSÉä
-	addon_categories = addon_data[U"Categories"].getArray<String>();
+	// „Ç´„ÉÜ„Ç¥„É™
+	addonCategories = addonData[U"Categories"].getArray<String>();
 	
-	// åöï®ÇÃå¯â 
-	for (const auto& effect : addon_data[U"effects"].objectView()) {
+	// Âª∫Áâ©„ÅÆÂäπÊûú
+	for (const auto& effect : addonData[U"effects"].objectView()) {
 		effects[effect.name].influence = effect.value[U"influence"].get<int>();
 		effects[effect.name].grid = effect.value[U"grid"].get<int>();
 	}
 	
-	use_types = addon_data[U"Use_types"].getArray<String>();
+	useTypes = addonData[U"Use_types"].getArray<String>();
 	
-	for (const auto& type : addon_data[U"Types"].arrayView()) {
-		String type_name = type[U"type_name"].getString();
+	for (const auto& type : addonData[U"Types"].arrayView()) {
+		String typeName = type[U"type_name"].getString();
 		
-		types[type_name].image = type[U"image"].getString();
+		types[typeName].image = type[U"image"].getString();
 		
-		types[type_name].transparent_color.r = type[U"transparent_color.R"].get<int>();
-		types[type_name].transparent_color.g = type[U"transparent_color.G"].get<int>();
-		types[type_name].transparent_color.b = type[U"transparent_color.B"].get<int>();
+		types[typeName].transparentColor.r = type[U"transparent_color.R"].get<int>();
+		types[typeName].transparentColor.g = type[U"transparent_color.G"].get<int>();
+		types[typeName].transparentColor.b = type[U"transparent_color.B"].get<int>();
 		
-		Image itemp(Unicode::Widen(addon_file_path.folder_path)+U"/"+types[type_name].image);
-		set_alpha_color(itemp, Color(types[type_name].transparent_color.r, types[type_name].transparent_color.g, types[type_name].transparent_color.b));
-		types[type_name].texture = Texture(itemp);
+		Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].image);
+		setAlphaColor(iTemp, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
+		types[typeName].texture = Texture(iTemp);
 		
-		types[type_name].direction_names = type[U"direction_names"].getArray<String>();
+		types[typeName].directionNames = type[U"direction_names"].getArray<String>();
 		
 		for (const auto& direction : type[U"Directions"].arrayView()) {
 			String direction_name = direction[U"direction_name"].getString();
 			
-			types[type_name].directions[direction_name].size_width = direction[U"size.width"].get<int>();
-			types[type_name].directions[direction_name].size_height = direction[U"size.height"].get<int>();
+			types[typeName].directions[direction_name].sizeWidth = direction[U"size.width"].get<int>();
+			types[typeName].directions[direction_name].sizeHeight = direction[U"size.height"].get<int>();
 			
-			types[type_name].directions[direction_name].chip_x = direction[U"squares.width"].get<int>();
-			types[type_name].directions[direction_name].chip_y = direction[U"squares.height"].get<int>();
+			types[typeName].directions[direction_name].chipX = direction[U"squares.width"].get<int>();
+			types[typeName].directions[direction_name].chipY = direction[U"squares.height"].get<int>();
 			
-			types[type_name].directions[direction_name].top_left_x = direction[U"top_left.x"].get<int>();
-			types[type_name].directions[direction_name].top_left_y = direction[U"top_left.y"].get<int>();
+			types[typeName].directions[direction_name].topLeftX = direction[U"top_left.x"].get<int>();
+			types[typeName].directions[direction_name].topLeftY = direction[U"top_left.y"].get<int>();
 			
-			types[type_name].directions[direction_name].bottom_right_x = direction[U"bottom_right.x"].get<int>();
-			types[type_name].directions[direction_name].bottom_right_y = direction[U"bottom_right.y"].get<int>();
+			types[typeName].directions[direction_name].bottomRightX = direction[U"bottom_right.x"].get<int>();
+			types[typeName].directions[direction_name].bottomRightY = direction[U"bottom_right.y"].get<int>();
 		}
 	}
 	
@@ -452,19 +453,19 @@ bool Addon::loadADJ(FileStruct new_file_path, String loading_addons_set_name) {
 }
 
 String Addon::getName() {
-	return addon_name;
+	return addonName;
 }
 
 String Addon::getNameJP() {
-	return addon_jp_name;
+	return addonJPName;
 }
 
 String Addon::getAuthorName() {
-	return addon_author;
+	return addonAuthor;
 }
 
 String Addon::getSummary() {
-	return addon_summary;
+	return addonSummary;
 }
 /*
 String Addon::getTypeName(int type_num) {
@@ -479,35 +480,35 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 	return ite->first;
 }
 */
-String Addon::getTypeName(int type_num) {
-	return use_types[type_num];
+String Addon::getTypeName(int typeNum) {
+	return useTypes[typeNum];
 }
 
-String Addon::getDirectionName(int type_num, int direction_num) {
-	return types[getTypeName(type_num)].direction_names[direction_num];
+String Addon::getDirectionName(int typeNum, int directionNum) {
+	return types[getTypeName(typeNum)].directionNames[directionNum];
 }
 
-String Addon::getDirectionName(String type_name, int direction_num) {
-	return types[type_name].direction_names[direction_num];
+String Addon::getDirectionName(String typeName, int directionNum) {
+	return types[typeName].directionNames[directionNum];
 }
 
 Array<String> Addon::getCategories() {
-	return addon_categories;
+	return addonCategories;
 }
 
-bool Addon::isInCategories(String search_category) {
-	for (int i=0; i<addon_categories.size(); i++) {
-		if (addon_categories[i] == search_category) {
+bool Addon::isInCategories(String searchCategory) {
+	for (int i=0; i<addonCategories.size(); i++) {
+		if (addonCategories[i] == searchCategory) {
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Addon::isInCategories(Array<String> search_categories) {
-	for (int i=0; i<addon_categories.size(); i++) {
-		for (int j=0; j<search_categories.size(); j++) {
-			if (addon_categories[i] == search_categories[j]) {
+bool Addon::isInCategories(Array<String> searchCategories) {
+	for (int i=0; i<addonCategories.size(); i++) {
+		for (int j=0; j<searchCategories.size(); j++) {
+			if (addonCategories[i] == searchCategories[j]) {
 				return true;
 			}
 		}
@@ -519,24 +520,24 @@ map<String, EffectStruct> Addon::getEffects() {
 	return effects;
 }
 
-void Addon::drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size) {
-	icon_texture(left_top.x, left_top.y, size.width, size.height).draw(position.x, position.y);
+void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size) {
+	iconTexture(leftTop.x, leftTop.y, size.width, size.height).draw(position.x, position.y);
 }
 
-CoordinateStruct Addon::getUseTiles(String type_name, String direction_name) {
-	return CoordinateStruct{types[type_name].directions[direction_name].chip_x, types[type_name].directions[direction_name].chip_y};
+CoordinateStruct Addon::getUseTiles(String typeName, String directionName) {
+	return CoordinateStruct{types[typeName].directions[directionName].chipX, types[typeName].directions[directionName].chipY};
 }
 
-PositionStruct Addon::getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
-	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
-	if (direction_temp != nullptr)
-		position.y = position.y + CHIP_SIZE/2 - direction_temp->size_height + CHIP_SIZE/4 * (max(1, use_tiles.x) - 1 - tiles_count.x) + CHIP_SIZE*3/4 * tiles_count.y;
+PositionStruct Addon::getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
+	AddonDirectionStruct* directionTemp = &(types[typeName].directions[directionName]);
+	if (directionTemp != nullptr)
+		position.y = position.y + CHIP_SIZE/2 - directionTemp->sizeHeight + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
 	
 	return position;
 }
 
-void Addon::draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count) {
-	AddonDirectionStruct* direction_temp = &(types[type_name].directions[direction_name]);
+void Addon::draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor) {
+	AddonDirectionStruct* directionTemp = &(types[typeName].directions[directionName]);
 	
 	/*
 	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
@@ -544,144 +545,149 @@ void Addon::draw(String type_name, String direction_name, PositionStruct positio
 	}*/
 	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position = getPosition(type_name, direction_name, position, use_tiles, tiles_count);
+	position = getPosition(typeName, directionName, position, useTiles, tilesCount);
 	
-	unsigned short int top_left_x = direction_temp->top_left_x;
-	top_left_x += CHIP_SIZE/2 * tiles_count.x + CHIP_SIZE/2 * tiles_count.y;
+	unsigned short int topLeftX = directionTemp->topLeftX;
+	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int top_left_y = direction_temp->top_left_y;
-	top_left_y += CHIP_SIZE/2 * tiles_count.y;
+	unsigned short int topLeftY = directionTemp->topLeftY;
+	topLeftY += CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int size_width = direction_temp->size_width;
-	size_width = CHIP_SIZE;
+	unsigned short int sizeWidth = directionTemp->sizeWidth;
+	sizeWidth = CHIP_SIZE;
 	
-	unsigned short int size_height = direction_temp->size_height;
+	unsigned short int sizeHeight = directionTemp->sizeHeight;
 	
-	types[type_name].texture(top_left_x, top_left_y, size_width, size_height).draw(position.x, position.y);
+	if (addColor->a > 0) {
+		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+	}
+	else {
+		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+	}
 }
 
 void Addon::converter() {
-	JSONWriter addon_data;
+	JSONWriter addonData;
 	
-	addon_data.startObject();
+	addonData.startObject();
 	{
-		addon_data.key(U"name").write(addon_name);
-		addon_data.key(U"jp_name").write(addon_jp_name);
+		addonData.key(U"name").write(addonName);
+		addonData.key(U"jp_name").write(addonJPName);
 		
-		addon_data.key(U"author").write(addon_author);
-		addon_data.key(U"summary").write(addon_summary);
+		addonData.key(U"author").write(addonAuthor);
+		addonData.key(U"summary").write(addonSummary);
 		
-		addon_data.key(U"version").write(RELEASE_NUMBER);
+		addonData.key(U"version").write(RELEASE_NUMBER);
 		
-		addon_data.key(U"Belong_addon_set_name").startArray();
+		addonData.key(U"Belong_addon_set_name").startArray();
 		{
-			for (auto belong = belong_addons_set_name.begin(); belong!= belong_addons_set_name.end() ; belong++) {
-				addon_data.write(*belong);
+			for (auto belong = belongAddonsSetName.begin(); belong!= belongAddonsSetName.end() ; belong++) {
+				addonData.write(*belong);
 			}
 		}
-		addon_data.endArray();
+		addonData.endArray();
 		
-		addon_data.key(U"icon").write(addon_icon);
+		addonData.key(U"icon").write(addonIcon);
 		
-		addon_data.key(U"Categories").startArray();
+		addonData.key(U"Categories").startArray();
 		{
-			for (auto category_name = addon_categories.begin(); category_name != addon_categories.end(); category_name++) {
-				addon_data.write(*category_name);
+			for (auto categoryName = addonCategories.begin(); categoryName != addonCategories.end(); categoryName++) {
+				addonData.write(*categoryName);
 			}
 		}
-		addon_data.endArray();
+		addonData.endArray();
 		
-		addon_data.key(U"effects").startObject();
+		addonData.key(U"effects").startObject();
 		{
 			for (auto e = effects.begin(); e != effects.end() ; e++) {
 				if (e->second.influence != 0) {
-					addon_data.key(e->first).startObject();
+					addonData.key(e->first).startObject();
 					{
-						addon_data.key(U"influence").write(e->second.influence);
-						addon_data.key(U"grid").write(e->second.grid);
+						addonData.key(U"influence").write(e->second.influence);
+						addonData.key(U"grid").write(e->second.grid);
 					}
-					addon_data.endObject();
+					addonData.endObject();
 				}
 			}
 		}
-		addon_data.endObject();
+		addonData.endObject();
 		
-		addon_data.key(U"maximum_capacity").write(maximum_capacity);
+		addonData.key(U"maximum_capacity").write(maximumCapacity);
 		
-		addon_data.key(U"Use_types").startArray();
+		addonData.key(U"Use_types").startArray();
 		{
-			for (auto type_name = use_types.begin(); type_name != use_types.end() ; type_name++) {
-				addon_data.write(*type_name);
+			for (auto typeName = useTypes.begin(); typeName != useTypes.end() ; typeName++) {
+				addonData.write(*typeName);
 			}
 		}
-		addon_data.endArray();
+		addonData.endArray();
 		
-		addon_data.key(U"Types").startArray();
+		addonData.key(U"Types").startArray();
 		{
 			for (auto type = types.begin(); type != types.end(); type++) {
-				addon_data.startObject();
+				addonData.startObject();
 				{
-					addon_data.key(U"type_name").write(type->first);
-					addon_data.key(U"image").write(type->second.image);
-					addon_data.key(U"night_mask").write(type->second.night_mask);
-					addon_data.key(U"transparent_color").startObject();
+					addonData.key(U"type_name").write(type->first);
+					addonData.key(U"image").write(type->second.image);
+					addonData.key(U"night_mask").write(type->second.nightMask);
+					addonData.key(U"transparent_color").startObject();
 					{
-						addon_data.key(U"R").write(type->second.transparent_color.r);
-						addon_data.key(U"G").write(type->second.transparent_color.g);
-						addon_data.key(U"B").write(type->second.transparent_color.b);
+						addonData.key(U"R").write(type->second.transparentColor.r);
+						addonData.key(U"G").write(type->second.transparentColor.g);
+						addonData.key(U"B").write(type->second.transparentColor.b);
 					}
-					addon_data.endObject();
+					addonData.endObject();
 					
-					addon_data.key(U"direction_names").startArray();
+					addonData.key(U"direction_names").startArray();
 					{
-						for (auto direction_name = type->second.direction_names.begin(); direction_name != type->second.direction_names.end(); direction_name++) {
-							addon_data.write(*direction_name);
+						for (auto directionName = type->second.directionNames.begin(); directionName != type->second.directionNames.end(); directionName++) {
+							addonData.write(*directionName);
 						}
 					}
-					addon_data.endArray();
+					addonData.endArray();
 					
-					addon_data.key(U"Directions").startArray();
+					addonData.key(U"Directions").startArray();
 					{
 						for (auto direction = type->second.directions.begin(); direction != type->second.directions.end(); direction++) {
-							addon_data.startObject();
+							addonData.startObject();
 							{
-								addon_data.key(U"direction_name").write(direction->first);
-								addon_data.key(U"size").startObject();
+								addonData.key(U"direction_name").write(direction->first);
+								addonData.key(U"size").startObject();
 								{
-									addon_data.key(U"width").write(direction->second.size_width);
-									addon_data.key(U"height").write(direction->second.size_height);
+									addonData.key(U"width").write(direction->second.sizeWidth);
+									addonData.key(U"height").write(direction->second.sizeHeight);
 								}
-								addon_data.endObject();
-								addon_data.key(U"squares").startObject();
+								addonData.endObject();
+								addonData.key(U"squares").startObject();
 								{
-									addon_data.key(U"width").write(direction->second.chip_x);
-									addon_data.key(U"height").write(direction->second.chip_y);
+									addonData.key(U"width").write(direction->second.chipX);
+									addonData.key(U"height").write(direction->second.chipY);
 								}
-								addon_data.endObject();
-								addon_data.key(U"top_left").startObject();
+								addonData.endObject();
+								addonData.key(U"top_left").startObject();
 								{
-									addon_data.key(U"x").write(direction->second.top_left_x);
-									addon_data.key(U"y").write(direction->second.top_left_y);
+									addonData.key(U"x").write(direction->second.topLeftX);
+									addonData.key(U"y").write(direction->second.topLeftY);
 								}
-								addon_data.endObject();
-								addon_data.key(U"bottom_right").startObject();
+								addonData.endObject();
+								addonData.key(U"bottom_right").startObject();
 								{
-									addon_data.key(U"x").write(direction->second.bottom_right_x);
-									addon_data.key(U"y").write(direction->second.bottom_right_y);
+									addonData.key(U"x").write(direction->second.bottomRightX);
+									addonData.key(U"y").write(direction->second.bottomRightY);
 								}
-								addon_data.endObject();
+								addonData.endObject();
 							}
-							addon_data.endObject();
+							addonData.endObject();
 						}
-						addon_data.endArray();
+						addonData.endArray();
 					}
 				}
-				addon_data.endObject();
+				addonData.endObject();
 			}
 		}
-		addon_data.endArray();
+		addonData.endArray();
 	}
-	addon_data.endObject();
+	addonData.endObject();
 	
-	addon_data.save(FileSystem::ParentPath(Unicode::Widen(addon_file_path.file_path))+FileSystem::BaseName(Unicode::Widen(addon_file_path.file_path))+U".adj");
+	addonData.save(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+FileSystem::BaseName(Unicode::Widen(addonFilePath.file_path))+U".adj");
 }

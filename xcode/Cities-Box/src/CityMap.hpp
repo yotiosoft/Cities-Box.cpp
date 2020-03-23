@@ -33,60 +33,50 @@ typedef struct WorkersStruct {
 	int office;
 	int industrial;
 	int farm;
-	int public_facility;
+	int publicFacility;
 } WorkersStruct;
 
 typedef struct BudgetStruct {
 	int police;
-	int fire_depertment;
-	int post_office;
+	int fireDepertment;
+	int postOffice;
 	int education;
 } BudgetStruct;
 
-typedef struct CropStruct {
-	string name;
-	int amount;
-} CropStruct;
-
 typedef struct WorkPlaceStruct {
-	RCOIFP::Type work_place;
-	int work_places_serial_number;
+	RCOIFP::Type workPlace;
+	int workPlacesSerialNumber;
 } WorkPlaceStruct;
 
 typedef struct SchoolStruct {
 	School::Type school;
-	int school_serial_number;
+	int schoolSerialNumber;
 } SchoolStruct;
 
 typedef struct SquareStruct {
-	Array<string> addon_name;
-	string original_name;
-	Array<string> category;
+	String originalName;
+	//Array<String> category;
 	
-	Array<int> type_number;
-	Array<int> direction_number;
+	Array<String> types;
+	Array<String> directions;
 	
-	int serial_number;
+	int serialNumber;
 	
-	CoordinateStruct tiles_count;
-	CoordinateStruct use_tiles;
+	CoordinateStruct tilesCount;
 	
 	int residents;
 	WorkersStruct workers;
 	int students;
 	
-	int land_price;
-	int crime_rate;
-	int education_rate;
-	int happiness_rate;
-	int noise;
+	int happinessRate;
+	map<String, int> rate;
 	
-	CropStruct crop;
+	//CropStruct crop;
 	
 	Array<int> age;
-	Array<string> gender;
+	Array<String> gender;
 	
-	Array<WorkPlaceStruct> work_places;
+	Array<WorkPlaceStruct> workPlaces;
 	Array<SchoolStruct> schools;
 	
 	RCOIFP::Type reservation;
@@ -100,10 +90,18 @@ typedef struct SquareStruct {
 class CityMap {
 public:
 	// マップの読み込み
-	void load(FileStruct map_file);
+	void load(String loadMapFilePath);
+	void loadCBD(String loadMapFilePath);
+	void loadCBJ(String loadMapFilePath);
 	
 	// アドオンの読み込み
-	void loadAddons(string addon_set_name);
+	void loadAddons(String addonSetName);
+	
+	// カテゴリに当てはまるアドオンの一覧を返す
+	Array<Addon*> getFitAddons(Array<String> selectedCategories);
+	
+	// アドオンリストを返す
+	map<String, Addon*> getAllAddons();
 	
 	// 読込中画面
 	void loadingScreen();
@@ -111,6 +109,21 @@ public:
 	// マップの描画
 	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
+	
+	// Addon構造体の取得
+	Array<Addon> getAddon(CoordinateStruct coordinate);
+	
+	// 需要度の取得
+	RCOIFstruct getDemand();
+	
+	// 人口の取得
+	int getPopulation();
+	
+	// 資金の取得
+	int getMoney();
+	
+	// 気温の取得
+	int getTemperature();
 	
 	// マップサイズの取得
 	SizeStruct getMapSize();
@@ -123,19 +136,59 @@ public:
 	// 描画範囲を取得
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
+	// いずれかのアドオンがカテゴリに含まれているか
+	bool isInCategories(String searchCategory, CoordinateStruct coordinate);
+	
+	// アドオンを設置
+	bool build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak);
+	
+	// アドオンを更新
+	void update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate);
+	
+	// アドオンを除去
+	void breaking(CoordinateStruct position);
+	
+	// アドオンの始点となるマスに移動する
+	CoordinateStruct moveToAddonStartSquare(CoordinateStruct searchCoordinate, int addonNumber);
+	
+	// 指定した場所に合うアドオンのTypeとDirectionを取得
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, String& retType, String& retDirection, Array<CoordinateStruct>& needUpdate);
+	
+	// アドオンを削除
+	void clear(CoordinateStruct position);
+	
+	// 座標がマップ範囲内に入っているか
+	bool isPositionAvailable(CoordinateStruct coordinate);
+	
+	// 時間を進ませて取得
+	TimeStruct cityTime(int minutesDelta);
+	
+	// 各率を取得
+	map<String, int> getRate(CoordinateStruct coordinate);
+	int getRate(CoordinateStruct coordinate, String rateName);
+	
+	// 各率を表示するときの色を取得
+	Color getRateColor(int rate, bool upper, int standard);
+	
+	// レート表示モード
+	void setShowRate(String rateName);
+	
+	// マップ保存
+	bool save();
+	
 	// メモリ解放
 	void freeMapAndAddons();
 	
 private:
-	int saved_version;
-	string addon_set;
+	int savedVersion;
+	String addonSet;
 	
-	string city_name;
-	string mayor_name;
-	int total_population;
-	bool change_weather;
+	String cityName;
+	String mayorName;
+	int totalPopulation;
+	bool changeWeather;
 	int temperature;
-	bool dark_on_night;
+	bool darkOnNight;
 	
 	SizeStruct mapsize;
 	
@@ -150,18 +203,22 @@ private:
 	
 	Array<Array<SquareStruct>> squares;
 	
-	bool loading_complete;
+	bool loadingComplete;
 	
-	map<string, Addon*> addons;
+	map<String, Addon*> addons;
 	
-	CameraStruct camera_before;
+	CameraStruct cameraBefore;
 	pair<CoordinateStruct, CoordinateStruct> range;
 	
+	String mapFilePath;
+	
+	String showRate = U"";
+	
 	// プライベート関数
-	bool getElement(string str, string search_element_name, string& ret);
-	bool getElement(string str, string search_element_name, int& ret);
-	bool getElement(string str, string search_element_name, bool& ret);
-	bool getTypes(string str, string search_element_name, Array<string>& ret);
+	bool getElement(String str, String searchElementName, String& ret);
+	bool getElement(String str, String searchElementName, int& ret);
+	bool getElement(String str, String searchElementName, bool& ret);
+	bool getTypes(String str, String searchElementName, Array<String>& ret);
 };
 
 #endif /* CityMap_hpp */

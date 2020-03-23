@@ -1,0 +1,121 @@
+﻿{
+  "name": "Tall_Office",
+  "jp_name": "ガラス張りの高層オフィス",
+  "author": "YotioSoft",
+  "summary": "ガラス張りの21階建てのオフィスです。",
+  "version": 141,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Tall_Office.png",
+  "Categories": [
+    "object_type",
+    "office"
+  ],
+  "effects": {
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 800,
+  "Use_types": [
+    "normal"
+  ],
+  "Types": [
+    {
+      "type_name": "normal",
+      "image": "Tall_Office.png",
+      "night_mask": "Tall_Office__night_mask.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 128
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 128
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 256
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 128
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 128
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 128
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 256
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 128
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        }
+      ]
+    }
+  ]
+}

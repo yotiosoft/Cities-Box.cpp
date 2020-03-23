@@ -13,11 +13,9 @@ void loadImages(Images& images) {
 	black.g = 0;
 	black.b = 0;
 	
-	images.load("../data/images/area", "area", black);
-	images.load("../data/images/arrows", "arrows", black);
-	images.load("../data/images/menu_setting", "menu_setting", black);
-	images.load("../data/images/pointer", "pointer", black);
-	images.load("../data/images/quarter", "quarter", black);
-	images.load("../data/images/show_detail", "show_detail", black);
-	images.load("../data/images/title_menu", "title_menu", black);
+	images.load("./data/images/area", "area", black);
+	images.load("./data/images/arrows", "arrows", black);
+	images.load("./data/images/pointer", "pointer", black);
+	images.load("./data/images/quarter", "quarter", black);
+	images.load("./data/images/title_menu", "title_menu", black);
 }

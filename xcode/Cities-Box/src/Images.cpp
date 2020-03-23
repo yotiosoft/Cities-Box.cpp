@@ -7,39 +7,39 @@
 
 #include "Images.hpp"
 
-void Images::load(string file_path, string tag, Color transparent) {
+void Images::load(string filePath, string tag, Color transparent) {
 	// ファイル一覧を取得
-	Array<FileStruct> image_files = specific::getAllFilesName(file_path, "png");
+	Array<FileStruct> imageFiles = specific::getAllFilesName(filePath, "png");
 	
 	// 各ファイルを読み込み
-	for (int i=0; i<image_files.size(); i++) {
-		Image image_temp(Unicode::Widen(image_files[i].file_path));
+	for (int i=0; i<imageFiles.size(); i++) {
+		Image imageTemp(Unicode::Widen(imageFiles[i].file_path));
 		
 		if (transparent.r >= 0 && transparent.g >= 0 && transparent.b >= 0) {
-			for (int h=0; h<image_temp.height(); h++) {
-				for (int w=0; w<image_temp.width(); w++) {
-					if (image_temp[h][w].r == transparent.r && image_temp[h][w].g == transparent.g && image_temp[h][w].b == transparent.b) {
-						image_temp[h][w].setA(0);		// アルファ値を0に設定
+			for (int h=0; h<imageTemp.height(); h++) {
+				for (int w=0; w<imageTemp.width(); w++) {
+					if (imageTemp[h][w].r == transparent.r && imageTemp[h][w].g == transparent.g && imageTemp[h][w].b == transparent.b) {
+						imageTemp[h][w].setA(0);		// アルファ値を0に設定
 					}
 				}
 			}
 		}
 		
-		ImageStruct new_image;
-		new_image.texture = Texture(image_temp);
-		new_image.file_path = file_path;
-		new_image.file_name = image_files[i].file_path;
-		new_image.tag = tag;
+		ImageStruct newImage;
+		newImage.texture = Texture(imageTemp);
+		newImage.file_path = filePath;
+		newImage.file_name = imageFiles[i].file_path;
+		newImage.tag = tag;
 		
-		images[tag][split(image_files[i].file_name, ".")[0]] = new_image;
+		images[tag][splitUTF8(imageFiles[i].file_name, ".")[0]] = newImage;
 	}
 }
 
-void Images::load(string file_path, string tag) {
-	Color none_clear;
-	none_clear.r = -1;
-	none_clear.g = -1;
-	none_clear.b = -1;
+void Images::load(string filePath, string tag) {
+	Color noneClear;
+	noneClear.r = -1;
+	noneClear.g = -1;
+	noneClear.b = -1;
 	
-	load(file_path, tag, none_clear);
+	load(filePath, tag, noneClear);
 }

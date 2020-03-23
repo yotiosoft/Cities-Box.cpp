@@ -1,0 +1,122 @@
+﻿{
+  "name": "post_office",
+  "jp_name": "郵便局",
+  "author": "YotioSoft",
+  "summary": "どこにでもありそうな普通の郵便局。今日も無数の郵便物を取り扱っています。",
+  "version": 141,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_post_office.png",
+  "Categories": [
+    "object_type",
+    "public",
+    "post_office"
+  ],
+  "effects": {
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 100,
+  "Use_types": [
+    "normal"
+  ],
+  "Types": [
+    {
+      "type_name": "normal",
+      "image": "post_office.png",
+      "night_mask": "post_office__night_mask.png",
+      "transparent_color": {
+        "R": 0,
+        "G": 0,
+        "B": 0
+      },
+      "direction_names": [
+        "left",
+        "top",
+        "bottom",
+        "right"
+      ],
+      "Directions": [
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        }
+      ]
+    }
+  ]
+}

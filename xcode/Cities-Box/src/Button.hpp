@@ -13,30 +13,52 @@
 class Button {
 public:
 	// コンストラクタ
-	Button(ImageStruct& image);														// 画像から
-	Button(ImageStruct& image, int new_size);										// 画像から
-	Button(ImageStruct& image, int new_size, String new_label, Font& new_font);		// 画像から
-	Button(IconFont::ID icon_id);													// ロゴフォントから
-	Button(IconFont::ID icon_id, int new_size);										// ロゴフォントから
-	Button(IconFont::ID icon_id, int new_size, String new_label, Font& new_font);	// ロゴフォントから
+	Button();
+	Button(ImageStruct& image);																										// 画像から
+	Button(ImageStruct& image, int newSize);																						// 画像から
+	Button(ImageStruct& image, int newSize, String newLabel, Font& newFont);														// 画像から
+	Button(IconFont::ID iconID);																									// ロゴフォントから
+	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift);												// ロゴフォントから
+	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont);				// ロゴフォントから
+	
+	// 設定
+	void set(ImageStruct& image);																									// 画像から
+	void set(ImageStruct& image, int newSize);																						// 画像から
+	void set(ImageStruct& image, int newSize, String newLabel, Font& newFont);														// 画像から
+	void set(IconFont::ID iconID);																									// ロゴフォントから
+	void set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift);											// ロゴフォントから
+	void set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont);			// ロゴフォントから
 	
 	// 配置
-	void put(PositionStruct new_position);
+	void put(PositionStruct newPosition);
+	void putRelative(PositionStruct newPosition, PositionStruct leftTop);
 	
 	// 押されたかどうか
 	bool push();
+	bool pushRelative(PositionStruct leftTop);
+	
+	// アクティブかどうか
+	bool isActive();
+	
+	// 選択解除
+	void release();
 	
 private:
-	Texture button_texture;
+	Texture buttonTexture;
 	
 	bool isIcon;
 	
 	PositionStruct position;
 	SizeStruct size;
+	SizeStruct iconSize;
+	
+	PositionStruct shift;
 	
 	Font font;
 	String label;
-	PositionStruct label_position;
+	PositionStruct labelPosition;
+	
+	bool active;
 };
 
 #endif /* Button_hpp */

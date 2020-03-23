@@ -163,16 +163,16 @@ void Menu::update() {
 	(*font8)(U"I").draw(size.width-80+3+24, size.height-15+2, Color(Palette::White));
 	(*font8)(U"F").draw(size.width-80+3+32, size.height-15+2, Color(Palette::White));
 	
-	Rect(size.width-80, size.height-15, 8, -max(map->getDemand().residential*0.4, 1.0)).draw(Color(39, 174, 96));
-	Rect(size.width-80+8, size.height-15, 8, -max(map->getDemand().commercial*0.4, 1.0)).draw(Color(9, 132, 227));
-	Rect(size.width-80+16, size.height-15, 8, -max(map->getDemand().office*0.4, 1.0)).draw(Color(0, 206, 201));
-	Rect(size.width-80+24, size.height-15, 8, -max(map->getDemand().industrial*0.4, 1.0)).draw(Color(253, 203, 110));
-	Rect(size.width-80+32, size.height-15, 8, -max(map->getDemand().farm*0.4, 1.0)).draw(Color(211, 84, 0));
+	Rect(size.width-80, size.height-15, 8, -max(map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
+	Rect(size.width-80+8, size.height-15, 8, -max(map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
+	Rect(size.width-80+16, size.height-15, 8, -max(map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
+	Rect(size.width-80+24, size.height-15, 8, -max(map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
+	Rect(size.width-80+32, size.height-15, 8, -max(map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
 	
-	population.draw(10, size.height-25);
-	(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
+	//population.draw(10, size.height-25);
+	//(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
 	 
-	(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
+	//(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
 }
 
 Addon* Menu::draw(bool& needUpdate) {

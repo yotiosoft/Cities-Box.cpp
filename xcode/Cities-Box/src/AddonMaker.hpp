@@ -191,7 +191,8 @@ public:
 		return types;
 	}
 	
-	void menu(Font& font16);
+	void sMenu(Font& font16);
+	void sName(Font& font16);
 	
 protected:
 	bool checkAddonNameEN = false;

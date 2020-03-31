@@ -48,7 +48,7 @@ bool titleMenu(Images& images, Font& font16, String& filePath) {
 		if (newAddonButton.push()) {
 			newAddonButton.release();
 			AddonMaker addonMaker;
-			addonMaker.menu(font16);
+			addonMaker.sMenu(font16);
 		}
 		
 		System::Sleep(50);

@@ -226,6 +226,7 @@ dependencies: \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/AddonMaker.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Addon.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/PulldownMenu.hpp \
+  /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/Sound.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/CityMap.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/SubWindow.hpp \
   /Users/tanimoto/Git/Cities-Box.cpp/xcode/Cities-Box/src/DetailsBar.hpp \

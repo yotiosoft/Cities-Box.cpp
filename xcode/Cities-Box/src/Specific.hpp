@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include <dirent.h>
+#include <random>
 
 #include "Header.hpp"
 #include "OtherFunctions.hpp"

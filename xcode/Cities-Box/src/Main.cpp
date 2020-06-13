@@ -3,6 +3,7 @@
 #include "StartUp.hpp"
 #include "TitleMenu.hpp"
 #include "Images.hpp"
+#include "Sound.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
@@ -10,7 +11,7 @@
 #include "Menu.hpp"
 
 void Main() {
-	Window::SetTitle(U"Cities Box.cpp");
+	//Window::SetTitle(U"Cities Box.cpp");
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);
@@ -23,6 +24,10 @@ void Main() {
 	// 画像の読み込み
 	Images images;
 	loadImages(images);
+	
+	// サウンドファイルの読み込み
+	Sound bgm;
+	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
 	Font font16(16, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
@@ -73,6 +78,9 @@ void Main() {
 	
 	// Details Barの設定
 	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
+	
+	// BGMの再生（ランダム）
+	bgm.playBGM();
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -172,6 +180,9 @@ void Main() {
 				pressing = false;
 			}
 		}
+		
+		// BGMの再生中の処理
+		bgm.playingBGM();
 		
 		System::Sleep(20);
 	}

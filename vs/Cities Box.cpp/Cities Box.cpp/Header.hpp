@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <algorithm>
+#include <random>
 
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
@@ -50,6 +51,7 @@ namespace IconFont {
 		
 		Floppy				= 0xf0c7,
 		Plus				= 0xf067,
+		Compass				= 0xf568,
 		
 		Cursor				= 0xf245,
 		Road				= 0xf018,
@@ -87,8 +89,23 @@ namespace IconFont {
 		Television			= 0xf26c,
 		Radio				= 0xf519,
 		Tourist				= 0xf6fc,
+		Happiness			= 0xf4da,
 		
 		Population			= 0xf0c0,
+		
+		LeftWithCircle		= 0xf0a8,
+		RightWithCircle		= 0xf0a9,
+		
+		Clock				= 0xf017,
+		
+		Sunny				= 0xf185,
+		Cloudy				= 0xf0c2,
+		Rainy				= 0xf740,
+		Snowy				= 0xf2dc,
+		
+		TemperatureLow		= 0xf2ca,
+		TemperatureMiddle	= 0xf2c9,
+		TemperatureHigh		= 0xf2c8,
 	};
 }
 /*
@@ -102,6 +119,16 @@ namespace RCOIFcolor {
 	}
 }
 */
+
+namespace WeatherStruct {
+	enum Type {
+		Sunny	= 0,
+		Cloudy	= 1,
+		Rainy	= 2,
+		Snowy	= 3,
+	};
+}
+
 typedef struct ImageStruct {
 	Texture texture;
 	string file_path;

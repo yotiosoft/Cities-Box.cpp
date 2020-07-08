@@ -16,77 +16,77 @@ Button::Button(ImageStruct& image) {
 	set(image);
 }
 
-Button::Button(ImageStruct& image, int new_size) {
+Button::Button(ImageStruct& image, int newSize) {
 	active = false;
-	set(image, new_size);
+	set(image, newSize);
 }
 
-Button::Button(ImageStruct& image, int new_size, String new_label, Font& new_font) {
+Button::Button(ImageStruct& image, int newSize, String newLabel, Font& newFont) {
 	active = false;
-	set(image, new_size, new_label, new_font);
+	set(image, newSize, newLabel, newFont);
 }
 
-Button::Button(IconFont::ID icon_id) {
+Button::Button(IconFont::ID iconID) {
 	active = false;
-	set(icon_id);
+	set(iconID);
 }
 
-Button::Button(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift) {
+Button::Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift) {
 	active = false;
-	set(icon_id, new_size, new_icon_size, new_shift);
+	set(iconID, newSize, newIconSize, newShift);
 }
 
-Button::Button(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift, String new_label, Font& new_font) {
+Button::Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont) {
 	active = false;
-	set(icon_id, new_size, new_icon_size, new_shift, new_label, new_font);
+	set(iconID, newSize, newIconSize, newShift, newLabel, newFont);
 }
 
 void Button::set(ImageStruct& image) {
 	size = SizeStruct{image.texture.size().x, image.texture.size().y};
-	button_texture = image.texture;
+	buttonTexture = image.texture;
 	isIcon = false;
 }
 
-void Button::set(ImageStruct& image, int new_size) {
-	size = SizeStruct{new_size, new_size};
-	button_texture = image.texture.resized(size.width, size.height).texture;
+void Button::set(ImageStruct& image, int newSize) {
+	size = SizeStruct{newSize, newSize};
+	buttonTexture = image.texture.resized(size.width, size.height).texture;
 	isIcon = false;
 }
 
-void Button::set(ImageStruct& image, int new_size, String new_label, Font& new_font) {
-	size = SizeStruct{new_size, new_size};
-	button_texture = image.texture.resized(size.width, size.height).texture;
+void Button::set(ImageStruct& image, int newSize, String newLabel, Font& newFont) {
+	size = SizeStruct{newSize, newSize};
+	buttonTexture = image.texture.resized(size.width, size.height).texture;
 	isIcon = false;
-	font = new_font;
-	label = new_label;
+	font = newFont;
+	label = newLabel;
 }
 
-void Button::set(IconFont::ID icon_id) {
+void Button::set(IconFont::ID iconID) {
 	size = SizeStruct{64, 64};
-	button_texture = Texture(Icon(icon_id, size.width));
+	buttonTexture = Texture(Icon(iconID, size.width));
 	isIcon = true;
 }
 
-void Button::set(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift) {
-	size = SizeStruct{new_size, new_size};
-	icon_size = SizeStruct{new_icon_size, new_icon_size};
-	button_texture = Texture(Icon(icon_id, icon_size.width));
-	shift = new_shift;
+void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift) {
+	size = SizeStruct{newSize, newSize};
+	iconSize = SizeStruct{newIconSize, newIconSize};
+	buttonTexture = Texture(Icon(iconID, iconSize.width));
+	shift = newShift;
 	isIcon = true;
 }
 
-void Button::set(IconFont::ID icon_id, int new_size, int new_icon_size, PositionStruct new_shift, String new_label, Font& new_font) {
-	size = SizeStruct{new_size, new_size};
-	icon_size = SizeStruct{new_icon_size, new_icon_size};
-	button_texture = Texture(Icon(icon_id, icon_size.width));
+void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont) {
+	size = SizeStruct{newSize, newSize};
+	iconSize = SizeStruct{newIconSize, newIconSize};
+	buttonTexture = Texture(Icon(iconID, iconSize.width));
 	isIcon = true;
-	font = new_font;
-	label = new_label;
-	shift = new_shift;
+	font = newFont;
+	label = newLabel;
+	shift = newShift;
 }
 
-void Button::put(PositionStruct new_position) {
-	position = new_position;
+void Button::put(PositionStruct newPosition) {
+	position = newPosition;
 	
 	if (Cursor::Pos().x >= position.x && Cursor::Pos().y >= position.y && Cursor::Pos().x <= position.x+size.width && Cursor::Pos().y <= position.y+size.height) {
 		Rect(position.x, position.y, size.width, size.height).draw(Color(9, 132, 227, 128));
@@ -103,14 +103,14 @@ void Button::put(PositionStruct new_position) {
 		position.x += shift.x;
 		position.y += shift.y;
 	}
-	button_texture.draw(position.x, position.y);
+	buttonTexture.draw(position.x, position.y);
 }
 
-void Button::putRelative(PositionStruct new_position, PositionStruct left_top) {
-	position = new_position;
+void Button::putRelative(PositionStruct newPosition, PositionStruct leftTop) {
+	position = newPosition;
 	
-	if (Cursor::Pos().x-left_top.x >= position.x && Cursor::Pos().y-left_top.y >= position.y &&
-		Cursor::Pos().x-left_top.x <= position.x+size.width && Cursor::Pos().y-left_top.y <= position.y+size.height) {
+	if (Cursor::Pos().x-leftTop.x >= position.x && Cursor::Pos().y-leftTop.y >= position.y &&
+		Cursor::Pos().x-leftTop.x <= position.x+size.width && Cursor::Pos().y-leftTop.y <= position.y+size.height) {
 		Rect(position.x, position.y, size.width, size.height).draw(Color(9, 132, 227, 128));
 		
 		if (label.length() > 0) {
@@ -125,7 +125,7 @@ void Button::putRelative(PositionStruct new_position, PositionStruct left_top) {
 		position.x += shift.x;
 		position.y += shift.y;
 	}
-	button_texture.draw(position.x, position.y);
+	buttonTexture.draw(position.x, position.y);
 }
 
 bool Button::push() {
@@ -139,9 +139,9 @@ bool Button::push() {
 	return false;
 }
 
-bool Button::pushRelative(PositionStruct left_top) {
-	if (Cursor::Pos().x-left_top.x >= position.x && Cursor::Pos().y-left_top.y >= position.y &&
-		Cursor::Pos().x-left_top.x <= position.x+size.width && Cursor::Pos().y-left_top.y <= position.y+size.height) {
+bool Button::pushRelative(PositionStruct leftTop) {
+	if (Cursor::Pos().x-leftTop.x >= position.x && Cursor::Pos().y-leftTop.y >= position.y &&
+		Cursor::Pos().x-leftTop.x <= position.x+size.width && Cursor::Pos().y-leftTop.y <= position.y+size.height) {
 		if (MouseL.down()) {
 			active = !active;
 			return true;

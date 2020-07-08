@@ -11,8 +11,9 @@
 #include "Specific.hpp"
 #include "Images.hpp"
 #include "Button.hpp"
+#include "AddonMaker.hpp"
 
-bool titleMenu(Images& images, Font& font16, String& file_path);
+bool titleMenu(Images& images, Font& font16, String& filePath);
 
 bool loadingScreen(Font& font16);
 

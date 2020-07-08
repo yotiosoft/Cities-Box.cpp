@@ -12,18 +12,18 @@
 
 class SubWindow {
 public:
-	SubWindow(String new_title, Font* new_font, SizeStruct new_size, Color background_color);
+	SubWindow(String newTitle, Font* newFont, SizeStruct newSize, Color backgroundColor);
 	
 	RenderTexture* getRenderTexture();
 	
-	void move(PositionStruct new_position);
+	void move(PositionStruct newPosition);
 	
 	void update();
 	void draw();
 	
 private:
 	RenderTexture render;
-	RenderTexture render_window;
+	RenderTexture renderWindow;
 	
 	SizeStruct size;
 	PositionStruct position;
@@ -31,7 +31,7 @@ private:
 	String title;
 	Font* font;
 	
-	Color background_color;
+	Color backgroundColor;
 	
 	bool moving;
 };

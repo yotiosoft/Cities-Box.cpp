@@ -41,15 +41,17 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct new_position, SizeStruct new_size, CityMap* new_map, Font* new_font8, Font* new_font12, Font* new_font16);
+	void set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
 	
-	void releaseBeforeButton(MenuMode::Type before_selected_button);
+	void releaseBeforeButton(MenuMode::Type beforeSelectedButton);
 	
 	void getSelectedAddon();
 	void update();
-	Addon* draw(bool& need_update);
+	Addon* draw(bool& needUpdate);
 	
 	void addonMenu();
+	
+	bool rateMenu();
 	
 private:
 	PositionStruct position;
@@ -58,11 +60,12 @@ private:
 	RenderTexture render;
 	
 	map<String, Button> button;
+	map<String, Button> rateButton;
 	
-	MenuMode::Type menu_mode;
+	MenuMode::Type menuMode;
 	
-	Array<Addon*> show_addons;
-	Addon* selected_addon;
+	Array<Addon*> showAddons;
+	Addon* selectedAddon;
 	
 	Font* font8;
 	Font* font12;
@@ -70,12 +73,15 @@ private:
 	
 	CityMap* map;
 	
-	::map<String, Texture> effect_icons;
+	::map<String, Texture> effectIcons;
 	
-	String selected_addon_name;
+	String selectedAddonName;
 	
-	Array<pair<String, Button>> category_buttons;
-	String mode_str;
+	Array<pair<String, Button>> categoryButtons;
+	String modeStr;
+	
+	bool showRateMenu;
+	String showRateName;
 	
 	Texture population;
 };

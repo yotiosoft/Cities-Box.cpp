@@ -13,24 +13,24 @@
 typedef struct AddonDirectionStruct {
 	string direction;
 	
-	int size_width;					// 画像の横方向のサイズ
-	int size_height;				// 画像の縦方向のサイズ
-	int chip_x;						// アドオンが占める横方向のマスの数
-	int chip_y;						// アドオンが占める縦方向のマスの数
+	int sizeWidth;					// 画像の横方向のサイズ
+	int sizeHeight;					// 画像の縦方向のサイズ
+	int chipX;						// アドオンが占める横方向のマスの数
+	int chipY;						// アドオンが占める縦方向のマスの数
 	
-	int top_left_x;					// 左上のx座標
-	int top_left_y;					// 左上のy座標
-	int bottom_right_x;				// 右下のx座標
-	int bottom_right_y;				// 右下のy座標
+	int topLeftX;					// 左上のx座標
+	int topLeftY;					// 左上のy座標
+	int bottomRightX;				// 右下のx座標
+	int bottomRightY;				// 右下のy座標
 } AddonDirectionStruct;
 
 typedef struct AddonTypeStruct {
 	string type;
 	
 	String image;					// アドオン画像のパス
-	String night_mask;				// ナイトマスク画像のパス
-	Array<String> direction_names;	// typeに含まれる方向
-	RGBstruct transparent_color;	// 透過色のRGB値
+	String nightMask;				// ナイトマスク画像のパス
+	Array<String> directionNames;	// typeに含まれる方向
+	RGBstruct transparentColor;		// 透過色のRGB値
 	
 	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
 	
@@ -43,18 +43,18 @@ typedef struct EffectStruct {
 } EffectStruct;
 
 typedef struct EffectsStruct {
-	EffectStruct land_price 			= {0, 0};	// 地価
-	EffectStruct crime_rate 			= {0, 0};	// 犯罪率
-	EffectStruct education_rate 		= {0, 0};	// 教育度
+	EffectStruct landPrice 				= {0, 0};	// 地価
+	EffectStruct crimeRate 				= {0, 0};	// 犯罪率
+	EffectStruct educationRate 			= {0, 0};	// 教育度
 	EffectStruct noise 					= {0, 0};	// 騒音
-	EffectStruct garbage_disposal 		= {0, 0};	// ごみ処理効率
-	EffectStruct firing_rate 			= {0, 0};	// 発火率
+	EffectStruct garbageDisposal 		= {0, 0};	// ごみ処理効率
+	EffectStruct firingRate 			= {0, 0};	// 発火率
 	EffectStruct post					= {0, 0};	// 郵便充足度
-	EffectStruct mobile_communication	= {0, 0};	// モバイル通信
-	EffectStruct free_wifi				= {0, 0};	// 無料Wi-Fiスポット
+	EffectStruct mobileCommunication	= {0, 0};	// モバイル通信
+	EffectStruct freeWiFi				= {0, 0};	// 無料Wi-Fiスポット
 	EffectStruct television				= {0, 0};	// テレビ放送
 	EffectStruct radio					= {0, 0};	// ラジオ放送
-	EffectStruct tourist_attraction		= {0, 0};	// 観光魅力度
+	EffectStruct touristAttraction		= {0, 0};	// 観光魅力度
 	EffectStruct durability				= {0, 0};	// 耐久安全性
 } EffectsStruct;
 
@@ -68,9 +68,9 @@ public:
 	Addon();
 	
 	// 内容の変更
-	bool load(FileStruct new_file_path, String loading_addons_set_name);
-	bool loadADAT(FileStruct new_file_path, String loading_addons_set_name);
-	bool loadADJ(FileStruct new_file_path, String loading_addons_set_name);
+	bool load(FileStruct newFilePath, String loadingAddonsSetName);
+	bool loadADAT(FileStruct newFilePath, String loadingAddonsSetName);
+	bool loadADJ(FileStruct newFilePath, String loadingAddonsSetName);
 	
 	// 名前の取得
 	String getName();		// 原名
@@ -86,82 +86,82 @@ public:
 	String getTypeName(int type_num);
 	
 	// Directionの名前の取得
-	String getDirectionName(int type_num, int direction_num);
-	String getDirectionName(String type_name, int direction_num);
+	String getDirectionName(int typeNum, int directionNum);
+	String getDirectionName(String typeName, int directionNum);
 	
 	// カテゴリを取得
 	Array<String> getCategories();
 	
 	// 指定したカテゴリに該当するか
-	bool isInCategories(String search_category);
-	bool isInCategories(Array<String> search_categories);
+	bool isInCategories(String searchCategory);
+	bool isInCategories(Array<String> searchCategories);
 	
 	// 効果を取得
 	map<String, EffectStruct> getEffects();
 	
 	// アイコンのテクスチャの取得
-	void drawIcon(PositionStruct position, PositionStruct left_top, SizeStruct size);
+	void drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size);
 	
 	// 使用するタイルを取得
-	CoordinateStruct getUseTiles(String type_name, String direction_name);
+	CoordinateStruct getUseTiles(String typeName, String directionName);
 	
 	// 最終的に表示する座標を取得
-	PositionStruct getPosition(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
+	PositionStruct getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
 	
 	// アドオンを描画する
-	void draw(String type_name, String direction_name, PositionStruct position, CoordinateStruct use_tiles, CoordinateStruct tiles_count);
+	void draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor);
 	
 	// JSON形式に変換する
 	void converter();
 	
-private:
+protected:
 	// アドオンファイルのパス
-	FileStruct addon_file_path;
+	FileStruct addonFilePath;
 	
 	// アドオン名
-	String addon_name;				// 英語名
-	String addon_jp_name;			// 日本語名
+	String addonName;				// 英語名
+	String addonJPName;				// 日本語名
 	
 	// 製作者名
-	String addon_author;
+	String addonAuthor;
 	
 	// 説明文
-	String addon_summary;
+	String addonSummary;
 	
 	// 所属するアドオンセットの名前（空白はNormalとみなす）
-	Array<String> belong_addons_set_name;
+	Array<String> belongAddonsSetName;
 	
 	// アドオンのタイプ
-	Array<String> addon_categories;
+	Array<String> addonCategories;
 	
 	// アイコン画像のパス
-	String addon_icon;
+	String addonIcon;
 	
 	// アイコンのテクスチャ
-	Texture icon_texture;
+	Texture iconTexture;
 	
 	// 使用するtype
-	Array<String> use_types;
+	Array<String> useTypes;
 	
 	// 収容人数 or 最大従業員数
-	int maximum_capacity;
+	int maximumCapacity;
 	
 	// 建物の効果
 	map<String, EffectStruct> effects;
 	
 	// 地価
-	int land_price_influence;		// 上昇額
-	int land_price_influence_grid;	// 地価の上下が影響するマス
+	int landPriceInfluence;			// 上昇額
+	int landPriceInfluenceGrid;		// 地価の上下が影響するマス
 	
 	// 各typeの情報
 	map<String, AddonTypeStruct> types;
 	
 	
 	// プライベート関数
-	bool getElement(String str, String search_element_name, String& ret);
-	bool getElement(String str, String search_element_name, int& ret);
-	bool getTypes(String str, String search_element_name, Array<String>& ret);
-	void set_alpha_color(Image& image_temp, Color transparent_rgb);
+	bool getElement(String str, String searchElementName, String& ret);
+	bool getElement(String str, String searchElementName, int& ret);
+	bool getTypes(String str, String searchElementName, Array<String>& ret);
+	void setAlphaColor(Image& imageTemp, Color transparentRGB);
 };
 
 #endif /* Addon_hpp */

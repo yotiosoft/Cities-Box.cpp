@@ -9,14 +9,14 @@
 
 #include "Specific.hpp"
 
-Array<FileStruct> specific::getAllFilesName(string folder_path, string extension) {
-	Array<FileStruct> ret_str;
+Array<FileStruct> specific::getAllFilesName(string folderPath, string extension) {
+	Array<FileStruct> retStr;
 	
-	const char* target_dirlog = folder_path.c_str();
-	const char* target_file_extension = ("."+extension).c_str();
-	DIR* dp = opendir(target_dirlog);
+	const char* targetDirlog = folderPath.c_str();
+	const char* targetFileExtension = ("."+extension).c_str();
+	DIR* dp = opendir(targetDirlog);
 	if (dp == NULL) {
-		return ret_str;
+		return retStr;
 	}
 	
 	struct dirent* dent = NULL;
@@ -25,31 +25,31 @@ Array<FileStruct> specific::getAllFilesName(string folder_path, string extension
 		if(dent == NULL) {
 			break;
 		}
-		string file_name = dent->d_name;
+		string fileName = dent->d_name;
 		
-		FileStruct new_fs;
+		FileStruct newFS;
 		
-		if (dent != NULL && file_name != "." && file_name != "..") {
+		if (dent != NULL && fileName != "." && fileName != "..") {
 			// サブディレクトリの中身も検索
-			if (file_name.find(".") == string::npos) {
-				Array<FileStruct> sub_dir_str = getAllFilesName(folder_path+"/"+file_name, extension);
-				copy(sub_dir_str.begin(), sub_dir_str.end(), back_inserter(ret_str));
+			if (fileName.find(".") == string::npos) {
+				Array<FileStruct> subDirStr = getAllFilesName(folderPath+"/"+fileName, extension);
+				copy(subDirStr.begin(), subDirStr.end(), back_inserter(retStr));
 			}
 			
-			if (extension.size() == 0 || file_name.find(target_file_extension) != string::npos) {
-				new_fs.file_path = folder_path+"/"+file_name;
+			if (extension.size() == 0 || fileName.find(targetFileExtension) != string::npos) {
+				newFS.file_path = folderPath+"/"+fileName;
 				
-				new_fs.folder_path = folder_path;
-				new_fs.folder_name = splitUTF8(folder_path, "/").back();
-				new_fs.file_name = file_name;
+				newFS.folder_path = folderPath;
+				newFS.folder_name = splitUTF8(folderPath, "/").back();
+				newFS.file_name = fileName;
 				
-				ret_str.push_back(new_fs);
+				retStr.push_back(newFS);
 			}
 		}
 	};
 	
 	closedir(dp);
 	
-	return ret_str;
+	return retStr;
 }
 

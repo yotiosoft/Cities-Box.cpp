@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <random>
+#include <iostream>
+#include <filesystem>
 
 #include "Header.hpp"
 #include "OtherFunctions.hpp"
@@ -22,6 +24,8 @@
 
 namespace specific {
 	Array<FileStruct> getAllFilesName(string folderPath, string extension);
+
+	void chdir(string dir);
 }
 
 #endif /* Specific_h */

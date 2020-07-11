@@ -12,6 +12,7 @@
 
 void Main() {
 	//Window::SetTitle(U"Cities Box.cpp");
+	specific::chdir("./Cities-Box.app/Contents/Resources/assets");
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);
@@ -30,9 +31,9 @@ void Main() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
-	Font font12(12, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
-	Font font8(8, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font16(16, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
+	Font font12(12, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font8(8, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
 	
 	// タイトルメニュー画面
 	String mapFilePath;

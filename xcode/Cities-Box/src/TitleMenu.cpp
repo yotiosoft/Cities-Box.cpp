@@ -34,7 +34,7 @@ bool titleMenu(Images& images, Font& font16, String& filePath) {
 			// ファイル選択ダイアログ
 			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd", U"cbj"}}};
 			String filePathTemp;
-			if (const auto open = Dialog::OpenFile(ff)) {
+			if (const auto open = Dialog::OpenFile(ff, U"./data/maps/")) {
 				filePath = open.value();
 				
 				b = System::Update();

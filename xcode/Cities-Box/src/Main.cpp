@@ -31,9 +31,9 @@ void Main() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
-	Font font12(12, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
-	Font font8(8, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font16(16, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
+	Font font12(12, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font8(8, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
 	
 	// タイトルメニュー画面
 	String mapFilePath;

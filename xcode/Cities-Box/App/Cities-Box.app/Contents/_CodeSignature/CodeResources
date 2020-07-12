@@ -1916,10 +1916,6 @@
 		<data>
 		kMLBzZjTkN1qfVg+zRcmE1rvsXE=
 		</data>
-		<key>Resources/assets/data/.DS_Store</key>
-		<data>
-		afG1BEyfNytCEQoXuGWbjGKuZh4=
-		</data>
 		<key>Resources/assets/data/images/area/commercial.png</key>
 		<data>
 		He/NBT3TPuMzuFo+MaUIbLLdWRM=
@@ -2060,13 +2056,21 @@
 		<data>
 		sUnw/cbs2zwqaEWLkmAKzGmafAk=
 		</data>
-		<key>Resources/assets/sound/.DS_Store</key>
+		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>
 		<data>
-		jN85ZAonSgaHVtD3/9bRmTHB0rU=
+		7GYLF9/2kFjCu/EiyoWrg7kg/Oc=
 		</data>
-		<key>Resources/assets/sound/BGM/.DS_Store</key>
+		<key>Resources/assets/fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf</key>
 		<data>
-		3y++sUAKzaCQmjLBz2v0kvESHgc=
+		T3aBtusgtOHRe/0n1hfFaenoo8I=
+		</data>
+		<key>Resources/assets/fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf</key>
+		<data>
+		A9H5g5jaS6QTeqF31BmiJA6+F/4=
+		</data>
+		<key>Resources/assets/fonts/NotoSansCJKjp/README</key>
+		<data>
+		VRT6wH19OOIfkaF97VUEDlTwzXg=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -2107,22 +2111,6 @@
 		<key>Resources/engine/emoji/noto7_dictionary.dat</key>
 		<data>
 		CFwksNqLAYvCiQA4tLERwIKXOS8=
-		</data>
-		<key>Resources/engine/font/NotoSansCJKjp/LICENSE_OFL.txt</key>
-		<data>
-		7GYLF9/2kFjCu/EiyoWrg7kg/Oc=
-		</data>
-		<key>Resources/engine/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf</key>
-		<data>
-		T3aBtusgtOHRe/0n1hfFaenoo8I=
-		</data>
-		<key>Resources/engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf</key>
-		<data>
-		A9H5g5jaS6QTeqF31BmiJA6+F/4=
-		</data>
-		<key>Resources/engine/font/NotoSansCJKjp/README</key>
-		<data>
-		VRT6wH19OOIfkaF97VUEDlTwzXg=
 		</data>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>
 		<data>
@@ -5878,6 +5866,34 @@
 			0IFbjSuUAL3iOMij+UqS3WZTCSHnJqz2qlQ/yyQg/uI=
 			</data>
 		</dict>
+		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			anP5VBwt50FYwOfPawpY73dPWngL8ZHy1+ycxT7+K/I=
+			</data>
+		</dict>
+		<key>Resources/assets/fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nKkR8DPGFhYrwtLx1hxnOd+Lx6m9An3w7VfJYCmzOno=
+			</data>
+		</dict>
+		<key>Resources/assets/fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8YJTr/2WjI6lktjfbYSx1MXTpG0mflOh9nSebE92oj0=
+			</data>
+		</dict>
+		<key>Resources/assets/fonts/NotoSansCJKjp/README</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wnkfKJ++aOQHbt7k4VZdB1rTU6wtcRwGYfgNyZKYpyY=
+			</data>
+		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<dict>
 			<key>hash2</key>
@@ -5946,34 +5962,6 @@
 			<key>hash2</key>
 			<data>
 			OuMUUg4rhCqVn5J42H9YBjz+38qnz7TrKqt3ZYnVgmw=
-			</data>
-		</dict>
-		<key>Resources/engine/font/NotoSansCJKjp/LICENSE_OFL.txt</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			anP5VBwt50FYwOfPawpY73dPWngL8ZHy1+ycxT7+K/I=
-			</data>
-		</dict>
-		<key>Resources/engine/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			nKkR8DPGFhYrwtLx1hxnOd+Lx6m9An3w7VfJYCmzOno=
-			</data>
-		</dict>
-		<key>Resources/engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			8YJTr/2WjI6lktjfbYSx1MXTpG0mflOh9nSebE92oj0=
-			</data>
-		</dict>
-		<key>Resources/engine/font/NotoSansCJKjp/README</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			wnkfKJ++aOQHbt7k4VZdB1rTU6wtcRwGYfgNyZKYpyY=
 			</data>
 		</dict>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>

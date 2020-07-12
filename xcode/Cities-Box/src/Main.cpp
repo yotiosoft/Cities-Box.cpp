@@ -3,6 +3,7 @@
 #include "StartUp.hpp"
 #include "TitleMenu.hpp"
 #include "Images.hpp"
+#include "Sound.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
@@ -10,7 +11,8 @@
 #include "Menu.hpp"
 
 void Main() {
-	Window::SetTitle(U"Cities Box.cpp");
+	//Window::SetTitle(U"Cities Box.cpp");
+	specific::chdir("./Cities-Box.app/Contents/Resources/assets");
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);
@@ -24,10 +26,14 @@ void Main() {
 	Images images;
 	loadImages(images);
 	
+	// サウンドファイルの読み込み
+	Sound bgm;
+	bgm.searchSoundFiles("./sound/BGM");
+	
 	// フォントの宣言
-	Font font16(16, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
-	Font font12(12, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
-	Font font8(8, U"example/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font16(16, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
+	Font font12(12, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font8(8, U"../engine/font/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
 	
 	// タイトルメニュー画面
 	String mapFilePath;
@@ -59,7 +65,7 @@ void Main() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-60}, SizeStruct{Scene::Width(), 60}, &map, &font8, &font12, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-50}, SizeStruct{Scene::Width(), 50}, &map, &font8, &font12, &font16);
 	
 	// 選択されたアドオン
 	Addon* selectedAddon;
@@ -73,6 +79,9 @@ void Main() {
 	
 	// Details Barの設定
 	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
+	
+	// BGMの再生（ランダム）
+	bgm.playBGM();
 	
 	while (System::Update()) {
 		// カメラの操作
@@ -154,7 +163,7 @@ void Main() {
 		selectedAddon = menu.draw(updateMap);
 		menu.addonMenu();
 		
-		font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
+		//font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		
 		// マップ上でクリックされたらアドオンを設置
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
@@ -172,6 +181,9 @@ void Main() {
 				pressing = false;
 			}
 		}
+		
+		// BGMの再生中の処理
+		bgm.playingBGM();
 		
 		System::Sleep(20);
 	}

@@ -8,7 +8,7 @@
 
 #include "AddonMaker.hpp"
 
-void AddonMaker::menu(Font& font16) {
+void AddonMaker::sMenu(Font& font16) {
 	Array<String> categoriesList = {U"住居", U"商業", U"オフィス", U"工業", U"農業", U"公共施設", U"公園", U"道路", U"線路と駅", U"水路", U"空港"};
 	PulldownMenu categoriesPulldownMenu(categoriesList, font16, SizeStruct{400, 40}, PositionStruct{30, 130});
 	
@@ -40,19 +40,24 @@ void AddonMaker::menu(Font& font16) {
 	PulldownMenu publicPulldownMenu(publicList, font16, SizeStruct{400, 40}, PositionStruct{30, 230});
 	
 	Button returnButton(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
+	Button nextButton(IconFont::Right, 30, 30, PositionStruct{0, 0});
 	
 	PulldownMenu* secondMenu = nullptr;
 	PulldownMenu* thirdMenu = nullptr;
 	
 	while (System::Update()) {
 		returnButton.put(PositionStruct{20, 20});
-		
 		if (returnButton.push()) {
 			return;
 		}
-		
 		font16(U"アドオンを作成する").draw(60, 25, Palette::White);
 		font16(U"作成するアドオンのカテゴリを選んでください").draw(20, 100, Palette::White);
+		
+		nextButton.put(PositionStruct{Scene::Size().x-100, Scene::Size().y-50});
+		font16(U"次へ").draw(Scene::Size().x-65, Scene::Size().y-50, Palette::White);
+		if (nextButton.push()) {
+			sName(font16);
+		}
 		
 		switch (categoriesPulldownMenu.selectedNumber()) {
 			case 0:			// 住居
@@ -109,5 +114,30 @@ void AddonMaker::menu(Font& font16) {
 		}
 		
 		categoriesPulldownMenu.draw();
+	}
+}
+
+void AddonMaker::sName(Font& font16) {
+	Button returnButton(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
+	Button nextButton(IconFont::Right, 30, 30, PositionStruct{0, 0});
+	
+	TextEditState tesJPName;
+	TextEditState tesENName;
+	
+	while (System::Update()) {
+		returnButton.put(PositionStruct{20, 20});
+		if (returnButton.push()) {
+			sMenu(font16);
+		}
+		font16(U"アドオンを作成する").draw(60, 25, Palette::White);
+		
+		font16(U"作成するアドオンの名前").draw(20, 100, Palette::White);
+		SimpleGUI::TextBox(tesJPName, Vec2(30, 130), 400);
+		
+		font16(U"作成するアドオンのID（英語名, 半角英数字と記号のみ）").draw(20, 200, Palette::White);
+		SimpleGUI::TextBox(tesENName, Vec2(30, 230), 400);
+		
+		nextButton.put(PositionStruct{Scene::Size().x-100, Scene::Size().y-50});
+		font16(U"次へ").draw(Scene::Size().x-65, Scene::Size().y-50, Palette::White);
 	}
 }

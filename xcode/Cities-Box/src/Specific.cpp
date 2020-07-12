@@ -11,7 +11,6 @@
 
 Array<FileStruct> specific::getAllFilesName(string folderPath, string extension) {
 	Array<FileStruct> retStr;
-	
 	const char* targetDirlog = folderPath.c_str();
 	const char* targetFileExtension = ("."+extension).c_str();
 	DIR* dp = opendir(targetDirlog);
@@ -53,3 +52,6 @@ Array<FileStruct> specific::getAllFilesName(string folderPath, string extension)
 	return retStr;
 }
 
+void specific::chdir(string dir) {
+	::chdir(dir.c_str());
+}

@@ -114,7 +114,7 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 		getElement(strTemp, U"addon_icon", addonIcon);
 		
 		// アイコンを読み込み
-		Image iconImage(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+addonIcon);
+		Image iconImage(Unicode::Widen(addonFilePath.folder_path)+U"/"+addonIcon);
 		setAlphaColor(iconImage, Color(0, 0, 0));
 		iconTexture = Texture(iconImage);
 		
@@ -382,7 +382,6 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 	belongAddonsSetName = addonData[U"Belong_addon_set_name"].getArray<String>();
 	bool belong = false;
 	for (int i=0; i<belongAddonsSetName.size(); i++) {
-		cout << "  " << addonData[U"name"].getString() << ":" << belongAddonsSetName[i] << endl;
 		if (belongAddonsSetName[i].length() > 0) {
 			if (belongAddonsSetName[i] == loading_addons_set_name) {
 				belong = true;
@@ -402,7 +401,7 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 	addonIcon = addonData[U"icon"].getString();
 	
 	// アイコンを読み込み
-	Image iconImage(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+addonIcon);
+	Image iconImage(Unicode::Widen(addonFilePath.folder_path)+U"/"+addonIcon);
 	setAlphaColor(iconImage, Color(0, 0, 0));
 	iconTexture = Texture(iconImage);
 	

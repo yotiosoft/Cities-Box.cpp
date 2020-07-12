@@ -38,6 +38,7 @@
 		2CE5C85B237FDE6000082EEC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6906B12298123200A427D0 /* OpenAL.framework */; };
 		2CEACB67233A61C900C6EE98 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB65233A61C900C6EE98 /* libgif.a */; };
 		2CEACB68233A61C900C6EE98 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB66233A61C900C6EE98 /* libutil.a */; };
+		4B3A51F3249377DC0034F703 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B3A51F1249377DC0034F703 /* Sound.cpp */; };
 		4B6C06EB23F546E70095C719 /* AddonMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06E923F546E70095C719 /* AddonMaker.cpp */; };
 		4B6C06EE23F54C8D0095C719 /* PulldownMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06EC23F54C8D0095C719 /* PulldownMenu.cpp */; };
 		4B6C06F123F6AC0C0095C719 /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C06EF23F6AC0C0095C719 /* RouteSolver.cpp */; };
@@ -88,6 +89,8 @@
 		2CE5C859237FDE5100082EEC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CEACB65233A61C900C6EE98 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../../lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2CEACB66233A61C900C6EE98 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../../lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
+		4B3A51F1249377DC0034F703 /* Sound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
+		4B3A51F2249377DC0034F703 /* Sound.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sound.hpp; sourceTree = "<group>"; };
 		4B6C06E923F546E70095C719 /* AddonMaker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddonMaker.cpp; sourceTree = "<group>"; };
 		4B6C06EA23F546E70095C719 /* AddonMaker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AddonMaker.hpp; sourceTree = "<group>"; };
 		4B6C06EC23F54C8D0095C719 /* PulldownMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PulldownMenu.cpp; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 				4B6C06ED23F54C8D0095C719 /* PulldownMenu.hpp */,
 				4B6C06EF23F6AC0C0095C719 /* RouteSolver.cpp */,
 				4B6C06F023F6AC0C0095C719 /* RouteSolver.hpp */,
+				4B3A51F1249377DC0034F703 /* Sound.cpp */,
+				4B3A51F2249377DC0034F703 /* Sound.hpp */,
 				4B75112B23966B39008DFD03 /* Specific.cpp */,
 				4B75111C23966B37008DFD03 /* Specific.hpp */,
 				4B75112823966B39008DFD03 /* StartUp.cpp */,
@@ -321,6 +326,7 @@
 				4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */,
 				4B75113323966B3A008DFD03 /* Addon.cpp in Sources */,
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
+				4B3A51F3249377DC0034F703 /* Sound.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,
 				4B6C06EE23F54C8D0095C719 /* PulldownMenu.cpp in Sources */,
 				4B75113023966B3A008DFD03 /* Images.cpp in Sources */,

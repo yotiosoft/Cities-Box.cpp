@@ -773,8 +773,6 @@ void CityMap::loadAddons(String addonSetName) {
 	for (int i=0; i<addonsPath.size(); i++) {
 		FileStruct fileTemp = addonsPath[i];
 		
-		cout << fileTemp.file_path << endl;
-		
 		Addon* loadingAddon = new Addon();
 		if (loadingAddon->load(addonsPath[i], addonSetName)) {
 			addons[loadingAddon->getName()] = loadingAddon;
@@ -1737,7 +1735,7 @@ bool CityMap::save() {
 	}
 	mapData.endObject();
 	
-	saveTextFile(mapFilePath.toUTF8()+".cbj", stringXOR(mapData.get().toUTF8(), "citiesboxmapdatafilexor"));
+	saveTextFile(mapFilePath.toUTF8(), stringXOR(mapData.get().toUTF8(), "citiesboxmapdatafilexor"));
 	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
 	//map_file.save(map_file_path+U".cbj");
 	

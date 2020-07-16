@@ -3,7 +3,7 @@
 //  Addon Maker on Command Line
 //
 //  Created by YotioSoft on 2020/02/13.
-//  Copyright © 2020 YotioSoft. All rights reserved.
+//  Copyright c 2020 YotioSoft. All rights reserved.
 //
 
 #ifndef AddonMaker_hpp

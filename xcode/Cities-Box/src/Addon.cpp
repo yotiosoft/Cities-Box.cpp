@@ -49,6 +49,34 @@ void Addon::setAlphaColor(Image& imageTemp, Color transparentRGB) {
 	}
 }
 
+void Addon::blendColorAndImage(Image& imageTemp, Color blendColor) {
+	double outA, outR, outG, outB;
+	for (int h=0; h<imageTemp.height(); h++) {
+		for (int w=0; w<imageTemp.width(); w++) {
+			double bcA = blendColor.a / 255.0;
+			double itA = imageTemp[h][w].a / 255.0;
+			
+			outA = bcA+itA*(1.0-bcA);
+			if (outA < 1.0) {
+				imageTemp[h][w].a = 0;
+				imageTemp[h][w].r = 0;
+				imageTemp[h][w].g = 0;
+				imageTemp[h][w].b = 0;
+			}
+			else {
+				outR = (blendColor.r*bcA+imageTemp[h][w].r*itA*(1.0-bcA))/outA;
+				outG = (blendColor.g*itA+imageTemp[h][w].g*itA*(1.0-bcA))/outA;
+				outB = (blendColor.b*itA+imageTemp[h][w].b*itA*(1.0-bcA))/outA;
+				
+				imageTemp[h][w].a = outA*255;
+				imageTemp[h][w].r = outR;
+				imageTemp[h][w].g = outG;
+				imageTemp[h][w].b = outB;
+			}
+		}
+	}
+}
+
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
 		return loadADAT(newFilePath, loadingAddonsSetName);
@@ -298,6 +326,7 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 			if (types[currentLoadingType].image.length() > 0) {
 				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
 				setAlphaColor(iTemp, transparentColor);
+				blendColorAndImage(iTemp, Color(0, 0, 0, 50));
 				types[currentLoadingType].texture = Texture(iTemp);
 			}
 			
@@ -427,7 +456,15 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 		
 		Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].image);
 		setAlphaColor(iTemp, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
+		blendColorAndImage(iTemp, Color(0, 0, 0, 200));
 		types[typeName].texture = Texture(iTemp);
+		
+		types[typeName].nightMask = type[U"night_mask"].getString();
+		if (FileSystem::IsFile(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].nightMask)) {
+			Image iTempNM(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].nightMask);
+			setAlphaColor(iTempNM, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
+			types[typeName].nightMaskTexture = Texture(iTempNM);
+		}
 		
 		types[typeName].directionNames = type[U"direction_names"].getArray<String>();
 		
@@ -559,9 +596,15 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	
 	if (addColor->a > 0) {
 		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		if (!types[typeName].nightMaskTexture.isEmpty()) {
+			types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		}
 	}
 	else {
 		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		if (!types[typeName].nightMaskTexture.isEmpty()) {
+			types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		}
 	}
 }
 

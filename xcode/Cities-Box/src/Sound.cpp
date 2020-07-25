@@ -31,7 +31,6 @@ void Sound::playBGM(String filePath) {
 }
 
 void Sound::playingBGM() {
-	cout << audio->posSec() << "/" << audio->lengthSec() << endl;
 	if (beforePlayPos > 0 && audio->posSec() == 0) {
 		playBGM();
 	}

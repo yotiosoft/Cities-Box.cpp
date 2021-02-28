@@ -123,12 +123,31 @@ namespace RCOIFcolor {
 }
 */
 
-namespace WeatherStruct {
+namespace Weather {
 	enum Type {
 		Sunny	= 0,
 		Cloudy	= 1,
 		Rainy	= 2,
 		Snowy	= 3,
+	};
+}
+
+namespace LayerType {
+	enum Type {
+		Ground				= 0,	// 地面
+		Normal				= 1,	// 常時表示される部分
+		
+		Night				= 10,	// 夜間表示される部分
+		
+		OnSpring			= 11,	// 春季だけ表示される部分
+		OnSummer			= 12,	// 夏季だけ表示される部分
+		OnAutumn			= 13,	// 秋季だけ表示される部分
+		OnWinter			= 14,	// 冬季だけ表示される部分
+		
+		OnSpringNight		= 21,	// 春季夜間表示される部分
+		OnSummerNight		= 22,	// 夏季夜間表示される部分
+		OnAutumnNight		= 23,	// 秋季夜間表示される部分
+		OnWinterNight		= 24,	// 冬季夜間表示される部分
 	};
 }
 

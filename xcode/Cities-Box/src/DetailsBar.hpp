@@ -15,7 +15,7 @@ class DetailsBar {
 public:
 	DetailsBar(PositionStruct argPosition, Font* argFont);
 	
-	void printWeather(WeatherStruct::Type weather);
+	void printWeather(Weather::Type weather);
 	void printTemperature(int temperature);
 	void printPopulation(int totalPopulation);
 	void printMoney(int money);

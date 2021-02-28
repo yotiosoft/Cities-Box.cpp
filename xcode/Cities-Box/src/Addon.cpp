@@ -298,7 +298,7 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 			if (types[currentLoadingType].image.length() > 0) {
 				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
 				setAlphaColor(iTemp, transparentColor);
-				types[currentLoadingType].texture = Texture(iTemp);
+				types[currentLoadingType].layers << AddonLayerStruct{Texture(iTemp), LayerType::Normal};
 			}
 			
 			currentDirection = U"";
@@ -427,7 +427,7 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 		
 		Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].image);
 		setAlphaColor(iTemp, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
-		types[typeName].texture = Texture(iTemp);
+		types[typeName].layers << AddonLayerStruct{Texture(iTemp), LayerType::Normal};
 		
 		types[typeName].directionNames = type[U"direction_names"].getArray<String>();
 		
@@ -558,10 +558,10 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	unsigned short int sizeHeight = directionTemp->sizeHeight;
 	
 	if (addColor->a > 0) {
-		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		types[typeName].layers[0].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
 	}
 	else {
-		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		types[typeName].layers[0].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
 	}
 }
 

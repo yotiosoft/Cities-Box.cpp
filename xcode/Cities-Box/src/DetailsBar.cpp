@@ -24,9 +24,9 @@ DetailsBar::DetailsBar(PositionStruct argPosition, Font* argFont) {
 	weatherSnowyIcon = Texture(Icon(IconFont::Snowy, 20));
 }
 
-void DetailsBar::printWeather(WeatherStruct::Type weather) {
+void DetailsBar::printWeather(Weather::Type weather) {
 	switch (weather) {
-		case WeatherStruct::Sunny:
+		case Weather::Sunny:
 			weatherSunnyIcon.draw(position.x+1, position.y+2+1, ColorF(0.0, 0.5));
 			weatherSunnyIcon.draw(position.x, position.y+2, Color(240));
 			break;

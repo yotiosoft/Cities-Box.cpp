@@ -152,7 +152,7 @@ void Main() {
 		time = map.cityTime(1);
 		
 		// Details Barの表示
-		detailsBar.printWeather(WeatherStruct::Sunny);
+		detailsBar.printWeather(Weather::Sunny);
 		detailsBar.printTemperature(map.getTemperature());
 		detailsBar.printTime(time);
 		detailsBar.printPopulation(map.getPopulation());

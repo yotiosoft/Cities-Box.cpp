@@ -123,12 +123,31 @@ namespace RCOIFcolor {
 }
 */
 
-namespace WeatherStruct {
+namespace Weather {
 	enum Type {
 		Sunny	= 0,
 		Cloudy	= 1,
 		Rainy	= 2,
 		Snowy	= 3,
+	};
+}
+
+namespace LayerType {
+	enum Type {
+		Ground				= 0,	// 地面
+		Normal				= 1,	// 常時表示される部分
+		
+		Night				= 10,	// 夜間表示される部分
+		
+		OnSpring			= 11,	// 春季だけ表示される部分
+		OnSummer			= 12,	// 夏季だけ表示される部分
+		OnAutumn			= 13,	// 秋季だけ表示される部分
+		OnWinter			= 14,	// 冬季だけ表示される部分
+		
+		OnSpringNight		= 21,	// 春季夜間表示される部分
+		OnSummerNight		= 22,	// 夏季夜間表示される部分
+		OnAutumnNight		= 23,	// 秋季夜間表示される部分
+		OnWinterNight		= 24,	// 冬季夜間表示される部分
 	};
 }
 
@@ -180,7 +199,49 @@ typedef struct CursorStruct {
 	PositionStruct position_per_tiles;
 } CursorStruct;
 
+typedef struct TimeStruct {
+	int year;
+	int month;
+	int date;
+	int hour;
+	int minutes;
+} TimeStruct;
+
+typedef struct RCOIFstruct {
+	int residential;
+	int commercial;
+	int office;
+	int industrial;
+	int farm;
+} RCOIFstruct;
+
+typedef struct WorkersStruct {
+	int commercial;
+	int office;
+	int industrial;
+	int farm;
+	int publicFacility;
+} WorkersStruct;
+
+typedef struct BudgetStruct {
+	int police;
+	int fireDepertment;
+	int postOffice;
+	int education;
+} BudgetStruct;
+
+typedef struct WorkPlaceStruct {
+	RCOIFP::Type workPlace;
+	int workPlacesSerialNumber;
+} WorkPlaceStruct;
+
+typedef struct SchoolStruct {
+	School::Type school;
+	int schoolSerialNumber;
+} SchoolStruct;
+
 // 周囲4方向
 const pair<String, CoordinateStruct> AroundTiles[4] = {
 	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}
 };
+

@@ -11,80 +11,7 @@
 #include "Specific.hpp"
 #include "Addon.hpp"
 #include "OtherFunctions.hpp"
-
-typedef struct TimeStruct {
-	int year;
-	int month;
-	int date;
-	int hour;
-	int minutes;
-} TimeStruct;
-
-typedef struct RCOIFstruct {
-	int residential;
-	int commercial;
-	int office;
-	int industrial;
-	int farm;
-} RCOIFstruct;
-
-typedef struct WorkersStruct {
-	int commercial;
-	int office;
-	int industrial;
-	int farm;
-	int publicFacility;
-} WorkersStruct;
-
-typedef struct BudgetStruct {
-	int police;
-	int fireDepertment;
-	int postOffice;
-	int education;
-} BudgetStruct;
-
-typedef struct WorkPlaceStruct {
-	RCOIFP::Type workPlace;
-	int workPlacesSerialNumber;
-} WorkPlaceStruct;
-
-typedef struct SchoolStruct {
-	School::Type school;
-	int schoolSerialNumber;
-} SchoolStruct;
-
-typedef struct SquareStruct {
-	String originalName;
-	//Array<String> category;
-	
-	Array<String> types;
-	Array<String> directions;
-	
-	int serialNumber;
-	
-	CoordinateStruct tilesCount;
-	
-	int residents;
-	WorkersStruct workers;
-	int students;
-	
-	int happinessRate;
-	map<String, int> rate;
-	
-	//CropStruct crop;
-	
-	Array<int> age;
-	Array<String> gender;
-	
-	Array<WorkPlaceStruct> workPlaces;
-	Array<SchoolStruct> schools;
-	
-	RCOIFP::Type reservation;
-	
-	Array<Addon*> addons;
-	
-} SquareStruct;
-
+#include "Tile.hpp"
 
 
 class CityMap {
@@ -107,7 +34,7 @@ public:
 	void loadingScreen();
 	
 	// マップの描画
-	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
+	void drawTile(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
 	// Addon構造体の取得
@@ -149,7 +76,7 @@ public:
 	void breaking(CoordinateStruct position);
 	
 	// アドオンの始点となるマスに移動する
-	CoordinateStruct moveToAddonStartSquare(CoordinateStruct searchCoordinate, int addonNumber);
+	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, String& retType, String& retDirection, Array<CoordinateStruct>& needUpdate);
@@ -201,7 +128,7 @@ private:
 	BudgetStruct budget;
 	RCOIFstruct tax;
 	
-	Array<Array<SquareStruct>> squares;
+	Array<Array<Tile>> tiles;
 	
 	bool loadingComplete;
 	

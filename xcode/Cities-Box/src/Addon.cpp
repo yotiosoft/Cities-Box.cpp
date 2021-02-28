@@ -326,7 +326,7 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 			if (types[currentLoadingType].image.length() > 0) {
 				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
 				setAlphaColor(iTemp, transparentColor);
-				blendColorAndImage(iTemp, Color(0, 0, 0, 50));
+				blendColorAndImage(iTemp, Color(0, 0, 0, 200));
 				types[currentLoadingType].texture = Texture(iTemp);
 			}
 			

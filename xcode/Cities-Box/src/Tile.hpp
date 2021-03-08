@@ -12,11 +12,26 @@
 
 class Tile {
 public:
-	String originalName;
-	//Array<String> category;
+	// originalName
+	bool setOriginalName(String new_original_name);
+	String getOriginalName();
 	
-	Array<String> types;
-	Array<String> directions;
+	// types
+	bool setTypes(Array<String> new_types);
+	bool addType(String add_type);
+	bool addTypes(Array<String> add_types);
+	Array<String> getTypes();
+	String getType(int num);
+	
+	// directions
+	bool setDirections(Array<String> new_directions);
+	bool addDirection(String add_direction);
+	bool addDirections(Array<String> add_directions);
+	Array<String> getDirections();
+	String getDirection(int num);
+	
+	// クリア
+	void clear();
 	
 	int serialNumber;
 	
@@ -40,6 +55,13 @@ public:
 	RCOIFP::Type reservation;
 	
 	Array<Addon*> addons;
+	
+private:
+	String originalName;
+	//Array<String> category;
+	
+	Array<String> types;
+	Array<String> directions;
 };
 
 #endif /* Tile_hpp */

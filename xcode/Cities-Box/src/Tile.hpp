@@ -31,7 +31,8 @@ public:
 	String getDirection(int num);
 	
 	// クリア
-	void clear();
+	void clearAddons();				// addons, tiles, directionsだけをクリア（更新用）
+	void clearAll();				// タイル上のすべてのデータ（アドオン情報＋住民情報など）をクリア
 	
 	int serialNumber;
 	

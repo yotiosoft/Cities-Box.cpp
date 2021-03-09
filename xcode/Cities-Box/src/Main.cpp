@@ -168,7 +168,6 @@ void Main() {
 		// マップ上でクリックされたらアドオンを設置
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
 			if (cursor.coordinate.x != beforeMousePressedCoordinate.x || cursor.coordinate.y != beforeMousePressedCoordinate.y) {
-				cout << selectedAddon->getName() << endl;
 				map.build(cursor.coordinate, selectedAddon, true);
 				beforeMousePressedCoordinate = cursor.coordinate;
 				updateMap = true;

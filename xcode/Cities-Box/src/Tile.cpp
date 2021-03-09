@@ -69,10 +69,14 @@ String Tile::getDirection(int num) {
 	return directions[num];
 }
 
-void Tile::clear() {
+void Tile::clearAddons() {
 	addons.clear();
 	types.clear();
 	directions.clear();
+}
+
+void Tile::clearAll() {
+	clearAddons();
 	
 	serialNumber = 0;
 	tilesCount = {0, 0};

@@ -995,7 +995,6 @@ bool CityMap::isInCategories(String searchCategory, CoordinateStruct coordinate)
 // アドオンの設置
 bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak) {
 	Tile* currentTile = &tiles[position.y][position.x];
-	
 	String type, direction;
 	Array<CoordinateStruct> needUpdate;
 	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
@@ -1028,20 +1027,13 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 				currentTile = &tiles[position.y+y][position.x+x];
 				
 				if (type != U"train_crossing" && type != U"bridge") {
-					currentTile->clear();
+					currentTile->clearAll();
 				}
 				
 				currentTile->addType(type);
 				currentTile->addDirection(direction);
 				
-				currentTile->serialNumber = 0;
-				
 				currentTile->tilesCount = {abs(x), abs(y)};
-				
-				currentTile->residents = 0;
-				currentTile->workers = {0, 0, 0, 0, 0};
-				currentTile->students = 0;
-				currentTile->reservation = RCOIFP::None;
 				
 				currentTile->addons << selectedAddon;
 				
@@ -1074,7 +1066,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 				for (int j=0; j<tiles[needUpdate[i].y][needUpdate[i].x].addons.size(); j++) {
 					if (tiles[needUpdate[i].y][needUpdate[i].x].addons[j]->isInCategories(searchCategories)) {
 						if (!(needUpdate[j].x == -1 && needUpdate[j].y == -1)) {
-							cout << "update for " << needUpdate[i].x << "," << needUpdate[i].y << endl;
+							cout << "update for " << needUpdate[i].x << "," << needUpdate[i].y << " " << needUpdate.size() << endl;
 							update(needUpdate[i], tiles[needUpdate[i].y][needUpdate[i].x].addons[j], needUpdate);
 						}
 					}
@@ -1098,6 +1090,8 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 	
 	String type, direction;
 	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
+		currentTile->clearAddons();						// 一旦クリアしてもう一度設置
+		
 		currentTile->addType(type);
 		currentTile->addDirection(direction);
 		currentTile->addons << selectedAddon;
@@ -1125,6 +1119,7 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 		for (int y=0; abs(y)<useTiles.y; y--) {
 			for (int x=0; x<useTiles.x; x++) {
 				Tile beforeBreak = tiles[startPoint.y+y][startPoint.x+x];
+				cout << "from breaking: " << endl;
 				build(CoordinateStruct{startPoint.x+x, startPoint.y+y}, addons[U"tile_greenfield"], false);
 				
 				// 効果を除去
@@ -1418,7 +1413,7 @@ void CityMap::clear(CoordinateStruct position) {
 	Tile* currentTile = &tiles[position.y][position.x];
 	Addon* selectedAddon = addons[U"tile_greenfield"];
 	
-	currentTile->clear();
+	currentTile->clearAll();
 	
 	currentTile->addType(U"normal");
 	currentTile->addDirection(U"normal");

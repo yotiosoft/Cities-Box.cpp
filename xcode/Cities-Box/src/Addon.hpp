@@ -10,11 +10,6 @@
 #include "Specific.hpp"
 #include "Images.hpp"
 
-typedef struct AddonLayerStruct {
-	Texture texture;
-	LayerType::Type layerType;
-} AddonLayerStruct;
-
 typedef struct AddonDirectionStruct {
 	string direction;
 	
@@ -39,8 +34,8 @@ typedef struct AddonTypeStruct {
 	
 	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
 	
-	//Texture texture;				// アドオン画像のテクスチャ
-	Array<AddonLayerStruct> layers;	// アドオン画像のレイヤ
+	Texture texture;				// アドオン画像のテクスチャ
+	Texture nightMaskTexture;		// 夜間用マスク画像のテクスチャ
 } AddonTypeStruct;
 
 typedef struct EffectStruct {
@@ -168,6 +163,7 @@ protected:
 	bool getElement(String str, String searchElementName, int& ret);
 	bool getTypes(String str, String searchElementName, Array<String>& ret);
 	void setAlphaColor(Image& imageTemp, Color transparentRGB);
+	void blendColorAndImage(Image& imageTemp, Color blendColor);
 };
 
 #endif /* Addon_hpp */

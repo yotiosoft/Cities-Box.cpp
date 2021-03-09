@@ -199,7 +199,49 @@ typedef struct CursorStruct {
 	PositionStruct position_per_tiles;
 } CursorStruct;
 
+typedef struct TimeStruct {
+	int year;
+	int month;
+	int date;
+	int hour;
+	int minutes;
+} TimeStruct;
+
+typedef struct RCOIFstruct {
+	int residential;
+	int commercial;
+	int office;
+	int industrial;
+	int farm;
+} RCOIFstruct;
+
+typedef struct WorkersStruct {
+	int commercial;
+	int office;
+	int industrial;
+	int farm;
+	int publicFacility;
+} WorkersStruct;
+
+typedef struct BudgetStruct {
+	int police;
+	int fireDepertment;
+	int postOffice;
+	int education;
+} BudgetStruct;
+
+typedef struct WorkPlaceStruct {
+	RCOIFP::Type workPlace;
+	int workPlacesSerialNumber;
+} WorkPlaceStruct;
+
+typedef struct SchoolStruct {
+	School::Type school;
+	int schoolSerialNumber;
+} SchoolStruct;
+
 // 周囲4方向
 const pair<String, CoordinateStruct> AroundTiles[4] = {
 	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}
 };
+

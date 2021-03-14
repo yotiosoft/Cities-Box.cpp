@@ -382,7 +382,7 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(menuMode);
 			menuMode = MenuMode::Delete;
 			selectedAddon = map->getAllAddons()[U"tile_greenfield"];
-			selectedAddonName = selectedAddon->getName();
+			selectedAddonName = selectedAddon->getName(NameMode::English);
 			modeStr = U"delete";
 			showAddons.clear();
 		}
@@ -423,7 +423,7 @@ void Menu::addonMenu() {
 	if (showAddons.size() > 0) {
 		int selectedI = -1, cursorI = -1;
 		for (int i=0; i<showAddons.size(); i++) {
-			String addonName = showAddons[i]->getName();
+			String addonName = showAddons[i]->getName(NameMode::English);
 			
 			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= position.y-40+32);
 			if (cursorOn || selectedAddonName == addonName) {
@@ -455,7 +455,7 @@ void Menu::addonMenu() {
 		
 		if (cursorI == selectedI && selectedI >= 0) {
 			// 名前と説明
-			String nameJP = showAddons[selectedI]->getNameJP();
+			String nameJP = showAddons[selectedI]->getName(NameMode::Japanese);
 			(*font16)(nameJP).draw(position.x+30, position.y-80+2);
 			(*font12)(showAddons[selectedI]->getSummary()).draw(position.x+30, position.y-60+2);
 			
@@ -472,7 +472,7 @@ void Menu::addonMenu() {
 			}
 		}
 		else if (cursorI >= 0) {
-			String nameJP = showAddons[cursorI]->getNameJP();
+			String nameJP = showAddons[cursorI]->getName(NameMode::Japanese);
 			(*font16)(nameJP).draw(position.x+30, position.y-80+2);
 			(*font12)(showAddons[cursorI]->getSummary()).draw(position.x+30, position.y-60+2);
 			

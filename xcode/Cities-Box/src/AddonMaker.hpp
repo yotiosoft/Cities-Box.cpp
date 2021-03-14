@@ -187,7 +187,7 @@ public:
 		return checkType;
 	}
 	
-	map<String, AddonTypeStruct> printTypes() {
+	map<String, AddonType> printTypes() {
 		return types;
 	}
 	

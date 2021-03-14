@@ -196,7 +196,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 					tiles[arrayCount][x].addons.back() = addons[temp[x]];
 					tiles[arrayCount][x].addons << addon_temp;
 					
-					cout << tiles[arrayCount][x].addons[1]->getName() << endl;
+					cout << tiles[arrayCount][x].addons[1]->getName(NameMode::English) << endl;
 					
 					/*Array<String> categories = tiles[array_count][x].addons.back()->getCategories();
 					for (int i=0; i<categories.size(); i++) {
@@ -775,7 +775,7 @@ void CityMap::loadAddons(String addonSetName) {
 		
 		Addon* loadingAddon = new Addon();
 		if (loadingAddon->load(addonsPath[i], addonSetName)) {
-			addons[loadingAddon->getName()] = loadingAddon;
+			addons[loadingAddon->getName(NameMode::English)] = loadingAddon;
 		}
 		else {
 			delete(loadingAddon);
@@ -1590,7 +1590,7 @@ bool CityMap::save() {
 								for (int i=0; i<tiles[y][x].addons.size(); i++) {
 									mapData.startObject();
 									{
-										mapData.key(U"name").write(tiles[y][x].addons[i]->getName());
+										mapData.key(U"name").write(tiles[y][x].addons[i]->getName(NameMode::English));
 										//map_file.key(U"category").write(tiles[y][x].category[i]);
 										mapData.key(U"type_number").write(tiles[y][x].getType(i));
 										mapData.key(U"direction_number").write(tiles[y][x].getDirection(i));

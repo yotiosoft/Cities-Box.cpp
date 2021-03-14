@@ -9,8 +9,7 @@
 #define AddonType_hpp
 
 #include "Specific.hpp"
-#include "Addon.hpp"
-#include "AddonDirection.hpp"
+#include "AddonDirectionStruct.hpp"
 
 class AddonType {
 public:
@@ -21,7 +20,7 @@ public:
 	Array<String> directionNames;	// typeに含まれる方向
 	RGBstruct transparentColor;		// 透過色のRGB値
 	
-	//map<String, AddonDirection> directions;	// typeに含まれる各方向の情報
+	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
 	
 	Texture texture;				// アドオン画像のテクスチャ
 	Texture nightMaskTexture;		// 夜間用マスク画像のテクスチャ

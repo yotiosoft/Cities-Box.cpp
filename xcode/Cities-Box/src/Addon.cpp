@@ -79,15 +79,15 @@ void Addon::blendColorAndImage(Image& imageTemp, Color blendColor) {
 
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
-		return loadADAT(newFilePath, loadingAddonsSetName);
+		return load_adat(newFilePath, loadingAddonsSetName);
 	}
 	else if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adj") {
-		return loadADJ(newFilePath, loadingAddonsSetName);
+		return load_adj(newFilePath, loadingAddonsSetName);
 	}
 	return false;
 }
 
-bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
+bool Addon::load_adat(FileStruct newFilePath, String loadingAddonsSetName) {
 	// アドオンファイルの読み込み
 	addonFilePath = newFilePath;
 	
@@ -326,12 +326,8 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 			if (types[currentLoadingType].image.length() > 0) {
 				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
 				setAlphaColor(iTemp, transparentColor);
-<<<<<<< HEAD
-				types[currentLoadingType].layers << AddonLayerStruct{Texture(iTemp), LayerType::Normal};
-=======
 				blendColorAndImage(iTemp, Color(0, 0, 0, 200));
 				types[currentLoadingType].texture = Texture(iTemp);
->>>>>>> mac_develop
 			}
 			
 			currentDirection = U"";
@@ -408,7 +404,7 @@ bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
 	return true;
 }
 
-bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
+bool Addon::load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	addonFilePath = newFilePath;
 	JSONReader addonData(Unicode::Widen(addonFilePath.file_path));
 	
@@ -460,12 +456,8 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 		
 		Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].image);
 		setAlphaColor(iTemp, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
-<<<<<<< HEAD
-		types[typeName].layers << AddonLayerStruct{Texture(iTemp), LayerType::Normal};
-=======
 		blendColorAndImage(iTemp, Color(0, 0, 0, 200));
 		types[typeName].texture = Texture(iTemp);
->>>>>>> mac_develop
 		
 		types[typeName].nightMask = type[U"night_mask"].getString();
 		if (FileSystem::IsFile(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].nightMask)) {
@@ -496,12 +488,13 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 	return true;
 }
 
-String Addon::getName() {
-	return addonName;
-}
-
-String Addon::getNameJP() {
-	return addonJPName;
+String Addon::getName(NameMode::Type mode) {
+	if (mode == NameMode::English) {
+		return addonName;
+	}
+	else {
+		return addonJPName;
+	}
 }
 
 String Addon::getAuthorName() {
@@ -603,12 +596,6 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	unsigned short int sizeHeight = directionTemp->sizeHeight;
 	
 	if (addColor->a > 0) {
-<<<<<<< HEAD
-		types[typeName].layers[0].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-	}
-	else {
-		types[typeName].layers[0].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-=======
 		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
 		if (!types[typeName].nightMaskTexture.isEmpty()) {
 			types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
@@ -619,7 +606,6 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 		if (!types[typeName].nightMaskTexture.isEmpty()) {
 			types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
 		}
->>>>>>> mac_develop
 	}
 }
 

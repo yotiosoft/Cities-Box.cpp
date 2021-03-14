@@ -9,34 +9,8 @@
 
 #include "Specific.hpp"
 #include "Images.hpp"
-
-typedef struct AddonDirectionStruct {
-	string direction;
-	
-	int sizeWidth;					// 画像の横方向のサイズ
-	int sizeHeight;					// 画像の縦方向のサイズ
-	int chipX;						// アドオンが占める横方向のマスの数
-	int chipY;						// アドオンが占める縦方向のマスの数
-	
-	int topLeftX;					// 左上のx座標
-	int topLeftY;					// 左上のy座標
-	int bottomRightX;				// 右下のx座標
-	int bottomRightY;				// 右下のy座標
-} AddonDirectionStruct;
-
-typedef struct AddonTypeStruct {
-	string type;
-	
-	String image;					// アドオン画像のパス
-	String nightMask;				// ナイトマスク画像のパス
-	Array<String> directionNames;	// typeに含まれる方向
-	RGBstruct transparentColor;		// 透過色のRGB値
-	
-	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
-	
-	Texture texture;				// アドオン画像のテクスチャ
-	Texture nightMaskTexture;		// 夜間用マスク画像のテクスチャ
-} AddonTypeStruct;
+#include "AddonType.hpp"
+#include "AddonDirectionStruct.hpp"
 
 typedef struct EffectStruct {
 	int influence;
@@ -68,14 +42,11 @@ class Addon {
 public:
 	Addon();
 	
-	// 内容の変更
+	// アドオン読み込み
 	bool load(FileStruct newFilePath, String loadingAddonsSetName);
-	bool loadADAT(FileStruct newFilePath, String loadingAddonsSetName);
-	bool loadADJ(FileStruct newFilePath, String loadingAddonsSetName);
 	
 	// 名前の取得
-	String getName();		// 原名
-	String getNameJP();		// 日本語名
+	String getName(NameMode::Type mode);
 	
 	// 製作者名の取得
 	String getAuthorName();
@@ -116,6 +87,10 @@ public:
 	void converter();
 	
 protected:
+	// アドオン読み込み
+	bool load_adat(FileStruct newFilePath, String loadingAddonsSetName);
+	bool load_adj(FileStruct newFilePath, String loadingAddonsSetName);
+	
 	// アドオンファイルのパス
 	FileStruct addonFilePath;
 	
@@ -155,7 +130,7 @@ protected:
 	int landPriceInfluenceGrid;		// 地価の上下が影響するマス
 	
 	// 各typeの情報
-	map<String, AddonTypeStruct> types;
+	map<String, AddonType> types;
 	
 	
 	// プライベート関数

@@ -240,6 +240,50 @@ typedef struct SchoolStruct {
 	int schoolSerialNumber;
 } SchoolStruct;
 
+namespace NameMode {
+	enum Type {
+		English		= 0,
+		Japanese	= 1,
+	};
+}
+
+namespace TypeID {
+	enum Type {
+		Normal				= 0,
+		UnderConstruction	= 1,
+		Default				= 2,
+		Turn				= 3,
+		IntersectionT		= 4,
+		IntersectionCross	= 5,
+		DeadEnd				= 6,
+		TrainCrossing		= 7,
+		Bridge				= 8,
+		TileNormal			= 9,
+		TileAutumn			= 10,
+		TileSnow			= 11,
+	};
+}
+
+namespace DirectionID {
+	enum Type {
+		Normal			= 0,
+		Left			= 1,
+		Top				= 2,
+		Right			= 3,
+		Bottom			= 4,
+		Depth			= 5,
+		Width			= 6,
+		LeftRightBottom	= 7,
+		LeftRightTop	= 8,
+		LeftTopBottom	= 9,
+		RightTopBottom	= 10,
+		LeftBottom		= 11,
+		LeftTop			= 12,
+		RightBottom		= 13,
+		RightTop		= 14,
+	};
+}
+
 // 周囲4方向
 const pair<String, CoordinateStruct> AroundTiles[4] = {
 	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}

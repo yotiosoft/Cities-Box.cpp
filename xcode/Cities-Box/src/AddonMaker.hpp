@@ -173,14 +173,14 @@ public:
 	
 	void setDirection(String typeName, String directionName, int sizeWidth, int sizeHeight, int chipX, int chipY, int topLeftX, int topLeftY, int bottomRightX, int bottomRightY) {
 		types[typeName].directionNames.push_back(directionName);
-		types[typeName].directions[directionName].sizeWidth = sizeWidth;
-		types[typeName].directions[directionName].sizeHeight = sizeHeight;
-		types[typeName].directions[directionName].chipX = chipX;
-		types[typeName].directions[directionName].chipY = chipY;
-		types[typeName].directions[directionName].topLeftX = topLeftX;
-		types[typeName].directions[directionName].topLeftY = topLeftY;
-		types[typeName].directions[directionName].bottomRightX = bottomRightX;
-		types[typeName].directions[directionName].bottomRightY = bottomRightY;
+		types[typeName].directions[directionName].size.x = sizeWidth;
+		types[typeName].directions[directionName].size.y = sizeHeight;
+		types[typeName].directions[directionName].requiredTiles.x = chipX;
+		types[typeName].directions[directionName].requiredTiles.y = chipY;
+		types[typeName].directions[directionName].topLeft.x = topLeftX;
+		types[typeName].directions[directionName].topLeft.y = topLeftY;
+		types[typeName].directions[directionName].bottomRight.x = bottomRightX;
+		types[typeName].directions[directionName].bottomRight.y = bottomRightY;
 	}
 	
 	bool isTypeSet() {

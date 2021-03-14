@@ -11,19 +11,16 @@
 #define AddonDirectionStruct_hpp
 
 #include <stdio.h>
+#include "Specific.hpp"
 
 #endif /* AddonDirectionStruct_hpp */
 
 typedef struct AddonDirectionStruct {
-	string direction;
+	DirectionID::Type directionID;
 	
-	int sizeWidth;					// 画像の横方向のサイズ
-	int sizeHeight;					// 画像の縦方向のサイズ
-	int chipX;						// アドオンが占める横方向のマスの数
-	int chipY;						// アドオンが占める縦方向のマスの数
+	Size size;						// 画像のサイズ
+	Size requiredTiles;				// アドオンが占めるマスの数
 	
-	int topLeftX;					// 左上のx座標
-	int topLeftY;					// 左上のy座標
-	int bottomRightX;				// 右下のx座標
-	int bottomRightY;				// 右下のy座標
+	Point topLeft;					// 左上の座標
+	Point bottomRight;				// 右下の座標
 } AddonDirectionStruct;

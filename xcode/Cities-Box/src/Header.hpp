@@ -137,6 +137,8 @@ namespace LayerType {
 		Ground				= 0,	// 地面
 		Normal				= 1,	// 常時表示される部分
 		
+		Evening				= 9,	// 夕方表示される部分
+		
 		Night				= 10,	// 夜間表示される部分
 		
 		OnSpring			= 11,	// 春季だけ表示される部分
@@ -148,6 +150,14 @@ namespace LayerType {
 		OnSummerNight		= 22,	// 夏季夜間表示される部分
 		OnAutumnNight		= 23,	// 秋季夜間表示される部分
 		OnWinterNight		= 24,	// 冬季夜間表示される部分
+	};
+}
+
+namespace ThreeTypesAnswer {
+	enum Type {
+		No,
+		Neutral,
+		Yes
 	};
 }
 

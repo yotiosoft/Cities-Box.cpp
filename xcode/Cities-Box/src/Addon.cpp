@@ -375,20 +375,20 @@ bool Addon::load_adat(FileStruct newFilePath, String loadingAddonsSetName) {
 				AddonDirectionStruct direction_temp;
 				
 				// アドオンの大きさ
-				getElement(strTemp, U"size_x", direction_temp.sizeWidth);		// 横
-				getElement(strTemp, U"size_y", direction_temp.sizeHeight);		// 縦
+				getElement(strTemp, U"size_x", direction_temp.size.x);		// 横
+				getElement(strTemp, U"size_y", direction_temp.size.y);		// 縦
 				
 				// アドオンが占めるマスの数
-				getElement(strTemp, U"chip_x", direction_temp.chipX);			// 横
-				getElement(strTemp, U"chip_y", direction_temp.chipY);			// 縦
+				getElement(strTemp, U"chip_x", direction_temp.requiredTiles.x);			// 横
+				getElement(strTemp, U"chip_y", direction_temp.requiredTiles.y);			// 縦
 				
 				// 画像上の左上の座標
-				getElement(strTemp, U"top_left_x", direction_temp.topLeftX);
-				getElement(strTemp, U"top_left_y", direction_temp.topLeftY);
+				getElement(strTemp, U"top_left_x", direction_temp.topLeft.x);
+				getElement(strTemp, U"top_left_y", direction_temp.topLeft.y);
 				
 				// 画面上の右下の座標
-				getElement(strTemp, U"bottom_right_x", direction_temp.bottomRightX);
-				getElement(strTemp, U"bottom_right_y", direction_temp.bottomRightY);
+				getElement(strTemp, U"bottom_right_x", direction_temp.bottomRight.x);
+				getElement(strTemp, U"bottom_right_y", direction_temp.bottomRight.y);
 				
 				types[currentLoadingType].directions[currentDirection] = direction_temp;
 			}
@@ -471,17 +471,17 @@ bool Addon::load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		for (const auto& direction : type[U"Directions"].arrayView()) {
 			String direction_name = direction[U"direction_name"].getString();
 			
-			types[typeName].directions[direction_name].sizeWidth = direction[U"size.width"].get<int>();
-			types[typeName].directions[direction_name].sizeHeight = direction[U"size.height"].get<int>();
+			types[typeName].directions[direction_name].size.x = direction[U"size.width"].get<int>();
+			types[typeName].directions[direction_name].size.y = direction[U"size.height"].get<int>();
 			
-			types[typeName].directions[direction_name].chipX = direction[U"squares.width"].get<int>();
-			types[typeName].directions[direction_name].chipY = direction[U"squares.height"].get<int>();
+			types[typeName].directions[direction_name].requiredTiles.x = direction[U"squares.width"].get<int>();
+			types[typeName].directions[direction_name].requiredTiles.y = direction[U"squares.height"].get<int>();
 			
-			types[typeName].directions[direction_name].topLeftX = direction[U"top_left.x"].get<int>();
-			types[typeName].directions[direction_name].topLeftY = direction[U"top_left.y"].get<int>();
+			types[typeName].directions[direction_name].topLeft.x = direction[U"top_left.x"].get<int>();
+			types[typeName].directions[direction_name].topLeft.y = direction[U"top_left.y"].get<int>();
 			
-			types[typeName].directions[direction_name].bottomRightX = direction[U"bottom_right.x"].get<int>();
-			types[typeName].directions[direction_name].bottomRightY = direction[U"bottom_right.y"].get<int>();
+			types[typeName].directions[direction_name].bottomRight.x = direction[U"bottom_right.x"].get<int>();
+			types[typeName].directions[direction_name].bottomRight.y = direction[U"bottom_right.y"].get<int>();
 		}
 	}
 	
@@ -562,13 +562,13 @@ void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct
 }
 
 CoordinateStruct Addon::getUseTiles(String typeName, String directionName) {
-	return CoordinateStruct{types[typeName].directions[directionName].chipX, types[typeName].directions[directionName].chipY};
+	return CoordinateStruct{types[typeName].directions[directionName].requiredTiles.x, types[typeName].directions[directionName].requiredTiles.y};
 }
 
 PositionStruct Addon::getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
 	AddonDirectionStruct* directionTemp = &(types[typeName].directions[directionName]);
 	if (directionTemp != nullptr)
-		position.y = position.y + CHIP_SIZE/2 - directionTemp->sizeHeight + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
+		position.y = position.y + CHIP_SIZE/2 - directionTemp->size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
 	
 	return position;
 }
@@ -584,16 +584,16 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
 	position = getPosition(typeName, directionName, position, useTiles, tilesCount);
 	
-	unsigned short int topLeftX = directionTemp->topLeftX;
+	unsigned short int topLeftX = directionTemp->topLeft.x;
 	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int topLeftY = directionTemp->topLeftY;
+	unsigned short int topLeftY = directionTemp->topLeft.y;
 	topLeftY += CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int sizeWidth = directionTemp->sizeWidth;
+	unsigned short int sizeWidth = directionTemp->size.x;
 	sizeWidth = CHIP_SIZE;
 	
-	unsigned short int sizeHeight = directionTemp->sizeHeight;
+	unsigned short int sizeHeight = directionTemp->size.y;
 	
 	if (addColor->a > 0) {
 		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
@@ -697,26 +697,26 @@ void Addon::converter() {
 								addonData.key(U"direction_name").write(direction->first);
 								addonData.key(U"size").startObject();
 								{
-									addonData.key(U"width").write(direction->second.sizeWidth);
-									addonData.key(U"height").write(direction->second.sizeHeight);
+									addonData.key(U"width").write(direction->second.size.x);
+									addonData.key(U"height").write(direction->second.size.y);
 								}
 								addonData.endObject();
 								addonData.key(U"squares").startObject();
 								{
-									addonData.key(U"width").write(direction->second.chipX);
-									addonData.key(U"height").write(direction->second.chipY);
+									addonData.key(U"width").write(direction->second.requiredTiles.x);
+									addonData.key(U"height").write(direction->second.requiredTiles.y);
 								}
 								addonData.endObject();
 								addonData.key(U"top_left").startObject();
 								{
-									addonData.key(U"x").write(direction->second.topLeftX);
-									addonData.key(U"y").write(direction->second.topLeftY);
+									addonData.key(U"x").write(direction->second.topLeft.x);
+									addonData.key(U"y").write(direction->second.topLeft.y);
 								}
 								addonData.endObject();
 								addonData.key(U"bottom_right").startObject();
 								{
-									addonData.key(U"x").write(direction->second.bottomRightX);
-									addonData.key(U"y").write(direction->second.bottomRightY);
+									addonData.key(U"x").write(direction->second.bottomRight.x);
+									addonData.key(U"y").write(direction->second.bottomRight.y);
 								}
 								addonData.endObject();
 							}

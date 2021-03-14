@@ -53,6 +53,7 @@
 		4B819F682417A7B400FBD9B5 /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B819F662417A7B400FBD9B5 /* DetailsBar.cpp */; };
 		4BA8350825EBC3900015FF75 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8350625EBC3900015FF75 /* AddonType.cpp */; };
 		4BA8351125EBC5560015FF75 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8350F25EBC5560015FF75 /* Tile.cpp */; };
+		4BAFF75025FE782B001397F2 /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAFF74E25FE782B001397F2 /* AddonLayer.cpp */; };
 		4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BDD0C22239BA06500780F93 /* Menu.cpp */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +125,8 @@
 		4BA8350B25EBC3B40015FF75 /* AddonDirectionStruct.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddonDirectionStruct.hpp; sourceTree = "<group>"; };
 		4BA8350F25EBC5560015FF75 /* Tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 		4BA8351025EBC5560015FF75 /* Tile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
+		4BAFF74E25FE782B001397F2 /* AddonLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AddonLayer.cpp; sourceTree = "<group>"; };
+		4BAFF74F25FE782B001397F2 /* AddonLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddonLayer.hpp; sourceTree = "<group>"; };
 		4BDD0C22239BA06500780F93 /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
 		4BDD0C23239BA06500780F93 /* Menu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Menu.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +199,8 @@
 				4BA8350625EBC3900015FF75 /* AddonType.cpp */,
 				4BA8350725EBC3900015FF75 /* AddonType.hpp */,
 				4BA8350B25EBC3B40015FF75 /* AddonDirectionStruct.hpp */,
+				4BAFF74E25FE782B001397F2 /* AddonLayer.cpp */,
+				4BAFF74F25FE782B001397F2 /* AddonLayer.hpp */,
 				4B6C06E923F546E70095C719 /* AddonMaker.cpp */,
 				4B6C06EA23F546E70095C719 /* AddonMaker.hpp */,
 				4B75112523966B39008DFD03 /* Button.cpp */,
@@ -349,6 +354,7 @@
 				4BA8350825EBC3900015FF75 /* AddonType.cpp in Sources */,
 				4B6C06F123F6AC0C0095C719 /* RouteSolver.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
+				4BAFF75025FE782B001397F2 /* AddonLayer.cpp in Sources */,
 				4B75112E23966B3A008DFD03 /* OtherFunctions.cpp in Sources */,
 				4B75113223966B3A008DFD03 /* StartUp.cpp in Sources */,
 			);

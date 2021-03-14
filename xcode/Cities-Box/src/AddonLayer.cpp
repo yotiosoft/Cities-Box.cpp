@@ -12,7 +12,7 @@ AddonLayer::AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_types) 
 	layer_types = arg_layer_types;
 }
 
-Image AddonLayer::getImage() {
+Image AddonLayer::getImage(DirectionID::Type direction_id) {
 	return image;
 }
 

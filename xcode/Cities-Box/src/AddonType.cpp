@@ -6,3 +6,11 @@
 //
 
 #include "AddonType.hpp"
+
+
+AddonType::AddonType() {
+}
+
+AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers) {
+	
+}

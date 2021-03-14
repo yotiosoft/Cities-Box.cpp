@@ -17,7 +17,8 @@ public:
 	AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_type);
 	
 	// imageを返す
-	Image getImage();
+	// 合致するdirectionの部分を切り取って返す
+	Image getImage(DirectionID::Type direction_id);
 	
 	// 指定した時刻がレイヤ出現の条件に合うか？
 	ThreeTypesAnswer::Type isEnable(TimeStruct time);

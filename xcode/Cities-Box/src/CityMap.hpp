@@ -107,45 +107,46 @@ public:
 	void freeMapAndAddons();
 	
 private:
-	int savedVersion;
-	String addonSet;
+	/* プライベート関数 */
+	bool m_get_element(String str, String searchElementName, String& ret);
+	bool m_get_element(String str, String searchElementName, int& ret);
+	bool m_get_element(String str, String searchElementName, bool& ret);
+	bool m_get_types(String str, String searchElementName, Array<String>& ret);
 	
-	String cityName;
-	String mayorName;
-	int totalPopulation;
-	bool changeWeather;
-	int temperature;
-	bool darkOnNight;
+	/* プライベート変数 */
+	int m_saved_version;
+	String m_addon_set_name;
 	
-	SizeStruct mapsize;
+	String m_city_name;
+	String m_mayor_name;
+	int m_total_population;
+	bool m_change_weather;
+	int m_temperature;
+	bool m_dark_on_night;
 	
-	TimeStruct time;
+	SizeStruct m_map_size;
 	
-	RCOIFstruct demand;
+	TimeStruct m_time_now;
 	
-	int money;
+	RCOIFstruct m_demand;
 	
-	BudgetStruct budget;
-	RCOIFstruct tax;
+	int m_money;
 	
-	Array<Array<Tile>> tiles;
+	BudgetStruct m_budget;
+	RCOIFstruct m_tax;
 	
-	bool loadingComplete;
+	Array<Array<Tile>> m_tiles;
 	
-	map<String, Addon*> addons;
+	bool m_loading_complete;
 	
-	CameraStruct cameraBefore;
-	pair<CoordinateStruct, CoordinateStruct> range;
+	map<String, Addon*> m_addons;
 	
-	String mapFilePath;
+	CameraStruct m_camera_before;
+	pair<CoordinateStruct, CoordinateStruct> m_range;
 	
-	String showRate = U"";
+	String m_map_file_path;
 	
-	// プライベート関数
-	bool getElement(String str, String searchElementName, String& ret);
-	bool getElement(String str, String searchElementName, int& ret);
-	bool getElement(String str, String searchElementName, bool& ret);
-	bool getTypes(String str, String searchElementName, Array<String>& ret);
+	String m_show_rate = U"";
 };
 
 #endif /* CityMap_hpp */

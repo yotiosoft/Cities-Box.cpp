@@ -16,7 +16,7 @@ class AddonType {
 public:
 	// コンストラクタ
 	AddonType();
-	AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers);
+	AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, bool arg_light_on_night);
 	
 	// 描画
 	void draw(TimeStruct time, AddonDirectionStruct direction_id,
@@ -35,11 +35,19 @@ public:
 	Texture nightMaskTexture;		// 夜間用マスク画像のテクスチャ
 	
 private:
+	/* プライベート関数 */
 	// レイヤの更新
-	void update_layers(TimeStruct time);
+	void m_update_layers(TimeStruct time);
 	
 	// 有効なレイヤのリストを返す
-	Array<bool> get_enable_layers_list(TimeStruct time);
+	Array<bool> m_get_enable_layers_list(TimeStruct time);
+	
+	/* プライベート変数 */
+	// レイヤ
+	Array<AddonLayer> m_layers;
+	
+	// 夜間に電気を灯すか？
+	bool m_light_on_night;
 	
 	Texture m_texture;				// アドオン表示用テクスチャ
 	

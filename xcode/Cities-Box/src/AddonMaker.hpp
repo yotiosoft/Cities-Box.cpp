@@ -21,190 +21,190 @@ public:
 	}
 	
 	void setAddonNameEN(String arg) {
-		addonName = arg;
+		m_addon_name = arg;
 		
 		if (arg.size() > 0) {
-			checkAddonNameEN = true;
+			m_am_check_addon_name_en = true;
 		}
 	}
 	
 	bool isAddonNameENSet() {
-		return checkAddonNameEN;
+		return m_am_check_addon_name_en;
 	}
 	
 	String printAddonNameEN() {
-		return addonName;
+		return m_addon_name;
 	}
 	
 	void setAddonNameJP(String arg) {
-		addonJPName = arg;
+		m_addon_jp_name = arg;
 		
 		if (arg.size() > 0) {
-			checkAddonNameJP = true;
+			m_am_check_addon_name_jp = true;
 		}
 	}
 	
 	bool isAddonNameJPSet() {
-		return checkAddonNameJP;
+		return m_am_check_addon_name_jp;
 	}
 	
 	String printAddonNameJP() {
-		return addonJPName;
+		return m_addon_jp_name;
 	}
 	
 	void setAuthor(String arg) {
-		addonAuthor = arg;
+		m_addon_author = arg;
 		
 		if (arg.size() > 0) {
-			checkAuthor = true;
+			m_am_check_author = true;
 		}
 	}
 	
 	bool isAuthorSet() {
-		return checkAuthor;
+		return m_am_check_author;
 	}
 	
 	String printAuthor() {
-		return addonAuthor;
+		return m_addon_author;
 	}
 	
 	void setSummary(String arg) {
-		addonSummary = arg;
+		m_addon_summary = arg;
 		
 		if (arg.size() > 0) {
-			checkSummary = true;
+			m_am_check_summary = true;
 		}
 	}
 	
 	bool isSummarySet() {
-		return checkSummary;
+		return m_am_check_summary;
 	}
 	
 	String printSummary() {
-		return addonSummary;
+		return m_addon_summary;
 	}
 	
 	void setAddonSet(String arg) {
-		belongAddonsSetName.push_back(arg);
+		m_belong_addons_set_name.push_back(arg);
 		
 		if (arg.size() > 0) {
-			checkAddonSet = true;
+			m_am_check_addon_set = true;
 		}
 	}
 	
 	bool isAddonSetSet() {
-		return checkAddonSet;
+		return m_am_check_addon_set;
 	}
 	
 	Array<String> printAddonSet() {
-		return belongAddonsSetName;
+		return m_belong_addons_set_name;
 	}
 	
 	void setCategory(String arg) {
-		addonCategories.push_back(arg);
+		m_addon_categories.push_back(arg);
 		
 		if (arg.size() > 0) {
-			checkCategory = true;
+			m_am_check_category = true;
 		}
 	}
 	
 	bool isCategorySet() {
-		return checkCategory;
+		return m_am_check_category;
 	}
 	
 	Array<String> printCategories() {
-		return addonCategories;
+		return m_addon_categories;
 	}
 	
 	void setIcon(String arg) {
-		addonIcon = arg;
+		m_addon_icon = arg;
 		
 		if (arg.size() > 0) {
-			checkIcon = true;
+			m_am_check_icon = true;
 		}
 	}
 	
 	bool isIconSet() {
-		return checkIcon;
+		return m_am_check_icon;
 	}
 	
 	String printIcon() {
-		return addonIcon;
+		return m_addon_icon;
 	}
 	
 	void setMaximumCapacity(int arg) {
-		maximumCapacity = arg;
+		m_maximum_capacity = arg;
 		
-		checkMaximumCapacity = true;
+		m_am_check_maximum_capacity = true;
 	}
 	
 	bool isMaximumCapacitySet() {
-		return checkMaximumCapacity;
+		return m_am_check_maximum_capacity;
 	}
 	
 	int printMaximumCapacity() {
-		return maximumCapacity;
+		return m_maximum_capacity;
 	}
 	
 	void setEffect(String name, int influence, int grid) {
-		effects[name].influence = influence;
-		effects[name].grid = grid;
+		m_effects[name].influence = influence;
+		m_effects[name].grid = grid;
 		
 		if (name.size() > 0) {
-			checkEffect = true;
+			m_am_check_effect = true;
 		}
 	}
 	
 	bool isEffectSet() {
-		return checkEffect;
+		return m_am_check_effect;
 	}
 	
 	map<String, EffectStruct> printEffect() {
-		return effects;
+		return m_effects;
 	}
 	
 	void setType(String typeName, String image, String nightMask, RGBstruct transparentColor) {
-		types[typeName].image = image;
-		types[typeName].nightMask = nightMask;
-		types[typeName].transparentColor = transparentColor;
+		m_types[typeName].image = image;
+		m_types[typeName].nightMask = nightMask;
+		m_types[typeName].transparentColor = transparentColor;
 		
-		checkType = true;
+		m_am_check_type = true;
 	}
 	
 	void setDirection(String typeName, String directionName, int sizeWidth, int sizeHeight, int chipX, int chipY, int topLeftX, int topLeftY, int bottomRightX, int bottomRightY) {
-		types[typeName].directionNames.push_back(directionName);
-		types[typeName].directions[directionName].size.x = sizeWidth;
-		types[typeName].directions[directionName].size.y = sizeHeight;
-		types[typeName].directions[directionName].requiredTiles.x = chipX;
-		types[typeName].directions[directionName].requiredTiles.y = chipY;
-		types[typeName].directions[directionName].topLeft.x = topLeftX;
-		types[typeName].directions[directionName].topLeft.y = topLeftY;
-		types[typeName].directions[directionName].bottomRight.x = bottomRightX;
-		types[typeName].directions[directionName].bottomRight.y = bottomRightY;
+		m_types[typeName].directionNames.push_back(directionName);
+		m_types[typeName].directions[directionName].size.x = sizeWidth;
+		m_types[typeName].directions[directionName].size.y = sizeHeight;
+		m_types[typeName].directions[directionName].requiredTiles.x = chipX;
+		m_types[typeName].directions[directionName].requiredTiles.y = chipY;
+		m_types[typeName].directions[directionName].topLeft.x = topLeftX;
+		m_types[typeName].directions[directionName].topLeft.y = topLeftY;
+		m_types[typeName].directions[directionName].bottomRight.x = bottomRightX;
+		m_types[typeName].directions[directionName].bottomRight.y = bottomRightY;
 	}
 	
 	bool isTypeSet() {
-		return checkType;
+		return m_am_check_type;
 	}
 	
 	map<String, AddonType> printTypes() {
-		return types;
+		return m_types;
 	}
 	
 	void sMenu(Font& font16);
 	void sName(Font& font16);
 	
 protected:
-	bool checkAddonNameEN = false;
-	bool checkAddonNameJP = false;
-	bool checkAuthor = false;
-	bool checkSummary = false;
-	bool checkAddonSet = false;
-	bool checkCategory = false;
-	bool checkIcon = false;
-	bool checkMaximumCapacity = false;
-	bool checkEffect = false;
-	bool checkType = false;
+	bool m_am_check_addon_name_en = false;
+	bool m_am_check_addon_name_jp = false;
+	bool m_am_check_author = false;
+	bool m_am_check_summary = false;
+	bool m_am_check_addon_set = false;
+	bool m_am_check_category = false;
+	bool m_am_check_icon = false;
+	bool m_am_check_maximum_capacity = false;
+	bool m_am_check_effect = false;
+	bool m_am_check_type = false;
 };
 
 #endif /* AddonMaker_hpp */

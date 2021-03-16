@@ -44,21 +44,21 @@ public:
 	void release();
 	
 private:
-	Texture buttonTexture;
+	Texture m_button_texture;
 	
-	bool isIcon;
+	bool m_is_icon;
 	
-	PositionStruct position;
-	SizeStruct size;
-	SizeStruct iconSize;
+	PositionStruct m_position;
+	SizeStruct m_size;
+	SizeStruct m_icon_size;
 	
-	PositionStruct shift;
+	PositionStruct m_shift;
 	
-	Font font;
-	String label;
-	PositionStruct labelPosition;
+	Font m_font;
+	String m_label;
+	PositionStruct m_label_position;
 	
-	bool active;
+	bool m_active;
 };
 
 #endif /* Button_hpp */

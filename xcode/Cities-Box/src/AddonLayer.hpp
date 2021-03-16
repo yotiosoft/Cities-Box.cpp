@@ -17,7 +17,8 @@ public:
 	AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_type);
 	
 	// imageを返す
-	// 合致するdirectionの部分を切り取って返す
+	Image getImage();
+	// 合致するdirectionの部分を切り取ってimageを返す
 	Image getImage(DirectionID::Type direction_id);
 	
 	// 指定した時刻がレイヤ出現の条件に合うか？
@@ -25,13 +26,13 @@ public:
 	
 private:
 	// レイヤ画像
-	Image image;
+	Image m_image;
 	
 	// レイヤのタイプ
-	Array<LayerType::Type> layer_types;
+	Array<LayerType::Type> m_layer_types;
 	
 	// 方向
-	Array<AddonDirectionStruct> directions;
+	Array<AddonDirectionStruct> m_directions;
 };
 
 #endif /* AddonLayer_hpp */

@@ -22,26 +22,26 @@ public:
 	void printTime(TimeStruct time);
 	
 private:
-	Font* font;
-	PositionStruct position;
+	Font* m_font;
+	PositionStruct m_position;
 	
-	Texture temperatureLowIcon;
-	Texture temperatureMiddleIcon;
-	Texture temperatureHighIcon;
+	Texture m_temperature_low_icon_texture;
+	Texture m_temperature_middle_icon_texture;
+	Texture m_temperature_high_icon_texture;
 	
-	Texture populationIcon;
-	Texture timeIcon;
+	Texture m_population_icon_texture;
+	Texture time_icon_texture;
 	
-	Texture weatherSunnyIcon;
-	Texture weatherCloudyIcon;
-	Texture weatherRainyIcon;
-	Texture weatherSnowyIcon;
+	Texture m_weather_sunny_icon;
+	Texture m_weather_cloudy_icon;
+	Texture m_weather_rainy_icon;
+	Texture m_weather_snowy_icon;
 	
-	int weatherRegion;
-	int temperatureRegion;
-	int populationPrintRegion;
-	int moneyPrintRegion;
-	int timePrintRegion;
+	int m_weather_region;
+	int m_temperature_region;
+	int m_population_print_region;
+	int m_money_print_region;
+	int m_time_print_region;
 };
 
 #endif /* DetailsBar_hpp */

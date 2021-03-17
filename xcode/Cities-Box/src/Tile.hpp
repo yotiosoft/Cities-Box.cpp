@@ -63,11 +63,11 @@ public:
 	Array<Addon*> addons;
 	
 private:
-	String originalName;
+	String m_original_name;
 	//Array<String> category;
 	
-	Array<String> types;
-	Array<String> directions;
+	Array<String> m_types;
+	Array<String> m_directions;
 };
 
 #endif /* Tile_hpp */

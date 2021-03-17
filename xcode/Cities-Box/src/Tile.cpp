@@ -9,70 +9,70 @@
 
 // originalName
 bool Tile::setOriginalName(String new_original_name) {
-	originalName = new_original_name;
+	m_original_name = new_original_name;
 	return true;
 }
 
 String Tile::getOriginalName() {
-	return originalName;
+	return m_original_name;
 }
 
 // types
 bool Tile::setTypes(Array<String> new_types) {
-	types = new_types;
+	m_types = new_types;
 	return true;
 }
 
 bool Tile::addType(String add_type) {
-	types << add_type;
+	m_types << add_type;
 	return true;
 }
 
 bool Tile::addTypes(Array<String> add_types) {
 	for (int i=0; i<add_types.size(); i++) {
-		types << add_types[i];
+		m_types << add_types[i];
 	}
 	return true;
 }
 
 Array<String> Tile::getTypes() {
-	return types;
+	return m_types;
 }
 
 String Tile::getType(int num) {
-	return types[num];
+	return m_types[num];
 }
 
 // directions
 bool Tile::setDirections(Array<String> new_directions) {
-	directions = new_directions;
+	m_directions = new_directions;
 	return true;
 }
 
 bool Tile::addDirection(String add_direction) {
-	directions << add_direction;
+	m_directions << add_direction;
 	return true;
 }
 
 bool Tile::addDirections(Array<String> add_directions) {
 	for (int i=0; i<add_directions.size(); i++) {
-		directions << add_directions[i];
+		m_directions << add_directions[i];
 	}
 	return true;
 }
 
 Array<String> Tile::getDirections() {
-	return directions;
+	return m_directions;
 }
 
 String Tile::getDirection(int num) {
-	return directions[num];
+	return m_directions[num];
 }
 
 void Tile::clearAddons() {
 	addons.clear();
-	types.clear();
-	directions.clear();
+	m_types.clear();
+	m_directions.clear();
 }
 
 void Tile::clearAll() {

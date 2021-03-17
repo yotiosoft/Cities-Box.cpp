@@ -9,11 +9,11 @@
 #define TitleMenu_hpp
 
 #include "Specific.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 #include "Button.hpp"
 #include "AddonMaker.hpp"
 
-bool titleMenu(Images& images, Font& font16, String& filePath);
+bool titleMenu(ImagesStruct& images, Font& font16, String& filePath);
 
 bool loadingScreen(Font& font16);
 

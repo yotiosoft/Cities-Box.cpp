@@ -19,12 +19,12 @@ public:
 	int selectedNumber();
 	
 private:
-	Array<String> list;
-	Font font;
-	SizeStruct size;
-	PositionStruct position;
-	int selectedElementNum;
-	bool pullingDown;
+	Array<String> m_list;
+	Font m_font;
+	SizeStruct m_size;
+	PositionStruct m_position;
+	int m_selected_element_num;
+	bool m_pulling_down;
 };
 
 #endif /* PulldownMenu_hpp */

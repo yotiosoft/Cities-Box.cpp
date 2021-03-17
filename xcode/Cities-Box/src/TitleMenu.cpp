@@ -7,7 +7,7 @@
 
 #include "TitleMenu.hpp"
 
-bool titleMenu(Images& images, Font& font16, String& filePath) {
+bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];

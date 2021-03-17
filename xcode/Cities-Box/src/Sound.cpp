@@ -8,31 +8,31 @@
 #include "Sound.hpp"
 
 void Sound::searchSoundFiles(string filePath) {
-	soundFiles = specific::getAllFilesName(filePath, "mp3");
+	m_sound_files = specific::getAllFilesName(filePath, "mp3");
 }
 
 void Sound::playBGM() {
-	int next = playingBGMnum;
-	while (next == playingBGMnum) {
-		next = rnd() % soundFiles.size();
+	int next = m_playing_BGM_num;
+	while (next == m_playing_BGM_num) {
+		next = m_rnd() % m_sound_files.size();
 	}
-	playingBGMnum = next;
-	playBGM(Unicode::Widen(soundFiles[playingBGMnum].file_path));
+	m_playing_BGM_num = next;
+	playBGM(Unicode::Widen(m_sound_files[m_playing_BGM_num].file_path));
 }
 
 void Sound::playBGM(String filePath) {
-	if (audio != nullptr) {
-		delete(audio);
+	if (m_audio_p != nullptr) {
+		delete(m_audio_p);
 	}
 	
-	audio = new Audio(filePath);
+	m_audio_p = new Audio(filePath);
 	
-	audio->play();
+	m_audio_p->play();
 }
 
 void Sound::playingBGM() {
-	if (beforePlayPos > 0 && audio->posSec() == 0) {
+	if (m_before_play_pos > 0 && m_audio_p->posSec() == 0) {
 		playBGM();
 	}
-	beforePlayPos = audio->posSec();
+	m_before_play_pos = m_audio_p->posSec();
 }

@@ -113,7 +113,7 @@
 		4B75112623966B39008DFD03 /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
 		4B75112723966B39008DFD03 /* OtherFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OtherFunctions.hpp; sourceTree = "<group>"; };
 		4B75112823966B39008DFD03 /* StartUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartUp.cpp; sourceTree = "<group>"; };
-		4B75112923966B39008DFD03 /* Images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Images.hpp; sourceTree = "<group>"; };
+		4B75112923966B39008DFD03 /* ImagesStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImagesStruct.hpp; sourceTree = "<group>"; };
 		4B75112A23966B39008DFD03 /* Addon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Addon.cpp; sourceTree = "<group>"; };
 		4B75112B23966B39008DFD03 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
 		4B7511362397DF81008DFD03 /* SubWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubWindow.cpp; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				4B819F662417A7B400FBD9B5 /* DetailsBar.cpp */,
 				4B819F672417A7B400FBD9B5 /* DetailsBar.hpp */,
 				4B75112223966B38008DFD03 /* Images.cpp */,
-				4B75112923966B39008DFD03 /* Images.hpp */,
+				4B75112923966B39008DFD03 /* ImagesStruct.hpp */,
 				4BDD0C22239BA06500780F93 /* Menu.cpp */,
 				4BDD0C23239BA06500780F93 /* Menu.hpp */,
 				4B75111E23966B38008DFD03 /* OtherFunctions.cpp */,

@@ -8,55 +8,55 @@
 #include "SubWindow.hpp"
 
 SubWindow::SubWindow(String newTitle, Font* newFont, SizeStruct newSize, Color backgroundColor) {
-	size = newSize;
-	render = RenderTexture(size.width, size.height, backgroundColor);
+	m_size = newSize;
+	m_render = RenderTexture(m_size.width, m_size.height, backgroundColor);
 	
 	backgroundColor.a = 240;
-	renderWindow = RenderTexture(size.width, size.height+newFont->fontSize()+6, backgroundColor);
+	m_render_window = RenderTexture(m_size.width, m_size.height+newFont->fontSize()+6, backgroundColor);
 	
-	position.x = Scene::Width()/2-size.width/2;
-	position.y = Scene::Height()/2-size.height/2;
+	m_position.x = Scene::Width()/2-m_size.width/2;
+	m_position.y = Scene::Height()/2-m_size.height/2;
 	
-	title = newTitle;
-	font = newFont;
+	m_title = newTitle;
+	m_font = newFont;
 	
-	moving = false;
+	m_moving = false;
 	
 	// テンプレートの描画
-	ScopedRenderTarget2D target(renderWindow);
-	Rect(0, 0, size.width, font->fontSize()+6).draw(Color(9, 132, 227));
+	ScopedRenderTarget2D target(m_render_window);
+	Rect(0, 0, m_size.width, m_font->fontSize()+6).draw(Color(9, 132, 227));
 	
-	(*font)(title).draw(2, 2);
+	(*m_font)(m_title).draw(2, 2);
 }
 
 RenderTexture* SubWindow::getRenderTexture() {
-	return &render;
+	return &m_render;
 }
 
 void SubWindow::move(PositionStruct newPosition) {
-	position = newPosition;
+	m_position = newPosition;
 }
 
 void SubWindow::update() {
-	ScopedRenderTarget2D target(renderWindow);
-	render.draw(0, font->fontSize()+6+1);
+	ScopedRenderTarget2D target(m_render_window);
+	m_render.draw(0, m_font->fontSize()+6+1);
 }
 
 void SubWindow::draw() {
-	if (MouseL.pressed() && Cursor::Pos().x >= position.x && Cursor::Pos().y >= position.y
-		&& Cursor::Pos().x <= position.x+size.width && Cursor::Pos().y <= position.y+font->fontSize()+6) {
-		moving = true;
+	if (MouseL.pressed() && Cursor::Pos().x >= m_position.x && Cursor::Pos().y >= m_position.y
+		&& Cursor::Pos().x <= m_position.x+m_size.width && Cursor::Pos().y <= m_position.y+m_font->fontSize()+6) {
+		m_moving = true;
 	}
 	
-	if (moving) {
+	if (m_moving) {
 		if (!MouseL.pressed()) {
-			moving = false;
+			m_moving = false;
 		}
 		else {
-			position.x += Cursor::Delta().x;
-			position.y += Cursor::Delta().y;
+			m_position.x += Cursor::Delta().x;
+			m_position.y += Cursor::Delta().y;
 		}
 	}
 	
-	renderWindow.draw(position.x, position.y);
+	m_render_window.draw(m_position.x, m_position.y);
 }

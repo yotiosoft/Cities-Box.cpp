@@ -2,7 +2,7 @@
 
 #include "StartUp.hpp"
 #include "TitleMenu.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 #include "Sound.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
@@ -23,7 +23,7 @@ void Main() {
 	 				ファイル読み込み
 	 --------------------------------------------*/	
 	// 画像の読み込み
-	Images images;
+	ImagesStruct images;
 	loadImages(images);
 	
 	// サウンドファイルの読み込み
@@ -44,8 +44,6 @@ void Main() {
 	// マップとアドオンの読み込み
 	CityMap map;
 	map.load(mapFilePath);
-	
-	//map.save();
 	
 	// カメラの初期位置
 	CameraStruct camera;

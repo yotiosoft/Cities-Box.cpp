@@ -21,7 +21,7 @@ using namespace std;
 
 class CityMap;
 class Addon;
-class Images;
+class ImagesStruct;
 
 namespace RCOIFP {
 	enum Type {

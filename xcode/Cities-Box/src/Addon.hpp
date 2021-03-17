@@ -8,7 +8,7 @@
 #define Addon_hpp
 
 #include "Specific.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 #include "AddonType.hpp"
 #include "AddonDirectionStruct.hpp"
 

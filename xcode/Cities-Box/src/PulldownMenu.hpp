@@ -12,7 +12,7 @@
 
 class PulldownMenu {
 public:
-	PulldownMenu(Array<String>& argList, Font& argFont, SizeStruct argSize, PositionStruct argPosition);
+	PulldownMenu(Array<String>& argList, Font& argFont, Size argSize, PositionStruct argPosition);
 	
 	void draw();
 	
@@ -21,7 +21,7 @@ public:
 private:
 	Array<String> m_list;
 	Font m_font;
-	SizeStruct m_size;
+	Size m_size;
 	PositionStruct m_position;
 	int m_selected_element_num;
 	bool m_pulling_down;

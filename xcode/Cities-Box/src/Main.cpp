@@ -58,12 +58,12 @@ void Main() {
 	bool updateMap = true, firstLoop = true;
 	
 	// サブウィンドウ
-	SubWindow subWindow(U"Test Window", &font16, SizeStruct{400, 200}, Color(Palette::White));
-	SubWindow subWindow2(U"Test Window2", &font16, SizeStruct{300, 150}, Color(Palette::White));
+	//SubWindow subWindow(U"Test Window", &font16, Size(400, 200), Color(Palette::White));
+	//SubWindow subWindow2(U"Test Window2", &font16, Size(300, 150), Color(Palette::White));
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-50}, SizeStruct{Scene::Width(), 50}, &map, &font8, &font12, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-50}, Size(Scene::Width(), 50), &map, &font8, &font12, &font16);
 	
 	// 選択されたアドオン
 	Addon* selectedAddon;

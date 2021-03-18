@@ -56,8 +56,8 @@ private:
 	ButtonMode m_button_mode;
 	
 	PositionStruct m_position;
-	SizeStruct m_size;
-	SizeStruct m_icon_size;
+	Size m_size;
+	Size m_icon_size;
 	
 	PositionStruct m_shift;
 	

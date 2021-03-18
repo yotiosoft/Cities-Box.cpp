@@ -184,11 +184,6 @@ typedef struct CameraStruct {
 	CoordinateStruct center;
 } CameraStruct;
 
-typedef struct SizeStruct {
-	int width;
-	int height;
-} SizeStruct;
-
 typedef struct RGBstruct {
 	unsigned short int r;
 	unsigned short int g;

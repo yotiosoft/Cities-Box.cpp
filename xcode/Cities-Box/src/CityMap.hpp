@@ -53,7 +53,7 @@ public:
 	int getTemperature();
 	
 	// マップサイズの取得
-	SizeStruct getMapSize();
+	Size getMapSize();
 	
 	// 座標から描画位置を取得
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
@@ -124,7 +124,7 @@ private:
 	int m_temperature;
 	bool m_dark_on_night;
 	
-	SizeStruct m_map_size;
+	Size m_map_size;
 	
 	TimeStruct m_time_now;
 	

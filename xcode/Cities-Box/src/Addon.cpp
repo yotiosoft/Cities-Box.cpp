@@ -557,8 +557,8 @@ map<String, EffectStruct> Addon::getEffects() {
 	return m_effects;
 }
 
-void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size) {
-	m_icon_texture(leftTop.x, leftTop.y, size.width, size.height).draw(position.x, position.y);
+void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size) {
+	m_icon_texture(leftTop.x, leftTop.y, size.x, size.y).draw(position.x, position.y);
 }
 
 CoordinateStruct Addon::getUseTiles(String typeName, String directionName) {

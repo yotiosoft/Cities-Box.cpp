@@ -14,10 +14,10 @@ Array<string> splitUTF8(string str, string separator);
 Array<String> split(String str, String separator);
 
 void cMes(Font& font, String str, PositionStruct topLeft, PositionStruct bottomRight, Color& color);
-void cMes(Font& font, String str, PositionStruct topLeft, SizeStruct size, Color& color);
+void cMes(Font& font, String str, PositionStruct topLeft, Size size, Color& color);
 
 PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, PositionStruct bottomRight);
-PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, SizeStruct size);
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, Size size);
 
 void saveTextFile(string filePath, string str);
 void saveTextFile(string filePath, Array<string> strV);

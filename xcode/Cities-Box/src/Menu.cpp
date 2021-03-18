@@ -7,7 +7,7 @@
 
 #include "Menu.hpp"
 
-void Menu::set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16) {
+void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16) {
 	m_position = newPosition;
 	m_size = newSize;
 	
@@ -48,7 +48,7 @@ void Menu::set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, 
 	
 	m_population = Texture(Icon(IconFont::Population, 20));
 	
-	m_render = RenderTexture(m_size.width, m_size.height, Color(45, 52, 54));
+	m_render = RenderTexture(m_size.x, m_size.y, Color(45, 52, 54));
 	
 	m_show_rate_menu = false;
 	
@@ -157,17 +157,17 @@ void Menu::update() {
 	m_button[U"save"].putRelative(PositionStruct{495+175, 0}, m_position);
 	
 	// RCOIFメータを表示
-	(*m_font8)(U"R").draw(m_size.width-80+3, m_size.height-15+2, Color(Palette::White));
-	(*m_font8)(U"C").draw(m_size.width-80+3+8, m_size.height-15+2, Color(Palette::White));
-	(*m_font8)(U"O").draw(m_size.width-80+3+16, m_size.height-15+2, Color(Palette::White));
-	(*m_font8)(U"I").draw(m_size.width-80+3+24, m_size.height-15+2, Color(Palette::White));
-	(*m_font8)(U"F").draw(m_size.width-80+3+32, m_size.height-15+2, Color(Palette::White));
+	(*m_font8)(U"R").draw(m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"C").draw(m_size.x-80+3+8, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"O").draw(m_size.x-80+3+16, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"I").draw(m_size.x-80+3+24, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"F").draw(m_size.x-80+3+32, m_size.y-15+2, Color(Palette::White));
 	
-	Rect(m_size.width-80, m_size.height-15, 8, -max(m_map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
-	Rect(m_size.width-80+8, m_size.height-15, 8, -max(m_map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
-	Rect(m_size.width-80+16, m_size.height-15, 8, -max(m_map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
-	Rect(m_size.width-80+24, m_size.height-15, 8, -max(m_map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
-	Rect(m_size.width-80+32, m_size.height-15, 8, -max(m_map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
+	Rect(m_size.x-80, m_size.y-15, 8, -max(m_map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
+	Rect(m_size.x-80+8, m_size.y-15, 8, -max(m_map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
+	Rect(m_size.x-80+16, m_size.y-15, 8, -max(m_map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
+	Rect(m_size.x-80+24, m_size.y-15, 8, -max(m_map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
+	Rect(m_size.x-80+32, m_size.y-15, 8, -max(m_map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
 	
 	//population.draw(10, size.height-25);
 	//(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
@@ -416,8 +416,8 @@ void Menu::addonMenu() {
 		return;
 	}
 	
-	Rect(m_position.x+16, m_position.y-42, m_size.width, 42).draw(Color(9, 132, 227, 200));
-	Rect(m_position.x+16, m_position.y-80, m_size.width, 38).draw(Color(45, 52, 54, 200));
+	Rect(m_position.x+16, m_position.y-42, m_size.x, 42).draw(Color(9, 132, 227, 200));
+	Rect(m_position.x+16, m_position.y-80, m_size.x, 38).draw(Color(45, 52, 54, 200));
 	Rect(m_position.x, m_position.y-80, 16, 80).draw(Color(45, 52, 54, 200));
 	
 	if (m_show_addons.size() > 0) {
@@ -427,10 +427,10 @@ void Menu::addonMenu() {
 			
 			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= m_position.y-40+32);
 			if (cursorOn || m_selected_addon_name == addonName) {
-				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
+				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 32}, Size(32, 32));
 				
 				if (MouseL.down() &&
-					Cursor::Pos().x >= m_position.x+30 && Cursor::Pos().x <= m_position.x-30+m_size.width &&
+					Cursor::Pos().x >= m_position.x+30 && Cursor::Pos().x <= m_position.x-30+m_size.x &&
 					Cursor::Pos().y >= m_position.y-37 && Cursor::Pos().y <= m_position.y-37+32) {
 					if (m_selected_addon_name == addonName) {
 						m_selected_addon_name = U"";
@@ -449,7 +449,7 @@ void Menu::addonMenu() {
 				}
 			}
 			else {
-				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 0}, SizeStruct{32, 32});
+				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 0}, Size(32, 32));
 			}
 		}
 		

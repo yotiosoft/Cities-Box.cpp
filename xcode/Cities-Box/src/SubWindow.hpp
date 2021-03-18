@@ -12,7 +12,7 @@
 
 class SubWindow {
 public:
-	SubWindow(String newTitle, Font* newFont, SizeStruct newSize, Color backgroundColor);
+	SubWindow(String newTitle, Font* newFont, Size newSize, Color backgroundColor);
 	
 	RenderTexture* getRenderTexture();
 	
@@ -25,7 +25,7 @@ private:
 	RenderTexture m_render;
 	RenderTexture m_render_window;
 	
-	SizeStruct m_size;
+	Size m_size;
 	PositionStruct m_position;
 	
 	String m_title;

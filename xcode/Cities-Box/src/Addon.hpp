@@ -72,7 +72,7 @@ public:
 	map<String, EffectStruct> getEffects();
 	
 	// アイコンのテクスチャの取得
-	void drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size);
+	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
 	
 	// 使用するタイルを取得
 	CoordinateStruct getUseTiles(String typeName, String directionName);

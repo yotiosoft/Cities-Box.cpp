@@ -41,7 +41,7 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
+	void set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
 	
 	void releaseBeforeButton(MenuMode::Type beforeSelectedButton);
 	
@@ -55,7 +55,7 @@ public:
 	
 private:
 	PositionStruct m_position;
-	SizeStruct m_size;
+	Size m_size;
 	
 	RenderTexture m_render;
 	

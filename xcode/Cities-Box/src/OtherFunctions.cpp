@@ -59,7 +59,7 @@ void cMes(Font& font, String str, PositionStruct topLeft, PositionStruct bottomR
 	PositionStruct str_long = getStringTopLeft(font, str, topLeft, bottomRight);
 	font(str).draw(str_long.x, str_long.y, color);
 }
-void cMes(Font& font, String str, PositionStruct topLeft, SizeStruct size, Color& color) {
+void cMes(Font& font, String str, PositionStruct topLeft, Size size, Color& color) {
 	PositionStruct str_long = getStringTopLeft(font, str, topLeft, size);
 	font(str).draw(str_long.x, str_long.y, color);
 }
@@ -70,10 +70,10 @@ PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, 
 	retSize.y = (bottomRight.y + topLeft.y) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
 	return retSize;
 }
-PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, SizeStruct size) {
+PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, Size size) {
 	PositionStruct retSize;
-	retSize.x = (topLeft.x * 2 + size.width) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
-	retSize.y = (topLeft.y * 2 + size.height) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
+	retSize.x = (topLeft.x * 2 + size.x) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).w / 2;
+	retSize.y = (topLeft.y * 2 + size.y) / 2 - font(str).region(Scene::Width() / 2, Scene::Height() / 2).h / 2;
 	return retSize;
 }
 

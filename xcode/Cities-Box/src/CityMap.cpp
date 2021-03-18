@@ -91,8 +91,8 @@ void CityMap::loadCBD(String loadMapFilePath) {
 	int arrayCount = 0;
 	bool mapCleared = false;
 	
-	m_map_size.width = -1;
-	m_map_size.height = -1;
+	m_map_size.x = -1;
+	m_map_size.y = -1;
 	
 	bool addonLoaded = false;
 	
@@ -116,8 +116,8 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		m_get_element(strTemp, U"Temperature", m_temperature);
 		m_get_element(strTemp, U"Set_Dark_on_Night", m_dark_on_night);
 		
-		m_get_element(strTemp, U"mapsize_x", m_map_size.width);
-		m_get_element(strTemp, U"mapsize_y", m_map_size.height);
+		m_get_element(strTemp, U"mapsize_x", m_map_size.x);
+		m_get_element(strTemp, U"mapsize_y", m_map_size.y);
 		
 		m_get_element(strTemp, U"time_Year", m_time_now.year);
 		m_get_element(strTemp, U"time_Month", m_time_now.month);
@@ -144,10 +144,10 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		m_get_element(strTemp, U"tax_of_Industrial", m_tax.industrial);
 		m_get_element(strTemp, U"tax_of_Farm", m_tax.farm);
 		
-		if (!mapCleared && m_map_size.width > 0 && m_map_size.height > 0) {
-			for (int y=0; y<m_map_size.height; y++) {
+		if (!mapCleared && m_map_size.x > 0 && m_map_size.y > 0) {
+			for (int y=0; y<m_map_size.y; y++) {
 				Tile new_tile;
-				m_tiles.push_back(Array<Tile>(m_map_size.width, new_tile));
+				m_tiles.push_back(Array<Tile>(m_map_size.x, new_tile));
 			}
 			mapCleared = true;
 		}
@@ -165,7 +165,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "name" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				// マップにAddon_Setが定義されていない場合はNormalとみなしアドオン読み込み
 				if (!addonLoaded) {
 					m_addon_set_name = U"Normal";
@@ -185,7 +185,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "name2" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (temp[x].length() == 0) {
 					continue;
 				}
@@ -233,7 +233,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_type" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
 					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeName(stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
 					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeName(stoi(temp[x].toUTF8())));
@@ -247,7 +247,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_type2" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
 					m_tiles[arrayCount][x].getType(0) = m_tiles[arrayCount][x].addons[0]->getTypeName(stoi(temp[x].toUTF8()));
 				}
@@ -257,7 +257,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_dire" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
 					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionName(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
 					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionName(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));
@@ -271,7 +271,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_dire2" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
 					m_tiles[arrayCount][x].getDirection(0) = m_tiles[arrayCount][x].addons[0]->getDirectionName(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8()));
 				}
@@ -281,7 +281,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_serial_num" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].serialNumber = stoi(temp[x].toUTF8());
 			}
 		}
@@ -313,7 +313,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_tiles_x" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].tilesCount.x = stoi(temp[x].toUTF8());
 				
 				// obj_tiles_xを修正(r140以前のバージョンで保存した場合)
@@ -346,7 +346,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "obj_tiles_y" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].tilesCount.y = stoi(temp[x].toUTF8());
 				
 				// obj_tiles_yを修正(r140以前のバージョンで保存した場合)
@@ -379,7 +379,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "residents" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].residents = stoi(temp[x].toUTF8());
 			}
 		}
@@ -387,7 +387,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workers_Commercial" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].workers.commercial = stoi(temp[x].toUTF8());
 			}
 		}
@@ -395,7 +395,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workers_Office" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].workers.office = stoi(temp[x].toUTF8());
 			}
 		}
@@ -403,7 +403,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workers_Industrial" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].workers.industrial = stoi(temp[x].toUTF8());
 			}
 		}
@@ -411,7 +411,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workers_Farm" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].workers.farm = stoi(temp[x].toUTF8());
 			}
 		}
@@ -419,7 +419,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workers_Public" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].workers.publicFacility = stoi(temp[x].toUTF8());
 			}
 		}
@@ -427,7 +427,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "students" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].students = stoi(temp[x].toUTF8());
 			}
 		}
@@ -435,7 +435,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "land_price" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].rate[U"land_price"] = stoi(temp[x].toUTF8());
 			}
 		}
@@ -443,7 +443,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "happiness" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
 			}
 		}
@@ -451,7 +451,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "crime_rate" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].rate[U"crime_rate"] = stoi(temp[x].toUTF8());
 			}
 		}
@@ -459,7 +459,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "happiness" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
 			}
 		}
@@ -467,7 +467,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "education_rate" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].rate[U"education_rate"] = stoi(temp[x].toUTF8());
 			}
 		}
@@ -491,7 +491,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "age" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				Array<String> agesStr = split(temp[x], U"]");
 				
 				for (int i=0; i<agesStr.size(); i++) {
@@ -506,7 +506,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "gender" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				Array<String> genderStr = split(temp[x], U"]");
 				
 				for (int i=0; i<genderStr.size(); i++) {
@@ -521,7 +521,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "workplace" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				Array<String> workPlaceStr = split(temp[x], U"]");
 				
 				for (int i=0; i<workPlaceStr.size(); i++) {
@@ -557,7 +557,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "school" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				Array<String> schoolStr = split(temp[x], U"]");
 				
 				for (int i=0; i<schoolStr.size(); i++) {
@@ -589,7 +589,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "reservation" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				if (temp[x] == U"none") {
 					m_tiles[arrayCount][x].reservation = RCOIFP::None;
 				}
@@ -617,7 +617,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 		if (currentArrayName == "original_name" && arrayCount >= 0) {
 			Array<String> temp = split(strTemp, U", ");
 			
-			for (int x=0; x<m_map_size.width; x++) {
+			for (int x=0; x<m_map_size.x; x++) {
 				m_tiles[arrayCount][x].setOriginalName(temp[x]);
 			}
 		}
@@ -659,8 +659,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	
 	m_dark_on_night = mapData[U"Dark_on_Night"].get<bool>();
 	
-	m_map_size.width = mapData[U"Map_size.width"].get<int>();
-	m_map_size.height = mapData[U"Map_size.height"].get<int>();
+	m_map_size.x = mapData[U"Map_size.width"].get<int>();
+	m_map_size.y = mapData[U"Map_size.height"].get<int>();
 	
 	m_time_now.year = mapData[U"Time.year"].get<int>();
 	m_time_now.month = mapData[U"Time.month"].get<int>();
@@ -884,7 +884,7 @@ int CityMap::getTemperature() {
 	return m_temperature;
 }
 
-SizeStruct CityMap::getMapSize() {
+Size CityMap::getMapSize() {
 	return m_map_size;
 }
 
@@ -918,11 +918,11 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 		ret.y = 0;
 	}
 	
-	if (ret.x >= m_map_size.width) {
-		ret.x = m_map_size.width-1;
+	if (ret.x >= m_map_size.x) {
+		ret.x = m_map_size.x-1;
 	}
-	if (ret.y >= m_map_size.height) {
-		ret.y = m_map_size.height-1;
+	if (ret.y >= m_map_size.y) {
+		ret.y = m_map_size.y-1;
 	}
 	
 	return ret;
@@ -951,11 +951,11 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 	if (ret.first.y < 0) {
 		ret.first.y = 0;
 	}
-	if (ret.first.x >= m_map_size.width) {
-		ret.first.x = m_map_size.width-1;
+	if (ret.first.x >= m_map_size.x) {
+		ret.first.x = m_map_size.x-1;
 	}
-	if (ret.first.y >= m_map_size.height) {
-		ret.first.y = m_map_size.height-1;
+	if (ret.first.y >= m_map_size.y) {
+		ret.first.y = m_map_size.y-1;
 	}
 	
 	// 右下の座標
@@ -967,11 +967,11 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 	if (ret.second.y < 0) {
 		ret.second.y = 0;
 	}
-	if (ret.second.x >= m_map_size.width) {
-		ret.second.x = m_map_size.width-1;
+	if (ret.second.x >= m_map_size.x) {
+		ret.second.x = m_map_size.x-1;
 	}
-	if (ret.second.y >= m_map_size.height) {
-		ret.second.y = m_map_size.height-1;
+	if (ret.second.y >= m_map_size.y) {
+		ret.second.y = m_map_size.y-1;
 	}
 	
 	m_range = ret;
@@ -1198,7 +1198,7 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		for (int i=0; i<AROUND_TILES; i++) {
 			CoordinateStruct currentTile = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
 			
-			if (currentTile.x < 0 || currentTile.y < 0 || currentTile.x >= m_map_size.width || currentTile.y >= m_map_size.height) {
+			if (currentTile.x < 0 || currentTile.y < 0 || currentTile.x >= m_map_size.x || currentTile.y >= m_map_size.y) {
 				continue;
 			}
 			
@@ -1423,7 +1423,7 @@ void CityMap::clear(CoordinateStruct position) {
 }
 
 bool CityMap::isPositionAvailable(CoordinateStruct coordinate) {
-	if (coordinate.x >= 0 && coordinate.x <= m_map_size.width-1 && coordinate.y >= 0 && coordinate.y <= m_map_size.height-1) {
+	if (coordinate.x >= 0 && coordinate.x <= m_map_size.x-1 && coordinate.y >= 0 && coordinate.y <= m_map_size.y-1) {
 		return true;
 	}
 	else {
@@ -1531,8 +1531,8 @@ bool CityMap::save() {
 		
 		mapData.key(U"Map_size").startObject();
 		{
-			mapData.key(U"width").write(m_map_size.width);
-			mapData.key(U"height").write(m_map_size.height);
+			mapData.key(U"width").write(m_map_size.x);
+			mapData.key(U"height").write(m_map_size.y);
 		}
 		mapData.endObject();
 		
@@ -1579,10 +1579,10 @@ bool CityMap::save() {
 		
 		mapData.key(U"Map").startArray();
 		{
-			for (int y=0; y<m_map_size.height; y++) {
+			for (int y=0; y<m_map_size.y; y++) {
 				mapData.startArray();
 				{
-					for (int x=0; x<m_map_size.width; x++) {
+					for (int x=0; x<m_map_size.x; x++) {
 						mapData.startObject();
 						{
 							mapData.key(U"addons").startArray();

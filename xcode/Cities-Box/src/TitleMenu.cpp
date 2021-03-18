@@ -25,7 +25,7 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 		logo->texture.draw(Scene::Width()/2-logo->texture.width()/2, Scene::Height()/2-logo->texture.height()*1.75);
 		
 		//font16(U"ver.2.0 alpha").draw(Scene::Width()/2-)
-		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, SizeStruct{Scene::Width(), 20}, color_white);
+		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, Size{Scene::Width(), 20}, color_white);
 		
 		load_map_button.put(PositionStruct{Scene::Width()/2-75-50, Scene::Height()*3/5});
 		new_map_button.put(PositionStruct{Scene::Width()/2-25, Scene::Height()*3/5});

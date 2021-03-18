@@ -10,6 +10,12 @@
 
 #include "Specific.hpp"
 
+enum ButtonMode {
+	ImageMode,
+	IconMode,
+	StringMode
+};
+
 class Button {
 public:
 	// コンストラクタ
@@ -20,6 +26,7 @@ public:
 	Button(IconFont::ID iconID);																									// ロゴフォントから
 	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift);												// ロゴフォントから
 	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont);				// ロゴフォントから
+	Button(String arg_label, Font& arg_font);																						// 文字列から
 	
 	// 設定
 	void set(ImageStruct& image);																									// 画像から
@@ -46,7 +53,7 @@ public:
 private:
 	Texture m_button_texture;
 	
-	bool m_is_icon;
+	ButtonMode m_button_mode;
 	
 	PositionStruct m_position;
 	SizeStruct m_size;

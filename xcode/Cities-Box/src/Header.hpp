@@ -16,6 +16,7 @@
 #define CHIP_SIZE		64
 #define RELEASE_NUMBER	141
 #define AROUND_TILES	4
+#define DIRECTIONS		15
 
 using namespace std;
 

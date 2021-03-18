@@ -75,7 +75,7 @@ private:
 	
 	::map<String, Texture> m_effect_icons;
 	
-	String _mselected_addon_name;
+	String m_selected_addon_name;
 	
 	Array<pair<String, Button>> m_category_buttons;
 	String m_mode_str;

@@ -20,6 +20,14 @@ Image AddonLayer::getImage(DirectionID::Type direction_id) {
 	return m_image;
 }
 
+bool AddonLayer::isThere(DirectionID::Type direction_id) {
+	if (m_directions.count(direction_id) == 0) {
+		return false;
+	}
+	
+	return true;
+}
+
 ThreeTypesAnswer::Type AddonLayer::isEnable(TimeStruct time) {
 	// 地面か条件なしなら無条件にYes
 	for (int i=0; i<m_layer_types.size(); i++) {

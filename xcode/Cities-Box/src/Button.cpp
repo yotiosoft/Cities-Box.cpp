@@ -44,19 +44,19 @@ Button::Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct
 void Button::set(ImageStruct& image) {
 	m_size = SizeStruct{image.texture.size().x, image.texture.size().y};
 	m_button_texture = image.texture;
-	m_is_icon = false;
+	m_button_mode = ButtonMode::ImageMode;
 }
 
 void Button::set(ImageStruct& image, int newSize) {
 	m_size = SizeStruct{newSize, newSize};
 	m_button_texture = image.texture.resized(m_size.width, m_size.height).texture;
-	m_is_icon = false;
+	m_button_mode = ButtonMode::ImageMode;
 }
 
 void Button::set(ImageStruct& image, int newSize, String newLabel, Font& newFont) {
 	m_size = SizeStruct{newSize, newSize};
 	m_button_texture = image.texture.resized(m_size.width, m_size.height).texture;
-	m_is_icon = false;
+	m_button_mode = ButtonMode::ImageMode;
 	m_font = newFont;
 	m_label = newLabel;
 }
@@ -64,7 +64,7 @@ void Button::set(ImageStruct& image, int newSize, String newLabel, Font& newFont
 void Button::set(IconFont::ID iconID) {
 	m_size = SizeStruct{64, 64};
 	m_button_texture = Texture(Icon(iconID, m_size.width));
-	m_is_icon = true;
+	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift) {
@@ -72,14 +72,14 @@ void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStru
 	m_icon_size = SizeStruct{newIconSize, newIconSize};
 	m_button_texture = Texture(Icon(iconID, m_icon_size.width));
 	m_shift = newShift;
-	m_is_icon = true;
+	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont) {
 	m_size = SizeStruct{newSize, newSize};
 	m_icon_size = SizeStruct{newIconSize, newIconSize};
 	m_button_texture = Texture(Icon(iconID, m_icon_size.width));
-	m_is_icon = true;
+	m_button_mode = ButtonMode::IconMode;
 	m_font = newFont;
 	m_label = newLabel;
 	m_shift = newShift;
@@ -99,7 +99,7 @@ void Button::put(PositionStruct newPosition) {
 		Rect(m_position.x, m_position.y, m_size.width, m_size.height).draw(Color(9, 132, 227));
 	}
 	
-	if (m_is_icon) {
+	if (m_button_mode == ButtonMode::IconMode) {
 		m_position.x += m_shift.x;
 		m_position.y += m_shift.y;
 	}
@@ -121,7 +121,7 @@ void Button::putRelative(PositionStruct newPosition, PositionStruct leftTop) {
 		Rect(m_position.x, m_position.y, m_size.width, m_size.height).draw(Color(9, 132, 227));
 	}
 	
-	if (m_is_icon) {
+	if (m_button_mode == ButtonMode::IconMode) {
 		m_position.x += m_shift.x;
 		m_position.y += m_shift.y;
 	}

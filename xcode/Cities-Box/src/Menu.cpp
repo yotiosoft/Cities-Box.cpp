@@ -44,7 +44,7 @@ void Menu::set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, 
 	
 	m_menu_mode = MenuMode::None;
 	
-	_mselected_addon_name = U"";
+	m_selected_addon_name = U"";
 	
 	m_population = Texture(Icon(IconFont::Population, 20));
 	
@@ -382,7 +382,7 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Delete;
 			m_selected_addon = m_map->getAllAddons()[U"tile_greenfield"];
-			_mselected_addon_name = m_selected_addon->getName(NameMode::English);
+			m_selected_addon_name = m_selected_addon->getName(NameMode::English);
 			m_mode_str = U"delete";
 			m_show_addons.clear();
 		}
@@ -426,18 +426,18 @@ void Menu::addonMenu() {
 			String addonName = m_show_addons[i]->getName(NameMode::English);
 			
 			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= m_position.y-40+32);
-			if (cursorOn || _mselected_addon_name == addonName) {
+			if (cursorOn || m_selected_addon_name == addonName) {
 				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 32}, SizeStruct{32, 32});
 				
 				if (MouseL.down() &&
 					Cursor::Pos().x >= m_position.x+30 && Cursor::Pos().x <= m_position.x-30+m_size.width &&
 					Cursor::Pos().y >= m_position.y-37 && Cursor::Pos().y <= m_position.y-37+32) {
-					if (_mselected_addon_name == addonName) {
-						_mselected_addon_name = U"";
+					if (m_selected_addon_name == addonName) {
+						m_selected_addon_name = U"";
 						m_selected_addon = nullptr;
 					}
 					else {
-						_mselected_addon_name = addonName;
+						m_selected_addon_name = addonName;
 						m_selected_addon = m_show_addons[i];
 					}
 				}

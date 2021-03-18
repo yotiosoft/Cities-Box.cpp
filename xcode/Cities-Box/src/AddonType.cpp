@@ -11,9 +11,48 @@
 AddonType::AddonType() {
 }
 
-AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, bool arg_light_on_night) {
+AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, map<DirectionID::Type, Size> arg_size_list, bool arg_light_on_night) {
 	
+	m_enable_direction_id_list = m_get_all_direction_IDs();
+}
+
+void AddonType::draw(TimeStruct time, AddonDirectionStruct direction_id, PositionStruct position, CoordinateStruct coordinate) {
+	// レイヤの更新処理
+	if (time.hour != m_before_time.hour) {
+		m_update_layers(time);
+	}
+	m_before_time = time;
 	
+	// 画像上の描画始点とサイズを取得
+	/*
+	unsigned short int topLeftX = directionTemp->topLeft.x;
+	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
+	
+	unsigned short int topLeftY = directionTemp->topLeft.y;
+	topLeftY += CHIP_SIZE/2 * tilesCount.y;
+	
+	unsigned short int sizeWidth = directionTemp->size.x;
+	sizeWidth = CHIP_SIZE;
+	
+	unsigned short int sizeHeight = directionTemp->size.y;
+*/
+}
+
+Array<DirectionID::Type> AddonType::m_get_all_direction_IDs() {
+	Array<DirectionID::Type> ret;
+	
+	// すべてのDirectionIDについて、いずれかのレイヤに存在するか確認
+	for (int d=0; d<DIRECTIONS; d++) {
+		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
+			auto& layer = *iter;
+			
+			if (layer.second.isThere(DirectionID::Type(d))) {
+				ret << DirectionID::Type(d);
+			}
+		}
+	}
+	
+	return ret;
 }
 
 void AddonType::m_update_layers(TimeStruct time) {
@@ -21,26 +60,41 @@ void AddonType::m_update_layers(TimeStruct time) {
 	Array<bool> enabled_layers_list = m_get_enable_layers_list(time);
 	
 	// テクスチャ用Image
-	Image updated_image;
+	map<DirectionID::Type, Image> updated_images;
 	
 	// レイヤを重ね合わせ
-	for (int i=0; i<m_layers.size(); i++) {
-		if (!enabled_layers_list[i]) {
-			continue;
+	for (int i=0; i<m_enable_direction_id_list.size(); i++) {
+		// そのDirectionIDが存在するレイヤから1区分を切り出し
+		int j=0;
+		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
+			auto& layer = *iter;
+			
+			if (!enabled_layers_list[j]) {
+				j++;
+				continue;
+			}
+			
+			// 重ね合わせ
+			layer.second.getImage().overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
+			
+			j++;
 		}
-		
-		// 重ね合わせ
-		m_layers[i].getImage().overwrite(updated_image, 0, 0);
 	}
 	
-	m_texture = Texture(updated_image);
+	// テクスチャに反映
+	for(auto iter = begin(updated_images); iter != end(updated_images); ++iter) {
+		auto& im = *iter;
+		m_textures[im.first] = Texture(im.second);
+	}
 }
 
 Array<bool> AddonType::m_get_enable_layers_list(TimeStruct time) {
 	Array<bool> ret;
 	
-	for (int i=0; i<m_layers.size(); i++) {
-		switch(m_layers[i].isEnable(time)) {
+	for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
+		auto& layer = *iter;
+		
+		switch(layer.second.isEnable(time)) {
 			case ThreeTypesAnswer::Yes:
 				ret << true;
 				break;
@@ -60,3 +114,5 @@ Array<bool> AddonType::m_get_enable_layers_list(TimeStruct time) {
 	
 	return ret;
 }
+
+

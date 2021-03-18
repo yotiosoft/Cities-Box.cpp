@@ -15,6 +15,8 @@
 
 bool titleMenu(ImagesStruct& images, Font& font16, String& filePath);
 
+void settingMenu(Font& font16);
+
 bool loadingScreen(Font& font16);
 
 #endif /* TitleMenu_hpp */

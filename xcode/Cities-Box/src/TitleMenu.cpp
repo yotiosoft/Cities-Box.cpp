@@ -13,24 +13,26 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
 	
 	// ボタンの宣言
-	Button loadMapButton(IconFont::Floppy, 50, 50, PositionStruct{3, 3}, U"読み込み", font16);			// 読み込み
-	Button newMapButton(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);			// 新しいマップ
-	Button newAddonButton(IconFont::Compass, 50, 50, PositionStruct{3, 3}, U"アドオンを作成する", font16);	// 新しいアドオン
+	Button load_map_button(IconFont::Floppy, 50, 50, PositionStruct{3, 3}, U"読み込み", font16);			// 読み込み
+	Button new_map_button(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);			// 新しいマップ
+	Button new_addon_button(IconFont::Compass, 50, 50, PositionStruct{3, 3}, U"アドオンを作成する", font16);	// 新しいアドオン
+	Button setting_button(IconFont::Setting, 32, 32, PositionStruct{0, 0}, U"設定", font16);				// 設定画面へ
 	
 	bool b;
-	Color colorWhite = Color(Palette::White);
+	Color color_white = Color(Palette::White);
 	
 	while (System::Update()) {
 		logo->texture.draw(Scene::Width()/2-logo->texture.width()/2, Scene::Height()/2-logo->texture.height()*1.75);
 		
 		//font16(U"ver.2.0 alpha").draw(Scene::Width()/2-)
-		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, SizeStruct{Scene::Width(), 20}, colorWhite);
+		cMes(font16, U"ver.2.0 alpha", PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, SizeStruct{Scene::Width(), 20}, color_white);
 		
-		loadMapButton.put(PositionStruct{Scene::Width()/2-75-50, Scene::Height()*3/5});
-		newMapButton.put(PositionStruct{Scene::Width()/2-25, Scene::Height()*3/5});
-		newAddonButton.put(PositionStruct{Scene::Width()/2+75, Scene::Height()*3/5});
+		load_map_button.put(PositionStruct{Scene::Width()/2-75-50, Scene::Height()*3/5});
+		new_map_button.put(PositionStruct{Scene::Width()/2-25, Scene::Height()*3/5});
+		new_addon_button.put(PositionStruct{Scene::Width()/2+75, Scene::Height()*3/5});
+		setting_button.put(PositionStruct{Scene::Width()/2-16, Scene::Height()*3/4});
 		
-		if (loadMapButton.push()) {
+		if (load_map_button.push()) {
 			// ファイル選択ダイアログ
 			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd", U"cbj"}}};
 			String filePathTemp;
@@ -42,19 +44,42 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 				return true;
 			}
 		}
-		if (newMapButton.push()) {
+		if (new_map_button.push()) {
 			return false;
 		}
-		if (newAddonButton.push()) {
-			newAddonButton.release();
+		if (new_addon_button.push()) {
+			new_addon_button.release();
 			AddonMaker addonMaker;
 			addonMaker.sMenu(font16);
+		}
+		if (setting_button.push()) {
+			setting_button.release();
+			settingMenu(font16);
 		}
 		
 		System::Sleep(50);
 	}
 	
 	return false;
+}
+
+void settingMenu(Font& font16) {
+	Button returnButton(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
+	
+	while (System::Update()) {
+		Rect(0, 0, Scene::Size().x/5, Scene::Size().y).draw(Color(40, 40, 40));
+		font16(U"設定").draw(60, 20, Palette::White);
+		
+		// メニューボタンの設置
+		returnButton.put(PositionStruct{20, 20});				// 戻る
+		font16(U"👤開発者設定").draw(20, 80, Palette::White);		// 開発者設定
+		
+		// 戻るボタンの処理
+		if (returnButton.push()) {
+			returnButton.release();
+			return;
+		}
+	}
 }
 
 bool loadingScreen(Font& font16) {

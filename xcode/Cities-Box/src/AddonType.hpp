@@ -16,7 +16,7 @@ class AddonType {
 public:
 	// コンストラクタ
 	AddonType();
-	AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, bool arg_light_on_night);
+	AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, map<DirectionID::Type, Size> arg_size_list, bool arg_light_on_night);
 	
 	// 描画
 	void draw(TimeStruct time, AddonDirectionStruct direction_id,
@@ -36,6 +36,9 @@ public:
 	
 private:
 	/* プライベート関数 */
+	// 全レイヤに存在するすべてのDirectionIDを取得
+	Array<DirectionID::Type> m_get_all_direction_IDs();
+	
 	// レイヤの更新
 	void m_update_layers(TimeStruct time);
 	
@@ -44,12 +47,22 @@ private:
 	
 	/* プライベート変数 */
 	// レイヤ
-	Array<AddonLayer> m_layers;
+	map<DirectionID::Type, AddonLayer> m_layers;
+	
+	// 有効なDirectionIDのリスト
+	Array<DirectionID::Type> m_enable_direction_id_list;
+	
+	// このタイプのサイズ
+	map<DirectionID::Type, Size> size_list;
 	
 	// 夜間に電気を灯すか？
 	bool m_light_on_night;
 	
-	Texture m_texture;				// アドオン表示用テクスチャ
+	// 更新前の時間
+	TimeStruct m_before_time;
+	
+	// 各方向のテクスチャ
+	map<DirectionID::Type, Texture> m_textures;
 	
 	
 };

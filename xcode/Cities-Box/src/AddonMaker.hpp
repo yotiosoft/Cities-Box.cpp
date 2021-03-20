@@ -162,7 +162,7 @@ public:
 	map<String, EffectStruct> printEffect() {
 		return m_effects;
 	}
-	
+	/*
 	void setType(String typeName, String image, String nightMask, RGBstruct transparentColor) {
 		m_types[typeName].image = image;
 		m_types[typeName].nightMask = nightMask;
@@ -182,7 +182,7 @@ public:
 		m_types[typeName].directions[directionName].bottomRight.x = bottomRightX;
 		m_types[typeName].directions[directionName].bottomRight.y = bottomRightY;
 	}
-	
+	*/
 	bool isTypeSet() {
 		return m_am_check_type;
 	}

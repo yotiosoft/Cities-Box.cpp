@@ -25,8 +25,6 @@ public:
 	// レイヤ数のカウント
 	int countLayers();
 	
-	String image;					// アドオン画像のパス
-	String nightMask;				// ナイトマスク画像のパス
 	Array<String> directionNames;	// typeに含まれる方向
 	RGBstruct transparentColor;		// 透過色のRGB値
 	

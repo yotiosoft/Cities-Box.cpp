@@ -17,7 +17,13 @@ Image AddonLayer::getImage() {
 }
 
 Image AddonLayer::getImage(DirectionID::Type direction_id) {
-	return m_image;
+	// 指定したdirection_idが存在しない場合は空のImageを返す
+	if (m_directions.count(direction_id) == 0) {
+		return Image();
+	}
+	
+	AddonDirectionStruct direction = m_directions[direction_id];
+	return m_image.clipped(direction.topLeft.x, direction.topLeft.y, direction.size.x, direction.size.y);
 }
 
 bool AddonLayer::isThere(DirectionID::Type direction_id) {

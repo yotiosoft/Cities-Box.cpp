@@ -7,7 +7,7 @@
 
 #include "TitleMenu.hpp"
 
-bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
+pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
@@ -17,6 +17,10 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 	Button new_map_button(IconFont::Plus, 50, 50, PositionStruct{3, 3}, U"新しいマップ", font16);			// 新しいマップ
 	Button new_addon_button(IconFont::Compass, 50, 50, PositionStruct{3, 3}, U"アドオンを作成する", font16);	// 新しいアドオン
 	Button setting_button(IconFont::Setting, 32, 32, PositionStruct{0, 0}, U"設定", font16);				// 設定画面へ
+	Button developer_screen_button(IconFont::User, 32, 32, PositionStruct{0, 0}, U"開発者画面", font16);				// 開発者画面へ
+	
+	// 設定画面の宣言
+	GeneralSetting general_setting;
 	
 	bool b;
 	Color color_white = Color(Palette::White);
@@ -30,7 +34,15 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 		load_map_button.put(PositionStruct{Scene::Width()/2-75-50, Scene::Height()*3/5});
 		new_map_button.put(PositionStruct{Scene::Width()/2-25, Scene::Height()*3/5});
 		new_addon_button.put(PositionStruct{Scene::Width()/2+75, Scene::Height()*3/5});
-		setting_button.put(PositionStruct{Scene::Width()/2-16, Scene::Height()*3/4});
+		
+		// 開発者モードの場合、配置を変更
+		if (general_setting.isDeveloperMode()) {
+			setting_button.put(PositionStruct{Scene::Width()/2-16-32*1, Scene::Height()*3/4});
+			developer_screen_button.put(PositionStruct{Scene::Width()/2-16+32*1, Scene::Height()*3/4});
+		}
+		else {
+			setting_button.put(PositionStruct{Scene::Width()/2-16, Scene::Height()*3/4});
+		}
 		
 		if (load_map_button.push()) {
 			// ファイル選択ダイアログ
@@ -41,11 +53,11 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 				
 				b = System::Update();
 				loadingScreen(font16);
-				return true;
+				return pair<bool, GeneralSetting>(true, general_setting);
 			}
 		}
 		if (new_map_button.push()) {
-			return false;
+			return pair<bool, GeneralSetting>(false, general_setting);
 		}
 		if (new_addon_button.push()) {
 			new_addon_button.release();
@@ -54,31 +66,21 @@ bool titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
 		}
 		if (setting_button.push()) {
 			setting_button.release();
-			settingMenu(font16);
+			general_setting.screen(font16);
+		}
+		if (developer_screen_button.push()) {
+			developerScreen();
 		}
 		
 		System::Sleep(50);
 	}
 	
-	return false;
+	return pair<bool, GeneralSetting>(false, general_setting);
 }
 
-void settingMenu(Font& font16) {
-	Button returnButton(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
-	
+void developerScreen() {
 	while (System::Update()) {
-		Rect(0, 0, Scene::Size().x/5, Scene::Size().y).draw(Color(40, 40, 40));
-		font16(U"設定").draw(60, 20, Palette::White);
 		
-		// メニューボタンの設置
-		returnButton.put(PositionStruct{20, 20});				// 戻る
-		font16(U"👤開発者設定").draw(20, 80, Palette::White);		// 開発者設定
-		
-		// 戻るボタンの処理
-		if (returnButton.push()) {
-			returnButton.release();
-			return;
-		}
 	}
 }
 

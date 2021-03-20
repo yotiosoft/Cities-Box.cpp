@@ -9,6 +9,7 @@
 #include "SubWindow.hpp"
 #include "DetailsBar.hpp"
 #include "Menu.hpp"
+#include "GeneralSetting.hpp"
 
 void Main() {
 	//Window::SetTitle(U"Cities Box.cpp");
@@ -37,9 +38,11 @@ void Main() {
 	
 	// タイトルメニュー画面
 	String mapFilePath;
-	if (!titleMenu(images, font16, mapFilePath)) {
+	pair<bool, GeneralSetting> title_menu_ret = titleMenu(images, font16, mapFilePath);
+	if (!title_menu_ret.first) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
+	GeneralSetting general_setting = title_menu_ret.second;
 	
 	// マップとアドオンの読み込み
 	CityMap map;

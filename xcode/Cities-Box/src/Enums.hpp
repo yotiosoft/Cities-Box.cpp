@@ -97,6 +97,8 @@ namespace IconFont {
 		TemperatureLow		= 0xf2ca,
 		TemperatureMiddle	= 0xf2c9,
 		TemperatureHigh		= 0xf2c8,
+		
+		User				= 0xf007,
 	};
 }
 /*

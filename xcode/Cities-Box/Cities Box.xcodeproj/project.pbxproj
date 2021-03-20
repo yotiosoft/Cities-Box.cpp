@@ -54,6 +54,8 @@
 		4BA8350825EBC3900015FF75 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8350625EBC3900015FF75 /* AddonType.cpp */; };
 		4BA8351125EBC5560015FF75 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8350F25EBC5560015FF75 /* Tile.cpp */; };
 		4BAFF75025FE782B001397F2 /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAFF74E25FE782B001397F2 /* AddonLayer.cpp */; };
+		4BAFF7732605A189001397F2 /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAFF7712605A189001397F2 /* GeneralSetting.cpp */; };
+		4BAFF7772605A208001397F2 /* AbstractSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAFF7752605A208001397F2 /* AbstractSetting.cpp */; };
 		4BDD0C24239BA06500780F93 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BDD0C22239BA06500780F93 /* Menu.cpp */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +131,10 @@
 		4BAFF74F25FE782B001397F2 /* AddonLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddonLayer.hpp; sourceTree = "<group>"; };
 		4BAFF76D2603D870001397F2 /* Structs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Structs.hpp; sourceTree = "<group>"; };
 		4BAFF76E2603D870001397F2 /* Enums.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Enums.hpp; sourceTree = "<group>"; };
+		4BAFF7712605A189001397F2 /* GeneralSetting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GeneralSetting.cpp; sourceTree = "<group>"; };
+		4BAFF7722605A189001397F2 /* GeneralSetting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GeneralSetting.hpp; sourceTree = "<group>"; };
+		4BAFF7752605A208001397F2 /* AbstractSetting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractSetting.cpp; sourceTree = "<group>"; };
+		4BAFF7762605A208001397F2 /* AbstractSetting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AbstractSetting.hpp; sourceTree = "<group>"; };
 		4BDD0C22239BA06500780F93 /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
 		4BDD0C23239BA06500780F93 /* Menu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Menu.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,9 +200,9 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4B75112623966B39008DFD03 /* Header.hpp */,
 				4BAFF76E2603D870001397F2 /* Enums.hpp */,
 				4BAFF76D2603D870001397F2 /* Structs.hpp */,
-				4B75112623966B39008DFD03 /* Header.hpp */,
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4B75112A23966B39008DFD03 /* Addon.cpp */,
 				4B75112023966B38008DFD03 /* Addon.hpp */,
@@ -229,6 +235,10 @@
 				4B3A51F2249377DC0034F703 /* Sound.hpp */,
 				4B75112B23966B39008DFD03 /* Specific.cpp */,
 				4B75111C23966B37008DFD03 /* Specific.hpp */,
+				4BAFF7712605A189001397F2 /* GeneralSetting.cpp */,
+				4BAFF7722605A189001397F2 /* GeneralSetting.hpp */,
+				4BAFF7752605A208001397F2 /* AbstractSetting.cpp */,
+				4BAFF7762605A208001397F2 /* AbstractSetting.hpp */,
 				4B75112823966B39008DFD03 /* StartUp.cpp */,
 				4B75111A23966B37008DFD03 /* StartUp.hpp */,
 				4B7511362397DF81008DFD03 /* SubWindow.cpp */,
@@ -343,8 +353,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7511382397DF81008DFD03 /* SubWindow.cpp in Sources */,
+				4BAFF7772605A208001397F2 /* AbstractSetting.cpp in Sources */,
 				4B75113323966B3A008DFD03 /* Addon.cpp in Sources */,
 				4B75113423966B3A008DFD03 /* Specific.cpp in Sources */,
+				4BAFF7732605A189001397F2 /* GeneralSetting.cpp in Sources */,
 				4B3A51F3249377DC0034F703 /* Sound.cpp in Sources */,
 				4B75112D23966B3A008DFD03 /* TitleMenu.cpp in Sources */,
 				4B6C06EE23F54C8D0095C719 /* PulldownMenu.cpp in Sources */,

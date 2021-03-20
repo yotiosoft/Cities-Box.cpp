@@ -11,7 +11,10 @@
 AddonType::AddonType() {
 }
 
-AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, map<DirectionID::Type, Size> arg_size_list, bool arg_light_on_night) {
+AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, bool arg_light_on_night) {
+	m_type_id = arg_type_ID;
+	m_layers = arg_layers;
+	m_light_on_night = arg_light_on_night;
 	
 	m_enable_direction_id_list = m_get_all_direction_IDs();
 }
@@ -75,7 +78,7 @@ void AddonType::m_update_layers(TimeStruct time) {
 			}
 			
 			// 重ね合わせ
-			layer.second.getImage().overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
+			layer.second.getImage(m_enable_direction_id_list[i]).overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
 			
 			j++;
 		}

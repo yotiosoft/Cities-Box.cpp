@@ -12,10 +12,11 @@
 #include "ImagesStruct.hpp"
 #include "Button.hpp"
 #include "AddonMaker.hpp"
+#include "GeneralSetting.hpp"
 
-bool titleMenu(ImagesStruct& images, Font& font16, String& filePath);
+pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath);
 
-void settingMenu(Font& font16);
+void developerScreen();
 
 bool loadingScreen(Font& font16);
 

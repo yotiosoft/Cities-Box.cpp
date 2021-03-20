@@ -79,14 +79,14 @@ void Addon::m_blend_color_and_image(Image& imageTemp, Color blendColor) {
 
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
-		return m_load_adat(newFilePath, loadingAddonsSetName);
+		//return m_load_adat(newFilePath, loadingAddonsSetName);
 	}
 	else if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adj") {
 		return m_load_adj(newFilePath, loadingAddonsSetName);
 	}
 	return false;
 }
-
+/*
 bool Addon::m_load_adat(FileStruct newFilePath, String loadingAddonsSetName) {
 	// アドオンファイルの読み込み
 	m_addon_file_path = newFilePath;
@@ -323,7 +323,7 @@ bool Addon::m_load_adat(FileStruct newFilePath, String loadingAddonsSetName) {
 		}
 		if (strTempUTF8.find("}") == 0 && !loadingDirection) {
 			// typeが切り替わるときにTextureの設定
-			if (m_types[currentLoadingType].image.length() > 0) {
+			if (m_types[currentLoadingType].countLayers() == 0) {
 				Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_types[currentLoadingType].image);
 				m_set_alpha_color(iTemp, transparentColor);
 				m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
@@ -403,7 +403,7 @@ bool Addon::m_load_adat(FileStruct newFilePath, String loadingAddonsSetName) {
 	
 	return true;
 }
-
+*/
 bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	m_addon_file_path = newFilePath;
 	JSONReader addonData(Unicode::Widen(m_addon_file_path.file_path));
@@ -448,20 +448,20 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	for (const auto& type : addonData[U"Types"].arrayView()) {
 		String typeName = type[U"type_name"].getString();
 		
-		m_types[typeName].image = type[U"image"].getString();
+		String image_filename = type[U"image"].getString();
 		
 		m_types[typeName].transparentColor.r = type[U"transparent_color.R"].get<int>();
 		m_types[typeName].transparentColor.g = type[U"transparent_color.G"].get<int>();
 		m_types[typeName].transparentColor.b = type[U"transparent_color.B"].get<int>();
 		
-		Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_types[typeName].image);
+		Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
 		m_set_alpha_color(iTemp, Color(m_types[typeName].transparentColor.r, m_types[typeName].transparentColor.g, m_types[typeName].transparentColor.b));
 		m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
 		m_types[typeName].texture = Texture(iTemp);
 		
-		m_types[typeName].nightMask = type[U"night_mask"].getString();
-		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_types[typeName].nightMask)) {
-			Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_types[typeName].nightMask);
+		String night_mask_filename = type[U"night_mask"].getString();
+		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+			Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
 			m_set_alpha_color(iTempNM, Color(m_types[typeName].transparentColor.r, m_types[typeName].transparentColor.g, m_types[typeName].transparentColor.b));
 			m_types[typeName].nightMaskTexture = Texture(iTempNM);
 		}
@@ -608,7 +608,7 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 		}
 	}
 }
-
+/*
 void Addon::converter() {
 	JSONWriter addonData;
 	
@@ -734,3 +734,4 @@ void Addon::converter() {
 	
 	addonData.save(FileSystem::ParentPath(Unicode::Widen(m_addon_file_path.file_path))+FileSystem::BaseName(Unicode::Widen(m_addon_file_path.file_path))+U".adj");
 }
+ */

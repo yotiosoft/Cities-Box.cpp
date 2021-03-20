@@ -22,7 +22,8 @@ public:
 	void draw(TimeStruct time, AddonDirectionStruct direction_id,
 			  PositionStruct position, CoordinateStruct coordinate);
 	
-	string type;
+	// レイヤ数のカウント
+	int countLayers();
 	
 	String image;					// アドオン画像のパス
 	String nightMask;				// ナイトマスク画像のパス

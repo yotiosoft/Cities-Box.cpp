@@ -41,6 +41,10 @@ void AddonType::draw(TimeStruct time, AddonDirectionStruct direction_id, Positio
 */
 }
 
+int AddonType::countLayers() {
+	return (int)m_layers.size();
+}
+
 Array<DirectionID::Type> AddonType::m_get_all_direction_IDs() {
 	Array<DirectionID::Type> ret;
 	
@@ -49,7 +53,7 @@ Array<DirectionID::Type> AddonType::m_get_all_direction_IDs() {
 		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
 			auto& layer = *iter;
 			
-			if (layer.second.isThere(DirectionID::Type(d))) {
+			if (layer.isThere(DirectionID::Type(d))) {
 				ret << DirectionID::Type(d);
 			}
 		}
@@ -78,7 +82,7 @@ void AddonType::m_update_layers(TimeStruct time) {
 			}
 			
 			// 重ね合わせ
-			layer.second.getImage(m_enable_direction_id_list[i]).overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
+			layer.getImage(m_enable_direction_id_list[i]).overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
 			
 			j++;
 		}
@@ -97,7 +101,7 @@ Array<bool> AddonType::m_get_enable_layers_list(TimeStruct time) {
 	for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
 		auto& layer = *iter;
 		
-		switch(layer.second.isEnable(time)) {
+		switch(layer.isEnable(time)) {
 			case ThreeTypesAnswer::Yes:
 				ret << true;
 				break;

@@ -18,54 +18,54 @@ String Tile::getOriginalName() {
 }
 
 // types
-bool Tile::setTypes(Array<String> new_types) {
+bool Tile::setTypes(Array<TypeID::Type> new_types) {
 	m_types = new_types;
 	return true;
 }
 
-bool Tile::addType(String add_type) {
+bool Tile::addType(TypeID::Type add_type) {
 	m_types << add_type;
 	return true;
 }
 
-bool Tile::addTypes(Array<String> add_types) {
+bool Tile::addTypes(Array<TypeID::Type> add_types) {
 	for (int i=0; i<add_types.size(); i++) {
 		m_types << add_types[i];
 	}
 	return true;
 }
 
-Array<String> Tile::getTypes() {
+Array<TypeID::Type> Tile::getTypes() {
 	return m_types;
 }
 
-String Tile::getType(int num) {
+TypeID::Type Tile::getType(int num) {
 	return m_types[num];
 }
 
 // directions
-bool Tile::setDirections(Array<String> new_directions) {
+bool Tile::setDirections(Array<DirectionID::Type> new_directions) {
 	m_directions = new_directions;
 	return true;
 }
 
-bool Tile::addDirection(String add_direction) {
+bool Tile::addDirection(DirectionID::Type add_direction) {
 	m_directions << add_direction;
 	return true;
 }
 
-bool Tile::addDirections(Array<String> add_directions) {
+bool Tile::addDirections(Array<DirectionID::Type> add_directions) {
 	for (int i=0; i<add_directions.size(); i++) {
 		m_directions << add_directions[i];
 	}
 	return true;
 }
 
-Array<String> Tile::getDirections() {
+Array<DirectionID::Type> Tile::getDirections() {
 	return m_directions;
 }
 
-String Tile::getDirection(int num) {
+DirectionID::Type Tile::getDirection(int num) {
 	return m_directions[num];
 }
 

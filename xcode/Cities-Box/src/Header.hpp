@@ -28,7 +28,7 @@ class Addon;
 class ImagesStruct;
 
 // 周囲4方向
-const pair<String, CoordinateStruct> AroundTiles[4] = {
-	{U"right", {1, 0}}, {U"bottom", {0, 1}}, {U"top", {0, -1}}, {U"left", {-1, 0}}
+const pair<DirectionID::Type, CoordinateStruct> AroundTiles[4] = {
+	{DirectionID::Right, {1, 0}}, {DirectionID::Bottom, {0, 1}}, {DirectionID::Top, {0, -1}}, {DirectionID::Left, {-1, 0}}
 };
 

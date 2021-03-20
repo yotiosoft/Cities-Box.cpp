@@ -55,11 +55,11 @@ public:
 	String getSummary();
 	
 	// Typeの名前の取得
-	String getTypeName(int type_num);
+	TypeID::Type getTypeID(int type_num);
 	
 	// Directionの名前の取得
-	String getDirectionName(int typeNum, int directionNum);
-	String getDirectionName(String typeName, int directionNum);
+	DirectionID::Type getDirectionID(int typeNum, int directionNum);
+	DirectionID::Type getDirectionID(String typeName, int directionNum);
 	
 	// カテゴリを取得
 	Array<String> getCategories();
@@ -75,13 +75,13 @@ public:
 	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
 	
 	// 使用するタイルを取得
-	CoordinateStruct getUseTiles(String typeName, String directionName);
+	CoordinateStruct getUseTiles(TypeID::Type typeID, DirectionID::Type directionID);
 	
 	// 最終的に表示する座標を取得
-	PositionStruct getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
+	PositionStruct getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
 	
 	// アドオンを描画する
-	void draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor);
+	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor);
 	
 	// JSON形式に変換する
 	void converter();
@@ -141,7 +141,7 @@ protected:
 	int m_land_price_influence_grid;		// 地価の上下が影響するマス
 	
 	// 各typeの情報
-	map<String, AddonType> m_types;
+	map<TypeID::Type, AddonType> m_types;
 };
 
 #endif /* Addon_hpp */

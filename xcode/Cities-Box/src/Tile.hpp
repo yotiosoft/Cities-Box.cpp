@@ -22,18 +22,18 @@ public:
 	String getOriginalName();
 	
 	// types
-	bool setTypes(Array<String> new_types);
-	bool addType(String add_type);
-	bool addTypes(Array<String> add_types);
-	Array<String> getTypes();
-	String getType(int num);
+	bool setTypes(Array<TypeID::Type> new_types);
+	bool addType(TypeID::Type add_type);
+	bool addTypes(Array<TypeID::Type> add_types);
+	Array<TypeID::Type> getTypes();
+	TypeID::Type getType(int num);
 	
 	// directions
-	bool setDirections(Array<String> new_directions);
-	bool addDirection(String add_direction);
-	bool addDirections(Array<String> add_directions);
-	Array<String> getDirections();
-	String getDirection(int num);
+	bool setDirections(Array<DirectionID::Type> new_directions);
+	bool addDirection(DirectionID::Type add_direction);
+	bool addDirections(Array<DirectionID::Type> add_directions);
+	Array<DirectionID::Type> getDirections();
+	DirectionID::Type getDirection(int num);
 	
 	// クリア
 	void clearAddons();				// addons, tiles, directionsだけをクリア（更新用）
@@ -66,8 +66,8 @@ private:
 	String m_original_name;
 	//Array<String> category;
 	
-	Array<String> m_types;
-	Array<String> m_directions;
+	Array<TypeID::Type> m_types;
+	Array<DirectionID::Type> m_directions;
 };
 
 #endif /* Tile_hpp */

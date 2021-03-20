@@ -129,42 +129,42 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	m_use_types = addonData[U"Use_types"].getArray<String>();
 	
 	for (const auto& type : addonData[U"Types"].arrayView()) {
-		String typeName = type[U"type_name"].getString();
+		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
 		
 		String image_filename = type[U"image"].getString();
 		
-		m_types[typeName].transparentColor.r = type[U"transparent_color.R"].get<int>();
-		m_types[typeName].transparentColor.g = type[U"transparent_color.G"].get<int>();
-		m_types[typeName].transparentColor.b = type[U"transparent_color.B"].get<int>();
+		m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
+		m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
+		m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
 		
 		Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
-		m_set_alpha_color(iTemp, Color(m_types[typeName].transparentColor.r, m_types[typeName].transparentColor.g, m_types[typeName].transparentColor.b));
+		m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
 		m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
-		m_types[typeName].texture = Texture(iTemp);
+		m_types[typeID].texture = Texture(iTemp);
 		
 		String night_mask_filename = type[U"night_mask"].getString();
 		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
 			Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
-			m_set_alpha_color(iTempNM, Color(m_types[typeName].transparentColor.r, m_types[typeName].transparentColor.g, m_types[typeName].transparentColor.b));
-			m_types[typeName].nightMaskTexture = Texture(iTempNM);
+			m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+			m_types[typeID].nightMaskTexture = Texture(iTempNM);
 		}
 		
-		m_types[typeName].directionNames = type[U"direction_names"].getArray<String>();
+		m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
 		
 		for (const auto& direction : type[U"Directions"].arrayView()) {
-			String direction_name = direction[U"direction_name"].getString();
+			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
 			
-			m_types[typeName].directions[direction_name].size.x = direction[U"size.width"].get<int>();
-			m_types[typeName].directions[direction_name].size.y = direction[U"size.height"].get<int>();
+			m_types[typeID].directions[direction_id].size.x = direction[U"size.width"].get<int>();
+			m_types[typeID].directions[direction_id].size.y = direction[U"size.height"].get<int>();
 			
-			m_types[typeName].directions[direction_name].requiredTiles.x = direction[U"squares.width"].get<int>();
-			m_types[typeName].directions[direction_name].requiredTiles.y = direction[U"squares.height"].get<int>();
+			m_types[typeID].directions[direction_id].requiredTiles.x = direction[U"squares.width"].get<int>();
+			m_types[typeID].directions[direction_id].requiredTiles.y = direction[U"squares.height"].get<int>();
 			
-			m_types[typeName].directions[direction_name].topLeft.x = direction[U"top_left.x"].get<int>();
-			m_types[typeName].directions[direction_name].topLeft.y = direction[U"top_left.y"].get<int>();
+			m_types[typeID].directions[direction_id].topLeft.x = direction[U"top_left.x"].get<int>();
+			m_types[typeID].directions[direction_id].topLeft.y = direction[U"top_left.y"].get<int>();
 			
-			m_types[typeName].directions[direction_name].bottomRight.x = direction[U"bottom_right.x"].get<int>();
-			m_types[typeName].directions[direction_name].bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			m_types[typeID].directions[direction_id].bottomRight.x = direction[U"bottom_right.x"].get<int>();
+			m_types[typeID].directions[direction_id].bottomRight.y = direction[U"bottom_right.y"].get<int>();
 		}
 	}
 	
@@ -200,16 +200,16 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 	return ite->first;
 }
 */
-String Addon::getTypeName(int typeNum) {
-	return m_use_types[typeNum];
+TypeID::Type Addon::getTypeID(int typeNum) {
+	return typeNameToTypeID(m_use_types[typeNum]);
 }
 
-String Addon::getDirectionName(int typeNum, int directionNum) {
-	return m_types[getTypeName(typeNum)].directionNames[directionNum];
+DirectionID::Type Addon::getDirectionID(int typeNum, int directionNum) {
+	return m_types[getTypeID(typeNum)].directionNames[directionNum];
 }
 
-String Addon::getDirectionName(String typeName, int directionNum) {
-	return m_types[typeName].directionNames[directionNum];
+DirectionID::Type Addon::getDirectionID(String typeName, int directionNum) {
+	return m_types[typeNameToTypeID(typeName)].directionNames[directionNum];
 }
 
 Array<String> Addon::getCategories() {
@@ -244,20 +244,20 @@ void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size)
 	m_icon_texture(leftTop.x, leftTop.y, size.x, size.y).draw(position.x, position.y);
 }
 
-CoordinateStruct Addon::getUseTiles(String typeName, String directionName) {
-	return CoordinateStruct{m_types[typeName].directions[directionName].requiredTiles.x, m_types[typeName].directions[directionName].requiredTiles.y};
+CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
+	return CoordinateStruct{m_types[typeID].directions[directionID].requiredTiles.x, m_types[typeID].directions[directionID].requiredTiles.y};
 }
 
-PositionStruct Addon::getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
-	AddonDirectionStruct* directionTemp = &(m_types[typeName].directions[directionName]);
+PositionStruct Addon::getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
+	AddonDirectionStruct* directionTemp = &(m_types[typeID].directions[directionID]);
 	if (directionTemp != nullptr)
 		position.y = position.y + CHIP_SIZE/2 - directionTemp->size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
 	
 	return position;
 }
 
-void Addon::draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor) {
-	AddonDirectionStruct* directionTemp = &(m_types[typeName].directions[directionName]);
+void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor) {
+	AddonDirectionStruct* directionTemp = &(m_types[typeID].directions[directionID]);
 	
 	/*
 	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
@@ -265,7 +265,7 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	}*/
 	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position = getPosition(typeName, directionName, position, useTiles, tilesCount);
+	position = getPosition(typeID, directionID, position, useTiles, tilesCount);
 	
 	unsigned short int topLeftX = directionTemp->topLeft.x;
 	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
@@ -279,15 +279,15 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	unsigned short int sizeHeight = directionTemp->size.y;
 	
 	if (addColor->a > 0) {
-		m_types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-		if (!m_types[typeName].nightMaskTexture.isEmpty()) {
-			m_types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		m_types[typeID].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
 		}
 	}
 	else {
-		m_types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-		if (!m_types[typeName].nightMaskTexture.isEmpty()) {
-			m_types[typeName].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		m_types[typeID].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
 		}
 	}
 }

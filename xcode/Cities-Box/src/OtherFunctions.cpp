@@ -168,7 +168,7 @@ string stringXOR(const std::string &data, const std::string &key) {
 	return result;
 }
 
-bool findStringArray(Array<pair<String, CoordinateStruct>> arrStr, Array<String> searchStr) {
+bool findStringArray(Array<pair<DirectionID::Type, CoordinateStruct>> arrStr, Array<DirectionID::Type> searchStr) {
 	int total = 0;
 	for (int i=0; i<arrStr.size(); i++) {
 		for (int j=0; j<searchStr.size(); j++) {
@@ -182,4 +182,147 @@ bool findStringArray(Array<pair<String, CoordinateStruct>> arrStr, Array<String>
 		return true;
 	}
 	return false;
+}
+
+TypeID::Type typeNameToTypeID(String type_name) {
+	if (type_name == U"normal") {
+		return TypeID::Normal;
+	}
+	if (type_name == U"under_construction") {
+		return TypeID::UnderConstruction;
+	}
+	if (type_name == U"default") {
+		return TypeID::Default;
+	}
+	if (type_name == U"turn") {
+		return TypeID::Turn;
+	}
+	if (type_name == U"intersection_T") {
+		return TypeID::IntersectionT;
+	}
+	if (type_name == U"intersection_cross") {
+		return TypeID::IntersectionCross;
+	}
+	if (type_name == U"dead_end") {
+		return TypeID::DeadEnd;
+	}
+	if (type_name == U"train_crossing") {
+		return TypeID::TrainCrossing;
+	}
+	if (type_name == U"bridge") {
+		return TypeID::Bridge;
+	}
+	if (type_name == U"autumn") {
+		return TypeID::TileAutumn;
+	}
+	if (type_name == U"snow") {
+		return TypeID::TileSnow;
+	}
+	if (type_name == U"estuary") {
+		return TypeID::WaterEstuary;
+	}
+	if (type_name == U"intersection_cross_without_one_corner") {
+		return TypeID::WaterIntersectionCrossWithoutOneCorner;
+	}
+	if (type_name == U"isolated") {
+		return TypeID::WaterIsolated;
+	}
+	if (type_name == U"river_dead_end") {
+		return TypeID::RiverDeadEnd;
+	}
+	if (type_name == U"river_default") {
+		return TypeID::RiverDefault;
+	}
+	if (type_name == U"river_intersection_T") {
+		return TypeID::RiverIntersectionT;
+	}
+	if (type_name == U"river_intersection_cross") {
+		return TypeID::RiverIntersectionCross;
+	}
+	if (type_name == U"river_turn") {
+		return TypeID::RiverTurn;
+	}
+	
+	// 定義に該当しない場合は無効に
+	return TypeID::Disabled;
+}
+
+DirectionID::Type directionNameToDirectionID(String direction_name) {
+	/*
+	 namespace DirectionID {
+		 enum Type {
+			 Normal			= 0,
+			 Left			= 1,
+			 Top				= 2,
+			 Right			= 3,
+			 Bottom			= 4,
+			 Depth			= 5,
+			 Width			= 6,
+			 LeftRightBottom	= 7,
+			 LeftRightTop	= 8,
+			 LeftTopBottom	= 9,
+			 RightTopBottom	= 10,
+			 LeftBottom		= 11,
+			 LeftTop			= 12,
+			 RightBottom		= 13,
+			 RightTop		= 14,
+		 };
+	 }
+	 */
+	
+	if (direction_name == U"normal") {
+		return DirectionID::Normal;
+	}
+	if (direction_name == U"left") {
+		return DirectionID::Left;
+	}
+	if (direction_name == U"top") {
+		return DirectionID::Top;
+	}
+	if (direction_name == U"right") {
+		return DirectionID::Right;
+	}
+	if (direction_name == U"bottom") {
+		return DirectionID::Bottom;
+	}
+	if (direction_name == U"depth") {
+		return DirectionID::Depth;
+	}
+	if (direction_name == U"width") {
+		return DirectionID::Width;
+	}
+	if (direction_name == U"left-right-bottom") {
+		return DirectionID::LeftRightBottom;
+	}
+	if (direction_name == U"left-right-top") {
+		return DirectionID::LeftRightTop;
+	}
+	if (direction_name == U"left-top-bottom") {
+		return DirectionID::LeftTopBottom;
+	}
+	if (direction_name == U"right-top-bottom") {
+		return DirectionID::RightTopBottom;
+	}
+	if (direction_name == U"left-bottom") {
+		return DirectionID::LeftBottom;
+	}
+	if (direction_name == U"left-top") {
+		return DirectionID::LeftTop;
+	}
+	if (direction_name == U"right-bottom") {
+		return DirectionID::RightBottom;
+	}
+	if (direction_name == U"right-top") {
+		return DirectionID::RightTop;
+	}
+	
+	return DirectionID::Disabled;
+}
+
+Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name) {
+	Array<DirectionID::Type> ret_array;
+	for (int i=0; i<direction_name.size(); i++) {
+		ret_array << directionNameToDirectionID(direction_name[i]);
+	}
+	return ret_array;
 }

@@ -165,39 +165,52 @@ namespace NameMode {
 // アドオンのタイプの識別
 namespace TypeID {
 	enum Type {
-		Normal				= 0,
-		UnderConstruction	= 1,
-		Default				= 2,
-		Turn				= 3,
-		IntersectionT		= 4,
-		IntersectionCross	= 5,
-		DeadEnd				= 6,
-		TrainCrossing		= 7,
-		Bridge				= 8,
-		TileNormal			= 9,
-		TileAutumn			= 10,
-		TileSnow			= 11,
+		Disabled								= 0,
+		Normal									= 1,
+		UnderConstruction						= 2,
+		Default									= 3,
+		Turn									= 4,
+		IntersectionT							= 5,
+		IntersectionCross						= 6,
+		DeadEnd									= 7,
+		TrainCrossing							= 8,
+		Bridge									= 9,
+		TileAutumn								= 10,
+		TileSnow								= 11,
+		WaterEstuary							= 12,
+		WaterIntersectionCrossWithoutOneCorner	= 13,
+		WaterIsolated							= 14,
+		RiverDeadEnd							= 15,
+		RiverDefault							= 16,
+		RiverIntersectionT						= 17,
+		RiverIntersectionCross					= 18,
+		RiverTurn								= 19,
+		
 	};
 }
 
 // アドオンの方向の識別
 namespace DirectionID {
 	enum Type {
-		Normal			= 0,
-		Left			= 1,
-		Top				= 2,
-		Right			= 3,
-		Bottom			= 4,
-		Depth			= 5,
-		Width			= 6,
-		LeftRightBottom	= 7,
-		LeftRightTop	= 8,
-		LeftTopBottom	= 9,
-		RightTopBottom	= 10,
-		LeftBottom		= 11,
-		LeftTop			= 12,
-		RightBottom		= 13,
-		RightTop		= 14,
+		Disabled		= 0,
+		Normal			= 1,
+		Depth			= 2,
+		Width			= 3,
+		
+		Left			= 10,
+		Top				= 11,
+		Right			= 13,
+		Bottom			= 16,
+		
+		LeftRightBottom	= 39,
+		LeftRightTop	= 34,
+		LeftTopBottom	= 37,
+		RightTopBottom	= 40,
+		
+		LeftBottom		= 26,
+		LeftTop			= 21,
+		RightBottom		= 29,
+		RightTop		= 24,
 	};
 }
 

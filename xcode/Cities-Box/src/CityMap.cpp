@@ -235,11 +235,11 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			
 			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeName(stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeName(stoi(temp[x].toUTF8())));
+					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeID(stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
+					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeID(stoi(temp[x].toUTF8())));
 				}
 				else {
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[0]->getTypeName(stoi(temp[x].toUTF8())));
+					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[0]->getTypeID(stoi(temp[x].toUTF8())));
 				}
 			}
 		}
@@ -249,7 +249,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			
 			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].getType(0) = m_tiles[arrayCount][x].addons[0]->getTypeName(stoi(temp[x].toUTF8()));
+					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[0]->getTypeID(stoi(temp[x].toUTF8())));
 				}
 			}
 		}
@@ -259,11 +259,11 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			
 			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionName(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionName(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));
+					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionID(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
+					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionID(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));
 				}
 				else {
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[0]->getDirectionName(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8())));
+					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[0]->getDirectionID(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8())));
 				}
 			}
 		}
@@ -273,7 +273,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			
 			for (int x=0; x<m_map_size.x; x++) {
 				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].getDirection(0) = m_tiles[arrayCount][x].addons[0]->getDirectionName(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8()));
+					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[0]->getDirectionID(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8())));
 				}
 			}
 		}
@@ -320,22 +320,22 @@ void CityMap::loadCBD(String loadMapFilePath) {
 				if (m_saved_version <= 140) {
 					if (m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).x > 0) {
 						// 左向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"left") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Left) {
 							
 						}
 						
 						// 上向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"top") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Top) {
 							
 						}
 						
 						// 下向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"bottom") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Bottom) {
 							
 						}
 						
 						// 右向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"right") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Right) {
 							m_tiles[arrayCount][x].tilesCount.x += m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).x - 1;
 						}
 					}
@@ -353,22 +353,22 @@ void CityMap::loadCBD(String loadMapFilePath) {
 				if (m_saved_version <= 140) {
 					if (m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y > 0) {
 						// 左向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"left") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Left) {
 							
 						}
 						
 						// 上向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"top") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Top) {
 							m_tiles[arrayCount][x].tilesCount.y = m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y - 1 - m_tiles[arrayCount][x].tilesCount.y;
 						}
 						
 						// 下向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"bottom") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Bottom) {
 							m_tiles[arrayCount][x].tilesCount.y = abs(m_tiles[arrayCount][x].tilesCount.y);
 						}
 						
 						// 右向き
-						if (m_tiles[arrayCount][x].getDirection(0) == U"right") {
+						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::Right) {
 							m_tiles[arrayCount][x].tilesCount.y = m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y - 1 - m_tiles[arrayCount][x].tilesCount.y;
 						}
 					}
@@ -696,8 +696,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			
 			for (const auto& jAddons : tile[U"addons"].arrayView()) {
 				//tiles[y][x].category.push_back(j_addons[U"category"].getString());
-				m_tiles[y][x].addType(jAddons[U"type_number"].getString());
-				m_tiles[y][x].addDirection(jAddons[U"direction_number"].getString());
+				m_tiles[y][x].addType(typeNameToTypeID(jAddons[U"type_number"].getString()));
+				m_tiles[y][x].addDirection(directionNameToDirectionID(jAddons[U"direction_number"].getString()));
 				
 				// アドオンのポインタを登録
 				if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
@@ -995,19 +995,22 @@ bool CityMap::isInCategories(String searchCategory, CoordinateStruct coordinate)
 // アドオンの設置
 bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
-	String type, direction;
+	
+	TypeID::Type type;
+	DirectionID::Type direction;
+	
 	Array<CoordinateStruct> needUpdate;
 	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
 		
-		if (direction == U"left") {
+		if (direction == DirectionID::Left) {
 			position.y += useTiles.y-1;
 		}
-		if (direction == U"right") {
+		if (direction == DirectionID::Right) {
 			position.x -= useTiles.x-1;
 			position.y += useTiles.y-1;
 		}
-		else if (direction == U"top") {
+		else if (direction == DirectionID::Top) {
 			position.y += useTiles.y-1;
 		}
 		
@@ -1020,13 +1023,13 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 		
 		for (int y=0; abs(y)<useTiles.y; y--) {
 			for (int x=0; abs(x)<useTiles.x; x++) {
-				if (needToBreak && type != U"train_crossing" && type != U"bridge") {
+				if (needToBreak && type != TypeID::UnderConstruction && type != TypeID::Bridge) {
 					breaking(CoordinateStruct{position.x+x, position.y+y});
 				}
 				
 				currentTile = &m_tiles[position.y+y][position.x+x];
 				
-				if (type != U"train_crossing" && type != U"bridge") {
+				if (type != TypeID::TrainCrossing && type != TypeID::Bridge) {
 					currentTile->clearAll();
 				}
 				
@@ -1083,12 +1086,13 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 	
 	// 踏切と橋の場合は更新不要
 	for (int i=0; i<currentTile->getTypes().size(); i++) {
-		if (currentTile->getType(i) == U"train_crossing" || currentTile->getType(i) == U"bridge") {
+		if (currentTile->getType(i) == TypeID::UnderConstruction || currentTile->getType(i) == TypeID::Bridge) {
 			return;
 		}
 	}
 	
-	String type, direction;
+	TypeID::Type type;
+	DirectionID::Type direction;
 	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
 		currentTile->clearAddons();						// 一旦クリアしてもう一度設置
 		
@@ -1183,12 +1187,13 @@ CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate
 }
 
 // 設置する場所に合うTypeとDirectionを取得
-bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, String& retType, String& retDirection, Array<CoordinateStruct>& needUpdate) {
+bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection,
+									   Array<CoordinateStruct>& needUpdate) {
 	// 接続タイプ（道路など）アドオンの場合
 	if (selectedAddon->isInCategories(U"connectable_type")) {
 		// 周囲に道路があるか（建設可能か）確認する
 		int totalAroundRoad = 0;
-		Array<pair<String, CoordinateStruct>> aroundRoadCoordinate;
+		Array<pair<DirectionID::Type, CoordinateStruct>> aroundRoadCoordinate;
 		
 		bool needUpdateMore = true;
 		if (needUpdate.size() > 0) {
@@ -1224,13 +1229,13 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		if (selectedAddon->isInCategories(U"road")) {
 			for (int i=0; i<m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
 				if (m_tiles[coordinate.y][coordinate.x].addons[i]->isInCategories(U"railroad")) {
-					retType = U"train_crossing";
+					retType = TypeID::TrainCrossing;
 					
-					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == U"width") {
-						retDirection = U"width";
+					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == DirectionID::Width) {
+						retDirection = DirectionID::Width;
 					}
 					else {
-						retDirection = U"depth";
+						retDirection = DirectionID::Depth;
 					}
 					
 					for (int j=0; j<needUpdate.size(); j++) {
@@ -1248,13 +1253,13 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		if (selectedAddon->isInCategories(U"road")) {
 			for (int i=0; i<m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
 				if (m_tiles[coordinate.y][coordinate.x].addons[i]->isInCategories(U"waterway")) {
-					retType = U"bridge";
+					retType = TypeID::Bridge;
 					
-					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == U"width") {
-						retDirection = U"depth";
+					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == DirectionID::Width) {
+						retDirection = DirectionID::Depth;
 					}
 					else {
-						retDirection = U"width";
+						retDirection = DirectionID::Width;
 					}
 					
 					for (int j=0; j<needUpdate.size(); j++) {
@@ -1270,12 +1275,12 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		
 		// その他
 		if (totalAroundRoad == 0) {
-			retType = U"intersection_cross";
-			retDirection = U"normal";
+			retType = TypeID::IntersectionCross;
+			retDirection = DirectionID::Normal;
 			return true;
 		}
 		if (totalAroundRoad == 1) {
-			retType = U"dead_end";
+			retType = TypeID::DeadEnd;
 			retDirection = aroundRoadCoordinate[0].first;
 			return true;
 		}
@@ -1289,66 +1294,46 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 			
 			// 縦横方向
 			if (roadDelta.x == 0 && roadDelta.y == 0) {
-				retType = U"default";
+				retType = TypeID::Default;
 				
 				if (aroundRoadCoordinate[0].second.x != 0) {
-					retDirection = U"depth";
+					retDirection = DirectionID::Depth;
 				}
 				else {
-					retDirection = U"width";
+					retDirection = DirectionID::Width;
 				}
 				
 				return true;
 			}
 			// 曲がり角
 			else {
-				retType = U"turn";
+				retType = TypeID::Turn;
 				
-				if (findStringArray(aroundRoadCoordinate, Array<String>{U"left", U"top"})){
-					retDirection = U"left-top";
-					return true;
+				// DirectionIDを取得して設定
+				int direction_id_temp = 0;
+				for(int i=0; i<aroundRoadCoordinate.size(); i++) {
+					direction_id_temp += (int)aroundRoadCoordinate[i].first;
 				}
-				if (findStringArray(aroundRoadCoordinate, Array<String>{U"right", U"top"})){
-					retDirection = U"right-top";
-					return true;
-				}
-				if (findStringArray(aroundRoadCoordinate, Array<String>{U"left", U"bottom"})){
-					retDirection = U"left-bottom";
-					return true;
-				}
-				if (findStringArray(aroundRoadCoordinate, Array<String>{U"right", U"bottom"})){
-					retDirection = U"right-bottom";
-					return true;
-				}
+				retDirection = (DirectionID::Type)direction_id_temp;
 				
-				return false;
+				return true;
 			}
 		}
 		if (totalAroundRoad == 3) {
-			retType = U"intersection_T";
+			retType = TypeID::IntersectionT;
 			
-			if (findStringArray(aroundRoadCoordinate, Array<String>{U"left", U"top", U"bottom"})){
-				retDirection = U"left-top-bottom";
-				return true;
+			// DirectionIDを取得して設定
+			int direction_id_temp = 0;
+			for(int i=0; i<aroundRoadCoordinate.size(); i++) {
+				direction_id_temp += (int)aroundRoadCoordinate[i].first;
 			}
-			if (findStringArray(aroundRoadCoordinate, Array<String>{U"right", U"top", U"bottom"})){
-				retDirection = U"right-top-bottom";
-				return true;
-			}
-			if (findStringArray(aroundRoadCoordinate, Array<String>{U"left", U"right", U"top"})){
-				retDirection = U"left-right-top";
-				return true;
-			}
-			if (findStringArray(aroundRoadCoordinate, Array<String>{U"left", U"right", U"bottom"})){
-				retDirection = U"left-right-bottom";
-				return true;
-			}
+			retDirection = (DirectionID::Type)direction_id_temp;
 			
-			return false;
+			return true;
 		}
 		if (totalAroundRoad == 4) {
-			retType = U"intersection_cross";
-			retDirection = U"normal";
+			retType = TypeID::IntersectionCross;
+			retDirection = DirectionID::Normal;
 			return true;
 		}
 	}
@@ -1361,17 +1346,17 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 			
 			for (int j=0; j<m_tiles[currentTile.y][currentTile.x].addons.size(); j++) {
 				if (m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"road")) {
-					String retTypeTemp = U"normal";
-					String retDirectionTemp = AroundTiles[i].first;
+					TypeID::Type retTypeTemp = TypeID::Normal;
+					DirectionID::Type retDirectionTemp = AroundTiles[i].first;
 					
 					// 複数のタイルを使う場合、建てる方向に障害物などがないか確認する
 					bool cannotBuild = false;
 					
 					int addX = 1, addY = 1;
-					if (retTypeTemp == U"right") {
+					if (retDirectionTemp == DirectionID::Right) {
 						addX = -1;
 					}
-					else if (retTypeTemp == U"bottom") {
+					else if (retDirectionTemp == DirectionID::Bottom) {
 						addY = -1;
 					}
 					
@@ -1400,8 +1385,8 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 	
 	// タイルの場合
 	if (selectedAddon->isInCategories(U"put_type")) {
-		retType = U"normal";
-		retDirection = U"normal";
+		retType = TypeID::Normal;
+		retDirection = DirectionID::Normal;
 		return true;
 	}
 	
@@ -1415,8 +1400,8 @@ void CityMap::clear(CoordinateStruct position) {
 	
 	currentTile->clearAll();
 	
-	currentTile->addType(U"normal");
-	currentTile->addDirection(U"normal");
+	currentTile->addType(TypeID::Normal);
+	currentTile->addDirection(DirectionID::Normal);
 	currentTile->addons << selectedAddon;
 	
 	// 幸福度を戻す

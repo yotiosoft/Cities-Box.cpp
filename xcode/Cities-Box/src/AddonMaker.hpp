@@ -186,11 +186,11 @@ public:
 	bool isTypeSet() {
 		return m_am_check_type;
 	}
-	
+	/*
 	map<String, AddonType> printTypes() {
 		return m_types;
 	}
-	
+	*/
 	void sMenu(Font& font16);
 	void sName(Font& font16);
 	

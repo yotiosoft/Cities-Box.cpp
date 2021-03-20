@@ -79,7 +79,7 @@ public:
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, String& retType, String& retDirection, Array<CoordinateStruct>& needUpdate);
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);

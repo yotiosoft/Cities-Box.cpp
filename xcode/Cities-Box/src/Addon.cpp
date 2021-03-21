@@ -131,6 +131,32 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
 		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
 		
+		m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
+		
+		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
+			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
+			
+			// 新たなAddonDirectionStructを作成
+			AddonDirectionStruct direction_struct;
+			
+			direction_struct.directionID = direction_id;
+			
+			direction_struct.size.x = direction[U"size.width"].get<int>();
+			direction_struct.size.y = direction[U"size.height"].get<int>();
+			
+			direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
+			direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
+			
+			direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
+			direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
+			
+			direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
+			direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			
+			// direction_structをlayerに追加
+			m_types[typeID].addAddonDirectionStruct(direction_struct);
+		}
+		
 		for (int layer_num=0; layer_num<1; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
 			String image_filename = type[U"image"].getString();
 			
@@ -156,31 +182,6 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 				m_types[typeID].nightMaskTexture = Texture(iTempNM);
 			}
 			*/
-			m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
-			
-			for (const auto& direction : type[U"Directions"].arrayView()) {
-				DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
-				
-				// 新たなAddonDirectionStructを作成
-				AddonDirectionStruct direction_struct;
-				
-				direction_struct.directionID = direction_id;
-				
-				direction_struct.size.x = direction[U"size.width"].get<int>();
-				direction_struct.size.y = direction[U"size.height"].get<int>();
-				
-				direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
-				direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
-				
-				direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
-				direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
-				
-				direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
-				direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
-				
-				// direction_structをlayerに追加
-				layer.addAddonDirectionStruct(direction_struct);
-			}
 			
 			// layerをtypeに追加
 			m_types[typeID].addAddonLayer(layer);
@@ -264,19 +265,19 @@ void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size)
 }
 
 CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
-	return CoordinateStruct{m_types[typeID].directions[directionID].requiredTiles.x, m_types[typeID].directions[directionID].requiredTiles.y};
+	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
 }
 
 PositionStruct Addon::getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
-	AddonDirectionStruct* directionTemp = &(m_types[typeID].directions[directionID]);
-	if (directionTemp != nullptr)
-		position.y = position.y + CHIP_SIZE/2 - directionTemp->size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
+	AddonDirectionStruct directionTemp = m_types[typeID].getDirectionStruct(directionID);
+	position.y = position.y + CHIP_SIZE/2 - directionTemp.size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
 	
 	return position;
 }
 
-void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor) {
-	AddonDirectionStruct* directionTemp = &(m_types[typeID].directions[directionID]);
+void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor,
+				 TimeStruct time) {
+	AddonDirectionStruct directionTemp = m_types[typeID].getDirectionStruct(directionID);
 	
 	/*
 	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
@@ -286,27 +287,32 @@ void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStr
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
 	position = getPosition(typeID, directionID, position, useTiles, tilesCount);
 	
-	unsigned short int topLeftX = directionTemp->topLeft.x;
+	unsigned short int topLeftX = directionTemp.topLeft.x;
 	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int topLeftY = directionTemp->topLeft.y;
+	unsigned short int topLeftY = directionTemp.topLeft.y;
 	topLeftY += CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int sizeWidth = directionTemp->size.x;
+	unsigned short int sizeWidth = directionTemp.size.x;
 	sizeWidth = CHIP_SIZE;
 	
-	unsigned short int sizeHeight = directionTemp->size.y;
+	unsigned short int sizeHeight = directionTemp.size.y;
 	
+	// オブジェクトの描画
+	for (int i=0; i<m_types[typeID].countLayers(); i++) {
+		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y/*, *addColor*/);
+	}
+	/*
 	if (addColor->a > 0) {
-		m_types[typeID].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-		if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
 			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-		}
-	}
+		}*/
+	/*}
 	else {
-		m_types[typeID].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-		if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
 			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-		}
-	}
+		}*/
+	//}
 }

@@ -18,17 +18,9 @@ public:
 	
 	// imageを返す
 	Image getImage();
-	// 合致するdirectionの部分を切り取ってimageを返す
-	Image getImage(DirectionID::Type direction_id);
 	
-	// 保持するm_directionsのDirectionIDを検索
-	bool isThere(DirectionID::Type direction_id);
-	
-	// 指定した時刻がレイヤ出現の条件に合うか？
-	ThreeTypesAnswer::Type isEnable(TimeStruct time);
-	
-	// AddonDirectionStructを追加する
-	void addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct);
+	// 指定したLayerType::Typeがレイヤ出現の条件に合うか？
+	bool isEnable(LayerType::Type);
 	
 private:
 	// レイヤ画像
@@ -36,9 +28,6 @@ private:
 	
 	// レイヤのタイプ
 	Array<LayerType::Type> m_layer_types;
-	
-	// 方向
-	map<DirectionID::Type, AddonDirectionStruct> m_directions;
 };
 
 #endif /* AddonLayer_hpp */

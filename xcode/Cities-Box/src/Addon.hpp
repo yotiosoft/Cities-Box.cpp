@@ -81,7 +81,7 @@ public:
 	PositionStruct getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
 	
 	// アドオンを描画する
-	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor);
+	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor, TimeStruct time);
 	
 	// JSON形式に変換する
 	void converter();

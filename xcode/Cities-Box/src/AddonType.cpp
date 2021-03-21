@@ -11,7 +11,7 @@
 AddonType::AddonType() {
 }
 
-AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer> arg_layers, bool arg_light_on_night) {
+AddonType::AddonType(TypeID::Type arg_type_ID, Array<AddonLayer>& arg_layers, bool arg_light_on_night) {
 	m_type_id = arg_type_ID;
 	m_layers = arg_layers;
 	m_light_on_night = arg_light_on_night;
@@ -41,6 +41,16 @@ void AddonType::draw(TimeStruct time, AddonDirectionStruct direction_id, Positio
 */
 }
 
+Texture AddonType::tempGetTexture(TimeStruct time) {
+	// レイヤの更新処理
+	if (time.hour != m_before_time.hour) {
+		m_update_layers(time);
+	}
+	m_before_time = time;
+	
+	return m_texture;
+}
+
 int AddonType::countLayers() {
 	return (int)m_layers.size();
 }
@@ -49,21 +59,52 @@ void AddonType::addAddonLayer(AddonLayer arg_layer) {
 	m_layers << arg_layer;
 }
 
+void AddonType::addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct) {
+	m_directions[arg_direction_struct.directionID] = arg_direction_struct;
+}
+
+AddonDirectionStruct AddonType::getDirectionStruct(DirectionID::Type direction_id) {
+	return m_directions[direction_id];
+}
+
 Array<DirectionID::Type> AddonType::m_get_all_direction_IDs() {
 	Array<DirectionID::Type> ret;
 	
-	// すべてのDirectionIDについて、いずれかのレイヤに存在するか確認
+	// すべてのDirectionIDについて、m_directionに存在するか確認
+	// Todo: これじゃダメでは
 	for (int d=0; d<DIRECTIONS; d++) {
-		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
-			auto& layer = *iter;
-			
-			if (layer.isThere(DirectionID::Type(d))) {
-				ret << DirectionID::Type(d);
-			}
+		if (m_is_there(DirectionID::Type(d))) {
+			ret << DirectionID::Type(d);
 		}
 	}
 	
 	return ret;
+}
+
+void AddonType::m_make_all_textures() {
+	
+	
+	// テクスチャ用Image
+	Image updated_image(m_layers[0].getImage().size());
+	
+	// レイヤを重ね合わせ
+	int i = 0;
+	for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
+		auto& layer = *iter;
+		/*
+		if (!enabled_layers_list[i]) {
+			i++;
+			continue;
+		}*/
+			
+		// 重ね合わせ
+		layer.getImage().overwrite(updated_image, 0, 0);
+			
+		i++;
+	}
+	
+	// テクスチャに反映
+	m_texture = Texture(updated_image);
 }
 
 void AddonType::m_update_layers(TimeStruct time) {
@@ -71,32 +112,26 @@ void AddonType::m_update_layers(TimeStruct time) {
 	Array<bool> enabled_layers_list = m_get_enable_layers_list(time);
 	
 	// テクスチャ用Image
-	map<DirectionID::Type, Image> updated_images;
+	Image updated_image(m_layers[0].getImage().size());
 	
 	// レイヤを重ね合わせ
-	for (int i=0; i<m_enable_direction_id_list.size(); i++) {
-		// そのDirectionIDが存在するレイヤから1区分を切り出し
-		int j=0;
-		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
-			auto& layer = *iter;
+	int i = 0;
+	for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
+		auto& layer = *iter;
+		/*
+		if (!enabled_layers_list[i]) {
+			i++;
+			continue;
+		}*/
 			
-			if (!enabled_layers_list[j]) {
-				j++;
-				continue;
-			}
+		// 重ね合わせ
+		layer.getImage().overwrite(updated_image, 0, 0);
 			
-			// 重ね合わせ
-			layer.getImage(m_enable_direction_id_list[i]).overwrite(updated_images[m_enable_direction_id_list[i]], 0, 0);
-			
-			j++;
-		}
+		i++;
 	}
 	
 	// テクスチャに反映
-	for(auto iter = begin(updated_images); iter != end(updated_images); ++iter) {
-		auto& im = *iter;
-		m_textures[im.first] = Texture(im.second);
-	}
+	m_texture = Texture(updated_image);
 }
 
 Array<bool> AddonType::m_get_enable_layers_list(TimeStruct time) {
@@ -126,4 +161,10 @@ Array<bool> AddonType::m_get_enable_layers_list(TimeStruct time) {
 	return ret;
 }
 
-
+bool AddonType::m_is_there(DirectionID::Type direction_id) {
+	if (m_directions.count(direction_id) == 0) {
+		return false;
+	}
+	
+	return true;
+}

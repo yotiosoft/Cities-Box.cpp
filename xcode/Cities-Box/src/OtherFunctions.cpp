@@ -310,3 +310,28 @@ Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name
 	}
 	return ret_array;
 }
+
+LayerType::Type timeToLayerType(TimeStruct time) {
+	int layer_type_int = (int)LayerType::Normal;
+	
+	if (time.month >= 3 && time.month <= 5) {
+		layer_type_int = (int)LayerType::OnSpring;
+	}
+	if (time.month >= 6 && time.month <= 8) {
+		layer_type_int = (int)LayerType::OnSummer;
+	}
+	if (time.month >= 9 && time.month <= 11) {
+		layer_type_int = (int)LayerType::OnAutumn;
+	}
+	if (time.month == 12 || time.month == 1 || time.month == 2) {
+		layer_type_int = (int)LayerType::OnWinter;
+	}
+	
+	if ((time.hour >= 16 && time.hour <= 17) || time.hour == 6) {
+		layer_type_int += (int)LayerType::Night;
+	} else if ((time.hour >= 18 && time.hour <= 23) || (time.hour >= 0 && time.hour <= 5)) {
+		layer_type_int += (int)LayerType::Night;
+	}
+	
+	return (LayerType::Type)layer_type_int;
+}

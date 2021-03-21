@@ -35,4 +35,6 @@ TypeID::Type typeNameToTypeID(String type_name);
 DirectionID::Type directionNameToDirectionID(String direction_name);
 Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
+LayerType::Type timeToLayerType(TimeStruct time);
+
 #endif /* OtherFunctions_hpp */

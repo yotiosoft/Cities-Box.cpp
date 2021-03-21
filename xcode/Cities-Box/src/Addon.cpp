@@ -128,43 +128,62 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	
 	m_use_types = addonData[U"Use_types"].getArray<String>();
 	
-	for (const auto& type : addonData[U"Types"].arrayView()) {
+	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
 		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
 		
-		String image_filename = type[U"image"].getString();
-		
-		m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
-		m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
-		m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
-		
-		Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
-		m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
-		m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
-		m_types[typeID].texture = Texture(iTemp);
-		
-		String night_mask_filename = type[U"night_mask"].getString();
-		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
-			Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
-			m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
-			m_types[typeID].nightMaskTexture = Texture(iTempNM);
-		}
-		
-		m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
-		
-		for (const auto& direction : type[U"Directions"].arrayView()) {
-			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
+		for (int layer_num=0; layer_num<1; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
+			String image_filename = type[U"image"].getString();
 			
-			m_types[typeID].directions[direction_id].size.x = direction[U"size.width"].get<int>();
-			m_types[typeID].directions[direction_id].size.y = direction[U"size.height"].get<int>();
+			m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
+			m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
+			m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
 			
-			m_types[typeID].directions[direction_id].requiredTiles.x = direction[U"squares.width"].get<int>();
-			m_types[typeID].directions[direction_id].requiredTiles.y = direction[U"squares.height"].get<int>();
+			Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
+			m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+			m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
 			
-			m_types[typeID].directions[direction_id].topLeft.x = direction[U"top_left.x"].get<int>();
-			m_types[typeID].directions[direction_id].topLeft.y = direction[U"top_left.y"].get<int>();
+			// AddonLayerを作成（暫定）
+			// Todo: 正式に対応する
+			Array<LayerType::Type> layer_types;
+			layer_types << LayerType::Normal;
+			AddonLayer layer(iTemp, layer_types);
 			
-			m_types[typeID].directions[direction_id].bottomRight.x = direction[U"bottom_right.x"].get<int>();
-			m_types[typeID].directions[direction_id].bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			/*
+			String night_mask_filename = type[U"night_mask"].getString();
+			if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+				Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
+				m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+				m_types[typeID].nightMaskTexture = Texture(iTempNM);
+			}
+			*/
+			m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
+			
+			for (const auto& direction : type[U"Directions"].arrayView()) {
+				DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
+				
+				// 新たなAddonDirectionStructを作成
+				AddonDirectionStruct direction_struct;
+				
+				direction_struct.directionID = direction_id;
+				
+				direction_struct.size.x = direction[U"size.width"].get<int>();
+				direction_struct.size.y = direction[U"size.height"].get<int>();
+				
+				direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
+				direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
+				
+				direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
+				direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
+				
+				direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
+				direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
+				
+				// direction_structをlayerに追加
+				layer.addAddonDirectionStruct(direction_struct);
+			}
+			
+			// layerをtypeに追加
+			m_types[typeID].addAddonLayer(layer);
 		}
 	}
 	

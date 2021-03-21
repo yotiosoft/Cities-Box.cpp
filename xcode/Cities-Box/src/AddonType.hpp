@@ -31,8 +31,6 @@ public:
 	Array<DirectionID::Type> directionNames;	// typeに含まれる方向
 	RGBstruct transparentColor;		// 透過色のRGB値
 	
-	map<DirectionID::Type, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
-	
 	Texture texture;				// アドオン画像のテクスチャ
 	Texture nightMaskTexture;		// 夜間用マスク画像のテクスチャ
 	

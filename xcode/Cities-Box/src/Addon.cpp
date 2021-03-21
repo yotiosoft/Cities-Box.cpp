@@ -132,7 +132,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		int total_layers = 1;
 		String night_mask_filename = type[U"night_mask"].getString();
 		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
-			total_layers = 2;
+			total_layers = 3;
 		}
 		
 		Array<AddonLayer> layers;
@@ -159,6 +159,8 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 				layer_types << LayerType::Normal;
 			if (layer_num == 1)
 				layer_types << LayerType::Night;
+			if (layer_num == 2)
+				layer_types << LayerType::Evening;
 			AddonLayer layer(iTemp, layer_types);
 			
 			/*

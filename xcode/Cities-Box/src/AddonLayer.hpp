@@ -25,7 +25,7 @@ public:
 	Array<LayerType::Type> getLayerTypes();
 	
 	// 指定したLayerType::Typeがレイヤ出現の条件に合うか？
-	bool isEnable(LayerType::Type);
+	bool isEnable(LayerType::Type layer_type);
 	
 private:
 	// レイヤ画像

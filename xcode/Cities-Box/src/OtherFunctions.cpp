@@ -328,7 +328,7 @@ LayerType::Type timeToLayerType(TimeStruct time) {
 	}
 	
 	if ((time.hour >= 16 && time.hour <= 17) || time.hour == 6) {
-		layer_type_int += (int)LayerType::Night;
+		layer_type_int += (int)LayerType::Evening;
 	} else if ((time.hour >= 18 && time.hour <= 23) || (time.hour >= 0 && time.hour <= 5)) {
 		layer_type_int += (int)LayerType::Night;
 	}
@@ -352,8 +352,8 @@ void blendColorAndImage(Image& imageTemp, Color blendColor) {
 			}
 			else {
 				outR = (blendColor.r*bcA+imageTemp[h][w].r*itA*(1.0-bcA))/outA;
-				outG = (blendColor.g*itA+imageTemp[h][w].g*itA*(1.0-bcA))/outA;
-				outB = (blendColor.b*itA+imageTemp[h][w].b*itA*(1.0-bcA))/outA;
+				outG = (blendColor.g*bcA+imageTemp[h][w].g*itA*(1.0-bcA))/outA;
+				outB = (blendColor.b*bcA+imageTemp[h][w].b*itA*(1.0-bcA))/outA;
 				
 				imageTemp[h][w].a = outA*255;
 				imageTemp[h][w].r = outR;

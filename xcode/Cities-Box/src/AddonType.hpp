@@ -53,7 +53,14 @@ private:
 	bool m_is_there(DirectionID::Type direction_id);
 	
 	// レイヤの重ね合わせ
-	void over_write(Image& to, Image& from, Array<LayerType::Type> layer_types, LayerType::Type making_type);
+	void m_over_write(Image& to, Image& from, Array<LayerType::Type> layer_types, LayerType::Type making_type);
+	
+	
+	// 指定したLayerTypeが夕方に該当するか？
+	bool m_is_evening(LayerType::Type layer_type);
+	
+	// 指定したLayerTypeが夜間に該当するか？
+	bool m_is_night(LayerType::Type layer_type);
 	
 	/* プライベート変数 */
 	// TypeID

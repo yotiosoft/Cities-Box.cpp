@@ -67,7 +67,7 @@ void AddonType::m_make_all_textures() {
 				
 			// 重ね合わせ
 			Image layer_image = layer.getImage();
-			over_write(updated_image, layer_image, layer.getLayerTypes(), AllLayerTypes[i]);
+			m_over_write(updated_image, layer_image, layer.getLayerTypes(), AllLayerTypes[i]);
 			count ++;
 		}
 		
@@ -85,7 +85,7 @@ bool AddonType::m_is_there(DirectionID::Type direction_id) {
 	return true;
 }
 
-void AddonType::over_write(Image &to, Image &from, Array<LayerType::Type> layer_types, LayerType::Type making_type) {
+void AddonType::m_over_write(Image &to, Image &from, Array<LayerType::Type> layer_types, LayerType::Type making_type) {
 	for (int y=0; y<from.size().y; y++) {
 		for (int x=0; x<from.size().x; x++) {
 			if (from.getPixel_Clamp(x, y).r != transparentColor.r ||
@@ -97,7 +97,24 @@ void AddonType::over_write(Image &to, Image &from, Array<LayerType::Type> layer_
 		}
 	}
 	
-	if (layer_types.count(LayerType::Normal) > 0 && (int)making_type / 10 == 2) {	// 夜間用
+	if (layer_types.count(LayerType::Normal) > 0 && m_is_evening(making_type)) {		// 夕方用
+		blendColorAndImage(to, Color(255, 135, 0, 50));
+	}
+	else if (layer_types.count(LayerType::Normal) > 0 && m_is_night(making_type)) {		// 夜間用
 		blendColorAndImage(to, Color(0, 0, 0, 200));
 	}
+}
+
+bool AddonType::m_is_evening(LayerType::Type layer_type) {
+	if ((int)layer_type / 10 == 1) {
+		return true;
+	}
+	return false;
+}
+
+bool AddonType::m_is_night(LayerType::Type layer_type) {
+	if ((int)layer_type / 10 == 2) {
+		return true;
+	}
+	return false;
 }

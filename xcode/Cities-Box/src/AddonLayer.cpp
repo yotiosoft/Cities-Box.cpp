@@ -114,3 +114,7 @@ ThreeTypesAnswer::Type AddonLayer::isEnable(TimeStruct time) {
 	
 	return ThreeTypesAnswer::No;
 }
+
+void AddonLayer::addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct) {
+	m_directions[arg_direction_struct.directionID] = arg_direction_struct;
+}

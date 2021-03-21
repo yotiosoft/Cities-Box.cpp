@@ -25,6 +25,9 @@ public:
 	// レイヤ数のカウント
 	int countLayers();
 	
+	// レイヤを追加する
+	void addAddonLayer(AddonLayer arg_layer);
+	
 	Array<DirectionID::Type> directionNames;	// typeに含まれる方向
 	RGBstruct transparentColor;		// 透過色のRGB値
 	

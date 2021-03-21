@@ -168,22 +168,6 @@ string stringXOR(const std::string &data, const std::string &key) {
 	return result;
 }
 
-bool findStringArray(Array<pair<DirectionID::Type, CoordinateStruct>> arrStr, Array<DirectionID::Type> searchStr) {
-	int total = 0;
-	for (int i=0; i<arrStr.size(); i++) {
-		for (int j=0; j<searchStr.size(); j++) {
-			if (arrStr[i].first == searchStr[j]) {
-				total ++;
-			}
-		}
-	}
-	
-	if (total == searchStr.size()) {
-		return true;
-	}
-	return false;
-}
-
 TypeID::Type typeNameToTypeID(String type_name) {
 	if (type_name == U"normal") {
 		return TypeID::Normal;

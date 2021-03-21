@@ -45,6 +45,10 @@ int AddonType::countLayers() {
 	return (int)m_layers.size();
 }
 
+void AddonType::addAddonLayer(AddonLayer arg_layer) {
+	m_layers << arg_layer;
+}
+
 Array<DirectionID::Type> AddonType::m_get_all_direction_IDs() {
 	Array<DirectionID::Type> ret;
 	

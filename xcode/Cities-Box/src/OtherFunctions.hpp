@@ -31,8 +31,6 @@ School::Type getSchool(int number);
 
 string stringXOR(const std::string &data, const std::string &key);
 
-bool findStringArray(Array<pair<DirectionID::Type, CoordinateStruct>> arrStr, Array<DirectionID::Type> searchStr);
-
 TypeID::Type typeNameToTypeID(String type_name);
 DirectionID::Type directionNameToDirectionID(String direction_name);
 Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);

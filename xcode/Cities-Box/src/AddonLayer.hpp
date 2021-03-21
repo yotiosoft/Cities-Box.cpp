@@ -27,6 +27,9 @@ public:
 	// 指定した時刻がレイヤ出現の条件に合うか？
 	ThreeTypesAnswer::Type isEnable(TimeStruct time);
 	
+	// AddonDirectionStructを追加する
+	void addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct);
+	
 private:
 	// レイヤ画像
 	Image m_image;

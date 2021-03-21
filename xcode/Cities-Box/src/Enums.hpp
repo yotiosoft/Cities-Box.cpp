@@ -127,25 +127,25 @@ namespace Weather {
 namespace LayerType {
 	enum Type {
 		Ground				= 0,	// 地面
-		Normal				= 1,	// 常時表示される部分
+		Normal				= 180,	// 常時表示される部分
 		
 		Evening				= 10,	// 夕方表示される部分
 		Night				= 20,	// 夜間表示される部分
 		
-		OnSpring			= 11,	// 春季だけ表示される部分
-		OnSummer			= 12,	// 夏季だけ表示される部分
-		OnAutumn			= 13,	// 秋季だけ表示される部分
-		OnWinter			= 14,	// 冬季だけ表示される部分
+		OnSpring			= 1,	// 春季だけ表示される部分
+		OnSummer			= 2,	// 夏季だけ表示される部分
+		OnAutumn			= 3,	// 秋季だけ表示される部分
+		OnWinter			= 4,	// 冬季だけ表示される部分
 		
-		OnSpringEvening		= 21,	// 春季夕方表示される部分
-		OnSummerEvening		= 22,	// 夏季夕方表示される部分
-		OnAutumnEvening		= 23,	// 秋季夕方表示される部分
-		OnWinterEvening		= 24,	// 冬季夕方表示される部分
+		OnSpringEvening		= 11,	// 春季夕方表示される部分
+		OnSummerEvening		= 12,	// 夏季夕方表示される部分
+		OnAutumnEvening		= 13,	// 秋季夕方表示される部分
+		OnWinterEvening		= 14,	// 冬季夕方表示される部分
 		
-		OnSpringNight		= 31,	// 春季夜間表示される部分
-		OnSummerNight		= 32,	// 夏季夜間表示される部分
-		OnAutumnNight		= 33,	// 秋季夜間表示される部分
-		OnWinterNight		= 34,	// 冬季夜間表示される部分
+		OnSpringNight		= 21,	// 春季夜間表示される部分
+		OnSummerNight		= 22,	// 夏季夜間表示される部分
+		OnAutumnNight		= 23,	// 秋季夜間表示される部分
+		OnWinterNight		= 24,	// 冬季夜間表示される部分
 	};
 }
 

@@ -8,6 +8,8 @@
 #ifndef AddonLayer_hpp
 #define AddonLayer_hpp
 
+#pragma once
+
 #include "Specific.hpp"
 #include "AddonDirectionStruct.hpp"
 
@@ -18,6 +20,9 @@ public:
 	
 	// imageを返す
 	Image getImage();
+	
+	// m_layer_typesを返す
+	Array<LayerType::Type> getLayerTypes();
 	
 	// 指定したLayerType::Typeがレイヤ出現の条件に合うか？
 	bool isEnable(LayerType::Type);

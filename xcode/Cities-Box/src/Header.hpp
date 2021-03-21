@@ -20,6 +20,7 @@
 #define RELEASE_NUMBER	141
 #define AROUND_TILES	4
 #define DIRECTIONS		15
+#define LAYER_TYPES		12
 
 using namespace std;
 
@@ -32,3 +33,9 @@ const pair<DirectionID::Type, CoordinateStruct> AroundTiles[4] = {
 	{DirectionID::Right, {1, 0}}, {DirectionID::Bottom, {0, 1}}, {DirectionID::Top, {0, -1}}, {DirectionID::Left, {-1, 0}}
 };
 
+// LayerType::Typeのすべて
+const LayerType::Type AllLayerTypes[12] = {
+	LayerType::OnSpring, LayerType::OnSummer, LayerType::OnAutumn, LayerType::OnWinter,
+	LayerType::OnSpringEvening, LayerType::OnSummerEvening, LayerType::OnAutumnEvening, LayerType::OnWinterEvening,
+	LayerType::OnSpringNight, LayerType::OnSummerNight, LayerType::OnAutumnNight, LayerType::OnWinterNight
+};

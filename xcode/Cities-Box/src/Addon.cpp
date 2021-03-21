@@ -49,34 +49,6 @@ void Addon::m_set_alpha_color(Image& imageTemp, Color transparentRGB) {
 	}
 }
 
-void Addon::m_blend_color_and_image(Image& imageTemp, Color blendColor) {
-	double outA, outR, outG, outB;
-	for (int h=0; h<imageTemp.height(); h++) {
-		for (int w=0; w<imageTemp.width(); w++) {
-			double bcA = blendColor.a / 255.0;
-			double itA = imageTemp[h][w].a / 255.0;
-			
-			outA = bcA+itA*(1.0-bcA);
-			if (outA < 1.0) {
-				imageTemp[h][w].a = 0;
-				imageTemp[h][w].r = 0;
-				imageTemp[h][w].g = 0;
-				imageTemp[h][w].b = 0;
-			}
-			else {
-				outR = (blendColor.r*bcA+imageTemp[h][w].r*itA*(1.0-bcA))/outA;
-				outG = (blendColor.g*itA+imageTemp[h][w].g*itA*(1.0-bcA))/outA;
-				outB = (blendColor.b*itA+imageTemp[h][w].b*itA*(1.0-bcA))/outA;
-				
-				imageTemp[h][w].a = outA*255;
-				imageTemp[h][w].r = outR;
-				imageTemp[h][w].g = outG;
-				imageTemp[h][w].b = outB;
-			}
-		}
-	}
-}
-
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
 		//return m_load_adat(newFilePath, loadingAddonsSetName);
@@ -157,21 +129,36 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			m_types[typeID].addAddonDirectionStruct(direction_struct);
 		}
 		
-		for (int layer_num=0; layer_num<1; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
-			String image_filename = type[U"image"].getString();
+		int total_layers = 1;
+		String night_mask_filename = type[U"night_mask"].getString();
+		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+			total_layers = 2;
+		}
+		
+		Array<AddonLayer> layers;
+		for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
+			String image_filename;
+			if (layer_num == 0)
+				image_filename = type[U"image"].getString();
+			else
+				image_filename = type[U"night_mask"].getString();
 			
 			m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
 			m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
 			m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
 			
+			// 画像を読み込んで
 			Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
+			// 透過色を透過させる
 			m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
-			m_blend_color_and_image(iTemp, Color(0, 0, 0, 200));
 			
 			// AddonLayerを作成（暫定）
 			// Todo: 正式に対応する
 			Array<LayerType::Type> layer_types;
-			layer_types << LayerType::Normal;
+			if (layer_num == 0)
+				layer_types << LayerType::Normal;
+			if (layer_num == 1)
+				layer_types << LayerType::Night;
 			AddonLayer layer(iTemp, layer_types);
 			
 			/*
@@ -183,9 +170,10 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			}
 			*/
 			
-			// layerをtypeに追加
-			m_types[typeID].addAddonLayer(layer);
+			// layerをlayersに追加
+			layers << layer;
 		}
+		m_types[typeID].setLayers(layers);
 	}
 	
 	return true;
@@ -299,9 +287,8 @@ void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStr
 	unsigned short int sizeHeight = directionTemp.size.y;
 	
 	// オブジェクトの描画
-	for (int i=0; i<m_types[typeID].countLayers(); i++) {
-		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y/*, *addColor*/);
-	}
+	m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y/*, *addColor*/);
+	
 	/*
 	if (addColor->a > 0) {
 		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);

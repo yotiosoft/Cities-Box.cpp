@@ -7,6 +7,8 @@
 #ifndef Addon_hpp
 #define Addon_hpp
 
+#pragma once
+
 #include "Specific.hpp"
 #include "ImagesStruct.hpp"
 #include "AddonType.hpp"
@@ -99,7 +101,6 @@ protected:
 	
 	// 画像の加工関連
 	void m_set_alpha_color(Image& imageTemp, Color transparentRGB);
-	void m_blend_color_and_image(Image& imageTemp, Color blendColor);
 	
 	/* プライベート変数 */
 	// アドオンファイルのパス

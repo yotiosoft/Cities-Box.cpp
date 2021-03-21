@@ -8,6 +8,8 @@
 #ifndef AddonType_hpp
 #define AddonType_hpp
 
+#pragma once
+
 #include "Specific.hpp"
 #include "AddonLayer.hpp"
 #include "AddonDirectionStruct.hpp"
@@ -16,7 +18,7 @@ class AddonType {
 public:
 	// コンストラクタ
 	AddonType();
-	AddonType(TypeID::Type arg_type_ID, Array<AddonLayer>& arg_layers, bool arg_light_on_night);
+	AddonType(TypeID::Type arg_type_ID);
 	
 	// 描画
 	void draw(TimeStruct time, AddonDirectionStruct direction_id,
@@ -25,11 +27,10 @@ public:
 	// 暫定
 	Texture tempGetTexture(TimeStruct time);
 	
+	void setLayers(Array<AddonLayer> arg_layers);
+	
 	// レイヤ数のカウント
 	int countLayers();
-	
-	// レイヤを追加する
-	void addAddonLayer(AddonLayer arg_layer);
 	
 	// AddonDirectionStructをm_directionsに追加
 	void addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct);
@@ -48,14 +49,11 @@ private:
 	// すべての状況に応じたテクスチャを構成
 	void m_make_all_textures();
 	
-	// レイヤの更新
-	void m_update_layers(TimeStruct time);
-	
-	// 有効なレイヤのリストを返す
-	Array<bool> m_get_enable_layers_list(TimeStruct time);
-	
 	// 保持するm_directionsのDirectionIDを検索
 	bool m_is_there(DirectionID::Type direction_id);
+	
+	// レイヤの重ね合わせ
+	void over_write(Image& to, Image& from, Array<LayerType::Type> layer_types, LayerType::Type making_type);
 	
 	/* プライベート変数 */
 	// TypeID
@@ -67,17 +65,11 @@ private:
 	// レイヤ
 	Array<AddonLayer> m_layers;
 	
-	// 有効なDirectionIDのリスト
-	Array<DirectionID::Type> m_enable_direction_id_list;
-	
 	// 夜間に電気を灯すか？
 	bool m_light_on_night;
 	
-	// 更新前の時間
-	TimeStruct m_before_time;
-	
 	// アドオン画像のテクスチャ
-	Texture m_texture;
+	map<LayerType::Type, Texture> m_textures;
 	
 	
 };

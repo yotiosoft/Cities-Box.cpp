@@ -8,6 +8,8 @@
 #ifndef OtherFunctions_hpp
 #define OtherFunctions_hpp
 
+#pragma once
+
 #include "Specific.hpp"
 
 Array<string> splitUTF8(string str, string separator);
@@ -36,5 +38,7 @@ DirectionID::Type directionNameToDirectionID(String direction_name);
 Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
 LayerType::Type timeToLayerType(TimeStruct time);
+
+void blendColorAndImage(Image& imageTemp, Color blendColor);
 
 #endif /* OtherFunctions_hpp */

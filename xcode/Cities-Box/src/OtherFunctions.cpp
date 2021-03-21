@@ -335,3 +335,31 @@ LayerType::Type timeToLayerType(TimeStruct time) {
 	
 	return (LayerType::Type)layer_type_int;
 }
+
+void blendColorAndImage(Image& imageTemp, Color blendColor) {
+	double outA, outR, outG, outB;
+	for (int h=0; h<imageTemp.height(); h++) {
+		for (int w=0; w<imageTemp.width(); w++) {
+			double bcA = blendColor.a / 255.0;
+			double itA = imageTemp[h][w].a / 255.0;
+			
+			outA = bcA+itA*(1.0-bcA);
+			if (outA < 1.0) {
+				imageTemp[h][w].a = 0;
+				imageTemp[h][w].r = 0;
+				imageTemp[h][w].g = 0;
+				imageTemp[h][w].b = 0;
+			}
+			else {
+				outR = (blendColor.r*bcA+imageTemp[h][w].r*itA*(1.0-bcA))/outA;
+				outG = (blendColor.g*itA+imageTemp[h][w].g*itA*(1.0-bcA))/outA;
+				outB = (blendColor.b*itA+imageTemp[h][w].b*itA*(1.0-bcA))/outA;
+				
+				imageTemp[h][w].a = outA*255;
+				imageTemp[h][w].r = outR;
+				imageTemp[h][w].g = outG;
+				imageTemp[h][w].b = outB;
+			}
+		}
+	}
+}

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Addon.hpp
 //  Cities Box
 //
@@ -7,35 +7,12 @@
 #ifndef Addon_hpp
 #define Addon_hpp
 
+#pragma once
+
 #include "Specific.hpp"
-#include "Images.hpp"
-
-typedef struct AddonDirectionStruct {
-	string direction;
-	
-	int sizeWidth;					// 画像の横方向のサイズ
-	int sizeHeight;					// 画像の縦方向のサイズ
-	int chipX;						// アドオンが占める横方向のマスの数
-	int chipY;						// アドオンが占める縦方向のマスの数
-	
-	int topLeftX;					// 左上のx座標
-	int topLeftY;					// 左上のy座標
-	int bottomRightX;				// 右下のx座標
-	int bottomRightY;				// 右下のy座標
-} AddonDirectionStruct;
-
-typedef struct AddonTypeStruct {
-	string type;
-	
-	String image;					// アドオン画像のパス
-	String nightMask;				// ナイトマスク画像のパス
-	Array<String> directionNames;	// typeに含まれる方向
-	RGBstruct transparentColor;		// 透過色のRGB値
-	
-	map<String, AddonDirectionStruct> directions;	// typeに含まれる各方向の情報
-	
-	Texture texture;				// アドオン画像のテクスチャ
-} AddonTypeStruct;
+#include "ImagesStruct.hpp"
+#include "AddonType.hpp"
+#include "AddonDirectionStruct.hpp"
 
 typedef struct EffectStruct {
 	int influence;
@@ -67,14 +44,11 @@ class Addon {
 public:
 	Addon();
 	
-	// 内容の変更
+	// アドオン読み込み
 	bool load(FileStruct newFilePath, String loadingAddonsSetName);
-	bool loadADAT(FileStruct newFilePath, String loadingAddonsSetName);
-	bool loadADJ(FileStruct newFilePath, String loadingAddonsSetName);
 	
 	// 名前の取得
-	String getName();		// 原名
-	String getNameJP();		// 日本語名
+	String getName(NameMode::Type mode);
 	
 	// 製作者名の取得
 	String getAuthorName();
@@ -83,11 +57,11 @@ public:
 	String getSummary();
 	
 	// Typeの名前の取得
-	String getTypeName(int type_num);
+	TypeID::Type getTypeID(int type_num);
 	
 	// Directionの名前の取得
-	String getDirectionName(int typeNum, int directionNum);
-	String getDirectionName(String typeName, int directionNum);
+	DirectionID::Type getDirectionID(int typeNum, int directionNum);
+	DirectionID::Type getDirectionID(String typeName, int directionNum);
 	
 	// カテゴリを取得
 	Array<String> getCategories();
@@ -100,68 +74,75 @@ public:
 	map<String, EffectStruct> getEffects();
 	
 	// アイコンのテクスチャの取得
-	void drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size);
+	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
 	
 	// 使用するタイルを取得
-	CoordinateStruct getUseTiles(String typeName, String directionName);
+	CoordinateStruct getUseTiles(TypeID::Type typeID, DirectionID::Type directionID);
 	
 	// 最終的に表示する座標を取得
-	PositionStruct getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
+	PositionStruct getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
 	
 	// アドオンを描画する
-	void draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor);
+	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor, TimeStruct time);
 	
 	// JSON形式に変換する
 	void converter();
 	
 protected:
+	/* プライベート関数 */
+	// アドオン読み込み
+	bool m_load_adat(FileStruct newFilePath, String loadingAddonsSetName);
+	bool m_load_adj(FileStruct newFilePath, String loadingAddonsSetName);
+	
+	// adatファイル読み込み関連
+	bool m_get_element(String str, String searchElementName, String& ret);
+	bool m_get_element(String str, String searchElementName, int& ret);
+	bool m_get_types(String str, String searchElementName, Array<String>& ret);
+	
+	// 画像の加工関連
+	void m_set_alpha_color(Image& imageTemp, Color transparentRGB);
+	
+	/* プライベート変数 */
 	// アドオンファイルのパス
-	FileStruct addonFilePath;
+	FileStruct m_addon_file_path;
 	
 	// アドオン名
-	String addonName;				// 英語名
-	String addonJPName;				// 日本語名
+	String m_addon_name;				// 英語名
+	String m_addon_jp_name;				// 日本語名
 	
 	// 製作者名
-	String addonAuthor;
+	String m_addon_author;
 	
 	// 説明文
-	String addonSummary;
+	String m_addon_summary;
 	
 	// 所属するアドオンセットの名前（空白はNormalとみなす）
-	Array<String> belongAddonsSetName;
+	Array<String> m_belong_addons_set_name;
 	
 	// アドオンのタイプ
-	Array<String> addonCategories;
+	Array<String> m_addon_categories;
 	
 	// アイコン画像のパス
-	String addonIcon;
+	String m_addon_icon;
 	
 	// アイコンのテクスチャ
-	Texture iconTexture;
+	Texture m_icon_texture;
 	
 	// 使用するtype
-	Array<String> useTypes;
+	Array<String> m_use_types;
 	
 	// 収容人数 or 最大従業員数
-	int maximumCapacity;
+	int m_maximum_capacity;
 	
 	// 建物の効果
-	map<String, EffectStruct> effects;
+	map<String, EffectStruct> m_effects;
 	
 	// 地価
-	int landPriceInfluence;			// 上昇額
-	int landPriceInfluenceGrid;		// 地価の上下が影響するマス
+	int m_land_price_influence;				// 上昇額
+	int m_land_price_influence_grid;		// 地価の上下が影響するマス
 	
 	// 各typeの情報
-	map<String, AddonTypeStruct> types;
-	
-	
-	// プライベート関数
-	bool getElement(String str, String searchElementName, String& ret);
-	bool getElement(String str, String searchElementName, int& ret);
-	bool getTypes(String str, String searchElementName, Array<String>& ret);
-	void setAlphaColor(Image& imageTemp, Color transparentRGB);
+	map<TypeID::Type, AddonType> m_types;
 };
 
 #endif /* Addon_hpp */

@@ -1,4 +1,4 @@
-﻿//
+//
 //  RouteSolver.cpp
 //  Cities-Box
 //

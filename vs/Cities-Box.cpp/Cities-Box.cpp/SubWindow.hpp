@@ -1,4 +1,4 @@
-﻿//
+//
 //  SubWindow.hpp
 //  Cities-Box
 //
@@ -12,7 +12,7 @@
 
 class SubWindow {
 public:
-	SubWindow(String newTitle, Font* newFont, SizeStruct newSize, Color backgroundColor);
+	SubWindow(String newTitle, Font* newFont, Size newSize, Color backgroundColor);
 	
 	RenderTexture* getRenderTexture();
 	
@@ -22,18 +22,18 @@ public:
 	void draw();
 	
 private:
-	RenderTexture render;
-	RenderTexture renderWindow;
+	RenderTexture m_render;
+	RenderTexture m_render_window;
 	
-	SizeStruct size;
-	PositionStruct position;
+	Size m_size;
+	PositionStruct m_position;
 	
-	String title;
-	Font* font;
+	String m_title;
+	Font* m_font;
 	
-	Color backgroundColor;
+	Color m_background_color;
 	
-	bool moving;
+	bool m_moving;
 };
 
 #endif /* SubWindow_hpp */

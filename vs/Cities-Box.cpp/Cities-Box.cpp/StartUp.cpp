@@ -1,4 +1,4 @@
-﻿//
+//
 //  StartUp.cpp
 //  Cities Box
 //
@@ -7,7 +7,7 @@
 
 #include "StartUp.hpp"
 
-void loadImages(Images& images) {
+void loadImages(ImagesStruct& images) {
 	Color black;
 	black.r = 0;
 	black.g = 0;

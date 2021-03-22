@@ -1,13 +1,13 @@
-﻿//
+//
 //  Images.cpp
 //  Cities Box
 //
 //  Created by YotioSoft on 2019/11/27.
 //
 
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 
-void Images::load(string filePath, string tag, Color transparent) {
+void ImagesStruct::load(string filePath, string tag, Color transparent) {
 	// ファイル一覧を取得
 	Array<FileStruct> imageFiles = specific::getAllFilesName(filePath, "png");
 	
@@ -35,7 +35,7 @@ void Images::load(string filePath, string tag, Color transparent) {
 	}
 }
 
-void Images::load(string filePath, string tag) {
+void ImagesStruct::load(string filePath, string tag) {
 	Color noneClear;
 	noneClear.r = -1;
 	noneClear.g = -1;

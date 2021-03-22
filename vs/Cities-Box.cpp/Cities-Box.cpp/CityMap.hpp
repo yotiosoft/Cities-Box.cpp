@@ -1,4 +1,4 @@
-﻿//
+//
 //  CityMap.hpp
 //  Cities Box
 //
@@ -11,80 +11,7 @@
 #include "Specific.hpp"
 #include "Addon.hpp"
 #include "OtherFunctions.hpp"
-
-typedef struct TimeStruct {
-	int year;
-	int month;
-	int date;
-	int hour;
-	int minutes;
-} TimeStruct;
-
-typedef struct RCOIFstruct {
-	int residential;
-	int commercial;
-	int office;
-	int industrial;
-	int farm;
-} RCOIFstruct;
-
-typedef struct WorkersStruct {
-	int commercial;
-	int office;
-	int industrial;
-	int farm;
-	int publicFacility;
-} WorkersStruct;
-
-typedef struct BudgetStruct {
-	int police;
-	int fireDepertment;
-	int postOffice;
-	int education;
-} BudgetStruct;
-
-typedef struct WorkPlaceStruct {
-	RCOIFP::Type workPlace;
-	int workPlacesSerialNumber;
-} WorkPlaceStruct;
-
-typedef struct SchoolStruct {
-	School::Type school;
-	int schoolSerialNumber;
-} SchoolStruct;
-
-typedef struct SquareStruct {
-	String originalName;
-	//Array<String> category;
-	
-	Array<String> types;
-	Array<String> directions;
-	
-	int serialNumber;
-	
-	CoordinateStruct tilesCount;
-	
-	int residents;
-	WorkersStruct workers;
-	int students;
-	
-	int happinessRate;
-	map<String, int> rate;
-	
-	//CropStruct crop;
-	
-	Array<int> age;
-	Array<String> gender;
-	
-	Array<WorkPlaceStruct> workPlaces;
-	Array<SchoolStruct> schools;
-	
-	RCOIFP::Type reservation;
-	
-	Array<Addon*> addons;
-	
-} SquareStruct;
-
+#include "Tile.hpp"
 
 
 class CityMap {
@@ -107,7 +34,7 @@ public:
 	void loadingScreen();
 	
 	// マップの描画
-	void drawSquare(CoordinateStruct coordinate, CameraStruct camera);
+	void drawTile(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
 	// Addon構造体の取得
@@ -126,7 +53,7 @@ public:
 	int getTemperature();
 	
 	// マップサイズの取得
-	SizeStruct getMapSize();
+	Size getMapSize();
 	
 	// 座標から描画位置を取得
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
@@ -149,10 +76,10 @@ public:
 	void breaking(CoordinateStruct position);
 	
 	// アドオンの始点となるマスに移動する
-	CoordinateStruct moveToAddonStartSquare(CoordinateStruct searchCoordinate, int addonNumber);
+	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, String& retType, String& retDirection, Array<CoordinateStruct>& needUpdate);
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);
@@ -180,45 +107,46 @@ public:
 	void freeMapAndAddons();
 	
 private:
-	int savedVersion;
-	String addonSet;
+	/* プライベート関数 */
+	bool m_get_element(String str, String searchElementName, String& ret);
+	bool m_get_element(String str, String searchElementName, int& ret);
+	bool m_get_element(String str, String searchElementName, bool& ret);
+	bool m_get_types(String str, String searchElementName, Array<String>& ret);
 	
-	String cityName;
-	String mayorName;
-	int totalPopulation;
-	bool changeWeather;
-	int temperature;
-	bool darkOnNight;
+	/* プライベート変数 */
+	int m_saved_version;
+	String m_addon_set_name;
 	
-	SizeStruct mapsize;
+	String m_city_name;
+	String m_mayor_name;
+	int m_total_population;
+	bool m_change_weather;
+	int m_temperature;
+	bool m_dark_on_night;
 	
-	TimeStruct time;
+	Size m_map_size;
 	
-	RCOIFstruct demand;
+	TimeStruct m_time_now;
 	
-	int money;
+	RCOIFstruct m_demand;
 	
-	BudgetStruct budget;
-	RCOIFstruct tax;
+	int m_money;
 	
-	Array<Array<SquareStruct>> squares;
+	BudgetStruct m_budget;
+	RCOIFstruct m_tax;
 	
-	bool loadingComplete;
+	Array<Array<Tile>> m_tiles;
 	
-	map<String, Addon*> addons;
+	bool m_loading_complete;
 	
-	CameraStruct cameraBefore;
-	pair<CoordinateStruct, CoordinateStruct> range;
+	map<String, Addon*> m_addons;
 	
-	String mapFilePath;
+	CameraStruct m_camera_before;
+	pair<CoordinateStruct, CoordinateStruct> m_range;
 	
-	String showRate = U"";
+	String m_map_file_path;
 	
-	// プライベート関数
-	bool getElement(String str, String searchElementName, String& ret);
-	bool getElement(String str, String searchElementName, int& ret);
-	bool getElement(String str, String searchElementName, bool& ret);
-	bool getTypes(String str, String searchElementName, Array<String>& ret);
+	String m_show_rate = U"";
 };
 
 #endif /* CityMap_hpp */

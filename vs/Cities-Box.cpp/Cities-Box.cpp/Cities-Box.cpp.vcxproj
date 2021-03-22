@@ -73,6 +73,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>false</MinimalRebuild>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -109,11 +110,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractSetting.cpp" />
     <ClCompile Include="Addon.cpp" />
+    <ClCompile Include="AddonLayer.cpp" />
     <ClCompile Include="AddonMaker.cpp" />
+    <ClCompile Include="AddonType.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CityMap.cpp" />
     <ClCompile Include="DetailsBar.cpp" />
+    <ClCompile Include="GeneralSetting.cpp" />
     <ClCompile Include="Images.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -124,6 +129,7 @@
     <ClCompile Include="Specific.cpp" />
     <ClCompile Include="StartUp.cpp" />
     <ClCompile Include="SubWindow.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TitleMenu.cpp" />
     <ClCompile Include="Weather.cpp" />
   </ItemGroup>
@@ -252,13 +258,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractSetting.hpp" />
     <ClInclude Include="Addon.hpp" />
+    <ClInclude Include="AddonDirectionStruct.hpp" />
+    <ClInclude Include="AddonLayer.hpp" />
     <ClInclude Include="AddonMaker.hpp" />
+    <ClInclude Include="AddonType.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="CityMap.hpp" />
     <ClInclude Include="DetailsBar.hpp" />
+    <ClInclude Include="Enums.hpp" />
+    <ClInclude Include="GeneralSetting.hpp" />
     <ClInclude Include="Header.hpp" />
     <ClInclude Include="Images.hpp" />
+    <ClInclude Include="ImagesStruct.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="OtherFunctions.hpp" />
     <ClInclude Include="PulldownMenu.hpp" />
@@ -266,7 +279,9 @@
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="Specific.hpp" />
     <ClInclude Include="StartUp.hpp" />
+    <ClInclude Include="Structs.hpp" />
     <ClInclude Include="SubWindow.hpp" />
+    <ClInclude Include="Tile.hpp" />
     <ClInclude Include="TitleMenu.hpp" />
     <ClInclude Include="Weather.hpp" />
   </ItemGroup>

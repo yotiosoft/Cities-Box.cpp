@@ -1,4 +1,4 @@
-﻿//
+//
 //  Weather.hpp
 //  Cities-Box
 //

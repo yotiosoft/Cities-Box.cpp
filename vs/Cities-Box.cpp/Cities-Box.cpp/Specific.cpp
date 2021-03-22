@@ -1,4 +1,4 @@
-﻿//
+//
 //  Specific.cpp
 //  Cities Box
 //
@@ -55,5 +55,5 @@ void specific::moveToCurrentDir() {
 }
 
 String specific::getFontsDir() {
-	return U"example/font/";
+	return U"example/font";
 }

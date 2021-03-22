@@ -1,0 +1,17 @@
+﻿  AddonMaker.cpp
+  Main.cpp
+  PulldownMenu.cpp
+  TitleMenu.cpp
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています AddonMaker.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています AddonMaker.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています TitleMenu.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています TitleMenu.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\PulldownMenu.cpp(36,115): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\PulldownMenu.cpp(39,21): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています Main.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています Main.cpp)
+D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\Main.cpp(171): warning C4701: 初期化されていない可能性のあるローカル変数 'cursor' が使用されます
+     ライブラリ D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).lib とオブジェクト D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exp を作成中
+  Cities-Box.cpp.vcxproj -> D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
+  D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
+  1 個のファイルをコピーしました

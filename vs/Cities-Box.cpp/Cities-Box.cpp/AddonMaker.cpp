@@ -1,43 +1,43 @@
-﻿//
+//
 //  AddonMaker.cpp
 //  Addon Maker on Command Line
 //
 //  Created by YotioSoft on 2020/02/13.
-//  Copyright © 2020 YotioSoft. All rights reserved.
+//  Copyright c 2020 YotioSoft. All rights reserved.
 //
 
 #include "AddonMaker.hpp"
 
 void AddonMaker::sMenu(Font& font16) {
 	Array<String> categoriesList = {U"住居", U"商業", U"オフィス", U"工業", U"農業", U"公共施設", U"公園", U"道路", U"線路と駅", U"水路", U"空港"};
-	PulldownMenu categoriesPulldownMenu(categoriesList, font16, SizeStruct{400, 40}, PositionStruct{30, 130});
+	PulldownMenu categoriesPulldownMenu(categoriesList, font16, Size(400, 40), PositionStruct{30, 130});
 	
 	Array<String> densityList = {U"低密度", U"高密度"};
-	PulldownMenu densityPulldownMenu(densityList, font16, SizeStruct{400, 40}, PositionStruct{30, 230});
+	PulldownMenu densityPulldownMenu(densityList, font16, Size(400, 40), PositionStruct{30, 230});
 	
 	Array<String> lowDensityResidentialList = {U"一軒家", U"シェアハウス", U"二世帯住宅", U"別荘", U"その他"};
-	PulldownMenu lowDensityResidentialPulldownMenu(lowDensityResidentialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu lowDensityResidentialPulldownMenu(lowDensityResidentialList, font16, Size(400, 40), PositionStruct{30, 330});
 	Array<String> highDensityResidentialList = {U"アパート", U"マンション", U"団地", U"その他"};
-	PulldownMenu highDensityResidentialPulldownMenu(highDensityResidentialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu highDensityResidentialPulldownMenu(highDensityResidentialList, font16, Size(400, 40), PositionStruct{30, 330});
 	
 	Array<String> lowDensityCommercialList = {U"小売店", U"飲食店", U"スーパーマーケット", U"コンビニ", U"駐車場", U"その他"};
-	PulldownMenu lowDensityCommercialPulldownMenu(lowDensityCommercialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu lowDensityCommercialPulldownMenu(lowDensityCommercialList, font16, Size(400, 40), PositionStruct{30, 330});
 	Array<String> highDensityCommercialList = {U"百貨店", U"複合型商業施設", U"その他"};
-	PulldownMenu highDensityCommercialPulldownMenu(highDensityCommercialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu highDensityCommercialPulldownMenu(highDensityCommercialList, font16, Size(400, 40), PositionStruct{30, 330});
 	
 	Array<String> officeList = {U"オフィスビル", U"貸し会議室", U"塾", U"会議場", U"研修所", U"その他"};
-	PulldownMenu officePulldownMenu(officeList, font16, SizeStruct{400, 40}, PositionStruct{30, 230});
+	PulldownMenu officePulldownMenu(officeList, font16, Size(400, 40), PositionStruct{30, 230});
 	
 	Array<String> lowDensityIndustrialList = {U"小規模な工場", U"倉庫", U"町工場", U"その他"};
-	PulldownMenu lowDensityIndustrialPulldownMenu(lowDensityIndustrialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu lowDensityIndustrialPulldownMenu(lowDensityIndustrialList, font16, Size(400, 40), PositionStruct{30, 330});
 	Array<String> highDensityIndustrialList = {U"大規模な工場", U"その他"};
-	PulldownMenu highDensityIndustrialPulldownMenu(highDensityIndustrialList, font16, SizeStruct{400, 40}, PositionStruct{30, 330});
+	PulldownMenu highDensityIndustrialPulldownMenu(highDensityIndustrialList, font16, Size(400, 40), PositionStruct{30, 330});
 	
 	Array<String> farmList = {U"田", U"畑", U"牧場", U"その他"};
-	PulldownMenu farmPulldownMenu(farmList, font16, SizeStruct{400, 40}, PositionStruct{30, 230});
+	PulldownMenu farmPulldownMenu(farmList, font16, Size(400, 40), PositionStruct{30, 230});
 	
 	Array<String> publicList = {U"市役所", U"行政関連施設", U"省庁舎", U"警察署", U"消防車", U"公民館", U"学校", U"図書館", U"博物館", U"その他"};
-	PulldownMenu publicPulldownMenu(publicList, font16, SizeStruct{400, 40}, PositionStruct{30, 230});
+	PulldownMenu publicPulldownMenu(publicList, font16, Size(400, 40), PositionStruct{30, 230});
 	
 	Button returnButton(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
 	Button nextButton(IconFont::Right, 30, 30, PositionStruct{0, 0});

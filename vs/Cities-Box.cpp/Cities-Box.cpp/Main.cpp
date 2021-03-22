@@ -1,19 +1,19 @@
-﻿#include "Specific.hpp"
+#include "Specific.hpp"
 
 #include "StartUp.hpp"
 #include "TitleMenu.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 #include "Sound.hpp"
 #include "Addon.hpp"
 #include "CityMap.hpp"
 #include "SubWindow.hpp"
 #include "DetailsBar.hpp"
 #include "Menu.hpp"
+#include "GeneralSetting.hpp"
 
 void Main() {
-	Window::SetTitle(U"Cities Box.cpp");			// ウィンドウタイトル
-
-	specific::moveToCurrentDir();					// システム用カレントディレクトリに移動
+	Window::SetTitle(U"Cities Box.cpp");
+	specific::chdir("./Cities-Box.app/Contents/Resources/assets");
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);
@@ -24,7 +24,7 @@ void Main() {
 	 				ファイル読み込み
 	 --------------------------------------------*/	
 	// 画像の読み込み
-	Images images;
+	ImagesStruct images;
 	loadImages(images);
 	
 	// サウンドファイルの読み込み
@@ -32,21 +32,21 @@ void Main() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, specific::getFontsDir() + U"NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
-	Font font12(12, specific::getFontsDir() + U"NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
-	Font font8(8, specific::getFontsDir() + U"NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font16(16, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
+	Font font12(12, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font8(8, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
 	
 	// タイトルメニュー画面
 	String mapFilePath;
-	if (!titleMenu(images, font16, mapFilePath)) {
+	pair<bool, GeneralSetting> title_menu_ret = titleMenu(images, font16, mapFilePath);
+	if (!title_menu_ret.first) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
+	GeneralSetting general_setting = title_menu_ret.second;
 	
 	// マップとアドオンの読み込み
 	CityMap map;
 	map.load(mapFilePath);
-	
-	//map.save();
 	
 	// カメラの初期位置
 	CameraStruct camera;
@@ -61,12 +61,12 @@ void Main() {
 	bool updateMap = true, firstLoop = true;
 	
 	// サブウィンドウ
-	SubWindow subWindow(U"Test Window", &font16, SizeStruct{400, 200}, Color(Palette::White));
-	SubWindow subWindow2(U"Test Window2", &font16, SizeStruct{300, 150}, Color(Palette::White));
+	//SubWindow subWindow(U"Test Window", &font16, Size(400, 200), Color(Palette::White));
+	//SubWindow subWindow2(U"Test Window2", &font16, Size(300, 150), Color(Palette::White));
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-50}, SizeStruct{Scene::Width(), 50}, &map, &font8, &font12, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-50}, Size(Scene::Width(), 50), &map, &font8, &font12, &font16);
 	
 	// 選択されたアドオン
 	Addon* selectedAddon;
@@ -153,7 +153,7 @@ void Main() {
 		time = map.cityTime(1);
 		
 		// Details Barの表示
-		detailsBar.printWeather(WeatherStruct::Sunny);
+		detailsBar.printWeather(Weather::Sunny);
 		detailsBar.printTemperature(map.getTemperature());
 		detailsBar.printTime(time);
 		detailsBar.printPopulation(map.getPopulation());
@@ -169,7 +169,6 @@ void Main() {
 		// マップ上でクリックされたらアドオンを設置
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
 			if (cursor.coordinate.x != beforeMousePressedCoordinate.x || cursor.coordinate.y != beforeMousePressedCoordinate.y) {
-				cout << selectedAddon->getName() << endl;
 				map.build(cursor.coordinate, selectedAddon, true);
 				beforeMousePressedCoordinate = cursor.coordinate;
 				updateMap = true;
@@ -185,8 +184,6 @@ void Main() {
 		
 		// BGMの再生中の処理
 		bgm.playingBGM();
-
-		//Cursor::RequestStyle(CursorStyle::Arrow);
 		
 		System::Sleep(20);
 	}

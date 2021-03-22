@@ -1,4 +1,4 @@
-﻿//
+//
 //  RouteSolver.hpp
 //  Cities-Box
 //

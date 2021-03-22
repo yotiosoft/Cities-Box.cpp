@@ -1,4 +1,4 @@
-﻿//
+//
 //  SpecificHeader.hpp ( for Windows )
 //  Cities Box
 //
@@ -12,7 +12,6 @@
 #include <filesystem>
 #include <direct.h>
 
-#include "Header.hpp"
 #include "OtherFunctions.hpp"
 
 /* OS依存の定数など */
@@ -24,4 +23,6 @@ namespace specific {
 	void chdir(string dir);
 	void moveToCurrentDir();
 	String getFontsDir();
+
+	const String SaveDataFilePath = U"";
 }

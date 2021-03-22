@@ -1,4 +1,4 @@
-﻿//
+//
 //  Sound.hpp
 //  Cities-Box
 //
@@ -25,11 +25,11 @@ public:
 	void playingBGM();
 	
 private:
-	Array<FileStruct> soundFiles;
-	Audio* audio = nullptr;
-	random_device rnd;
-	int playingBGMnum;
-	double beforePlayPos;
+	Array<FileStruct> m_sound_files;
+	Audio* m_audio_p = nullptr;
+	random_device m_rnd;
+	int m_playing_BGM_num;
+	double m_before_play_pos;
 };
 
 #endif /* Sound_hpp */

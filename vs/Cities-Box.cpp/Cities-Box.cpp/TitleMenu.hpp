@@ -1,4 +1,4 @@
-﻿//
+//
 //  TitleMenu.hpp
 //  Cities Box
 //
@@ -9,11 +9,14 @@
 #define TitleMenu_hpp
 
 #include "Specific.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 #include "Button.hpp"
 #include "AddonMaker.hpp"
+#include "GeneralSetting.hpp"
 
-bool titleMenu(Images& images, Font& font16, String& filePath);
+pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath);
+
+void developerScreen();
 
 bool loadingScreen(Font& font16);
 

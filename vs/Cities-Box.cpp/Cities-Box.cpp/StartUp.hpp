@@ -1,4 +1,4 @@
-﻿//
+//
 //  StartUp.hpp
 //  Cities Box
 //
@@ -9,8 +9,8 @@
 #define StartUp_hpp
 
 #include "Specific.hpp"
-#include "Images.hpp"
+#include "ImagesStruct.hpp"
 
-void loadImages(Images& images);
+void loadImages(ImagesStruct& images);
 
 #endif /* StartUp_hpp */

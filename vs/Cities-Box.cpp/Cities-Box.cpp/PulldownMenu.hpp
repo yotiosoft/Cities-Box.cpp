@@ -1,4 +1,4 @@
-﻿//
+//
 //  PulldownMenu.hpp
 //  Cities-Box
 //
@@ -8,23 +8,25 @@
 #ifndef PulldownMenu_hpp
 #define PulldownMenu_hpp
 
-#include "Header.hpp"
+#pragma once
+
+#include "Specific.hpp"
 
 class PulldownMenu {
 public:
-	PulldownMenu(Array<String>& argList, Font& argFont, SizeStruct argSize, PositionStruct argPosition);
+	PulldownMenu(Array<String>& argList, Font& argFont, Size argSize, PositionStruct argPosition);
 	
 	void draw();
 	
 	int selectedNumber();
 	
 private:
-	Array<String> list;
-	Font font;
-	SizeStruct size;
-	PositionStruct position;
-	int selectedElementNum;
-	bool pullingDown;
+	Array<String> m_list;
+	Font m_font;
+	Size m_size;
+	PositionStruct m_position;
+	int m_selected_element_num;
+	bool m_pulling_down;
 };
 
 #endif /* PulldownMenu_hpp */

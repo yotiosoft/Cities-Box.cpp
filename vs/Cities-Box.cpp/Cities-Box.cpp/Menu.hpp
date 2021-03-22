@@ -1,4 +1,4 @@
-﻿//
+//
 //  Menu.hpp
 //  Cities-Box
 //
@@ -41,7 +41,7 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct newPosition, SizeStruct newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
+	void set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
 	
 	void releaseBeforeButton(MenuMode::Type beforeSelectedButton);
 	
@@ -54,36 +54,36 @@ public:
 	bool rateMenu();
 	
 private:
-	PositionStruct position;
-	SizeStruct size;
+	PositionStruct m_position;
+	Size m_size;
 	
-	RenderTexture render;
+	RenderTexture m_render;
 	
-	map<String, Button> button;
-	map<String, Button> rateButton;
+	map<String, Button> m_button;
+	map<String, Button> m_rate_button;
 	
-	MenuMode::Type menuMode;
+	MenuMode::Type m_menu_mode;
 	
-	Array<Addon*> showAddons;
-	Addon* selectedAddon;
+	Array<Addon*> m_show_addons;
+	Addon* m_selected_addon;
 	
-	Font* font8;
-	Font* font12;
-	Font* font16;
+	Font* m_font8;
+	Font* m_font12;
+	Font* m_font16;
 	
-	CityMap* map;
+	CityMap* m_map;
 	
-	::map<String, Texture> effectIcons;
+	::map<String, Texture> m_effect_icons;
 	
-	String selectedAddonName;
+	String m_selected_addon_name;
 	
-	Array<pair<String, Button>> categoryButtons;
-	String modeStr;
+	Array<pair<String, Button>> m_category_buttons;
+	String m_mode_str;
 	
-	bool showRateMenu;
-	String showRateName;
+	bool m_show_rate_menu;
+	String m_show_rate_name;
 	
-	Texture population;
+	Texture m_population;
 };
 
 #endif /* Menu_hpp */

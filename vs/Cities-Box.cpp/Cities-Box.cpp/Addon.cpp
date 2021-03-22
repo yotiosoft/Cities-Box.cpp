@@ -1,4 +1,4 @@
-﻿//
+//
 //  Addon.cpp
 //  Cities Box
 //
@@ -10,7 +10,7 @@
 Addon::Addon() {
 }
 
-bool Addon::getElement(String str, String searchElementName, String& ret) {
+bool Addon::m_get_element(String str, String searchElementName, String& ret) {
 	string strUTF8 = str.toUTF8();
 	
 	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
@@ -20,7 +20,7 @@ bool Addon::getElement(String str, String searchElementName, String& ret) {
 	return false;
 }
 
-bool Addon::getElement(String str, String searchElementName, int& ret) {
+bool Addon::m_get_element(String str, String searchElementName, int& ret) {
 	string strUTF8 = str.toUTF8();
 	
 	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
@@ -30,16 +30,16 @@ bool Addon::getElement(String str, String searchElementName, int& ret) {
 	return false;
 }
 
-bool Addon::getTypes(String str, String searchElementName, Array<String>& ret) {
+bool Addon::m_get_types(String str, String searchElementName, Array<String>& ret) {
 	String aRet;
-	if (getElement(str, searchElementName, aRet)) {
+	if (m_get_element(str, searchElementName, aRet)) {
 		ret = split(aRet, U", ");
 		return true;
 	}
 	return false;
 }
 
-void Addon::setAlphaColor(Image& imageTemp, Color transparentRGB) {
+void Addon::m_set_alpha_color(Image& imageTemp, Color transparentRGB) {
 	for (int h=0; h<imageTemp.height(); h++) {
 		for (int w=0; w<imageTemp.width(); w++) {
 			if (imageTemp[h][w].r == transparentRGB.r && imageTemp[h][w].g == transparentRGB.g && imageTemp[h][w].b == transparentRGB.b) {
@@ -51,339 +51,23 @@ void Addon::setAlphaColor(Image& imageTemp, Color transparentRGB) {
 
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
-		return loadADAT(newFilePath, loadingAddonsSetName);
+		//return m_load_adat(newFilePath, loadingAddonsSetName);
 	}
 	else if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adj") {
-		return loadADJ(newFilePath, loadingAddonsSetName);
+		return m_load_adj(newFilePath, loadingAddonsSetName);
 	}
 	return false;
 }
 
-bool Addon::loadADAT(FileStruct newFilePath, String loadingAddonsSetName) {
-	// アドオンファイルの読み込み
-	addonFilePath = newFilePath;
+bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
+	m_addon_file_path = newFilePath;
+	JSONReader addonData(Unicode::Widen(m_addon_file_path.file_path));
 	
-	TextReader addonData(Unicode::Widen(addonFilePath.file_path));
-	string strTempUTF8;
-	String strTemp;
-	
-	// 各要素の読み出し
-	String currentLoadingType = U"";
-	String currentDirection = U"";
-	
-	bool loadingType = false;
-	bool loadingDirection = false;
-	
-	Color transparentColor;
-	transparentColor.r = 0;
-	transparentColor.g = 0;
-	transparentColor.b = 0;
-	
-	bool categories[3] = {false, false, false};
+	m_belong_addons_set_name = addonData[U"Belong_addon_set_name"].getArray<String>();
 	bool belong = false;
-	
-	while (addonData.readLine(strTemp)) {
-		strTemp = strTemp.substr(0, strTemp.length()-LINE_FEED_CODE);
-		strTempUTF8 = strTemp.toUTF8();
-		
-		// 名前
-		getElement(strTemp, U"addon_name", addonName);
-		getElement(strTemp, U"addon_jp_name", addonJPName);
-		
-		// 製作者名
-		getElement(strTemp, U"addon_author", addonAuthor);
-		
-		// 説明文
-		getElement(strTemp, U"addon_summary", addonSummary);
-		
-		// 所属するアドオンセットの名前
-		String belongTemp;
-		if (getElement(strTemp, U"belong_addons_set_name", belongTemp) && !belong) {
-			belongAddonsSetName << belongTemp;
-			
-			if (belongTemp.length() > 0) {
-				if (belongTemp != loadingAddonsSetName || !(loadingAddonsSetName.length() > 0)) {
-					return false;
-				}
-			}
-			
-			belong = true;
-		}
-		
-		// アイコン画像のパス
-		getElement(strTemp, U"addon_icon", addonIcon);
-		
-		// アイコンを読み込み
-		Image iconImage(Unicode::Widen(addonFilePath.folder_path)+U"/"+addonIcon);
-		setAlphaColor(iconImage, Color(0, 0, 0));
-		iconTexture = Texture(iconImage);
-		
-		// アドオンのtype
-		String categoryNameTemp;
-		getElement(strTemp, U"addon_type", categoryNameTemp);
-		
-		if (categoryNameTemp.length() > 0 && !categories[0]) {
-			string categoryNameTempUTF8 = categoryNameTemp.toUTF8();
-			
-			transform(categoryNameTempUTF8.begin(), categoryNameTempUTF8.end(), categoryNameTempUTF8.begin(), ::tolower);
-			
-			if (categoryNameTempUTF8.find("road") != string::npos && categoryNameTempUTF8.find("railroad") == string::npos) {
-				addonCategories << U"connectable_type";
-				addonCategories << U"road";
-				addonCategories << U"car";
-			}
-			else if (categoryNameTempUTF8.find("promenade") != string::npos) {
-				addonCategories << U"connectable_type";
-				addonCategories << U"road";
-				addonCategories << U"promenade";
-			}
-			else if (categoryNameTempUTF8.find("railroad") != string::npos) {
-				addonCategories << U"connectable_type";
-				addonCategories << U"train";
-				addonCategories << U"railroad";
-			}
-			else if (categoryNameTempUTF8.find("station") != string::npos) {
-				addonCategories << U"connectable_type";
-				addonCategories << U"train";
-				addonCategories << U"station";
-			}
-			else if (categoryNameTempUTF8.find("residential") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"residential";
-			}
-			else if (categoryNameTempUTF8.find("commercial") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"commercial";
-			}
-			else if (categoryNameTempUTF8.find("office") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"office";
-			}
-			else if (categoryNameTempUTF8.find("industrial") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"industrial";
-			}
-			else if (categoryNameTempUTF8.find("farm") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"farm";
-			}
-			else if (categoryNameTempUTF8.find("public") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"public";
-			}
-			else if (categoryNameTempUTF8.find("park") != string::npos) {
-				addonCategories << U"object_type";
-				addonCategories << U"park";
-			}
-			else if (categoryNameTempUTF8.find("port") != string::npos) {
-				addonCategories << U"on_waterway_type";
-				addonCategories << U"ship";
-				addonCategories << U"port";
-			}
-			else if (categoryNameTempUTF8.find("waterway") != string::npos) {
-				addonCategories << U"connectable_type";
-				addonCategories << U"ship";
-				addonCategories << U"waterway";
-			}
-			else if (categoryNameTempUTF8.find("airport") != string::npos) {
-				addonCategories << U"airport";
-			}
-			else if (categoryNameTempUTF8.find("tile") != string::npos) {
-				addonCategories << U"put_type";
-				addonCategories << U"tile";
-			}
-			
-			if (categoryNameTempUTF8.find("low_density") != string::npos) {
-				addonCategories << U"low_density";
-			}
-			else if (categoryNameTempUTF8.find("high_density") != string::npos) {
-				addonCategories << U"high_density";
-			}
-			
-			if (categoryNameTempUTF8.find("two_lane") != string::npos) {
-				addonCategories << U"two_lane";
-			}
-			
-			categories[0] = true;
-		}
-		
-		String categoryNameTemp2;
-		getElement(strTemp, U"addon_type_2", categoryNameTemp2);
-		
-		if (categoryNameTemp2.length() > 0 && !categories[1]) {
-			string categoryNameTemp2UTF8 = categoryNameTemp2.toUTF8();
-			
-			transform(categoryNameTemp2UTF8.begin(), categoryNameTemp2UTF8.end(), categoryNameTemp2UTF8.begin(), ::tolower);
-			
-			if (categoryNameTemp2UTF8.find("city_hall") != string::npos) {
-				addonCategories << U"city_hall";
-			}
-			else if (categoryNameTemp2UTF8.find("education") != string::npos) {
-				addonCategories << U"education";
-			}
-			else if (categoryNameTemp2UTF8.find("post_office") != string::npos) {
-				addonCategories << U"post_office";
-			}
-			else if (categoryNameTemp2UTF8.find("education") != string::npos) {
-				addonCategories << U"education";
-			}
-			else if (categoryNameTemp2UTF8.find("fire_depertment") != string::npos) {
-				addonCategories << U"fire_depertment";
-			}
-			else if (categoryNameTemp2UTF8.find("police_station") != string::npos) {
-				addonCategories << U"police";
-				addonCategories << U"police_station";
-			}
-			
-			categories[1] = true;
-		}
-		
-		String categoryNameTemp3;
-		getElement(strTemp, U"addon_type_3", categoryNameTemp3);
-		
-		if (categoryNameTemp3.length() > 0 && !categories[2]) {
-			string categoryNameTemp3UTF8 = categoryNameTemp3.toUTF8();
-			
-			transform(categoryNameTemp3UTF8.begin(), categoryNameTemp3UTF8.end(), categoryNameTemp3UTF8.begin(), ::tolower);
-			
-			if (categoryNameTemp3UTF8.find("elementary-school") != string::npos) {
-				addonCategories << U"elementary_school";
-			}
-			else if (categoryNameTemp3UTF8.find("junior-high-school") != string::npos) {
-				addonCategories << U"junior_high_school";
-			}
-			else if (categoryNameTemp3UTF8.find("high-school") != string::npos) {
-				addonCategories << U"high_school";
-			}
-			else if (categoryNameTemp3UTF8.find("university") != string::npos) {
-				addonCategories << U"university";
-			}
-			
-			categories[2] = true;
-		}
-		
-		// 最大収容人数
-		getElement(strTemp, U"maximum_capacity", maximumCapacity);
-		
-		// 建物の効果
-		getElement(strTemp, U"land_price_influence", effects[U"land_price"].influence);
-		getElement(strTemp, U"land_price_influence_grid", effects[U"land_price"].grid);
-		
-		getElement(strTemp, U"education_rate_influence", effects[U"education_rate"].influence);
-		getElement(strTemp, U"education_rate_influence_grid", effects[U"education_rate"].grid);
-		
-		getElement(strTemp, U"crime_rate_influence", effects[U"crime_rate"].influence);
-		getElement(strTemp, U"crime_rate_influence_grid", effects[U"crime_rate"].grid);
-		
-		getElement(strTemp, U"noise_influence", effects[U"noise"].influence);
-		getElement(strTemp, U"noise_influence_grid", effects[U"noise"].grid);
-		
-		// 使用するtype
-		getTypes(strTemp, U"use_types", useTypes);
-		
-		// 各typeの内容を取得
-		// 現在読込中のtypeを取得
-		for (int i=0; i<useTypes.size(); i++) {
-			if (strTempUTF8.find(useTypes[i].toUTF8() + " {") == 0 && !loadingType) {
-				if (useTypes[i] == U"null") {
-					useTypes[i] = U"normal";
-				}
-				
-				currentLoadingType = useTypes[i];
-				loadingType = true;
-			}
-		}
-		if (strTempUTF8.find("}") == 0 && !loadingDirection) {
-			// typeが切り替わるときにTextureの設定
-			if (types[currentLoadingType].image.length() > 0) {
-				Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[currentLoadingType].image);
-				setAlphaColor(iTemp, transparentColor);
-				types[currentLoadingType].texture = Texture(iTemp);
-			}
-			
-			currentDirection = U"";
-			loadingType = false;
-		}
-		
-		if (currentLoadingType != U"") {
-			// 画像のパス
-			getElement(strTemp, U"image", types[currentLoadingType].image);
-			
-			// 透過色
-			String RGBStr;
-			getElement(strTemp, U"transparent_color", RGBStr);
-			
-			if (RGBStr.length() > 0) {
-				Array<String> RGBStrV = split(RGBStr, U", ");
-				
-				if (RGBStrV.size() == 3) {
-					transparentColor.r = stoi(RGBStrV[0].toUTF8());
-					transparentColor.g = stoi(RGBStrV[1].toUTF8());
-					transparentColor.b = stoi(RGBStrV[2].toUTF8());
-				}
-			}
-			
-			// ナイトマスク画像のパス
-			getElement(strTemp, U"night_mask", types[currentLoadingType].nightMask);
-			
-			// typeに含まれる方向と各方向の情報を取得
-			getTypes(strTemp, U"direction", types[currentLoadingType].directionNames);
-			
-			for (int i=0; i<types[currentLoadingType].directionNames.size(); i++) {
-				if (strTempUTF8.find(types[currentLoadingType].directionNames[i].toUTF8()+" {") != string::npos && !loadingDirection) {
-					if (types[currentLoadingType].directionNames[i] == U"null") {
-						types[currentLoadingType].directionNames[i] = U"normal";
-					}
-					currentDirection = types[currentLoadingType].directionNames[i];
-				}
-			}
-			if (strTempUTF8.find("}") != string::npos && loadingDirection) {
-				currentDirection = U"";
-				loadingDirection = false;
-			}
-			
-			if (currentDirection != U"") {
-				AddonDirectionStruct direction_temp;
-				
-				// アドオンの大きさ
-				getElement(strTemp, U"size_x", direction_temp.sizeWidth);		// 横
-				getElement(strTemp, U"size_y", direction_temp.sizeHeight);		// 縦
-				
-				// アドオンが占めるマスの数
-				getElement(strTemp, U"chip_x", direction_temp.chipX);			// 横
-				getElement(strTemp, U"chip_y", direction_temp.chipY);			// 縦
-				
-				// 画像上の左上の座標
-				getElement(strTemp, U"top_left_x", direction_temp.topLeftX);
-				getElement(strTemp, U"top_left_y", direction_temp.topLeftY);
-				
-				// 画面上の右下の座標
-				getElement(strTemp, U"bottom_right_x", direction_temp.bottomRightX);
-				getElement(strTemp, U"bottom_right_y", direction_temp.bottomRightY);
-				
-				types[currentLoadingType].directions[currentDirection] = direction_temp;
-			}
-		}
-	}
-	
-	if (!belong) {
-		belongAddonsSetName << U"Normal";
-	}
-	
-	converter();
-	
-	return true;
-}
-
-bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
-	addonFilePath = newFilePath;
-	JSONReader addonData(Unicode::Widen(addonFilePath.file_path));
-	
-	belongAddonsSetName = addonData[U"Belong_addon_set_name"].getArray<String>();
-	bool belong = false;
-	for (int i=0; i<belongAddonsSetName.size(); i++) {
-		if (belongAddonsSetName[i].length() > 0) {
-			if (belongAddonsSetName[i] == loading_addons_set_name) {
+	for (int i=0; i<m_belong_addons_set_name.size(); i++) {
+		if (m_belong_addons_set_name[i].length() > 0) {
+			if (m_belong_addons_set_name[i] == loading_addons_set_name) {
 				belong = true;
 			}
 		}
@@ -392,79 +76,126 @@ bool Addon::loadADJ(FileStruct newFilePath, String loading_addons_set_name) {
 		return false;
 	}
 	
-	addonName = addonData[U"name"].getString();
-	addonJPName = addonData[U"jp_name"].getString();
+	m_addon_name = addonData[U"name"].getString();
+	m_addon_jp_name = addonData[U"jp_name"].getString();
 	
-	addonAuthor = addonData[U"author"].getString();
-	addonSummary = addonData[U"summary"].getString();
+	m_addon_author = addonData[U"author"].getString();
+	m_addon_summary = addonData[U"summary"].getString();
 	
-	addonIcon = addonData[U"icon"].getString();
+	m_addon_icon = addonData[U"icon"].getString();
 	
 	// アイコンを読み込み
-	Image iconImage(Unicode::Widen(addonFilePath.folder_path)+U"/"+addonIcon);
-	setAlphaColor(iconImage, Color(0, 0, 0));
-	iconTexture = Texture(iconImage);
+	Image iconImage(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_addon_icon);
+	m_set_alpha_color(iconImage, Color(0, 0, 0));
+	m_icon_texture = Texture(iconImage);
 	
 	// カテゴリ
-	addonCategories = addonData[U"Categories"].getArray<String>();
+	m_addon_categories = addonData[U"Categories"].getArray<String>();
 	
 	// 建物の効果
 	for (const auto& effect : addonData[U"effects"].objectView()) {
-		effects[effect.name].influence = effect.value[U"influence"].get<int>();
-		effects[effect.name].grid = effect.value[U"grid"].get<int>();
+		m_effects[effect.name].influence = effect.value[U"influence"].get<int>();
+		m_effects[effect.name].grid = effect.value[U"grid"].get<int>();
 	}
 	
-	useTypes = addonData[U"Use_types"].getArray<String>();
+	m_use_types = addonData[U"Use_types"].getArray<String>();
 	
-	for (const auto& type : addonData[U"Types"].arrayView()) {
-		String typeName = type[U"type_name"].getString();
+	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
+		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
 		
-		types[typeName].image = type[U"image"].getString();
+		m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
 		
-		types[typeName].transparentColor.r = type[U"transparent_color.R"].get<int>();
-		types[typeName].transparentColor.g = type[U"transparent_color.G"].get<int>();
-		types[typeName].transparentColor.b = type[U"transparent_color.B"].get<int>();
-		
-		Image iTemp(Unicode::Widen(addonFilePath.folder_path)+U"/"+types[typeName].image);
-		setAlphaColor(iTemp, Color(types[typeName].transparentColor.r, types[typeName].transparentColor.g, types[typeName].transparentColor.b));
-		types[typeName].texture = Texture(iTemp);
-		
-		types[typeName].directionNames = type[U"direction_names"].getArray<String>();
-		
-		for (const auto& direction : type[U"Directions"].arrayView()) {
-			String direction_name = direction[U"direction_name"].getString();
+		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
+			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
 			
-			types[typeName].directions[direction_name].sizeWidth = direction[U"size.width"].get<int>();
-			types[typeName].directions[direction_name].sizeHeight = direction[U"size.height"].get<int>();
+			// 新たなAddonDirectionStructを作成
+			AddonDirectionStruct direction_struct;
 			
-			types[typeName].directions[direction_name].chipX = direction[U"squares.width"].get<int>();
-			types[typeName].directions[direction_name].chipY = direction[U"squares.height"].get<int>();
+			direction_struct.directionID = direction_id;
 			
-			types[typeName].directions[direction_name].topLeftX = direction[U"top_left.x"].get<int>();
-			types[typeName].directions[direction_name].topLeftY = direction[U"top_left.y"].get<int>();
+			direction_struct.size.x = direction[U"size.width"].get<int>();
+			direction_struct.size.y = direction[U"size.height"].get<int>();
 			
-			types[typeName].directions[direction_name].bottomRightX = direction[U"bottom_right.x"].get<int>();
-			types[typeName].directions[direction_name].bottomRightY = direction[U"bottom_right.y"].get<int>();
+			direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
+			direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
+			
+			direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
+			direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
+			
+			direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
+			direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			
+			// direction_structをlayerに追加
+			m_types[typeID].addAddonDirectionStruct(direction_struct);
 		}
+		
+		int total_layers = 1;
+		String night_mask_filename = type[U"night_mask"].getString();
+		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+			total_layers = 3;
+		}
+		
+		Array<AddonLayer> layers;
+		for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
+			String image_filename;
+			if (layer_num == 0)
+				image_filename = type[U"image"].getString();
+			else
+				image_filename = type[U"night_mask"].getString();
+			
+			m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
+			m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
+			m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
+			
+			// 画像を読み込んで
+			Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
+			// 透過色を透過させる
+			m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+			
+			// AddonLayerを作成（暫定）
+			// Todo: 正式に対応する
+			Array<LayerType::Type> layer_types;
+			if (layer_num == 0)
+				layer_types << LayerType::Normal;
+			if (layer_num == 1)
+				layer_types << LayerType::Night;
+			if (layer_num == 2)
+				layer_types << LayerType::Evening;
+			AddonLayer layer(iTemp, layer_types);
+			
+			/*
+			String night_mask_filename = type[U"night_mask"].getString();
+			if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+				Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
+				m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+				m_types[typeID].nightMaskTexture = Texture(iTempNM);
+			}
+			*/
+			
+			// layerをlayersに追加
+			layers << layer;
+		}
+		m_types[typeID].setLayers(layers);
 	}
 	
 	return true;
 }
 
-String Addon::getName() {
-	return addonName;
-}
-
-String Addon::getNameJP() {
-	return addonJPName;
+String Addon::getName(NameMode::Type mode) {
+	if (mode == NameMode::English) {
+		return m_addon_name;
+	}
+	else {
+		return m_addon_jp_name;
+	}
 }
 
 String Addon::getAuthorName() {
-	return addonAuthor;
+	return m_addon_author;
 }
 
 String Addon::getSummary() {
-	return addonSummary;
+	return m_addon_summary;
 }
 /*
 String Addon::getTypeName(int type_num) {
@@ -479,25 +210,25 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 	return ite->first;
 }
 */
-String Addon::getTypeName(int typeNum) {
-	return useTypes[typeNum];
+TypeID::Type Addon::getTypeID(int typeNum) {
+	return typeNameToTypeID(m_use_types[typeNum]);
 }
 
-String Addon::getDirectionName(int typeNum, int directionNum) {
-	return types[getTypeName(typeNum)].directionNames[directionNum];
+DirectionID::Type Addon::getDirectionID(int typeNum, int directionNum) {
+	return m_types[getTypeID(typeNum)].directionNames[directionNum];
 }
 
-String Addon::getDirectionName(String typeName, int directionNum) {
-	return types[typeName].directionNames[directionNum];
+DirectionID::Type Addon::getDirectionID(String typeName, int directionNum) {
+	return m_types[typeNameToTypeID(typeName)].directionNames[directionNum];
 }
 
 Array<String> Addon::getCategories() {
-	return addonCategories;
+	return m_addon_categories;
 }
 
 bool Addon::isInCategories(String searchCategory) {
-	for (int i=0; i<addonCategories.size(); i++) {
-		if (addonCategories[i] == searchCategory) {
+	for (int i=0; i<m_addon_categories.size(); i++) {
+		if (m_addon_categories[i] == searchCategory) {
 			return true;
 		}
 	}
@@ -505,9 +236,9 @@ bool Addon::isInCategories(String searchCategory) {
 }
 
 bool Addon::isInCategories(Array<String> searchCategories) {
-	for (int i=0; i<addonCategories.size(); i++) {
+	for (int i=0; i<m_addon_categories.size(); i++) {
 		for (int j=0; j<searchCategories.size(); j++) {
-			if (addonCategories[i] == searchCategories[j]) {
+			if (m_addon_categories[i] == searchCategories[j]) {
 				return true;
 			}
 		}
@@ -516,27 +247,27 @@ bool Addon::isInCategories(Array<String> searchCategories) {
 }
 
 map<String, EffectStruct> Addon::getEffects() {
-	return effects;
+	return m_effects;
 }
 
-void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, SizeStruct size) {
-	iconTexture(leftTop.x, leftTop.y, size.width, size.height).draw(position.x, position.y);
+void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size) {
+	m_icon_texture(leftTop.x, leftTop.y, size.x, size.y).draw(position.x, position.y);
 }
 
-CoordinateStruct Addon::getUseTiles(String typeName, String directionName) {
-	return CoordinateStruct{types[typeName].directions[directionName].chipX, types[typeName].directions[directionName].chipY};
+CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
+	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
 }
 
-PositionStruct Addon::getPosition(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
-	AddonDirectionStruct* directionTemp = &(types[typeName].directions[directionName]);
-	if (directionTemp != nullptr)
-		position.y = position.y + CHIP_SIZE/2 - directionTemp->sizeHeight + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
+PositionStruct Addon::getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount) {
+	AddonDirectionStruct directionTemp = m_types[typeID].getDirectionStruct(directionID);
+	position.y = position.y + CHIP_SIZE/2 - directionTemp.size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
 	
 	return position;
 }
 
-void Addon::draw(String typeName, String directionName, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor) {
-	AddonDirectionStruct* directionTemp = &(types[typeName].directions[directionName]);
+void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor,
+				 TimeStruct time) {
+	AddonDirectionStruct directionTemp = m_types[typeID].getDirectionStruct(directionID);
 	
 	/*
 	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
@@ -544,149 +275,33 @@ void Addon::draw(String typeName, String directionName, PositionStruct position,
 	}*/
 	
 	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position = getPosition(typeName, directionName, position, useTiles, tilesCount);
+	position = getPosition(typeID, directionID, position, useTiles, tilesCount);
 	
-	unsigned short int topLeftX = directionTemp->topLeftX;
+	unsigned short int topLeftX = directionTemp.topLeft.x;
 	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int topLeftY = directionTemp->topLeftY;
+	unsigned short int topLeftY = directionTemp.topLeft.y;
 	topLeftY += CHIP_SIZE/2 * tilesCount.y;
 	
-	unsigned short int sizeWidth = directionTemp->sizeWidth;
+	unsigned short int sizeWidth = directionTemp.size.x;
 	sizeWidth = CHIP_SIZE;
 	
-	unsigned short int sizeHeight = directionTemp->sizeHeight;
+	unsigned short int sizeHeight = directionTemp.size.y;
 	
+	// オブジェクトの描画
+	m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y/*, *addColor*/);
+	
+	/*
 	if (addColor->a > 0) {
-		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-	}
+		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
+		}*/
+	/*}
 	else {
-		types[typeName].texture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-	}
-}
-
-void Addon::converter() {
-	JSONWriter addonData;
-	
-	addonData.startObject();
-	{
-		addonData.key(U"name").write(addonName);
-		addonData.key(U"jp_name").write(addonJPName);
-		
-		addonData.key(U"author").write(addonAuthor);
-		addonData.key(U"summary").write(addonSummary);
-		
-		addonData.key(U"version").write(RELEASE_NUMBER);
-		
-		addonData.key(U"Belong_addon_set_name").startArray();
-		{
-			for (auto belong = belongAddonsSetName.begin(); belong!= belongAddonsSetName.end() ; belong++) {
-				addonData.write(*belong);
-			}
-		}
-		addonData.endArray();
-		
-		addonData.key(U"icon").write(addonIcon);
-		
-		addonData.key(U"Categories").startArray();
-		{
-			for (auto categoryName = addonCategories.begin(); categoryName != addonCategories.end(); categoryName++) {
-				addonData.write(*categoryName);
-			}
-		}
-		addonData.endArray();
-		
-		addonData.key(U"effects").startObject();
-		{
-			for (auto e = effects.begin(); e != effects.end() ; e++) {
-				if (e->second.influence != 0) {
-					addonData.key(e->first).startObject();
-					{
-						addonData.key(U"influence").write(e->second.influence);
-						addonData.key(U"grid").write(e->second.grid);
-					}
-					addonData.endObject();
-				}
-			}
-		}
-		addonData.endObject();
-		
-		addonData.key(U"maximum_capacity").write(maximumCapacity);
-		
-		addonData.key(U"Use_types").startArray();
-		{
-			for (auto typeName = useTypes.begin(); typeName != useTypes.end() ; typeName++) {
-				addonData.write(*typeName);
-			}
-		}
-		addonData.endArray();
-		
-		addonData.key(U"Types").startArray();
-		{
-			for (auto type = types.begin(); type != types.end(); type++) {
-				addonData.startObject();
-				{
-					addonData.key(U"type_name").write(type->first);
-					addonData.key(U"image").write(type->second.image);
-					addonData.key(U"night_mask").write(type->second.nightMask);
-					addonData.key(U"transparent_color").startObject();
-					{
-						addonData.key(U"R").write(type->second.transparentColor.r);
-						addonData.key(U"G").write(type->second.transparentColor.g);
-						addonData.key(U"B").write(type->second.transparentColor.b);
-					}
-					addonData.endObject();
-					
-					addonData.key(U"direction_names").startArray();
-					{
-						for (auto directionName = type->second.directionNames.begin(); directionName != type->second.directionNames.end(); directionName++) {
-							addonData.write(*directionName);
-						}
-					}
-					addonData.endArray();
-					
-					addonData.key(U"Directions").startArray();
-					{
-						for (auto direction = type->second.directions.begin(); direction != type->second.directions.end(); direction++) {
-							addonData.startObject();
-							{
-								addonData.key(U"direction_name").write(direction->first);
-								addonData.key(U"size").startObject();
-								{
-									addonData.key(U"width").write(direction->second.sizeWidth);
-									addonData.key(U"height").write(direction->second.sizeHeight);
-								}
-								addonData.endObject();
-								addonData.key(U"squares").startObject();
-								{
-									addonData.key(U"width").write(direction->second.chipX);
-									addonData.key(U"height").write(direction->second.chipY);
-								}
-								addonData.endObject();
-								addonData.key(U"top_left").startObject();
-								{
-									addonData.key(U"x").write(direction->second.topLeftX);
-									addonData.key(U"y").write(direction->second.topLeftY);
-								}
-								addonData.endObject();
-								addonData.key(U"bottom_right").startObject();
-								{
-									addonData.key(U"x").write(direction->second.bottomRightX);
-									addonData.key(U"y").write(direction->second.bottomRightY);
-								}
-								addonData.endObject();
-							}
-							addonData.endObject();
-						}
-						addonData.endArray();
-					}
-				}
-				addonData.endObject();
-			}
-		}
-		addonData.endArray();
-	}
-	addonData.endObject();
-	
-	addonData.save(FileSystem::ParentPath(Unicode::Widen(addonFilePath.file_path))+FileSystem::BaseName(Unicode::Widen(addonFilePath.file_path))+U".adj");
+		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
+			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		}*/
+	//}
 }

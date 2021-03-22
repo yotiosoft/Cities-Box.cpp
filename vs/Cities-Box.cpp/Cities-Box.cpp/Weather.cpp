@@ -1,4 +1,4 @@
-﻿//
+//
 //  Weather.cpp
 //  Cities-Box
 //

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Button.hpp
 //  Cities Box
 //
@@ -10,6 +10,12 @@
 
 #include "Specific.hpp"
 
+enum ButtonMode {
+	ImageMode,
+	IconMode,
+	StringMode
+};
+
 class Button {
 public:
 	// コンストラクタ
@@ -20,6 +26,7 @@ public:
 	Button(IconFont::ID iconID);																									// ロゴフォントから
 	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift);												// ロゴフォントから
 	Button(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont);				// ロゴフォントから
+	Button(String arg_label, Font& arg_font);																						// 文字列から
 	
 	// 設定
 	void set(ImageStruct& image);																									// 画像から
@@ -44,21 +51,21 @@ public:
 	void release();
 	
 private:
-	Texture buttonTexture;
+	Texture m_button_texture;
 	
-	bool isIcon;
+	ButtonMode m_button_mode;
 	
-	PositionStruct position;
-	SizeStruct size;
-	SizeStruct iconSize;
+	PositionStruct m_position;
+	Size m_size;
+	Size m_icon_size;
 	
-	PositionStruct shift;
+	PositionStruct m_shift;
 	
-	Font font;
-	String label;
-	PositionStruct labelPosition;
+	Font m_font;
+	String m_label;
+	PositionStruct m_label_position;
 	
-	bool active;
+	bool m_active;
 };
 
 #endif /* Button_hpp */

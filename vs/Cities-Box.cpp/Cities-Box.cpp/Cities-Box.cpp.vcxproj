@@ -44,7 +44,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SIV3D_0_4_3)\include;$(SIV3D_0_4_3)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>../../../src/;./;$(SIV3D_0_4_3)\include;$(SIV3D_0_4_3)\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SIV3D_0_4_3)\lib\Windows;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
@@ -53,7 +53,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SIV3D_0_4_3)\include;$(SIV3D_0_4_3)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>../../../src/;./;$(SIV3D_0_4_3)\include;$(SIV3D_0_4_3)\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SIV3D_0_4_3)\lib\Windows;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
@@ -110,28 +110,28 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractSetting.cpp" />
-    <ClCompile Include="Addon.cpp" />
-    <ClCompile Include="AddonLayer.cpp" />
-    <ClCompile Include="AddonMaker.cpp" />
-    <ClCompile Include="AddonType.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CityMap.cpp" />
-    <ClCompile Include="DetailsBar.cpp" />
-    <ClCompile Include="GeneralSetting.cpp" />
-    <ClCompile Include="Images.cpp" />
+    <ClCompile Include="..\..\..\src\AbstractSetting.cpp" />
+    <ClCompile Include="..\..\..\src\Addon.cpp" />
+    <ClCompile Include="..\..\..\src\AddonLayer.cpp" />
+    <ClCompile Include="..\..\..\src\AddonMaker.cpp" />
+    <ClCompile Include="..\..\..\src\AddonType.cpp" />
+    <ClCompile Include="..\..\..\src\Button.cpp" />
+    <ClCompile Include="..\..\..\src\CityMap.cpp" />
+    <ClCompile Include="..\..\..\src\DetailsBar.cpp" />
+    <ClCompile Include="..\..\..\src\GeneralSetting.cpp" />
+    <ClCompile Include="..\..\..\src\Images.cpp" />
+    <ClCompile Include="..\..\..\src\Menu.cpp" />
+    <ClCompile Include="..\..\..\src\PulldownMenu.cpp" />
+    <ClCompile Include="..\..\..\src\RouteSolver.cpp" />
+    <ClCompile Include="..\..\..\src\Sound.cpp" />
+    <ClCompile Include="..\..\..\src\StartUp.cpp" />
+    <ClCompile Include="..\..\..\src\SubWindow.cpp" />
+    <ClCompile Include="..\..\..\src\Tile.cpp" />
+    <ClCompile Include="..\..\..\src\TitleMenu.cpp" />
+    <ClCompile Include="..\..\..\src\Weather.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="OtherFunctions.cpp" />
-    <ClCompile Include="PulldownMenu.cpp" />
-    <ClCompile Include="RouteSolver.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Specific.cpp" />
-    <ClCompile Include="StartUp.cpp" />
-    <ClCompile Include="SubWindow.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TitleMenu.cpp" />
-    <ClCompile Include="Weather.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -258,32 +258,33 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractSetting.hpp" />
-    <ClInclude Include="Addon.hpp" />
-    <ClInclude Include="AddonDirectionStruct.hpp" />
-    <ClInclude Include="AddonLayer.hpp" />
-    <ClInclude Include="AddonMaker.hpp" />
-    <ClInclude Include="AddonType.hpp" />
-    <ClInclude Include="Button.hpp" />
-    <ClInclude Include="CityMap.hpp" />
-    <ClInclude Include="DetailsBar.hpp" />
+    <ClInclude Include="..\..\..\src\AbstractSetting.hpp" />
+    <ClInclude Include="..\..\..\src\Addon.hpp" />
+    <ClInclude Include="..\..\..\src\AddonDirectionStruct.hpp" />
+    <ClInclude Include="..\..\..\src\AddonLayer.hpp" />
+    <ClInclude Include="..\..\..\src\AddonMaker.hpp" />
+    <ClInclude Include="..\..\..\src\AddonType.hpp" />
+    <ClInclude Include="..\..\..\src\Button.hpp" />
+    <ClInclude Include="..\..\..\src\CityMap.hpp" />
+    <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
+    <ClInclude Include="..\..\..\src\GeneralSetting.hpp" />
+    <ClInclude Include="..\..\..\src\Images.hpp" />
+    <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
+    <ClInclude Include="..\..\..\src\Menu.hpp" />
+    <ClInclude Include="..\..\..\src\OtherFunctions.hpp" />
+    <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
+    <ClInclude Include="..\..\..\src\RouteSolver.hpp" />
+    <ClInclude Include="..\..\..\src\Sound.hpp" />
+    <ClInclude Include="..\..\..\src\StartUp.hpp" />
+    <ClInclude Include="..\..\..\src\SubWindow.hpp" />
+    <ClInclude Include="..\..\..\src\Tile.hpp" />
+    <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
+    <ClInclude Include="..\..\..\src\Weather.hpp" />
     <ClInclude Include="Enums.hpp" />
-    <ClInclude Include="GeneralSetting.hpp" />
     <ClInclude Include="Header.hpp" />
-    <ClInclude Include="Images.hpp" />
-    <ClInclude Include="ImagesStruct.hpp" />
-    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="OtherFunctions.hpp" />
-    <ClInclude Include="PulldownMenu.hpp" />
-    <ClInclude Include="RouteSolver.hpp" />
-    <ClInclude Include="Sound.hpp" />
     <ClInclude Include="Specific.hpp" />
-    <ClInclude Include="StartUp.hpp" />
     <ClInclude Include="Structs.hpp" />
-    <ClInclude Include="SubWindow.hpp" />
-    <ClInclude Include="Tile.hpp" />
-    <ClInclude Include="TitleMenu.hpp" />
-    <ClInclude Include="Weather.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

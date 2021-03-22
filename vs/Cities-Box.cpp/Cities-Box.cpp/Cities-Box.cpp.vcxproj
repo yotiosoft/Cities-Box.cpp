@@ -128,7 +128,6 @@
     <ClCompile Include="..\..\..\src\SubWindow.cpp" />
     <ClCompile Include="..\..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\..\src\TitleMenu.cpp" />
-    <ClCompile Include="..\..\..\src\Weather.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OtherFunctions.cpp" />
     <ClCompile Include="Specific.cpp" />
@@ -279,7 +278,6 @@
     <ClInclude Include="..\..\..\src\SubWindow.hpp" />
     <ClInclude Include="..\..\..\src\Tile.hpp" />
     <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
-    <ClInclude Include="..\..\..\src\Weather.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Header.hpp" />
     <ClInclude Include="OtherFunctions.hpp" />

@@ -76,7 +76,7 @@ void Main() {
 	bool pressing = false;
 	
 	// 時間
-	TimeStruct time;
+	TimeStruct time{0, 0, 0, 0, 0};
 	
 	// Details Barの設定
 	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);

@@ -5,6 +5,8 @@
 //  Created by YotioSoft on 2019/11/27.
 //
 
+#pragma once
+
 #ifndef CityMap_hpp
 #define CityMap_hpp
 

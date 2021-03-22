@@ -5,10 +5,10 @@
 //  Created by YotioSoft on 2020/01/18.
 //
 
+#pragma once
+
 #ifndef Weather_hpp
 #define Weather_hpp
-
-#pragma once
 
 #include <Specific.hpp>
 

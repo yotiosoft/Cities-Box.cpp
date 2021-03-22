@@ -32,9 +32,9 @@ void Main() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf");
-	Font font12(12, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
-	Font font8(8, U"./fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf");
+	Font font16(16, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
+	Font font12(12, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font8(8, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
 	
 	// タイトルメニュー画面
 	String mapFilePath;
@@ -84,6 +84,9 @@ void Main() {
 	// BGMの再生（ランダム）
 	bgm.playBGM();
 	
+	// 更新前のLayerType
+	LayerType::Type before_layer_type = timeToLayerType(time);
+	
 	while (System::Update()) {
 		// カメラの操作
 		if (KeyLeft.pressed()) {
@@ -111,6 +114,7 @@ void Main() {
 			
 			updateMap = true;
 		}
+		
 		
 		//cout << "cursor: " << cursor.coordinate.x << "," << cursor.coordinate.y << " : " << map.getAddon(cursor.coordinate)[0].getName() << endl;
 		
@@ -142,6 +146,13 @@ void Main() {
 			else {
 				updateMap = false;
 			}
+		}
+		
+		// 更新すべき時刻になったら更新を有効にする
+		LayerType::Type layer_type = timeToLayerType(time);
+		if (layer_type != before_layer_type) {
+			updateMap = true;
+			before_layer_type = layer_type;
 		}
 		
 		// バッファを描画

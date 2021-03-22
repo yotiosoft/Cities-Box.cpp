@@ -8,7 +8,9 @@
 #ifndef PulldownMenu_hpp
 #define PulldownMenu_hpp
 
-#include "Header.hpp"
+#pragma once
+
+#include "Specific.hpp"
 
 class PulldownMenu {
 public:

@@ -9,7 +9,7 @@
 #ifndef AddonMaker_hpp
 #define AddonMaker_hpp
 
-#include "Header.hpp"
+#include "Specific.hpp"
 #include "Addon.hpp"
 #include "PulldownMenu.hpp"
 #include "Button.hpp"

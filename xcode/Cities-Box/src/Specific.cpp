@@ -55,3 +55,11 @@ Array<FileStruct> specific::getAllFilesName(string folderPath, string extension)
 void specific::chdir(string dir) {
 	::chdir(dir.c_str());
 }
+
+void specific::moveToCurrentDir() {
+	return;
+}
+
+String specific::getFontsDir() {
+	return U"./fonts";
+}

@@ -26,6 +26,10 @@ namespace specific {
 	Array<FileStruct> getAllFilesName(string folderPath, string extension);
 
 	void chdir(string dir);
+	void moveToCurrentDir();
+	String getFontsDir();
+	
+	const String SaveDataFilePath = U"./data/maps/";
 }
 
 #endif /* Specific_h */

@@ -31,7 +31,11 @@ void AddonType::draw(TimeStruct time, AddonDirectionStruct direction_id, Positio
 }
 
 Texture AddonType::tempGetTexture(TimeStruct time) {
-	return m_textures[timeToLayerType(time)];
+	if (m_before_layer_type != timeToLayerType(time)) {
+		m_before_layer_type = timeToLayerType(time);
+		m_texture = Texture(m_images[timeToLayerType(time)]);
+	}
+	return m_texture;
 }
 
 void AddonType::setLayers(Array<AddonLayer> layers) {
@@ -73,7 +77,7 @@ void AddonType::m_make_all_textures() {
 		
 		// テクスチャに反映
 		cout << AllLayerTypes[i] << " : " << count << endl;
-		m_textures[AllLayerTypes[i]] = Texture(updated_image);
+		m_images[AllLayerTypes[i]] = updated_image;
 	}
 }
 

@@ -76,9 +76,11 @@ private:
 	bool m_light_on_night;
 	
 	// アドオン画像のテクスチャ
-	map<LayerType::Type, Texture> m_textures;
+	map<LayerType::Type, Image> m_images;
+	Texture m_texture;
 	
-	
+	// 更新前の日時のLayerType
+	LayerType::Type m_before_layer_type;
 };
 
 #endif /* AddonType_hpp */

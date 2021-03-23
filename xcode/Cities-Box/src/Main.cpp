@@ -1,15 +1,5 @@
 #include <Specific.hpp>
-
-#include <StartUp.hpp>
-#include <TitleMenu.hpp>
-#include <ImagesStruct.hpp>
-#include <Sound.hpp>
-#include <Addon.hpp>
-#include <CityMap.hpp>
-#include <SubWindow.hpp>
-#include <DetailsBar.hpp>
-#include <Menu.hpp>
-#include <GeneralSetting.hpp>
+#include <CitiesBox.hpp>
 
 void Main() {
 	Window::SetTitle(U"Cities Box.cpp");

@@ -137,41 +137,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		
 		Array<AddonLayer> layers;
 		for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
-			String image_filename;
-			if (layer_num == 0)
-				image_filename = type[U"image"].getString();
-			else
-				image_filename = type[U"night_mask"].getString();
-			
-			m_types[typeID].transparentColor.r = type[U"transparent_color.R"].get<int>();
-			m_types[typeID].transparentColor.g = type[U"transparent_color.G"].get<int>();
-			m_types[typeID].transparentColor.b = type[U"transparent_color.B"].get<int>();
-			
-			// 画像を読み込んで
-			Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
-			// 透過色を透過させる
-			m_set_alpha_color(iTemp, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
-			
-			// AddonLayerを作成（暫定）
-			// Todo: 正式に対応する
-			Array<LayerType::Type> layer_types;
-			if (layer_num == 0)
-				layer_types << LayerType::Normal;
-			if (layer_num == 1)
-				layer_types << LayerType::Night;
-			AddonLayer layer(iTemp, layer_types);
-			
-			/*
-			String night_mask_filename = type[U"night_mask"].getString();
-			if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
-				Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
-				m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
-				m_types[typeID].nightMaskTexture = Texture(iTempNM);
-			}
-			*/
-			
-			// layerをlayersに追加
-			layers << layer;
+			m_load_layers(layer_num, type, m_types[typeID], layers);
 		}
 		m_types[typeID].setLayers(layers);
 	}
@@ -302,4 +268,42 @@ void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStr
 			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
 		}*/
 	//}
+}
+
+void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers) {
+	String image_filename;
+	if (layer_num == 0)
+		image_filename = type[U"image"].getString();
+	else
+		image_filename = type[U"night_mask"].getString();
+	
+	arg_addon_type.transparentColor.r = type[U"transparent_color.R"].get<int>();
+	arg_addon_type.transparentColor.g = type[U"transparent_color.G"].get<int>();
+	arg_addon_type.transparentColor.b = type[U"transparent_color.B"].get<int>();
+	
+	// 画像を読み込んで
+	Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
+	// 透過色を透過させる
+	m_set_alpha_color(iTemp, Color(arg_addon_type.transparentColor.r, arg_addon_type.transparentColor.g, arg_addon_type.transparentColor.b));
+	
+	// AddonLayerを作成（暫定）
+	// Todo: 正式に対応する
+	Array<LayerType::Type> layer_types;
+	if (layer_num == 0)
+		layer_types << LayerType::Normal;
+	if (layer_num == 1)
+		layer_types << LayerType::Night;
+	AddonLayer layer(iTemp, layer_types);
+	
+	/*
+	String night_mask_filename = type[U"night_mask"].getString();
+	if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+		Image iTempNM(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename);
+		m_set_alpha_color(iTempNM, Color(m_types[typeID].transparentColor.r, m_types[typeID].transparentColor.g, m_types[typeID].transparentColor.b));
+		m_types[typeID].nightMaskTexture = Texture(iTempNM);
+	}
+	*/
+	
+	// layerをlayersに追加
+	arg_layers << layer;
 }

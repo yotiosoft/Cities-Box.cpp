@@ -102,6 +102,9 @@ protected:
 	// 画像の加工関連
 	void m_set_alpha_color(Image& imageTemp, Color transparentRGB);
 	
+	// r141以前のアドオンファイルからAddonLayerの読み込み
+	void m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers);
+	
 	/* プライベート変数 */
 	// アドオンファイルのパス
 	FileStruct m_addon_file_path;

@@ -24,4 +24,6 @@
 #include "SubWindow.hpp"
 #include "TitleMenu.hpp"
 
+void CitiesBox();
+
 #endif /* CitiesBox_hpp */

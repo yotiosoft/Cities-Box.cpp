@@ -16,8 +16,7 @@
 #include <iostream>
 #include <filesystem>
 
-#include "Header.hpp"
-#include "OtherFunctions.hpp"
+#include <OtherFunctions.hpp>
 
 /* OS依存の定数など */
 #define LINE_FEED_CODE			0	// 改行コードに用いる文字数

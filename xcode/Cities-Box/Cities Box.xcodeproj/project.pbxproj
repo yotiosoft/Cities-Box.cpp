@@ -57,6 +57,7 @@
 		4BAAAEDD26090BF4000B9E51 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEC926090BF4000B9E51 /* Tile.cpp */; };
 		4BAAAEDE26090BF4000B9E51 /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAECB26090BF4000B9E51 /* SubWindow.cpp */; };
 		4BAAAEE526090DB6000B9E51 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEE426090DB6000B9E51 /* Specific.cpp */; };
+		4BEA956D26098921008B4F3A /* CitiesBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA956B26098921008B4F3A /* CitiesBox.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,8 @@
 		4BAAAEE426090DB6000B9E51 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
 		4BAFF76D2603D870001397F2 /* Structs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Structs.hpp; sourceTree = "<group>"; };
 		4BAFF76E2603D870001397F2 /* Enums.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Enums.hpp; sourceTree = "<group>"; };
+		4BEA956B26098921008B4F3A /* CitiesBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CitiesBox.cpp; path = ../../../src/CitiesBox.cpp; sourceTree = "<group>"; };
+		4BEA956C26098921008B4F3A /* CitiesBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CitiesBox.hpp; path = ../../../src/CitiesBox.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4B75111E23966B38008DFD03 /* OtherFunctions.cpp */,
 				4B75112723966B39008DFD03 /* OtherFunctions.hpp */,
+				4BEA956B26098921008B4F3A /* CitiesBox.cpp */,
+				4BEA956C26098921008B4F3A /* CitiesBox.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				4BAAAEDC26090BF4000B9E51 /* Button.cpp in Sources */,
 				4BAAAED626090BF4000B9E51 /* RouteSolver.cpp in Sources */,
 				4BAAAED826090BF4000B9E51 /* Sound.cpp in Sources */,
+				4BEA956D26098921008B4F3A /* CitiesBox.cpp in Sources */,
 				4BAAAEDD26090BF4000B9E51 /* Tile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,7 +1,125 @@
-﻿  Main.cpp
-D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。
-D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください
-D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Cities-Box.cpp\Main.cpp(182): warning C4701: 初期化されていない可能性のあるローカル変数 'cursor' が使用されます
+﻿  AbstractSetting.cpp
+  Addon.cpp
+  AddonLayer.cpp
+  AddonMaker.cpp
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\AddonMaker.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\AddonMaker.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\Addon.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\Addon.cpp)
+D:\git\Cities-Box.cpp\src\Addon.cpp(244,30): warning C4244: '初期化中': 's3d::Point::value_type' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(245,69): warning C4244: '+=': 'int' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(247,30): warning C4244: '初期化中': 's3d::Point::value_type' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(248,40): warning C4244: '+=': 'int' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(250,31): warning C4244: '初期化中': 's3d::Point::value_type' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(253,32): warning C4244: '初期化中': 's3d::Point::value_type' から 'unsigned short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Addon.cpp(232,158): warning C4100: 'addColor': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\Addon.cpp(280,75): warning C4244: '=': 'Type' から 'unsigned short' への変換です。データが失われる可能性があります。
+          with
+          [
+              Type=int
+          ]
+D:\git\Cities-Box.cpp\src\Addon.cpp(281,75): warning C4244: '=': 'Type' から 'unsigned short' への変換です。データが失われる可能性があります。
+          with
+          [
+              Type=int
+          ]
+D:\git\Cities-Box.cpp\src\Addon.cpp(282,75): warning C4244: '=': 'Type' から 'unsigned short' への変換です。データが失われる可能性があります。
+          with
+          [
+              Type=int
+          ]
+  AddonType.cpp
+  Button.cpp
+  CitiesBox.cpp
+  CityMap.cpp
+D:\git\Cities-Box.cpp\src\AddonType.cpp(17,116): warning C4100: 'coordinate': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\AddonType.cpp(17,89): warning C4100: 'position': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\AddonType.cpp(17,60): warning C4100: 'direction_id': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\AddonType.cpp(17,33): warning C4100: 'time': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\CitiesBox.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\CitiesBox.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\CityMap.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\CityMap.cpp)
+D:\git\Cities-Box.cpp\src\CityMap.cpp(844,18): warning C4244: '初期化中': 'int' から 'short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(845,19): warning C4244: '初期化中': 'int' から 'short' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(939,49): warning C4244: '引数': 's3d::int32' から 'float' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(939,74): warning C4244: '引数': 's3d::int32' から 'float' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(939,24): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1050,154): warning C4244: '+=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1136,158): warning C4244: '-=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1180,87): warning C4100: 'addonNumber': 引数は関数の本体部で 1 度も参照されません。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1480,35): warning C4244: '+=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1483,35): warning C4244: '+=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1489,34): warning C4244: '+=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\CityMap.cpp(1492,34): warning C4244: '+=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+  DetailsBar.cpp
+  GeneralSetting.cpp
+D:\git\Cities-Box.cpp\src\CitiesBox.cpp(180): warning C4701: 初期化されていない可能性のあるローカル変数 'cursor' が使用されます
+  Images.cpp
+  Menu.cpp
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\DetailsBar.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\DetailsBar.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\Images.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\Images.cpp)
+D:\git\Cities-Box.cpp\src\Images.cpp(40,18): warning C4245: '=': 'int' から 's3d::uint32' に変換しました。signed/unsigned が一致しません。
+D:\git\Cities-Box.cpp\src\Images.cpp(41,18): warning C4245: '=': 'int' から 's3d::uint32' に変換しました。signed/unsigned が一致しません。
+D:\git\Cities-Box.cpp\src\Images.cpp(42,18): warning C4245: '=': 'int' から 's3d::uint32' に変換しました。signed/unsigned が一致しません。
+  OtherFunctions.cpp
+  PulldownMenu.cpp
+  RouteSolver.cpp
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\Menu.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\Menu.cpp)
+D:\git\Cities-Box.cpp\src\Menu.cpp(166,36): warning C4244: '引数': 'const _Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+D:\git\Cities-Box.cpp\src\Menu.cpp(167,38): warning C4244: '引数': 'const _Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+D:\git\Cities-Box.cpp\src\Menu.cpp(168,39): warning C4244: '引数': 'const _Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+D:\git\Cities-Box.cpp\src\Menu.cpp(169,39): warning C4244: '引数': 'const _Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+D:\git\Cities-Box.cpp\src\Menu.cpp(170,39): warning C4244: '引数': 'const _Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+D:\git\Cities-Box.cpp\src\Menu.cpp(465,17): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\Menu.cpp(482,17): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+  Sound.cpp
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(69,46): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(70,46): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(75,43): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(76,43): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(358,29): warning C4244: '=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(359,25): warning C4244: '=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(360,25): warning C4244: '=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\OtherFunctions.cpp(361,25): warning C4244: '=': 'double' から 's3d::uint32' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\PulldownMenu.cpp(36,115): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+D:\git\Cities-Box.cpp\src\PulldownMenu.cpp(39,21): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+  StartUp.cpp
+  SubWindow.cpp
+  Tile.cpp
+  TitleMenu.cpp
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\StartUp.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\StartUp.cpp)
+  Main.cpp
+  Specific.cpp
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています ..\..\..\src\TitleMenu.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています ..\..\..\src\TitleMenu.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17,29): warning C4099: 'ImagesStruct': タイプ名は最初 'class' として使われていましたが 'struct' として使われています。 (ソース ファイルをコンパイルしています Main.cpp)
+D:\git\Cities-Box.cpp\src\ImagesStruct.hpp(17): message : 'ImagesStruct' の宣言を確認してください (ソース ファイルをコンパイルしています Main.cpp)
+     ライブラリ D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).lib とオブジェクト D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exp を作成中
   Cities-Box.cpp.vcxproj -> D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
   D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
   1 個のファイルをコピーしました

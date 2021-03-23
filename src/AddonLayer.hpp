@@ -27,12 +27,16 @@ public:
 	// 指定したLayerType::Typeがレイヤ出現の条件に合うか？
 	bool isEnable(LayerType::Type layer_type);
 	
+	// 指定したLayerType::Typeそのものがm_layer_types_initに設定されているか？
+	bool isExists(LayerType::Type layer_type);
+	
 private:
 	// レイヤ画像
 	Image m_image;
 	
 	// レイヤのタイプ
 	Array<LayerType::Type> m_layer_types;
+	Array<LayerType::Type> m_layer_types_init;	// アドオン読み込み時に指定したもののみ
 };
 
 #endif /* AddonLayer_hpp */

@@ -9,7 +9,8 @@
 
 AddonLayer::AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_types) {
 	m_image = arg_image;
-	m_layer_types = arg_layer_types;
+	m_layer_types_init = arg_layer_types;
+	m_layer_types = m_layer_types_init;
 	
 	if (arg_layer_types.count(LayerType::Normal) > 0 || arg_layer_types.count(LayerType::Ground) > 0) {
 		for (int i=0; i<LAYER_TYPES; i++) {
@@ -55,7 +56,15 @@ Array<LayerType::Type> AddonLayer::getLayerTypes() {
 }
 
 bool AddonLayer::isEnable(LayerType::Type layer_type) {
-	if (layer_type == LayerType::Normal || layer_type == LayerType::Ground || m_layer_types.count(layer_type) > 0) {
+	if (m_layer_types.count(layer_type) > 0) {
+		return true;
+	}
+	
+	return false;
+}
+
+bool AddonLayer::isExists(LayerType::Type layer_type) {
+	if (m_layer_types_init.count(layer_type) > 0) {
 		return true;
 	}
 	

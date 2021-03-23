@@ -20,7 +20,7 @@
 #define RELEASE_NUMBER	141
 #define AROUND_TILES	4
 #define DIRECTIONS		15
-#define LAYER_TYPES		12
+#define LAYER_TYPES		15
 
 using namespace std;
 
@@ -29,13 +29,13 @@ class Addon;
 class ImagesStruct;
 
 // 周囲4方向
-const pair<DirectionID::Type, CoordinateStruct> AroundTiles[4] = {
+const pair<DirectionID::Type, CoordinateStruct> AroundTiles[AROUND_TILES] = {
 	{DirectionID::Right, {1, 0}}, {DirectionID::Bottom, {0, 1}}, {DirectionID::Top, {0, -1}}, {DirectionID::Left, {-1, 0}}
 };
 
 // LayerType::Typeのすべて
-const LayerType::Type AllLayerTypes[12] = {
-	LayerType::OnSpring, LayerType::OnSummer, LayerType::OnAutumn, LayerType::OnWinter,
-	LayerType::OnSpringEvening, LayerType::OnSummerEvening, LayerType::OnAutumnEvening, LayerType::OnWinterEvening,
-	LayerType::OnSpringNight, LayerType::OnSummerNight, LayerType::OnAutumnNight, LayerType::OnWinterNight
+const LayerType::Type AllLayerTypes[LAYER_TYPES] = {
+	LayerType::Normal, LayerType::OnSpring, LayerType::OnSummer, LayerType::OnAutumn, LayerType::OnWinter,
+	LayerType::Evening, LayerType::OnSpringEvening, LayerType::OnSummerEvening, LayerType::OnAutumnEvening, LayerType::OnWinterEvening,
+	LayerType::Night, LayerType::OnSpringNight, LayerType::OnSummerNight, LayerType::OnAutumnNight, LayerType::OnWinterNight
 };

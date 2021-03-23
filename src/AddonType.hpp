@@ -55,12 +55,14 @@ private:
 	// レイヤの重ね合わせ
 	void m_over_write(Image& to, Image& from, Array<LayerType::Type> layer_types, LayerType::Type making_type);
 	
-	
 	// 指定したLayerTypeが夕方に該当するか？
 	bool m_is_evening(LayerType::Type layer_type);
 	
 	// 指定したLayerTypeが夜間に該当するか？
 	bool m_is_night(LayerType::Type layer_type);
+	
+	// デフォルトレイヤの取得
+	LayerType::Type m_get_default_layer(LayerType::Type layer_type);
 	
 	/* プライベート変数 */
 	// TypeID
@@ -74,6 +76,9 @@ private:
 	
 	// 夜間に電気を灯すか？
 	bool m_light_on_night;
+	
+	// 各LayerType独自のレイヤがm_layersに存在するか？
+	map<LayerType::Type, bool> m_layer_exists_list;
 	
 	// アドオン画像のテクスチャ
 	map<LayerType::Type, Image> m_images;

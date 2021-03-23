@@ -126,9 +126,9 @@ namespace Weather {
 // レイヤのタイプ
 namespace LayerType {
 	enum Type {
-		Ground				= 0,	// 地面
-		Normal				= 180,	// 常時表示される部分
+		Ground				= -1,	// 地面
 		
+		Normal				= 0,	// 常時表示される部分
 		Evening				= 10,	// 夕方表示される部分
 		Night				= 20,	// 夜間表示される部分
 		

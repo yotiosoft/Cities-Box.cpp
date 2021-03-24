@@ -85,9 +85,6 @@ public:
 	// アドオンを描画する
 	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor, TimeStruct time);
 	
-	// JSON形式に変換する
-	void converter();
-	
 protected:
 	/* プライベート関数 */
 	// アドオン読み込み
@@ -100,7 +97,10 @@ protected:
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
 	
 	// r141以前のアドオンファイルからAddonLayerの読み込み
-	void m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers);
+	void m_load_layer_before141(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers);
+	
+	// JSON形式に変換する
+	void m_converter();
 	
 	/* プライベート変数 */
 	// アドオンファイルのパス

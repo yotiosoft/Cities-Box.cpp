@@ -3,7 +3,7 @@
   "jp_name": "CNタワー",
   "author": "YotioSoft",
   "summary": "カナダ最大の都市・トロントを象徴する電波塔。高さは553.33m。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -18,67 +18,22 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 81996,
+  "maximum_capacity": 97,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "CN_Tower.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
         {
-          "direction_name": "bottom",
-          "size": {
-            "width": 192,
-            "height": 512
-          },
-          "squares": {
-            "width": 4,
-            "height": 2
-          },
-          "top_left": {
-            "x": 192,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 383,
-            "y": 511
-          }
-        },
-        {
           "direction_name": "left",
-          "size": {
-            "width": 192,
-            "height": 512
-          },
-          "squares": {
-            "width": 1,
-            "height": 2
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 191,
-            "y": 511
-          }
-        },
-        {
-          "direction_name": "right",
           "size": {
             "width": 192,
             "height": 512
@@ -114,6 +69,57 @@
             "x": 383,
             "y": 511
           }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 192,
+            "height": 512
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 191,
+            "y": 511
+          }
+        },
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 192,
+            "height": 512
+          },
+          "squares": {
+            "width": 4,
+            "height": 2
+          },
+          "top_left": {
+            "x": 192,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 383,
+            "y": 511
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "CN_Tower.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     }

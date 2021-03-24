@@ -95,8 +95,6 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
 		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
 		
-		m_types[typeID].directionNames = directionNameToDirectionID(type[U"direction_names"].getArray<String>());
-		
 		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
 			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
 			
@@ -121,23 +119,40 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			m_types[typeID].addAddonDirectionStruct(direction_struct);
 		}
 		
-		int total_layers = 1;
-		String night_mask_filename = type[U"night_mask"].getString();
-		if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
-			total_layers = 2;
-		}
-		
-		Array<AddonLayer> layers;
-		for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
-			if (version <= 141) {
-				m_load_layers(layer_num, type, m_types[typeID], layers);
+		// r141以前のadjの場合
+		if (version <= 141) {
+			int total_layers = 1;
+			String night_mask_filename = type[U"night_mask"].getString();
+			if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+				total_layers = 2;
 			}
-			else {
+			
+			Array<AddonLayer> layers;
+			for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer r141以前
+				m_load_layer_before141(layer_num, type, m_types[typeID], layers);
+			}
+			m_types[typeID].setLayers(layers);
+			m_converter();
+		}
+		else {
+			Array<AddonLayer> layers;
+			for (const auto& layer : type[U"Layers"].arrayView()) {								// AddonLayer r142以降
+				String image_path = layer[U"image"].getString();
 				
+				Color transparent_color;
+				transparent_color.r = layer[U"transparent_color.R"].get<int>();
+				transparent_color.g = layer[U"transparent_color.G"].get<int>();
+				transparent_color.b = layer[U"transparent_color.B"].get<int>();
+				
+				Array<LayerType::Type> layer_types;
+				for (const auto& layer_type_str : layer[U"layer_types"].arrayView()) {
+					layer_types << layerNameToLayerType(layer_type_str.getString());
+				}
+				
+				layers << AddonLayer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_path, transparent_color, layer_types);
 			}
+			m_types[typeID].setLayers(layers);
 		}
-		m_types[typeID].setLayers(layers);
-		converter();
 	}
 	
 	return true;
@@ -177,11 +192,11 @@ TypeID::Type Addon::getTypeID(int typeNum) {
 }
 
 DirectionID::Type Addon::getDirectionID(int typeNum, int directionNum) {
-	return m_types[getTypeID(typeNum)].directionNames[directionNum];
+	return m_types[getTypeID(typeNum)].getDirectionID(directionNum);
 }
 
 DirectionID::Type Addon::getDirectionID(String typeName, int directionNum) {
-	return m_types[typeNameToTypeID(typeName)].directionNames[directionNum];
+	return m_types[typeNameToTypeID(typeName)].getDirectionID(directionNum);
 }
 
 Array<String> Addon::getCategories() {
@@ -268,16 +283,17 @@ void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStr
 	//}
 }
 
-void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers) {
+void Addon::m_load_layer_before141(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers) {
 	String image_filename;
 	if (layer_num == 0)
 		image_filename = type[U"image"].getString();
 	else
 		image_filename = type[U"night_mask"].getString();
 	
-	arg_addon_type.transparentColor.r = type[U"transparent_color.R"].get<int>();
-	arg_addon_type.transparentColor.g = type[U"transparent_color.G"].get<int>();
-	arg_addon_type.transparentColor.b = type[U"transparent_color.B"].get<int>();
+	Color transparent_color;
+	transparent_color.r = type[U"transparent_color.R"].get<int>();
+	transparent_color.g = type[U"transparent_color.G"].get<int>();
+	transparent_color.b = type[U"transparent_color.B"].get<int>();
 	
 	// AddonLayerを作成（暫定）
 	// Todo: 正式に対応する
@@ -287,8 +303,7 @@ void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_ty
 	if (layer_num == 1)
 		layer_types << LayerType::Night;
 	AddonLayer layer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename,
-					 Color(arg_addon_type.transparentColor.r, arg_addon_type.transparentColor.g, arg_addon_type.transparentColor.b),
-					 layer_types);
+					 transparent_color, layer_types);
 	
 	/*
 	String night_mask_filename = type[U"night_mask"].getString();
@@ -303,7 +318,7 @@ void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_ty
 	arg_layers << layer;
 }
 
-void Addon::converter() {
+void Addon::m_converter() {
 	JSONWriter addonData;
 	
 	addonData.startObject();
@@ -364,23 +379,24 @@ void Addon::converter() {
 			for (auto type = m_types.begin(); type != m_types.end(); type++) {
 				addonData.startObject();
 				{
-					addonData.key(U"type_name").write(type->first);
+					addonData.key(U"type_name").write(typeIDToTypeName(type->first));
 					
+					map<DirectionID::Type, AddonDirectionStruct> direction_structs = type->second.getDirectionStructs();
 					addonData.key(U"direction_names").startArray();
 					{
-						for (auto directionName = type->second.directionNames.begin(); directionName != type->second.directionNames.end(); directionName++) {
-							addonData.write(*directionName);
+						for (auto direction = direction_structs.begin(); direction != direction_structs.end(); direction++) {
+							addonData.write(directionIDToDirectionName(direction->first));
 						}
 					}
 					addonData.endArray();
 					
 					addonData.key(U"Directions").startArray();
 					{
-						map<DirectionID::Type, AddonDirectionStruct> direction_structs = type->second.getDirectionStructs();
 						for (auto direction = direction_structs.begin(); direction != direction_structs.end(); direction++) {
 							addonData.startObject();
 							{
-								addonData.key(U"direction_name").write(direction->first);
+								addonData.key(U"direction_name").write(directionIDToDirectionName(direction->first));
+								
 								addonData.key(U"size").startObject();
 								{
 									addonData.key(U"width").write(direction->second.size.x);
@@ -417,21 +433,22 @@ void Addon::converter() {
 						for (auto layer = layers.begin(); layer != layers.end(); layer++) {
 							addonData.startObject();
 							{
-								addonData.key(U"image").write(layer->getImagePath());
+								addonData.key(U"image").write(FileSystem::FileName(layer->getImagePath()));
 								
 								addonData.key(U"transparent_color").startObject();
 								{
-									addonData.key(U"R").write(type->second.transparentColor.r);
-									addonData.key(U"G").write(type->second.transparentColor.g);
-									addonData.key(U"B").write(type->second.transparentColor.b);
+									Color transparennt_color = layer->getTransparentColor();
+									addonData.key(U"R").write(transparennt_color.r);
+									addonData.key(U"G").write(transparennt_color.g);
+									addonData.key(U"B").write(transparennt_color.b);
 								}
 								addonData.endObject();
 								
 								addonData.key(U"layer_types").startArray();
 								{
-									Array<LayerType::Type> layer_types = layer->getLayerTypes();
+									Array<LayerType::Type> layer_types = layer->getLayerTypesInit();
 									for (int layer_type_num = 0; layer_type_num < layer_types.size(); layer_type_num++) {
-										addonData.write(layer_types[layer_type_num]);
+										addonData.write(layerTypeToLayerName(layer_types[layer_type_num]));
 									}
 								}
 								addonData.endArray();

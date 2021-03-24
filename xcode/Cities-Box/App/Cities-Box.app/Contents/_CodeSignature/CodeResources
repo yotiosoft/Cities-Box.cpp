@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/assets/addons/.DS_Store</key>
+		<data>
+		WDsDNzZ7CtFZDSTIUncKUF1ah3s=
+		</data>
 		<key>Resources/assets/addons/British/about.adset</key>
 		<data>
 		UqRGNTVwa2hw5Aw7nXZbit0iju4=
@@ -158,7 +162,7 @@
 		</data>
 		<key>Resources/assets/addons/British/tiles/water/bearch_and_walkway/Bearch_and_Walkway.adj</key>
 		<data>
-		Lwja7Wd0st/FUhkqO1sDeFEFyhQ=
+		WH3+7HjxKGPyqEqjDMLbGtgRDxg=
 		</data>
 		<key>Resources/assets/addons/British/tiles/water/bearch_and_walkway/Bearch_and_Walkway_River.png</key>
 		<data>
@@ -234,7 +238,7 @@
 		</data>
 		<key>Resources/assets/addons/British/tiles/water/normal/Normal_Waterway.adj</key>
 		<data>
-		vQACKZireB1TnPc1TZgw1yuJroE=
+		61dktnbKytrF01lQkenw5ZXNvHE=
 		</data>
 		<key>Resources/assets/addons/British/tiles/water/normal/Normal_Waterway_River.png</key>
 		<data>
@@ -288,13 +292,29 @@
 		<data>
 		mM4ACRJeskFH8Za+m4oxbRClcCk=
 		</data>
+		<key>Resources/assets/addons/Normal/.DS_Store</key>
+		<data>
+		xA8dNp7sVNvf9M+ztL6ZVNy2HLI=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/.DS_Store</key>
+		<data>
+		CyrsTV1HDIwozuuBKupB1kCCqs0=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/commercial/.DS_Store</key>
+		<data>
+		zt+Jza98c9loLcr0UzO3v9lxxfk=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/.DS_Store</key>
+		<data>
+		67pGJf3AlNqNQvot6ZpygATYUPw=
+		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
 		NPeIpK2pyfz5oSsvcx+ISAhVZps=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adj</key>
 		<data>
-		HS1f1ZmUyycIxd5TIv7iRt8o7Vo=
+		JSluv67Ix6DFpce/SPPRrbcYcMo=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.png</key>
 		<data>
@@ -314,7 +334,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/L-Department_Store/L-Department_Store.adj</key>
 		<data>
-		Yr8B1xMCTZoo8KJ/MFuAvNSL4wA=
+		qJD4BesDvGCY163s4zPGJ2WzyMA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/L-Department_Store/L-Department_Store.png</key>
 		<data>
@@ -334,7 +354,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Reasonable_Multi-tenant_Building/Reasonable_Multi-tenant_Building.adj</key>
 		<data>
-		vx0lBWF3MuSOospKCIVPg8364JI=
+		vRn/afWJCYgSpSs6ulUpJndsodw=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Reasonable_Multi-tenant_Building/Reasonable_Multi-tenant_Building.png</key>
 		<data>
@@ -354,7 +374,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Channel's_Boutique/Channel's_Boutique.adj</key>
 		<data>
-		/gNjQBnUDqICOOrmxSbXmabC2aA=
+		Bzu+ERubFb7PB9rqIG2GUDLAt3M=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Channel's_Boutique/Channel's_Boutique.png</key>
 		<data>
@@ -370,7 +390,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Family_Mate/Family_Mate.adj</key>
 		<data>
-		zv3H7/bjE0+6NYBtZlVghdIbqFU=
+		I7w5D9/bDXiG6yeV9uEWXojQRTA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Family_Mate/Family_Mate.png</key>
 		<data>
@@ -390,7 +410,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Gas_Station/Gas_Station.adj</key>
 		<data>
-		Y20EdSxlLh/S0w8fV4RzKUxorZE=
+		RZR0Gs1NFMpqx0dGByoebnh/H7M=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Gas_Station/Gas_Station.png</key>
 		<data>
@@ -406,7 +426,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Lawnso/Lawnso.adj</key>
 		<data>
-		nOOGEpnbGBGimQzLGVcPcwKWdoY=
+		xfv0ELt5BNtVvor3mA+lZRV7okU=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Lawnso/Lawnso.png</key>
 		<data>
@@ -426,7 +446,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/MosDonald/MosDonald.adj</key>
 		<data>
-		K4BlRUMc3o2LsqSEgTz95SuhGr8=
+		DzmQOvd+k7UelHoHxa12p7w9fxc=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/MosDonald/MosDonald.png</key>
 		<data>
@@ -446,7 +466,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Normal_Supermarket/Normal_Supermarket.adj</key>
 		<data>
-		ZER8ly5Q8RHyftjilgjSgzj1m74=
+		R91mVZd/6JnqFx4x4bTa3M2k+FM=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Normal_Supermarket/Normal_Supermarket.png</key>
 		<data>
@@ -466,7 +486,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Parking_24/Parking_24.adj</key>
 		<data>
-		iCPPfOCqNK1cS/DJ26xW1c4Fk0s=
+		6IpTMdN9fgQnXULAOzkWVFdRQio=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Parking_24/Parking_24.png</key>
 		<data>
@@ -486,7 +506,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Pineaplle_Store/Pineapple_Store.adj</key>
 		<data>
-		6N+gjBJagmCnwRJmPFMeknk3RTA=
+		JiMBiKLzZ4d9KvA0luM4ruU9ZoM=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Pineaplle_Store/Pineapple_Store.png</key>
 		<data>
@@ -502,7 +522,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Saico_Mart/Saico_Mart.adj</key>
 		<data>
-		a9dA+BiSz0YgNHnqCBVWplx637I=
+		wtWAyBsSMDPDzJU/8L0bgtdpiwg=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Saico_Mart/Saico_Mart.png</key>
 		<data>
@@ -522,7 +542,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Seveso-Eleveso/Seveso-Eleveso.adj</key>
 		<data>
-		DyWJjwafZTxAUcMWzVqiis2L9E8=
+		vHpvVdPThJxCkAHfwfN0cGvsDgo=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Seveso-Eleveso/Seveso-Eleveso.png</key>
 		<data>
@@ -542,7 +562,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Soba_Restaurant/Soba_Restaurant.adj</key>
 		<data>
-		cV7l6Lyl53LlDYosUgvQKBYTXxs=
+		j+cjw1ukuqA5k9jHDbGlsHSuIDc=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Soba_Restaurant/Soba_Restaurant.png</key>
 		<data>
@@ -562,7 +582,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Starbooks_Coffee/Starbooks_Coffee.adj</key>
 		<data>
-		dYibJGFl/wCFRZnhVUzQ3pbqZDo=
+		GKMGr3TPFhxwruGlu2bX9YktFgg=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Starbooks_Coffee/Starbooks_Coffee.png</key>
 		<data>
@@ -582,7 +602,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Black_proof_Warehouse/Black_proof_Warehouse.adj</key>
 		<data>
-		piA+EGy1eiZwm+l8FuOvbLCj5lw=
+		eBuNNw5m9/YdqcQHTKKdVcKlZZU=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Black_proof_Warehouse/Black_proof_Warehouse.png</key>
 		<data>
@@ -598,7 +618,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Charlie's_chocolate_factory/Charlie's_chocolate_factory.adj</key>
 		<data>
-		awJu6HMMLqMXoLJ7uTpkDiv8j5w=
+		I5Y/ZU3NO/riUmzghdG/QNZSot0=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Charlie's_chocolate_factory/Charlie's_chocolate_factory.png</key>
 		<data>
@@ -614,7 +634,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Electronics_Factory/Electronics_Factory.adj</key>
 		<data>
-		DKrOwrCXO4IiAhJRqUsEHX22JoM=
+		llgh4ycUSMMgww0T0tYf+zG052k=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Electronics_Factory/Electronics_Factory.png</key>
 		<data>
@@ -628,13 +648,17 @@
 		<data>
 		ms0NU+NSRdFrjJuFT5rAz3xbCXM=
 		</data>
+		<key>Resources/assets/addons/Normal/buildings/office/.DS_Store</key>
+		<data>
+		jIeWROZrwQIXnxJUihW5aoM/07A=
+		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.adat</key>
 		<data>
 		pUf6+Yytrjk8/dJBllRaIClcLOI=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.adj</key>
 		<data>
-		55tUed9IXtRUgaa6dLtY59Ovf4A=
+		so81vlT74WgTFFCVNVgED3vpIk0=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.png</key>
 		<data>
@@ -654,7 +678,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/Glazed_Office/Glazed_Office.adj</key>
 		<data>
-		zt1x+QwpkYCPltulTGETynQJxkY=
+		rCnuV2EzQc9Z95y1IpFo8xWx2/I=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/Glazed_Office/Glazed_Office.png</key>
 		<data>
@@ -674,7 +698,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/Tall_Office/Tall_Office.adj</key>
 		<data>
-		dSPL2Z2t5+UIscujkb9YThQWSjw=
+		3MQmZZhS9lQsj2NOe04qGqg4LsY=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/Tall_Office/Tall_Office.png</key>
 		<data>
@@ -698,7 +722,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/white_office/white_office.adj</key>
 		<data>
-		K8TX/g9X2X26PL0h9sMpmFFjXvI=
+		dhGXytbUI0xYIIKSGo4M/UJ34Kg=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/white_office/white_office.png</key>
 		<data>
@@ -710,7 +734,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_City_Hall/Modern_City_Hall.adj</key>
 		<data>
-		nQiK/up1UegQ5kbVjnGM102Z+e8=
+		22DgQsngs4BSyfXkLCC6VZufX0c=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_City_Hall/Modern_City_Hall.png</key>
 		<data>
@@ -730,7 +754,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_Library/Modern_Library.adj</key>
 		<data>
-		IxOcWwvq+UemO0oiNhMhYEH8RtY=
+		taPsrBe4YY8avfPf4Klwqtsu0Po=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_Library/Modern_Library.png</key>
 		<data>
@@ -750,7 +774,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Elementary-School/Normaly_Elementary-School.adj</key>
 		<data>
-		pNeNKi86IAwSCxf30TIzlVmMBlc=
+		e/JsPwF7km5PPbZWhumlt70CQ/Y=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Elementary-School/Normaly_Elementary-School.png</key>
 		<data>
@@ -766,7 +790,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_High-School/Normaly_High-School.adj</key>
 		<data>
-		7PijS2O4su8cY9nvwaC8lUXX62A=
+		QWYDk1aNumXU/95Lx0rK8qacjNY=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_High-School/Normaly_High-School.png</key>
 		<data>
@@ -782,7 +806,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Junior-High-School/Normaly_Junior-High-School.adj</key>
 		<data>
-		1KVggd+3cT9NIXgwtHhO/I2OX34=
+		eKCAONoTjzQEonxQKfxPG4BBlIs=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Junior-High-School/Normaly_Junior-High-School.png</key>
 		<data>
@@ -798,7 +822,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Urban_University/Normaly_Urban_University.adj</key>
 		<data>
-		GnZhuDuCM0GFhfbKwnOhq09fMwQ=
+		zMnqPPvUsIMvP3s39LHUuPt5b4Y=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Urban_University/Normaly_Urban_University.png</key>
 		<data>
@@ -814,7 +838,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Public_Hall/Public_Hall.adj</key>
 		<data>
-		N7WTGgBJQEQJc56W+oKTStrv97Q=
+		VTRbxmFVlSTcYdfOyh2392/celk=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/Public_Hall/Public_Hall.png</key>
 		<data>
@@ -838,7 +862,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/post_office/post_office.adj</key>
 		<data>
-		1jX88f/INc76N4kpYyt/+XV4PCY=
+		I0Zrtdi2oULx4V3f6uO+UwyThwU=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/post_office/post_office.png</key>
 		<data>
@@ -858,7 +882,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/small_fire_depertment/small_fire_depertment.adj</key>
 		<data>
-		0c7PWzh4T1ZADMMgZATtZPRthcU=
+		uiXoPI8OD7ax8oyex8EUC3wmWW8=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/small_fire_depertment/small_fire_depertment.png</key>
 		<data>
@@ -878,7 +902,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/small_police_station/small_police_station.adj</key>
 		<data>
-		i28AC+l3ji4xEUF31fu95qAER3U=
+		6pAZQJduV/aEVeJscUywHaIj5lM=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/public/small_police_station/small_police_station.png</key>
 		<data>
@@ -894,7 +918,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Orange_Apartment_Complex/Orange_Apartment_Complex.adj</key>
 		<data>
-		z2roTd2fQ8Jfx/cUctvaWkuwAds=
+		AHs0JvhGZah0FACKSE2rHttlGoA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Orange_Apartment_Complex/Orange_Apartment_Complex.png</key>
 		<data>
@@ -914,7 +938,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/White_Apartment_Complex/White_Apartment_Complex.adj</key>
 		<data>
-		l1lnLnPEsXmTaZOI5mDk6Qo8R+g=
+		qqt8fCy9SvafnKiVs5PYg4BOYrA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/White_Apartment_Complex/White_Apartment_Complex.png</key>
 		<data>
@@ -934,7 +958,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Wood_Apartment/Wood_Apartment.adj</key>
 		<data>
-		bodnhZmby2G3oc4C/U8O32cGbsM=
+		DHLA4eV3qOf1C1bUi+sysw7CGv0=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Wood_Apartment/Wood_Apartment.png</key>
 		<data>
@@ -954,7 +978,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/five-story_apartment/five-story_apartment.adj</key>
 		<data>
-		PhXkj5yk5YlU94x75nHRfULsQas=
+		ppm2m+vE8mp1njIgbKg2qj4oGMA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/five-story_apartment/five-story_apartment.png</key>
 		<data>
@@ -974,7 +998,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Glazed_House/Glazed_House.adj</key>
 		<data>
-		7BY9zNrwWctJykvDE1rcIiLpcj4=
+		8kfrUxoD3TxfjmJaf1TwO7+qBYA=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Glazed_House/Glazed_House.png</key>
 		<data>
@@ -990,7 +1014,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Modern_House/Modern_House.adj</key>
 		<data>
-		SCd1qPxxkk4VQD8tuhNuEqMAsJE=
+		QllgU4AkzMV6cd+FbN1yhwFANJg=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Modern_House/Modern_House.png</key>
 		<data>
@@ -1010,7 +1034,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/North-American_House/North-American_House.adj</key>
 		<data>
-		qCPgnroOoH/VAlVAGQBa6XJfH5Y=
+		XsBqh/s1omuSsRgq07fX9ZRNVtg=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/North-American_House/North-American_House.png</key>
 		<data>
@@ -1030,7 +1054,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Simple_House/Simple_House.adj</key>
 		<data>
-		SRBjl7qug7vtn6G3xHXFQbhqIks=
+		sV0NDeejqJrmxP0IjdEAE+MrW2k=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Simple_House/Simple_House.png</key>
 		<data>
@@ -1050,7 +1074,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/blue_roof_house/blue_roof_house.adj</key>
 		<data>
-		bpBgUJhAISxh9ES//O9K/6Fb0A0=
+		cHyXRhpwUgJ09kxosAnw/3eUcMU=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/blue_roof_house/blue_roof_house.png</key>
 		<data>
@@ -1074,7 +1098,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/red_roof_house/red_roof_house.adj</key>
 		<data>
-		ywtEkQEOgHn/7aW5+uGxoAZm3kc=
+		IwOH7RcAzi5ezGjqEtZ9h6C6B3E=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/red_roof_house/red_roof_house.png</key>
 		<data>
@@ -1090,7 +1114,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Potato-Field/Normaly_Potato-Field.adj</key>
 		<data>
-		FQ2jogK0OJ8F+nxDIWg5f6w/2mY=
+		ODKP+AIW49qwdHSgmo81/n/SSHs=
 		</data>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Potato-Field/Normaly_Potato-Field.png</key>
 		<data>
@@ -1106,7 +1130,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Rice-Farm/Normaly_Rice-Farm.adj</key>
 		<data>
-		GGza7hK2v93qUHDG8V8HxWdw5Vo=
+		sfL6SBN65rgMNS6PKVG1qlC7uTw=
 		</data>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Rice-Farm/Normaly_Rice-Farm.png</key>
 		<data>
@@ -1118,7 +1142,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/CN_Tower/CN_Tower.adj</key>
 		<data>
-		h/z1FSYSP9hq6o7UrEgziYS7f+8=
+		VVZ/22rU5xYlHFjXaDW598i3kPc=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/CN_Tower/CN_Tower.png</key>
 		<data>
@@ -1134,7 +1158,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza/Cross_Plaza.adj</key>
 		<data>
-		9Zzvls167tKhD8T8bPOYD8bEP7E=
+		ysrJ6zkNKUSNm71k5bNDdUUwt0o=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza/Cross_Plaza.png</key>
 		<data>
@@ -1154,7 +1178,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza_with_Trees/Cross_Plaza_with_Trees.adj</key>
 		<data>
-		zhv9/TC0D6C10aIVJCB90USXaeM=
+		pm+qEKMe4Zyg984kJpwiSAhTu+c=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza_with_Trees/Cross_Plaza_with_Trees.png</key>
 		<data>
@@ -1170,7 +1194,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Pond_Park/Pond_Park.adj</key>
 		<data>
-		m3aBsbL3M5ibxBOLJZElKR/BgR0=
+		UJG/YYMmw8RhK2a+GUCrb+ECkYE=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Pond_Park/Pond_Park.png</key>
 		<data>
@@ -1186,7 +1210,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Small_Park/Small_Park.adj</key>
 		<data>
-		Xr+MWq75J0rlMU9pVjvhKNYP4Tg=
+		R6Xs3CMVT4ooq9u3rIeb+fVYQwk=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Small_Park/Small_Park.png</key>
 		<data>
@@ -1202,7 +1226,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Small_Shrine/Small_Shrine.adj</key>
 		<data>
-		n+M9qgKQJqAeGVU4SkWEbbYP1xs=
+		DxED+GejONZ4c2gbuSY0d3cTX9k=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Small_Shrine/Small_Shrine.png</key>
 		<data>
@@ -1218,7 +1242,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Statue_of_Mayor/Statue_of_Mayor.adj</key>
 		<data>
-		UwRO+SgBrfYltVUqsgrbuuF4M+4=
+		6QPLPfIaYWcPei5jzj8bKVUnqX0=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Statue_of_Mayor/Statue_of_Mayor.png</key>
 		<data>
@@ -1234,7 +1258,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Woody_Park/Woody_Park.adj</key>
 		<data>
-		Xj37brIiXZmiybLpQQt3J/toEhc=
+		hO1/Q1ZIG5maodQhhnku2EkhTEM=
 		</data>
 		<key>Resources/assets/addons/Normal/parks/Woody_Park/Woody_Park.png</key>
 		<data>
@@ -1250,7 +1274,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/railroad/Stations/Normaly_Station/White-Roof_Normaly_Station.adj</key>
 		<data>
-		bxp7NcXwN+9Fvv8KwkxDctobURc=
+		Cf5aNNt6yOjE5NgTV/t8amc8PJA=
 		</data>
 		<key>Resources/assets/addons/Normal/railroad/Stations/Normaly_Station/White-Roof_Normaly_Station.png</key>
 		<data>
@@ -1318,7 +1342,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/railroad/Two_lane/Normal_Railroad/Two_lane_normal_Railroad.adj</key>
 		<data>
-		Lea55ykjZpP8IsZZL8ex7nj88aI=
+		9CTz3PcGk0wtAuYcIVwvdFsl6uI=
 		</data>
 		<key>Resources/assets/addons/Normal/railroad/Two_lane/Normal_Railroad/icon_Two_lane_Normal_Railroad.png</key>
 		<data>
@@ -1330,7 +1354,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade/Wooden_Promenade.adj</key>
 		<data>
-		yt5MdcSIRbjuqHuwOT3L70ZfXwI=
+		mJhHMsiD3HzSpY7x3MmE7imb9Jw=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade/Wooden_Promenade.png</key>
 		<data>
@@ -1382,7 +1406,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade_with_Tree/Wooden_Promenade_with_Tree.adj</key>
 		<data>
-		ZxqxRKgVNbOF4t3RgVe21KUq+mY=
+		wkJXr0VO8LiXNCusjRtDQaysQ9g=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade_with_Tree/Wooden_Promenade_with_Tree.png</key>
 		<data>
@@ -1426,7 +1450,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_gravel_road/Two_lane_gravel_road.adj</key>
 		<data>
-		6hscrCGrB3V0snsg2kcKs97bdgY=
+		7qEdbrQOmtTDMDiIaVkG32PiTdI=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_gravel_road/Two_lane_gravel_road.png</key>
 		<data>
@@ -1478,7 +1502,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(none_line)/Two_lane_normal_road(none_line).adj</key>
 		<data>
-		zMF37g2MdYrbM76d4Mq4YDXGQWU=
+		Pd7wAwwMxSEYkMov9PpjHKYTZfk=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(none_line)/Two_lane_normal_road(none_line).png</key>
 		<data>
@@ -1522,7 +1546,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(orange_line)/Two_lane_normal_road(orange_line).adj</key>
 		<data>
-		gjhbQvpRgdyI1KHgTWiTaahL3KE=
+		q6EOyyWl9gtW/WA2PaLO/XthIPA=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(orange_line)/Two_lane_normal_road(orange_line).png</key>
 		<data>
@@ -1594,7 +1618,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_broken_line)/Two_lane_normal_road(white_broken_line).adj</key>
 		<data>
-		UhoYVlEPdussesZfsBxD8Xyv0iw=
+		qP6IUEULHjzhOv66COiBeTcQjlA=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_broken_line)/Two_lane_normal_road(white_broken_line).png</key>
 		<data>
@@ -1666,7 +1690,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_line)/Two_lane_normal_road(white_line).adj</key>
 		<data>
-		SO7yas1JhgR1b2QDWobfrpS2xz0=
+		A8IrNtlh4y4DD4aKYiWXl5sHt2Q=
 		</data>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_line)/Two_lane_normal_road(white_line).png</key>
 		<data>
@@ -1746,7 +1770,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/ground/normal/tile_greenfield.adj</key>
 		<data>
-		Hd6RIap63Vk8g+NlUjDlWlPGe+M=
+		4q6V3xHTYsWUzWVkjI3qhMC9W28=
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/ground/normal/tile_greenfield.png</key>
 		<data>
@@ -1758,7 +1782,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/bearch_and_walkway/Bearch_and_Walkway.adj</key>
 		<data>
-		7U4QGKcVsLoqbJJEo1m13lY/QTg=
+		iDd00FLYzI3MLdAS0EPVLmJMUpQ=
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/bearch_and_walkway/Bearch_and_Walkway_River.png</key>
 		<data>
@@ -1834,7 +1858,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/normal/Normal_Waterway.adj</key>
 		<data>
-		a5jZd8pCvNnTNjkSp1CompB7w0s=
+		V9gWUQY1TEAgb6UtSgDFtX1pONs=
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/normal/Normal_Waterway_River.png</key>
 		<data>
@@ -2545,7 +2569,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			a4wvWuLd4GP+Vi0LsLFIkjyg0+YZHnItGCRXwy21G0I=
+			9PW42Gihb7f4dTYx7oAuri2dlEETZi9R4xiYPSkqM7w=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/British/tiles/water/bearch_and_walkway/Bearch_and_Walkway_River.png</key>
@@ -2678,7 +2702,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ljNmUskW/FrUnEh9GjA1s18P4uj36v2kbPShDJzgv9I=
+			j6iPcw3fiJqrdidGLjxGHUdwMBbM7ZKVeM4YGEWHcZ0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/British/tiles/water/normal/Normal_Waterway_River.png</key>
@@ -2783,7 +2807,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9+fWjBh5nvNZjtObmFoWOGVKe71Llnbvih6h4trs7MM=
+			6HEma4PNf54M+rwREHiPY3VrAy4VjrZ+ajbsztiuQ5w=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.png</key>
@@ -2818,7 +2842,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VG8VL7jCZVAXqah/XIZbrD19/j7cWizTqQ4tsUANylA=
+			RQr9vPon5lWIkMM+I++GlPrZHPePC+RMuWuaetl0wBk=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/L-Department_Store/L-Department_Store.png</key>
@@ -2853,7 +2877,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Djgr4zISgDEo+JjX+wd1k9ndaD89AJ1ounICd9yWzew=
+			TkSY3hl33JqT42oTYXsWPBJDF6NAuewdVlLBSxLxaMM=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Reasonable_Multi-tenant_Building/Reasonable_Multi-tenant_Building.png</key>
@@ -2888,7 +2912,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Qu0Em3FgY2pjYqSsardGXIfmWTbeMWT1aoHtsVM8AiA=
+			N1us5UzmOkDbm3E6Xsl9DwlzOD9by9jYek+/CvbPsRE=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Channel's_Boutique/Channel's_Boutique.png</key>
@@ -2916,7 +2940,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BzxVQGjXcDpvcwgkUb2ZY7OkflmsI1LnWBq6NQ9whj0=
+			m9O2wC4LcXFe03hU0qHB1owzKyzmD3OCDngsaopLpqc=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Family_Mate/Family_Mate.png</key>
@@ -2951,7 +2975,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1JE+Oo5+1zQno3JXjUPZd70Z9Xf+Flh0SIo8WEHyg4I=
+			tvzLpKkVST8wPQ+ZImKPBOYj56llBPAd4EM+Bdhq+1k=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Gas_Station/Gas_Station.png</key>
@@ -2979,7 +3003,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ZVx3pKY4HWy5oRsZqFTlcHRzhc+OkQXz3D2CF9X9FI=
+			POU6wktUNCSgrNrNHVVLJcSQ74nDB1QmenGIfjXQctU=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Lawnso/Lawnso.png</key>
@@ -3014,7 +3038,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vD3h3u7F8Sb+CjMqMACUGN8SCtRdJuNu9NCTU7ZoJFI=
+			wq1buDbB2xTCAMautk0NIdhZhuQyxfXEQxrbSh48DJ0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/MosDonald/MosDonald.png</key>
@@ -3049,7 +3073,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XMILxIytetIZOg4C6tGmO+A20xcu/FHCzRub9jUhklg=
+			91cWF/n2J0CdOyR9W/shPljG7ORr5M52dgUIlwR2uvg=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Normal_Supermarket/Normal_Supermarket.png</key>
@@ -3084,7 +3108,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AtRMbVO8AeouRf5GTTIS75IqkvNelLeYGrMLCyMw628=
+			HYIU0oqO0Rb7nodXqqafO0HYus1yhEHSQpn6VXaCCDI=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Parking_24/Parking_24.png</key>
@@ -3119,7 +3143,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1rdO0tXmLyGqhJ8BR1dnLyCQw8WOvaHbv/diHuVryXU=
+			z5b+w9PxDHXMdaYs/0j92TdAwkeeCpQJEqPGjjng6Eo=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Pineaplle_Store/Pineapple_Store.png</key>
@@ -3147,7 +3171,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PyfsZMz7UVxxL06tenO1qnvzY22Ilu78vtr13TyS9y4=
+			7Zi0dxY0zNIdZRBUysXIuDzIlxKRDR09vvpqRAbR7bE=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Saico_Mart/Saico_Mart.png</key>
@@ -3182,7 +3206,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ckfqu2S9lfGimwFOD3jDYuay2SIZ13VlnqeHJIVlo5Q=
+			Y7YVR5k6+x5jMKSAcXbta/twADHcA38lAG9mX3iog4Y=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Seveso-Eleveso/Seveso-Eleveso.png</key>
@@ -3217,7 +3241,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2NLhrnRdGrPnOa/t44xNRtYq89APOkddduJnDn0T/dw=
+			JCZ+99+ID2ykk5z9dkYi6UURr6Bv7GxTz0ivLTTfzd0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Soba_Restaurant/Soba_Restaurant.png</key>
@@ -3252,7 +3276,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cHO3pnvZ+I3inWXw3DbXP7hwB/eiW247mCh/JNdCDtQ=
+			aa78KaibS9hlhO/BpGkQB7pl1BNEfpgtUO6WYQYdCw4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/low_density/Starbooks_Coffee/Starbooks_Coffee.png</key>
@@ -3287,7 +3311,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cxBaIRNSkutzesmO6+bSFbeMdWmr1n4YoWWxfVvkVRw=
+			5nDVexRStWOnTetI3OcYQ17zix9ioNPVTOzsqp1oSIw=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Black_proof_Warehouse/Black_proof_Warehouse.png</key>
@@ -3315,7 +3339,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SsroDe2F2JtUV2j3zTkILf2pg1hKP3utsO/Ok6TQM40=
+			0HApTD89UfOL1PtVrbI+/BldaIKQ6aNb6DAVy03pBUw=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Charlie's_chocolate_factory/Charlie's_chocolate_factory.png</key>
@@ -3343,7 +3367,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zWGkJ1SOi1yCAeQ72SQRTinhf6oIK1WsrSV42u21rf8=
+			hEUteWiczU5MRc2kqyybCT/FvZbAvVxgE7wW5xEFPeQ=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/industrial/Electronics_Factory/Electronics_Factory.png</key>
@@ -3378,7 +3402,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+nx2hmzbvdxPk2W9YefKU6KjmWQoiew9HQJx7VKDLqY=
+			F8xYYkpZcOMOU2QvpcaZ55s5vXe1ETAu5hImARtSlw4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.png</key>
@@ -3413,7 +3437,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			z1Lmo74+Nfpv51f20vn9YH8GHU9S6pFYIk3AR/FX1HY=
+			G6DsexdaC4f8jd2a1poI2FbFIiIEbQhdyWZ5gzzEJRo=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/office/Glazed_Office/Glazed_Office.png</key>
@@ -3448,7 +3472,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+QxJV84Lg2S4cAbxil1U1YDuX+cBowbe83RjFQ3qtO4=
+			/tt9o1LYzrmZZkutdWhdWI5ncE/12d5jmApEJv+mqG4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/office/Tall_Office/Tall_Office.png</key>
@@ -3490,7 +3514,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nZ6Zlp/sXUQXYF9c4W6vZQwcn51k/Noa7eNMAOEG91U=
+			vGMueN3P3kZLv/65f6wInXbKTToi2rnz0bIJiNYFw7s=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/office/white_office/white_office.png</key>
@@ -3511,7 +3535,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			B2RlgHkYIfm7gjxNbR7ZR6UweQl83syvLavnP9i4JTA=
+			7/n+G0D7knOaPFqv28ozMsF/ROf6XOb1gMi1g/5YkEc=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_City_Hall/Modern_City_Hall.png</key>
@@ -3546,7 +3570,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bs497+Sw51lnT7OP4e9GNvDFnGmndynFb52T5b0XrKE=
+			8I8PbmQKKSMWwktCpprzhZikEpYJ50QRb3KdDmc9vtQ=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Modern_Library/Modern_Library.png</key>
@@ -3581,7 +3605,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Lds9tFgyWhVHJhg7TaidPDICHRFMAbzYWMC1QgQGsu4=
+			EeCVW9Es8xr68mZgsHeb0bPjiAFqNG/u2RtrCUKCsdw=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Elementary-School/Normaly_Elementary-School.png</key>
@@ -3609,7 +3633,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yP2mbSV814h5sn11RltZ4iZfjwyFFO2ZT9Ks921DS2k=
+			1XXQj4pLMmOhZAyONioy6TNMq9Of3gwd6L7ObwS8q0Q=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_High-School/Normaly_High-School.png</key>
@@ -3637,7 +3661,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LaO8I4qaEfQNgBrleCl+KgtvzaxaqliryCYgRyNqeZg=
+			R0fUjP8QF3dZtgVmLeyTZ2BXme5t+cMN+BnxtdvLWuo=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Junior-High-School/Normaly_Junior-High-School.png</key>
@@ -3665,7 +3689,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FYL17hKhUU938nDtf3b6OgWkDv9QJJnBjZz3MnWa3Yg=
+			+rGK3DRu55Cd230guJrngDHqP4bcdK0jo91jP6A2vfs=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Normaly_Urban_University/Normaly_Urban_University.png</key>
@@ -3693,7 +3717,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IeFqBxp9x3XJ9xkjPglWQOxheW6V+t6EThoPKBUxFHE=
+			bL079WaCC/6ivBdSk9ushWitKT6hkBa8FCYVr8Eab4g=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/Public_Hall/Public_Hall.png</key>
@@ -3735,7 +3759,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MilgdZkooulmILliwLSZaT1N9Z2koqjhJ9r/C7iib+4=
+			sCTBF/EUUSRbLlSRFxjqsoxhi1xXDaP6PDivFXVEF9s=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/post_office/post_office.png</key>
@@ -3770,7 +3794,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OjTfJfVFE1amfO+SnuPQ74CioR2rkhKUZWxuZiTERfg=
+			gxjXMqKCy7CawxtJATQxgt3yovHSZ86TpMdwFL4at2I=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/small_fire_depertment/small_fire_depertment.png</key>
@@ -3805,7 +3829,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vRDgaD/rPHzBxKiafse2MWtkaAuFiCJ3eOurLEm3Lbs=
+			Ktvyzoz7JlTmZYktZR/D02X/frSDzjCaALY4B1hvS0k=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/public/small_police_station/small_police_station.png</key>
@@ -3833,7 +3857,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zOlNzhlqCRo4DMYohKXsikzYJMGrB7w8oXdtTICdMq4=
+			2SdFK3X2TT3V5ABaJsEUAhxpCKGufcmk7gdwRECc3xo=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Orange_Apartment_Complex/Orange_Apartment_Complex.png</key>
@@ -3868,7 +3892,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Z/piFUoBaLXD/pOGjKpLEx6YhxbF8EABcYCk7tWD+a4=
+			MJBHh6tIE1UtbFBWaWFcaeAYZf0CysSYJhXcgs1fuXI=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/White_Apartment_Complex/White_Apartment_Complex.png</key>
@@ -3903,7 +3927,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ycy+1IK8NJFBhSIccHPCo45pdNG6QDwwu6rWilhFfUs=
+			sZQmp9GtNWRL/AAiJALVxxsNwJ+ZfiQ5GfxdYuGmIb4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/Wood_Apartment/Wood_Apartment.png</key>
@@ -3938,7 +3962,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zTJPC28O5p00+meKBfBf/+/J+/HtHSLhiqI1EHH4Wj4=
+			HZHBzPAcZ2msnjTDPLMne6vQs8GAaEEFmHEs16hwU0A=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/high_density/five-story_apartment/five-story_apartment.png</key>
@@ -3973,7 +3997,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SPLaIlQ421bJtXvUbFYpMsdW1rtMH/ESNV7TPNawo60=
+			LK+44XO/n8L+n7KzHZSrK8xGzS+GF2sUYZ9cDr5hXv0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Glazed_House/Glazed_House.png</key>
@@ -4001,7 +4025,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			RdWwiyji/T3wj/F6N+M/ZrLVpDh/givgKbzleKMUisg=
+			jd8eMswrKisqDu5q01ZRm7UteE4hWuVSYrkgT2SlbKk=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Modern_House/Modern_House.png</key>
@@ -4036,7 +4060,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uTINGQg/aMen5cEWXMBaF3ie2TOH7rSJgdGBAXH0Qjo=
+			sRiwy+AqcxWZP6vVuSgdtRfp8Q8ZOWEIrYXiF9vnVUg=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/North-American_House/North-American_House.png</key>
@@ -4071,7 +4095,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x5u2EaYd6g8oPFw3QH0NAd6e1cJ2VC7myKlHhR2m27U=
+			Q5hpuMXDBc9VwSx94p9mYjZcoyzsaVoWjBTGKMTWoH8=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/Simple_House/Simple_House.png</key>
@@ -4106,7 +4130,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5u4JYrA1wnZVp9C1DdmyFhvq65xsOCglHTXZI/e/Oc4=
+			EMZTXk1gK1iwcyNeghFsR8f1fQwxHfLXZASGURrBQJQ=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/blue_roof_house/blue_roof_house.png</key>
@@ -4148,7 +4172,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5qOKWsFldxDFnf81iI0LW/qbdaGhzJE+GHrQ8zyI5Kc=
+			DOalVuyiK2xVuEtQ5RfMFEXxbe5GV0Lv3emB5vlL+Io=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/residential/low_density/red_roof_house/red_roof_house.png</key>
@@ -4176,7 +4200,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			i0/2oWkV3Agt7ezWqpziH779l0EGewYbFwbt0d+D0pw=
+			spcxmroBl7HxEh02oWWP7zJyKBcrRqJ7SyXPIvmP+98=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Potato-Field/Normaly_Potato-Field.png</key>
@@ -4204,7 +4228,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IlHxPOJEXr7kMOQ3RoqyY7NVAD1VHd5WoDqKzqptUYc=
+			kAI4RE1QOAb6fpGrI2P2Ig2ZqwE/rb8C/7bRaXEO8iI=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/farms/Normaly_Rice-Farm/Normaly_Rice-Farm.png</key>
@@ -4225,7 +4249,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7Mx/Upvng/qto125Ze8iKb8W6ESZ8ssJdA5amyy2wlY=
+			oWab6/5PgBEe1kO975EKBXPUSIMxuUepBfRQQUrrSAc=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/CN_Tower/CN_Tower.png</key>
@@ -4253,7 +4277,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EblIOZ/p5Y9YTJoSKJAp3SJ9RZQgy7ceG8kqqiWzWPI=
+			Qn2vU9+CyoTjgv3E5yySCc7h8wQVeu6mtKzGozC98G0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza/Cross_Plaza.png</key>
@@ -4288,7 +4312,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6Lpzb2ZWB/amOGCk/emTtE5e69ho8iVAxUHOVrJHSE4=
+			q/6FgUK8hWfeP6TR+eaIrVdgOgDWWE1pY5X9Y/PUl+I=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Cross_Plaza_with_Trees/Cross_Plaza_with_Trees.png</key>
@@ -4316,7 +4340,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tLvfd+Zz0JU8707Oix30kpbj808bJo55BQXIWOXb8QQ=
+			7RXU8WIAEQOlXKBaFHzk45NnQNpZSBdwt48Sc8sOnb0=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Pond_Park/Pond_Park.png</key>
@@ -4344,7 +4368,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EM5Kqnk2NcNxKKZavdkFdzXTDpocJqvbg4KMCRDON0A=
+			VjV7quUAgoLMUTBvrhYETkqn74GjczxFG1ja4Mg/RSI=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Small_Park/Small_Park.png</key>
@@ -4372,7 +4396,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ngaPG4AfwwYaJ2I8QcuuBXuhIk+O7ONvMArMtzEdA3g=
+			V7kS8GB7PqsUkETSItzdt9LEHXyLnxC/azQsVye+IHA=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Small_Shrine/Small_Shrine.png</key>
@@ -4400,7 +4424,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HGymRY/dQ/34868ObfEhHSFKbM1ps8MyRlww5C0Lsrg=
+			t4qob1YswWo6FtaY1ZSoKwlKq2ggxLgpN5iBRLw3vro=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Statue_of_Mayor/Statue_of_Mayor.png</key>
@@ -4428,7 +4452,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			grOUnjHomZ2cX+WVd62jsAc8ohm449FPg2wShcWX9hw=
+			0RuUbeqXmGjpL5u3wGbU7yzvq66ghw5u6AT8nCJvSb4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/parks/Woody_Park/Woody_Park.png</key>
@@ -4456,7 +4480,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ahcx1Co1TMXTgttqWsKybns9jeEdp6us1qdbx4rNv9U=
+			3C4sGYyVCHwxAlA/1YjHt+xh1UHa45aTpKbM4GUk1k8=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/railroad/Stations/Normaly_Station/White-Roof_Normaly_Station.png</key>
@@ -4575,7 +4599,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			12dxGgHYJ/0peYHXi+b220LJmhY33oHYGWTbHSjZxFI=
+			1Y9j9SUwhbHqGA3mkjujartTcXEdP96oPW6CdUvOFbY=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/railroad/Two_lane/Normal_Railroad/icon_Two_lane_Normal_Railroad.png</key>
@@ -4596,7 +4620,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aOdiytCeU9JycT40S+W7CoTQOoHSJeM8Y7/6Omk6h2g=
+			i/o8qJSr2wzf8XWQupcsa0LRqeocoODqS0nX7FKyrxU=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade/Wooden_Promenade.png</key>
@@ -4687,7 +4711,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sVwuXpVCop247E+WI3ZCEPlg6BesvQ/pl9sXuAzhJdw=
+			UZ/6U9+nFvjiy2VIxDk5Bb8BehOuPzFHtcWDHu8ROHA=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Promenade/Wooden_Promenade_with_Tree/Wooden_Promenade_with_Tree.png</key>
@@ -4764,7 +4788,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WKc49QxHVeJ+GA+pojbkGqGK75qpx+5OCXI4Q/85qpg=
+			tmRHD6PDy32JVINluj+zjU4AYYnaDTEjoZT7mapP5Bo=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_gravel_road/Two_lane_gravel_road.png</key>
@@ -4855,7 +4879,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vf9es3tgLUnKrsA+cXK3JbbbZSJSqz2Rf3Bs6l03rg0=
+			hXyg5pV7SyN3I6R/8fGaHOEdQt4U73o8xEkX89gDESU=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(none_line)/Two_lane_normal_road(none_line).png</key>
@@ -4932,7 +4956,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jdhtJQrblw6ws7M3ghtOn5Zf4SK1GUwYNoc9VyoWErw=
+			gqov5Zj3B2UCJSwV0UdAsvybkcBW9uGgWF+/ivmNjPs=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(orange_line)/Two_lane_normal_road(orange_line).png</key>
@@ -5058,7 +5082,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oaN1MBEjUOdF9lcFpTLAMH2F4KW1SBgmpUwy8EgAzuY=
+			RwZzAWhtNmVN0IXELW1MmnNSV3o5fzB6w+mFsxCn/2s=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_broken_line)/Two_lane_normal_road(white_broken_line).png</key>
@@ -5184,7 +5208,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v3ubf7YGiuFapLWKOOrOO0gwyloi8b9R3MEdJFvTcvg=
+			eWrgLL03zH+Ns/WaCvyKUxQntj0ARfea1mT7sV+3uX4=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/road/Two_lane/Two_lane_normal_road(white_line)/Two_lane_normal_road(white_line).png</key>
@@ -5324,7 +5348,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WZWG1GPf9qbQfIzoG3EdObNV+9F/jKbw3AdIgqafSsQ=
+			Omq/OGj/7s2N8XFpz8B59/6muwUxRDVbuzCQD7gHljs=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/tiles/ground/normal/tile_greenfield.png</key>
@@ -5345,7 +5369,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZRlKjxTpUzbww/M32obeOzg6M4kWmxnHN4adaU5Wr+Y=
+			TNNumQliY+hEGHMJT+iOn5WvHFQp/PSM2anpJYN0zqM=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/tiles/water/bearch_and_walkway/Bearch_and_Walkway_River.png</key>
@@ -5478,7 +5502,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GoPA1QugCpQPpuOXrLdH+cs4tZAN4A343bWZRC6rruA=
+			tPpFYslrvFGo7nmyqXHPF2HEV4zXkMjkc3DDho/9/nM=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/tiles/water/normal/Normal_Waterway_River.png</key>

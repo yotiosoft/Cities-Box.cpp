@@ -3,7 +3,7 @@
   "jp_name": "橙色の壁の団地",
   "author": "YotioSoft",
   "summary": "オレンジ色の壁の団地です。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -14,46 +14,20 @@
     "high_density"
   ],
   "effects": {},
-  "maximum_capacity": 180,
+  "maximum_capacity": 116,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "Orange_Apartment_Complex.png",
-      "night_mask": "Orange_Apartment_Complex__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "bottom",
-          "size": {
-            "width": 96,
-            "height": 116
-          },
-          "squares": {
-            "width": 2,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 116
-          },
-          "bottom_right": {
-            "x": 96,
-            "y": 232
-          }
-        },
         {
           "direction_name": "left",
           "size": {
@@ -70,6 +44,25 @@
           },
           "bottom_right": {
             "x": 96,
+            "y": 115
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 96,
+            "height": 116
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 96,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 192,
             "y": 115
           }
         },
@@ -93,7 +86,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 96,
             "height": 116
@@ -103,13 +96,37 @@
             "height": 1
           },
           "top_left": {
-            "x": 96,
-            "y": 0
+            "x": 0,
+            "y": 116
           },
           "bottom_right": {
-            "x": 192,
-            "y": 115
+            "x": 96,
+            "y": 232
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Orange_Apartment_Complex.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Orange_Apartment_Complex__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

@@ -3,7 +3,7 @@
   "jp_name": "そば処 吉田屋",
   "author": "YotioSoft",
   "summary": "年越しそばは吉田屋へ。年末だけ客が殺到するお店。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -14,46 +14,20 @@
     "low_density"
   ],
   "effects": {},
-  "maximum_capacity": 30,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "Soba_Restaurant.png",
-      "night_mask": "Soba_Restaurant__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left",
           "size": {
@@ -70,6 +44,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         },
@@ -93,7 +86,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 64,
             "height": 64
@@ -103,13 +96,37 @@
             "height": 1
           },
           "top_left": {
-            "x": 64,
-            "y": 0
+            "x": 0,
+            "y": 64
           },
           "bottom_right": {
-            "x": 128,
-            "y": 64
+            "x": 64,
+            "y": 128
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Soba_Restaurant.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Soba_Restaurant__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

@@ -81,6 +81,7 @@ int AddonType::countLayers() {
 
 void AddonType::addAddonDirectionStruct(AddonDirectionStruct arg_direction_struct) {
 	m_directions[arg_direction_struct.directionID] = arg_direction_struct;
+	m_addon_direction_ids << arg_direction_struct.directionID;
 }
 
 AddonDirectionStruct AddonType::getDirectionStruct(DirectionID::Type direction_id) {
@@ -89,6 +90,14 @@ AddonDirectionStruct AddonType::getDirectionStruct(DirectionID::Type direction_i
 
 map<DirectionID::Type, AddonDirectionStruct> AddonType::getDirectionStructs() {
 	return m_directions;
+}
+
+DirectionID::Type AddonType::getDirectionID(int num) {
+	return m_addon_direction_ids[num];
+}
+
+Array<DirectionID::Type> AddonType::getDirectionIDs() {
+	return m_addon_direction_ids;
 }
 
 void AddonType::m_make_all_textures() {
@@ -113,7 +122,7 @@ void AddonType::m_make_all_textures() {
 				
 			// 重ね合わせ
 			Image layer_image = layer.getImage();
-			m_over_write(updated_image, layer_image, layer.getLayerTypes(), AllLayerTypes[i]);
+			m_over_write(updated_image, layer_image, layer, AllLayerTypes[i]);
 			count ++;
 		}
 		
@@ -131,22 +140,19 @@ bool AddonType::m_is_there(DirectionID::Type direction_id) {
 	return true;
 }
 
-void AddonType::m_over_write(Image &to, Image &from, Array<LayerType::Type> layer_types, LayerType::Type making_type) {
+void AddonType::m_over_write(Image &to, Image &from, AddonLayer layer, LayerType::Type making_type) {
 	for (int y=0; y<from.size().y; y++) {
 		for (int x=0; x<from.size().x; x++) {
-			if (from.getPixel_Clamp(x, y).r != transparentColor.r ||
-				from.getPixel_Clamp(x, y).g != transparentColor.g ||
-				from.getPixel_Clamp(x, y).b != transparentColor.b) {
-				
+			if (from.getPixel_Clamp(x, y) != layer.getTransparentColor()) {
 				to[y][x] = from[y][x];
 			}
 		}
 	}
 	
-	if (layer_types.count(LayerType::Normal) > 0 && m_is_evening(making_type)) {		// 夕方用
+	if (layer.getLayerTypes().count(LayerType::Normal) > 0 && m_is_evening(making_type)) {		// 夕方用
 		blendColorAndImage(to, Color(255, 135, 0, 50));
 	}
-	else if (layer_types.count(LayerType::Normal) > 0 && m_is_night(making_type)) {		// 夜間用
+	else if (layer.getLayerTypes().count(LayerType::Normal) > 0 && m_is_night(making_type)) {		// 夜間用
 		blendColorAndImage(to, Color(0, 0, 0, 200));
 	}
 }

@@ -23,6 +23,10 @@ public:
 	
 	// m_layer_typesを返す
 	Array<LayerType::Type> getLayerTypes();
+	Array<LayerType::Type> getLayerTypesInit();
+	
+	// 透過色を返す
+	Color getTransparentColor();
 	
 	// 指定したLayerType::Typeがレイヤ出現の条件に合うか？
 	bool isEnable(LayerType::Type layer_type);
@@ -39,6 +43,9 @@ private:
 	
 	// レイヤ画像のファイルパス
 	String m_image_path;
+	
+	// 透過色
+	Color m_transparent_color;
 	
 	// レイヤのタイプ
 	Array<LayerType::Type> m_layer_types;

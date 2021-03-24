@@ -3,7 +3,7 @@
   "jp_name": "木がある木の遊歩道",
   "author": "YotioSoft",
   "summary": "木でつくられた街路樹付きの遊歩道です",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -14,7 +14,7 @@
     "promenade"
   ],
   "effects": {},
-  "maximum_capacity": 0,
+  "maximum_capacity": 99,
   "Use_types": [
     "default",
     "dead_end",
@@ -27,40 +27,13 @@
   ],
   "Types": [
     {
-      "type_name": "bridge",
-      "image": "Wooden_Promenade_bridge.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "under_construction",
       "direction_names": [
-        "width",
-        "depth"
+        "normal"
       ],
       "Directions": [
         {
-          "direction_name": "depth",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "width",
+          "direction_name": "normal",
           "size": {
             "width": 64,
             "height": 64
@@ -78,114 +51,26 @@
             "y": 64
           }
         }
-      ]
-    },
-    {
-      "type_name": "dead_end",
-      "image": "Wooden_Promenade_with_Tree_dead_end.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "left",
-        "top",
-        "bottom",
-        "right"
       ],
-      "Directions": [
+      "Layers": [
         {
-          "direction_name": "bottom",
-          "size": {
-            "width": 64,
-            "height": 64
+          "image": "Wooden_Promenade_with_Tree_under_construction.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
           },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "left",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     },
     {
       "type_name": "default",
-      "image": "Wooden_Promenade_with_Tree.png",
-      "night_mask": "Wooden_Promenade_with_Tree__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
-        "width",
-        "depth"
+        "depth",
+        "width"
       ],
       "Directions": [
         {
@@ -226,26 +111,81 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_with_Tree.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Wooden_Promenade_with_Tree__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
       ]
     },
     {
-      "type_name": "intersection_T",
-      "image": "Wooden_Promenade_with_Tree_intersection_T.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "turn",
       "direction_names": [
-        "left-top-bottom",
-        "left-right-top",
-        "left-right-bottom",
-        "right-top-bottom"
+        "left-top",
+        "right-top",
+        "left-bottom",
+        "right-bottom"
       ],
       "Directions": [
         {
-          "direction_name": "left-right-bottom",
+          "direction_name": "left-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-bottom",
           "size": {
             "width": 64,
             "height": 64
@@ -263,6 +203,49 @@
             "y": 128
           }
         },
+        {
+          "direction_name": "right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_with_Tree_turn.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "intersection_T",
+      "direction_names": [
+        "left-right-top",
+        "left-top-bottom",
+        "left-right-bottom",
+        "right-top-bottom"
+      ],
+      "Directions": [
         {
           "direction_name": "left-right-top",
           "size": {
@@ -302,6 +285,25 @@
           }
         },
         {
+          "direction_name": "left-right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
           "direction_name": "right-top-bottom",
           "size": {
             "width": 64,
@@ -320,17 +322,23 @@
             "y": 128
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_with_Tree_intersection_T.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
       ]
     },
     {
       "type_name": "intersection_cross",
-      "image": "Wooden_Promenade_with_Tree_intersection_cross.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "normal"
       ],
@@ -354,20 +362,126 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_with_Tree_intersection_cross.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "dead_end",
+      "direction_names": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
+      "Directions": [
+        {
+          "direction_name": "left",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_with_Tree_dead_end.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
       ]
     },
     {
       "type_name": "train_crossing",
-      "image": "Wooden_Promenade_with_Tree_train_crossing.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
-        "width",
-        "depth"
+        "depth",
+        "width"
       ],
       "Directions": [
         {
@@ -408,117 +522,49 @@
             "y": 64
           }
         }
-      ]
-    },
-    {
-      "type_name": "turn",
-      "image": "Wooden_Promenade_with_Tree_turn.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "left-top",
-        "right-top",
-        "left-bottom",
-        "right-bottom"
       ],
-      "Directions": [
+      "Layers": [
         {
-          "direction_name": "left-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
+          "image": "Wooden_Promenade_with_Tree_train_crossing.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
           },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "left-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "right-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     },
     {
-      "type_name": "under_construction",
-      "image": "Wooden_Promenade_with_Tree_under_construction.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "bridge",
       "direction_names": [
-        "normal"
+        "depth",
+        "width"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "depth",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "width",
           "size": {
             "width": 64,
             "height": 64
@@ -535,6 +581,19 @@
             "x": 64,
             "y": 64
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Wooden_Promenade_bridge.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     }

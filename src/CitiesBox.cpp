@@ -10,7 +10,7 @@
 #include "CitiesBox.hpp"
 
 void CitiesBox() {
-	Window::SetTitle(U"Cities Box.cpp");
+	Window::SetTitle(TITLE);
 	specific::chdir("./Cities-Box.app/Contents/Resources/assets");
 	
 	Window::SetStyle(WindowStyle::Sizable);

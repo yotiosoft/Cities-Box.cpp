@@ -43,8 +43,9 @@ public:
 	AddonDirectionStruct getDirectionStruct(DirectionID::Type direction_id);
 	map<DirectionID::Type, AddonDirectionStruct> getDirectionStructs();
 	
-	Array<DirectionID::Type> directionNames;	// typeに含まれる方向
-	RGBstruct transparentColor;		// 透過色のRGB値
+	// AddonDirectionIDsを取得
+	DirectionID::Type getDirectionID(int num);
+	Array<DirectionID::Type> getDirectionIDs();
 	
 private:
 	/* プライベート関数 */
@@ -58,13 +59,16 @@ private:
 	bool m_is_there(DirectionID::Type direction_id);
 	
 	// レイヤの重ね合わせ
-	void m_over_write(Image& to, Image& from, Array<LayerType::Type> layer_types, LayerType::Type making_type);
+	void m_over_write(Image& to, Image& from, AddonLayer layer, LayerType::Type making_type);
 	
 	// 指定したLayerTypeが夕方に該当するか？
 	bool m_is_evening(LayerType::Type layer_type);
 	
 	// 指定したLayerTypeが夜間に該当するか？
 	bool m_is_night(LayerType::Type layer_type);
+	
+	// DirectionIDs
+	Array<DirectionID::Type> m_addon_direction_ids;
 	
 	// デフォルトレイヤの取得
 	LayerType::Type m_get_default_layer(LayerType::Type layer_type);

@@ -126,6 +126,7 @@ namespace Weather {
 // レイヤのタイプ
 namespace LayerType {
 	enum Type {
+		Disabled			= -2,	// 無効
 		Ground				= -1,	// 地面
 		
 		Normal				= 0,	// 常時表示される部分

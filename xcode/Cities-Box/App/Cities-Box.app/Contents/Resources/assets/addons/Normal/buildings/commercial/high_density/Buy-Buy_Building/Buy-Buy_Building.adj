@@ -3,7 +3,7 @@
   "jp_name": "買え買えビル",
   "author": "YotioSoft",
   "summary": "ひやかし客お断りの商業ビル。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -19,46 +19,20 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 300,
+  "maximum_capacity": 115,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "Buy-Buy_Building.png",
-      "night_mask": "Buy-Buy_Building__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "bottom",
-          "size": {
-            "width": 96,
-            "height": 125
-          },
-          "squares": {
-            "width": 2,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 125
-          },
-          "bottom_right": {
-            "x": 96,
-            "y": 250
-          }
-        },
         {
           "direction_name": "left",
           "size": {
@@ -75,6 +49,25 @@
           },
           "bottom_right": {
             "x": 96,
+            "y": 124
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 96,
+            "height": 125
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 96,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 192,
             "y": 124
           }
         },
@@ -98,7 +91,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 96,
             "height": 125
@@ -108,13 +101,37 @@
             "height": 1
           },
           "top_left": {
-            "x": 96,
-            "y": 0
+            "x": 0,
+            "y": 125
           },
           "bottom_right": {
-            "x": 192,
-            "y": 124
+            "x": 96,
+            "y": 250
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Buy-Buy_Building.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Buy-Buy_Building__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

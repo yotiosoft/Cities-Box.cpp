@@ -206,7 +206,6 @@
 			children = (
 				4BEA956F26098CDB008B4F3A /* Enums.hpp */,
 				4BEA957126098CDB008B4F3A /* Header.hpp */,
-				4BEA957226098CDB008B4F3A /* OtherFunctions.cpp */,
 				4BEA957026098CDB008B4F3A /* Structs.hpp */,
 				4BAAAEE426090DB6000B9E51 /* Specific.cpp */,
 				4BAAAEE326090DB6000B9E51 /* Specific.hpp */,
@@ -234,6 +233,7 @@
 				4BAAAEB126090BF2000B9E51 /* ImagesStruct.hpp */,
 				4BAAAEAD26090BF2000B9E51 /* Menu.cpp */,
 				4BAAAEB526090BF2000B9E51 /* Menu.hpp */,
+				4BEA957226098CDB008B4F3A /* OtherFunctions.cpp */,
 				4BAAAEC126090BF3000B9E51 /* OtherFunctions.hpp */,
 				4BAAAEBB26090BF3000B9E51 /* PulldownMenu.cpp */,
 				4BAAAEBF26090BF3000B9E51 /* PulldownMenu.hpp */,

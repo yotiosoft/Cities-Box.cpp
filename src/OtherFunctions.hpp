@@ -34,10 +34,15 @@ School::Type getSchool(int number);
 string stringXOR(const std::string &data, const std::string &key);
 
 TypeID::Type typeNameToTypeID(String type_name);
+String typeIDToTypeName(TypeID::Type type_id);
 DirectionID::Type directionNameToDirectionID(String direction_name);
+String directionIDToDirectionName(DirectionID::Type direction_id);
 Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
 LayerType::Type timeToLayerType(TimeStruct time);
+
+LayerType::Type layerNameToLayerType(String layer_name);
+String layerTypeToLayerName(LayerType::Type layer_type);
 
 void blendColorAndImage(Image& imageTemp, Color blendColor);
 

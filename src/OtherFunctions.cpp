@@ -231,29 +231,54 @@ TypeID::Type typeNameToTypeID(String type_name) {
 	return TypeID::Disabled;
 }
 
-DirectionID::Type directionNameToDirectionID(String direction_name) {
-	/*
-	 namespace DirectionID {
-		 enum Type {
-			 Normal			= 0,
-			 Left			= 1,
-			 Top				= 2,
-			 Right			= 3,
-			 Bottom			= 4,
-			 Depth			= 5,
-			 Width			= 6,
-			 LeftRightBottom	= 7,
-			 LeftRightTop	= 8,
-			 LeftTopBottom	= 9,
-			 RightTopBottom	= 10,
-			 LeftBottom		= 11,
-			 LeftTop			= 12,
-			 RightBottom		= 13,
-			 RightTop		= 14,
-		 };
-	 }
-	 */
+String typeIDToTypeName(TypeID::Type type_id) {
+	switch (type_id) {
+		case TypeID::Normal:
+			return U"normal";
+		case TypeID::UnderConstruction:
+			return U"under_construction";
+		case TypeID::Default:
+			return U"default";
+		case TypeID::Turn:
+			return U"turn";
+		case TypeID::IntersectionT:
+			return U"intersection_T";
+		case TypeID::IntersectionCross:
+			return U"intersection_cross";
+		case TypeID::DeadEnd:
+			return U"dead_end";
+		case TypeID::TrainCrossing:
+			return U"train_crossing";
+		case TypeID::Bridge:
+			return U"bridge";
+		case TypeID::TileAutumn:
+			return U"autumn";
+		case TypeID::TileSnow:
+			return U"snow";
+		case TypeID::WaterEstuary:
+			return U"estuary";
+		case TypeID::WaterIntersectionCrossWithoutOneCorner:
+			return U"intersection_cross_without_one_corner";
+		case TypeID::WaterIsolated:
+			return U"isolated";
+		case TypeID::RiverDeadEnd:
+			return U"river_dead_end";
+		case TypeID::RiverDefault:
+			return U"river_default";
+		case TypeID::RiverIntersectionT:
+			return U"river_intersection_T";
+		case TypeID::RiverIntersectionCross:
+			return U"river_intersection_cross";
+		case TypeID::RiverTurn:
+			return U"river_turn";
+		case TypeID::Disabled:
+			break;
+	}
 	
+	return U"disabled";
+}
+
+DirectionID::Type directionNameToDirectionID(String direction_name) {
 	if (direction_name == U"normal") {
 		return DirectionID::Normal;
 	}
@@ -311,6 +336,45 @@ Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name
 	return ret_array;
 }
 
+String directionIDToDirectionName(DirectionID::Type direction_id) {
+	switch (direction_id) {
+		case DirectionID::Normal:
+			return U"normal";
+		case DirectionID::Left:
+			return U"left";
+		case DirectionID::Top:
+			return U"top";
+		case DirectionID::Right:
+			return U"right";
+		case DirectionID::Bottom:
+			return U"bottom";
+		case DirectionID::Depth:
+			return U"depth";
+		case DirectionID::Width:
+			return U"width";
+		case DirectionID::LeftRightBottom:
+			return U"left-right-bottom";
+		case DirectionID::LeftRightTop:
+			return U"left-right-top";
+		case DirectionID::LeftTopBottom:
+			return U"left-top-bottom";
+		case DirectionID::RightTopBottom:
+			return U"right-top-bottom";
+		case DirectionID::LeftBottom:
+			return U"left-bottom";
+		case DirectionID::LeftTop:
+			return U"left-top";
+		case DirectionID::RightBottom:
+			return U"right-bottom";
+		case DirectionID::RightTop:
+			return U"right-top";
+		case DirectionID::Disabled:
+			break;
+	}
+	
+	return U"disabled";
+}
+
 LayerType::Type timeToLayerType(TimeStruct time) {
 	int layer_type_int = (int)LayerType::Normal;
 	
@@ -334,6 +398,100 @@ LayerType::Type timeToLayerType(TimeStruct time) {
 	}
 	
 	return (LayerType::Type)layer_type_int;
+}
+
+LayerType::Type layerNameToLayerType(String layer_name) {
+	if (layer_name == U"Ground") {
+		return LayerType::Ground;
+	}
+	if (layer_name == U"Normal") {
+		return LayerType::Normal;
+	}
+	if (layer_name == U"OnSpring") {
+		return LayerType::OnSpring;
+	}
+	if (layer_name == U"OnSummer") {
+		return LayerType::OnSummer;
+	}
+	if (layer_name == U"OnAutumn") {
+		return LayerType::OnAutumn;
+	}
+	if (layer_name == U"OnWinter") {
+		return LayerType::OnWinter;
+	}
+	if (layer_name == U"Evening") {
+		return LayerType::Evening;
+	}
+	if (layer_name == U"OnSpringEvening") {
+		return LayerType::OnSpringEvening;
+	}
+	if (layer_name == U"OnSummerEvening") {
+		return LayerType::OnSummerEvening;
+	}
+	if (layer_name == U"OnAutumnEvening") {
+		return LayerType::OnAutumnEvening;
+	}
+	if (layer_name == U"OnWinterEvening") {
+		return LayerType::OnWinterEvening;
+	}
+	if (layer_name == U"Night") {
+		return LayerType::Night;
+	}
+	if (layer_name == U"OnSpringNight") {
+		return LayerType::OnSpringNight;
+	}
+	if (layer_name == U"OnSummerNight") {
+		return LayerType::OnSummerNight;
+	}
+	if (layer_name == U"OnAutumnNight") {
+		return LayerType::OnAutumnNight;
+	}
+	if (layer_name == U"OnWinterNight") {
+		return LayerType::OnWinterNight;
+	}
+	
+	return LayerType::Disabled;
+}
+
+String layerTypeToLayerName(LayerType::Type layer_type) {
+	switch (layer_type) {
+		case LayerType::Ground:
+			return U"Ground";
+		case LayerType::Normal:
+			return U"Normal";
+		case LayerType::OnSpring:
+			return U"OnSpring";
+		case LayerType::OnSummer:
+			return U"OnSummer";
+		case LayerType::OnAutumn:
+			return U"OnAutumn";
+		case LayerType::OnWinter:
+			return U"OnWinter";
+		case LayerType::Evening:
+			return U"Evening";
+		case LayerType::OnSpringEvening:
+			return U"OnSpringEvening";
+		case LayerType::OnSummerEvening:
+			return U"OnSummerEvening";
+		case LayerType::OnAutumnEvening:
+			return U"OnAutumnEvening";
+		case LayerType::OnWinterEvening:
+			return U"OnWinterEvening";
+		case LayerType::Night:
+			return U"Night";
+		case LayerType::OnSpringNight:
+			return U"OnSpringNight";
+		case LayerType::OnSummerNight:
+			return U"OnSummerNight";
+		case LayerType::OnAutumnNight:
+			return U"OnAutumnNight";
+		case LayerType::OnWinterNight:
+			return U"OnWinterNight";
+		case LayerType::Disabled:
+			break;
+	}
+	
+	return U"disabled";
 }
 
 void blendColorAndImage(Image& imageTemp, Color blendColor) {

@@ -16,7 +16,7 @@
 class AddonLayer {
 public:
 	// コンストラクタ
-	AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_type);
+	AddonLayer(String arg_image_path, Color transparent_color, Array<LayerType::Type> arg_layer_type);
 	
 	// imageを返す
 	Image getImage();
@@ -30,9 +30,15 @@ public:
 	// 指定したLayerType::Typeそのものがm_layer_types_initに設定されているか？
 	bool isExists(LayerType::Type layer_type);
 	
+	// 画像パスを返す
+	String getImagePath();
+	
 private:
 	// レイヤ画像
 	Image m_image;
+	
+	// レイヤ画像のファイルパス
+	String m_image_path;
 	
 	// レイヤのタイプ
 	Array<LayerType::Type> m_layer_types;

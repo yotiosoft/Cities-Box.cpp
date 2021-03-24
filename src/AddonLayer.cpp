@@ -7,8 +7,13 @@
 
 #include "AddonLayer.hpp"
 
-AddonLayer::AddonLayer(Image arg_image, Array<LayerType::Type> arg_layer_types) {
-	m_image = arg_image;
+AddonLayer::AddonLayer(String arg_image_path, Color transparent_color, Array<LayerType::Type> arg_layer_types) {
+	m_image = Image(arg_image_path);
+	m_image_path = arg_image_path;
+	
+	// 透過色を透過させる
+	setAlphaColor(m_image, Color(transparent_color.r, transparent_color.g, transparent_color.b));
+	
 	m_layer_types_init = arg_layer_types;
 	m_layer_types = m_layer_types_init;
 	
@@ -69,4 +74,8 @@ bool AddonLayer::isExists(LayerType::Type layer_type) {
 	}
 	
 	return false;
+}
+
+String AddonLayer::getImagePath() {
+	return m_image_path;
 }

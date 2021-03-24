@@ -27,7 +27,11 @@ public:
 	// 暫定
 	Texture tempGetTexture(TimeStruct time);
 	
+	// レイヤのセット
 	void setLayers(Array<AddonLayer> arg_layers);
+	
+	// レイヤを返す
+	Array<AddonLayer>& getLayers();
 	
 	// レイヤ数のカウント
 	int countLayers();
@@ -37,6 +41,7 @@ public:
 	
 	// AddonDirectionsStructを取得
 	AddonDirectionStruct getDirectionStruct(DirectionID::Type direction_id);
+	map<DirectionID::Type, AddonDirectionStruct> getDirectionStructs();
 	
 	Array<DirectionID::Type> directionNames;	// typeに含まれる方向
 	RGBstruct transparentColor;		// 透過色のRGB値

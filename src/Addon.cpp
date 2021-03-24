@@ -39,16 +39,6 @@ bool Addon::m_get_types(String str, String searchElementName, Array<String>& ret
 	return false;
 }
 
-void Addon::m_set_alpha_color(Image& imageTemp, Color transparentRGB) {
-	for (int h=0; h<imageTemp.height(); h++) {
-		for (int w=0; w<imageTemp.width(); w++) {
-			if (imageTemp[h][w].r == transparentRGB.r && imageTemp[h][w].g == transparentRGB.g && imageTemp[h][w].b == transparentRGB.b) {
-				imageTemp[h][w].a = 0;
-			}
-		}
-	}
-}
-
 bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
 		//return m_load_adat(newFilePath, loadingAddonsSetName);
@@ -76,6 +66,8 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		return false;
 	}
 	
+	int version = addonData[U"version"].get<int>();
+	
 	m_addon_name = addonData[U"name"].getString();
 	m_addon_jp_name = addonData[U"jp_name"].getString();
 	
@@ -86,7 +78,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	
 	// アイコンを読み込み
 	Image iconImage(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_addon_icon);
-	m_set_alpha_color(iconImage, Color(0, 0, 0));
+	setAlphaColor(iconImage, Color(0, 0, 0));
 	m_icon_texture = Texture(iconImage);
 	
 	// カテゴリ
@@ -137,9 +129,15 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		
 		Array<AddonLayer> layers;
 		for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer Todo: 複数のレイヤに対応する
-			m_load_layers(layer_num, type, m_types[typeID], layers);
+			if (version <= 141) {
+				m_load_layers(layer_num, type, m_types[typeID], layers);
+			}
+			else {
+				
+			}
 		}
 		m_types[typeID].setLayers(layers);
+		converter();
 	}
 	
 	return true;
@@ -281,11 +279,6 @@ void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_ty
 	arg_addon_type.transparentColor.g = type[U"transparent_color.G"].get<int>();
 	arg_addon_type.transparentColor.b = type[U"transparent_color.B"].get<int>();
 	
-	// 画像を読み込んで
-	Image iTemp(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename);
-	// 透過色を透過させる
-	m_set_alpha_color(iTemp, Color(arg_addon_type.transparentColor.r, arg_addon_type.transparentColor.g, arg_addon_type.transparentColor.b));
-	
 	// AddonLayerを作成（暫定）
 	// Todo: 正式に対応する
 	Array<LayerType::Type> layer_types;
@@ -293,7 +286,9 @@ void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_ty
 		layer_types << LayerType::Normal;
 	if (layer_num == 1)
 		layer_types << LayerType::Night;
-	AddonLayer layer(iTemp, layer_types);
+	AddonLayer layer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_filename,
+					 Color(arg_addon_type.transparentColor.r, arg_addon_type.transparentColor.g, arg_addon_type.transparentColor.b),
+					 layer_types);
 	
 	/*
 	String night_mask_filename = type[U"night_mask"].getString();
@@ -306,4 +301,153 @@ void Addon::m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_ty
 	
 	// layerをlayersに追加
 	arg_layers << layer;
+}
+
+void Addon::converter() {
+	JSONWriter addonData;
+	
+	addonData.startObject();
+	{
+		addonData.key(U"name").write(m_addon_name);
+		addonData.key(U"jp_name").write(m_addon_jp_name);
+		
+		addonData.key(U"author").write(m_addon_author);
+		addonData.key(U"summary").write(m_addon_summary);
+		
+		addonData.key(U"version").write(RELEASE_NUMBER);
+		
+		addonData.key(U"Belong_addon_set_name").startArray();
+		{
+			for (auto belong = m_belong_addons_set_name.begin(); belong!= m_belong_addons_set_name.end() ; belong++) {
+				addonData.write(*belong);
+			}
+		}
+		addonData.endArray();
+		
+		addonData.key(U"icon").write(m_addon_icon);
+		
+		addonData.key(U"Categories").startArray();
+		{
+			for (auto categoryName = m_addon_categories.begin(); categoryName != m_addon_categories.end(); categoryName++) {
+				addonData.write(*categoryName);
+			}
+		}
+		addonData.endArray();
+		
+		addonData.key(U"effects").startObject();
+		{
+			for (auto e = m_effects.begin(); e != m_effects.end() ; e++) {
+				if (e->second.influence != 0) {
+					addonData.key(e->first).startObject();
+					{
+						addonData.key(U"influence").write(e->second.influence);
+						addonData.key(U"grid").write(e->second.grid);
+					}
+					addonData.endObject();
+				}
+			}
+		}
+		addonData.endObject();
+		
+		addonData.key(U"maximum_capacity").write(m_maximum_capacity);
+		
+		addonData.key(U"Use_types").startArray();
+		{
+			for (auto typeName = m_use_types.begin(); typeName != m_use_types.end() ; typeName++) {
+				addonData.write(*typeName);
+			}
+		}
+		addonData.endArray();
+		
+		addonData.key(U"Types").startArray();
+		{
+			for (auto type = m_types.begin(); type != m_types.end(); type++) {
+				addonData.startObject();
+				{
+					addonData.key(U"type_name").write(type->first);
+					
+					addonData.key(U"direction_names").startArray();
+					{
+						for (auto directionName = type->second.directionNames.begin(); directionName != type->second.directionNames.end(); directionName++) {
+							addonData.write(*directionName);
+						}
+					}
+					addonData.endArray();
+					
+					addonData.key(U"Directions").startArray();
+					{
+						map<DirectionID::Type, AddonDirectionStruct> direction_structs = type->second.getDirectionStructs();
+						for (auto direction = direction_structs.begin(); direction != direction_structs.end(); direction++) {
+							addonData.startObject();
+							{
+								addonData.key(U"direction_name").write(direction->first);
+								addonData.key(U"size").startObject();
+								{
+									addonData.key(U"width").write(direction->second.size.x);
+									addonData.key(U"height").write(direction->second.size.y);
+								}
+								addonData.endObject();
+								addonData.key(U"squares").startObject();
+								{
+									addonData.key(U"width").write(direction->second.requiredTiles.x);
+									addonData.key(U"height").write(direction->second.requiredTiles.y);
+								}
+								addonData.endObject();
+								addonData.key(U"top_left").startObject();
+								{
+									addonData.key(U"x").write(direction->second.topLeft.x);
+									addonData.key(U"y").write(direction->second.topLeft.y);
+								}
+								addonData.endObject();
+								addonData.key(U"bottom_right").startObject();
+								{
+									addonData.key(U"x").write(direction->second.bottomRight.x);
+									addonData.key(U"y").write(direction->second.bottomRight.y);
+								}
+								addonData.endObject();
+							}
+							addonData.endObject();
+						}
+						addonData.endArray();
+					}
+					
+					addonData.key(U"Layers").startArray();
+					{
+						Array<AddonLayer>& layers = type->second.getLayers();
+						for (auto layer = layers.begin(); layer != layers.end(); layer++) {
+							addonData.startObject();
+							{
+								addonData.key(U"image").write(layer->getImagePath());
+								
+								addonData.key(U"transparent_color").startObject();
+								{
+									addonData.key(U"R").write(type->second.transparentColor.r);
+									addonData.key(U"G").write(type->second.transparentColor.g);
+									addonData.key(U"B").write(type->second.transparentColor.b);
+								}
+								addonData.endObject();
+								
+								addonData.key(U"layer_types").startArray();
+								{
+									Array<LayerType::Type> layer_types = layer->getLayerTypes();
+									for (int layer_type_num = 0; layer_type_num < layer_types.size(); layer_type_num++) {
+										addonData.write(layer_types[layer_type_num]);
+									}
+								}
+								addonData.endArray();
+							}
+							addonData.endObject();
+						}
+						addonData.endArray();
+					}
+				}
+				addonData.endObject();
+			}
+		}
+		addonData.endArray();
+	}
+	addonData.endObject();
+	
+	cout << FileSystem::ParentPath(Unicode::Widen(m_addon_file_path.file_path))+FileSystem::BaseName(Unicode::Widen(m_addon_file_path.file_path))+U".adj" << endl;
+	addonData.save(FileSystem::ParentPath(Unicode::Widen(m_addon_file_path.file_path))+FileSystem::BaseName(Unicode::Widen(m_addon_file_path.file_path))+U".adj");
 }

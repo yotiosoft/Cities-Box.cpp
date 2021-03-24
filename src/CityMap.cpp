@@ -771,6 +771,7 @@ void CityMap::loadAddons(String addonSetName) {
 	Array<FileStruct> addonsPath = specific::getAllFilesName("./addons", "adj");
 	
 	for (int i=0; i<addonsPath.size(); i++) {
+		cout << "from: " << addonsPath[i].file_path << endl;
 		FileStruct fileTemp = addonsPath[i];
 		
 		Addon* loadingAddon = new Addon();

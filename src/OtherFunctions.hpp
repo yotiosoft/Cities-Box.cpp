@@ -41,4 +41,6 @@ LayerType::Type timeToLayerType(TimeStruct time);
 
 void blendColorAndImage(Image& imageTemp, Color blendColor);
 
+void setAlphaColor(Image& imageTemp, Color transparentRGB);
+
 #endif /* OtherFunctions_hpp */

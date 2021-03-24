@@ -17,7 +17,7 @@
 #include "Structs.hpp"
 
 #define CHIP_SIZE		64
-#define RELEASE_NUMBER	141
+#define RELEASE_NUMBER	142
 #define AROUND_TILES	4
 #define DIRECTIONS		15
 #define LAYER_TYPES		15

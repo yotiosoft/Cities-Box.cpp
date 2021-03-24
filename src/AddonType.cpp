@@ -71,6 +71,10 @@ void AddonType::setLayers(Array<AddonLayer> layers) {
 	m_make_all_textures();
 }
 
+Array<AddonLayer>& AddonType::getLayers() {
+	return m_layers;
+}
+
 int AddonType::countLayers() {
 	return (int)m_layers.size();
 }
@@ -81,6 +85,10 @@ void AddonType::addAddonDirectionStruct(AddonDirectionStruct arg_direction_struc
 
 AddonDirectionStruct AddonType::getDirectionStruct(DirectionID::Type direction_id) {
 	return m_directions[direction_id];
+}
+
+map<DirectionID::Type, AddonDirectionStruct> AddonType::getDirectionStructs() {
+	return m_directions;
 }
 
 void AddonType::m_make_all_textures() {

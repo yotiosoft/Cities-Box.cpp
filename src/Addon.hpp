@@ -99,9 +99,6 @@ protected:
 	bool m_get_element(String str, String searchElementName, int& ret);
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
 	
-	// 画像の加工関連
-	void m_set_alpha_color(Image& imageTemp, Color transparentRGB);
-	
 	// r141以前のアドオンファイルからAddonLayerの読み込み
 	void m_load_layers(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers);
 	

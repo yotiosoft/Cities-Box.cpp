@@ -363,3 +363,13 @@ void blendColorAndImage(Image& imageTemp, Color blendColor) {
 		}
 	}
 }
+
+void setAlphaColor(Image& imageTemp, Color transparentRGB) {
+	for (int h=0; h<imageTemp.height(); h++) {
+		for (int w=0; w<imageTemp.width(); w++) {
+			if (imageTemp[h][w].r == transparentRGB.r && imageTemp[h][w].g == transparentRGB.g && imageTemp[h][w].b == transparentRGB.b) {
+				imageTemp[h][w].a = 0;
+			}
+		}
+	}
+}

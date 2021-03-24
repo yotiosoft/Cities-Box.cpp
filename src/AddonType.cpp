@@ -112,7 +112,6 @@ void AddonType::m_make_all_textures() {
 		Image updated_image(m_layers[0].getImage().size());
 		
 		// レイヤを重ね合わせ
-		int count = 0;
 		for(auto iter = begin(m_layers); iter != end(m_layers); ++iter) {
 			auto& layer = *iter;
 			
@@ -123,7 +122,6 @@ void AddonType::m_make_all_textures() {
 			// 重ね合わせ
 			Image layer_image = layer.getImage();
 			m_over_write(updated_image, layer_image, layer, AllLayerTypes[i]);
-			count ++;
 		}
 		
 		// テクスチャに反映
@@ -143,7 +141,9 @@ bool AddonType::m_is_there(DirectionID::Type direction_id) {
 void AddonType::m_over_write(Image &to, Image &from, AddonLayer layer, LayerType::Type making_type) {
 	for (int y=0; y<from.size().y; y++) {
 		for (int x=0; x<from.size().x; x++) {
-			if (from[y][x] != layer.getTransparentColor()) {
+			if (from[y][x].r != layer.getTransparentColor().r ||
+				from[y][x].g != layer.getTransparentColor().g ||
+				from[y][x].b != layer.getTransparentColor().b) {
 				to[y][x] = from[y][x];
 			}
 		}

@@ -3,7 +3,6 @@ D:\git\Cities-Box.cpp\src\AddonType.cpp(17,116): warning C4100: 'coordinate': �
 D:\git\Cities-Box.cpp\src\AddonType.cpp(17,89): warning C4100: 'position': 引数は関数の本体部で 1 度も参照されません。
 D:\git\Cities-Box.cpp\src\AddonType.cpp(17,60): warning C4100: 'direction_id': 引数は関数の本体部で 1 度も参照されません。
 D:\git\Cities-Box.cpp\src\AddonType.cpp(17,33): warning C4100: 'time': 引数は関数の本体部で 1 度も参照されません。
-     ライブラリ D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).lib とオブジェクト D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exp を作成中
   Cities-Box.cpp.vcxproj -> D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
   D:\git\Cities-Box.cpp\vs\Cities-Box.cpp\Intermediate\Cities-Box.cpp\Debug\Cities-Box.cpp(debug).exe
   1 個のファイルをコピーしました

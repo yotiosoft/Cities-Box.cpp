@@ -3,7 +3,7 @@
   "jp_name": "24階建ての高層オフィス",
   "author": "YotioSoft",
   "summary": "24階建てのオフィスです。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -18,46 +18,20 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 1000,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "24-storied_Office.png",
-      "night_mask": "24-storied_Office__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "bottom",
-          "size": {
-            "width": 64,
-            "height": 162
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 162
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 324
-          }
-        },
         {
           "direction_name": "left",
           "size": {
@@ -74,6 +48,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 162
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 162
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 162
           }
         },
@@ -97,7 +90,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 64,
             "height": 162
@@ -107,13 +100,37 @@
             "height": 1
           },
           "top_left": {
-            "x": 64,
-            "y": 0
+            "x": 0,
+            "y": 162
           },
           "bottom_right": {
-            "x": 128,
-            "y": 162
+            "x": 64,
+            "y": 324
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "24-storied_Office.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "24-storied_Office__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

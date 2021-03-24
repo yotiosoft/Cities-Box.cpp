@@ -143,7 +143,7 @@ bool AddonType::m_is_there(DirectionID::Type direction_id) {
 void AddonType::m_over_write(Image &to, Image &from, AddonLayer layer, LayerType::Type making_type) {
 	for (int y=0; y<from.size().y; y++) {
 		for (int x=0; x<from.size().x; x++) {
-			if (from.getPixel_Clamp(x, y) != layer.getTransparentColor()) {
+			if (from[y][x] != layer.getTransparentColor()) {
 				to[y][x] = from[y][x];
 			}
 		}

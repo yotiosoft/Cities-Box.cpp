@@ -3,7 +3,7 @@
   "jp_name": "おしゃれな水路",
   "author": "",
   "summary": "この水路を敷設すると、川沿いには歩道が、海沿いにはビーチが作られます。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -14,7 +14,7 @@
     "waterway"
   ],
   "effects": {},
-  "maximum_capacity": 97,
+  "maximum_capacity": 0,
   "Use_types": [
     "turn",
     "intersection_T",
@@ -31,202 +31,7 @@
   ],
   "Types": [
     {
-      "type_name": "estuary",
-      "image": "Bearch_and_Walkway_estuary.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "left-top-bottom",
-        "left-right-top",
-        "left-right-bottom",
-        "right-top-bottom"
-      ],
-      "Directions": [
-        {
-          "direction_name": "left-right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "left-right-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "left-top-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right-top-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        }
-      ]
-    },
-    {
-      "type_name": "intersection_T",
-      "image": "Bearch_and_Walkway_intersection_T.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "left-top-bottom",
-        "left-right-top",
-        "left-right-bottom",
-        "right-top-bottom"
-      ],
-      "Directions": [
-        {
-          "direction_name": "left-right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "left-right-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "left-top-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right-top-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        }
-      ]
-    },
-    {
-      "type_name": "intersection_cross",
-      "image": "Bearch_and_Walkway_intersection_cross.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "under_construction",
       "direction_names": [
         "normal"
       ],
@@ -250,17 +55,23 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_uc.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
       ]
     },
     {
-      "type_name": "intersection_cross_without_one_corner",
-      "image": "Bearch_and_Walkway_intersection_cross_without_one_corner.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "turn",
       "direction_names": [
         "left-top",
         "right-top",
@@ -268,25 +79,6 @@
         "right-bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "left-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left-top",
           "size": {
@@ -307,25 +99,6 @@
           }
         },
         {
-          "direction_name": "right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
           "direction_name": "right-top",
           "size": {
             "width": 64,
@@ -343,18 +116,162 @@
             "x": 128,
             "y": 64
           }
+        },
+        {
+          "direction_name": "left-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_turn.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     },
     {
-      "type_name": "isolated",
-      "image": "Bearch_and_Walkway_isolated.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "intersection_T",
+      "direction_names": [
+        "left-right-top",
+        "left-top-bottom",
+        "left-right-bottom",
+        "right-top-bottom"
+      ],
+      "Directions": [
+        {
+          "direction_name": "left-right-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-top-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "right-top-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_intersection_T.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "intersection_cross",
       "direction_names": [
         "normal"
       ],
@@ -378,26 +295,70 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_intersection_cross.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
       ]
     },
     {
-      "type_name": "river_dead_end",
-      "image": "Bearch_and_Walkway_River_dead_end.png",
-      "night_mask": "Bearch_and_Walkway_River_dead_end__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
+      "type_name": "estuary",
       "direction_names": [
-        "left",
-        "top",
-        "bottom",
-        "right"
+        "left-right-top",
+        "left-top-bottom",
+        "left-right-bottom",
+        "right-top-bottom"
       ],
       "Directions": [
         {
-          "direction_name": "bottom",
+          "direction_name": "left-right-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-top-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-right-bottom",
           "size": {
             "width": 64,
             "height": 64
@@ -416,6 +377,189 @@
           }
         },
         {
+          "direction_name": "right-top-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_estuary.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "intersection_cross_without_one_corner",
+      "direction_names": [
+        "left-top",
+        "right-top",
+        "left-bottom",
+        "right-bottom"
+      ],
+      "Directions": [
+        {
+          "direction_name": "left-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "right-top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "left-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_intersection_cross_without_one_corner.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "isolated",
+      "direction_names": [
+        "normal"
+      ],
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_isolated.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "river_dead_end",
+      "direction_names": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
+      "Directions": [
+        {
           "direction_name": "left",
           "size": {
             "width": 64,
@@ -431,6 +575,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         },
@@ -454,7 +617,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 64,
             "height": 64
@@ -464,28 +627,45 @@
             "height": 1
           },
           "top_left": {
-            "x": 64,
-            "y": 0
+            "x": 0,
+            "y": 64
           },
           "bottom_right": {
-            "x": 128,
-            "y": 64
+            "x": 64,
+            "y": 128
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_River_dead_end.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Bearch_and_Walkway_River_dead_end__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     },
     {
       "type_name": "river_default",
-      "image": "Bearch_and_Walkway_River.png",
-      "night_mask": "Bearch_and_Walkway_River__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
-        "width",
-        "depth"
+        "depth",
+        "width"
       ],
       "Directions": [
         {
@@ -526,43 +706,41 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_River.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Bearch_and_Walkway_River__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
       ]
     },
     {
       "type_name": "river_intersection_T",
-      "image": "Bearch_and_Walkway_River_intersection_T.png",
-      "night_mask": "Bearch_and_Walkway_River_intersection_T__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
-        "left-top-bottom",
         "left-right-top",
+        "left-top-bottom",
         "left-right-bottom",
         "right-top-bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "left-right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left-right-top",
           "size": {
@@ -602,6 +780,25 @@
           }
         },
         {
+          "direction_name": "left-right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
           "direction_name": "right-top-bottom",
           "size": {
             "width": 64,
@@ -620,17 +817,34 @@
             "y": 128
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_River_intersection_T.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Bearch_and_Walkway_River_intersection_T__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
       ]
     },
     {
       "type_name": "river_intersection_cross",
-      "image": "Bearch_and_Walkway_River_intersection_cross.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "normal"
       ],
@@ -653,18 +867,24 @@
             "x": 64,
             "y": 64
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_River_intersection_cross.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     },
     {
       "type_name": "river_turn",
-      "image": "Bearch_and_Walkway_River_turn.png",
-      "night_mask": "Bearch_and_Walkway_River_turn__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left-top",
         "right-top",
@@ -672,25 +892,6 @@
         "right-bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "left-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left-top",
           "size": {
@@ -711,25 +912,6 @@
           }
         },
         {
-          "direction_name": "right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
           "direction_name": "right-top",
           "size": {
             "width": 64,
@@ -747,25 +929,7 @@
             "x": 128,
             "y": 64
           }
-        }
-      ]
-    },
-    {
-      "type_name": "turn",
-      "image": "Bearch_and_Walkway_turn.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "left-top",
-        "right-top",
-        "left-bottom",
-        "right-bottom"
-      ],
-      "Directions": [
+        },
         {
           "direction_name": "left-bottom",
           "size": {
@@ -786,25 +950,6 @@
           }
         },
         {
-          "direction_name": "left-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
           "direction_name": "right-bottom",
           "size": {
             "width": 64,
@@ -822,59 +967,30 @@
             "x": 64,
             "y": 128
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Bearch_and_Walkway_River_turn.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         },
         {
-          "direction_name": "right-top",
-          "size": {
-            "width": 64,
-            "height": 64
+          "image": "Bearch_and_Walkway_River_turn__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
           },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        }
-      ]
-    },
-    {
-      "type_name": "under_construction",
-      "image": "Bearch_and_Walkway_uc.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "normal"
-      ],
-      "Directions": [
-        {
-          "direction_name": "normal",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

@@ -3,7 +3,7 @@
   "jp_name": "現代風市役所",
   "author": "YotioSoft",
   "summary": "屋上庭園がある、ガラス張りの日当たりの良い市役所。市役所は市民に市政情報を提供し、市民の安定した暮らしを守ります。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -19,46 +19,20 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 100,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "Modern_City_Hall.png",
-      "night_mask": "Modern_City_Hall__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left",
         "top",
-        "bottom",
-        "right"
+        "right",
+        "bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left",
           "size": {
@@ -75,6 +49,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "top",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         },
@@ -98,7 +91,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "bottom",
           "size": {
             "width": 64,
             "height": 64
@@ -108,13 +101,37 @@
             "height": 1
           },
           "top_left": {
-            "x": 64,
-            "y": 0
+            "x": 0,
+            "y": 64
           },
           "bottom_right": {
-            "x": 128,
-            "y": 64
+            "x": 64,
+            "y": 128
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Modern_City_Hall.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Modern_City_Hall__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

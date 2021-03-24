@@ -3,7 +3,7 @@
   "jp_name": "L字デパート",
   "author": "YotioSoft",
   "summary": "街角によくありそうなデパート。",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -19,20 +19,13 @@
       "grid": 8
     }
   },
-  "maximum_capacity": 400,
+  "maximum_capacity": 0,
   "Use_types": [
     "normal"
   ],
   "Types": [
     {
       "type_name": "normal",
-      "image": "L-Department_Store.png",
-      "night_mask": "L-Department_Store__night_mask.png",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "left-top",
         "right-top",
@@ -40,25 +33,6 @@
         "right-bottom"
       ],
       "Directions": [
-        {
-          "direction_name": "left-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
         {
           "direction_name": "left-top",
           "size": {
@@ -79,25 +53,6 @@
           }
         },
         {
-          "direction_name": "right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 128
-          }
-        },
-        {
           "direction_name": "right-top",
           "size": {
             "width": 64,
@@ -115,6 +70,68 @@
             "x": 128,
             "y": 64
           }
+        },
+        {
+          "direction_name": "left-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "right-bottom",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "L-Department_Store.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "L-Department_Store__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
         }
       ]
     }

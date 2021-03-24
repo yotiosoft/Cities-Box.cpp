@@ -3,7 +3,7 @@
   "jp_name": "更地",
   "author": "",
   "summary": "草生える",
-  "version": 141,
+  "version": 142,
   "Belong_addon_set_name": [
     "Normal"
   ],
@@ -21,48 +21,7 @@
   ],
   "Types": [
     {
-      "type_name": "autumn",
-      "image": "tile_greenfield.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
-      "direction_names": [
-        "normal"
-      ],
-      "Directions": [
-        {
-          "direction_name": "normal",
-          "size": {
-            "width": 64,
-            "height": 32
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 96
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        }
-      ]
-    },
-    {
       "type_name": "normal",
-      "image": "tile_greenfield.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "normal"
       ],
@@ -86,17 +45,63 @@
             "y": 64
           }
         }
+      ],
+      "Layers": [
+        {
+          "image": "tile_greenfield.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "type_name": "autumn",
+      "direction_names": [
+        "normal"
+      ],
+      "Directions": [
+        {
+          "direction_name": "normal",
+          "size": {
+            "width": 64,
+            "height": 32
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 96
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "tile_greenfield.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
       ]
     },
     {
       "type_name": "snow",
-      "image": "tile_greenfield.png",
-      "night_mask": "",
-      "transparent_color": {
-        "R": 0,
-        "G": 0,
-        "B": 0
-      },
       "direction_names": [
         "normal"
       ],
@@ -119,6 +124,19 @@
             "x": 64,
             "y": 192
           }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "tile_greenfield.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
         }
       ]
     }

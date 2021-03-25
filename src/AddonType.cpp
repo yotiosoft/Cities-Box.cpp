@@ -30,10 +30,10 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 	
 	// オブジェクトの描画
 	if (add_color.a > 0) {
-		tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, add_color);
+		getTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, add_color);
 	}
 	else {
-		tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+		getTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
 	}
 }
 
@@ -43,7 +43,7 @@ PositionStruct AddonType::getPosition(DirectionID::Type directionID, PositionStr
 	return position;
 }
 
-Texture AddonType::tempGetTexture(TimeStruct time) {
+Texture AddonType::getTexture(TimeStruct time) {
 	if (m_before_layer_type != timeToLayerType(time)) {
 		m_before_layer_type = timeToLayerType(time);
 		

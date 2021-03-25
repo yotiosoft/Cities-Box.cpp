@@ -79,9 +79,6 @@ public:
 	// 使用するタイルを取得
 	CoordinateStruct getUseTiles(TypeID::Type typeID, DirectionID::Type directionID);
 	
-	// 最終的に表示する座標を取得
-	PositionStruct getPosition(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount);
-	
 	// アドオンを描画する
 	void draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color addColor, TimeStruct time);
 	

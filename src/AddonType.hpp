@@ -28,7 +28,7 @@ public:
 	PositionStruct getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, CoordinateStruct tilesCount);
 	
 	// 暫定
-	Texture tempGetTexture(TimeStruct time);
+	Texture getTexture(TimeStruct time);
 	
 	// レイヤのセット
 	void setLayers(Array<AddonLayer> arg_layers);

@@ -635,7 +635,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	
 	std::string mapXOR((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
 	string mapDataStr = stringXOR(mapXOR, "citiesboxmapdatafilexor");
-	
+	saveTextFile("./data/map_temp.cbj_unxor", mapDataStr);
 	saveTextFile("./data/map_temp.cbj_temp", mapDataStr);
 	
 	JSONReader mapData(U"./data/map_temp.cbj_temp");
@@ -713,6 +713,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			
 			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
 			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
+			
+			//m_objects << Object(m_addons[jAddons[U"name"].getString()], <#TypeID::Type arg_type_id#>, <#DirectionID::Type arg_direction_id#>, <#PositionStruct arg_start_position#>, <#Size arg_size#>)
 			
 			m_tiles[y][x].serialNumber = tile[U"serial_number"].get<int>();
 			

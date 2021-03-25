@@ -10,11 +10,6 @@
 
 #include <Specific.hpp>
 
-class Object{
-public:
-int a;
-};
-
 class Tile {
 public:
 	// originalName

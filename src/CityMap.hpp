@@ -14,6 +14,7 @@
 #include "Addon.hpp"
 #include "OtherFunctions.hpp"
 #include "Tile.hpp"
+#include "Object.hpp"
 
 
 class CityMap {
@@ -142,6 +143,8 @@ private:
 	bool m_loading_complete;
 	
 	map<String, Addon*> m_addons;
+	
+	Array<Object> m_objects;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

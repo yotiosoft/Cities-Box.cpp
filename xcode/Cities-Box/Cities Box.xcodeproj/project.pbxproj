@@ -58,6 +58,7 @@
 		4BAAAEE526090DB6000B9E51 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEE426090DB6000B9E51 /* Specific.cpp */; };
 		4BEA956D26098921008B4F3A /* CitiesBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA956B26098921008B4F3A /* CitiesBox.cpp */; };
 		4BEA957326098CDB008B4F3A /* OtherFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA957226098CDB008B4F3A /* OtherFunctions.cpp */; };
+		4BEA9580260CF601008B4F3A /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA957E260CF601008B4F3A /* Object.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +142,8 @@
 		4BEA957026098CDB008B4F3A /* Structs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Structs.hpp; path = ../../../src/Structs.hpp; sourceTree = "<group>"; };
 		4BEA957126098CDB008B4F3A /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Header.hpp; path = ../../../src/Header.hpp; sourceTree = "<group>"; };
 		4BEA957226098CDB008B4F3A /* OtherFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OtherFunctions.cpp; path = ../../../src/OtherFunctions.cpp; sourceTree = "<group>"; };
+		4BEA957E260CF601008B4F3A /* Object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = ../../../src/Object.cpp; sourceTree = "<group>"; };
+		4BEA957F260CF601008B4F3A /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Object.hpp; path = ../../../src/Object.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +255,8 @@
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4BEA956B26098921008B4F3A /* CitiesBox.cpp */,
 				4BEA956C26098921008B4F3A /* CitiesBox.hpp */,
+				4BEA957E260CF601008B4F3A /* Object.cpp */,
+				4BEA957F260CF601008B4F3A /* Object.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */,
 				4BAAAEDA26090BF4000B9E51 /* Images.cpp in Sources */,
 				4BAAAED126090BF4000B9E51 /* DetailsBar.cpp in Sources */,
+				4BEA9580260CF601008B4F3A /* Object.cpp in Sources */,
 				4BAAAED926090BF4000B9E51 /* TitleMenu.cpp in Sources */,
 				4BAAAED326090BF4000B9E51 /* Menu.cpp in Sources */,
 				4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */,

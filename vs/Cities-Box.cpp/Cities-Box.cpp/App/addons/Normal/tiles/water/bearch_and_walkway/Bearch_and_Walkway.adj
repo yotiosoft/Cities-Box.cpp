@@ -14,7 +14,7 @@
     "waterway"
   ],
   "effects": {},
-  "maximum_capacity": 0,
+  "maximum_capacity": 116,
   "Use_types": [
     "turn",
     "intersection_T",
@@ -498,7 +498,7 @@
       ],
       "Layers": [
         {
-          "image": "Bearch_and_Walkway_intersection_cross_without_one_corner.png",
+          "image": "Bearch_and_Walkway_intersection_cross_woc.png",
           "transparent_color": {
             "R": 0,
             "G": 0,

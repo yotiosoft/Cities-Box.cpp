@@ -19,7 +19,7 @@
       "grid": 8
     }
   },
-  "maximum_capacity": 0,
+  "maximum_capacity": 81922,
   "Use_types": [
     "default",
     "dead_end",

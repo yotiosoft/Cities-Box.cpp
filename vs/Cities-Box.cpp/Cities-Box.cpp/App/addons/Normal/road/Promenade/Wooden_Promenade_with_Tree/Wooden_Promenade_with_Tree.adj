@@ -14,7 +14,7 @@
     "promenade"
   ],
   "effects": {},
-  "maximum_capacity": 0,
+  "maximum_capacity": 99,
   "Use_types": [
     "default",
     "dead_end",

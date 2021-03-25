@@ -14,7 +14,7 @@
     "high_density"
   ],
   "effects": {},
-  "maximum_capacity": 0,
+  "maximum_capacity": 110,
   "Use_types": [
     "normal"
   ],

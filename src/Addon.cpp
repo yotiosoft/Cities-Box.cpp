@@ -242,45 +242,9 @@ PositionStruct Addon::getPosition(TypeID::Type typeID, DirectionID::Type directi
 	return position;
 }
 
-void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color* addColor,
+void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color addColor,
 				 TimeStruct time) {
-	AddonDirectionStruct directionTemp = m_types[typeID].getDirectionStruct(directionID);
-	
-	/*
-	if (cursor.coordinate.x == coordinate.x && cursor.coordinate.y == coordinate.y) {
-		cout << coordinate.x << "," << coordinate.y << " :  " << tiles_count.x << "," << tiles_count.y << endl;
-	}*/
-	
-	//position.x = position.x + tiles_count.x * CHIP_SIZE/8;
-	position = getPosition(typeID, directionID, position, useTiles, tilesCount);
-	
-	unsigned short int topLeftX = directionTemp.topLeft.x;
-	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
-	
-	unsigned short int topLeftY = directionTemp.topLeft.y;
-	topLeftY += CHIP_SIZE/2 * tilesCount.y;
-	
-	unsigned short int sizeWidth = directionTemp.size.x;
-	sizeWidth = CHIP_SIZE;
-	
-	unsigned short int sizeHeight = directionTemp.size.y;
-	
-	// オブジェクトの描画
-	m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y/*, *addColor*/);
-	
-	/*
-	if (addColor->a > 0) {
-		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
-			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, *addColor);
-		}*/
-	/*}
-	else {
-		m_types[typeID].tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-		/*if (!m_types[typeID].nightMaskTexture.isEmpty()) {
-			m_types[typeID].nightMaskTexture(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
-		}*/
-	//}
+	m_types[typeID].draw(time, directionID, position, tilesCount, addColor);
 }
 
 void Addon::m_load_layer_before141(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers) {

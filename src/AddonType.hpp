@@ -21,8 +21,11 @@ public:
 	AddonType(TypeID::Type arg_type_ID);
 	
 	// 描画
-	void draw(TimeStruct time, AddonDirectionStruct direction_id,
-			  PositionStruct position, CoordinateStruct coordinate);
+	void draw(TimeStruct time, DirectionID::Type direction_id,
+			  PositionStruct position, CoordinateStruct coordinate, Color add_color);
+	
+	// 最終的に表示する座標を取得
+	PositionStruct getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, CoordinateStruct tilesCount);
 	
 	// 暫定
 	Texture tempGetTexture(TimeStruct time);

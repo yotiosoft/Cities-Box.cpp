@@ -14,20 +14,33 @@ AddonType::AddonType(TypeID::Type arg_type_ID) {
 	m_type_id = arg_type_ID;
 }
 
-void AddonType::draw(TimeStruct time, AddonDirectionStruct direction_id, PositionStruct position, CoordinateStruct coordinate) {
-	// 画像上の描画始点とサイズを取得
-	/*
-	unsigned short int topLeftX = directionTemp->topLeft.x;
-	topLeftX += CHIP_SIZE/2 * tilesCount.x + CHIP_SIZE/2 * tilesCount.y;
+void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionStruct position, CoordinateStruct coordinate, Color add_color) {
+	position = getPosition(direction_id, position, m_directions[direction_id].requiredTiles, coordinate);
 	
-	unsigned short int topLeftY = directionTemp->topLeft.y;
-	topLeftY += CHIP_SIZE/2 * tilesCount.y;
+	unsigned short int topLeftX = m_directions[direction_id].topLeft.x;
+	topLeftX += CHIP_SIZE/2 * coordinate.x + CHIP_SIZE/2 * coordinate.y;
 	
-	unsigned short int sizeWidth = directionTemp->size.x;
+	unsigned short int topLeftY = m_directions[direction_id].topLeft.y;
+	topLeftY += CHIP_SIZE/2 * coordinate.y;
+	
+	unsigned short int sizeWidth = m_directions[direction_id].size.x;
 	sizeWidth = CHIP_SIZE;
 	
-	unsigned short int sizeHeight = directionTemp->size.y;
-*/
+	unsigned short int sizeHeight = m_directions[direction_id].size.y;
+	
+	// オブジェクトの描画
+	if (add_color.a > 0) {
+		tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y, add_color);
+	}
+	else {
+		tempGetTexture(time)(topLeftX, topLeftY, sizeWidth, sizeHeight).draw(position.x, position.y);
+	}
+}
+
+PositionStruct AddonType::getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, CoordinateStruct tilesCount) {
+	position.y = position.y + CHIP_SIZE/2 - m_directions[directionID].size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.x) + CHIP_SIZE*3/4 * tilesCount.y;
+	
+	return position;
 }
 
 Texture AddonType::tempGetTexture(TimeStruct time) {

@@ -2068,6 +2068,10 @@
 		<data>
 		Dh0ZEysl0NE5vntIax3zIOLVAzM=
 		</data>
+		<key>Resources/assets/data/map_temp.cbj_unxor</key>
+		<data>
+		Dh0ZEysl0NE5vntIax3zIOLVAzM=
+		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
 		<data>
 		SxEn8oWTWef/BWDaD9GY+RZP4iY=
@@ -5863,6 +5867,13 @@
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qm4jK9MHhBLQ5G5HPIUqGD9YGQKkoOnK58WrE8dn6vQ=
+			</data>
+		</dict>
+		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<dict>
 			<key>hash2</key>
 			<data>

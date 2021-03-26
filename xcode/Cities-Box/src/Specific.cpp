@@ -60,6 +60,14 @@ void specific::moveToCurrentDir() {
 	return;
 }
 
+bool specific::isCursorEntered(Vec2 before_cursor_pos) {
+	return false;	// Mac版では何もしない
+}
+
+void specific::changeCursor() {
+	return;			// Mac版では何もしない
+}
+
 String specific::getFontsDir() {
 	return U"./fonts";
 }

@@ -9,8 +9,18 @@
 
 void GeneralSetting::screen(Font& font16) {
 	Button return_button(IconFont::LeftWithCircle, 30, 30, PositionStruct{0, 0});
+
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
 	
 	while (System::Update()) {
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+
 		Rect(0, 0, Scene::Size().x/5, Scene::Size().y).draw(Color(40, 40, 40));
 		font16(U"設定").draw(60, 23, Palette::White);
 		
@@ -26,6 +36,11 @@ void GeneralSetting::screen(Font& font16) {
 		if (return_button.push()) {
 			return_button.release();
 			return;
+		}
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
 		}
 	}
 }

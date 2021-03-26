@@ -15,7 +15,8 @@
 #include "OtherFunctions.hpp"
 
 /* OS依存の定数など */
-#define LINE_FEED_CODE			0	// 改行コードに用いる文字数
+#define LINE_FEED_CODE			0			// 改行コードに用いる文字数
+#define OS						"Windows"	// OS
 
 namespace specific {
 	Array<FileStruct> getAllFilesName(string folderPath, string extension);
@@ -23,6 +24,9 @@ namespace specific {
 	void chdir(string dir);
 	void moveToCurrentDir();
 	String getFontsDir();
+
+	bool isCursorEntered(Vec2& before_cursor_pos);
+	void changeCursor();
 
 	const String SaveDataFilePath = U"";
 }

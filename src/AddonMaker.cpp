@@ -44,8 +44,18 @@ void AddonMaker::sMenu(Font& font16) {
 	
 	PulldownMenu* secondMenu = nullptr;
 	PulldownMenu* thirdMenu = nullptr;
+
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
 	
 	while (System::Update()) {
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+
 		returnButton.put(PositionStruct{20, 20});
 		if (returnButton.push()) {
 			return;
@@ -114,6 +124,11 @@ void AddonMaker::sMenu(Font& font16) {
 		}
 		
 		categoriesPulldownMenu.draw();
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
+		}
 	}
 }
 
@@ -123,8 +138,18 @@ void AddonMaker::sName(Font& font16) {
 	
 	TextEditState tesJPName;
 	TextEditState tesENName;
+
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
 	
 	while (System::Update()) {
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+
 		returnButton.put(PositionStruct{20, 20});
 		if (returnButton.push()) {
 			sMenu(font16);
@@ -139,5 +164,10 @@ void AddonMaker::sName(Font& font16) {
 		
 		nextButton.put(PositionStruct{Scene::Size().x-100, Scene::Size().y-50});
 		font16(U"次へ").draw(Scene::Size().x-65, Scene::Size().y-50, Palette::White);
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
+		}
 	}
 }

@@ -827,7 +827,7 @@ void CityMap::drawTile(CoordinateStruct coordinate, CameraStruct camera) {
 	// 描画する座標を算出
 	for (int i=0; i<(int)m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
 		int rate;
-		Color rateColor;
+		Color rateColor = Color(0, 0, 0, 0);
 		if (m_show_rate.length() > 0) {
 			rate = getRate(coordinate, m_show_rate);
 			if (m_show_rate == U"crime_rate") {

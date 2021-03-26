@@ -84,8 +84,18 @@ void CitiesBox() {
 	
 	// 更新前のLayerType
 	LayerType::Type before_layer_type = timeToLayerType(time);
+
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
 	
 	while (System::Update()) {
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+		
 		// カメラの操作
 		if (KeyLeft.pressed()) {
 			camera.position.x -= 20;
@@ -195,6 +205,11 @@ void CitiesBox() {
 		bgm.playingBGM();
 		
 		System::Sleep(20);
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
+		}
 	}
 	
 	map.freeMapAndAddons();

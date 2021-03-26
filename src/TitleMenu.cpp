@@ -24,8 +24,18 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 	
 	bool b;
 	Color color_white = Color(Palette::White);
+
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
 	
 	while (System::Update()) {
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+
 		logo->texture.draw(Scene::Width()/2-logo->texture.width()/2, Scene::Height()/2-logo->texture.height()*1.75);
 		
 		cMes(font16, U"ver.{} (r{})"_fmt(VERSION, RELEASE_NUMBER), PositionStruct{0, Scene::Height()/2-(int)(logo->texture.height()*1.75)+150}, Size{Scene::Width(), 20}, color_white);
@@ -72,14 +82,32 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 		}
 		
 		System::Sleep(50);
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
+		}
 	}
 	
 	return pair<bool, GeneralSetting>(false, general_setting);
 }
 
 void developerScreen() {
+	// カーソル変更用の変数
+	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
+	Vec2 before_cursor_pos = Cursor::Pos();
+	bool changed_cursor_style = true;
+
 	while (System::Update()) {
-		
+		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
+		if (OS == "Windows" && changed_cursor_style) {
+			specific::changeCursor();
+		}
+
+		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
+		if (OS == "Windows") {
+			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
+		}
 	}
 }
 

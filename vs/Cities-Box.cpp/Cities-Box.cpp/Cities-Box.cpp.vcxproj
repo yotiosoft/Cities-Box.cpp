@@ -122,6 +122,7 @@
     <ClCompile Include="..\..\..\src\GeneralSetting.cpp" />
     <ClCompile Include="..\..\..\src\Images.cpp" />
     <ClCompile Include="..\..\..\src\Menu.cpp" />
+    <ClCompile Include="..\..\..\src\Object.cpp" />
     <ClCompile Include="..\..\..\src\OtherFunctions.cpp" />
     <ClCompile Include="..\..\..\src\PulldownMenu.cpp" />
     <ClCompile Include="..\..\..\src\RouteSolver.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="..\..\..\src\Images.hpp" />
     <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
     <ClInclude Include="..\..\..\src\Menu.hpp" />
+    <ClInclude Include="..\..\..\src\Object.hpp" />
     <ClInclude Include="..\..\..\src\OtherFunctions.hpp" />
     <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
     <ClInclude Include="..\..\..\src\RouteSolver.hpp" />

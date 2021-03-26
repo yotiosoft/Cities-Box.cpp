@@ -6,7 +6,12 @@
 *.pdb
 *.res
 *.entitlements
+*.html
+*.obj
+*.log
+*.tlog
 vs/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
+vs/Cities-Box.cpp/Intermediate
 
 # Xcode
 #

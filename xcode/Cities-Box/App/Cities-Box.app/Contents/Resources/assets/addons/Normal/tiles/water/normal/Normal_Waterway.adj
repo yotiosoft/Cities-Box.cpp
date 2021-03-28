@@ -484,7 +484,7 @@
       ],
       "Layers": [
         {
-          "image": "Normal_Waterway_intersection_cross_without_one_corner.png",
+          "image": "woc.png",
           "transparent_color": {
             "R": 0,
             "G": 0,

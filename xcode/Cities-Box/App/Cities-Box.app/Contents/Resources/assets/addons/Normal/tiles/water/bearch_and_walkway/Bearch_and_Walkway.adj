@@ -484,7 +484,7 @@
       ],
       "Layers": [
         {
-          "image": "Bearch_and_Walkway_intersection_cross_without_one_corner.png",
+          "image": "woc.png",
           "transparent_color": {
             "R": 0,
             "G": 0,
@@ -635,7 +635,7 @@
           ]
         },
         {
-          "image": "Bearch_and_Walkway_River_dead_end__night_mask.png",
+          "image": "dead_end__night_mask.png",
           "transparent_color": {
             "R": 0,
             "G": 0,
@@ -817,7 +817,7 @@
           ]
         },
         {
-          "image": "Bearch_and_Walkway_River_intersection_T__night_mask.png",
+          "image": "River_intersection_T__night_mask.png",
           "transparent_color": {
             "R": 0,
             "G": 0,
@@ -857,7 +857,7 @@
       ],
       "Layers": [
         {
-          "image": "Bearch_and_Walkway_River_intersection_cross.png",
+          "image": "River_intersection_cross.png",
           "transparent_color": {
             "R": 0,
             "G": 0,
@@ -968,7 +968,7 @@
           ]
         },
         {
-          "image": "Bearch_and_Walkway_River_turn__night_mask.png",
+          "image": "River_turn__night_mask.png",
           "transparent_color": {
             "R": 0,
             "G": 0,

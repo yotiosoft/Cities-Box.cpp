@@ -197,25 +197,26 @@ namespace TypeID {
 // アドオンの方向の識別
 namespace DirectionID {
 	enum Type {
-		Disabled		= 0,
-		Normal			= 1,
-		Depth			= 2,
-		Width			= 3,
+		Disabled		= -1,
+		None			= 0,
 		
-		Left			= 10,
-		Top				= 11,
-		Right			= 13,
-		Bottom			= 16,
+		North			= 1,
+		South			= 2,
+		East			= 5,
+		West			= 9,
 		
-		LeftRightBottom	= 39,
-		LeftRightTop	= 34,
-		LeftTopBottom	= 37,
-		RightTopBottom	= 40,
+		EastWest		= 14,
+		NorthSouth		= 3,
 		
-		LeftBottom		= 26,
-		LeftTop			= 21,
-		RightBottom		= 29,
-		RightTop		= 24,
+		SouthWest		= 11,
+		NorthWest		= 10,
+		SouthEast		= 7,
+		NorthEast		= 6,
+		
+		SouthEastWest	= 16,
+		NorthEastWest	= 15,
+		NorthSouthWest	= 12,
+		NorthSouthEast	= 8,
 	};
 }
 

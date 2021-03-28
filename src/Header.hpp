@@ -32,7 +32,7 @@ class ImagesStruct;
 
 // 周囲4方向
 const pair<DirectionID::Type, CoordinateStruct> AroundTiles[AROUND_TILES] = {
-	{DirectionID::Right, {1, 0}}, {DirectionID::Bottom, {0, 1}}, {DirectionID::Top, {0, -1}}, {DirectionID::Left, {-1, 0}}
+	{DirectionID::East, {1, 0}}, {DirectionID::South, {0, 1}}, {DirectionID::North, {0, -1}}, {DirectionID::West, {-1, 0}}
 };
 
 // LayerType::Typeのすべて

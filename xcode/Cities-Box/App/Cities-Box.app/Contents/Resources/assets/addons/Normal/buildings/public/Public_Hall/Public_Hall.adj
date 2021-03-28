@@ -22,41 +22,19 @@
       "grid": 10
     }
   },
-  "maximum_capacity": 103,
-  "Use_types": [
-    "normal"
-  ],
+  "maximum_capacity": 112,
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
-          "size": {
-            "width": 128,
-            "height": 160
-          },
-          "squares": {
-            "width": 2,
-            "height": 2
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 160
-          }
-        },
-        {
-          "direction_name": "top",
+          "direction_name": "North",
           "size": {
             "width": 128,
             "height": 160
@@ -75,7 +53,26 @@
           }
         },
         {
-          "direction_name": "right",
+          "direction_name": "South",
+          "size": {
+            "width": 128,
+            "height": 159
+          },
+          "squares": {
+            "width": 2,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 161
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 320
+          }
+        },
+        {
+          "direction_name": "East",
           "size": {
             "width": 128,
             "height": 159
@@ -94,10 +91,10 @@
           }
         },
         {
-          "direction_name": "bottom",
+          "direction_name": "West",
           "size": {
             "width": 128,
-            "height": 159
+            "height": 160
           },
           "squares": {
             "width": 2,
@@ -105,11 +102,11 @@
           },
           "top_left": {
             "x": 0,
-            "y": 161
+            "y": 0
           },
           "bottom_right": {
             "x": 128,
-            "y": 320
+            "y": 160
           }
         }
       ],

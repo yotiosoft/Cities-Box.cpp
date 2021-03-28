@@ -16,25 +16,15 @@
   ],
   "effects": {},
   "maximum_capacity": 108,
-  "Use_types": [
-    "default",
-    "dead_end",
-    "turn",
-    "intersection_T",
-    "intersection_cross",
-    "train_crossing",
-    "bridge",
-    "under_construction"
-  ],
   "Types": [
     {
-      "type_name": "under_construction",
+      "type_name": "UnderConstruction",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 64
@@ -68,33 +58,14 @@
       ]
     },
     {
-      "type_name": "default",
+      "type_name": "Default",
       "direction_names": [
-        "depth",
-        "width"
+        "NorthSouth",
+        "EastWest"
       ],
       "Directions": [
         {
-          "direction_name": "depth",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "width",
+          "direction_name": "NorthSouth",
           "size": {
             "width": 64,
             "height": 64
@@ -109,6 +80,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "EastWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         }
@@ -128,35 +118,16 @@
       ]
     },
     {
-      "type_name": "turn",
+      "type_name": "Turn",
       "direction_names": [
-        "left-top",
-        "right-top",
-        "left-bottom",
-        "right-bottom"
+        "NorthEast",
+        "SouthEast",
+        "NorthWest",
+        "SouthWest"
       ],
       "Directions": [
         {
-          "direction_name": "left-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right-top",
+          "direction_name": "NorthEast",
           "size": {
             "width": 64,
             "height": 64
@@ -175,7 +146,26 @@
           }
         },
         {
-          "direction_name": "left-bottom",
+          "direction_name": "SouthEast",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "NorthWest",
           "size": {
             "width": 64,
             "height": 64
@@ -186,15 +176,15 @@
           },
           "top_left": {
             "x": 0,
-            "y": 64
+            "y": 0
           },
           "bottom_right": {
             "x": 64,
-            "y": 128
+            "y": 64
           }
         },
         {
-          "direction_name": "right-bottom",
+          "direction_name": "SouthWest",
           "size": {
             "width": 64,
             "height": 64
@@ -204,7 +194,7 @@
             "height": 1
           },
           "top_left": {
-            "x": 64,
+            "x": 0,
             "y": 64
           },
           "bottom_right": {
@@ -228,16 +218,54 @@
       ]
     },
     {
-      "type_name": "intersection_T",
+      "type_name": "IntersectionT",
       "direction_names": [
-        "left-right-top",
-        "left-top-bottom",
-        "left-right-bottom",
-        "right-top-bottom"
+        "NorthSouthEast",
+        "NorthSouthWest",
+        "NorthEastWest",
+        "SouthEastWest"
       ],
       "Directions": [
         {
-          "direction_name": "left-right-top",
+          "direction_name": "NorthSouthEast",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "NorthSouthWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "NorthEastWest",
           "size": {
             "width": 64,
             "height": 64
@@ -256,7 +284,7 @@
           }
         },
         {
-          "direction_name": "left-top-bottom",
+          "direction_name": "SouthEastWest",
           "size": {
             "width": 64,
             "height": 64
@@ -267,44 +295,6 @@
           },
           "top_left": {
             "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "left-right-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 64
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 128
-          }
-        },
-        {
-          "direction_name": "right-top-bottom",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
             "y": 64
           },
           "bottom_right": {
@@ -328,13 +318,13 @@
       ]
     },
     {
-      "type_name": "intersection_cross",
+      "type_name": "IntersectionCross",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 64
@@ -368,35 +358,16 @@
       ]
     },
     {
-      "type_name": "dead_end",
+      "type_name": "DeadEnd",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "top",
+          "direction_name": "North",
           "size": {
             "width": 64,
             "height": 64
@@ -415,7 +386,26 @@
           }
         },
         {
-          "direction_name": "right",
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "East",
           "size": {
             "width": 64,
             "height": 64
@@ -434,7 +424,7 @@
           }
         },
         {
-          "direction_name": "bottom",
+          "direction_name": "West",
           "size": {
             "width": 64,
             "height": 64
@@ -445,11 +435,11 @@
           },
           "top_left": {
             "x": 0,
-            "y": 64
+            "y": 0
           },
           "bottom_right": {
             "x": 64,
-            "y": 128
+            "y": 64
           }
         }
       ],
@@ -468,33 +458,14 @@
       ]
     },
     {
-      "type_name": "train_crossing",
+      "type_name": "TrainCrossing",
       "direction_names": [
-        "depth",
-        "width"
+        "NorthSouth",
+        "EastWest"
       ],
       "Directions": [
         {
-          "direction_name": "depth",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "width",
+          "direction_name": "NorthSouth",
           "size": {
             "width": 64,
             "height": 64
@@ -509,6 +480,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "EastWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         }
@@ -528,33 +518,14 @@
       ]
     },
     {
-      "type_name": "bridge",
+      "type_name": "Bridge",
       "direction_names": [
-        "depth",
-        "width"
+        "NorthSouth",
+        "EastWest"
       ],
       "Directions": [
         {
-          "direction_name": "depth",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 64,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 128,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "width",
+          "direction_name": "NorthSouth",
           "size": {
             "width": 64,
             "height": 64
@@ -569,6 +540,25 @@
           },
           "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "EastWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
             "y": 64
           }
         }

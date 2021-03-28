@@ -19,21 +19,16 @@
       "grid": 8
     }
   },
-  "maximum_capacity": 81922,
-  "Use_types": [
-    "default",
-    "dead_end",
-    "under_construction"
-  ],
+  "maximum_capacity": 111,
   "Types": [
     {
-      "type_name": "under_construction",
+      "type_name": "UnderConstruction",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 32
@@ -67,33 +62,14 @@
       ]
     },
     {
-      "type_name": "default",
+      "type_name": "Default",
       "direction_names": [
-        "depth",
-        "width"
+        "NorthSouth",
+        "EastWest"
       ],
       "Directions": [
         {
-          "direction_name": "depth",
-          "size": {
-            "width": 66,
-            "height": 65
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 66,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 132,
-            "y": 65
-          }
-        },
-        {
-          "direction_name": "width",
+          "direction_name": "NorthSouth",
           "size": {
             "width": 66,
             "height": 65
@@ -108,6 +84,25 @@
           },
           "bottom_right": {
             "x": 66,
+            "y": 65
+          }
+        },
+        {
+          "direction_name": "EastWest",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 66,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 132,
             "y": 65
           }
         }
@@ -138,35 +133,16 @@
       ]
     },
     {
-      "type_name": "dead_end",
+      "type_name": "DeadEnd",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
-          "size": {
-            "width": 66,
-            "height": 65
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 66,
-            "y": 65
-          }
-        },
-        {
-          "direction_name": "top",
+          "direction_name": "North",
           "size": {
             "width": 66,
             "height": 65
@@ -185,26 +161,7 @@
           }
         },
         {
-          "direction_name": "right",
-          "size": {
-            "width": 66,
-            "height": 65
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 66,
-            "y": 66
-          },
-          "bottom_right": {
-            "x": 132,
-            "y": 130
-          }
-        },
-        {
-          "direction_name": "bottom",
+          "direction_name": "South",
           "size": {
             "width": 66,
             "height": 65
@@ -220,6 +177,44 @@
           "bottom_right": {
             "x": 65,
             "y": 130
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 66,
+            "y": 66
+          },
+          "bottom_right": {
+            "x": 132,
+            "y": 130
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 66,
+            "height": 65
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 66,
+            "y": 65
           }
         }
       ],

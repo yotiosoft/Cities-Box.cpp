@@ -184,61 +184,61 @@ string stringXOR(const std::string &data, const std::string &key) {
 }
 
 TypeID::Type typeNameToTypeID(String type_name) {
-	if (type_name == U"normal") {
+	if (type_name == U"Normal" || type_name == U"normal") {
 		return TypeID::Normal;
 	}
-	if (type_name == U"under_construction") {
+	if (type_name == U"UnderConstruction" || type_name == U"under_construction") {
 		return TypeID::UnderConstruction;
 	}
-	if (type_name == U"default") {
+	if (type_name == U"Default" || type_name == U"default") {
 		return TypeID::Default;
 	}
-	if (type_name == U"turn") {
+	if (type_name == U"Turn" || type_name == U"turn") {
 		return TypeID::Turn;
 	}
-	if (type_name == U"intersection_T") {
+	if (type_name == U"IntersectionT" || type_name == U"intersection_T") {
 		return TypeID::IntersectionT;
 	}
-	if (type_name == U"intersection_cross") {
+	if (type_name == U"IntersectionCross" || type_name == U"intersection_cross") {
 		return TypeID::IntersectionCross;
 	}
-	if (type_name == U"dead_end") {
+	if (type_name == U"DeadEnd" || type_name == U"dead_end") {
 		return TypeID::DeadEnd;
 	}
-	if (type_name == U"train_crossing") {
+	if (type_name == U"TrainCrossing" || type_name == U"train_crossing") {
 		return TypeID::TrainCrossing;
 	}
-	if (type_name == U"bridge") {
+	if (type_name == U"Bridge" || type_name == U"bridge") {
 		return TypeID::Bridge;
 	}
-	if (type_name == U"autumn") {
+	if (type_name == U"TileAutumn" || type_name == U"autumn") {
 		return TypeID::TileAutumn;
 	}
-	if (type_name == U"snow") {
+	if (type_name == U"TileSnow" || type_name == U"snow") {
 		return TypeID::TileSnow;
 	}
-	if (type_name == U"estuary") {
+	if (type_name == U"WaterEstuary" || type_name == U"estuary") {
 		return TypeID::WaterEstuary;
 	}
-	if (type_name == U"intersection_cross_without_one_corner") {
+	if (type_name == U"WaterIntersectionCrossWithoutOneCorner" || type_name == U"intersection_cross_without_one_corner") {
 		return TypeID::WaterIntersectionCrossWithoutOneCorner;
 	}
-	if (type_name == U"isolated") {
+	if (type_name == U"WaterIsolated" || type_name == U"isolated") {
 		return TypeID::WaterIsolated;
 	}
-	if (type_name == U"river_dead_end") {
+	if (type_name == U"RiverDeadEnd" || type_name == U"river_dead_end") {
 		return TypeID::RiverDeadEnd;
 	}
-	if (type_name == U"river_default") {
+	if (type_name == U"RiverDefault" || type_name == U"river_default") {
 		return TypeID::RiverDefault;
 	}
-	if (type_name == U"river_intersection_T") {
+	if (type_name == U"RiverIntersectionT" || type_name == U"river_intersection_T") {
 		return TypeID::RiverIntersectionT;
 	}
-	if (type_name == U"river_intersection_cross") {
+	if (type_name == U"RiverIntersectionCross" || type_name == U"river_intersection_cross") {
 		return TypeID::RiverIntersectionCross;
 	}
-	if (type_name == U"river_turn") {
+	if (type_name == U"RiverTurn" || type_name == U"river_turn") {
 		return TypeID::RiverTurn;
 	}
 	
@@ -249,95 +249,95 @@ TypeID::Type typeNameToTypeID(String type_name) {
 String typeIDToTypeName(TypeID::Type type_id) {
 	switch (type_id) {
 		case TypeID::Normal:
-			return U"normal";
+			return U"Normal";
 		case TypeID::UnderConstruction:
-			return U"under_construction";
+			return U"UnderConstruction";
 		case TypeID::Default:
-			return U"default";
+			return U"Default";
 		case TypeID::Turn:
-			return U"turn";
+			return U"Turn";
 		case TypeID::IntersectionT:
-			return U"intersection_T";
+			return U"IntersectionT";
 		case TypeID::IntersectionCross:
-			return U"intersection_cross";
+			return U"IntersectionCross";
 		case TypeID::DeadEnd:
-			return U"dead_end";
+			return U"DeadEnd";
 		case TypeID::TrainCrossing:
-			return U"train_crossing";
+			return U"TrainCrossing";
 		case TypeID::Bridge:
-			return U"bridge";
+			return U"Bridge";
 		case TypeID::TileAutumn:
-			return U"autumn";
+			return U"TileAutumn";
 		case TypeID::TileSnow:
-			return U"snow";
+			return U"TileSnow";
 		case TypeID::WaterEstuary:
-			return U"estuary";
+			return U"WaterEstuary";
 		case TypeID::WaterIntersectionCrossWithoutOneCorner:
-			return U"intersection_cross_without_one_corner";
+			return U"WaterIntersectionCrossWithoutOneCorner";
 		case TypeID::WaterIsolated:
-			return U"isolated";
+			return U"WaterIsolated";
 		case TypeID::RiverDeadEnd:
-			return U"river_dead_end";
+			return U"RiverDeadEnd";
 		case TypeID::RiverDefault:
-			return U"river_default";
+			return U"RiverDefault";
 		case TypeID::RiverIntersectionT:
-			return U"river_intersection_T";
+			return U"RiverIntersectionT";
 		case TypeID::RiverIntersectionCross:
-			return U"river_intersection_cross";
+			return U"RiverIntersectionCross";
 		case TypeID::RiverTurn:
-			return U"river_turn";
+			return U"RiverTurn";
 		case TypeID::Disabled:
 			break;
 	}
 	
-	return U"disabled";
+	return U"Disabled";
 }
 
 DirectionID::Type directionNameToDirectionID(String direction_name) {
-	if (direction_name == U"normal") {
-		return DirectionID::Normal;
+	if (direction_name == U"None" || direction_name == U"normal") {
+		return DirectionID::None;
 	}
-	if (direction_name == U"left") {
-		return DirectionID::Left;
+	if (direction_name == U"West" || direction_name == U"left") {
+		return DirectionID::West;
 	}
-	if (direction_name == U"top") {
-		return DirectionID::Top;
+	if (direction_name == U"North" || direction_name == U"top") {
+		return DirectionID::North;
 	}
-	if (direction_name == U"right") {
-		return DirectionID::Right;
+	if (direction_name == U"East" || direction_name == U"right") {
+		return DirectionID::East;
 	}
-	if (direction_name == U"bottom") {
-		return DirectionID::Bottom;
+	if (direction_name == U"South" || direction_name == U"bottom") {
+		return DirectionID::South;
 	}
-	if (direction_name == U"depth") {
-		return DirectionID::Depth;
+	if (direction_name == U"EastWest" || direction_name == U"depth") {
+		return DirectionID::EastWest;
 	}
-	if (direction_name == U"width") {
-		return DirectionID::Width;
+	if (direction_name == U"NorthSouth" || direction_name == U"width") {
+		return DirectionID::NorthSouth;
 	}
-	if (direction_name == U"left-right-bottom") {
-		return DirectionID::LeftRightBottom;
+	if (direction_name == U"SouthEastWest" || direction_name == U"left-right-bottom") {
+		return DirectionID::SouthEastWest;
 	}
-	if (direction_name == U"left-right-top") {
-		return DirectionID::LeftRightTop;
+	if (direction_name == U"NorthEastWest" || direction_name == U"left-right-top") {
+		return DirectionID::NorthEastWest;
 	}
-	if (direction_name == U"left-top-bottom") {
-		return DirectionID::LeftTopBottom;
+	if (direction_name == U"NorthSouthWest" || direction_name == U"left-top-bottom") {
+		return DirectionID::NorthSouthWest;
 	}
-	if (direction_name == U"right-top-bottom") {
-		return DirectionID::RightTopBottom;
+	if (direction_name == U"NorthSouthEast" || direction_name == U"right-top-bottom") {
+		return DirectionID::NorthSouthEast;
 	}
-	if (direction_name == U"left-bottom") {
-		return DirectionID::LeftBottom;
+	if (direction_name == U"SouthWest" || direction_name == U"left-bottom") {
+		return DirectionID::SouthWest;
 	}
-	if (direction_name == U"left-top") {
-		return DirectionID::LeftTop;
+	if (direction_name == U"NorthWest" || direction_name == U"left-top") {
+		return DirectionID::NorthWest;
 	}
-	if (direction_name == U"right-bottom") {
-		return DirectionID::RightBottom;
+	if (direction_name == U"SouthEast" || direction_name == U"right-bottom") {
+		return DirectionID::SouthEast;
 	}
-	if (direction_name == U"right-top") {
-		return DirectionID::RightTop;
+	if (direction_name == U"NorthEast" || direction_name == U"right-top") {
+		return DirectionID::NorthEast;
 	}
 	
 	return DirectionID::Disabled;
@@ -353,36 +353,36 @@ Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name
 
 String directionIDToDirectionName(DirectionID::Type direction_id) {
 	switch (direction_id) {
-		case DirectionID::Normal:
-			return U"normal";
-		case DirectionID::Left:
-			return U"left";
-		case DirectionID::Top:
-			return U"top";
-		case DirectionID::Right:
-			return U"right";
-		case DirectionID::Bottom:
-			return U"bottom";
-		case DirectionID::Depth:
-			return U"depth";
-		case DirectionID::Width:
-			return U"width";
-		case DirectionID::LeftRightBottom:
-			return U"left-right-bottom";
-		case DirectionID::LeftRightTop:
-			return U"left-right-top";
-		case DirectionID::LeftTopBottom:
-			return U"left-top-bottom";
-		case DirectionID::RightTopBottom:
-			return U"right-top-bottom";
-		case DirectionID::LeftBottom:
-			return U"left-bottom";
-		case DirectionID::LeftTop:
-			return U"left-top";
-		case DirectionID::RightBottom:
-			return U"right-bottom";
-		case DirectionID::RightTop:
-			return U"right-top";
+		case DirectionID::None:
+			return U"None";
+		case DirectionID::West:
+			return U"West";
+		case DirectionID::North:
+			return U"North";
+		case DirectionID::East:
+			return U"East";
+		case DirectionID::South:
+			return U"South";
+		case DirectionID::EastWest:
+			return U"EastWest";
+		case DirectionID::NorthSouth:
+			return U"NorthSouth";
+		case DirectionID::SouthEastWest:
+			return U"SouthEastWest";
+		case DirectionID::NorthEastWest:
+			return U"NorthEastWest";
+		case DirectionID::NorthSouthWest:
+			return U"NorthSouthWest";
+		case DirectionID::NorthSouthEast:
+			return U"NorthSouthEast";
+		case DirectionID::SouthWest:
+			return U"SouthWest";
+		case DirectionID::NorthWest:
+			return U"NorthWest";
+		case DirectionID::SouthEast:
+			return U"SouthEast";
+		case DirectionID::NorthEast:
+			return U"NorthEast";
 		case DirectionID::Disabled:
 			break;
 	}

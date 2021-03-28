@@ -19,41 +19,19 @@
       "grid": 5
     }
   },
-  "maximum_capacity": 115,
-  "Use_types": [
-    "normal"
-  ],
+  "maximum_capacity": 101,
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
-          "size": {
-            "width": 96,
-            "height": 125
-          },
-          "squares": {
-            "width": 1,
-            "height": 2
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 96,
-            "y": 124
-          }
-        },
-        {
-          "direction_name": "top",
+          "direction_name": "North",
           "size": {
             "width": 96,
             "height": 125
@@ -72,7 +50,26 @@
           }
         },
         {
-          "direction_name": "right",
+          "direction_name": "South",
+          "size": {
+            "width": 96,
+            "height": 125
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 125
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 250
+          }
+        },
+        {
+          "direction_name": "East",
           "size": {
             "width": 96,
             "height": 125
@@ -91,22 +88,22 @@
           }
         },
         {
-          "direction_name": "bottom",
+          "direction_name": "West",
           "size": {
             "width": 96,
             "height": 125
           },
           "squares": {
-            "width": 2,
-            "height": 1
+            "width": 1,
+            "height": 2
           },
           "top_left": {
             "x": 0,
-            "y": 125
+            "y": 0
           },
           "bottom_right": {
             "x": 96,
-            "y": 250
+            "y": 124
           }
         }
       ],

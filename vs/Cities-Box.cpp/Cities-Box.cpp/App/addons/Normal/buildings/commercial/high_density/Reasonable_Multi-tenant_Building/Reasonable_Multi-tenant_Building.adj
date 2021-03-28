@@ -20,40 +20,18 @@
     }
   },
   "maximum_capacity": 108,
-  "Use_types": [
-    "normal"
-  ],
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
-          "size": {
-            "width": 64,
-            "height": 74
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 74
-          }
-        },
-        {
-          "direction_name": "top",
+          "direction_name": "North",
           "size": {
             "width": 64,
             "height": 74
@@ -72,7 +50,26 @@
           }
         },
         {
-          "direction_name": "right",
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 74
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 74
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 148
+          }
+        },
+        {
+          "direction_name": "East",
           "size": {
             "width": 64,
             "height": 74
@@ -91,7 +88,7 @@
           }
         },
         {
-          "direction_name": "bottom",
+          "direction_name": "West",
           "size": {
             "width": 64,
             "height": 74
@@ -102,11 +99,11 @@
           },
           "top_left": {
             "x": 0,
-            "y": 74
+            "y": 0
           },
           "bottom_right": {
             "x": 64,
-            "y": 148
+            "y": 74
           }
         }
       ],

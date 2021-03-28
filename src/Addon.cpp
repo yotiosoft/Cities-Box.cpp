@@ -90,10 +90,10 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		m_effects[effect.name].grid = effect.value[U"grid"].get<int>();
 	}
 	
-	m_use_types = addonData[U"Use_types"].getArray<String>();
-	
 	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
 		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
+		
+		m_use_types << typeIDToTypeName(typeID);
 		
 		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
 			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
@@ -326,14 +326,6 @@ void Addon::m_converter() {
 		addonData.endObject();
 		
 		addonData.key(U"maximum_capacity").write(m_maximum_capacity);
-		
-		addonData.key(U"Use_types").startArray();
-		{
-			for (auto typeName = m_use_types.begin(); typeName != m_use_types.end() ; typeName++) {
-				addonData.write(*typeName);
-			}
-		}
-		addonData.endArray();
 		
 		addonData.key(U"Types").startArray();
 		{

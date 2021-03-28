@@ -19,21 +19,18 @@
     }
   },
   "maximum_capacity": 111,
-  "Use_types": [
-    "normal"
-  ],
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "left",
-        "top",
-        "right",
-        "bottom"
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
-          "direction_name": "left",
+          "direction_name": "North",
           "size": {
             "width": 64,
             "height": 64
@@ -52,7 +49,7 @@
           }
         },
         {
-          "direction_name": "top",
+          "direction_name": "South",
           "size": {
             "width": 64,
             "height": 64
@@ -71,7 +68,7 @@
           }
         },
         {
-          "direction_name": "right",
+          "direction_name": "East",
           "size": {
             "width": 64,
             "height": 64
@@ -90,7 +87,7 @@
           }
         },
         {
-          "direction_name": "bottom",
+          "direction_name": "West",
           "size": {
             "width": 64,
             "height": 64

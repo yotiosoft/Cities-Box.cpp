@@ -19,41 +19,19 @@
       "grid": 8
     }
   },
-  "maximum_capacity": 270369107,
-  "Use_types": [
-    "normal"
-  ],
+  "maximum_capacity": 115,
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "left-top",
-        "right-top",
-        "left-bottom",
-        "right-bottom"
+        "NorthEast",
+        "SouthEast",
+        "NorthWest",
+        "SouthWest"
       ],
       "Directions": [
         {
-          "direction_name": "left-top",
-          "size": {
-            "width": 64,
-            "height": 64
-          },
-          "squares": {
-            "width": 1,
-            "height": 1
-          },
-          "top_left": {
-            "x": 0,
-            "y": 0
-          },
-          "bottom_right": {
-            "x": 64,
-            "y": 64
-          }
-        },
-        {
-          "direction_name": "right-top",
+          "direction_name": "NorthEast",
           "size": {
             "width": 64,
             "height": 64
@@ -72,7 +50,7 @@
           }
         },
         {
-          "direction_name": "left-bottom",
+          "direction_name": "SouthEast",
           "size": {
             "width": 64,
             "height": 64
@@ -82,16 +60,16 @@
             "height": 1
           },
           "top_left": {
-            "x": 0,
+            "x": 64,
             "y": 64
           },
           "bottom_right": {
-            "x": 64,
+            "x": 128,
             "y": 128
           }
         },
         {
-          "direction_name": "right-bottom",
+          "direction_name": "NorthWest",
           "size": {
             "width": 64,
             "height": 64
@@ -101,11 +79,30 @@
             "height": 1
           },
           "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
             "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "SouthWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
             "y": 64
           },
           "bottom_right": {
-            "x": 128,
+            "x": 64,
             "y": 128
           }
         }

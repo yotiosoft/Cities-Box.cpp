@@ -13,21 +13,16 @@
     "tile"
   ],
   "effects": {},
-  "maximum_capacity": 81922,
-  "Use_types": [
-    "normal",
-    "autumn",
-    "snow"
-  ],
+  "maximum_capacity": 271622984,
   "Types": [
     {
-      "type_name": "normal",
+      "type_name": "Normal",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 32
@@ -61,13 +56,13 @@
       ]
     },
     {
-      "type_name": "autumn",
+      "type_name": "TileAutumn",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 32
@@ -101,13 +96,13 @@
       ]
     },
     {
-      "type_name": "snow",
+      "type_name": "TileSnow",
       "direction_names": [
-        "normal"
+        "None"
       ],
       "Directions": [
         {
-          "direction_name": "normal",
+          "direction_name": "None",
           "size": {
             "width": 64,
             "height": 32

@@ -84,6 +84,13 @@ void saveTextFile(string filePath, string str) {
 	ofs << str;
 }
 
+void addTextFile(string filePath, string str) {
+	ofstream ofs;
+	ofs.open(filePath, ios::out | ios::binary | ios::app);
+	
+	ofs << str;
+}
+
 void saveTextFile(string filePath, Array<string> strV) {
 	ofstream ofs;
 	ofs.open(filePath, ios::out | ios::binary);
@@ -113,6 +120,14 @@ void saveTextFile(string filePath, FileStruct fs) {
 	ofs << "    file_name   : " << fs.file_name << endl;
 	ofs << "    folder_path : " << fs.folder_path << endl;
 	ofs << "    folder_name : " << fs.folder_name << endl;
+}
+
+void debugInit() {
+	saveTextFile("log.txt", "");;
+}
+
+void debugLog(String str) {
+	addTextFile("log.txt", str.toUTF8()+"\n");;
 }
 
 string replaceString(string beforeStr, string searchStr, string afterStr) {

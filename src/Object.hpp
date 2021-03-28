@@ -13,7 +13,7 @@
 
 class Object {
 public:
-	Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, PositionStruct arg_start_position, Size arg_size);
+	Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
 	
 private:
 	// 保持するアドオン
@@ -32,7 +32,7 @@ private:
 	int m_object_id;
 	
 	// 始点
-	PositionStruct m_start_position;
+	CoordinateStruct m_start_coordinate;
 	
 	// サイズ
 	Size m_size;

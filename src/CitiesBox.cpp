@@ -11,7 +11,9 @@
 
 void CitiesBox() {
 	Window::SetTitle(TITLE);
-	specific::chdir("./Cities-Box.app/Contents/Resources/assets");
+	specific::moveToCurrentDir();
+	
+	debugInit();
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);

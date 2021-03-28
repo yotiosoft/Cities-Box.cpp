@@ -63,6 +63,9 @@ public:
 	DirectionID::Type getDirectionID(int typeNum, int directionNum);
 	DirectionID::Type getDirectionID(String typeName, int directionNum);
 	
+	// DirectionStructを参照
+	AddonDirectionStruct getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id);
+	
 	// カテゴリを取得
 	Array<String> getCategories();
 	

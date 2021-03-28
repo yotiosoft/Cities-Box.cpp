@@ -22,9 +22,13 @@ PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, 
 PositionStruct getStringTopLeft(Font& font, String str, PositionStruct topLeft, Size size);
 
 void saveTextFile(string filePath, string str);
+void addTextFile(string filePath, string str);
 void saveTextFile(string filePath, Array<string> strV);
 void saveTextFile(string filePath, Array<FileStruct> fs);
 void saveTextFile(string filePath, FileStruct fs);
+
+void debugInit();
+void debugLog(String str);
 
 string replaceString(string beforeStr, string searchStr, string afterStr);
 

@@ -108,4 +108,9 @@ typedef struct SchoolStruct {
 	int schoolSerialNumber;
 } SchoolStruct;
 
+// 接続情報
+typedef struct ConnectStruct {
+	Array<DirectionID::Type> roadTypeConnect;
+} ConnectStruct;
+
 #endif /* Structs_hpp */

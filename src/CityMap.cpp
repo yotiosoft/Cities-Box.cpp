@@ -694,27 +694,33 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 		for (const auto& tile : mapTiles.arrayView()) {
 			m_tiles[y].push_back(Tile());
 			
+			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
+			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
+			
 			for (const auto& jAddons : tile[U"addons"].arrayView()) {
+				TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
+				DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
+				
 				//tiles[y][x].category.push_back(j_addons[U"category"].getString());
-				m_tiles[y][x].addType(typeNameToTypeID(jAddons[U"type_number"].getString()));
-				m_tiles[y][x].addDirection(directionNameToDirectionID(jAddons[U"direction_number"].getString()));
+				m_tiles[y][x].addType(type_id);
+				m_tiles[y][x].addDirection(direction_id);
 				
 				// アドオンのポインタを登録
 				if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
 					m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+					
+					// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
+					if (tile[U"tiles_count.x"].get<int>() == 0 && tile[U"tiles_count.y"].get<int>() == 0) {
+						m_objects << Object(m_addons[jAddons[U"name"].getString()], type_id, direction_id, CoordinateStruct{x, y});
+					}
 				}
 				else {
 					cout << "Cant't find " << jAddons[U"name"].getString() << endl;
 				}
 			}
 			
-			//tiles[y][x].use_tiles.x = square[U"use_tiles.x"].get<int>();
-			//tiles[y][x].use_tiles.y = square[U"use_tiles.y"].get<int>();
-			
 			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
 			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
-			
-			//m_objects << Object(m_addons[jAddons[U"name"].getString()], <#TypeID::Type arg_type_id#>, <#DirectionID::Type arg_direction_id#>, <#PositionStruct arg_start_position#>, <#Size arg_size#>)
 			
 			m_tiles[y][x].serialNumber = tile[U"serial_number"].get<int>();
 			

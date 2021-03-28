@@ -306,7 +306,7 @@
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/.DS_Store</key>
 		<data>
-		hI86ENxK/bTSPtbDgDflA7nT9vE=
+		GCjMTPUgJd/KV2vVDaF9c25BBBM=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
@@ -2099,6 +2099,10 @@
 		<key>Resources/assets/fonts/NotoSansCJKjp/README</key>
 		<data>
 		VRT6wH19OOIfkaF97VUEDlTwzXg=
+		</data>
+		<key>Resources/assets/log.txt</key>
+		<data>
+		2f2JHI25CMpk4mM2WURn++t7/V8=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -5927,6 +5931,13 @@
 			<key>hash2</key>
 			<data>
 			wnkfKJ++aOQHbt7k4VZdB1rTU6wtcRwGYfgNyZKYpyY=
+			</data>
+		</dict>
+		<key>Resources/assets/log.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			IRxbZ0zs47OEGAPyLOXB+wXYtiISSPpFPvF9mwRfXvE=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>

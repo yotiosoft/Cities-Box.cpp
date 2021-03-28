@@ -57,7 +57,7 @@ void specific::chdir(string dir) {
 }
 
 void specific::moveToCurrentDir() {
-	return;
+	chdir("./Cities-Box.app/Contents/Resources/assets");
 }
 
 bool specific::isCursorEntered(Vec2 before_cursor_pos) {

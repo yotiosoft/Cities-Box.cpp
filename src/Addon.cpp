@@ -199,6 +199,10 @@ DirectionID::Type Addon::getDirectionID(String typeName, int directionNum) {
 	return m_types[typeNameToTypeID(typeName)].getDirectionID(directionNum);
 }
 
+AddonDirectionStruct Addon::getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id) {
+	return m_types[arg_type_id].getDirectionStruct(arg_direction_id);
+}
+
 Array<String> Addon::getCategories() {
 	return m_addon_categories;
 }

@@ -9,9 +9,13 @@
 #define Tile_hpp
 
 #include <Specific.hpp>
+#include "Object.hpp"
 
 class Tile {
 public:
+	// オブジェクトの登録
+	void addObject(Object* arg_object_p);
+	
 	// originalName
 	bool setOriginalName(String new_original_name);
 	String getOriginalName();

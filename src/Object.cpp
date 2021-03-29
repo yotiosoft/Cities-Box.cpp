@@ -13,9 +13,9 @@ Object::Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type a
 	m_direction_id = arg_direction_id;
 	m_start_coordinate = arg_start_coordinate;
 	
-	debugLog(U"{},{},{},{},{}"_fmt(m_addon_p->getName(NameMode::English),
+	/*debugLog(U"{},{},{},{},{}"_fmt(m_addon_p->getName(NameMode::English),
 										 m_type_id,
 										 m_direction_id,
 										 m_start_coordinate.x,
-										 m_start_coordinate.y));
+										 m_start_coordinate.y));*/
 }

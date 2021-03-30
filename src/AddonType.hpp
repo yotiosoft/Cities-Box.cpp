@@ -22,7 +22,7 @@ public:
 	
 	// 描画
 	void draw(TimeStruct time, DirectionID::Type direction_id,
-			  PositionStruct position, RelativeCoordinateStruct relative_coordinate, Color add_color);
+			  PositionStruct position, RelativeCoordinateStruct coordinate, Color add_color);
 	
 	// 最終的に表示する座標を取得
 	PositionStruct getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, RelativeCoordinateStruct tilesCount);

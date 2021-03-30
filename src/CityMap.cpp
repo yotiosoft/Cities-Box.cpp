@@ -697,6 +697,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
 			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
 			
+			m_tiles[y][x].serialNumber = tile[U"serial_number"].get<int>();
+			
 			for (const auto& jAddons : tile[U"addons"].arrayView()) {
 				TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
 				DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
@@ -710,19 +712,29 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 					m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
 					
 					// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
-					if (tile[U"tiles_count.x"].get<int>() == 0 && tile[U"tiles_count.y"].get<int>() == 0) {
-						m_objects << Object(m_addons[jAddons[U"name"].getString()], type_id, direction_id, CoordinateStruct{x, y});
+					if (m_tiles[y][x].tilesCount.x == 0 && m_tiles[y][x].tilesCount.y == 0) {
+						// ObjectID = 0なら空き番号に振り直す
+						if (m_tiles[y][x].serialNumber == 0) {
+							for (int n = 0; ; n++) {
+								if (m_objects.count(n) == 0) {
+									cout << "new objectID = " << n << endl;
+									m_tiles[y][x].serialNumber = n;
+									break;
+								}
+							}
+						}
+						
+						// オブジェクトをリストに登録
+						m_objects[m_tiles[y][x].serialNumber] = Object(m_addons[jAddons[U"name"].getString()], type_id, direction_id, CoordinateStruct{x, y});
 					}
+					
+					// オブジェクトをタイルに格納
+					m_tiles[y][x].addObject(&(m_objects[m_tiles[y][x].serialNumber]));
 				}
 				else {
 					cout << "Cant't find " << jAddons[U"name"].getString() << endl;
 				}
 			}
-			
-			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
-			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
-			
-			m_tiles[y][x].serialNumber = tile[U"serial_number"].get<int>();
 			
 			m_tiles[y][x].residents = tile[U"residents"].get<int>();
 			
@@ -845,8 +857,7 @@ void CityMap::drawTile(CoordinateStruct coordinate, CameraStruct camera) {
 		}
 		
 		RelativeCoordinateStruct relative_coordinate = RelativeCoordinateStruct{
-			m_tiles[coordinate.y][coordinate.x].tilesCount.x,
-			m_tiles[coordinate.y][coordinate.x].tilesCount.y,
+			m_tiles[coordinate.y][coordinate.x].tilesCount,
 			CoordinateStruct{
 				coordinate.x - m_tiles[coordinate.y][coordinate.x].tilesCount.x,
 				coordinate.y - m_tiles[coordinate.y][coordinate.x].tilesCount.y
@@ -1594,8 +1605,8 @@ bool CityMap::save() {
 									{
 										mapData.key(U"name").write(m_tiles[y][x].addons[i]->getName(NameMode::English));
 										//map_file.key(U"category").write(tiles[y][x].category[i]);
-										mapData.key(U"type_number").write(m_tiles[y][x].getType(i));
-										mapData.key(U"direction_number").write(m_tiles[y][x].getDirection(i));
+										mapData.key(U"type_number").write(typeIDToTypeName(m_tiles[y][x].getType(i)));
+										mapData.key(U"direction_number").write(directionIDToDirectionName(m_tiles[y][x].getDirection(i)));
 									}
 									mapData.endObject();
 								}

@@ -62,6 +62,9 @@ public:
 	Array<Addon*> addons;
 	
 private:
+	// 保持するオブジェクト
+	Array<Object*> m_object_ps;
+	
 	String m_original_name;
 	//Array<String> category;
 	

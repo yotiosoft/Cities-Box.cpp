@@ -2066,9 +2066,13 @@
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
 		<data>
-		Dh0ZEysl0NE5vntIax3zIOLVAzM=
+		9/A4hoAhA6VH/DV2Tk9+ujKHRRk=
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
+		<data>
+		9/A4hoAhA6VH/DV2Tk9+ujKHRRk=
+		</data>
+		<key>Resources/assets/data/map_temp.cbj_unxorのコピー</key>
 		<data>
 		Dh0ZEysl0NE5vntIax3zIOLVAzM=
 		</data>
@@ -2078,11 +2082,15 @@
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj</key>
 		<data>
-		Bwz6tCwwkbovhxVMPX+3zSAYbUc=
+		VyTlh1bSQiR4iiD6jXvE7bxJ7ig=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj.cbj</key>
 		<data>
-		sUnw/cbs2zwqaEWLkmAKzGmafAk=
+		7W9iuIqV1ZOX7V4wMbrwrySN5YY=
+		</data>
+		<key>Resources/assets/data/maps/Sample_City_backup.cbd.cbj</key>
+		<data>
+		Bwz6tCwwkbovhxVMPX+3zSAYbUc=
 		</data>
 		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>
 		<data>
@@ -5874,10 +5882,17 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qm4jK9MHhBLQ5G5HPIUqGD9YGQKkoOnK58WrE8dn6vQ=
+			CNjrMfTQ35hqbla4dn0xunn6r+SfVwnzMf85jHt8rT0=
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CNjrMfTQ35hqbla4dn0xunn6r+SfVwnzMf85jHt8rT0=
+			</data>
+		</dict>
+		<key>Resources/assets/data/map_temp.cbj_unxorのコピー</key>
 		<dict>
 			<key>hash2</key>
 			<data>
@@ -5895,14 +5910,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EwSD9qjaSZHZ0hiqAEO/iiLn1qe5GPvqgqUQ802/pog=
+			30fbtJBzHHSRh5aQxqyryzy8i4cZ/tLhcewuJR13AFY=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj.cbj</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0IFbjSuUAL3iOMij+UqS3WZTCSHnJqz2qlQ/yyQg/uI=
+			0w5VyNmDoWe/0BDk3IwDutyrTGdi4SPEG9jQvtrBss0=
+			</data>
+		</dict>
+		<key>Resources/assets/data/maps/Sample_City_backup.cbd.cbj</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EwSD9qjaSZHZ0hiqAEO/iiLn1qe5GPvqgqUQ802/pog=
 			</data>
 		</dict>
 		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>

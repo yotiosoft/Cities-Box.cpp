@@ -34,8 +34,7 @@ typedef struct CoordinateStruct {
 
 // マップ上の相対的な座標格納
 typedef struct RelativeCoordinateStruct {
-	int x;
-	int y;
+	CoordinateStruct relative;
 	CoordinateStruct origin;
 } RelativeCoordinateStruct;
 

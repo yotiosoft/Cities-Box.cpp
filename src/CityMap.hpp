@@ -143,7 +143,7 @@ private:
 	
 	map<String, Addon*> m_addons;
 	
-	Array<Object> m_objects;
+	map<int, Object> m_objects;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

@@ -7,6 +7,9 @@
 
 #include "Object.hpp"
 
+Object::Object() {
+}
+
 Object::Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate) {
 	m_addon_p = arg_addon_p;
 	m_type_id = arg_type_id;
@@ -20,6 +23,6 @@ Object::Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type a
 										 m_start_coordinate.y));*/
 }
 
-void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, CameraStruct arg_camera, TimeStruct arg_time) {
-	
+void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {
+	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }

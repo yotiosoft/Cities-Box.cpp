@@ -7,6 +7,12 @@
 
 #include "Tile.hpp"
 
+// オブジェクトの登録
+void Tile::addObject(Object *arg_object_p) {
+	m_object_ps << arg_object_p;
+	cout << arg_object_p << endl;
+}
+
 // originalName
 bool Tile::setOriginalName(String new_original_name) {
 	m_original_name = new_original_name;

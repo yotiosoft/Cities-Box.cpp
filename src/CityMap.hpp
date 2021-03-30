@@ -58,9 +58,8 @@ public:
 	// マップサイズの取得
 	Size getMapSize();
 	
-	// 座標から描画位置を取得
+	// 座標から描画位置、描画位置から座標を取得
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
-	
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
 	// 描画範囲を取得

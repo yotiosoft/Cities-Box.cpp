@@ -32,6 +32,13 @@ typedef struct CoordinateStruct {
 	int y;
 } CoordinateStruct;
 
+// マップ上の相対的な座標格納
+typedef struct RelativeCoordinateStruct {
+	int x;
+	int y;
+	CoordinateStruct origin;
+} RelativeCoordinateStruct;
+
 // カメラの情報
 typedef struct CameraStruct {
 	PositionStruct position;

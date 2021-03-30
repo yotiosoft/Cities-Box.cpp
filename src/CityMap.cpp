@@ -844,7 +844,15 @@ void CityMap::drawTile(CoordinateStruct coordinate, CameraStruct camera) {
 			}
 		}
 		
-		m_tiles[coordinate.y][coordinate.x].addons[i]->draw(m_tiles[coordinate.y][coordinate.x].getType(i), m_tiles[coordinate.y][coordinate.x].getDirection(i), coordinateToPosition(coordinate, camera), m_tiles[coordinate.y][coordinate.x].addons[i]->getUseTiles(m_tiles[coordinate.y][coordinate.x].getType(i), m_tiles[coordinate.y][coordinate.x].getDirection(i)), m_tiles[coordinate.y][coordinate.x].tilesCount, rateColor, m_time_now);
+		RelativeCoordinateStruct relative_coordinate = RelativeCoordinateStruct{
+			m_tiles[coordinate.y][coordinate.x].tilesCount.x,
+			m_tiles[coordinate.y][coordinate.x].tilesCount.y,
+			CoordinateStruct{
+				coordinate.x - m_tiles[coordinate.y][coordinate.x].tilesCount.x,
+				coordinate.y - m_tiles[coordinate.y][coordinate.x].tilesCount.y
+			}
+		};
+		m_tiles[coordinate.y][coordinate.x].addons[i]->draw(m_tiles[coordinate.y][coordinate.x].getType(i), m_tiles[coordinate.y][coordinate.x].getDirection(i), coordinateToPosition(coordinate, camera), relative_coordinate, rateColor, m_time_now);
 	}
 }
 

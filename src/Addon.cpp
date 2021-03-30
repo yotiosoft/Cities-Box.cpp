@@ -239,8 +239,7 @@ CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type direc
 	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
 }
 
-void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, CoordinateStruct useTiles, CoordinateStruct tilesCount, Color addColor,
-				 TimeStruct time) {
+void Addon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, RelativeCoordinateStruct tilesCount, Color addColor, TimeStruct time) {
 	m_types[typeID].draw(time, directionID, position, tilesCount, addColor);
 }
 

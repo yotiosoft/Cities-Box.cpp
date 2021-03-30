@@ -19,3 +19,7 @@ Object::Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type a
 										 m_start_coordinate.x,
 										 m_start_coordinate.y));*/
 }
+
+void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, CameraStruct arg_camera, TimeStruct arg_time) {
+	
+}

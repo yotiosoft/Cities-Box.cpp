@@ -74,7 +74,7 @@ public:
 	bool isInCategories(Array<String> searchCategories);
 	
 	// 効果を取得
-	map<String, EffectStruct> getEffects();
+	map<RateID::Type, EffectStruct> getEffects();
 	
 	// アイコンのテクスチャの取得
 	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
@@ -135,7 +135,7 @@ protected:
 	int m_maximum_capacity;
 	
 	// 建物の効果
-	map<String, EffectStruct> m_effects;
+	map<RateID::Type, EffectStruct> m_effects;
 	
 	// 地価
 	int m_land_price_influence;				// 上昇額

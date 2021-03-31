@@ -12,6 +12,8 @@
 
 using namespace std;
 
+class Object;
+
 // 画像格納用
 typedef struct ImageStruct {
 	Texture texture;
@@ -118,5 +120,11 @@ typedef struct SchoolStruct {
 typedef struct ConnectStruct {
 	Array<DirectionID::Type> roadTypeConnect;
 } ConnectStruct;
+
+// オブジェクト情報
+typedef struct ObjectStruct {
+	Object* object_p;
+	RelativeCoordinateStruct relative_coordinate;
+} ObjectStruct;
 
 #endif /* Structs_hpp */

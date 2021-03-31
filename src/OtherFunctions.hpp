@@ -48,6 +48,9 @@ LayerType::Type timeToLayerType(TimeStruct time);
 LayerType::Type layerNameToLayerType(String layer_name);
 String layerTypeToLayerName(LayerType::Type layer_type);
 
+RateID::Type rateNameToRateID(String rate_name);
+String rateIDToRateName(RateID::Type rate_id);
+
 void blendColorAndImage(Image& imageTemp, Color blendColor);
 
 void setAlphaColor(Image& imageTemp, Color transparentRGB);

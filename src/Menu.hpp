@@ -60,7 +60,7 @@ private:
 	RenderTexture m_render;
 	
 	map<String, Button> m_button;
-	map<String, Button> m_rate_button;
+	map<RateID::Type, Button> m_rate_button;
 	
 	MenuMode::Type m_menu_mode;
 	
@@ -73,7 +73,7 @@ private:
 	
 	CityMap* m_map;
 	
-	::map<String, Texture> m_effect_icons;
+	::map<RateID::Type, Texture> m_effect_icons;
 	
 	String m_selected_addon_name;
 	
@@ -81,7 +81,7 @@ private:
 	String m_mode_str;
 	
 	bool m_show_rate_menu;
-	String m_show_rate_name;
+	RateID::Type m_show_rate_id;
 	
 	Texture m_population;
 };

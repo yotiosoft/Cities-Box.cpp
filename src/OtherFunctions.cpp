@@ -509,6 +509,40 @@ String layerTypeToLayerName(LayerType::Type layer_type) {
 	return U"disabled";
 }
 
+RateID::Type rateNameToRateID(String rate_name) {
+	if (rate_name == U"LandPrice" || rate_name == U"land_price") {
+		return RateID::LandPrice;
+	}
+	if (rate_name == U"CrimeRate" || rate_name == U"crime_rate") {
+		return RateID::CrimeRate;
+	}
+	if (rate_name == U"EducationRate" || rate_name == U"education_rate") {
+		return RateID::EducationRate;
+	}
+	if (rate_name == U"HappinessRate" || rate_name == U"happiness_rate") {
+		return RateID::HappinessRate;
+	}
+	
+	return RateID::None;
+}
+
+String rateIDToRateName(RateID::Type rate_id) {
+	switch (rate_id) {
+		case RateID::LandPrice:
+			return U"LandPrice";
+		case RateID::CrimeRate:
+			return U"CrimeRate";
+		case RateID::EducationRate:
+			return U"EducationRate";
+		case RateID::HappinessRate:
+			return U"HappinessRate";
+		default:
+			break;
+	}
+	
+	return U"None";
+}
+
 void blendColorAndImage(Image& imageTemp, Color blendColor) {
 	double outA, outR, outG, outB;
 	for (int h=0; h<imageTemp.height(); h++) {

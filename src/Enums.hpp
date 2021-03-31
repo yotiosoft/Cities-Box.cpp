@@ -220,4 +220,15 @@ namespace DirectionID {
 	};
 }
 
+// レート表示情報
+namespace RateID {
+	enum Type {
+		None,
+		LandPrice,
+		CrimeRate,
+		EducationRate,
+		HappinessRate
+	};
+}
+
 #endif /* Enums_hpp */

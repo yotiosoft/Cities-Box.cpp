@@ -8,9 +8,12 @@
 #include "Tile.hpp"
 
 // オブジェクトの登録
-void Tile::addObject(Object *arg_object_p) {
-	m_object_ps << arg_object_p;
-	cout << arg_object_p << endl;
+void Tile::addObject(Object *arg_object_p, RelativeCoordinateStruct arg_relative_coordinate) {
+	ObjectStruct new_object_struct;
+	new_object_struct.object_p = arg_object_p;
+	new_object_struct.relative_coordinate = arg_relative_coordinate;
+	
+	m_objects << new_object_struct;
 }
 
 // originalName
@@ -75,6 +78,53 @@ DirectionID::Type Tile::getDirection(int num) {
 	return m_directions[num];
 }
 
+// レートの取得
+map<RateID::Type, int> Tile::getRate() {
+	return rate;
+}
+
+int Tile::getRate(RateID::Type rate_id) {
+	if (rate.find(rate_id) != rate.end()) {
+		return rate[rate_id];
+	}
+	else {
+		return 0;
+	}
+}
+
+// Object情報を取得
+bool Tile::isObjectExists(int arg_object_id) {
+	bool ret = false;
+	
+	for (int i=0; i<m_objects.size(); i++) {
+		if (m_objects[i].object_p->getObjectID() == arg_object_id) {
+			return true;
+		}
+	}
+	
+	return ret;
+}
+
+// 描画
+void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
+	for (int i=0; i<m_objects.size(); i++) {
+		int rate;
+		Color rateColor = Color(0, 0, 0, 0);
+		if (arg_show_rate_id != RateID::None) {
+			rate = getRate(arg_show_rate_id);
+			if (arg_show_rate_id == RateID::CrimeRate) {
+				rateColor = m_get_rate_color(rate, false, 0);
+			}
+			else {
+				rateColor = m_get_rate_color(rate, true, 50);
+			}
+		}
+		
+		m_objects[i].object_p->draw(m_objects[i].relative_coordinate, arg_draw_position, arg_time, rateColor);
+	}
+}
+
+// クリア
 void Tile::clearAddons() {
 	addons.clear();
 	m_types.clear();
@@ -90,4 +140,27 @@ void Tile::clearAll() {
 	workers = {0, 0, 0, 0, 0};
 	students = 0;
 	reservation = RCOIFP::None;
+}
+
+Color Tile::m_get_rate_color(int rate, bool upper, int standard) {
+	Color ret(50, 50, 50);
+	
+	if (upper) {
+		if (rate > standard) {
+			ret.b += (rate-standard) * 1.27;
+		}
+		else if (rate < standard) {
+			ret.r += (standard-rate) * 1.27;
+		}
+		return ret;
+	}
+	
+	if (rate < standard) {
+		ret.b += (standard-rate) * 1.27;
+	}
+	else if (rate > standard) {
+		ret.r += (rate-standard) * 1.27;
+	}
+	
+	return ret;
 }

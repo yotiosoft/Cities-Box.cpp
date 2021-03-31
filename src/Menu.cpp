@@ -53,9 +53,11 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_show_rate_menu = false;
 	
 	// 効果テクスチャを用意
-	m_effect_icons[U"crime_rate"] = Texture(Icon(IconFont::Crime, 16));
-	m_effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
-	m_effect_icons[U"education_rate"] = Texture(Icon(IconFont::Education, 16));
+	m_effect_icons[RateID::CrimeRate] = Texture(Icon(IconFont::Crime, 16));
+	m_effect_icons[RateID::EducationRate] = Texture(Icon(IconFont::Education, 16));
+	m_effect_icons[RateID::LandPrice] = Texture(Icon(IconFont::LandPrice, 16));
+	/*
+	 m_effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
 	m_effect_icons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
 	m_effect_icons[U"garbage_disposal"] = Texture(Icon(IconFont::Garbage, 16));
 	m_effect_icons[U"land_price"] = Texture(Icon(IconFont::LandPrice, 16));
@@ -65,12 +67,12 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_effect_icons[U"television"] = Texture(Icon(IconFont::Television, 16));
 	m_effect_icons[U"tourist_attraction"] = Texture(Icon(IconFont::Tourist, 16));
 	m_effect_icons[U"radio"] = Texture(Icon(IconFont::Radio, 16));
-	
+	*/
 	// レート表示用ボタン
-	m_rate_button[U"land_price"].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
-	m_rate_button[U"crime_rate"].set(IconFont::Crime, 16, 16, PositionStruct{0, 0});
-	m_rate_button[U"education_rate"].set(IconFont::Education, 16, 16, PositionStruct{0, 0});
-	m_rate_button[U"happiness_rate"].set(IconFont::Happiness, 16, 16, PositionStruct{0, 0});
+	m_rate_button[RateID::LandPrice].set(IconFont::LandPrice, 16, 16, PositionStruct{0, 0});
+	m_rate_button[RateID::CrimeRate].set(IconFont::Crime, 16, 16, PositionStruct{0, 0});
+	m_rate_button[RateID::EducationRate].set(IconFont::Education, 16, 16, PositionStruct{0, 0});
+	m_rate_button[RateID::HappinessRate].set(IconFont::Happiness, 16, 16, PositionStruct{0, 0});
 }
 
 void Menu::releaseBeforeButton(MenuMode::Type beforeSelectedButton) {
@@ -121,6 +123,7 @@ void Menu::releaseBeforeButton(MenuMode::Type beforeSelectedButton) {
 			m_button[U"save"].release();
 			return;
 		case MenuMode::None:
+		default:
 			return;
 	}
 }
@@ -460,7 +463,7 @@ void Menu::addonMenu() {
 			(*m_font12)(m_show_addons[selectedI]->getSummary()).draw(m_position.x+30, m_position.y-60+2);
 			
 			// 効果アイコン
-			::map<String, EffectStruct> effects = m_show_addons[selectedI]->getEffects();
+			::map<RateID::Type, EffectStruct> effects = m_show_addons[selectedI]->getEffects();
 			int i = 0;
 			int leftmost = (*m_font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
@@ -477,7 +480,7 @@ void Menu::addonMenu() {
 			(*m_font12)(m_show_addons[cursorI]->getSummary()).draw(m_position.x+30, m_position.y-60+2);
 			
 			// 効果アイコン
-			::map<String, EffectStruct> effects = m_show_addons[cursorI]->getEffects();
+			::map<RateID::Type, EffectStruct> effects = m_show_addons[cursorI]->getEffects();
 			int i = 0;
 			int leftmost = (*m_font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
@@ -513,87 +516,87 @@ void Menu::addonMenu() {
 bool Menu::rateMenu() {
 	Rect(m_position.x+495+35+16-32*4/2, m_position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
 	
-	m_rate_button[U"land_price"].put(PositionStruct{m_position.x+495+35+16-32*4/2+7, m_position.y-32*3+5});
-	m_rate_button[U"crime_rate"].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32, m_position.y-32*3+5});
-	m_rate_button[U"education_rate"].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*2, m_position.y-32*3+5});
-	m_rate_button[U"happiness_rate"].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*3, m_position.y-32*3+5});
+	m_rate_button[RateID::LandPrice].put(PositionStruct{m_position.x+495+35+16-32*4/2+7, m_position.y-32*3+5});
+	m_rate_button[RateID::CrimeRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32, m_position.y-32*3+5});
+	m_rate_button[RateID::EducationRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*2, m_position.y-32*3+5});
+	m_rate_button[RateID::HappinessRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*3, m_position.y-32*3+5});
 	
-	if (m_rate_button[U"land_price"].push()) {
-		if (m_show_rate_name != U"land_price") {
-			m_show_rate_name = U"land_price";
+	if (m_rate_button[RateID::LandPrice].push()) {
+		if (m_show_rate_id != RateID::LandPrice) {
+			m_show_rate_id = RateID::LandPrice;
 			for (auto b = m_rate_button.begin(); b != m_rate_button.end(); b++) {
-				if (b->first != m_show_rate_name) {
+				if (b->first != m_show_rate_id) {
 					b->second.release();
 				}
 			}
 			
-			m_map->setShowRate(m_show_rate_name);
+			m_map->setShowRate(m_show_rate_id);
 			return true;
 		}
 		else {
-			m_show_rate_name = U"";
-			m_map->setShowRate(m_show_rate_name);
-			m_rate_button[U"land_price"].release();
+			m_show_rate_id = RateID::None;
+			m_map->setShowRate(m_show_rate_id);
+			m_rate_button[RateID::LandPrice].release();
 			return true;
 		}
 	}
 	
-	if (m_rate_button[U"crime_rate"].push()) {
-		if (m_show_rate_name != U"crime_rate") {
-			m_show_rate_name = U"crime_rate";
+	if (m_rate_button[RateID::CrimeRate].push()) {
+		if (m_show_rate_id != RateID::CrimeRate) {
+			m_show_rate_id = RateID::CrimeRate;
 			for (auto b = m_rate_button.begin(); b != m_rate_button.end(); b++) {
-				if (b->first != m_show_rate_name) {
+				if (b->first != m_show_rate_id) {
 					b->second.release();
 				}
 			}
 			
-			m_map->setShowRate(m_show_rate_name);
+			m_map->setShowRate(m_show_rate_id);
 			return true;
 		}
 		else {
-			m_show_rate_name = U"";
-			m_map->setShowRate(m_show_rate_name);
-			m_rate_button[U"crime_rate"].release();
+			m_show_rate_id = RateID::None;
+			m_map->setShowRate(m_show_rate_id);
+			m_rate_button[RateID::CrimeRate].release();
 			return true;
 		}
 	}
 	
-	if (m_rate_button[U"education_rate"].push()) {
-		if (m_show_rate_name != U"education_rate") {
-			m_show_rate_name = U"education_rate";
+	if (m_rate_button[RateID::EducationRate].push()) {
+		if (m_show_rate_id != RateID::EducationRate) {
+			m_show_rate_id = RateID::EducationRate;
 			for (auto b = m_rate_button.begin(); b != m_rate_button.end(); b++) {
-				if (b->first != m_show_rate_name) {
+				if (b->first != m_show_rate_id) {
 					b->second.release();
 				}
 			}
 			
-			m_map->setShowRate(m_show_rate_name);
+			m_map->setShowRate(m_show_rate_id);
 			return true;
 		}
 		else {
-			m_show_rate_name = U"";
-			m_map->setShowRate(m_show_rate_name);
-			m_rate_button[U"education_rate"].release();
+			m_show_rate_id = RateID::None;
+			m_map->setShowRate(m_show_rate_id);
+			m_rate_button[RateID::EducationRate].release();
 			return true;
 		}
 	}
 	
-	if (m_rate_button[U"happiness_rate"].push()) {
-		if (m_show_rate_name != U"happiness_rate") {
-			m_show_rate_name = U"happiness_rate";
+	if (m_rate_button[RateID::HappinessRate].push()) {
+		if (m_show_rate_id != RateID::HappinessRate) {
+			m_show_rate_id = RateID::HappinessRate;
 			for (auto b = m_rate_button.begin(); b != m_rate_button.end(); b++) {
-				if (b->first != m_show_rate_name) {
+				if (b->first != m_show_rate_id) {
 					b->second.release();
 				}
 			}
 			
-			m_map->setShowRate(m_show_rate_name);
+			m_map->setShowRate(m_show_rate_id);
 			return true;
 		}
 		else {
-			m_show_rate_name = U"";
-			m_map->setShowRate(m_show_rate_name);
-			m_rate_button[U"happiness_rate"].release();
+			m_show_rate_id = RateID::None;
+			m_map->setShowRate(m_show_rate_id);
+			m_rate_button[RateID::HappinessRate].release();
 			return true;
 		}
 	}

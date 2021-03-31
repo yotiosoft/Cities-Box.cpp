@@ -14,7 +14,7 @@
 class Tile {
 public:
 	// オブジェクトの登録
-	void addObject(Object* arg_object_p);
+	void addObject(Object* arg_object_p, RelativeCoordinateStruct arg_relative_coordinate);
 	
 	// originalName
 	bool setOriginalName(String new_original_name);
@@ -34,6 +34,16 @@ public:
 	Array<DirectionID::Type> getDirections();
 	DirectionID::Type getDirection(int num);
 	
+	// 各率を取得
+	map<RateID::Type, int> getRate();
+	int getRate(RateID::Type rate_id);
+	
+	// Object情報を取得
+	bool isObjectExists(int arg_object_id);
+	
+	// 描画
+	void draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time);
+	
 	// クリア
 	void clearAddons();				// addons, tiles, directionsだけをクリア（更新用）
 	void clearAll();				// タイル上のすべてのデータ（アドオン情報＋住民情報など）をクリア
@@ -47,7 +57,7 @@ public:
 	int students;
 	
 	int happinessRate;
-	map<String, int> rate;
+	map<RateID::Type, int> rate;
 	
 	//CropStruct crop;
 	
@@ -62,8 +72,13 @@ public:
 	Array<Addon*> addons;
 	
 private:
+	// プライベート関数
+	// 各率を表示するときの色を取得
+	Color m_get_rate_color(int rate, bool upper, int standard);
+	
+	// プライベート変数
 	// 保持するオブジェクト
-	Array<Object*> m_object_ps;
+	Array<ObjectStruct> m_objects;
 	
 	String m_original_name;
 	//Array<String> category;

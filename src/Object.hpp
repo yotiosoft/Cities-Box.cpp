@@ -17,6 +17,12 @@ public:
 	Object();
 	Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
 	
+	// 原点を取得
+	CoordinateStruct getOriginCoordinate();
+	
+	// ObjectIDを取得
+	int getObjectID();
+	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
 	

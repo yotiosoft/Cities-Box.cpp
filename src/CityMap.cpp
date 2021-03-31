@@ -436,7 +436,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			Array<String> temp = split(strTemp, U", ");
 			
 			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[U"land_price"] = stoi(temp[x].toUTF8());
+				m_tiles[arrayCount][x].rate[rateNameToRateID(U"land_price")] = stoi(temp[x].toUTF8());
 			}
 		}
 		
@@ -444,7 +444,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			Array<String> temp = split(strTemp, U", ");
 			
 			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
+				m_tiles[arrayCount][x].rate[rateNameToRateID(U"happiness_rate")] = stoi(temp[x].toUTF8());
 			}
 		}
 		
@@ -452,7 +452,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			Array<String> temp = split(strTemp, U", ");
 			
 			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[U"crime_rate"] = stoi(temp[x].toUTF8());
+				m_tiles[arrayCount][x].rate[rateNameToRateID(U"crime_rate")] = stoi(temp[x].toUTF8());
 			}
 		}
 		
@@ -460,7 +460,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			Array<String> temp = split(strTemp, U", ");
 			
 			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[U"happiness_rate"] = stoi(temp[x].toUTF8());
+				m_tiles[arrayCount][x].rate[rateNameToRateID(U"happiness_rate")] = stoi(temp[x].toUTF8());
 			}
 		}
 		
@@ -468,7 +468,7 @@ void CityMap::loadCBD(String loadMapFilePath) {
 			Array<String> temp = split(strTemp, U", ");
 			
 			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[U"education_rate"] = stoi(temp[x].toUTF8());
+				m_tiles[arrayCount][x].rate[rateNameToRateID(U"education_rate")] = stoi(temp[x].toUTF8());
 			}
 		}
 		/*
@@ -702,7 +702,12 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			for (const auto& jAddons : tile[U"addons"].arrayView()) {
 				TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
 				DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
-				
+				/*
+				if (m_saved_version <= 141) {
+					String addon_name = tile[U"addons"].arrayView()[0][U"name"].getString();
+					m_tiles[y][x].tilesCount.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tile[U"tiles_count.y"].get<int>();
+				}
+				*/
 				//tiles[y][x].category.push_back(j_addons[U"category"].getString());
 				m_tiles[y][x].addType(type_id);
 				m_tiles[y][x].addDirection(direction_id);
@@ -714,10 +719,11 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 					// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
 					if (m_tiles[y][x].tilesCount.x == 0 && m_tiles[y][x].tilesCount.y == 0) {
 						// ObjectID = 0なら空き番号に振り直す
-						if (m_tiles[y][x].serialNumber == 0) {
-							for (int n = 0; ; n++) {
+						// あるいはObjectIDが被った場合に振り直す
+						if (m_tiles[y][x].serialNumber == 0 || m_objects.count(m_tiles[y][x].serialNumber) > 0) {
+							for (int n = 1; ; n++) {
 								if (m_objects.count(n) == 0) {
-									cout << "new objectID = " << n << endl;
+									//cout << "new objectID = " << n << endl;
 									m_tiles[y][x].serialNumber = n;
 									break;
 								}
@@ -727,9 +733,26 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						// オブジェクトをリストに登録
 						m_objects[m_tiles[y][x].serialNumber] = Object(m_addons[jAddons[U"name"].getString()], type_id, direction_id, CoordinateStruct{x, y});
 					}
+					else {
+						CoordinateStruct origin_coordinate;
+						origin_coordinate.x = x - m_tiles[y][x].tilesCount.x;
+						origin_coordinate.y = y - m_tiles[y][x].tilesCount.y;
+						
+						// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
+						if (m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().x != origin_coordinate.x ||
+							m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().y != origin_coordinate.y) {
+							cout << "rapair ObjectID at " << x << "," << y << ": " << m_tiles[y][x].serialNumber << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber << " " << endl;
+							m_tiles[y][x].serialNumber = m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber;
+						}
+					}
+					
+					// RelativeCoordinateStructを作成
+					RelativeCoordinateStruct relarive_coordinate;
+					relarive_coordinate.origin = m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate();
+					relarive_coordinate.relative = m_tiles[y][x].tilesCount;
 					
 					// オブジェクトをタイルに格納
-					m_tiles[y][x].addObject(&(m_objects[m_tiles[y][x].serialNumber]));
+					m_tiles[y][x].addObject(&(m_objects[m_tiles[y][x].serialNumber]), relarive_coordinate);
 				}
 				else {
 					cout << "Cant't find " << jAddons[U"name"].getString() << endl;
@@ -750,7 +773,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			
 			// 各率の読み込み
 			for (const auto& rate : tile[U"rate"].objectView()) {
-				m_tiles[y][x].rate[rate.name] = rate.value.get<int>();
+				m_tiles[y][x].rate[rateNameToRateID(rate.name)] = rate.value.get<int>();
 			}
 			
 			/*
@@ -841,32 +864,6 @@ map<String, Addon*> CityMap::getAllAddons() {
 	return m_addons;
 }
 
-void CityMap::drawTile(CoordinateStruct coordinate, CameraStruct camera) {
-	// 描画する座標を算出
-	for (int i=0; i<(int)m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
-		int rate;
-		Color rateColor = Color(0, 0, 0, 0);
-		if (m_show_rate.length() > 0) {
-			rate = getRate(coordinate, m_show_rate);
-			if (m_show_rate == U"crime_rate") {
-				rateColor = getRateColor(rate, false, 0);
-			}
-			else {
-				rateColor = getRateColor(rate, true, 50);
-			}
-		}
-		
-		RelativeCoordinateStruct relative_coordinate = RelativeCoordinateStruct{
-			m_tiles[coordinate.y][coordinate.x].tilesCount,
-			CoordinateStruct{
-				coordinate.x - m_tiles[coordinate.y][coordinate.x].tilesCount.x,
-				coordinate.y - m_tiles[coordinate.y][coordinate.x].tilesCount.y
-			}
-		};
-		m_tiles[coordinate.y][coordinate.x].addons[i]->draw(m_tiles[coordinate.y][coordinate.x].getType(i), m_tiles[coordinate.y][coordinate.x].getDirection(i), coordinateToPosition(coordinate, camera), relative_coordinate, rateColor, m_time_now);
-	}
-}
-
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
 	// マップを描画
 	for (short int y=getDrawArea(camera).first.y; y<getDrawArea(camera).second.y; y++) {
@@ -875,7 +872,7 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
 			
 			// 一マス分描画
 			if (drawPos.x >= -CHIP_SIZE && drawPos.y >= -CHIP_SIZE/2 && drawPos.x <= Scene::Width() && drawPos.y <= Scene::Height() + CHIP_SIZE*2) {
-				drawTile(CoordinateStruct{x, y}, camera);
+				m_tiles[y][x].draw(m_show_rate, drawPos, m_time_now);
 			}
 			
 			// カーソルの描画
@@ -1043,7 +1040,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 		}
 		
 		// 効果を取得
-		map<String, EffectStruct> effects = selectedAddon->getEffects();
+		map<RateID::Type, EffectStruct> effects = selectedAddon->getEffects();
 		
 		// 中央となる座標を取得
 		int centerX = useTiles.x/2;
@@ -1142,7 +1139,7 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 		currentTile = &m_tiles[startPoint.y][startPoint.x];
 		
 		// 効果を取得
-		map<String, EffectStruct> effects = breakAddons[i]->getEffects();
+		map<RateID::Type, EffectStruct> effects = breakAddons[i]->getEffects();
 		
 		// 中央となる座標を取得
 		int centerX = useTiles.x/2;
@@ -1487,44 +1484,8 @@ TimeStruct CityMap::cityTime(int minutesDelta) {
 	return m_time_now;
 }
 
-map<String, int> CityMap::getRate(CoordinateStruct coordinate) {
-	return m_tiles[coordinate.y][coordinate.x].rate;
-}
-
-int CityMap::getRate(CoordinateStruct coordinate, String rateName) {
-	if (m_tiles[coordinate.y][coordinate.x].rate.find(rateName) != m_tiles[coordinate.y][coordinate.x].rate.end()) {
-		return m_tiles[coordinate.y][coordinate.x].rate[rateName];
-	}
-	else {
-		return 0;
-	}
-}
-
-Color CityMap::getRateColor(int rate, bool upper, int standard) {
-	Color ret(50, 50, 50);
-	
-	if (upper) {
-		if (rate > standard) {
-			ret.b += (rate-standard) * 1.27;
-		}
-		else if (rate < standard) {
-			ret.r += (standard-rate) * 1.27;
-		}
-		return ret;
-	}
-	
-	if (rate < standard) {
-		ret.b += (standard-rate) * 1.27;
-	}
-	else if (rate > standard) {
-		ret.r += (rate-standard) * 1.27;
-	}
-	
-	return ret;
-}
-
-void CityMap::setShowRate(String rateName) {
-	m_show_rate = rateName;
+void CityMap::setShowRate(RateID::Type rate_id) {
+	m_show_rate = rate_id;
 }
 
 bool CityMap::save() {
@@ -1647,7 +1608,7 @@ bool CityMap::save() {
 							{
 								for (auto rate = m_tiles[y][x].rate.begin(); rate != m_tiles[y][x].rate.end() ; rate++) {
 									if (rate->second != 0) {
-										mapData.key(rate->first).write(rate->second);
+										mapData.key(rateIDToRateName(rate->first)).write(rate->second);
 									}
 								}
 							}

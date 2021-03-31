@@ -86,8 +86,9 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	
 	// 建物の効果
 	for (const auto& effect : addonData[U"effects"].objectView()) {
-		m_effects[effect.name].influence = effect.value[U"influence"].get<int>();
-		m_effects[effect.name].grid = effect.value[U"grid"].get<int>();
+		RateID::Type rate_id = rateNameToRateID(effect.name);
+		m_effects[rate_id].influence = effect.value[U"influence"].get<int>();
+		m_effects[rate_id].grid = effect.value[U"grid"].get<int>();
 	}
 	
 	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
@@ -227,7 +228,7 @@ bool Addon::isInCategories(Array<String> searchCategories) {
 	return false;
 }
 
-map<String, EffectStruct> Addon::getEffects() {
+map<RateID::Type, EffectStruct> Addon::getEffects() {
 	return m_effects;
 }
 
@@ -313,7 +314,7 @@ void Addon::m_converter() {
 		{
 			for (auto e = m_effects.begin(); e != m_effects.end() ; e++) {
 				if (e->second.influence != 0) {
-					addonData.key(e->first).startObject();
+					addonData.key(rateIDToRateName(e->first)).startObject();
 					{
 						addonData.key(U"influence").write(e->second.influence);
 						addonData.key(U"grid").write(e->second.grid);

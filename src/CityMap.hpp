@@ -37,7 +37,6 @@ public:
 	void loadingScreen();
 	
 	// マップの描画
-	void drawTile(CoordinateStruct coordinate, CameraStruct camera);
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
 	// Addon構造体の取得
@@ -92,15 +91,8 @@ public:
 	// 時間を進ませて取得
 	TimeStruct cityTime(int minutesDelta);
 	
-	// 各率を取得
-	map<String, int> getRate(CoordinateStruct coordinate);
-	int getRate(CoordinateStruct coordinate, String rateName);
-	
-	// 各率を表示するときの色を取得
-	Color getRateColor(int rate, bool upper, int standard);
-	
 	// レート表示モード
-	void setShowRate(String rateName);
+	void setShowRate(RateID::Type effect_id);
 	
 	// マップ保存
 	bool save();
@@ -150,7 +142,7 @@ private:
 	
 	String m_map_file_path;
 	
-	String m_show_rate = U"";
+	RateID::Type m_show_rate = RateID::None;
 };
 
 #endif /* CityMap_hpp */

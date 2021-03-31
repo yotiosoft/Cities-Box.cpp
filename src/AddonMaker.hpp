@@ -146,11 +146,11 @@ public:
 		return m_maximum_capacity;
 	}
 	
-	void setEffect(String name, int influence, int grid) {
-		m_effects[name].influence = influence;
-		m_effects[name].grid = grid;
+	void setEffect(RateID::Type rate_id, int influence, int grid) {
+		m_effects[rate_id].influence = influence;
+		m_effects[rate_id].grid = grid;
 		
-		if (name.size() > 0) {
+		if (rate_id == RateID::None) {
 			m_am_check_effect = true;
 		}
 	}
@@ -159,7 +159,7 @@ public:
 		return m_am_check_effect;
 	}
 	
-	map<String, EffectStruct> printEffect() {
+	map<RateID::Type, EffectStruct> printEffect() {
 		return m_effects;
 	}
 	/*

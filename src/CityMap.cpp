@@ -702,12 +702,14 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			for (const auto& jAddons : tile[U"addons"].arrayView()) {
 				TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
 				DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
-				/*
-				if (m_saved_version <= 141) {
+				
+				if (m_saved_version <= 141 && direction_id != DirectionID::West) {
 					String addon_name = tile[U"addons"].arrayView()[0][U"name"].getString();
-					m_tiles[y][x].tilesCount.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tile[U"tiles_count.y"].get<int>();
+					if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
+						m_tiles[y][x].tilesCount.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - m_tiles[y][x].tilesCount.y;
+					}
 				}
-				*/
+				
 				//tiles[y][x].category.push_back(j_addons[U"category"].getString());
 				m_tiles[y][x].addType(type_id);
 				m_tiles[y][x].addDirection(direction_id);
@@ -741,6 +743,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
 						if (m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().x != origin_coordinate.x ||
 							m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().y != origin_coordinate.y) {
+							cout << "be to " << origin_coordinate.x << "," << origin_coordinate.y << ":" << endl;
 							cout << "rapair ObjectID at " << x << "," << y << ": " << m_tiles[y][x].serialNumber << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber << " " << endl;
 							m_tiles[y][x].serialNumber = m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber;
 						}
@@ -757,6 +760,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 				else {
 					cout << "Cant't find " << jAddons[U"name"].getString() << endl;
 				}
+				
+				//cout << m_objects.size() << endl;
 			}
 			
 			m_tiles[y][x].residents = tile[U"residents"].get<int>();

@@ -18,7 +18,7 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 	position = getPosition(direction_id, position, m_directions[direction_id].requiredTiles, coordinate);
 	
 	unsigned short int topLeftX = m_directions[direction_id].topLeft.x;
-	topLeftX += CHIP_SIZE/2 * coordinate.relative.x + CHIP_SIZE/2 * coordinate.relative.y;
+	topLeftX += CHIP_SIZE/2 * coordinate.relative.x + CHIP_SIZE/2 * (m_directions[direction_id].requiredTiles.y - 1 - coordinate.relative.y);
 	
 	unsigned short int topLeftY = m_directions[direction_id].topLeft.y;
 	topLeftY += CHIP_SIZE/2 * coordinate.relative.y;
@@ -27,6 +27,9 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 	sizeWidth = CHIP_SIZE;
 	
 	unsigned short int sizeHeight = m_directions[direction_id].size.y;
+	
+	//position.x -= CHIP_SIZE/2 * coordinate.relative.x;
+	//position.y -= CHIP_SIZE/4 * coordinate.relative.y;
 	
 	// オブジェクトの描画
 	if (add_color.a > 0) {
@@ -38,7 +41,10 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 }
 
 PositionStruct AddonType::getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, RelativeCoordinateStruct tilesCount) {
-	position.y = position.y + CHIP_SIZE/2 - m_directions[directionID].size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.relative.x) + CHIP_SIZE*3/4 * tilesCount.relative.y;
+	position.y = position.y + CHIP_SIZE/2 - m_directions[directionID].size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.relative.x);
+	if (useTiles.y > 1) {
+		position.y += CHIP_SIZE*1/4 * (1 + tilesCount.relative.y);
+	}
 	
 	return position;
 }

@@ -74,7 +74,7 @@ public:
 	void update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを除去
-	void breaking(CoordinateStruct position);
+	void breaking(CoordinateStruct position, bool isTemporaryDelete);
 	
 	// アドオンの始点となるマスに移動する
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
@@ -106,6 +106,12 @@ private:
 	bool m_get_element(String str, String searchElementName, int& ret);
 	bool m_get_element(String str, String searchElementName, bool& ret);
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
+	
+	// 次のObjectID
+	int m_get_next_objectID();
+	
+	// 芝生を置く
+	void m_put_grass(CoordinateStruct arg_coordinate);
 	
 	/* プライベート変数 */
 	int m_saved_version;

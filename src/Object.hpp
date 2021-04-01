@@ -28,6 +28,7 @@ public:
 	
 	// アドオンを取得
 	Addon* getAddonP();
+	AddonDirectionStruct getAddonDirectionStruct();
 	
 	// TypeID
 	TypeID::Type getTypeID();

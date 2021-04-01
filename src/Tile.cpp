@@ -140,7 +140,23 @@ void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position,
 			}
 		}
 		
+		// オブジェクトが削除された場合
+		if (m_objects[i].object_p == nullptr) {
+			m_objects.erase(m_objects.begin() + i);
+			continue;
+		}
+		
 		m_objects[i].object_p->draw(m_objects[i].relative_coordinate, arg_draw_position, arg_time, rateColor);
+	}
+}
+
+// 特定のオブジェクトを削除
+void Tile::deleteObject(int arg_object_id) {
+	for (auto it = m_objects.begin(); it != m_objects.end();) {
+		if (it->object_p->getObjectID() == arg_object_id) {
+			cout << "delete object at" << it->relative_coordinate.origin.x << it->relative_coordinate.origin.y << " of " << it->relative_coordinate.relative.x << "," << it->relative_coordinate.relative.y << endl;
+			m_objects.erase(it);
+		}
 	}
 }
 

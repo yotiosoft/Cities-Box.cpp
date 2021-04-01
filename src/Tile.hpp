@@ -49,6 +49,9 @@ public:
 	// 描画
 	void draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time);
 	
+	// 特定のオブジェクトを削除
+	void deleteObject(int arg_object_id);
+	
 	// クリア
 	void clearAddons();				// addons, tiles, directionsだけをクリア（更新用）
 	void clearAll();				// タイル上のすべてのデータ（アドオン情報＋住民情報など）をクリア

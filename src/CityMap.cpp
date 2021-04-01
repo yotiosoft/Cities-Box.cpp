@@ -524,8 +524,7 @@ bool CityMap::isInCategories(String searchCategory, CoordinateStruct coordinate)
 // アドオンの設置
 bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
-	int objectID = m_max_object_id + 1;
-	m_max_object_id ++;
+	int objectID = m_get_next_objectID();
 	
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
@@ -551,6 +550,13 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 		// オブジェクトの生成
 		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 		
+		// 建設するタイル上の既存のオブジェクトを削除
+		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
+			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
+				breaking(CoordinateStruct{x, y}, true);
+			}
+		}
+		
 		// 各タイルにオブジェクトを追加
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
@@ -560,8 +566,8 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 				relative_coordinate.relative.y = y - origin_coordinate.y;
 				relative_coordinate.relative.x = x - origin_coordinate.x;
 				
-				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << endl;
-				m_tiles[y][x].buildObject(&(m_objects[objectID]), relative_coordinate);
+				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << " " << objectID << endl;
+				m_tiles[y][x].addObject(&(m_objects[objectID]), relative_coordinate);
 			}
 		}
 		
@@ -653,7 +659,26 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 	}
 }
 
-void CityMap::breaking(CoordinateStruct coordinate) {
+void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
+	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+		int delete_object_id = object_struct.object_p->getObjectID();
+		
+		Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
+		for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
+			for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
+				m_tiles[y][x].deleteObject(delete_object_id);
+				
+				// 更地になったら芝生を置く
+				CoordinateStruct current_coordinate = CoordinateStruct{x, y};
+				if ((!isTemporaryDelete || current_coordinate.x != coordinate.x || current_coordinate.y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
+					m_put_grass(CoordinateStruct{x, y});
+				}
+			}
+		}
+		
+		m_objects.erase(delete_object_id);
+	}
+	/*
 	Tile* currentTile = &m_tiles[coordinate.y][coordinate.x];
 	Array<Addon*> breakAddons = currentTile->addons;
 	
@@ -725,7 +750,7 @@ void CityMap::breaking(CoordinateStruct coordinate) {
 				}
 			}
 		}
-	}
+	}*/
 }
 
 CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber) {
@@ -1250,4 +1275,22 @@ void CityMap::freeMapAndAddons() {
 	}
 	
 	Array<Array<Tile>>().swap(m_tiles);
+}
+
+int CityMap::m_get_next_objectID() {
+	int next_objectID = m_max_object_id;
+	m_max_object_id ++;
+	return next_objectID;
+}
+
+void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {
+	int objectID = m_get_next_objectID();
+	cout << "put grass: " << objectID << endl;
+	m_objects[objectID] = Object(objectID, m_addons[U"tile_greenfield"], U"", TypeID::Normal, DirectionID::None, arg_coordinate);
+	
+	RelativeCoordinateStruct relative_coordinate;
+	relative_coordinate.origin = arg_coordinate;
+	relative_coordinate.relative = CoordinateStruct{0, 0};
+	
+	m_tiles[arg_coordinate.y][arg_coordinate.x].addObject(&(m_objects[objectID]), relative_coordinate);
 }

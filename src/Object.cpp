@@ -40,6 +40,10 @@ Addon* Object::getAddonP() {
 	return m_addon_p;
 }
 
+AddonDirectionStruct Object::getAddonDirectionStruct() {
+	return m_addon_p->getDirectionStruct(m_type_id, m_direction_id);
+}
+
 // TypeID
 TypeID::Type Object::getTypeID() {
 	return m_type_id;

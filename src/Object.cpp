@@ -35,6 +35,11 @@ String Object::getOriginalName() {
 	return m_original_name;
 }
 
+// アドオンを取得
+Addon* Object::getAddonP() {
+	return m_addon_p;
+}
+
 // TypeID
 TypeID::Type Object::getTypeID() {
 	return m_type_id;

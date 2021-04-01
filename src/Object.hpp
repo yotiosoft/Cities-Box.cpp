@@ -26,6 +26,9 @@ public:
 	// 固有名称を取得
 	String getOriginalName();
 	
+	// アドオンを取得
+	Addon* getAddonP();
+	
 	// TypeID
 	TypeID::Type getTypeID();
 	

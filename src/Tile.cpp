@@ -16,6 +16,12 @@ void Tile::addObject(Object *arg_object_p, RelativeCoordinateStruct arg_relative
 	m_objects << new_object_struct;
 }
 
+// オブジェクトの建設
+void Tile::buildObject(Object* arg_object_p, RelativeCoordinateStruct arg_relative_coordinate) {
+	clearAll();
+	addObject(arg_object_p, arg_relative_coordinate);
+}
+
 // originalName
 bool Tile::setOriginalName(String new_original_name) {
 	m_original_name = new_original_name;
@@ -143,6 +149,8 @@ void Tile::clearAddons() {
 	addons.clear();
 	m_types.clear();
 	m_directions.clear();
+	
+	m_objects.clear();
 }
 
 void Tile::clearAll() {

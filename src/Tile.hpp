@@ -16,6 +16,9 @@ public:
 	// オブジェクトの登録
 	void addObject(Object* arg_object_p, RelativeCoordinateStruct arg_relative_coordinate);
 	
+	// オブジェクトの建設（もともとあったものは削除する）
+	void buildObject(Object* arg_object_p, RelativeCoordinateStruct arg_relative_coordinate);
+	
 	// originalName
 	bool setOriginalName(String new_original_name);
 	String getOriginalName();

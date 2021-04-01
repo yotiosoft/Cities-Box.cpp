@@ -134,6 +134,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {
+		m_max_object_id = 0;
 		for (const auto& object : mapData[U"Objects"].arrayView()) {
 			// オブジェクトID
 			int object_id = object[U"objectID"].get<int>();
@@ -157,6 +158,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			
 			// オブジェクトをリストに登録
 			m_objects[object_id] = Object(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+			
+			if (object_id > m_max_object_id) {
+				m_max_object_id = object_id;
+			}
 		}
 	}
 	
@@ -172,6 +177,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			tiles_count.y = tile[U"tiles_count.y"].get<int>();
 			
 			if (m_saved_version <= 141) {			// r141以前なら内容を修正
+				m_max_object_id = 0;
+				
 				int serial_number = tile[U"serial_number"].get<int>();
 				int object_count = 0;
 				for (const auto& jAddons : tile[U"addons"].arrayView()) {
@@ -198,13 +205,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 							// old_version_serial_num = 0なら空き番号に振り直す
 							// あるいはObjectIDが被った場合に振り直す
 							if (serial_number == 0 || m_objects.count(serial_number) > 0) {
-								for (int n = 1; ; n++) {
-									if (m_objects.count(n) == 0) {
-										//cout << "new objectID = " << n << endl;
-										serial_number = n;
-										break;
-									}
-								}
+								serial_number = m_max_object_id + 1;
+								m_max_object_id ++;
 							}
 							
 							// オブジェクトをリストに登録
@@ -232,6 +234,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						
 						// オブジェクトをタイルに格納
 						m_tiles[y][x].addObject(&(m_objects[serial_number]), relarive_coordinate);
+						
+						if (serial_number > m_max_object_id) {
+							m_max_object_id = serial_number;
+						}
 					}
 					else {
 						cout << "Cant't find " << jAddons[U"name"].getString() << endl;
@@ -517,29 +523,51 @@ bool CityMap::isInCategories(String searchCategory, CoordinateStruct coordinate)
 
 // アドオンの設置
 bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak) {
+	// ObjectIDの決定
+	int objectID = m_max_object_id + 1;
+	m_max_object_id ++;
+	
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	TypeID::Type type;
 	DirectionID::Type direction;
 	
 	Array<CoordinateStruct> needUpdate;
-	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
+	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {		// 設置可能なら...
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
 		
+		CoordinateStruct origin_coordinate = position;
 		if (direction == DirectionID::West) {
-			position.y += useTiles.y-1;
+			origin_coordinate.y -= useTiles.y-1;
 		}
 		if (direction == DirectionID::East) {
-			position.x -= useTiles.x-1;
-			position.y += useTiles.y-1;
+			origin_coordinate.x -= useTiles.x-1;
+			origin_coordinate.y -= useTiles.y-1;
 		}
-		else if (direction == DirectionID::North) {
-			position.y += useTiles.y-1;
+		else if (direction == DirectionID::South) {
+			origin_coordinate.y -= useTiles.y-1;
+		}
+		
+		// オブジェクトの生成
+		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
+		
+		// 各タイルにオブジェクトを追加
+		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
+			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
+				// RelativeCoordinateStructを作成
+				RelativeCoordinateStruct relative_coordinate;
+				relative_coordinate.origin = origin_coordinate;
+				relative_coordinate.relative.y = y - origin_coordinate.y;
+				relative_coordinate.relative.x = x - origin_coordinate.x;
+				
+				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << endl;
+				m_tiles[y][x].buildObject(&(m_objects[objectID]), relative_coordinate);
+			}
 		}
 		
 		// 効果を取得
 		map<RateID::Type, EffectStruct> effects = selectedAddon->getEffects();
-		
+		/*
 		// 中央となる座標を取得
 		int centerX = useTiles.x/2;
 		int centerY = useTiles.y/2;
@@ -577,7 +605,7 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 					}
 				}
 			}
-		}
+		}*/
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (needUpdate.size() > 0) {
@@ -730,12 +758,12 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 				continue;
 			}
 			
-			for (int j=0; j<m_tiles[currentTile.y][currentTile.x].addons.size(); j++) {
+			for (ObjectStruct object_struct : m_tiles[currentTile.y][currentTile.x].getObjectStructs()) {
 				// 道路の場合
-				if ((selectedAddon->isInCategories(U"road") && m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"road")) ||
-					(selectedAddon->isInCategories(U"train") && m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"train")) ||
-					(selectedAddon->isInCategories(U"waterway") && m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"waterway")) ||
-					(selectedAddon->isInCategories(U"airport") && m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"airport"))) {
+				if ((selectedAddon->isInCategories(U"road") && object_struct.object_p->getAddonP()->isInCategories(U"road")) ||
+					(selectedAddon->isInCategories(U"train") && object_struct.object_p->getAddonP()->isInCategories(U"train")) ||
+					(selectedAddon->isInCategories(U"waterway") && object_struct.object_p->getAddonP()->isInCategories(U"waterway")) ||
+					(selectedAddon->isInCategories(U"airport") && object_struct.object_p->getAddonP()->isInCategories(U"airport"))) {
 					totalAroundRoad ++;
 					aroundRoadCoordinate << AroundTiles[i];
 					
@@ -750,11 +778,11 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		
 		// 踏切を設置する必要がある場合
 		if (selectedAddon->isInCategories(U"road")) {
-			for (int i=0; i<m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
-				if (m_tiles[coordinate.y][coordinate.x].addons[i]->isInCategories(U"railroad")) {
+			for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+				if (object_struct.object_p->getAddonP()->isInCategories(U"railroad")) {
 					retType = TypeID::TrainCrossing;
 					
-					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == DirectionID::NorthSouth) {
+					if (object_struct.object_p->getDirectionID() == DirectionID::NorthSouth) {
 						retDirection = DirectionID::NorthSouth;
 					}
 					else {
@@ -762,7 +790,7 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 					}
 					
 					for (int j=0; j<needUpdate.size(); j++) {
-						if (m_tiles[needUpdate[j].y][needUpdate[j].x].addons[i]->isInCategories(U"railroad")) {
+						if (object_struct.object_p->getAddonP()->isInCategories(U"railroad")) {
 							needUpdate[j] = {-1, -1};
 						}
 					}
@@ -774,11 +802,11 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		
 		// 橋を設置する必要がある場合
 		if (selectedAddon->isInCategories(U"road")) {
-			for (int i=0; i<m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
-				if (m_tiles[coordinate.y][coordinate.x].addons[i]->isInCategories(U"waterway")) {
+			for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+				if (object_struct.object_p->getAddonP()->isInCategories(U"waterway")) {
 					retType = TypeID::Bridge;
 					
-					if (m_tiles[coordinate.y][coordinate.x].getDirection(i) == DirectionID::NorthSouth) {
+					if (object_struct.object_p->getDirectionID() == DirectionID::NorthSouth) {
 						retDirection = DirectionID::EastWest;
 					}
 					else {
@@ -786,7 +814,7 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 					}
 					
 					for (int j=0; j<needUpdate.size(); j++) {
-						if (m_tiles[needUpdate[j].y][needUpdate[j].x].addons[i]->isInCategories(U"waterway")) {
+						if (object_struct.object_p->getAddonP()->isInCategories(U"waterway")) {
 							needUpdate[j] = {-1, -1};
 						}
 					}
@@ -867,8 +895,8 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		for (int i=0; i<AROUND_TILES; i++) {
 			CoordinateStruct currentTile = {coordinate.x+AroundTiles[i].second.x, coordinate.y+AroundTiles[i].second.y};
 			
-			for (int j=0; j<m_tiles[currentTile.y][currentTile.x].addons.size(); j++) {
-				if (m_tiles[currentTile.y][currentTile.x].addons[j]->isInCategories(U"road")) {
+			for (ObjectStruct object_struct : m_tiles[currentTile.y][currentTile.x].getObjectStructs()) {
+				if (object_struct.object_p->getAddonP()->isInCategories(U"road")) {
 					TypeID::Type retTypeTemp = TypeID::Normal;
 					DirectionID::Type retDirectionTemp = AroundTiles[i].first;
 					
@@ -885,8 +913,8 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 					
 					for (int y=0; y<selectedAddon->getUseTiles(retType, retDirection).y; y+=addY) {
 						for (int x=0; y<selectedAddon->getUseTiles(retType, retDirection).x; x+=addX) {
-							for (int k=0; k<m_tiles[y][x].addons.size(); k++) {
-								if (m_tiles[y][x].addons[k]->isInCategories(U"connectable_type")) {
+							for (ObjectStruct object_struct_sub : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+								if (object_struct_sub.object_p->getAddonP()->isInCategories(U"connectable_type")) {
 									cannotBuild = true;
 									break;
 								}
@@ -912,7 +940,7 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 		retDirection = DirectionID::None;
 		return true;
 	}
-	
+	cout << "return false" << endl;
 	return false;					// 存在しない or 設置不可能な場合
 }
 

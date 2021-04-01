@@ -105,6 +105,20 @@ bool Tile::isObjectExists(int arg_object_id) {
 	return ret;
 }
 
+Object* Tile::getObjectP(String arg_addon_name, NameMode::Type arg_name_mode) {
+	for (int i=0; i<m_objects.size(); i++) {
+		if (m_objects[i].object_p->getAddonName(arg_name_mode) == arg_addon_name) {
+			return m_objects[i].object_p;
+		}
+	}
+	
+	return nullptr;
+}
+
+Array<ObjectStruct> Tile::getObjectStructs() {
+	return m_objects;
+}
+
 // 描画
 void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
 	for (int i=0; i<m_objects.size(); i++) {

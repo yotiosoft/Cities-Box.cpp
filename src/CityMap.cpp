@@ -59,10 +59,11 @@ bool CityMap::m_get_types(String str, String searchElementName, Array<String>& r
 
 
 void CityMap::load(String loadMapFilePath) {
+	/*
 	if (FileSystem::Extension(loadMapFilePath) == U"cbd") {
 		loadCBD(loadMapFilePath);
 	}
-	else if (FileSystem::Extension(loadMapFilePath) == U"cbj") {
+	else */if (FileSystem::Extension(loadMapFilePath) == U"cbj") {
 		loadCBJ(loadMapFilePath);
 	}
 }
@@ -70,562 +71,6 @@ void CityMap::load(String loadMapFilePath) {
 static s3d::String extracted(int i, Array<s3d::String> &workplaceStr) {
 	String workplaceAndSerial = workplaceStr[i].substr(1, workplaceStr[i].length()-1);
 	return workplaceAndSerial;
-}
-
-void CityMap::loadCBD(String loadMapFilePath) {
-	// マップファイルの読み込み
-	m_map_file_path = loadMapFilePath;
-	
-	TextReader mapData(m_map_file_path);
-	string strTempUTF8;
-	String strTemp;
-	
-	// 各要素の読み出し
-	string currentArrayName = "";
-	Array<string> arrayNames =
-	{"name", "name2", "category", "category_2", "category_3", "obj_type", "obj_type2", "obj_dire", "obj_dire2",
-		"obj_serial_num", "obj_use_tiles_x", "obj_use_tiles_y", "obj_tiles_x", "obj_tiles_y", "residents",
-		"workers_Commercial", "workers_Office", "workers_Industrial", "workers_Farm", "workers_Public",
-		"students", "land_price", "crime_rate", "education_rate", "happiness", "noise", "crop", "crop_amount",
-		"age", "gender", "workplace", "school", "reservation", "original_name"};
-	int arrayCount = 0;
-	bool mapCleared = false;
-	
-	m_map_size.x = -1;
-	m_map_size.y = -1;
-	
-	bool addonLoaded = false;
-	
-	while (mapData.readLine(strTemp)) {
-		strTemp = strTemp.substr(0, strTemp.length()-LINE_FEED_CODE);				// 改行コードは除く
-		strTempUTF8 = strTemp.toUTF8();
-		
-		m_get_element(strTemp, U"Version", m_saved_version);
-		m_get_element(strTemp, U"Addons_Set", m_addon_set_name);
-		
-		// アドオン読み込み
-		if (!addonLoaded && m_addon_set_name.length() > 0) {
-			loadAddons(m_addon_set_name);
-			addonLoaded = true;
-		}
-		
-		m_get_element(strTemp, U"City_Name", m_city_name);
-		m_get_element(strTemp, U"Mayor_Name", m_mayor_name);
-		m_get_element(strTemp, U"Total_Population", m_total_population);
-		m_get_element(strTemp, U"Set_Change_Weather", m_change_weather);
-		m_get_element(strTemp, U"Temperature", m_temperature);
-		m_get_element(strTemp, U"Set_Dark_on_Night", m_dark_on_night);
-		
-		m_get_element(strTemp, U"mapsize_x", m_map_size.x);
-		m_get_element(strTemp, U"mapsize_y", m_map_size.y);
-		
-		m_get_element(strTemp, U"time_Year", m_time_now.year);
-		m_get_element(strTemp, U"time_Month", m_time_now.month);
-		m_get_element(strTemp, U"time_Date", m_time_now.date);
-		m_get_element(strTemp, U"time_Hour", m_time_now.hour);
-		m_get_element(strTemp, U"time_Minutes", m_time_now.minutes);
-		
-		m_get_element(strTemp, U"demand_Residential", m_demand.residential);
-		m_get_element(strTemp, U"demand_Commercial", m_demand.commercial);
-		m_get_element(strTemp, U"demand_Office", m_demand.office);
-		m_get_element(strTemp, U"demand_Industrial", m_demand.industrial);
-		m_get_element(strTemp, U"demand_Farm", m_demand.farm);
-		
-		m_get_element(strTemp, U"Money", m_money);
-		
-		m_get_element(strTemp, U"budget_of_Police", m_budget.police);
-		m_get_element(strTemp, U"budget_of_Fire_Depertment", m_budget.fireDepertment);
-		m_get_element(strTemp, U"budget_of_Post_Office", m_budget.postOffice);
-		m_get_element(strTemp, U"budget_of_Education", m_budget.education);
-		
-		m_get_element(strTemp, U"tax_of_Residential", m_tax.residential);
-		m_get_element(strTemp, U"tax_of_Commercial", m_tax.commercial);
-		m_get_element(strTemp, U"tax_of_Office", m_tax.office);
-		m_get_element(strTemp, U"tax_of_Industrial", m_tax.industrial);
-		m_get_element(strTemp, U"tax_of_Farm", m_tax.farm);
-		
-		if (!mapCleared && m_map_size.x > 0 && m_map_size.y > 0) {
-			for (int y=0; y<m_map_size.y; y++) {
-				Tile new_tile;
-				m_tiles.push_back(Array<Tile>(m_map_size.x, new_tile));
-			}
-			mapCleared = true;
-		}
-		
-		for (int i=0; i<arrayNames.size(); i++) {
-			if (strTempUTF8.find(arrayNames[i]+"(x,y) {") == 0) {
-				currentArrayName = arrayNames[i];
-				arrayCount = -1;
-			}
-		}
-		if (strTempUTF8.find("}") == 0) {
-			currentArrayName = "";
-		}
-		
-		if (currentArrayName == "name" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				// マップにAddon_Setが定義されていない場合はNormalとみなしアドオン読み込み
-				if (!addonLoaded) {
-					m_addon_set_name = U"Normal";
-					loadAddons(m_addon_set_name);
-					addonLoaded = true;
-				}
-				
-				// アドオンのポインタを登録
-				if (m_addons.find(temp[x]) != m_addons.end()) {
-					m_tiles[arrayCount][x].addons << m_addons[temp[x]];
-					
-					//tiles[array_count][x].category = tiles[array_count][x].addons.back()->getCategories();
-				}
-			}
-		}
-		
-		if (currentArrayName == "name2" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (temp[x].length() == 0) {
-					continue;
-				}
-				
-				// アドオンのポインタを登録
-				if (m_addons.find(temp[x]) != m_addons.end()) {
-					Addon* addon_temp = m_tiles[arrayCount][x].addons[0];
-					m_tiles[arrayCount][x].addons.back() = m_addons[temp[x]];
-					m_tiles[arrayCount][x].addons << addon_temp;
-					
-					cout << m_tiles[arrayCount][x].addons[1]->getName(NameMode::English) << endl;
-					
-					/*Array<String> categories = tiles[array_count][x].addons.back()->getCategories();
-					for (int i=0; i<categories.size(); i++) {
-						tiles[array_count][x].category.push_back(categories[i]);
-					}*/
-				}
-			}
-		}
-		/*
-		if (current_array_name == "category" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].category.push_back(temp[x]);
-			}
-		}
-		
-		if (current_array_name == "category_2" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].category.push_back(temp[x]);
-			}
-		}
-		
-		if (current_array_name == "category_3" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].category.push_back(temp[x]);
-			}
-		}*/
-		
-		if (currentArrayName == "obj_type" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeID(stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[1]->getTypeID(stoi(temp[x].toUTF8())));
-				}
-				else {
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[0]->getTypeID(stoi(temp[x].toUTF8())));
-				}
-			}
-		}
-		
-		if (currentArrayName == "obj_type2" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addType(m_tiles[arrayCount][x].addons[0]->getTypeID(stoi(temp[x].toUTF8())));
-				}
-			}
-		}
-		
-		if (currentArrayName == "obj_dire" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionID(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));	// とりあえず同じものを[0]にも入れておく
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[1]->getDirectionID(m_tiles[arrayCount][x].getType(1), stoi(temp[x].toUTF8())));
-				}
-				else {
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[0]->getDirectionID(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8())));
-				}
-			}
-		}
-		
-		if (currentArrayName == "obj_dire2" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (m_tiles[arrayCount][x].addons.size() == 2) {
-					m_tiles[arrayCount][x].addDirection(m_tiles[arrayCount][x].addons[0]->getDirectionID(m_tiles[arrayCount][x].getType(0), stoi(temp[x].toUTF8())));
-				}
-			}
-		}
-		
-		if (currentArrayName == "obj_serial_num" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].serialNumber = stoi(temp[x].toUTF8());
-			}
-		}
-		/*
-		if (current_array_name == "obj_use_tiles_x" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].use_tiles.x = stoi(temp[x].toUTF8());
-				
-				if (tiles[array_count][x].use_tiles.x == 0) {
-					tiles[array_count][x].use_tiles.x = 1;
-				}
-			}
-		}
-		
-		if (current_array_name == "obj_use_tiles_y" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].use_tiles.y = stoi(temp[x].toUTF8());
-				
-				if (tiles[array_count][x].use_tiles.y == 0) {
-					tiles[array_count][x].use_tiles.y = 1;
-				}
-			}
-		}
-		*/
-		if (currentArrayName == "obj_tiles_x" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].tilesCount.x = stoi(temp[x].toUTF8());
-				
-				// obj_tiles_xを修正(r140以前のバージョンで保存した場合)
-				if (m_saved_version <= 140) {
-					if (m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).x > 0) {
-						// 左向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::West) {
-							
-						}
-						
-						// 上向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::North) {
-							
-						}
-						
-						// 下向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::South) {
-							
-						}
-						
-						// 右向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::East) {
-							m_tiles[arrayCount][x].tilesCount.x += m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).x - 1;
-						}
-					}
-				}
-			}
-		}
-		
-		if (currentArrayName == "obj_tiles_y" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].tilesCount.y = stoi(temp[x].toUTF8());
-				
-				// obj_tiles_yを修正(r140以前のバージョンで保存した場合)
-				if (m_saved_version <= 140) {
-					if (m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y > 0) {
-						// 左向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::West) {
-							
-						}
-						
-						// 上向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::North) {
-							m_tiles[arrayCount][x].tilesCount.y = m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y - 1 - m_tiles[arrayCount][x].tilesCount.y;
-						}
-						
-						// 下向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::South) {
-							m_tiles[arrayCount][x].tilesCount.y = abs(m_tiles[arrayCount][x].tilesCount.y);
-						}
-						
-						// 右向き
-						if (m_tiles[arrayCount][x].getDirection(0) == DirectionID::East) {
-							m_tiles[arrayCount][x].tilesCount.y = m_tiles[arrayCount][x].addons[0]->getUseTiles(m_tiles[arrayCount][x].getType(0), m_tiles[arrayCount][x].getDirection(0)).y - 1 - m_tiles[arrayCount][x].tilesCount.y;
-						}
-					}
-				}
-			}
-		}
-		
-		if (currentArrayName == "residents" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].residents = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "workers_Commercial" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].workers.commercial = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "workers_Office" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].workers.office = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "workers_Industrial" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].workers.industrial = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "workers_Farm" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].workers.farm = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "workers_Public" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].workers.publicFacility = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "students" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].students = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "land_price" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[rateNameToRateID(U"land_price")] = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "happiness" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[rateNameToRateID(U"happiness_rate")] = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "crime_rate" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[rateNameToRateID(U"crime_rate")] = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "happiness" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[rateNameToRateID(U"happiness_rate")] = stoi(temp[x].toUTF8());
-			}
-		}
-		
-		if (currentArrayName == "education_rate" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].rate[rateNameToRateID(U"education_rate")] = stoi(temp[x].toUTF8());
-			}
-		}
-		/*
-		if (current_array_name == "crop" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].crop.name = temp[x];
-			}
-		}
-		
-		if (current_array_name == "crop_amount" && array_count >= 0) {
-			Array<String> temp = split(str_temp, U", ");
-			
-			for (int x=0; x<mapsize.width; x++) {
-				tiles[array_count][x].crop.amount = stoi(temp[x].toUTF8());
-			}
-		}
-		*/
-		if (currentArrayName == "age" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				Array<String> agesStr = split(temp[x], U"]");
-				
-				for (int i=0; i<agesStr.size(); i++) {
-					if (agesStr[i].length() <= 1 || agesStr[i] == U" ") {
-						continue;
-					}
-					m_tiles[arrayCount][x].age.push_back(stoi(agesStr[i].substr(1, agesStr[i].length()-1).toUTF8()));
-				}
-			}
-		}
-		
-		if (currentArrayName == "gender" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				Array<String> genderStr = split(temp[x], U"]");
-				
-				for (int i=0; i<genderStr.size(); i++) {
-					if (genderStr[i].length() <= 1 || genderStr[i] == U" ") {
-						continue;
-					}
-					m_tiles[arrayCount][x].gender.push_back(genderStr[i].substr(1, genderStr[i].length()-1));
-				}
-			}
-		}
-		
-		if (currentArrayName == "workplace" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				Array<String> workPlaceStr = split(temp[x], U"]");
-				
-				for (int i=0; i<workPlaceStr.size(); i++) {
-					if (workPlaceStr[i].length() <= 1 || workPlaceStr[i] == U" ") {
-						continue;
-					}
-					s3d::String workPlaceAndSerial = extracted(i, workPlaceStr);
-					
-					WorkPlaceStruct workPlace;
-					if (workPlaceAndSerial.substr(0, 1) == U"c") {
-						workPlace.workPlace = RCOIFP::Commercial;
-					}
-					else if (workPlaceAndSerial.substr(0, 1) == U"o") {
-						workPlace.workPlace = RCOIFP::Office;
-					}
-					else if (workPlaceAndSerial.substr(0, 1) == U"i") {
-						workPlace.workPlace = RCOIFP::Industrial;
-					}
-					else if (workPlaceAndSerial.substr(0, 1) == U"f") {
-						workPlace.workPlace = RCOIFP::Farm;
-					}
-					else if (workPlaceAndSerial.substr(0, 1) == U"p") {
-						workPlace.workPlace = RCOIFP::Public;
-					}
-					
-					workPlace.workPlacesSerialNumber = stoi(workPlaceAndSerial.substr(1, workPlaceAndSerial.length()-1).toUTF8());
-					
-					m_tiles[arrayCount][x].workPlaces.push_back(workPlace);
-				}
-			}
-		}
-		
-		if (currentArrayName == "school" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				Array<String> schoolStr = split(temp[x], U"]");
-				
-				for (int i=0; i<schoolStr.size(); i++) {
-					if (schoolStr[i].length() <= 1 || schoolStr[i] == U" ") {
-						continue;
-					}
-					String schoolAndSerial = schoolStr[i].substr(1, schoolStr[i].length()-1);
-					
-					SchoolStruct school;
-					if (schoolAndSerial.substr(0, 1) == U"e") {
-						school.school = School::ElementarySchool;
-					}
-					else if (schoolAndSerial.substr(0, 1) == U"j") {
-						school.school = School::JuniorHighSchool;
-					}
-					else if (schoolAndSerial.substr(0, 1) == U"h") {
-						school.school = School::HighSchool;
-					}
-					else if (schoolAndSerial.substr(0, 1) == U"U") {
-						school.school = School::University;
-					}
-					
-					school.schoolSerialNumber = stoi(schoolAndSerial.substr(1, schoolAndSerial.length()-1).toUTF8());
-					
-					m_tiles[arrayCount][x].schools.push_back(school);				}
-			}
-		}
-		
-		if (currentArrayName == "reservation" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				if (temp[x] == U"none") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::None;
-				}
-				else if (temp[x] == U"residential") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Residential;
-				}
-				else if (temp[x] == U"commercial") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Commercial;
-				}
-				else if (temp[x] == U"office") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Office;
-				}
-				else if (temp[x] == U"industrial") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Industrial;
-				}
-				else if (temp[x] == U"farm") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Farm;
-				}
-				else if (temp[x] == U"public") {
-					m_tiles[arrayCount][x].reservation = RCOIFP::Public;
-				}
-			}
-		}
-		
-		if (currentArrayName == "original_name" && arrayCount >= 0) {
-			Array<String> temp = split(strTemp, U", ");
-			
-			for (int x=0; x<m_map_size.x; x++) {
-				m_tiles[arrayCount][x].setOriginalName(temp[x]);
-			}
-		}
-		
-		arrayCount ++;
-	}
-	
-	System::ShowMessageBox(U"旧形式のマップデータ(*.cbd)が読み込まれました。\n保存時は新形式(*.cbj)で保存されます。", MessageBoxStyle::Warning, MessageBoxButtons::OK);
 }
 
 void CityMap::loadCBJ(String loadMapFilePath) {
@@ -687,6 +132,34 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	m_tax.industrial = mapData[U"Tax.industrial"].get<int>();
 	m_tax.farm = mapData[U"Tax.farm"].get<int>();
 	
+	// オブジェクトの読み込み(r142以降)
+	if (m_saved_version >= 142) {
+		for (const auto& object : mapData[U"Objects"].arrayView()) {
+			// オブジェクトID
+			int object_id = object[U"objectID"].get<int>();
+			
+			// アドオン名
+			String addon_name = object[U"addon_name"].getString();
+			
+			// 固有名称
+			String original_name = object[U"original_name"].getString();
+			
+			// TypeID
+			TypeID::Type type_id = typeNameToTypeID(object[U"typeID"].getString());
+			
+			// DirectionID
+			DirectionID::Type direction_id = directionNameToDirectionID(object[U"directionID"].getString());
+			
+			// 原点
+			CoordinateStruct origin_coordinate;
+			origin_coordinate.x = object[U"origin_coordinate.x"].get<int>();
+			origin_coordinate.y = object[U"origin_coordinate.y"].get<int>();
+			
+			// オブジェクトをリストに登録
+			m_objects[object_id] = Object(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+		}
+	}
+	
 	int y = 0;
 	for (const auto& mapTiles : mapData[U"Map"].arrayView()) {
 		m_tiles.push_back(Array<Tile>());
@@ -694,74 +167,94 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 		for (const auto& tile : mapTiles.arrayView()) {
 			m_tiles[y].push_back(Tile());
 			
-			m_tiles[y][x].tilesCount.x = tile[U"tiles_count.x"].get<int>();
-			m_tiles[y][x].tilesCount.y = tile[U"tiles_count.y"].get<int>();
+			CoordinateStruct tiles_count;
+			tiles_count.x = tile[U"tiles_count.x"].get<int>();
+			tiles_count.y = tile[U"tiles_count.y"].get<int>();
 			
-			m_tiles[y][x].serialNumber = tile[U"serial_number"].get<int>();
-			
-			for (const auto& jAddons : tile[U"addons"].arrayView()) {
-				TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
-				DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
-				
-				if (m_saved_version <= 141 && direction_id != DirectionID::West) {
-					String addon_name = tile[U"addons"].arrayView()[0][U"name"].getString();
-					if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
-						m_tiles[y][x].tilesCount.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - m_tiles[y][x].tilesCount.y;
-					}
-				}
-				
-				//tiles[y][x].category.push_back(j_addons[U"category"].getString());
-				m_tiles[y][x].addType(type_id);
-				m_tiles[y][x].addDirection(direction_id);
-				
-				// アドオンのポインタを登録
-				if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
-					m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+			if (m_saved_version <= 141) {			// r141以前なら内容を修正
+				int serial_number = tile[U"serial_number"].get<int>();
+				int object_count = 0;
+				for (const auto& jAddons : tile[U"addons"].arrayView()) {
+					TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
+					DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
 					
-					// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
-					if (m_tiles[y][x].tilesCount.x == 0 && m_tiles[y][x].tilesCount.y == 0) {
-						// ObjectID = 0なら空き番号に振り直す
-						// あるいはObjectIDが被った場合に振り直す
-						if (m_tiles[y][x].serialNumber == 0 || m_objects.count(m_tiles[y][x].serialNumber) > 0) {
-							for (int n = 1; ; n++) {
-								if (m_objects.count(n) == 0) {
-									//cout << "new objectID = " << n << endl;
-									m_tiles[y][x].serialNumber = n;
-									break;
+					if (direction_id != DirectionID::West) {
+						String addon_name = jAddons[U"name"].getString();
+						if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
+							tiles_count.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tiles_count.y;
+						}
+					}
+					
+					//tiles[y][x].category.push_back(j_addons[U"category"].getString());
+					m_tiles[y][x].addType(type_id);
+					m_tiles[y][x].addDirection(direction_id);
+					
+					// アドオンのポインタを登録
+					if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
+						m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+						
+						// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
+						if (tiles_count.x == 0 && tiles_count.y == 0) {
+							// old_version_serial_num = 0なら空き番号に振り直す
+							// あるいはObjectIDが被った場合に振り直す
+							if (serial_number == 0 || m_objects.count(serial_number) > 0) {
+								for (int n = 1; ; n++) {
+									if (m_objects.count(n) == 0) {
+										//cout << "new objectID = " << n << endl;
+										serial_number = n;
+										break;
+									}
 								}
+							}
+							
+							// オブジェクトをリストに登録
+							m_objects[serial_number] = Object(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+						}
+						else {
+							CoordinateStruct origin_coordinate;
+							origin_coordinate.x = x - tiles_count.x;
+							origin_coordinate.y = y - tiles_count.y;
+							
+							// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
+							if (m_objects[serial_number].getOriginCoordinate().x != origin_coordinate.x ||
+								m_objects[serial_number].getOriginCoordinate().y != origin_coordinate.y) {
+								
+								cout << "at " << x << "," << y << " from " << origin_coordinate.x << "," << origin_coordinate.y << ":" << serial_number << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID() << endl;
+								
+								serial_number = m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID();
 							}
 						}
 						
-						// オブジェクトをリストに登録
-						m_objects[m_tiles[y][x].serialNumber] = Object(m_addons[jAddons[U"name"].getString()], type_id, direction_id, CoordinateStruct{x, y});
+						// RelativeCoordinateStructを作成
+						RelativeCoordinateStruct relarive_coordinate;
+						relarive_coordinate.origin = m_objects[serial_number].getOriginCoordinate();
+						relarive_coordinate.relative = tiles_count;
+						
+						// オブジェクトをタイルに格納
+						m_tiles[y][x].addObject(&(m_objects[serial_number]), relarive_coordinate);
 					}
 					else {
-						CoordinateStruct origin_coordinate;
-						origin_coordinate.x = x - m_tiles[y][x].tilesCount.x;
-						origin_coordinate.y = y - m_tiles[y][x].tilesCount.y;
-						
-						// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
-						if (m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().x != origin_coordinate.x ||
-							m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate().y != origin_coordinate.y) {
-							cout << "be to " << origin_coordinate.x << "," << origin_coordinate.y << ":" << endl;
-							cout << "rapair ObjectID at " << x << "," << y << ": " << m_tiles[y][x].serialNumber << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber << " " << endl;
-							m_tiles[y][x].serialNumber = m_tiles[origin_coordinate.y][origin_coordinate.x].serialNumber;
-						}
+						cout << "Cant't find " << jAddons[U"name"].getString() << endl;
 					}
+					
+					//cout << m_objects.size() << endl;
+					
+					object_count ++;
+				}
+			}
+			else {
+				for (const auto& jObject : tile[U"objects"].arrayView()) {
+					// オブジェクトIDを取得
+					int object_id = jObject[U"objectID"].get<int>();
 					
 					// RelativeCoordinateStructを作成
 					RelativeCoordinateStruct relarive_coordinate;
-					relarive_coordinate.origin = m_objects[m_tiles[y][x].serialNumber].getOriginCoordinate();
-					relarive_coordinate.relative = m_tiles[y][x].tilesCount;
+					relarive_coordinate.origin = m_objects[object_id].getOriginCoordinate();
+					relarive_coordinate.relative.x = jObject[U"relative_coordinate.x"].get<int>();
+					relarive_coordinate.relative.y = jObject[U"relative_coordinate.y"].get<int>();
 					
-					// オブジェクトをタイルに格納
-					m_tiles[y][x].addObject(&(m_objects[m_tiles[y][x].serialNumber]), relarive_coordinate);
+					m_tiles[y][x].addObject(&(m_objects[object_id]), relarive_coordinate);
 				}
-				else {
-					cout << "Cant't find " << jAddons[U"name"].getString() << endl;
-				}
-				
-				//cout << m_objects.size() << endl;
 			}
 			
 			m_tiles[y][x].residents = tile[U"residents"].get<int>();
@@ -1556,6 +1049,50 @@ bool CityMap::save() {
 		}
 		mapData.endObject();
 		
+		/*
+		 // オブジェクトID
+		 int object_id = object[U"objectID"].get<int>();
+		 
+		 // アドオン名
+		 String addon_name = object[U"addon_name"].getString();
+		 
+		 // 固有名称
+		 String original_name = object[U"original_name"].getString();
+		 
+		 // TypeID
+		 TypeID::Type type_id = typeNameToTypeID(object[U"typeID"].getString());
+		 
+		 // DirectionID
+		 DirectionID::Type direction_id = directionNameToDirectionID(object[U"directionID"].getString());
+		 
+		 // 原点
+		 CoordinateStruct origin_coordinate;
+		 origin_coordinate.x = object[U"origin_coordinate.x"].get<int>();
+		 origin_coordinate.y = object[U"origin_coordinate.y"].get<int>();
+		 */
+		
+		mapData.key(U"Objects").startArray();
+		{
+			for (auto object : m_objects) {
+				mapData.startObject();
+				{
+					mapData.key(U"objectID").write(object.second.getObjectID());
+					mapData.key(U"addon_name").write(object.second.getAddonName(NameMode::English));
+					mapData.key(U"original_name").write(object.second.getOriginalName());
+					mapData.key(U"typeID").write(typeIDToTypeName(object.second.getTypeID()));
+					mapData.key(U"directionID").write(directionIDToDirectionName(object.second.getDirectionID()));
+					mapData.key(U"origin_coordinate").startObject();
+					{
+						mapData.key(U"x").write(object.second.getOriginCoordinate().x);
+						mapData.key(U"y").write(object.second.getOriginCoordinate().y);
+					}
+					mapData.endObject();
+				}
+				mapData.endObject();
+			}
+		}
+		mapData.endArray();
+		
 		mapData.key(U"Map").startArray();
 		{
 			for (int y=0; y<m_map_size.y; y++) {
@@ -1564,36 +1101,24 @@ bool CityMap::save() {
 					for (int x=0; x<m_map_size.x; x++) {
 						mapData.startObject();
 						{
-							mapData.key(U"addons").startArray();
+							mapData.key(U"objects").startArray();
 							{
-								for (int i=0; i<m_tiles[y][x].addons.size(); i++) {
+								for (ObjectStruct object_struct : m_tiles[y][x].getObjectStructs()) {
 									mapData.startObject();
 									{
-										mapData.key(U"name").write(m_tiles[y][x].addons[i]->getName(NameMode::English));
-										//map_file.key(U"category").write(tiles[y][x].category[i]);
-										mapData.key(U"type_number").write(typeIDToTypeName(m_tiles[y][x].getType(i)));
-										mapData.key(U"direction_number").write(directionIDToDirectionName(m_tiles[y][x].getDirection(i)));
+										mapData.key(U"objectID").write(object_struct.object_p->getObjectID());
+										
+										mapData.key(U"relative_coordinate").startObject();
+										{
+											mapData.key(U"x").write(object_struct.relative_coordinate.relative.x);
+											mapData.key(U"y").write(object_struct.relative_coordinate.relative.y);
+										}
+										mapData.endObject();
 									}
 									mapData.endObject();
 								}
 							}
 							mapData.endArray();
-							/*
-							map_file.key(U"use_tiles").startObject();
-							{
-								map_file.key(U"x").write(tiles[y][x].use_tiles.x);
-								map_file.key(U"y").write(tiles[y][x].use_tiles.y);
-							}
-							map_file.endObject();
-							*/
-							mapData.key(U"tiles_count").startObject();
-							{
-								mapData.key(U"x").write(m_tiles[y][x].tilesCount.x);
-								mapData.key(U"y").write(m_tiles[y][x].tilesCount.y);
-							}
-							mapData.endObject();
-							
-							mapData.key(U"serial_number").write(m_tiles[y][x].serialNumber);
 							
 							mapData.key(U"residents").write(m_tiles[y][x].residents);
 							

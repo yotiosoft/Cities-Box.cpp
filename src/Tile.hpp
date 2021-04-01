@@ -40,6 +40,8 @@ public:
 	
 	// Object情報を取得
 	bool isObjectExists(int arg_object_id);
+	Object* getObjectP(String arg_addon_name, NameMode::Type arg_name_mode);
+	Array<ObjectStruct> getObjectStructs();
 	
 	// 描画
 	void draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time);

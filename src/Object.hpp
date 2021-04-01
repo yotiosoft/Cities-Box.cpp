@@ -15,12 +15,25 @@ class Object {
 public:
 	// コンストラクタ
 	Object();
-	Object(Addon* arg_addon_p, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
+	Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
 	
 	// 原点を取得
 	CoordinateStruct getOriginCoordinate();
 	
-	// ObjectIDを取得
+	// アドオン名を取得
+	String getAddonName(NameMode::Type arg_name_mode);
+	
+	// 固有名称を取得
+	String getOriginalName();
+	
+	// TypeID
+	TypeID::Type getTypeID();
+	
+	// DirectionID
+	DirectionID::Type getDirectionID();
+	
+	// ObjectID
+	void setObjectID(int arg_object_id);
 	int getObjectID();
 	
 	// 描画

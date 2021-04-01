@@ -21,7 +21,7 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 	topLeftX += CHIP_SIZE/2 * coordinate.relative.x + CHIP_SIZE/2 * (m_directions[direction_id].requiredTiles.y - 1 - coordinate.relative.y);
 	
 	unsigned short int topLeftY = m_directions[direction_id].topLeft.y;
-	topLeftY += CHIP_SIZE/2 * coordinate.relative.y;
+	//topLeftY += CHIP_SIZE/2 * coordinate.relative.y;
 	
 	unsigned short int sizeWidth = m_directions[direction_id].size.x;
 	sizeWidth = CHIP_SIZE;
@@ -43,7 +43,7 @@ void AddonType::draw(TimeStruct time, DirectionID::Type direction_id, PositionSt
 PositionStruct AddonType::getPosition(DirectionID::Type directionID, PositionStruct position, Size useTiles, RelativeCoordinateStruct tilesCount) {
 	position.y = position.y + CHIP_SIZE/2 - m_directions[directionID].size.y + CHIP_SIZE/4 * (max(1, useTiles.x) - 1 - tilesCount.relative.x);
 	if (useTiles.y > 1) {
-		position.y += CHIP_SIZE*1/4 * (1 + tilesCount.relative.y);
+		position.y += CHIP_SIZE*1/4 * (1 - tilesCount.relative.y);
 	}
 	
 	return position;

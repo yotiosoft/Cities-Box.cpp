@@ -1,0 +1,139 @@
+﻿{
+  "name": "Public_Hall",
+  "jp_name": "大きな公民館",
+  "author": "YotioSoft",
+  "summary": "2x2の公民館です。屋上庭園つき。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Public_Hall.png",
+  "Categories": [
+    "object_type",
+    "public"
+  ],
+  "effects": {
+    "education_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 10,
+      "grid": 10
+    }
+  },
+  "maximum_capacity": 112,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 128,
+            "height": 160
+          },
+          "squares": {
+            "width": 2,
+            "height": 2
+          },
+          "top_left": {
+            "x": 128,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 256,
+            "y": 160
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 128,
+            "height": 159
+          },
+          "squares": {
+            "width": 2,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 161
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 320
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 128,
+            "height": 159
+          },
+          "squares": {
+            "width": 2,
+            "height": 2
+          },
+          "top_left": {
+            "x": 128,
+            "y": 161
+          },
+          "bottom_right": {
+            "x": 256,
+            "y": 320
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 128,
+            "height": 160
+          },
+          "squares": {
+            "width": 2,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 160
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Public_Hall.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Public_Hall__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
+      ]
+    }
+  ]
+}

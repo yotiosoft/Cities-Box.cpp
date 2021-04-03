@@ -57,13 +57,26 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 			// ファイル選択ダイアログ
 			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd", U"cbj"}}};
 			String filePathTemp;
-			if (const auto open = Dialog::OpenFile(ff, specific::SaveDataFilePath)) {
-				filePath = open.value();
+			if (specific::openSaveData(filePathTemp)) {
+				filePath = filePathTemp;
 				
 				b = System::Update();
 				loadingScreen(font16);
 				return pair<bool, GeneralSetting>(true, general_setting);
 			}
+			/*
+			if (OS == "Linux" || const auto open = Dialog::OpenFile(ff, specific::SaveDataFilePath)) {
+				if (OS == "Linux") {
+					filePath = U"./data/maps/Sample_City.cbd.cbj";
+				}
+				else {
+					//filePath = open.value();
+				}
+				
+				b = System::Update();
+				loadingScreen(font16);
+				return pair<bool, GeneralSetting>(true, general_setting);
+			}*/
 		}
 		if (new_map_button.push()) {
 			return pair<bool, GeneralSetting>(false, general_setting);

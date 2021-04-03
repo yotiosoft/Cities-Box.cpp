@@ -1,0 +1,128 @@
+﻿{
+  "name": "Pond_Park",
+  "jp_name": "池がある公園",
+  "author": "YotioSoft",
+  "summary": "池だけがある公園です。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Pond_Park.png",
+  "Categories": [
+    "object_type",
+    "park"
+  ],
+  "effects": {
+    "education_rate": {
+      "influence": 3,
+      "grid": 3
+    },
+    "land_price": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 97,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 96,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 112
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 112
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 224
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 96,
+            "y": 112
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 224
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 112
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Pond_Park.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -152,10 +152,16 @@ void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position,
 
 // 特定のオブジェクトを削除
 void Tile::deleteObject(int arg_object_id) {
+	if (m_objects.size() == 0) {
+		return;
+	}
+
 	for (auto it = m_objects.begin(); it != m_objects.end();) {
 		if (it->object_p->getObjectID() == arg_object_id) {
-			cout << "delete object at" << it->relative_coordinate.origin.x << it->relative_coordinate.origin.y << " of " << it->relative_coordinate.relative.x << "," << it->relative_coordinate.relative.y << endl;
+			debugLog(U"delete object at {}, {} of {}, {}"_fmt(it->relative_coordinate.origin.x, it->relative_coordinate.origin.y, it->relative_coordinate.relative.x, it->relative_coordinate.relative.y));
 			m_objects.erase(it);
+			debugLog(U"After delete");
+			return;
 		}
 	}
 }

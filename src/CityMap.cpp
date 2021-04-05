@@ -671,12 +671,16 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 				// 更地になったら芝生を置く
 				CoordinateStruct current_coordinate = CoordinateStruct{x, y};
 				if ((!isTemporaryDelete || current_coordinate.x != coordinate.x || current_coordinate.y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
+					debugLog(U"before put");
 					m_put_grass(CoordinateStruct{x, y});
+					debugLog(U"after put");
 				}
 			}
 		}
 		
+		debugLog(U"before erase");
 		m_objects.erase(delete_object_id);
+		debugLog(U"after erase");
 	}
 	/*
 	Tile* currentTile = &m_tiles[coordinate.y][coordinate.x];

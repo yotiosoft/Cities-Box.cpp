@@ -72,6 +72,17 @@ void specific::changeCursor() {
 	Cursor::RequestStyle(CursorStyle::Arrow);
 }
 
+bool specific::openSaveData(String& arg_file_path) {
+	Array<FileFilter> ff = { {U"セーブデータ", {/*U"cbd", */U"cbj"}} };
+	if (const auto open = Dialog::OpenFile(ff, specific::SaveDataFilePath)) {
+		arg_file_path = open.value();
+
+		return true;
+	}
+
+	return false;
+}
+
 String specific::getFontsDir() {
 	return U"example/font";
 }

@@ -1,7 +1,7 @@
 /include
 /lib
-/xcode/Cities-Box/DerivedData
-/vs/.vs
+/Mac/Cities-Box/DerivedData
+/Windows/.vs
 *.ilk
 *.pdb
 *.res
@@ -10,8 +10,8 @@
 *.obj
 *.log
 *.tlog
-vs/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
-vs/Cities-Box.cpp/Intermediate
+Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
+Windows/Cities-Box.cpp/Intermediate
 
 # Xcode
 #

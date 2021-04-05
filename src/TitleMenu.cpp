@@ -55,7 +55,6 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 		
 		if (load_map_button.push()) {
 			// ファイル選択ダイアログ
-			Array<FileFilter> ff = {{U"セーブデータ", {U"cbd", U"cbj"}}};
 			String filePathTemp;
 			if (specific::openSaveData(filePathTemp)) {
 				filePath = filePathTemp;

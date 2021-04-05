@@ -8,7 +8,7 @@
 #include "Sound.hpp"
 
 void Sound::searchSoundFiles(string filePath) {
-	m_sound_files = specific::getAllFilesName(filePath, "ogg");
+	m_sound_files = specific::getAllFilesName(filePath, "mp3");
 
 	Array<FileStruct> ogg_files = specific::getAllFilesName(filePath, "ogg");
 	for (auto ogg_file : ogg_files) {

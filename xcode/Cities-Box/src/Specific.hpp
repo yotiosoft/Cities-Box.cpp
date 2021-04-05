@@ -31,6 +31,8 @@ namespace specific {
 
 	bool isCursorEntered(Vec2 before_cursor_pos);
 	void changeCursor();
+
+	bool openSaveData(String& arg_file_path);
 	
 	const String SaveDataFilePath = U"./data/maps/";
 }

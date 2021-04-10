@@ -509,7 +509,7 @@ pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camer
 }
 
 // いずれかのアドオンがカテゴリに含まれているか
-bool CityMap::isInCategories(String searchCategory, CoordinateStruct coordinate) {
+bool CityMap::hasCategory(String searchCategory, CoordinateStruct coordinate) {
 	Tile* currentTile = &m_tiles[coordinate.y][coordinate.x];
 	
 	for (int i=0; i<currentTile->addons.size(); i++) {
@@ -571,8 +571,8 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 			}
 		}
 		
-		// 効果を取得
-		map<RateID::Type, EffectStruct> effects = selectedAddon->getEffects();
+		// 効果を反映
+		setRate(&(m_objects[objectID]), origin_coordinate, false);
 		/*
 		// 中央となる座標を取得
 		int centerX = useTiles.x/2;
@@ -638,6 +638,41 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 	return true;
 }
 
+void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {
+	// 効果を取得
+	map<RateID::Type, EffectStruct> effects = arg_object->getAddonP()->getEffects();
+	
+	// 中央座標を取得
+	int center_x = arg_origin_coordinate.x + round(arg_object->getAddonDirectionStruct().requiredTiles.x / 2);
+	int center_y = arg_origin_coordinate.y + round(arg_object->getAddonDirectionStruct().requiredTiles.y / 2);
+	
+	// それぞれの効果を反映
+	for (auto effect_map : effects) {
+		EffectStruct effect = effect_map.second;
+		int effect_per_tile = effect.influence / effect.grid;
+		
+		for (int relative_y = -effect.grid; relative_y <= effect.grid; relative_y++) {
+			int y = center_y + relative_y;
+			if (y < 0 || y >= m_map_size.y) {
+				continue;
+			}
+			
+			for (int relative_x = -effect.grid; relative_x < effect.grid; relative_x++) {
+				int x = center_x + relative_x;
+				if (x < 0 || x >= m_map_size.x) {
+					continue;
+				}
+				
+				int rate = effect_per_tile * max(abs(effect.grid-1-relative_y), abs(effect.grid-1-relative_x));
+				if (will_be_deleted) {
+					rate *= -1;
+				}
+				m_tiles[y][x].setRate(effect_map.first, rate);
+			}
+		}
+	}
+}
+
 void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
@@ -660,7 +695,11 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 }
 
 void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
+	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+		// 効果を削除
+		setRate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
+		
 		int delete_object_id = object_struct.object_p->getObjectID();
 		
 		Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
@@ -1282,8 +1321,8 @@ void CityMap::freeMapAndAddons() {
 }
 
 int CityMap::m_get_next_objectID() {
-	int next_objectID = m_max_object_id;
 	m_max_object_id ++;
+	int next_objectID = m_max_object_id;
 	return next_objectID;
 }
 

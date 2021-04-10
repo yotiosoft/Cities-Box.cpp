@@ -65,10 +65,13 @@ public:
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// いずれかのアドオンがカテゴリに含まれているか
-	bool isInCategories(String searchCategory, CoordinateStruct coordinate);
+	bool hasCategory(String searchCategory, CoordinateStruct coordinate);
 	
 	// アドオンを設置
 	bool build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak);
+	
+	// 効果の指定
+	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
 	
 	// アドオンを更新
 	void update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate);

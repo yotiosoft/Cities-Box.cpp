@@ -84,6 +84,11 @@ DirectionID::Type Tile::getDirection(int num) {
 	return m_directions[num];
 }
 
+// レートの設定
+void Tile::setRate(RateID::Type arg_rate_type, int arg_rate) {
+	rate[arg_rate_type] += arg_rate;
+}
+
 // レートの取得
 map<RateID::Type, int> Tile::getRate() {
 	return rate;

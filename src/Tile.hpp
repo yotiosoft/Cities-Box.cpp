@@ -37,7 +37,10 @@ public:
 	Array<DirectionID::Type> getDirections();
 	DirectionID::Type getDirection(int num);
 	
-	// 各率を取得
+	// 効果の設定
+	void setRate(RateID::Type arg_rate_type, int arg_rate);
+	
+	// 効果を取得
 	map<RateID::Type, int> getRate();
 	int getRate(RateID::Type rate_id);
 	

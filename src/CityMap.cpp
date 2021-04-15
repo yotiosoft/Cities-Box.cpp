@@ -555,12 +555,14 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
 						from_coordinate_object_struct.object_p->connect(
 							CoordinateStruct{0, 0},			// 暫定
-							getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate)
+							getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
+							&(m_objects[objectID])
 						);
 						
 						m_objects[objectID].connect(
 							CoordinateStruct{0, 0},			// 暫定
-							getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate)
+							getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
+							from_coordinate_object_struct.object_p
 						);
 					}
 				}

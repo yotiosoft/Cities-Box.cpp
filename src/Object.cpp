@@ -75,9 +75,9 @@ int Object::getObjectID() {
 }
 
 // 周囲のオブジェクトと接続
-void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction) {
-	cout << arg_direction << endl;
-	m_connects[arg_coordinate.y][arg_coordinate.x].roadTypeConnect << arg_direction;
+void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction, Object* arg_object_p) {
+	cout << arg_direction << " : " << arg_object_p << endl;
+	m_connects[arg_coordinate.y][arg_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{arg_direction, arg_object_p};
 }
 
 // 描画

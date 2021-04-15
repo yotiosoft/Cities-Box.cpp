@@ -117,15 +117,15 @@ typedef struct SchoolStruct {
 	int schoolSerialNumber;
 } SchoolStruct;
 
-// 接続情報
-typedef struct ConnectStruct {
-	Array<DirectionID::Type> roadTypeConnect;
-} ConnectStruct;
-
 // オブジェクト情報
 typedef struct ObjectStruct {
 	Object* object_p;
 	RelativeCoordinateStruct relative_coordinate;
 } ObjectStruct;
+
+// 接続情報
+typedef struct ConnectStruct {
+	Array<pair<DirectionID::Type, Object*>> roadTypeConnect;
+} ConnectStruct;
 
 #endif /* Structs_hpp */

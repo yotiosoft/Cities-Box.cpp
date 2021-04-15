@@ -41,7 +41,7 @@ public:
 	int getObjectID();
 	
 	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
-	void connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction);
+	void connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction, Object* arg_object_p);
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);

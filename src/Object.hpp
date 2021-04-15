@@ -40,6 +40,9 @@ public:
 	void setObjectID(int arg_object_id);
 	int getObjectID();
 	
+	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
+	void connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction);
+	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
 	
@@ -64,6 +67,9 @@ private:
 	
 	// サイズ
 	Size m_size;
+	
+	// 接続情報
+	Array<Array<ConnectStruct>> m_connects;
 };
 
 #endif /* Object_hpp */

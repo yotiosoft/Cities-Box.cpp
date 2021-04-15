@@ -68,6 +68,7 @@ typedef struct CursorStruct {
 	CoordinateStruct coordinate;
 	PositionStruct position;
 	PositionStruct position_per_tiles;
+	bool pressed = false;
 } CursorStruct;
 
 // 時間

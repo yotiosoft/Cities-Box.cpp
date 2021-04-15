@@ -1,148 +1,156 @@
-delete object at 41, 6 of 0, 0
+delete object at 37, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 5 of 0, 0
+delete object at 38, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 39, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 38, 19 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 38, 20 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 17 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 17 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 17 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 40, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 39, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 39, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 4 of 0, 0
+delete object at 38, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 37, 18 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 19 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 20 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 20 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 21 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 22 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 21 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 38, 20 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 17 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 16 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 15 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 14 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 13 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 12 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 13 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 14 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 15 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 16 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 17 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 40, 14 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 15 of 0, 0
+delete object at 41, 14 of 0, 0
 After delete
 before erase
 after erase
-delete object at 41, 6 of 0, 0
+delete object at 42, 14 of 0, 0
+After delete
+before erase
+after erase
+delete object at 41, 14 of 0, 0
+After delete
+before erase
+after erase
+delete object at 40, 14 of 0, 0
 After delete
 before erase
 after erase

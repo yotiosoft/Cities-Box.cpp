@@ -18,6 +18,12 @@ Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, 
 	m_direction_id = arg_direction_id;
 	m_start_coordinate = arg_start_coordinate;
 	
+	// オブジェクトサイズ分のm_connectsを用意
+	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
+	for (int y = 0; y < m_connects.size(); y++) {
+		m_connects[y].resize(getAddonDirectionStruct().requiredTiles.x);
+	}
+	
 	/*debugLog(U"{},{},{},{},{}"_fmt(m_addon_p->getName(NameMode::English),
 										 m_type_id,
 										 m_direction_id,
@@ -68,6 +74,13 @@ int Object::getObjectID() {
 	return m_object_id;
 }
 
+// 周囲のオブジェクトと接続
+void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction) {
+	cout << arg_direction << endl;
+	m_connects[arg_coordinate.y][arg_coordinate.x].roadTypeConnect << arg_direction;
+}
+
+// 描画
 void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }

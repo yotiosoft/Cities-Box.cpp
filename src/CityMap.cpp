@@ -522,20 +522,18 @@ bool CityMap::hasCategory(String searchCategory, CoordinateStruct coordinate) {
 }
 
 // アドオンの設置
-bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak) {
+bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
-	
-	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	TypeID::Type type;
 	DirectionID::Type direction;
 	
 	Array<CoordinateStruct> needUpdate;
-	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {		// 設置可能なら...
+	if (getBuildTypeAndDirection(cursor.coordinate, selectedAddon, type, direction, needUpdate)) {		// 設置可能なら...
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
 		
-		CoordinateStruct origin_coordinate = position;
+		CoordinateStruct origin_coordinate = cursor.coordinate;
 		if (direction == DirectionID::West) {
 			origin_coordinate.y -= useTiles.y-1;
 		}
@@ -549,6 +547,25 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 		
 		// オブジェクトの生成
 		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
+		
+		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+		if (before_cursor.pressed && (cursor.coordinate.x != before_cursor.coordinate.x || cursor.coordinate.y != before_cursor.coordinate.y)) {
+			if (selectedAddon->isInCategories(U"connectable_type")) {
+				for (auto from_coordinate_object_struct : m_tiles[before_cursor.coordinate.y][before_cursor.coordinate.x].getObjectStructs()) {
+					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
+						from_coordinate_object_struct.object_p->connect(
+							CoordinateStruct{0, 0},			// 暫定
+							getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate)
+						);
+						
+						m_objects[objectID].connect(
+							CoordinateStruct{0, 0},			// 暫定
+							getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate)
+						);
+					}
+				}
+			}
+		}
 		
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
@@ -573,45 +590,6 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 		
 		// 効果を反映
 		setRate(&(m_objects[objectID]), origin_coordinate, false);
-		/*
-		// 中央となる座標を取得
-		int centerX = useTiles.x/2;
-		int centerY = useTiles.y/2;
-		
-		for (int y=0; abs(y)<useTiles.y; y--) {
-			for (int x=0; abs(x)<useTiles.x; x++) {
-				if (needToBreak && type != TypeID::UnderConstruction && type != TypeID::Bridge) {
-					breaking(CoordinateStruct{position.x+x, position.y+y});
-				}
-				
-				currentTile = &m_tiles[position.y+y][position.x+x];
-				
-				if (type != TypeID::TrainCrossing && type != TypeID::Bridge) {
-					currentTile->clearAll();
-				}
-				
-				currentTile->addType(type);
-				currentTile->addDirection(direction);
-				
-				currentTile->tilesCount = {abs(x), abs(y)};
-				
-				currentTile->addons << selectedAddon;
-				
-				// 効果を地図へ反映
-				if (abs(x) == centerX && abs(y) == centerY) {
-					for (auto effect = effects.begin(); effect != effects.end(); effect++) {
-						double effectPerGrid = effect->second.influence / effect->second.grid;
-						for (int ey=-effect->second.grid; ey<=effect->second.grid; ey++) {
-							for (int ex=-effect->second.grid; ex<=effect->second.grid; ex++) {
-								if (isPositionAvailable(CoordinateStruct{position.x+x+ex, position.y+y+ey})) {
-									m_tiles[position.y+y+ey][position.x+x+ex].rate[effect->first] += effectPerGrid*max(abs(effect->second.grid-1-ey), abs(effect->second.grid-1-ex));
-								}
-							}
-						}
-					}
-				}
-			}
-		}*/
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (needUpdate.size() > 0) {
@@ -623,11 +601,11 @@ bool CityMap::build(CoordinateStruct position, Addon* selectedAddon, bool needTo
 					continue;
 				}
 				
-				for (int j=0; j<m_tiles[needUpdate[i].y][needUpdate[i].x].addons.size(); j++) {
-					if (m_tiles[needUpdate[i].y][needUpdate[i].x].addons[j]->isInCategories(searchCategories)) {
-						if (!(needUpdate[j].x == -1 && needUpdate[j].y == -1)) {
+				for (auto object_struct : m_tiles[needUpdate[i].y][needUpdate[i].x].getObjectStructs()) {
+					if (object_struct.object_p->getAddonP()->isInCategories(searchCategories)) {
+						if (!(needUpdate[i].x == -1 && needUpdate[i].y == -1)) {
 							cout << "update for " << needUpdate[i].x << "," << needUpdate[i].y << " " << needUpdate.size() << endl;
-							update(needUpdate[i], m_tiles[needUpdate[i].y][needUpdate[i].x].addons[j], needUpdate);
+							//update(needUpdate[i], object_struct, needUpdate);
 						}
 					}
 				}
@@ -672,8 +650,8 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 		}
 	}
 }
-
-void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate) {
+/*
+void CityMap::update(CoordinateStruct position, ObjectStruct* object_struct, Array<CoordinateStruct>& needUpdate) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// 踏切と橋の場合は更新不要
@@ -685,7 +663,7 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 	
 	TypeID::Type type;
 	DirectionID::Type direction;
-	if (getBuildTypeAndDirection(position, selectedAddon, type, direction, needUpdate)) {
+	if (getBuildTypeAndDirection(position, object_struct->object_p->getAddonP(), type, direction, needUpdate)) {
 		currentTile->clearAddons();						// 一旦クリアしてもう一度設置
 		
 		currentTile->addType(type);
@@ -693,7 +671,7 @@ void CityMap::update(CoordinateStruct position, Addon* selectedAddon, Array<Coor
 		currentTile->addons << selectedAddon;
 	}
 }
-
+*/
 void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {

@@ -68,13 +68,13 @@ public:
 	bool hasCategory(String searchCategory, CoordinateStruct coordinate);
 	
 	// アドオンを設置
-	bool build(CoordinateStruct position, Addon* selectedAddon, bool needToBreak);
+	bool build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	
 	// 効果の指定
 	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
 	
 	// アドオンを更新
-	void update(CoordinateStruct position, Addon* selectedAddon, Array<CoordinateStruct>& needUpdate);
+	void update(CoordinateStruct position, ObjectStruct* object_struct, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを除去
 	void breaking(CoordinateStruct position, bool isTemporaryDelete);

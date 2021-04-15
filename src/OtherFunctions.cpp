@@ -390,6 +390,41 @@ String directionIDToDirectionName(DirectionID::Type direction_id) {
 	return U"disabled";
 }
 
+DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after) {
+	int dx = arg_after.x - arg_before.x;
+	int dy = arg_after.y - arg_before.y;
+	
+	if (dx == 0 && dy == 0) {
+		return DirectionID::None;
+	}
+	if (dx == -1 && dy == 0) {
+		return DirectionID::West;
+	}
+	if (dx == 1 && dy == 0) {
+		return DirectionID::East;
+	}
+	if (dx == 0 && dy == -1) {
+		return DirectionID::North;
+	}
+	if (dx == 0 && dy == 1) {
+		return DirectionID::South;
+	}
+	if (dx == -1 && dy == -1) {
+		return DirectionID::NorthWest;
+	}
+	if (dx == 1 && dy == -1) {
+		return DirectionID::NorthEast;
+	}
+	if (dx == 1 && dy == 1) {
+		return DirectionID::SouthEast;
+	}
+	if (dx == -1 && dy == 1) {
+		return DirectionID::SouthWest;
+	}
+	
+	return DirectionID::Disabled;
+}
+
 LayerType::Type timeToLayerType(TimeStruct time) {
 	int layer_type_int = (int)LayerType::Normal;
 	

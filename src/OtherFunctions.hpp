@@ -43,6 +43,8 @@ DirectionID::Type directionNameToDirectionID(String direction_name);
 String directionIDToDirectionName(DirectionID::Type direction_id);
 Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
+DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after);
+
 LayerType::Type timeToLayerType(TimeStruct time);
 
 LayerType::Type layerNameToLayerType(String layer_name);

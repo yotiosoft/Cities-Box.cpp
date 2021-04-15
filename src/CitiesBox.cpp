@@ -55,6 +55,7 @@ void CitiesBox() {
 	// カーソルの位置
 	CursorStruct cursor;
 	cursor.texture = &(images.images["pointer"]["blue"].texture);
+	CursorStruct cursor_before = cursor;
 	
 	// 描画処理
 	RenderTexture bufferTexture(Scene::Width(), Scene::Height(), Color(30, 30, 30));
@@ -117,10 +118,13 @@ void CitiesBox() {
 		}
 		
 		// カーソルの位置を取得
-		if (updateMap || Cursor::Delta().x != 0 || Cursor::Delta().y != 0) {
+		if (updateMap || Cursor::Delta().x != 0 || Cursor::Delta().y != 0 || MouseL.pressed() != cursor.pressed) {
+			cursor_before = cursor;
+			
 			cursor.position = PositionStruct{Cursor::Pos().x, Cursor::Pos().y};
 			cursor.coordinate = map.positionToCoordinate(cursor.position, camera);
 			cursor.position_per_tiles = map.coordinateToPosition(cursor.coordinate, camera);
+			cursor.pressed = MouseL.pressed();
 			
 			updateMap = true;
 		}
@@ -190,7 +194,7 @@ void CitiesBox() {
 		// マップ上でクリックされたらアドオンを設置
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
 			if (cursor.coordinate.x != beforeMousePressedCoordinate.x || cursor.coordinate.y != beforeMousePressedCoordinate.y) {
-				map.build(cursor.coordinate, selectedAddon, true);
+				map.build(cursor, cursor_before, selectedAddon, true);
 				beforeMousePressedCoordinate = cursor.coordinate;
 				updateMap = true;
 				pressing = true;

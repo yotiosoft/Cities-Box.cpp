@@ -549,6 +549,7 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 		
 		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+		Array<CoordinateStruct> needUpdate;
 		if (before_cursor.pressed && (cursor.coordinate.x != before_cursor.coordinate.x || cursor.coordinate.y != before_cursor.coordinate.y)) {
 			if (selectedAddon->isInCategories(U"connectable_type")) {
 				for (auto from_coordinate_object_struct : m_tiles[before_cursor.coordinate.y][before_cursor.coordinate.x].getObjectStructs()) {
@@ -564,6 +565,8 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 							getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
 							from_coordinate_object_struct.object_p
 						);
+						
+						needUpdate << CoordinateStruct{cursor.coordinate.x - before_cursor.coordinate.x, cursor.coordinate.y - before_cursor.coordinate.y};
 					}
 				}
 			}
@@ -786,6 +789,13 @@ CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate
 }
 
 // 設置する場所に合うTypeとDirectionを取得
+pair<TypeID::Type, DirectionID::Type> CityMap::setConnectableTypeProfile(Addon* selectedAddon, CoordinateStruct coordinate, CoordinateStruct before_coordinate) {
+	TypeID::Type retType;
+	DirectionID::Type retDirection;
+	
+	return pair<TypeID::Type, DirectionID::Type>{retType, retDirection};
+}
+
 bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection,
 									   Array<CoordinateStruct>& needUpdate) {
 	// 接続タイプ（道路など）アドオンの場合

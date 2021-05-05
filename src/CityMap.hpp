@@ -83,6 +83,7 @@ public:
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
+	pair<TypeID::Type, DirectionID::Type> setConnectableTypeProfile(Addon* selectedAddon, CoordinateStruct coordinate, CoordinateStruct before_coordinate);
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを削除

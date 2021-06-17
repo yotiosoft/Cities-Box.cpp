@@ -10,6 +10,19 @@
 Object::Object() {
 }
 
+Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate, AroundObjects around_objects) {
+	m_object_id = arg_object_id;
+	m_addon_p = arg_addon_p;
+	m_original_name = arg_original_name;
+	m_start_coordinate = arg_start_coordinate;
+	
+	// オブジェクトサイズ分のm_connectsを用意
+	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
+	for (int y = 0; y < m_connects.size(); y++) {
+		m_connects[y].resize(getAddonDirectionStruct().requiredTiles.x);
+	}
+}
+
 Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate) {
 	m_object_id = arg_object_id;
 	m_addon_p = arg_addon_p;

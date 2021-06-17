@@ -37,6 +37,8 @@
 		2CE5C85B237FDE6000082EEC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6906B12298123200A427D0 /* OpenAL.framework */; };
 		2CEACB67233A61C900C6EE98 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB65233A61C900C6EE98 /* libgif.a */; };
 		2CEACB68233A61C900C6EE98 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB66233A61C900C6EE98 /* libutil.a */; };
+		4B162C4A267BB0B300D39E3D /* NormalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B162C48267BB0B300D39E3D /* NormalObject.cpp */; };
+		4B162C4E267BB11500D39E3D /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B162C4C267BB11500D39E3D /* ConnectableObject.cpp */; };
 		4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA526090BF1000B9E51 /* AddonType.cpp */; };
 		4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA726090BF1000B9E51 /* AddonLayer.cpp */; };
 		4BAAAECF26090BF4000B9E51 /* AbstractSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA826090BF1000B9E51 /* AbstractSetting.cpp */; };
@@ -95,6 +97,10 @@
 		2CE5C859237FDE5100082EEC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CEACB65233A61C900C6EE98 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../../lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2CEACB66233A61C900C6EE98 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../../lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
+		4B162C48267BB0B300D39E3D /* NormalObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = NormalObject.cpp; path = ../../../src/NormalObject.cpp; sourceTree = "<group>"; };
+		4B162C49267BB0B300D39E3D /* NormalObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = NormalObject.hpp; path = ../../../src/NormalObject.hpp; sourceTree = "<group>"; };
+		4B162C4C267BB11500D39E3D /* ConnectableObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectableObject.cpp; sourceTree = "<group>"; };
+		4B162C4D267BB11500D39E3D /* ConnectableObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConnectableObject.hpp; sourceTree = "<group>"; };
 		4BAAAEA326090BF1000B9E51 /* DetailsBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DetailsBar.hpp; path = ../../../src/DetailsBar.hpp; sourceTree = "<group>"; };
 		4BAAAEA426090BF1000B9E51 /* AddonType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonType.hpp; path = ../../../src/AddonType.hpp; sourceTree = "<group>"; };
 		4BAAAEA526090BF1000B9E51 /* AddonType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonType.cpp; path = ../../../src/AddonType.cpp; sourceTree = "<group>"; };
@@ -257,6 +263,10 @@
 				4BEA956C26098921008B4F3A /* CitiesBox.hpp */,
 				4BEA957E260CF601008B4F3A /* Object.cpp */,
 				4BEA957F260CF601008B4F3A /* Object.hpp */,
+				4B162C48267BB0B300D39E3D /* NormalObject.cpp */,
+				4B162C49267BB0B300D39E3D /* NormalObject.hpp */,
+				4B162C4C267BB11500D39E3D /* ConnectableObject.cpp */,
+				4B162C4D267BB11500D39E3D /* ConnectableObject.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -365,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BAAAED426090BF4000B9E51 /* CityMap.cpp in Sources */,
+				4B162C4A267BB0B300D39E3D /* NormalObject.cpp in Sources */,
 				4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */,
 				4BAAAEDB26090BF4000B9E51 /* PulldownMenu.cpp in Sources */,
 				4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */,
@@ -372,6 +383,7 @@
 				4BAAAED126090BF4000B9E51 /* DetailsBar.cpp in Sources */,
 				4BEA9580260CF601008B4F3A /* Object.cpp in Sources */,
 				4BAAAED926090BF4000B9E51 /* TitleMenu.cpp in Sources */,
+				4B162C4E267BB11500D39E3D /* ConnectableObject.cpp in Sources */,
 				4BAAAED326090BF4000B9E51 /* Menu.cpp in Sources */,
 				4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */,
 				4BAAAED526090BF4000B9E51 /* GeneralSetting.cpp in Sources */,

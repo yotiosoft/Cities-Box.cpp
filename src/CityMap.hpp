@@ -14,7 +14,8 @@
 #include "Addon.hpp"
 #include "OtherFunctions.hpp"
 #include "Tile.hpp"
-#include "Object.hpp"
+#include "NormalObject.hpp"
+#include "ConnectableObject.hpp"
 
 
 class CityMap {
@@ -83,7 +84,7 @@ public:
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	pair<TypeID::Type, DirectionID::Type> setConnectableTypeProfile(Addon* selectedAddon, CoordinateStruct coordinate, CoordinateStruct before_coordinate);
+	pair<TypeID::Type, DirectionID::Type> setConnectableTypeProfile(Addon* arg_selected_addon, int arg_objectID, CursorStruct arg_cursor, CursorStruct arg_before_cursor);
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを削除

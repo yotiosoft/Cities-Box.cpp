@@ -13,7 +13,7 @@ void CitiesBox() {
 	Window::SetTitle(TITLE);
 	specific::moveToCurrentDir();
 	
-	debugInit();
+	UnitaryTools::debugInit();
 	
 	Window::SetStyle(WindowStyle::Sizable);
 	Scene::SetScaleMode(ScaleMode::ResizeFill);
@@ -86,7 +86,7 @@ void CitiesBox() {
 	bgm.playBGM();
 	
 	// 更新前のLayerType
-	LayerType::Type before_layer_type = timeToLayerType(time);
+	LayerType::Type before_layer_type = UnitaryTools::timeToLayerType(time);
 
 	// カーソル変更用の変数
 	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置
@@ -163,7 +163,7 @@ void CitiesBox() {
 		}
 		
 		// 更新すべき時刻になったら更新を有効にする
-		LayerType::Type layer_type = timeToLayerType(time);
+		LayerType::Type layer_type = UnitaryTools::timeToLayerType(time);
 		if (layer_type != before_layer_type) {
 			updateMap = true;
 			before_layer_type = layer_type;

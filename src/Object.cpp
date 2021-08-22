@@ -10,7 +10,7 @@
 Object::Object() {
 }
 
-Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate, AroundObjects around_objects) {
+Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate) {
 	m_object_id = arg_object_id;
 	m_addon_p = arg_addon_p;
 	m_original_name = arg_original_name;
@@ -85,6 +85,17 @@ void Object::setObjectID(int arg_object_id) {
 
 int Object::getObjectID() {
 	return m_object_id;
+}
+
+// 引数の座標上にこのオブジェクトが存在するか？
+bool Object::isOn(CoordinateStruct arg_coordinate) {
+	int width  = arg_coordinate.x - m_start_coordinate.x;
+	int height = arg_coordinate.y - m_start_coordinate.y;
+	
+	if (width < m_size.x && height < m_size.y) {
+		return true;
+	}
+	return false;
 }
 
 // 周囲のオブジェクトと接続

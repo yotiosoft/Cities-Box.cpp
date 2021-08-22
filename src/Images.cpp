@@ -31,7 +31,7 @@ void ImagesStruct::load(string filePath, string tag, Color transparent) {
 		newImage.file_name = imageFiles[i].file_path;
 		newImage.tag = tag;
 		
-		images[tag][splitUTF8(imageFiles[i].file_name, ".")[0]] = newImage;
+		images[tag][UnitaryTools::splitUTF8(imageFiles[i].file_name, ".")[0]] = newImage;
 	}
 }
 

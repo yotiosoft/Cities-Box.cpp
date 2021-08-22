@@ -50,10 +50,10 @@ PositionStruct AddonType::getPosition(DirectionID::Type directionID, PositionStr
 }
 
 Texture AddonType::getTexture(TimeStruct time) {
-	if (m_before_layer_type != timeToLayerType(time)) {
-		m_before_layer_type = timeToLayerType(time);
+	if (m_before_layer_type != UnitaryTools::timeToLayerType(time)) {
+		m_before_layer_type = UnitaryTools::timeToLayerType(time);
 		
-		LayerType::Type layer_type = timeToLayerType(time);
+		LayerType::Type layer_type = UnitaryTools::timeToLayerType(time);
 		if (m_layer_exists_list[layer_type]) {
 			m_texture = Texture(m_images[layer_type]);
 		}
@@ -169,10 +169,10 @@ void AddonType::m_over_write(Image &to, Image &from, AddonLayer layer, LayerType
 	}
 	
 	if (layer.getLayerTypes().count(LayerType::Normal) > 0 && m_is_evening(making_type)) {		// 夕方用
-		blendColorAndImage(to, Color(255, 135, 0, 50));
+		UnitaryTools::blendColorAndImage(to, Color(255, 135, 0, 50));
 	}
 	else if (layer.getLayerTypes().count(LayerType::Normal) > 0 && m_is_night(making_type)) {		// 夜間用
-		blendColorAndImage(to, Color(0, 0, 0, 200));
+		UnitaryTools::blendColorAndImage(to, Color(0, 0, 0, 200));
 	}
 }
 

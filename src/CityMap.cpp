@@ -51,7 +51,7 @@ bool CityMap::m_get_element(String str, String searchElementName, bool& ret) {
 bool CityMap::m_get_types(String str, String searchElementName, Array<String>& ret) {
 	String aRet;
 	if (m_get_element(str, searchElementName, aRet)) {
-		ret = split(aRet, U", ");
+		ret = UnitaryTools::split(aRet, U", ");
 		return true;
 	}
 	return false;
@@ -79,9 +79,9 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	ifstream ifs(m_map_file_path.toUTF8().c_str(), ios::in | ios::binary);
 	
 	std::string mapXOR((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-	string mapDataStr = stringXOR(mapXOR, "citiesboxmapdatafilexor");
-	saveTextFile("./data/map_temp.cbj_unxor", mapDataStr);
-	saveTextFile("./data/map_temp.cbj_temp", mapDataStr);
+	string mapDataStr = UnitaryTools::stringXOR(mapXOR, "citiesboxmapdatafilexor");
+	UnitaryTools::saveTextFile("./data/map_temp.cbj_unxor", mapDataStr);
+	UnitaryTools::saveTextFile("./data/map_temp.cbj_temp", mapDataStr);
 	
 	JSONReader mapData(U"./data/map_temp.cbj_temp");
 	//remove("./data/map_temp.cbj_temp");
@@ -146,10 +146,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			String original_name = object[U"original_name"].getString();
 			
 			// TypeID
-			TypeID::Type type_id = typeNameToTypeID(object[U"typeID"].getString());
+			TypeID::Type type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
 			
 			// DirectionID
-			DirectionID::Type direction_id = directionNameToDirectionID(object[U"directionID"].getString());
+			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
 			
 			// 原点
 			CoordinateStruct origin_coordinate;
@@ -189,8 +189,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 				int serial_number = tile[U"serial_number"].get<int>();
 				int object_count = 0;
 				for (const auto& jAddons : tile[U"addons"].arrayView()) {
-					TypeID::Type type_id = typeNameToTypeID(jAddons[U"type_number"].getString());
-					DirectionID::Type direction_id = directionNameToDirectionID(jAddons[U"direction_number"].getString());
+					TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
+					DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
 					
 					if (direction_id != DirectionID::West) {
 						String addon_name = jAddons[U"name"].getString();
@@ -284,7 +284,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			
 			// 各率の読み込み
 			for (const auto& rate : tile[U"rate"].objectView()) {
-				m_tiles[y][x].rate[rateNameToRateID(rate.name)] = rate.value.get<int>();
+				m_tiles[y][x].rate[UnitaryTools::rateNameToRateID(rate.name)] = rate.value.get<int>();
 			}
 			
 			/*
@@ -299,18 +299,18 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			for (const auto& workPlaces : tile[U"work_places"].arrayView()) {
 				m_tiles[y][x].workPlaces.push_back(WorkPlaceStruct());
 				
-				m_tiles[y][x].workPlaces.back().workPlace = getRCOIFP(workPlaces[U"work_kind"].get<int>());
+				m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(workPlaces[U"work_kind"].get<int>());
 				m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
 			}
 			
 			for (const auto& schools : tile[U"school"].arrayView()) {
 				m_tiles[y][x].schools.push_back(SchoolStruct());
 				
-				m_tiles[y][x].schools.back().school = getSchool(schools[U"school_kind"].get<int>());
+				m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(schools[U"school_kind"].get<int>());
 				m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
 			}
 			
-			m_tiles[y][x].reservation = getRCOIFP(tile[U"reservation"].get<int>());
+			m_tiles[y][x].reservation = UnitaryTools::getRCOIFP(tile[U"reservation"].get<int>());
 			
 			m_tiles[y][x].setOriginalName(tile[U"original_name"].getString());
 			
@@ -563,13 +563,13 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
 						from_coordinate_object_struct.object_p->connect(
 							CoordinateStruct{0, 0},			// 暫定
-							getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
+																		UnitaryTools::getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
 							&(m_objects[objectID])
 						);
 						
 						m_objects[objectID].connect(
 							CoordinateStruct{0, 0},			// 暫定
-							getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
+													UnitaryTools::getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
 							from_coordinate_object_struct.object_p
 						);
 						
@@ -680,16 +680,16 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 				// 要修正 : 共通の動作は一つの関数にまとめること
 				CoordinateStruct current_coordinate = CoordinateStruct{x, y};
 				if ((!isTemporaryDelete || current_coordinate.x != coordinate.x || current_coordinate.y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
-					debugLog(U"before put");
+					UnitaryTools::debugLog(U"before put");
 					m_put_grass(CoordinateStruct{x, y});
-					debugLog(U"after put");
+					UnitaryTools::debugLog(U"after put");
 				}
 			}
 		}
 		
-		debugLog(U"before erase");
+		UnitaryTools::debugLog(U"before erase");
 		m_objects.erase(delete_object_id);
-		debugLog(U"after erase");
+		UnitaryTools::debugLog(U"after erase");
 	}
 }
 
@@ -714,13 +714,13 @@ pair<TypeID::Type, DirectionID::Type> CityMap::setConnectableTypeProfile(Addon* 
 				if (before_selected_object.object_p->getAddonP()->isInCategories(U"road") && arg_selected_addon->isInCategories(U"road")) {
 					before_selected_object.object_p->connect(
 						CoordinateStruct{0, 0},			// 暫定
-						getDirectionIDfromDifference(arg_cursor.coordinate, arg_before_cursor.coordinate),
+						UnitaryTools::getDirectionIDfromDifference(arg_cursor.coordinate, arg_before_cursor.coordinate),
 						&(m_objects[arg_objectID])
 					);
 					
 					m_objects[arg_objectID].connect(
 						CoordinateStruct{0, 0},			// 暫定
-						getDirectionIDfromDifference(arg_before_cursor.coordinate, arg_cursor.coordinate),
+						UnitaryTools::getDirectionIDfromDifference(arg_before_cursor.coordinate, arg_cursor.coordinate),
 						before_selected_object.object_p
 					);
 				}
@@ -1101,8 +1101,8 @@ bool CityMap::save() {
 					mapData.key(U"objectID").write(object.second.getObjectID());
 					mapData.key(U"addon_name").write(object.second.getAddonName(NameMode::English));
 					mapData.key(U"original_name").write(object.second.getOriginalName());
-					mapData.key(U"typeID").write(typeIDToTypeName(object.second.getTypeID()));
-					mapData.key(U"directionID").write(directionIDToDirectionName(object.second.getDirectionID()));
+					mapData.key(U"typeID").write(UnitaryTools::typeIDToTypeName(object.second.getTypeID()));
+					mapData.key(U"directionID").write(UnitaryTools::directionIDToDirectionName(object.second.getDirectionID()));
 					mapData.key(U"origin_coordinate").startObject();
 					{
 						mapData.key(U"x").write(object.second.getOriginCoordinate().x);
@@ -1160,7 +1160,7 @@ bool CityMap::save() {
 							{
 								for (auto rate = m_tiles[y][x].rate.begin(); rate != m_tiles[y][x].rate.end() ; rate++) {
 									if (rate->second != 0) {
-										mapData.key(rateIDToRateName(rate->first)).write(rate->second);
+										mapData.key(UnitaryTools::rateIDToRateName(rate->first)).write(rate->second);
 									}
 								}
 							}
@@ -1231,7 +1231,7 @@ bool CityMap::save() {
 	}
 	mapData.endObject();
 	
-	saveTextFile(m_map_file_path.toUTF8(), stringXOR(mapData.get().toUTF8(), "citiesboxmapdatafilexor"));
+	UnitaryTools::saveTextFile(m_map_file_path.toUTF8(), UnitaryTools::stringXOR(mapData.get().toUTF8(), "citiesboxmapdatafilexor"));
 	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
 	//map_file.save(map_file_path+U".cbj");
 	

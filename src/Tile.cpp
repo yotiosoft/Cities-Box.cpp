@@ -163,9 +163,9 @@ void Tile::deleteObject(int arg_object_id) {
 
 	for (auto it = m_objects.begin(); it != m_objects.end();) {
 		if (it->object_p->getObjectID() == arg_object_id) {
-			debugLog(U"delete object at {}, {} of {}, {}"_fmt(it->relative_coordinate.origin.x, it->relative_coordinate.origin.y, it->relative_coordinate.relative.x, it->relative_coordinate.relative.y));
+			UnitaryTools::debugLog(U"delete object at {}, {} of {}, {}"_fmt(it->relative_coordinate.origin.x, it->relative_coordinate.origin.y, it->relative_coordinate.relative.x, it->relative_coordinate.relative.y));
 			m_objects.erase(it);
-			debugLog(U"After delete");
+			UnitaryTools::debugLog(U"After delete");
 			return;
 		}
 	}

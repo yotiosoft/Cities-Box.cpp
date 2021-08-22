@@ -33,7 +33,7 @@ bool Addon::m_get_element(String str, String searchElementName, int& ret) {
 bool Addon::m_get_types(String str, String searchElementName, Array<String>& ret) {
 	String aRet;
 	if (m_get_element(str, searchElementName, aRet)) {
-		ret = split(aRet, U", ");
+		ret = UnitaryTools::split(aRet, U", ");
 		return true;
 	}
 	return false;
@@ -78,7 +78,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	
 	// アイコンを読み込み
 	Image iconImage(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_addon_icon);
-	setAlphaColor(iconImage, Color(0, 0, 0));
+	UnitaryTools::setAlphaColor(iconImage, Color(0, 0, 0));
 	m_icon_texture = Texture(iconImage);
 	
 	// カテゴリ
@@ -86,18 +86,18 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	
 	// 建物の効果
 	for (const auto& effect : addonData[U"effects"].objectView()) {
-		RateID::Type rate_id = rateNameToRateID(effect.name);
+		RateID::Type rate_id = UnitaryTools::rateNameToRateID(effect.name);
 		m_effects[rate_id].influence = effect.value[U"influence"].get<int>();
 		m_effects[rate_id].grid = effect.value[U"grid"].get<int>();
 	}
 	
 	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
-		TypeID::Type typeID = typeNameToTypeID(type[U"type_name"].getString());
+		TypeID::Type typeID = UnitaryTools::typeNameToTypeID(type[U"type_name"].getString());
 		
-		m_use_types << typeIDToTypeName(typeID);
+		m_use_types << UnitaryTools::typeIDToTypeName(typeID);
 		
 		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
-			DirectionID::Type direction_id = directionNameToDirectionID(direction[U"direction_name"].getString());
+			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(direction[U"direction_name"].getString());
 			
 			// 新たなAddonDirectionStructを作成
 			AddonDirectionStruct direction_struct;
@@ -147,7 +147,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 				
 				Array<LayerType::Type> layer_types;
 				for (const auto& layer_type_str : layer[U"layer_types"].arrayView()) {
-					layer_types << layerNameToLayerType(layer_type_str.getString());
+					layer_types << UnitaryTools::layerNameToLayerType(layer_type_str.getString());
 				}
 				
 				layers << AddonLayer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_path, transparent_color, layer_types);
@@ -189,7 +189,7 @@ String Addon::getDirectionName(int type_num, int direction_num) {
 }
 */
 TypeID::Type Addon::getTypeID(int typeNum) {
-	return typeNameToTypeID(m_use_types[typeNum]);
+	return UnitaryTools::typeNameToTypeID(m_use_types[typeNum]);
 }
 
 DirectionID::Type Addon::getDirectionID(int typeNum, int directionNum) {
@@ -197,7 +197,7 @@ DirectionID::Type Addon::getDirectionID(int typeNum, int directionNum) {
 }
 
 DirectionID::Type Addon::getDirectionID(String typeName, int directionNum) {
-	return m_types[typeNameToTypeID(typeName)].getDirectionID(directionNum);
+	return m_types[UnitaryTools::typeNameToTypeID(typeName)].getDirectionID(directionNum);
 }
 
 AddonDirectionStruct Addon::getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id) {
@@ -314,7 +314,7 @@ void Addon::m_converter() {
 		{
 			for (auto e = m_effects.begin(); e != m_effects.end() ; e++) {
 				if (e->second.influence != 0) {
-					addonData.key(rateIDToRateName(e->first)).startObject();
+					addonData.key(UnitaryTools::rateIDToRateName(e->first)).startObject();
 					{
 						addonData.key(U"influence").write(e->second.influence);
 						addonData.key(U"grid").write(e->second.grid);
@@ -332,13 +332,13 @@ void Addon::m_converter() {
 			for (auto type = m_types.begin(); type != m_types.end(); type++) {
 				addonData.startObject();
 				{
-					addonData.key(U"type_name").write(typeIDToTypeName(type->first));
+					addonData.key(U"type_name").write(UnitaryTools::typeIDToTypeName(type->first));
 					
 					map<DirectionID::Type, AddonDirectionStruct> direction_structs = type->second.getDirectionStructs();
 					addonData.key(U"direction_names").startArray();
 					{
 						for (auto direction = direction_structs.begin(); direction != direction_structs.end(); direction++) {
-							addonData.write(directionIDToDirectionName(direction->first));
+							addonData.write(UnitaryTools::directionIDToDirectionName(direction->first));
 						}
 					}
 					addonData.endArray();
@@ -348,7 +348,7 @@ void Addon::m_converter() {
 						for (auto direction = direction_structs.begin(); direction != direction_structs.end(); direction++) {
 							addonData.startObject();
 							{
-								addonData.key(U"direction_name").write(directionIDToDirectionName(direction->first));
+								addonData.key(U"direction_name").write(UnitaryTools::directionIDToDirectionName(direction->first));
 								
 								addonData.key(U"size").startObject();
 								{
@@ -401,7 +401,7 @@ void Addon::m_converter() {
 								{
 									Array<LayerType::Type> layer_types = layer->getLayerTypesInit();
 									for (int layer_type_num = 0; layer_type_num < layer_types.size(); layer_type_num++) {
-										addonData.write(layerTypeToLayerName(layer_types[layer_type_num]));
+										addonData.write(UnitaryTools::layerTypeToLayerName(layer_types[layer_type_num]));
 									}
 								}
 								addonData.endArray();

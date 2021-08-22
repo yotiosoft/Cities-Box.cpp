@@ -6,7 +6,3 @@
 //
 
 #include "NormalObject.hpp"
-
-void NormalObject::update() {
-	return;
-}

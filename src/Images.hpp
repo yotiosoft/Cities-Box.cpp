@@ -10,7 +10,7 @@
 #define Images_hpp
 
 #include <Specific.hpp>
-#include "OtherFunctions.hpp"
+#include "UnitaryTools.hpp"
 
 #endif /* Images_hpp */
 

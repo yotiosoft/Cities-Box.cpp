@@ -217,6 +217,8 @@ namespace DirectionID {
 		NorthEastWest	= 15,
 		NorthSouthWest	= 12,
 		NorthSouthEast	= 8,
+		
+		All				= 17,
 	};
 }
 

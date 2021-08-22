@@ -12,7 +12,7 @@
 
 #include <Specific.hpp>
 #include "Addon.hpp"
-#include "OtherFunctions.hpp"
+#include "UnitaryTools.hpp"
 #include "Tile.hpp"
 #include "NormalObject.hpp"
 #include "ConnectableObject.hpp"

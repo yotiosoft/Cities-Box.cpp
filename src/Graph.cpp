@@ -13,8 +13,47 @@ Graph::Graph(int arg_width, int arg_height) {
 }
 
 // ノードの追加
-bool Graph::addNode(CoordinateStruct coordinate) {
-	// coordinate上を通過枝を探索
+bool Graph::addNode(CoordinateStruct coordinate, CoordinateStruct connect_coordinate, bool isBidirectional) {
+	GraphNode* new_node = new GraphNode();
+	new_node->coordinate = coordinate;
+	
+	GraphNode* connect_node = graph[connect_coordinate.y][connect_coordinate.x];
+	
+	// 接続元のノードについて
+	// 接続元が存在しないなら: このノードは孤立点
+	if (connect_coordinate.x == -1 && connect_coordinate.y == -1) {
+		graph[coordinate.y][coordinate.x] = new_node;
+		return true;
+	}
+	
+	// 接続元が指定されているが、存在しない場合: エラー
+	if (connect_node == nullptr) {
+		delete(new_node);
+		return false;
+	}
+	
+	// 端点であれば: 接続元ノードを指定された座標に移動
+	// ただし、接続方向が双方向同士あるいは単方向同士でなければelseへ
+	if (connect_node->connections.size() == 1
+		&& isConnected(connect_node->connections[0]->coordinate, connect_coordinate) == isBidirectional) {
+		delete(new_node);
+		moveNode(connect_coordinate, coordinate);
+	}
+	// それ以外であれば: 接続元ノードを残し、接続元と接続
+	else {
+		graph[coordinate.y][coordinate.x] = new_node;
+		
+		if (isBidirectional) {
+			connectBidirectionally(connect_coordinate, coordinate);
+		}
+		else {
+			connect(connect_coordinate, coordinate);
+		}
+	}
+	
+	return true;
+	/*
+	// coordinate上を通過する枝を探索
 	// 2次元なので縦横だけ確認すれば良い
 	// y軸固定、x軸変動
 	int nearest_west_x = -1;
@@ -69,29 +108,80 @@ bool Graph::addNode(CoordinateStruct coordinate) {
 	}
 	graph[coordinate.y][coordinate.x] = new_node;
 	
+	return true;*/
+}
+
+bool Graph::deleteNode(CoordinateStruct coordinate) {
+	if (graph[coordinate.y][coordinate.x] == nullptr) {
+		return false;
+	}
+	
+	delete(graph[coordinate.y][coordinate.x]);
+	graph[coordinate.y][coordinate.x] = nullptr;
+	
 	return true;
+}
+	
+// ノードの座標変更
+bool Graph::moveNode(CoordinateStruct before, CoordinateStruct after) {
+	if (graph[before.y][before.x] == nullptr) {
+		return false;
+	}
+	
+	GraphNode* node = graph[before.y][before.x];
+	node->coordinate = after;
+	graph[before.y][before.x] = nullptr;
+	graph[after.y][after.x] = node;
+	
+	return true;
+}
+
+bool Graph::connect(CoordinateStruct from, CoordinateStruct to) {
+	if (graph[from.y][from.x] == nullptr || graph[to.y][to.x] == nullptr) {
+		return false;
+	}
+	
+	// すでに接続されているなら何もしない
+	if (graph[from.y][from.x]->isConnected(to)) {
+		return true;
+	}
+	
+	// 接続
+	graph[from.y][from.x]->connections << graph[to.y][to.x];
+	
+	return true;
+}
+
+bool Graph::connectBidirectionally(CoordinateStruct coordinate1, CoordinateStruct coordinate2) {
+	bool ret1 = connect(coordinate1, coordinate2);
+	bool ret2 = connect(coordinate2, coordinate1);
+	
+	return ret1 && ret2;
+}
+
+bool Graph::isConnected(CoordinateStruct from, CoordinateStruct to) {
+	if (graph[from.y][from.x] == nullptr) {
+		return false;
+	}
+	if (graph[from.y][from.x]->connections.size() == 0) {
+		return false;
+	}
+	
+	for (auto from_connect : graph[from.y][from.x]->connections) {
+		if (from_connect->coordinate == to) {
+			return true;
+		}
+	}
+	
+	return false;
 }
 
 void Graph::clear() {
 	for (int y=0; y<graph.height(); y++) {
 		for (int x=0; x<graph.width(); x++) {
 			if (graph[y][x] != nullptr) {
-				delete(graph[y][x]);
+				deleteNode(CoordinateStruct{x, y});
 			}
 		}
 	}
-}
-
-int Graph::m_count_unconnected(int x1, int x2, int y1, int y2) {
-	int count = 0;
-	if (x1 == -1)
-		count ++;
-	if (x2 == -1)
-		count ++;
-	if (y1 == -1)
-		count ++;
-	if (y2 == -1)
-		count ++;
-	
-	return count;
 }

@@ -17,10 +17,11 @@ Graph::Graph(int arg_width, int arg_height) {
 
 // ノードの追加
 bool Graph::addNode(CoordinateStruct coordinate, CoordinateStruct connect_coordinate, bool isBidirectional) {
-	GraphNode* new_node = new GraphNode();
+	GraphObject* new_node = new GraphObject();
 	new_node->coordinate = coordinate;
+	new_node->type = GraphObjectType::Node;
 	
-	GraphNode* connect_node = graph[connect_coordinate.y][connect_coordinate.x];
+	GraphObject* connect_node = graph[connect_coordinate.y][connect_coordinate.x];
 	
 	// 接続元のノードについて
 	// 接続元が存在しないなら: このノードは孤立点
@@ -131,7 +132,7 @@ bool Graph::moveNode(CoordinateStruct before, CoordinateStruct after) {
 		return false;
 	}
 	
-	GraphNode* node = graph[before.y][before.x];
+	GraphObject* node = graph[before.y][before.x];
 	node->coordinate = after;
 	graph[before.y][before.x] = nullptr;
 	graph[after.y][after.x] = node;

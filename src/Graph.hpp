@@ -11,12 +11,20 @@
 
 #include <Specific.hpp>
 
-struct GraphNode {
+enum GraphObjectType {
+	Type {
+		Node,
+		Edge
+	};
+}
+
+struct GraphObject {
 	CoordinateStruct coordinate;
-	Array<GraphNode*> connections;
+	Array<GraphObject*> connections;
+	GraphObjectType::Type type;
 	
 	// 接続先の座標を変更（繋ぎ変え）
-	bool changeConnect(CoordinateStruct before, GraphNode* after_node) {
+	bool changeConnect(CoordinateStruct before, GraphObject* after_node) {
 		for (int i=0; i<connections.size(); i++) {
 			if (connections[i]->coordinate == before) {
 				connections[i] = after_node;
@@ -39,7 +47,7 @@ struct GraphNode {
 	
 	// 特定の接続を解除
 	void disconnect(CoordinateStruct connect_coordinate) {
-		connections.remove_if([&connect_coordinate](const GraphNode* v) { return v->coordinate == connect_coordinate; });
+		connections.remove_if([&connect_coordinate](const GraphObject* v) { return v->coordinate == connect_coordinate; });
 	}
 };
 
@@ -75,7 +83,7 @@ private:
 	
 private:
 	// ノード
-	Grid<GraphNode*> graph;
+	Grid<GraphObject*> graph;
 };
 
 #endif /* Graph_hpp */

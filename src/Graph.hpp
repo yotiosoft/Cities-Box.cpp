@@ -11,8 +11,8 @@
 
 #include <Specific.hpp>
 
-enum GraphObjectType {
-	Type {
+namespace GraphObjectType {
+	enum Type {
 		Node,
 		Edge
 	};
@@ -47,7 +47,7 @@ struct GraphObject {
 	
 	// 特定の接続を解除
 	void disconnect(CoordinateStruct connect_coordinate) {
-		connections.remove_if([&connect_coordinate](const GraphObject* v) { return v->coordinate == connect_coordinate; });
+		connections.remove_if([&connect_coordinate](GraphObject* v) { return v->coordinate == connect_coordinate; });
 	}
 };
 
@@ -76,7 +76,7 @@ public:
 	// 経路探索
 	
 	// グラフの解放
-	void clear();
+	void close();
 	
 private:
 	//int m_count_unconnected(int x1, int x2, int y1, int y2);

@@ -118,10 +118,13 @@
     <ClCompile Include="..\..\..\src\Button.cpp" />
     <ClCompile Include="..\..\..\src\CitiesBox.cpp" />
     <ClCompile Include="..\..\..\src\CityMap.cpp" />
+    <ClCompile Include="..\..\..\src\ConnectableObject.cpp" />
     <ClCompile Include="..\..\..\src\DetailsBar.cpp" />
     <ClCompile Include="..\..\..\src\GeneralSetting.cpp" />
+    <ClCompile Include="..\..\..\src\Graph.cpp" />
     <ClCompile Include="..\..\..\src\Images.cpp" />
     <ClCompile Include="..\..\..\src\Menu.cpp" />
+    <ClCompile Include="..\..\..\src\NormalObject.cpp" />
     <ClCompile Include="..\..\..\src\Object.cpp" />
     <ClCompile Include="..\..\..\src\PulldownMenu.cpp" />
     <ClCompile Include="..\..\..\src\RouteSolver.cpp" />
@@ -268,6 +271,7 @@
     <ClInclude Include="..\..\..\src\Button.hpp" />
     <ClInclude Include="..\..\..\src\CitiesBox.hpp" />
     <ClInclude Include="..\..\..\src\CityMap.hpp" />
+    <ClInclude Include="..\..\..\src\ConnectableObject.hpp" />
     <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
     <ClInclude Include="..\..\..\src\Enums.hpp" />
     <ClInclude Include="..\..\..\src\GeneralSetting.hpp" />
@@ -276,6 +280,7 @@
     <ClInclude Include="..\..\..\src\Images.hpp" />
     <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
     <ClInclude Include="..\..\..\src\Menu.hpp" />
+    <ClInclude Include="..\..\..\src\NormalObject.hpp" />
     <ClInclude Include="..\..\..\src\Object.hpp" />
     <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
     <ClInclude Include="..\..\..\src\RouteSolver.hpp" />

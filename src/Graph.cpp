@@ -180,7 +180,7 @@ bool Graph::isConnected(CoordinateStruct from, CoordinateStruct to) {
 	return false;
 }
 
-void Graph::clear() {
+void Graph::close() {
 	for (int y=0; y<graph.height(); y++) {
 		for (int x=0; x<graph.width(); x++) {
 			if (graph[y][x] != nullptr) {

@@ -216,8 +216,6 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */,
-				4B730ABE26D4BA7400798F34 /* ConnectableObject.hpp */,
 				4BEA956F26098CDB008B4F3A /* Enums.hpp */,
 				4BEA957126098CDB008B4F3A /* Header.hpp */,
 				4BEA957026098CDB008B4F3A /* Structs.hpp */,
@@ -238,6 +236,8 @@
 				4BAAAEB626090BF2000B9E51 /* Button.hpp */,
 				4BAAAEAE26090BF2000B9E51 /* CityMap.cpp */,
 				4BAAAEC826090BF4000B9E51 /* CityMap.hpp */,
+				4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */,
+				4B730ABE26D4BA7400798F34 /* ConnectableObject.hpp */,
 				4BAAAEAA26090BF1000B9E51 /* DetailsBar.cpp */,
 				4BAAAEA326090BF1000B9E51 /* DetailsBar.hpp */,
 				4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */,
@@ -251,6 +251,8 @@
 				4BAAAEB526090BF2000B9E51 /* Menu.hpp */,
 				4B730ABF26D4BA7400798F34 /* NormalObject.cpp */,
 				4B730AC026D4BA7400798F34 /* NormalObject.hpp */,
+				4BEA957E260CF601008B4F3A /* Object.cpp */,
+				4BEA957F260CF601008B4F3A /* Object.hpp */,
 				4BEA957226098CDB008B4F3A /* UnitaryTools.cpp */,
 				4BAAAEC126090BF3000B9E51 /* UnitaryTools.hpp */,
 				4BAAAEBB26090BF3000B9E51 /* PulldownMenu.cpp */,
@@ -270,8 +272,6 @@
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4BEA956B26098921008B4F3A /* CitiesBox.cpp */,
 				4BEA956C26098921008B4F3A /* CitiesBox.hpp */,
-				4BEA957E260CF601008B4F3A /* Object.cpp */,
-				4BEA957F260CF601008B4F3A /* Object.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";

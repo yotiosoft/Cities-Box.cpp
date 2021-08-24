@@ -7,7 +7,7 @@
 
 #include "ConnectableObject.hpp"
 
-void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
+void ConnectableObject::connect(Graph& arg_graph, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
 	// arg_connect_coordinateのオブジェクトと繋げられるか確認
 	// 繋げられるならつなげる
 	
@@ -16,12 +16,16 @@ void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object 
 		(arg_object_p->getAddonP()->isInCategories(U"waterway") && m_addon_p->isInCategories(U"waterway")) ||
 		(arg_object_p->getAddonP()->isInCategories(U"airport") && m_addon_p->isInCategories(U"airport"))) {
 		
+		// マップ上で接続
 		set_direction_id(UnitaryTools::getDirectionIDfromDifference(arg_connect_coordinate, m_start_coordinate), false);
 		set_type_id();
+		
+		// 道路ネットワーク上で接続
+		arg_graph.addNode(m_start_coordinate, arg_connect_coordinate, true);	// ToDo: 一方方向に対応(true: 双方向)
 	}
 }
 
-void ConnectableObject::disconnect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
+void ConnectableObject::disconnect(Graph& arg_graph, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
 	// arg_connect_coordinateのオブジェクトと繋がっているか確認
 	// 繋がっていたら切断する
 	

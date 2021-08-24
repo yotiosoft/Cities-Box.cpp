@@ -20,14 +20,15 @@ namespace GraphObjectType {
 
 struct GraphObject {
 	CoordinateStruct coordinate;
-	Array<GraphObject*> connections;
+	Array<GraphObject*> node_connections;
+	Array<GraphObject*> edge_connections;
 	GraphObjectType::Type type;
 	
 	// 接続先の座標を変更（繋ぎ変え）
 	bool changeConnect(CoordinateStruct before, GraphObject* after_node) {
-		for (int i=0; i<connections.size(); i++) {
-			if (connections[i]->coordinate == before) {
-				connections[i] = after_node;
+		for (int i=0; i<node_connections.size(); i++) {
+			if (node_connections[i]->coordinate == before) {
+				node_connections[i] = after_node;
 				return true;
 			}
 		}
@@ -36,8 +37,8 @@ struct GraphObject {
 	
 	// 特定の接続先の有無
 	bool isConnected(CoordinateStruct to) {
-		for (int i=0; i<connections.size(); i++) {
-			if (connections[i]->coordinate == to) {
+		for (int i=0; i<node_connections.size(); i++) {
+			if (node_connections[i]->coordinate == to) {
 				return true;
 			}
 		}
@@ -47,7 +48,7 @@ struct GraphObject {
 	
 	// 特定の接続を解除
 	void disconnect(CoordinateStruct connect_coordinate) {
-		connections.remove_if([&connect_coordinate](GraphObject* v) { return v->coordinate == connect_coordinate; });
+		node_connections.remove_if([&connect_coordinate](GraphObject* v) { return v->coordinate == connect_coordinate; });
 	}
 };
 
@@ -66,12 +67,20 @@ public:
 	// ノードの座標変更
 	bool moveNode(CoordinateStruct before, CoordinateStruct after);
 	
+	// 直線の枝を設定
+	bool fillEdge(CoordinateStruct from, CoordinateStruct to, bool isBidirectional = false);
+	
 	// ノードの接続
-	bool connect(CoordinateStruct from, CoordinateStruct to);
-	bool connectBidirectionally(CoordinateStruct coordinate1, CoordinateStruct coordinate2);
+	bool connectNodes(CoordinateStruct from, CoordinateStruct to);
+	bool connectNodesBidirectionally(CoordinateStruct coordinate1, CoordinateStruct coordinate2);
+	
+	// 枝の接続
+	bool connectEdge(CoordinateStruct from, CoordinateStruct to);
+	bool connectEdgeBidirectionally(CoordinateStruct coordinate1, CoordinateStruct coordinate2);
 	
 	// 接続状況の確認
-	bool isConnected(CoordinateStruct from, CoordinateStruct to);
+	bool isNodesConnected(CoordinateStruct from, CoordinateStruct to);
+	bool isEdgeConnected(CoordinateStruct from, CoordinateStruct to);
 	
 	// 経路探索
 	

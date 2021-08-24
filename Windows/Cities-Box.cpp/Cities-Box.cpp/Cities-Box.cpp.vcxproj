@@ -123,7 +123,6 @@
     <ClCompile Include="..\..\..\src\Images.cpp" />
     <ClCompile Include="..\..\..\src\Menu.cpp" />
     <ClCompile Include="..\..\..\src\Object.cpp" />
-    <ClCompile Include="..\..\..\src\OtherFunctions.cpp" />
     <ClCompile Include="..\..\..\src\PulldownMenu.cpp" />
     <ClCompile Include="..\..\..\src\RouteSolver.cpp" />
     <ClCompile Include="..\..\..\src\Sound.cpp" />
@@ -131,6 +130,7 @@
     <ClCompile Include="..\..\..\src\SubWindow.cpp" />
     <ClCompile Include="..\..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\..\src\TitleMenu.cpp" />
+    <ClCompile Include="..\..\..\src\UnitaryTools.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Specific.cpp" />
   </ItemGroup>
@@ -271,12 +271,12 @@
     <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
     <ClInclude Include="..\..\..\src\Enums.hpp" />
     <ClInclude Include="..\..\..\src\GeneralSetting.hpp" />
+    <ClInclude Include="..\..\..\src\Graph.hpp" />
     <ClInclude Include="..\..\..\src\Header.hpp" />
     <ClInclude Include="..\..\..\src\Images.hpp" />
     <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
     <ClInclude Include="..\..\..\src\Menu.hpp" />
     <ClInclude Include="..\..\..\src\Object.hpp" />
-    <ClInclude Include="..\..\..\src\OtherFunctions.hpp" />
     <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
     <ClInclude Include="..\..\..\src\RouteSolver.hpp" />
     <ClInclude Include="..\..\..\src\Sound.hpp" />
@@ -285,6 +285,7 @@
     <ClInclude Include="..\..\..\src\SubWindow.hpp" />
     <ClInclude Include="..\..\..\src\Tile.hpp" />
     <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
+    <ClInclude Include="..\..\..\src\UnitaryTools.hpp" />
     <ClInclude Include="Specific.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

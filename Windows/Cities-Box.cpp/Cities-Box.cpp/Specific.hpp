@@ -12,7 +12,7 @@
 #include <filesystem>
 #include <direct.h>
 
-#include "OtherFunctions.hpp"
+#include "UnitaryTools.hpp"
 
 /* OS依存の定数など */
 #define LINE_FEED_CODE			0			// 改行コードに用いる文字数

@@ -19,9 +19,9 @@ Array<FileStruct> specific::getAllFilesName(string folder_path, string extension
 	for (; iter != end && !err; iter.increment(err)) {
 		const directory_entry entry = *iter;
 
-		string entry_str = replaceString(entry.path().string(), "\\", "/");
+		string entry_str = UnitaryTools::replaceString(entry.path().string(), "\\", "/");
 		s.push_back(entry_str);
-		Array<string> spl = splitUTF8(entry_str, "/");
+		Array<string> spl = UnitaryTools::splitUTF8(entry_str, "/");
 		
 		// サブディレクトリの中身も検索
 		if (spl.back().find(".") == string::npos) {

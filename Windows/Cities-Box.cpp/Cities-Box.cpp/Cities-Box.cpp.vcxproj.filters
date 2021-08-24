@@ -162,10 +162,10 @@
     <ClCompile Include="..\..\..\src\CitiesBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\OtherFunctions.cpp">
+    <ClCompile Include="..\..\..\src\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Object.cpp">
+    <ClCompile Include="..\..\..\src\UnitaryTools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -514,13 +514,16 @@
     <ClInclude Include="..\..\..\src\Header.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\OtherFunctions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Structs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\UnitaryTools.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Graph.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

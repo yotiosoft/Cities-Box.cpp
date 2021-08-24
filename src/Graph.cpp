@@ -8,6 +8,9 @@
 #include "Graph.hpp"
 
 // コンストラクタ
+Graph::Graph() {
+	
+}
 Graph::Graph(int arg_width, int arg_height) {
 	graph.resize(arg_width, arg_height, nullptr);
 }

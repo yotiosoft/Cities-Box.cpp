@@ -4,6 +4,7 @@
 //
 //  Created by YotioSoft on 2021/08/23.
 //
+#pragma once
 
 #ifndef Graph_hpp
 #define Graph_hpp
@@ -37,7 +38,7 @@ struct GraphNode {
 	}
 	
 	// 特定の接続を解除
-	void unconnect(CoordinateStruct connect_coordinate) {
+	void disconnect(CoordinateStruct connect_coordinate) {
 		connections.remove_if([&connect_coordinate](const GraphNode* v) { return v->coordinate == connect_coordinate; });
 	}
 };
@@ -45,6 +46,7 @@ struct GraphNode {
 class Graph {
 public:
 	// コンストラクタ
+	Graph();
 	Graph(int arg_width, int arg_height);
 	
 	// ノードの追加

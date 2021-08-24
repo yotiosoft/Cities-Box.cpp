@@ -7,6 +7,9 @@
 
 #include "CityMap.hpp"
 
+CityMap::CityMap() {
+	
+}
 
 bool CityMap::m_get_element(String str, String searchElementName, String& ret) {
 	string strUTF8 = str.toUTF8();
@@ -131,6 +134,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	m_tax.office = mapData[U"Tax.office"].get<int>();
 	m_tax.industrial = mapData[U"Tax.industrial"].get<int>();
 	m_tax.farm = mapData[U"Tax.farm"].get<int>();
+	
+	// グラフの用意
+	// 道路ネットワーク
+	road_network = Graph(m_map_size.x, m_map_size.y);
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {
@@ -530,6 +537,14 @@ bool CityMap::hasCategory(String searchCategory, CoordinateStruct coordinate) {
 
 // アドオンの設置
 bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+	if (selectedAddon->isInCategories(U"connectable_type")) {
+		return buildConnectableType(cursor, before_cursor, selectedAddon, needToBreak);
+	}
+	else {
+		return buildBuilding(cursor, before_cursor, selectedAddon, needToBreak);
+	}
+}
+bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
 	
@@ -563,13 +578,13 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
 						from_coordinate_object_struct.object_p->connect(
 							CoordinateStruct{0, 0},			// 暫定
-																		UnitaryTools::getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
+							UnitaryTools::getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
 							&(m_objects[objectID])
 						);
 						
 						m_objects[objectID].connect(
 							CoordinateStruct{0, 0},			// 暫定
-													UnitaryTools::getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
+							UnitaryTools::getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
 							from_coordinate_object_struct.object_p
 						);
 						
@@ -578,6 +593,80 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 				}
 			}
 		}
+		
+		// 建設するタイル上の既存のオブジェクトを削除
+		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
+			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
+				breaking(CoordinateStruct{x, y}, true);
+			}
+		}
+		
+		// 各タイルにオブジェクトを追加
+		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
+			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
+				// RelativeCoordinateStructを作成
+				RelativeCoordinateStruct relative_coordinate;
+				relative_coordinate.origin = origin_coordinate;
+				relative_coordinate.relative.y = y - origin_coordinate.y;
+				relative_coordinate.relative.x = x - origin_coordinate.x;
+				
+				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << " " << objectID << endl;
+				m_tiles[y][x].addObject(&(m_objects[objectID]), relative_coordinate);
+			}
+		}
+		
+		// 効果を反映
+		setRate(&(m_objects[objectID]), origin_coordinate, false);
+		
+		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
+		if (needUpdate.size() > 0) {
+			Array<String> searchCategories = {U"road", U"train", U"waterway"};
+			
+			for (int i=0; i<needUpdate.size(); i++) {
+				
+				if (needUpdate[i].x < 0 || needUpdate[i].y < 0) {
+					continue;
+				}
+				
+				for (auto object_struct : m_tiles[needUpdate[i].y][needUpdate[i].x].getObjectStructs()) {
+					if (object_struct.object_p->getAddonP()->isInCategories(searchCategories)) {
+						if (!(needUpdate[i].x == -1 && needUpdate[i].y == -1)) {
+							cout << "update for " << needUpdate[i].x << "," << needUpdate[i].y << " " << needUpdate.size() << endl;
+							//update(needUpdate[i], object_struct, needUpdate);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	return true;
+}
+bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon *selectedAddon, bool needToBreak) {
+	// ObjectIDの決定
+	int objectID = m_get_next_objectID();
+	
+	TypeID::Type type;
+	DirectionID::Type direction;
+	
+	Array<CoordinateStruct> needUpdate;
+	if (getBuildTypeAndDirection(cursor.coordinate, selectedAddon, type, direction, needUpdate)) {		// 設置可能なら...
+		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
+		
+		CoordinateStruct origin_coordinate = cursor.coordinate;
+		if (direction == DirectionID::West) {
+			origin_coordinate.y -= useTiles.y-1;
+		}
+		if (direction == DirectionID::East) {
+			origin_coordinate.x -= useTiles.x-1;
+			origin_coordinate.y -= useTiles.y-1;
+		}
+		else if (direction == DirectionID::South) {
+			origin_coordinate.y -= useTiles.y-1;
+		}
+		
+		// オブジェクトの生成
+		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 		
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {

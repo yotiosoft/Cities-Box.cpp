@@ -16,10 +16,14 @@
 #include "Tile.hpp"
 #include "NormalObject.hpp"
 #include "ConnectableObject.hpp"
+#include "Graph.hpp"
 
 
 class CityMap {
 public:
+	// コンストラクタ
+	CityMap();
+	
 	// マップの読み込み
 	void load(String loadMapFilePath);
 	void loadCBD(String loadMapFilePath);
@@ -70,6 +74,8 @@ public:
 	
 	// アドオンを設置
 	bool build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
+	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
+	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	
 	// 効果の指定
 	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
@@ -117,6 +123,9 @@ private:
 	
 	// 芝生を置く
 	void m_put_grass(CoordinateStruct arg_coordinate);
+	
+	// 道路ネットワーク保持用グラフ
+	Graph road_network;
 	
 	/* プライベート変数 */
 	int m_saved_version;

@@ -99,12 +99,17 @@ bool Object::isOn(CoordinateStruct arg_coordinate) {
 }
 
 // 周囲のオブジェクトと接続
+/*
 void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction, Object* arg_object_p) {
 	cout << arg_direction << " : " << arg_object_p << endl;
 	m_connects[arg_coordinate.y][arg_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{arg_direction, arg_object_p};
-}
+}*/
 
 // 描画
 void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
+}
+
+Object::~Object() {
+	
 }

@@ -10,6 +10,7 @@
 
 #include <Specific.hpp>
 #include "Addon.hpp"
+#include "CityNetwork.hpp"
 class Object {
 public:
 	// コンストラクタ
@@ -44,10 +45,13 @@ public:
 	bool isOn(CoordinateStruct arg_coordinate);
 	
 	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
-	void connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_direction, Object* arg_object_p);
+	virtual void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) = 0;
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
+	
+	// デストラクタ
+	virtual ~Object();
 	
 protected:
 	/* 関数部 */

@@ -37,7 +37,7 @@
 		2CE5C85B237FDE6000082EEC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6906B12298123200A427D0 /* OpenAL.framework */; };
 		2CEACB67233A61C900C6EE98 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB65233A61C900C6EE98 /* libgif.a */; };
 		2CEACB68233A61C900C6EE98 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEACB66233A61C900C6EE98 /* libutil.a */; };
-		4B730AB926D2ABB200798F34 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B730AB726D2ABB200798F34 /* Graph.cpp */; };
+		4B6F507A26D6270100F16A48 /* CityNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6F507826D6270100F16A48 /* CityNetwork.cpp */; };
 		4B730AC226D4BA7400798F34 /* NormalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B730ABF26D4BA7400798F34 /* NormalObject.cpp */; };
 		4B730AC326D4BA7400798F34 /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */; };
 		4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA526090BF1000B9E51 /* AddonType.cpp */; };
@@ -98,8 +98,8 @@
 		2CE5C859237FDE5100082EEC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CEACB65233A61C900C6EE98 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../../lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2CEACB66233A61C900C6EE98 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../../lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
-		4B730AB726D2ABB200798F34 /* Graph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cpp; path = ../../../src/Graph.cpp; sourceTree = "<group>"; };
-		4B730AB826D2ABB200798F34 /* Graph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Graph.hpp; path = ../../../src/Graph.hpp; sourceTree = "<group>"; };
+		4B6F507826D6270100F16A48 /* CityNetwork.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CityNetwork.cpp; path = ../../../src/CityNetwork.cpp; sourceTree = "<group>"; };
+		4B6F507926D6270100F16A48 /* CityNetwork.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CityNetwork.hpp; path = ../../../src/CityNetwork.hpp; sourceTree = "<group>"; };
 		4B730ABE26D4BA7400798F34 /* ConnectableObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConnectableObject.hpp; path = ../../../src/ConnectableObject.hpp; sourceTree = "<group>"; };
 		4B730ABF26D4BA7400798F34 /* NormalObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalObject.cpp; path = ../../../src/NormalObject.cpp; sourceTree = "<group>"; };
 		4B730AC026D4BA7400798F34 /* NormalObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalObject.hpp; path = ../../../src/NormalObject.hpp; sourceTree = "<group>"; };
@@ -236,14 +236,14 @@
 				4BAAAEB626090BF2000B9E51 /* Button.hpp */,
 				4BAAAEAE26090BF2000B9E51 /* CityMap.cpp */,
 				4BAAAEC826090BF4000B9E51 /* CityMap.hpp */,
+				4B6F507826D6270100F16A48 /* CityNetwork.cpp */,
+				4B6F507926D6270100F16A48 /* CityNetwork.hpp */,
 				4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */,
 				4B730ABE26D4BA7400798F34 /* ConnectableObject.hpp */,
 				4BAAAEAA26090BF1000B9E51 /* DetailsBar.cpp */,
 				4BAAAEA326090BF1000B9E51 /* DetailsBar.hpp */,
 				4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */,
 				4BAAAEAB26090BF1000B9E51 /* GeneralSetting.hpp */,
-				4B730AB726D2ABB200798F34 /* Graph.cpp */,
-				4B730AB826D2ABB200798F34 /* Graph.hpp */,
 				4BAAAEBA26090BF2000B9E51 /* Images.cpp */,
 				4BAAAEC626090BF3000B9E51 /* Images.hpp */,
 				4BAAAEB126090BF2000B9E51 /* ImagesStruct.hpp */,
@@ -380,7 +380,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BAAAED426090BF4000B9E51 /* CityMap.cpp in Sources */,
-				4B730AB926D2ABB200798F34 /* Graph.cpp in Sources */,
 				4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */,
 				4BAAAEDB26090BF4000B9E51 /* PulldownMenu.cpp in Sources */,
 				4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */,
@@ -394,6 +393,7 @@
 				4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */,
 				4BAAAED526090BF4000B9E51 /* GeneralSetting.cpp in Sources */,
 				4BAAAED026090BF4000B9E51 /* StartUp.cpp in Sources */,
+				4B6F507A26D6270100F16A48 /* CityNetwork.cpp in Sources */,
 				4BAAAEDE26090BF4000B9E51 /* SubWindow.cpp in Sources */,
 				4BAAAED726090BF4000B9E51 /* AddonMaker.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,

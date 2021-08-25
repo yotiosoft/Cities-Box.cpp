@@ -16,8 +16,7 @@
 #include "Tile.hpp"
 #include "NormalObject.hpp"
 #include "ConnectableObject.hpp"
-#include "Graph.hpp"
-
+#include "CityNetwork.hpp"
 
 class CityMap {
 public:
@@ -124,8 +123,8 @@ private:
 	// 芝生を置く
 	void m_put_grass(CoordinateStruct arg_coordinate);
 	
-	// 道路ネットワーク保持用グラフ
-	Graph road_network;
+	// 道路ネットワーク
+	CityNetwork road_network;
 	
 	/* プライベート変数 */
 	int m_saved_version;
@@ -155,7 +154,7 @@ private:
 	
 	map<String, Addon*> m_addons;
 	
-	map<int, Object> m_objects;
+	map<int, Object*> m_objects;
 	int m_max_object_id;
 	
 	CameraStruct m_camera_before;

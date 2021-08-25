@@ -135,10 +135,6 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	m_tax.industrial = mapData[U"Tax.industrial"].get<int>();
 	m_tax.farm = mapData[U"Tax.farm"].get<int>();
 	
-	// グラフの用意
-	// 道路ネットワーク
-	road_network = Graph(m_map_size.x, m_map_size.y);
-	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {
 		m_max_object_id = 0;
@@ -166,11 +162,11 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			// オブジェクトをリストに登録
 			// 道路や線路などConnectableなオブジェクトならConnectavleObjectに
 			if (m_addons[addon_name]->isInCategories(U"connectable")) {
-				m_objects[object_id] = ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+				m_objects[object_id] = new ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
 			}
 			// その他建物などはNormalObjectに
 			else {
-				m_objects[object_id] = NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+				m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
 			}
 			
 			if (object_id > m_max_object_id) {
@@ -224,7 +220,12 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 							}
 							
 							// オブジェクトをリストに登録
-							m_objects[serial_number] = Object(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+							if (m_addons[jAddons[U"name"].getString()]->isInCategories(U"connectable_type")) {
+								m_objects[serial_number] = new ConnectableObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+							}
+							else {
+								m_objects[serial_number] = new NormalObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+							}
 						}
 						else {
 							CoordinateStruct origin_coordinate;
@@ -232,8 +233,8 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 							origin_coordinate.y = y - tiles_count.y;
 							
 							// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
-							if (m_objects[serial_number].getOriginCoordinate().x != origin_coordinate.x ||
-								m_objects[serial_number].getOriginCoordinate().y != origin_coordinate.y) {
+							if (m_objects[serial_number]->getOriginCoordinate().x != origin_coordinate.x ||
+								m_objects[serial_number]->getOriginCoordinate().y != origin_coordinate.y) {
 								
 								cout << "at " << x << "," << y << " from " << origin_coordinate.x << "," << origin_coordinate.y << ":" << serial_number << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID() << endl;
 								
@@ -243,11 +244,11 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						
 						// RelativeCoordinateStructを作成
 						RelativeCoordinateStruct relarive_coordinate;
-						relarive_coordinate.origin = m_objects[serial_number].getOriginCoordinate();
+						relarive_coordinate.origin = m_objects[serial_number]->getOriginCoordinate();
 						relarive_coordinate.relative = tiles_count;
 						
 						// オブジェクトをタイルに格納
-						m_tiles[y][x].addObject(&(m_objects[serial_number]), relarive_coordinate);
+						m_tiles[y][x].addObject(m_objects[serial_number], relarive_coordinate);
 						
 						if (serial_number > m_max_object_id) {
 							m_max_object_id = serial_number;
@@ -269,11 +270,11 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 					
 					// RelativeCoordinateStructを作成
 					RelativeCoordinateStruct relarive_coordinate;
-					relarive_coordinate.origin = m_objects[object_id].getOriginCoordinate();
+					relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
 					relarive_coordinate.relative.x = jObject[U"relative_coordinate.x"].get<int>();
 					relarive_coordinate.relative.y = jObject[U"relative_coordinate.y"].get<int>();
 					
-					m_tiles[y][x].addObject(&(m_objects[object_id]), relarive_coordinate);
+					m_tiles[y][x].addObject(m_objects[object_id], relarive_coordinate);
 				}
 			}
 			
@@ -568,7 +569,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		}
 		
 		// オブジェクトの生成
-		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
+		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 		
 		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 		Array<CoordinateStruct> needUpdate;
@@ -577,14 +578,14 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 				for (auto from_coordinate_object_struct : m_tiles[before_cursor.coordinate.y][before_cursor.coordinate.x].getObjectStructs()) {
 					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
 						from_coordinate_object_struct.object_p->connect(
+							road_network,
 							CoordinateStruct{0, 0},			// 暫定
-							UnitaryTools::getDirectionIDfromDifference(cursor.coordinate, before_cursor.coordinate),
-							&(m_objects[objectID])
+							m_objects[objectID]
 						);
 						
-						m_objects[objectID].connect(
+						m_objects[objectID]->connect(
+							road_network,
 							CoordinateStruct{0, 0},			// 暫定
-							UnitaryTools::getDirectionIDfromDifference(before_cursor.coordinate, cursor.coordinate),
 							from_coordinate_object_struct.object_p
 						);
 						
@@ -610,13 +611,13 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 				relative_coordinate.relative.y = y - origin_coordinate.y;
 				relative_coordinate.relative.x = x - origin_coordinate.x;
 				
-				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << " " << objectID << endl;
-				m_tiles[y][x].addObject(&(m_objects[objectID]), relative_coordinate);
+				cout << "build at " << x << "," << y << " : " << m_objects[objectID]->getAddonName(NameMode::English) << " " << objectID << endl;
+				m_tiles[y][x].addObject(m_objects[objectID], relative_coordinate);
 			}
 		}
 		
 		// 効果を反映
-		setRate(&(m_objects[objectID]), origin_coordinate, false);
+		setRate(m_objects[objectID], origin_coordinate, false);
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (needUpdate.size() > 0) {
@@ -666,7 +667,7 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Add
 		}
 		
 		// オブジェクトの生成
-		m_objects[objectID] = Object(objectID, selectedAddon, U"", type, direction, origin_coordinate);
+		m_objects[objectID] = new NormalObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 		
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
@@ -684,13 +685,13 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Add
 				relative_coordinate.relative.y = y - origin_coordinate.y;
 				relative_coordinate.relative.x = x - origin_coordinate.x;
 				
-				cout << "build at " << x << "," << y << " : " << m_objects[objectID].getAddonName(NameMode::English) << " " << objectID << endl;
-				m_tiles[y][x].addObject(&(m_objects[objectID]), relative_coordinate);
+				cout << "build at " << x << "," << y << " : " << m_objects[objectID]->getAddonName(NameMode::English) << " " << objectID << endl;
+				m_tiles[y][x].addObject(m_objects[objectID], relative_coordinate);
 			}
 		}
 		
 		// 効果を反映
-		setRate(&(m_objects[objectID]), origin_coordinate, false);
+		setRate(m_objects[objectID], origin_coordinate, false);
 		
 		// (道路などで)周囲のアドオンの修正が必要な場合は修正する
 		if (needUpdate.size() > 0) {
@@ -775,6 +776,8 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 				}
 			}
 		}
+		// オブジェクト自体を除去
+		delete(object_struct.object_p);
 		
 		UnitaryTools::debugLog(U"before erase");
 		m_objects.erase(delete_object_id);
@@ -802,14 +805,14 @@ pair<TypeID::Type, DirectionID::Type> CityMap::setConnectableTypeProfile(Addon* 
 			for (auto before_selected_object : m_tiles[arg_before_cursor.coordinate.y][arg_before_cursor.coordinate.x].getObjectStructs()) {
 				if (before_selected_object.object_p->getAddonP()->isInCategories(U"road") && arg_selected_addon->isInCategories(U"road")) {
 					before_selected_object.object_p->connect(
+						road_network,
 						CoordinateStruct{0, 0},			// 暫定
-						UnitaryTools::getDirectionIDfromDifference(arg_cursor.coordinate, arg_before_cursor.coordinate),
-						&(m_objects[arg_objectID])
+						m_objects[arg_objectID]
 					);
 					
-					m_objects[arg_objectID].connect(
+					m_objects[arg_objectID]->connect(
+						road_network,
 						CoordinateStruct{0, 0},			// 暫定
-						UnitaryTools::getDirectionIDfromDifference(arg_before_cursor.coordinate, arg_cursor.coordinate),
 						before_selected_object.object_p
 					);
 				}
@@ -1187,15 +1190,15 @@ bool CityMap::save() {
 			for (auto object : m_objects) {
 				mapData.startObject();
 				{
-					mapData.key(U"objectID").write(object.second.getObjectID());
-					mapData.key(U"addon_name").write(object.second.getAddonName(NameMode::English));
-					mapData.key(U"original_name").write(object.second.getOriginalName());
-					mapData.key(U"typeID").write(UnitaryTools::typeIDToTypeName(object.second.getTypeID()));
-					mapData.key(U"directionID").write(UnitaryTools::directionIDToDirectionName(object.second.getDirectionID()));
+					mapData.key(U"objectID").write(object.second->getObjectID());
+					mapData.key(U"addon_name").write(object.second->getAddonName(NameMode::English));
+					mapData.key(U"original_name").write(object.second->getOriginalName());
+					mapData.key(U"typeID").write(UnitaryTools::typeIDToTypeName(object.second->getTypeID()));
+					mapData.key(U"directionID").write(UnitaryTools::directionIDToDirectionName(object.second->getDirectionID()));
 					mapData.key(U"origin_coordinate").startObject();
 					{
-						mapData.key(U"x").write(object.second.getOriginCoordinate().x);
-						mapData.key(U"y").write(object.second.getOriginCoordinate().y);
+						mapData.key(U"x").write(object.second->getOriginCoordinate().x);
+						mapData.key(U"y").write(object.second->getOriginCoordinate().y);
 					}
 					mapData.endObject();
 				}
@@ -1332,6 +1335,10 @@ void CityMap::freeMapAndAddons() {
 		delete(i->second);
 	}
 	
+	for (auto i = m_objects.begin(); i != m_objects.end() ; i++) {
+		delete(i->second);
+	}
+	
 	Array<Array<Tile>>().swap(m_tiles);
 }
 
@@ -1344,11 +1351,11 @@ int CityMap::m_get_next_objectID() {
 void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {
 	int objectID = m_get_next_objectID();
 	cout << "put grass: " << objectID << endl;
-	m_objects[objectID] = Object(objectID, m_addons[U"tile_greenfield"], U"", TypeID::Normal, DirectionID::None, arg_coordinate);
+	m_objects[objectID] = new NormalObject(objectID, m_addons[U"tile_greenfield"], U"", TypeID::Normal, DirectionID::None, arg_coordinate);
 	
 	RelativeCoordinateStruct relative_coordinate;
 	relative_coordinate.origin = arg_coordinate;
 	relative_coordinate.relative = CoordinateStruct{0, 0};
 	
-	m_tiles[arg_coordinate.y][arg_coordinate.x].addObject(&(m_objects[objectID]), relative_coordinate);
+	m_tiles[arg_coordinate.y][arg_coordinate.x].addObject(m_objects[objectID], relative_coordinate);
 }

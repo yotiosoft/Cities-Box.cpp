@@ -425,6 +425,86 @@ DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct ar
 	return DirectionID::Disabled;
 }
 
+
+CategoryID::Type UnitaryTools::categoryNameToCategoryID(String category_name) {
+	if (category_name == U"connectable_type")
+		return CategoryID::Connectable;
+	if (category_name == U"road")
+		return CategoryID::Road;
+	if (category_name == U"car")
+		return CategoryID::Car;
+	if (category_name == U"promenade")
+		return CategoryID::Promenade;
+	if (category_name == U"two_lane")
+		return CategoryID::TwoLane;
+	if (category_name == U"railroad")
+		return CategoryID::Railroad;
+	if (category_name == U"train")
+		return CategoryID::Train;
+	if (category_name == U"station")
+		return CategoryID::Station;
+	if (category_name == U"waterway")
+		return CategoryID::Waterway;
+	if (category_name == U"ship")
+		return CategoryID::Ship;
+	if (category_name == U"airline")
+		return CategoryID::Airline;
+	if (category_name == U"airport")
+		return CategoryID::Airport;
+	if (category_name == U"runway")
+		return CategoryID::Runway;
+	if (category_name == U"taxiway")
+		return CategoryID::Taxiway;
+	if (category_name == U"railroad_crossing")
+		return CategoryID::RailroadCrossing;		// ToDo
+	if (category_name == U"object_type")
+		return CategoryID::ObjectType;
+	if (category_name == U"high_density")
+		return CategoryID::HighDensity;
+	if (category_name == U"low_density")
+		return CategoryID::LowDensity;
+	if (category_name == U"residential")
+		return CategoryID::Residential;
+	if (category_name == U"commercial")
+		return CategoryID::Commecial;
+	if (category_name == U"office")
+		return CategoryID::Office;
+	if (category_name == U"industrial")
+		return CategoryID::Industrial;
+	if (category_name == U"farm")
+		return CategoryID::Farm;
+	if (category_name == U"public")
+		return CategoryID::Public;
+	if (category_name == U"fire_department")
+		return CategoryID::FireDepartment;
+	if (category_name == U"police")
+		return CategoryID::Police;
+	if (category_name == U"post_office")
+		return CategoryID::PostOffice;
+	if (category_name == U"education")
+		return CategoryID::Education;
+	if (category_name == U"elementary_school")
+		return CategoryID::ElementarySchool;
+	if (category_name == U"junior_high_school")
+		return CategoryID::JuniorHighSchool;
+	if (category_name == U"high_school")
+		return CategoryID::HighSchool;
+	if (category_name == U"university")
+		return CategoryID::University;
+	if (category_name == U"city_hall")
+		return CategoryID::CityHall;
+	if (category_name == U"public_hall")
+		return CategoryID::PublicHall;
+	if (category_name == U"park")
+		return CategoryID::Park;
+	if (category_name == U"put_type")
+		return CategoryID::PutType;
+	if (category_name == U"tile")
+		return CategoryID::Tile;
+	
+	return CategoryID::Disabled;
+}
+
 LayerType::Type UnitaryTools::timeToLayerType(TimeStruct time) {
 	int layer_type_int = (int)LayerType::Normal;
 	

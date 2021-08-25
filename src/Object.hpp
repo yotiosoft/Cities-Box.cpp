@@ -63,7 +63,7 @@ protected:
 	
 	/* 変数部 */
 	// 保持するアドオン
-	Addon* m_addon_p;
+	Addon* m_addon_p = nullptr;
 	
 	// TypeID
 	TypeID::Type m_type_id;

@@ -11,10 +11,10 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	// arg_connect_coordinateのオブジェクトと繋げられるか確認
 	// 繋げられるならつなげる
 	
-	if ((arg_object_p->getAddonP()->isInCategories(U"road") && m_addon_p->isInCategories(U"road")) ||
-		(arg_object_p->getAddonP()->isInCategories(U"railroad") && m_addon_p->isInCategories(U"railroad")) ||
-		(arg_object_p->getAddonP()->isInCategories(U"waterway") && m_addon_p->isInCategories(U"waterway")) ||
-		(arg_object_p->getAddonP()->isInCategories(U"airport") && m_addon_p->isInCategories(U"airport"))) {
+	if ((arg_object_p->getAddonP()->isInCategories(CategoryID::Road) && m_addon_p->isInCategories(CategoryID::Road)) ||
+		(arg_object_p->getAddonP()->isInCategories(CategoryID::Railroad) && m_addon_p->isInCategories(CategoryID::Railroad)) ||
+		(arg_object_p->getAddonP()->isInCategories(CategoryID::Waterway) && m_addon_p->isInCategories(CategoryID::Waterway)) ||
+		(arg_object_p->getAddonP()->isInCategories(CategoryID::Airport) && m_addon_p->isInCategories(CategoryID::Airport))) {
 		
 		// マップ上で接続
 		set_direction_id(UnitaryTools::getDirectionIDfromDifference(arg_connect_coordinate, m_start_coordinate), false);

@@ -32,7 +32,7 @@ public:
 	void loadAddons(String addonSetName);
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
-	Array<Addon*> getFitAddons(Array<String> selectedCategories);
+	Array<Addon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
 	
 	// アドオンリストを返す
 	map<String, Addon*> getAllAddons();
@@ -69,7 +69,7 @@ public:
 	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
 	
 	// いずれかのアドオンがカテゴリに含まれているか
-	bool hasCategory(String searchCategory, CoordinateStruct coordinate);
+	bool hasCategory(CategoryID::Type searchCategory, CoordinateStruct coordinate);
 	
 	// アドオンを設置
 	bool build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
@@ -93,7 +93,7 @@ public:
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
 	pair<TypeID::Type, DirectionID::Type> setConnectableTypeProfile(Addon* arg_selected_addon, int arg_objectID, CursorStruct arg_cursor, CursorStruct arg_before_cursor);
-	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection, Array<CoordinateStruct>& needUpdate);
+	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);

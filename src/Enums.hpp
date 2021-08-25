@@ -233,4 +233,51 @@ namespace RateID {
 	};
 }
 
+// カテゴリ
+namespace CategoryID {
+	enum Type {
+		Disabled,
+		
+		Connectable,		// 接続可能
+		Road,				// 道路
+		Car,				// 車道
+		Promenade,			// 歩道
+		TwoLane,			// 2車線（双方向）
+		Railroad,			// 線路
+		Train,				// 鉄道路線
+		Station,			// 駅
+		Waterway,			// 水路、海
+		Ship,				// 航路
+		Airline,			// 航空路
+		Airport,			// 空港
+		Runway,				// 滑走路
+		Taxiway,			// 誘導路
+		RailroadCrossing,	// 踏切
+		
+		ObjectType,			// 建物
+		HighDensity,		// 高密度
+		LowDensity,			// 低密度
+		Residential,		// 住宅
+		Commecial,			// 商業
+		Office,				// オフィス
+		Industrial,			// 工場
+		Farm,				// 農業
+		Public,				// 公共施設
+		FireDepartment,		// 消防署
+		Police,				// 警察署
+		PostOffice,			// 郵便局
+		Education,			// 教育施設
+		ElementarySchool,	// 小学校
+		JuniorHighSchool,	// 中学校
+		HighSchool,			// 高校
+		University,			// 大学
+		CityHall,			// 市役所
+		PublicHall,			// 公民館
+		Park,				// 公園
+		
+		PutType,			// タイル
+		Tile,				// タイル
+	};
+}
+
 #endif /* Enums_hpp */

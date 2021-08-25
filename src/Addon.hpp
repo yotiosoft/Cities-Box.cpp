@@ -67,11 +67,11 @@ public:
 	AddonDirectionStruct getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id);
 	
 	// カテゴリを取得
-	Array<String> getCategories();
+	Array<CategoryID::Type> getCategories();
 	
 	// 指定したカテゴリに該当するか
-	bool isInCategories(String searchCategory);
-	bool isInCategories(Array<String> searchCategories);
+	bool isInCategories(CategoryID::Type searchCategory);
+	bool isInCategories(Array<CategoryID::Type> searchCategories);
 	
 	// 効果を取得
 	map<RateID::Type, EffectStruct> getEffects();
@@ -120,7 +120,7 @@ protected:
 	Array<String> m_belong_addons_set_name;
 	
 	// アドオンのタイプ
-	Array<String> m_addon_categories;
+	Array<CategoryID::Type> m_addon_categories;
 	
 	// アイコン画像のパス
 	String m_addon_icon;

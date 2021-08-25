@@ -198,12 +198,12 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Road;
 			m_selected_addon = nullptr;
-			m_mode_str = U"road";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Road;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
-			m_category_buttons << pair<String, Button>(U"promenade", Button(IconFont::WALK, 16, 16, PositionStruct{2, 0}));
-			m_category_buttons << pair<String, Button>(U"car", Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::Promenade, Button(IconFont::WALK, 16, 16, PositionStruct{2, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::Car, Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
 		}
 		else {
 			m_menu_mode = MenuMode::Cursor;
@@ -215,8 +215,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Train;
 			m_selected_addon = nullptr;
-			m_mode_str = U"train";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Train;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -230,12 +230,12 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Residential;
 			m_selected_addon = nullptr;
-			m_mode_str = U"residential";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Residential;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
-			m_category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Residential, 16, 16, PositionStruct{0, 0}));
-			m_category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::LowDensity, Button(IconFont::Residential, 16, 16, PositionStruct{0, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::HighDensity, Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
 			m_menu_mode = MenuMode::Cursor;
@@ -247,12 +247,12 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Commercial;
 			m_selected_addon = nullptr;
-			m_mode_str = U"commercial";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Commecial;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
-			m_category_buttons << pair<String, Button>(U"low_density", Button(IconFont::Commercial, 16, 14, PositionStruct{0, 0}));
-			m_category_buttons << pair<String, Button>(U"high_density", Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::LowDensity, Button(IconFont::Commercial, 16, 14, PositionStruct{0, 0}));
+			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::HighDensity, Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
 			m_menu_mode = MenuMode::Cursor;
@@ -264,8 +264,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Office;
 			m_selected_addon = nullptr;
-			m_mode_str = U"office";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Office;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -279,8 +279,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Industrial;
 			m_selected_addon = nullptr;
-			m_mode_str = U"industrial";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Industrial;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -294,8 +294,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Farm;
 			m_selected_addon = nullptr;
-			m_mode_str = U"farm";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Farm;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -309,8 +309,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Public;
 			m_selected_addon = nullptr;
-			m_mode_str = U"public";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Public;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -324,8 +324,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Park;
 			m_selected_addon = nullptr;
-			m_mode_str = U"park";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category =CategoryID::Park;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -339,8 +339,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Ship;
 			m_selected_addon = nullptr;
-			m_mode_str = U"ship";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Ship;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -354,8 +354,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::AirPort;
 			m_selected_addon = nullptr;
-			m_mode_str = U"air_port";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Airport;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -369,8 +369,8 @@ Addon* Menu::draw(bool& needUpdate) {
 			releaseBeforeButton(m_menu_mode);
 			m_menu_mode = MenuMode::Tile;
 			m_selected_addon = nullptr;
-			m_mode_str = U"tile";
-			m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+			m_current_category = CategoryID::Tile;
+			m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 			
 			m_category_buttons.clear();
 		}
@@ -386,7 +386,7 @@ Addon* Menu::draw(bool& needUpdate) {
 			m_menu_mode = MenuMode::Delete;
 			m_selected_addon = m_map->getAllAddons()[U"tile_greenfield"];
 			m_selected_addon_name = m_selected_addon->getName(NameMode::English);
-			m_mode_str = U"delete";
+			m_current_category = CategoryID::Disabled;
 			m_show_addons.clear();
 		}
 		else {
@@ -497,7 +497,7 @@ void Menu::addonMenu() {
 			
 			if (m_category_buttons[i].second.push()) {
 				if (m_category_buttons[i].second.isActive()) {
-					m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str, m_category_buttons[i].first});
+					m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category, m_category_buttons[i].first});
 					
 					for (int j=0; j<m_category_buttons.size(); j++) {
 						if (j != i) {
@@ -506,7 +506,7 @@ void Menu::addonMenu() {
 					}
 				}
 				else {
-					m_show_addons = m_map->getFitAddons(Array<String>{m_mode_str});
+					m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category});
 				}
 			}
 		}

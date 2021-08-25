@@ -77,8 +77,8 @@ private:
 	
 	String m_selected_addon_name;
 	
-	Array<pair<String, Button>> m_category_buttons;
-	String m_mode_str;
+	Array<pair<CategoryID::Type, Button>> m_category_buttons;
+	CategoryID::Type m_current_category;
 	
 	bool m_show_rate_menu;
 	RateID::Type m_show_rate_id;

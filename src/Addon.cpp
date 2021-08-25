@@ -82,7 +82,10 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 	m_icon_texture = Texture(iconImage);
 	
 	// カテゴリ
-	m_addon_categories = addonData[U"Categories"].getArray<String>();
+	Array<String> addon_categories_strarray = addonData[U"Categories"].getArray<String>();
+	for (auto addon_category_str : addon_categories_strarray) {
+		m_addon_categories << UnitaryTools::categoryNameToCategoryID(addon_category_str);
+	}
 	
 	// 建物の効果
 	for (const auto& effect : addonData[U"effects"].objectView()) {
@@ -204,11 +207,11 @@ AddonDirectionStruct Addon::getDirectionStruct(TypeID::Type arg_type_id, Directi
 	return m_types[arg_type_id].getDirectionStruct(arg_direction_id);
 }
 
-Array<String> Addon::getCategories() {
+Array<CategoryID::Type> Addon::getCategories() {
 	return m_addon_categories;
 }
 
-bool Addon::isInCategories(String searchCategory) {
+bool Addon::isInCategories(CategoryID::Type searchCategory) {
 	for (int i=0; i<m_addon_categories.size(); i++) {
 		if (m_addon_categories[i] == searchCategory) {
 			return true;
@@ -217,7 +220,7 @@ bool Addon::isInCategories(String searchCategory) {
 	return false;
 }
 
-bool Addon::isInCategories(Array<String> searchCategories) {
+bool Addon::isInCategories(Array<CategoryID::Type> searchCategories) {
 	for (int i=0; i<m_addon_categories.size(); i++) {
 		for (int j=0; j<searchCategories.size(); j++) {
 			if (m_addon_categories[i] == searchCategories[j]) {

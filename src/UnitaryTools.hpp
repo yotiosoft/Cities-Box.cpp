@@ -48,6 +48,8 @@ namespace UnitaryTools {
 
 	TypeID::Type directionIDToTyoeID(DirectionID::Type direction_id);
 
+	CategoryID::Type categoryNameToCategoryID(String category_name);
+
 	LayerType::Type timeToLayerType(TimeStruct time);
 
 	LayerType::Type layerNameToLayerType(String layer_name);

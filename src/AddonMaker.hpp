@@ -100,19 +100,17 @@ public:
 		return m_belong_addons_set_name;
 	}
 	
-	void setCategory(String arg) {
+	void setCategory(CategoryID::Type arg) {
 		m_addon_categories.push_back(arg);
 		
-		if (arg.size() > 0) {
-			m_am_check_category = true;
-		}
+		m_am_check_category = true;
 	}
 	
 	bool isCategorySet() {
 		return m_am_check_category;
 	}
 	
-	Array<String> printCategories() {
+	Array<CategoryID::Type> printCategories() {
 		return m_addon_categories;
 	}
 	

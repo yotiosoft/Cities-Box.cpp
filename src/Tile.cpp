@@ -253,8 +253,16 @@ bool Tile::m_is_this_points_for_me(ObjectStruct& my_object_st, ObjectStruct& tar
 }
 
 bool Tile::m_is_objects_category_match(Object* obj1, Object* obj2) {
+	if (obj1 == nullptr || obj2 == nullptr) {
+		return false;
+	}
+	
+	if (obj1->getAddonP() == nullptr || obj2->getAddonP() == nullptr) {
+		return false;
+	}
+	
 	// ToDo: road以外も追加
-	if (obj1->getAddonP()->isInCategories(U"road") && obj1->getAddonP()->isInCategories(U"road")) {
+	if (obj1->getAddonP()->isInCategories(CategoryID::Road) && obj2->getAddonP()->isInCategories(CategoryID::Road)) {
 		return true;
 	}
 	

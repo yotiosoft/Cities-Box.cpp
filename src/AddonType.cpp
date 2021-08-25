@@ -123,7 +123,6 @@ void AddonType::m_make_all_textures() {
 	for (int i=0; i<LAYER_TYPES; i++) {
 		// 独自レイヤが存在しない場合は作成を省く（デフォルトレイヤで対応する）
 		if (!m_layer_exists_list[AllLayerTypes[i]]) {
-			cout << "continue at " << AllLayerTypes[i] << endl;
 			continue;
 		}
 		

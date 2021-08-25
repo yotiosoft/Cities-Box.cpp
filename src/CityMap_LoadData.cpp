@@ -1,0 +1,295 @@
+//
+//  CityMap_LoadData.cpp
+//  Cities-Box
+//
+//  Created by YotioSoft on 2021/08/25.
+//
+
+#include "CityMap.hpp"
+
+void CityMap::load(String loadMapFilePath) {
+	/*
+	if (FileSystem::Extension(loadMapFilePath) == U"cbd") {
+		loadCBD(loadMapFilePath);
+	}
+	else */if (FileSystem::Extension(loadMapFilePath) == U"cbj") {
+		loadCBJ(loadMapFilePath);
+	}
+}
+
+static s3d::String extracted(int i, Array<s3d::String> &workplaceStr) {
+	String workplaceAndSerial = workplaceStr[i].substr(1, workplaceStr[i].length()-1);
+	return workplaceAndSerial;
+}
+
+void CityMap::loadCBJ(String loadMapFilePath) {
+	m_map_file_path = loadMapFilePath;
+	
+	ifstream ifs(m_map_file_path.toUTF8().c_str(), ios::in | ios::binary);
+	
+	std::string mapXOR((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+	string mapDataStr = UnitaryTools::stringXOR(mapXOR, "citiesboxmapdatafilexor");
+	UnitaryTools::saveTextFile("./data/map_temp.cbj_unxor", mapDataStr);
+	UnitaryTools::saveTextFile("./data/map_temp.cbj_temp", mapDataStr);
+	
+	JSONReader mapData(U"./data/map_temp.cbj_temp");
+	//remove("./data/map_temp.cbj_temp");
+	
+	m_saved_version = mapData[U"Version"].get<int>();
+	
+	m_addon_set_name = mapData[U"Addon_Set"].getString();
+	// -> アドオン読み込み
+	loadAddons(m_addon_set_name);
+	
+	m_city_name = mapData[U"City_Name"].getString();
+	
+	m_mayor_name = mapData[U"Mayor_Name"].getString();
+	
+	m_total_population = mapData[U"Total_Population"].get<int>();
+	
+	m_change_weather = mapData[U"Change_Weather"].get<bool>();
+	
+	m_temperature = mapData[U"Temperature"].get<int>();
+	
+	m_dark_on_night = mapData[U"Dark_on_Night"].get<bool>();
+	
+	m_map_size.x = mapData[U"Map_size.width"].get<int>();
+	m_map_size.y = mapData[U"Map_size.height"].get<int>();
+	
+	m_time_now.year = mapData[U"Time.year"].get<int>();
+	m_time_now.month = mapData[U"Time.month"].get<int>();
+	m_time_now.date = mapData[U"Time.date"].get<int>();
+	m_time_now.hour = mapData[U"Time.hour"].get<int>();
+	m_time_now.minutes = mapData[U"Time.minutes"].get<int>();
+	
+	m_demand.residential = mapData[U"Demand.residential"].get<int>();
+	m_demand.commercial = mapData[U"Demand.commercial"].get<int>();
+	m_demand.office = mapData[U"Demand.office"].get<int>();
+	m_demand.industrial = mapData[U"Demand.industrial"].get<int>();
+	m_demand.farm = mapData[U"Demand.farm"].get<int>();
+	
+	m_money = mapData[U"Money"].get<int>();
+	
+	m_budget.police = mapData[U"Budget.police"].get<int>();
+	m_budget.fireDepertment = mapData[U"Budget.fire_depertment"].get<int>();
+	m_budget.postOffice = mapData[U"Budget.post_office"].get<int>();
+	m_budget.education = mapData[U"Budget.education"].get<int>();
+	
+	m_tax.residential = mapData[U"Tax.residential"].get<int>();
+	m_tax.commercial = mapData[U"Tax.commercial"].get<int>();
+	m_tax.office = mapData[U"Tax.office"].get<int>();
+	m_tax.industrial = mapData[U"Tax.industrial"].get<int>();
+	m_tax.farm = mapData[U"Tax.farm"].get<int>();
+	
+	// オブジェクトの読み込み(r142以降)
+	if (m_saved_version >= 142) {
+		m_max_object_id = 0;
+		for (const auto& object : mapData[U"Objects"].arrayView()) {
+			// オブジェクトID
+			int object_id = object[U"objectID"].get<int>();
+			
+			// アドオン名
+			String addon_name = object[U"addon_name"].getString();
+			
+			// 固有名称
+			String original_name = object[U"original_name"].getString();
+			
+			// TypeID
+			TypeID::Type type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+			
+			// DirectionID
+			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+			
+			// 原点
+			CoordinateStruct origin_coordinate;
+			origin_coordinate.x = object[U"origin_coordinate.x"].get<int>();
+			origin_coordinate.y = object[U"origin_coordinate.y"].get<int>();
+			
+			// オブジェクトをリストに登録
+			// 道路や線路などConnectableなオブジェクトならConnectavleObjectに
+			if (m_addons[addon_name]->isInCategories(CategoryID::Connectable)) {
+				m_objects[object_id] = new ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+			}
+			// その他建物などはNormalObjectに
+			else {
+				m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+			}
+			
+			if (object_id > m_max_object_id) {
+				m_max_object_id = object_id;
+			}
+		}
+	}
+	
+	int y = 0;
+	for (const auto& mapTiles : mapData[U"Map"].arrayView()) {
+		m_tiles.push_back(Array<Tile>());
+		int x = 0;
+		for (const auto& tile : mapTiles.arrayView()) {
+			m_tiles[y].push_back(Tile());
+			
+			CoordinateStruct tiles_count;
+			tiles_count.x = tile[U"tiles_count.x"].get<int>();
+			tiles_count.y = tile[U"tiles_count.y"].get<int>();
+			
+			if (m_saved_version <= 141) {			// r141以前なら内容を修正
+				m_max_object_id = 0;
+				
+				int serial_number = tile[U"serial_number"].get<int>();
+				int object_count = 0;
+				for (const auto& jAddons : tile[U"addons"].arrayView()) {
+					TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
+					DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
+					
+					if (direction_id != DirectionID::West) {
+						String addon_name = jAddons[U"name"].getString();
+						if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
+							tiles_count.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tiles_count.y;
+						}
+					}
+					
+					//tiles[y][x].category.push_back(j_addons[U"category"].getString());
+					m_tiles[y][x].addType(type_id);
+					m_tiles[y][x].addDirection(direction_id);
+					
+					// アドオンのポインタを登録
+					if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
+						m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+						
+						// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
+						if (tiles_count.x == 0 && tiles_count.y == 0) {
+							// old_version_serial_num = 0なら空き番号に振り直す
+							// あるいはObjectIDが被った場合に振り直す
+							if (serial_number == 0 || m_objects.count(serial_number) > 0) {
+								serial_number = m_max_object_id + 1;
+								m_max_object_id ++;
+							}
+							
+							// オブジェクトをリストに登録
+							if (m_addons[jAddons[U"name"].getString()]->isInCategories(CategoryID::Connectable)) {
+								m_objects[serial_number] = new ConnectableObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+							}
+							else {
+								m_objects[serial_number] = new NormalObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+							}
+						}
+						else {
+							CoordinateStruct origin_coordinate;
+							origin_coordinate.x = x - tiles_count.x;
+							origin_coordinate.y = y - tiles_count.y;
+							
+							// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
+							if (m_objects[serial_number]->getOriginCoordinate().x != origin_coordinate.x ||
+								m_objects[serial_number]->getOriginCoordinate().y != origin_coordinate.y) {
+								
+								cout << "at " << x << "," << y << " from " << origin_coordinate.x << "," << origin_coordinate.y << ":" << serial_number << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID() << endl;
+								
+								serial_number = m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID();
+							}
+						}
+						
+						// RelativeCoordinateStructを作成
+						RelativeCoordinateStruct relarive_coordinate;
+						relarive_coordinate.origin = m_objects[serial_number]->getOriginCoordinate();
+						relarive_coordinate.relative = tiles_count;
+						
+						// オブジェクトをタイルに格納
+						m_tiles[y][x].addObject(m_objects[serial_number], relarive_coordinate);
+						
+						if (serial_number > m_max_object_id) {
+							m_max_object_id = serial_number;
+						}
+					}
+					else {
+						cout << "Cant't find " << jAddons[U"name"].getString() << endl;
+					}
+					
+					//cout << m_objects.size() << endl;
+					
+					object_count ++;
+				}
+			}
+			else {
+				for (const auto& jObject : tile[U"objects"].arrayView()) {
+					// オブジェクトIDを取得
+					int object_id = jObject[U"objectID"].get<int>();
+					
+					// RelativeCoordinateStructを作成
+					RelativeCoordinateStruct relarive_coordinate;
+					relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
+					relarive_coordinate.relative.x = jObject[U"relative_coordinate.x"].get<int>();
+					relarive_coordinate.relative.y = jObject[U"relative_coordinate.y"].get<int>();
+					
+					m_tiles[y][x].addObject(m_objects[object_id], relarive_coordinate);
+				}
+			}
+			
+			m_tiles[y][x].residents = tile[U"residents"].get<int>();
+			
+			m_tiles[y][x].workers.commercial = tile[U"workers.commercial"].get<int>();
+			m_tiles[y][x].workers.office = tile[U"workers.office"].get<int>();
+			m_tiles[y][x].workers.industrial = tile[U"workers.industrial"].get<int>();
+			m_tiles[y][x].workers.farm = tile[U"workers.farm"].get<int>();
+			m_tiles[y][x].workers.publicFacility = tile[U"workers.public"].get<int>();
+			
+			m_tiles[y][x].students = tile[U"students"].get<int>();
+			
+			m_tiles[y][x].happinessRate = tile[U"happiness_rate"].get<int>();
+			
+			// 各率の読み込み
+			for (const auto& rate : tile[U"rate"].objectView()) {
+				m_tiles[y][x].rate[UnitaryTools::rateNameToRateID(rate.name)] = rate.value.get<int>();
+			}
+			
+			/*
+			tiles[y][x].crop.name = square[U"crop.name"].getString();
+			tiles[y][x].crop.amount = square[U"crop.amount"].get<int>();
+			*/
+			
+			m_tiles[y][x].age = tile[U"age"].getArray<int>();
+			
+			m_tiles[y][x].gender = tile[U"gender"].getArray<String>();
+			
+			for (const auto& workPlaces : tile[U"work_places"].arrayView()) {
+				m_tiles[y][x].workPlaces.push_back(WorkPlaceStruct());
+				
+				m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(workPlaces[U"work_kind"].get<int>());
+				m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
+			}
+			
+			for (const auto& schools : tile[U"school"].arrayView()) {
+				m_tiles[y][x].schools.push_back(SchoolStruct());
+				
+				m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(schools[U"school_kind"].get<int>());
+				m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
+			}
+			
+			m_tiles[y][x].reservation = UnitaryTools::getRCOIFP(tile[U"reservation"].get<int>());
+			
+			m_tiles[y][x].setOriginalName(tile[U"original_name"].getString());
+			
+			x++;
+		}
+		y++;
+	}
+}
+
+void CityMap::loadAddons(String addonSetName) {
+	//Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
+	Array<FileStruct> addonsPath = specific::getAllFilesName("./addons", "adj");
+	
+	for (int i=0; i<addonsPath.size(); i++) {
+		cout << "from: " << addonsPath[i].file_path << endl;
+		FileStruct fileTemp = addonsPath[i];
+		
+		Addon* loadingAddon = new Addon();
+		if (loadingAddon->load(addonsPath[i], addonSetName)) {
+			m_addons[loadingAddon->getName(NameMode::English)] = loadingAddon;
+		}
+		else {
+			delete(loadingAddon);
+		}
+		
+		System::Sleep(20);
+	}
+}

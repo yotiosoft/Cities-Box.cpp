@@ -130,6 +130,32 @@ Array<ObjectStruct> Tile::getObjectStructs() {
 	return m_objects;
 }
 
+// 接続状態を更新
+bool Tile::updateConnections(Array<Array<Tile>>& arg_tiles) {
+	// 周囲のタイルを確認
+	for (auto object_st : m_objects) {
+		CoordinateStruct current_coordinate = object_st.relative_coordinate.origin;
+		
+		for (int y=max(current_coordinate.y-1, 0); y<min(current_coordinate.y+1, (int)arg_tiles.size()); y++) {
+			for (int x=max(current_coordinate.x-1, 0); x<min(current_coordinate.x+1, (int)arg_tiles.size()); x++) {
+				if (y == current_coordinate.y && x == current_coordinate.x) {
+					continue;
+				}
+				
+				for (auto target_object_st : arg_tiles[y][x].getObjectStructs()) {
+					if (m_is_objects_category_match(object_st.object_p, target_object_st.object_p)) {
+						if (m_is_this_points_for_me(object_st, target_object_st)) {
+							cout << "Todo: connect" << endl;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	return false;
+}
+
 // 描画
 void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
 	for (int i=0; i<m_objects.size(); i++) {
@@ -215,4 +241,22 @@ Color Tile::m_get_rate_color(int rate, bool upper, int standard) {
 	}
 	
 	return ret;
+}
+
+// そのオブジェクトが自分の方向を向いているか（updateConnectionsで使用）
+bool Tile::m_is_this_points_for_me(ObjectStruct& my_object_st, ObjectStruct& target_object_st) {
+	if (target_object_st.object_p->getDirectionID() == UnitaryTools::getDirectionIDfromDifference(my_object_st.relative_coordinate.origin, target_object_st.relative_coordinate.origin)) {
+		return true;
+	}
+	
+	return false;
+}
+
+bool Tile::m_is_objects_category_match(Object* obj1, Object* obj2) {
+	// ToDo: road以外も追加
+	if (obj1->getAddonP()->isInCategories(U"road") && obj1->getAddonP()->isInCategories(U"road")) {
+		return true;
+	}
+	
+	return false;
 }

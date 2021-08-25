@@ -575,23 +575,9 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		Array<CoordinateStruct> needUpdate;
 		if (before_cursor.pressed && (cursor.coordinate.x != before_cursor.coordinate.x || cursor.coordinate.y != before_cursor.coordinate.y)) {
 			if (selectedAddon->isInCategories(U"connectable_type")) {
-				for (auto from_coordinate_object_struct : m_tiles[before_cursor.coordinate.y][before_cursor.coordinate.x].getObjectStructs()) {
-					if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && selectedAddon->isInCategories(U"road")) {
-						from_coordinate_object_struct.object_p->connect(
-							road_network,
-							CoordinateStruct{0, 0},			// 暫定
-							m_objects[objectID]
-						);
-						
-						m_objects[objectID]->connect(
-							road_network,
-							CoordinateStruct{0, 0},			// 暫定
-							from_coordinate_object_struct.object_p
-						);
-						
-						needUpdate << CoordinateStruct{cursor.coordinate.x - before_cursor.coordinate.x, cursor.coordinate.y - before_cursor.coordinate.y};
-					}
-				}
+				connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);
+				
+				needUpdate << CoordinateStruct{cursor.coordinate.x - before_cursor.coordinate.x, cursor.coordinate.y - before_cursor.coordinate.y};
 			}
 		}
 		
@@ -716,6 +702,24 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Add
 	}
 	
 	return true;
+}
+
+void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id) {
+	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
+		if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(U"road") && m_objects[object_id]->getAddonP() ->isInCategories(U"road")) {
+			from_coordinate_object_struct.object_p->connect(
+				road_network,
+				CoordinateStruct{0, 0},			// 暫定
+				m_objects[object_id]
+			);
+			
+			m_objects[object_id]->connect(
+				road_network,
+				CoordinateStruct{0, 0},			// 暫定
+				from_coordinate_object_struct.object_p
+			);
+		}
+	}
 }
 
 void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {

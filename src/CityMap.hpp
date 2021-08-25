@@ -76,6 +76,9 @@ public:
 	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	
+	// 道路を接続
+	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id);
+	
 	// 効果の指定
 	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
 	

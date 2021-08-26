@@ -126,6 +126,18 @@ Object* Tile::getObjectP(String arg_addon_name, NameMode::Type arg_name_mode) {
 	return nullptr;
 }
 
+Array<Object*> Tile::getObjectsP(CategoryID::Type category_id) {
+	Array<Object*> ret_objects;
+	
+	for (auto object : m_objects) {
+		if (object.object_p->getAddonP()->isInCategories(category_id)) {
+			ret_objects << object.object_p;
+		}
+	}
+	
+	return ret_objects;
+}
+
 Array<ObjectStruct> Tile::getObjectStructs() {
 	return m_objects;
 }

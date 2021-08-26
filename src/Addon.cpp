@@ -50,6 +50,8 @@ bool Addon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 }
 
 bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
+	bool need_to_convert = false;
+	
 	m_addon_file_path = newFilePath;
 	JSONReader addonData(Unicode::Widen(m_addon_file_path.file_path));
 	
@@ -117,6 +119,16 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
 			direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
 			
+			// requiredTiles = (0, 0)の場合->(1, 1)に修正
+			if (direction_struct.requiredTiles.x == 0) {
+				direction_struct.requiredTiles.x = 1;
+				need_to_convert = true;
+			}
+			if (direction_struct.requiredTiles.y == 0) {
+				direction_struct.requiredTiles.y = 1;
+				need_to_convert = true;
+			}
+			
 			direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
 			direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
 			
@@ -140,7 +152,7 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 				m_load_layer_before141(layer_num, type, m_types[typeID], layers);
 			}
 			m_types[typeID].setLayers(layers);
-			m_converter();
+			need_to_convert = true;
 		}
 		else {
 			Array<AddonLayer> layers;
@@ -161,6 +173,12 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			}
 			m_types[typeID].setLayers(layers);
 		}
+	}
+	
+	// アドオンデータの修正の必要がある場合は修正
+	if (need_to_convert) {
+		cout << "update addon file: " << m_addon_file_path.file_path << endl;
+		m_converter();
 	}
 	
 	return true;
@@ -244,6 +262,7 @@ void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size)
 }
 
 CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
+	cout << "Return: " << m_types[typeID].getDirectionStruct(directionID).requiredTiles.x << "," << m_types[typeID].getDirectionStruct(directionID).requiredTiles.y << endl;
 	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
 }
 

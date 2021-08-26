@@ -47,6 +47,7 @@ public:
 	// Object情報を取得
 	bool isObjectExists(int arg_object_id);
 	Object* getObjectP(String arg_addon_name, NameMode::Type arg_name_mode);
+	Array<Object*> getObjectsP(CategoryID::Type category_id);
 	Array<ObjectStruct> getObjectStructs();
 	
 	// 接続状態を更新

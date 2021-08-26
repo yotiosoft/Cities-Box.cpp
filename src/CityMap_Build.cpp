@@ -207,6 +207,17 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(Coord
 // 要修正 : タイルを直接弄らないこと
 void CityMap::clear(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
+	
+	// 道路なら：disconnectする
+	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
+		Array<CoordinateStruct> target_coordinates = UnitaryTools::getCoordinateByDirectionID(position, current_object->getDirectionID());
+		
+		for (auto target_coordinate : target_coordinates) {
+			// ここで解除する
+		}
+	}
+	
+	// 更地化
 	Addon* selectedAddon = m_addons[U"tile_greenfield"];
 
 	currentTile->clearAll();

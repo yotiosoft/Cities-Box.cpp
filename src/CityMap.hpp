@@ -61,6 +61,9 @@ public:
 	// マップサイズの取得
 	Size getMapSize();
 	
+	// 対象物の接続可能なタイプを取得
+	CategoryID::Type getConnectableCategoryID(Addon* addon);
+	
 	// 座標から描画位置、描画位置から座標を取得
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);

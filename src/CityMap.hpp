@@ -92,8 +92,11 @@ public:
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	pair<TypeID::Type, DirectionID::Type> setConnectableTypeProfile(Addon* arg_selected_addon, int arg_objectID, CursorStruct arg_cursor, CursorStruct arg_before_cursor);
 	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection);
+	
+	bool canBuildRoadHere(CoordinateStruct coordinate);
+	TypeID::Type setRoadType(CoordinateStruct coordinate, Addon* addon);
+	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, Addon* addon);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);

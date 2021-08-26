@@ -232,35 +232,6 @@ CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate
 	return CoordinateStruct{ searchCoordinate.x, searchCoordinate.y };
 }
 
-// 設置する場所に合うTypeとDirectionを取得
-pair<TypeID::Type, DirectionID::Type> CityMap::setConnectableTypeProfile(Addon* arg_selected_addon, int arg_objectID, CursorStruct arg_cursor, CursorStruct arg_before_cursor) {
-	TypeID::Type retType;
-	DirectionID::Type retDirection;
-
-	// 直前のカーソル位置にあるアドオンを調査
-	if (arg_before_cursor.pressed && (arg_cursor.coordinate.x != arg_before_cursor.coordinate.x || arg_cursor.coordinate.y != arg_before_cursor.coordinate.y)) {
-		if (arg_selected_addon->isInCategories(CategoryID::Connectable)) {
-			for (auto before_selected_object : m_tiles[arg_before_cursor.coordinate.y][arg_before_cursor.coordinate.x].getObjectStructs()) {
-				if (before_selected_object.object_p->getAddonP()->isInCategories(CategoryID::Road) && arg_selected_addon->isInCategories(CategoryID::Road)) {
-					before_selected_object.object_p->connect(
-						road_network,
-						CoordinateStruct{ 0, 0 },			// 暫定
-						m_objects[arg_objectID]
-					);
-
-					m_objects[arg_objectID]->connect(
-						road_network,
-						CoordinateStruct{ 0, 0 },			// 暫定
-						before_selected_object.object_p
-					);
-				}
-			}
-		}
-	}
-
-	return pair<TypeID::Type, DirectionID::Type>{retType, retDirection};
-}
-
 bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection) {
 	// 接続タイプ（道路など）アドオンの場合
 	if (selectedAddon->isInCategories(CategoryID::Connectable)) {
@@ -443,6 +414,42 @@ bool CityMap::getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selec
 	}
 	cout << "return false" << endl;
 	return false;					// 存在しない or 設置不可能な場合
+}
+
+bool CityMap::canBuildRoadHere(CoordinateStruct coordinate) {
+	if (coordinate.x >= 0 && coordinate.y >= 0 && coordinate.x <= m_map_size.x-1 && coordinate.y <= m_map_size.y) {
+		return true;
+	}
+	return false;
+}
+
+DirectionID::Type CityMap::setRoadDirection(CoordinateStruct coordinate, Addon* addon) {
+	DirectionID::Type ret;
+	
+	// 対象物のカテゴリを取得
+	CategoryID::Type object_category = CategoryID::Disabled;
+	Array<CategoryID::Type> object_categories = addon->getCategories();
+	for (auto object_category_single : object_categories) {
+		if (object_category_single == CategoryID::Road || object_category_single == CategoryID::Railroad || object_category_single == CategoryID::Waterway || object_category_single == CategoryID::Taxiway || object_category_single == CategoryID::Runway) {
+			object_category = object_category_single;
+			break;
+		}
+	}
+	
+	// 周囲を探索
+	for (int y=max(coordinate.y-1, 0); y<min(coordinate.y+2, m_map_size.y); y++) {
+		for (int x=max(coordinate.x-1, 0); x<min(coordinate.x+2, m_map_size.x); x++) {
+			if (hasCategory(object_category, CoordinateStruct{x, y})) {
+				// 自分から見て相手のDirectionIDを取得
+				
+				
+				// 追加
+				UnitaryTools::addDirectionID(ret, <#DirectionID::Type direction_id2#>)
+			}
+		}
+	}
+	
+	return ret;
 }
 
 // アドオンを削除

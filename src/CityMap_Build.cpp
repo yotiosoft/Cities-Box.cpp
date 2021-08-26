@@ -41,13 +41,6 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		// オブジェクトの生成
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 
-		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
-		if (before_cursor.pressed && (cursor.coordinate.x != before_cursor.coordinate.x || cursor.coordinate.y != before_cursor.coordinate.y)) {
-			if (selectedAddon->isInCategories(CategoryID::Connectable)) {
-				connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);;
-			}
-		}
-
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
@@ -68,20 +61,26 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 				m_tiles[y][x].addObject(m_objects[objectID], relative_coordinate);
 			}
 		}
+		
+		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+		if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
+			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);;
+		}
 
 		// 効果を反映
 		setRate(m_objects[objectID], origin_coordinate, false);
 
 		// 周囲9マスを更新
-		for (int y = max(origin_coordinate.y - 1, 0); y < min(origin_coordinate.y + 1, m_map_size.y); y++) {
-			for (int x = max(origin_coordinate.x - 1, 0); y < min(origin_coordinate.x + 1, m_map_size.x); x++) {
+		/*
+		for (int y = max(origin_coordinate.y - 1, 0); y < min(origin_coordinate.y + 2, m_map_size.y); y++) {
+			for (int x = max(origin_coordinate.x - 1, 0); x < min(origin_coordinate.x + 2, m_map_size.x); x++) {
 				if (x == origin_coordinate.x && y == origin_coordinate.y) {
 					continue;		// 自分自身は更新しない
 				}
 
 				m_tiles[y][x].updateConnections(m_tiles);
 			}
-		}
+		}*/
 	}
 
 	return true;

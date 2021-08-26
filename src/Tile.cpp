@@ -134,14 +134,15 @@ Array<ObjectStruct> Tile::getObjectStructs() {
 bool Tile::updateConnections(Array<Array<Tile>>& arg_tiles) {
 	// 周囲のタイルを確認
 	for (auto object_st : m_objects) {
-		CoordinateStruct current_coordinate = object_st.relative_coordinate.origin;
+		CoordinateStruct current_coordinate = object_st.relative_coordinate.origin + object_st.relative_coordinate.relative;
+		cout << current_coordinate.x << "," << current_coordinate.y << endl;
+		cout << object_st.object_p << endl;
 		
-		for (int y=max(current_coordinate.y-1, 0); y<min(current_coordinate.y+1, (int)arg_tiles.size()); y++) {
-			for (int x=max(current_coordinate.x-1, 0); x<min(current_coordinate.x+1, (int)arg_tiles.size()); x++) {
+		for (int y=max(current_coordinate.y-1, 0); y<min(current_coordinate.y+2, (int)arg_tiles.size()); y++) {
+			for (int x=max(current_coordinate.x-1, 0); x<min(current_coordinate.x+2, (int)arg_tiles.size()); x++) {
 				if (y == current_coordinate.y && x == current_coordinate.x) {
 					continue;
 				}
-				
 				for (auto target_object_st : arg_tiles[y][x].getObjectStructs()) {
 					if (m_is_objects_category_match(object_st.object_p, target_object_st.object_p)) {
 						if (m_is_this_points_for_me(object_st, target_object_st)) {
@@ -245,8 +246,14 @@ Color Tile::m_get_rate_color(int rate, bool upper, int standard) {
 
 // そのオブジェクトが自分の方向を向いているか（updateConnectionsで使用）
 bool Tile::m_is_this_points_for_me(ObjectStruct& my_object_st, ObjectStruct& target_object_st) {
-	if (target_object_st.object_p->getDirectionID() == UnitaryTools::getDirectionIDfromDifference(my_object_st.relative_coordinate.origin, target_object_st.relative_coordinate.origin)) {
-		return true;
+	CoordinateStruct target_coordinate = target_object_st.relative_coordinate.origin + target_object_st.relative_coordinate.relative;
+	Array<CoordinateStruct> coordinates = UnitaryTools::getCoordinateByDirectionID(target_coordinate, target_object_st.object_p->getDirectionID());
+	
+	for (auto coordinate : coordinates) {
+		//cout << coordinate.x << "," << coordinate.y << " / " << (my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative).x << "," << (my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative).y << endl;
+		if (coordinate == my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative) {
+			return true;
+		}
 	}
 	
 	return false;

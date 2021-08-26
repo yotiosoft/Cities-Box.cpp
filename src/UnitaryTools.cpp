@@ -339,6 +339,9 @@ DirectionID::Type UnitaryTools::directionNameToDirectionID(String direction_name
 	if (direction_name == U"NorthEast" || direction_name == U"right-top") {
 		return DirectionID::NorthEast;
 	}
+	if (direction_name == U"All") {
+		return DirectionID::All;
+	}
 	
 	return DirectionID::Disabled;
 }
@@ -383,6 +386,8 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 			return U"SouthEast";
 		case DirectionID::NorthEast:
 			return U"NorthEast";
+		case DirectionID::All:
+			return U"All";
 		case DirectionID::Disabled:
 			break;
 	}
@@ -393,6 +398,7 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after) {
 	int dx = arg_after.x - arg_before.x;
 	int dy = arg_after.y - arg_before.y;
+	cout << "dx:" << dx << ", dy:" << dy << endl;
 	
 	if (dx == 0 && dy == 0) {
 		return DirectionID::None;
@@ -425,6 +431,118 @@ DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct ar
 	return DirectionID::Disabled;
 }
 
+Array<CoordinateStruct> UnitaryTools::getCoordinateByDirectionID(CoordinateStruct from, DirectionID::Type direction_id) {
+	switch (direction_id) {
+		case DirectionID::None:
+			return {from};
+		case DirectionID::West:
+			return {from + CoordinateStruct{-1, 0}};
+		case DirectionID::North:
+			return {from + CoordinateStruct{0, -1}};
+		case DirectionID::East:
+			return {from + CoordinateStruct{1, 0}};
+		case DirectionID::South:
+			return {from + CoordinateStruct{0, 1}};
+		case DirectionID::EastWest:
+			return {getCoordinateByDirectionID(from, DirectionID::East)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::NorthSouth:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::South)[0]};
+		case DirectionID::SouthEastWest:
+			return {getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::East)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::NorthEastWest:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::East)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::NorthSouthWest:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::NorthSouthEast:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::East)[0]};
+		case DirectionID::SouthWest:
+			return {getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::NorthWest:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};
+		case DirectionID::SouthEast:
+			return {getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::East)[0]};
+		case DirectionID::NorthEast:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::East)[0]};;
+		case DirectionID::All:
+			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::East)[0], getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};;
+		case DirectionID::Disabled:
+			break;
+	}
+	
+	return {from};
+}
+
+Array<DirectionID::Type> UnitaryTools::splitDirections(DirectionID::Type direction_id) {
+	switch (direction_id) {
+		case DirectionID::EastWest:
+			return {DirectionID::East, DirectionID::West};
+		case DirectionID::NorthSouth:
+			return {DirectionID::North, DirectionID::South};
+		case DirectionID::SouthEastWest:
+			return {DirectionID::South, DirectionID::East, DirectionID::West};
+		case DirectionID::NorthEastWest:
+			return {DirectionID::North, DirectionID::East, DirectionID::West};
+		case DirectionID::NorthSouthWest:
+			return {DirectionID::North, DirectionID::South, DirectionID::West};
+		case DirectionID::NorthSouthEast:
+			return {DirectionID::North, DirectionID::South, DirectionID::East};
+		case DirectionID::SouthWest:
+			return {DirectionID::South, DirectionID::West};
+		case DirectionID::NorthWest:
+			return {DirectionID::North, DirectionID::West};
+		case DirectionID::SouthEast:
+			return {DirectionID::South, DirectionID::East};
+		case DirectionID::NorthEast:
+			return {DirectionID::North, DirectionID::East};
+		case DirectionID::All:
+			return {DirectionID::West, DirectionID::North, DirectionID::East, DirectionID::South};
+		default:
+			return {direction_id};
+	}
+}
+
+DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2) {
+	int direction_int = (int)direction_id1;
+	
+	Array<DirectionID::Type> direction_id1_div = splitDirections(direction_id1);
+	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
+	
+	for (auto direction_id2_div_single : direction_id2_div) {
+		bool exist = false;
+		for (auto direction_id1_div_single : direction_id1_div) {
+			if (direction_id2_div_single == direction_id1_div_single) {
+				exist = true;
+			}
+		}
+		if (!exist) {
+			cout << direction_id2_div_single << endl;
+			direction_int += (int)direction_id2_div_single;
+		}
+	}
+	
+	return (DirectionID::Type)direction_int;
+}
+
+DirectionID::Type UnitaryTools::subDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2) {
+	int direction_int = (int)direction_id1;
+	
+	Array<DirectionID::Type> direction_id1_div = splitDirections(direction_id1);
+	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
+	
+	for (auto direction_id2_div_single : direction_id2_div) {
+		bool exist = false;
+		for (auto direction_id1_div_single : direction_id1_div) {
+			if (direction_id2_div_single == direction_id1_div_single) {
+				exist = true;
+			}
+		}
+		if (exist) {
+			direction_int -= (int)direction_id2_div_single;
+		}
+	}
+	
+	return (DirectionID::Type)direction_int;
+}
 
 CategoryID::Type UnitaryTools::categoryNameToCategoryID(String category_name) {
 	if (category_name == U"connectable_type")

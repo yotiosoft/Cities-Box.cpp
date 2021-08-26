@@ -100,6 +100,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			// DirectionID
 			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
 			
+			if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+				direction_id = DirectionID::All;
+			}
+			
 			// 原点
 			CoordinateStruct origin_coordinate;
 			origin_coordinate.x = object[U"origin_coordinate.x"].get<int>();
@@ -140,6 +144,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 				for (const auto& jAddons : tile[U"addons"].arrayView()) {
 					TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
 					DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
+					
+					if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+						direction_id = DirectionID::All;
+					}
 					
 					if (direction_id != DirectionID::West) {
 						String addon_name = jAddons[U"name"].getString();

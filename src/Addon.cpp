@@ -102,6 +102,10 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
 			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(direction[U"direction_name"].getString());
 			
+			if (direction_id == DirectionID::None && typeID == TypeID::IntersectionCross) {
+				direction_id = DirectionID::All;
+			}
+			
 			// 新たなAddonDirectionStructを作成
 			AddonDirectionStruct direction_struct;
 			

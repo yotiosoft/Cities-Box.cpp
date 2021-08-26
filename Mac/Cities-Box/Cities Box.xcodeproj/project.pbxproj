@@ -41,6 +41,10 @@
 		4B6F508026D68D8600F16A48 /* CityMap_LoadData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6F507F26D68D8600F16A48 /* CityMap_LoadData.cpp */; };
 		4B730AC226D4BA7400798F34 /* NormalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B730ABF26D4BA7400798F34 /* NormalObject.cpp */; };
 		4B730AC326D4BA7400798F34 /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */; };
+		4B85FAF226D782B900280DC3 /* CityMap_SaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B85FAF126D782B800280DC3 /* CityMap_SaveData.cpp */; };
+		4B85FAF726D782EE00280DC3 /* CityMap_Build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B85FAF426D782ED00280DC3 /* CityMap_Build.cpp */; };
+		4B85FAF826D782EE00280DC3 /* CityMap_GetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B85FAF526D782ED00280DC3 /* CityMap_GetData.cpp */; };
+		4B85FAF926D782EE00280DC3 /* CityMap_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B85FAF626D782EE00280DC3 /* CityMap_Draw.cpp */; };
 		4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA526090BF1000B9E51 /* AddonType.cpp */; };
 		4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA726090BF1000B9E51 /* AddonLayer.cpp */; };
 		4BAAAECF26090BF4000B9E51 /* AbstractSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA826090BF1000B9E51 /* AbstractSetting.cpp */; };
@@ -48,7 +52,6 @@
 		4BAAAED126090BF4000B9E51 /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAA26090BF1000B9E51 /* DetailsBar.cpp */; };
 		4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAC26090BF2000B9E51 /* Addon.cpp */; };
 		4BAAAED326090BF4000B9E51 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAD26090BF2000B9E51 /* Menu.cpp */; };
-		4BAAAED426090BF4000B9E51 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAE26090BF2000B9E51 /* CityMap.cpp */; };
 		4BAAAED526090BF4000B9E51 /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */; };
 		4BAAAED626090BF4000B9E51 /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEB026090BF2000B9E51 /* RouteSolver.cpp */; };
 		4BAAAED726090BF4000B9E51 /* AddonMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEB326090BF2000B9E51 /* AddonMaker.cpp */; };
@@ -106,6 +109,10 @@
 		4B730ABF26D4BA7400798F34 /* NormalObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalObject.cpp; path = ../../../src/NormalObject.cpp; sourceTree = "<group>"; };
 		4B730AC026D4BA7400798F34 /* NormalObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalObject.hpp; path = ../../../src/NormalObject.hpp; sourceTree = "<group>"; };
 		4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConnectableObject.cpp; path = ../../../src/ConnectableObject.cpp; sourceTree = "<group>"; };
+		4B85FAF126D782B800280DC3 /* CityMap_SaveData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_SaveData.cpp; path = ../../../src/CityMap_SaveData.cpp; sourceTree = "<group>"; };
+		4B85FAF426D782ED00280DC3 /* CityMap_Build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Build.cpp; path = ../../../src/CityMap_Build.cpp; sourceTree = "<group>"; };
+		4B85FAF526D782ED00280DC3 /* CityMap_GetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_GetData.cpp; path = ../../../src/CityMap_GetData.cpp; sourceTree = "<group>"; };
+		4B85FAF626D782EE00280DC3 /* CityMap_Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Draw.cpp; path = ../../../src/CityMap_Draw.cpp; sourceTree = "<group>"; };
 		4BAAAEA326090BF1000B9E51 /* DetailsBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DetailsBar.hpp; path = ../../../src/DetailsBar.hpp; sourceTree = "<group>"; };
 		4BAAAEA426090BF1000B9E51 /* AddonType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonType.hpp; path = ../../../src/AddonType.hpp; sourceTree = "<group>"; };
 		4BAAAEA526090BF1000B9E51 /* AddonType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonType.cpp; path = ../../../src/AddonType.cpp; sourceTree = "<group>"; };
@@ -116,7 +123,6 @@
 		4BAAAEAB26090BF1000B9E51 /* GeneralSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GeneralSetting.hpp; path = ../../../src/GeneralSetting.hpp; sourceTree = "<group>"; };
 		4BAAAEAC26090BF2000B9E51 /* Addon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Addon.cpp; path = ../../../src/Addon.cpp; sourceTree = "<group>"; };
 		4BAAAEAD26090BF2000B9E51 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Menu.cpp; path = ../../../src/Menu.cpp; sourceTree = "<group>"; };
-		4BAAAEAE26090BF2000B9E51 /* CityMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap.cpp; path = ../../../src/CityMap.cpp; sourceTree = "<group>"; };
 		4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeneralSetting.cpp; path = ../../../src/GeneralSetting.cpp; sourceTree = "<group>"; };
 		4BAAAEB026090BF2000B9E51 /* RouteSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RouteSolver.cpp; path = ../../../src/RouteSolver.cpp; sourceTree = "<group>"; };
 		4BAAAEB126090BF2000B9E51 /* ImagesStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ImagesStruct.hpp; path = ../../../src/ImagesStruct.hpp; sourceTree = "<group>"; };
@@ -236,9 +242,12 @@
 				4BAAAEA426090BF1000B9E51 /* AddonType.hpp */,
 				4BAAAEBD26090BF3000B9E51 /* Button.cpp */,
 				4BAAAEB626090BF2000B9E51 /* Button.hpp */,
-				4BAAAEAE26090BF2000B9E51 /* CityMap.cpp */,
-				4BAAAEC826090BF4000B9E51 /* CityMap.hpp */,
+				4B85FAF426D782ED00280DC3 /* CityMap_Build.cpp */,
+				4B85FAF626D782EE00280DC3 /* CityMap_Draw.cpp */,
+				4B85FAF526D782ED00280DC3 /* CityMap_GetData.cpp */,
 				4B6F507F26D68D8600F16A48 /* CityMap_LoadData.cpp */,
+				4B85FAF126D782B800280DC3 /* CityMap_SaveData.cpp */,
+				4BAAAEC826090BF4000B9E51 /* CityMap.hpp */,
 				4B6F507826D6270100F16A48 /* CityNetwork.cpp */,
 				4B6F507926D6270100F16A48 /* CityNetwork.hpp */,
 				4B730AC126D4BA7400798F34 /* ConnectableObject.cpp */,
@@ -256,8 +265,6 @@
 				4B730AC026D4BA7400798F34 /* NormalObject.hpp */,
 				4BEA957E260CF601008B4F3A /* Object.cpp */,
 				4BEA957F260CF601008B4F3A /* Object.hpp */,
-				4BEA957226098CDB008B4F3A /* UnitaryTools.cpp */,
-				4BAAAEC126090BF3000B9E51 /* UnitaryTools.hpp */,
 				4BAAAEBB26090BF3000B9E51 /* PulldownMenu.cpp */,
 				4BAAAEBF26090BF3000B9E51 /* PulldownMenu.hpp */,
 				4BAAAEB026090BF2000B9E51 /* RouteSolver.cpp */,
@@ -272,6 +279,8 @@
 				4BAAAEC326090BF3000B9E51 /* Tile.hpp */,
 				4BAAAEB826090BF2000B9E51 /* TitleMenu.cpp */,
 				4BAAAECA26090BF4000B9E51 /* TitleMenu.hpp */,
+				4BEA957226098CDB008B4F3A /* UnitaryTools.cpp */,
+				4BAAAEC126090BF3000B9E51 /* UnitaryTools.hpp */,
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4BEA956B26098921008B4F3A /* CitiesBox.cpp */,
 				4BEA956C26098921008B4F3A /* CitiesBox.hpp */,
@@ -383,7 +392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6F508026D68D8600F16A48 /* CityMap_LoadData.cpp in Sources */,
-				4BAAAED426090BF4000B9E51 /* CityMap.cpp in Sources */,
 				4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */,
 				4BAAAEDB26090BF4000B9E51 /* PulldownMenu.cpp in Sources */,
 				4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */,
@@ -391,17 +399,21 @@
 				4BAAAEDA26090BF4000B9E51 /* Images.cpp in Sources */,
 				4BAAAED126090BF4000B9E51 /* DetailsBar.cpp in Sources */,
 				4BEA9580260CF601008B4F3A /* Object.cpp in Sources */,
+				4B85FAF726D782EE00280DC3 /* CityMap_Build.cpp in Sources */,
+				4B85FAF826D782EE00280DC3 /* CityMap_GetData.cpp in Sources */,
 				4B730AC326D4BA7400798F34 /* ConnectableObject.cpp in Sources */,
 				4BAAAED926090BF4000B9E51 /* TitleMenu.cpp in Sources */,
 				4BAAAED326090BF4000B9E51 /* Menu.cpp in Sources */,
 				4BAAAECE26090BF4000B9E51 /* AddonLayer.cpp in Sources */,
 				4BAAAED526090BF4000B9E51 /* GeneralSetting.cpp in Sources */,
+				4B85FAF926D782EE00280DC3 /* CityMap_Draw.cpp in Sources */,
 				4BAAAED026090BF4000B9E51 /* StartUp.cpp in Sources */,
 				4B6F507A26D6270100F16A48 /* CityNetwork.cpp in Sources */,
 				4BAAAEDE26090BF4000B9E51 /* SubWindow.cpp in Sources */,
 				4BAAAED726090BF4000B9E51 /* AddonMaker.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
 				4BEA957326098CDB008B4F3A /* UnitaryTools.cpp in Sources */,
+				4B85FAF226D782B900280DC3 /* CityMap_SaveData.cpp in Sources */,
 				4BAAAECF26090BF4000B9E51 /* AbstractSetting.cpp in Sources */,
 				4BAAAEE526090DB6000B9E51 /* Specific.cpp in Sources */,
 				4BAAAEDC26090BF4000B9E51 /* Button.cpp in Sources */,

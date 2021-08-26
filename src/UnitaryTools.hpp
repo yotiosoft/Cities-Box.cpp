@@ -46,7 +46,12 @@ namespace UnitaryTools {
 
 	DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after);
 
-	TypeID::Type directionIDToTyoeID(DirectionID::Type direction_id);
+	Array<CoordinateStruct> getCoordinateByDirectionID(CoordinateStruct from, DirectionID::Type direction_id);
+
+	Array<DirectionID::Type> splitDirections(DirectionID::Type direction_id);
+
+	DirectionID::Type addDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2);
+	DirectionID::Type subDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2);
 
 	CategoryID::Type categoryNameToCategoryID(String category_name);
 

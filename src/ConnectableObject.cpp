@@ -17,7 +17,8 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 		(arg_object_p->getAddonP()->isInCategories(CategoryID::Airport) && m_addon_p->isInCategories(CategoryID::Airport))) {
 		
 		// マップ上で接続
-		set_direction_id(UnitaryTools::getDirectionIDfromDifference(arg_connect_coordinate, m_start_coordinate), false);
+		set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate, arg_object_p->getOriginCoordinate() + arg_connect_coordinate), false);
+		
 		set_type_id();
 	}
 }
@@ -30,7 +31,7 @@ void ConnectableObject::disconnect(CityNetwork& road_network, CoordinateStruct a
 		for (auto connect : connects) {
 			for (auto road_type_connect : connect.roadTypeConnect) {
 				if (road_type_connect.second->isOn(arg_connect_coordinate)) {
-					set_direction_id(UnitaryTools::getDirectionIDfromDifference(arg_connect_coordinate, m_start_coordinate), true);
+					set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate, arg_object_p->getOriginCoordinate() + arg_connect_coordinate), true);
 					set_type_id();
 				}
 			}
@@ -39,14 +40,12 @@ void ConnectableObject::disconnect(CityNetwork& road_network, CoordinateStruct a
 }
 
 void ConnectableObject::set_direction_id(DirectionID::Type arg_direction, bool is_deleted) {
-	int direction_id_int;
 	if (is_deleted) {	// 削除時
-		direction_id_int = (int)m_direction_id - (int)arg_direction;
+		m_direction_id = UnitaryTools::subDirectionID(m_direction_id, arg_direction);
 	}
 	else {				// 接続時
-		direction_id_int = (int)m_direction_id + (int)arg_direction;
+		m_direction_id = UnitaryTools::addDirectionID(m_direction_id, arg_direction);
 	}
-	m_direction_id = (DirectionID::Type)direction_id_int;
 	
 	return;
 }

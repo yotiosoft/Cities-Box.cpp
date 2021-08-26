@@ -262,7 +262,6 @@ void Addon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size)
 }
 
 CoordinateStruct Addon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
-	cout << "Return: " << m_types[typeID].getDirectionStruct(directionID).requiredTiles.x << "," << m_types[typeID].getDirectionStruct(directionID).requiredTiles.y << endl;
 	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
 }
 

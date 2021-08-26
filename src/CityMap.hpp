@@ -92,11 +92,15 @@ public:
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
 	
 	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection);
+	//bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection);
 	
+	// 道路の敷設の可否、TypeID, DirectionIDの設定
 	bool canBuildRoadHere(CoordinateStruct coordinate);
 	TypeID::Type setRoadType(CoordinateStruct coordinate, Addon* addon);
 	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, Addon* addon);
+	
+	// 建物の建設の可否、TypeID, DirectionIDの設定
+	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, Addon* addon);
 	
 	// アドオンを削除
 	void clear(CoordinateStruct position);

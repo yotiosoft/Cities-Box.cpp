@@ -21,7 +21,7 @@
 class CityMap {
 public:
 	// コンストラクタ
-	CityMap();
+	CityMap() {};
 	
 	// マップの読み込み
 	void load(String loadMapFilePath);

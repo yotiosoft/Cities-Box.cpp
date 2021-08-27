@@ -29,7 +29,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 			origin_coordinate.y -= useTiles.y - 1;
 		}
 
-		// オブジェクトの生成
+		// オブジェクトの生成	// 道路の更新と除去を区別する必要あり
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 
 		// 建設するタイル上の既存のオブジェクトを削除
@@ -43,7 +43,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 					}
 				}
 				
-				breaking(CoordinateStruct{ x, y }, true, unconnect);
+				breaking(CoordinateStruct{ x, y }, true, unconnect, unconnect);
 			}
 		}
 

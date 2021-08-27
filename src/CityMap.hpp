@@ -89,7 +89,7 @@ public:
 	void update(CoordinateStruct position, ObjectStruct* object_struct, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを除去
-	void breaking(CoordinateStruct position, bool isTemporaryDelete, bool updateAroundTiles);
+	void breaking(CoordinateStruct position, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
 	
 	// アドオンの始点となるマスに移動する
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);

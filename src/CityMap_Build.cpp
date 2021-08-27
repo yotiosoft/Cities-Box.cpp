@@ -46,7 +46,7 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Add
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
-				breaking(CoordinateStruct{ x, y }, true, false);
+				breaking(CoordinateStruct{ x, y }, true, false, true);
 			}
 		}
 
@@ -105,7 +105,7 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 	}
 }
 
-void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles) {
+void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
 	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
 		// 効果を削除
@@ -134,7 +134,8 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool
 		}
 		// クリア処理
 		// オブジェクト自体を除去
-		delete(object_struct.object_p);
+		if (deleteThis)
+			delete(object_struct.object_p);
 
 		UnitaryTools::debugLog(U"before erase");
 		m_objects.erase(delete_object_id);

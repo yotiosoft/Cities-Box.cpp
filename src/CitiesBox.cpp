@@ -195,7 +195,7 @@ void CitiesBox() {
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
 			// 除去モードなら除去
 			if (selectedAddon->isInCategories(CategoryID::Tile)) {
-				map.breaking(cursor.coordinate, false, true);
+				map.breaking(cursor.coordinate, false, true, true);
 			}
 
 			// 設置モードなら設置

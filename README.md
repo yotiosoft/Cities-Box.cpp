@@ -10,7 +10,7 @@
 	- 統合開発環境 : Visual Studio 2019 (v142)
 	- ライブラリ：OpenSiv3D v0.4.3
 - Mac版
-	- OS : macOS 10.15.6 Catalina
+	- OS : macOS 11.5.2 Big Sur
 	- C++ コンパイラ：C++ 17
 	- 統合開発環境 : Xcode 12.3
 	- ライブラリ：OpenSiv3D v0.4.3
@@ -23,6 +23,7 @@
 - develop : 開発中の最新のもの（動くこともあるが動かないこともある）
 - backup : 大きな仕様変更を行った際に、変更前のものを保持するためのブランチ
   
+
 次の2つは古いブランチであり、現在は更新していません。
 - mac_develop : Mac版の開発用ブランチ（developに統合）
 - windows : Windows版の開発用ブランチ（developに統合）

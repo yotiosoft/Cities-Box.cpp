@@ -12,6 +12,16 @@ void NormalObject::connect(CityNetwork& road_network, CoordinateStruct arg_conne
 	return;
 }
 
+void NormalObject::del(CityNetwork& road_network) {
+	// 何もしない
+	return;
+}
+
+void NormalObject::update() {
+	// 何もしない
+	return;
+}
+
 // デストラクタ
 NormalObject::~NormalObject() {
 	

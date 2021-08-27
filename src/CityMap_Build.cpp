@@ -116,6 +116,9 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 		Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
 		for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
 			for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
+				// クリア処理
+				updateConnectedTiles(CoordinateStruct{x, y});
+				
 				m_tiles[y][x].deleteObject(delete_object_id);
 
 				// 更地になったら芝生を置く
@@ -128,6 +131,7 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 				}
 			}
 		}
+		// クリア処理
 		// オブジェクト自体を除去
 		delete(object_struct.object_p);
 
@@ -205,19 +209,16 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(Coord
 
 // アドオンを削除
 // 要修正 : タイルを直接弄らないこと
-void CityMap::clear(CoordinateStruct position) {
+void CityMap::updateConnectedTiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// 道路なら：disconnectする
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
-		Array<CoordinateStruct> target_coordinates = UnitaryTools::getCoordinateByDirectionID(position, current_object->getDirectionID());
-		
-		for (auto target_coordinate : target_coordinates) {
-			// ここで解除する
-		}
+		current_object->del(road_network);
 	}
 	
 	// 更地化
+	/*
 	Addon* selectedAddon = m_addons[U"tile_greenfield"];
 
 	currentTile->clearAll();
@@ -225,7 +226,7 @@ void CityMap::clear(CoordinateStruct position) {
 	currentTile->addType(TypeID::Normal);
 	currentTile->addDirection(DirectionID::None);
 	currentTile->addons << selectedAddon;
-
+*/
 	// 幸福度を戻す
 }
 

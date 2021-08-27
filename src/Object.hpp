@@ -47,8 +47,18 @@ public:
 	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
 	virtual void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) = 0;
 	
+	// 自分自身を削除
+	virtual void del(CityNetwork& road_network) = 0;
+	
+	// TypeIDおよびDirectionIDの更新
+	virtual void update() = 0;
+	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
+	
+	// 削除
+	void setDeleted();
+	bool isDeleted();
 	
 	// デストラクタ
 	virtual ~Object();
@@ -82,6 +92,9 @@ protected:
 	
 	// サイズ
 	Size m_size;
+	
+	// 削除
+	bool m_deleted = false;
 	
 	// 接続情報
 	Array<Array<ConnectStruct>> m_connects;

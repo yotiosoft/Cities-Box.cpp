@@ -17,24 +17,55 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 		(arg_object_p->getAddonP()->isInCategories(CategoryID::Airport) && m_addon_p->isInCategories(CategoryID::Airport))) {
 		
 		// マップ上で接続
-		set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate, arg_object_p->getOriginCoordinate() + arg_connect_coordinate), false);
+		DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate());
+		set_direction_id(relative_direction_id, false);
 		
 		set_type_id();
+		
+		m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
+		cout << "set roadtypeconnect" << endl;
 	}
 }
 
-void ConnectableObject::disconnect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
+void ConnectableObject::del(CityNetwork& road_network) {
 	// arg_connect_coordinateのオブジェクトと繋がっているか確認
 	// 繋がっていたら切断する
+	setDeleted();
 	
+	cout << "m_connects size: " << m_connects.size() << endl;
 	for (auto connects : m_connects) {
 		for (auto connect : connects) {
+			cout << "size: " << connect.roadTypeConnect.size() << endl;
 			for (auto road_type_connect : connect.roadTypeConnect) {
+				// 接続先を更新：自分への接続を解除
+				cout << "update at " << road_type_connect.second->getOriginCoordinate().x << "," << road_type_connect.second->getOriginCoordinate().y << endl;
+				road_type_connect.second->update();
+				/*
 				if (road_type_connect.second->isOn(arg_connect_coordinate)) {
-					set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate, arg_object_p->getOriginCoordinate() + arg_connect_coordinate), true);
+					set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate()), true);
+					set_type_id();
+					
+					
+				}*/
+			}
+		}
+	}
+}
+
+void ConnectableObject::update() {
+	for (int y=0; y<m_connects.size(); y++) {
+		for (int x=0; x<m_connects[y].size(); x++) {
+			for (auto it = m_connects[y][x].roadTypeConnect.begin(), e = m_connects[y][x].roadTypeConnect.end(); it != e; it++) {
+				// 接続先の道路が存在していなければ、切断する
+				if (it->second->isDeleted()) {
+					//CoordinateStruct abs_coordinate = m_start_coordinate + CoordinateStruct{x, y};
+					
+					set_direction_id(it->first, true);
 					set_type_id();
 				}
 			}
+			
+			m_connects[y][x].roadTypeConnect.remove_if([](pair<DirectionID::Type, Object*> v) { return v.second->isDeleted(); });
 		}
 	}
 }

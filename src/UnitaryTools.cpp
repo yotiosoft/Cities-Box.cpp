@@ -525,6 +525,7 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 
 DirectionID::Type UnitaryTools::subDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2) {
 	int direction_int = (int)direction_id1;
+	cout << "in; " << direction_id1 << " -= " << direction_id2 << endl;
 	
 	Array<DirectionID::Type> direction_id1_div = splitDirections(direction_id1);
 	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
@@ -537,9 +538,11 @@ DirectionID::Type UnitaryTools::subDirectionID(DirectionID::Type direction_id1, 
 			}
 		}
 		if (exist) {
+			cout << "minus: " << direction_id2_div_single << endl;
 			direction_int -= (int)direction_id2_div_single;
 		}
 	}
+	cout << direction_int << endl;
 	
 	return (DirectionID::Type)direction_int;
 }

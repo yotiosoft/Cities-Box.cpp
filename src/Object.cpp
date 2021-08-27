@@ -110,6 +110,15 @@ void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct a
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }
 
+// 削除
+void Object::setDeleted() {
+	m_deleted = true;
+}
+
+bool Object::isDeleted() {
+	return m_deleted;
+}
+
 Object::~Object() {
 	
 }

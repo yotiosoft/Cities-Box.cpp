@@ -106,7 +106,7 @@ public:
 	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, Addon* addon);
 	
 	// アドオンを削除
-	void clear(CoordinateStruct position);
+	void updateConnectedTiles(CoordinateStruct position);
 	
 	// 座標がマップ範囲内に入っているか
 	bool isPositionAvailable(CoordinateStruct coordinate);

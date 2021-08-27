@@ -19,6 +19,12 @@ public:
 	
 	void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p);
 	
+	// 自分自身を削除
+	void del(CityNetwork& road_network);
+	
+	// TypeIDおよびDirectionIDの更新
+	void update();
+	
 	// デストラクタ
 	~NormalObject();
 	

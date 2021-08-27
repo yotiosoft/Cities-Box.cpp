@@ -46,7 +46,7 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Add
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
-				breaking(CoordinateStruct{ x, y }, true);
+				breaking(CoordinateStruct{ x, y }, true, false);
 			}
 		}
 
@@ -105,7 +105,7 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 	}
 }
 
-void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
+void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles) {
 	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
 		// 効果を削除
@@ -117,7 +117,8 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete) {
 		for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
 			for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
 				// クリア処理
-				updateConnectedTiles(CoordinateStruct{x, y});
+				if (updateAroundTiles)
+					updateConnectedTiles(CoordinateStruct{x, y});
 				
 				m_tiles[y][x].deleteObject(delete_object_id);
 

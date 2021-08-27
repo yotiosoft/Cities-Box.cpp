@@ -35,7 +35,18 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
-				breaking(CoordinateStruct{ x, y }, true);
+				// もともとのアドオンと同種のアドオンなら：周囲の切断は行わない
+				bool unconnect = true;
+				for (auto object_p : m_tiles[y][x].getObjectsP(CategoryID::Connectable)) {
+					if (object_p->getAddonP()->isInCategories(getConnectableCategoryID(selectedAddon))) {
+						unconnect = false;
+					}
+				}
+				
+				if (unconnect)
+					breaking(CoordinateStruct{ x, y }, true, true);
+				else
+					breaking(CoordinateStruct{ x, y }, true, false);
 			}
 		}
 

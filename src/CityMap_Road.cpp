@@ -43,10 +43,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 					}
 				}
 				
-				if (unconnect)
-					breaking(CoordinateStruct{ x, y }, true, true);
-				else
-					breaking(CoordinateStruct{ x, y }, true, false);
+				breaking(CoordinateStruct{ x, y }, true, unconnect);
 			}
 		}
 

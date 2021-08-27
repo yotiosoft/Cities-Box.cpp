@@ -117,6 +117,10 @@
     <ClCompile Include="..\..\..\src\AddonType.cpp" />
     <ClCompile Include="..\..\..\src\Button.cpp" />
     <ClCompile Include="..\..\..\src\CitiesBox.cpp" />
+    <ClCompile Include="..\..\..\src\CityMap_Build.cpp" />
+    <ClCompile Include="..\..\..\src\CityMap_Draw.cpp" />
+    <ClCompile Include="..\..\..\src\CityMap_GetData.cpp" />
+    <ClCompile Include="..\..\..\src\CityMap_Road.cpp" />
     <ClCompile Include="..\..\..\src\CityMap_SaveData.cpp" />
     <ClCompile Include="..\..\..\src\CityMap_LoadData.cpp" />
     <ClCompile Include="..\..\..\src\CityNetwork.cpp" />
@@ -135,9 +139,6 @@
     <ClCompile Include="..\..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\..\src\TitleMenu.cpp" />
     <ClCompile Include="..\..\..\src\UnitaryTools.cpp" />
-    <ClCompile Include="CityMap_Build.cpp" />
-    <ClCompile Include="CityMap_Draw.cpp" />
-    <ClCompile Include="CityMap_GetData.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Specific.cpp" />
   </ItemGroup>

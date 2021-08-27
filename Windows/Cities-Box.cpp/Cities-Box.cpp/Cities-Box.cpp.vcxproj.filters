@@ -177,16 +177,19 @@
     <ClCompile Include="..\..\..\src\CityMap_LoadData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CityMap_GetData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CityMap_Draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CityMap_Build.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\CityMap_SaveData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\CityMap_Build.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\CityMap_Draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\CityMap_GetData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\CityMap_Road.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

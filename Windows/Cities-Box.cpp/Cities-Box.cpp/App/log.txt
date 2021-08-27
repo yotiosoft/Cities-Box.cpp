@@ -1,4 +1,64 @@
+delete object at 63, 30 of 0, 0
+After delete
+before erase
+after erase
 delete object at 63, 29 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 28 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 27 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 26 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 62, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 61, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 26 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 27 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 59, 25 of 0, 0
 After delete
 before erase
 after erase

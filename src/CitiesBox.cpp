@@ -193,6 +193,12 @@ void CitiesBox() {
 		
 		// マップ上でクリックされたらアドオンを設置
 		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
+			// 除去モードなら除去
+			if (selectedAddon->isInCategories(CategoryID::Tile)) {
+				map.breaking(cursor.coordinate, false, true);
+			}
+
+			// 設置モードなら設置
 			if (cursor.coordinate.x != beforeMousePressedCoordinate.x || cursor.coordinate.y != beforeMousePressedCoordinate.y) {
 				map.build(cursor, cursor_before, selectedAddon, true);
 				beforeMousePressedCoordinate = cursor.coordinate;

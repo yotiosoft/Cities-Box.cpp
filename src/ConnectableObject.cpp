@@ -38,6 +38,11 @@ void ConnectableObject::del(CityNetwork& road_network) {
 			cout << "size: " << connect.roadTypeConnect.size() << endl;
 			for (auto road_type_connect : connect.roadTypeConnect) {
 				// 接続先を更新：自分への接続を解除
+				// すでにそのオブジェクトが存在しなければスルー
+				if (road_type_connect.first == DirectionID::Disabled) {
+					continue;
+				}
+
 				cout << "update at " << road_type_connect.second->getOriginCoordinate().x << "," << road_type_connect.second->getOriginCoordinate().y << endl;
 				road_type_connect.second->update();
 				/*
@@ -62,10 +67,10 @@ void ConnectableObject::update() {
 					
 					set_direction_id(it->first, true);
 					set_type_id();
+
+					it->first = DirectionID::Disabled;
 				}
 			}
-			
-			m_connects[y][x].roadTypeConnect.remove_if([](pair<DirectionID::Type, Object*> v) { return v.second->isDeleted(); });
 		}
 	}
 }

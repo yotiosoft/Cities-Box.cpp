@@ -124,7 +124,7 @@ bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_curs
 
 void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id) {
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
-		if (from_coordinate_object_struct.object_p->getAddonP()->isInCategories(CategoryID::Road) && m_objects[object_id]->getAddonP()->isInCategories(CategoryID::Road)) {
+		if (from_coordinate_object_struct.object_p->getAddonP()->isMatch(m_objects[object_id]->getAddonP(), CategoryID::Connectable)) {
 			from_coordinate_object_struct.object_p->connect(
 				road_network,
 				CoordinateStruct{ 0, 0 },			// 暫定

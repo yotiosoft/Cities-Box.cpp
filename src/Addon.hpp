@@ -72,6 +72,7 @@ public:
 	// 指定したカテゴリに該当するか
 	bool isInCategories(CategoryID::Type searchCategory);
 	bool isInCategories(Array<CategoryID::Type> searchCategories);
+	bool isMatch(Addon* target_addon, CategoryID::Type hint);
 	
 	// 効果を取得
 	map<RateID::Type, EffectStruct> getEffects();

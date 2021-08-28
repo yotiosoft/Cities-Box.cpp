@@ -253,6 +253,39 @@ bool Addon::isInCategories(Array<CategoryID::Type> searchCategories) {
 	return false;
 }
 
+bool Addon::isMatch(Addon* target_addon, CategoryID::Type hint) {
+	if (target_addon == this) {
+		return true;
+	}
+	
+	if (hint == CategoryID::Connectable) {
+		if ((isInCategories(CategoryID::Road) && target_addon->isInCategories(CategoryID::Road)) ||
+			(isInCategories(CategoryID::Railroad) && target_addon->isInCategories(CategoryID::Railroad)) ||
+			(isInCategories(CategoryID::Station) && target_addon->isInCategories(CategoryID::Station)) ||
+			(isInCategories(CategoryID::Waterway) && target_addon->isInCategories(CategoryID::Waterway)) ||
+			(isInCategories(CategoryID::Taxiway) && target_addon->isInCategories(CategoryID::Taxiway)) ||
+			(isInCategories(CategoryID::Runway) && target_addon->isInCategories(CategoryID::Runway))) {
+			
+			return true;
+		}
+	}
+	else if (hint == CategoryID::ObjectType) {
+		if ((isInCategories(CategoryID::Residential) && target_addon->isInCategories(CategoryID::Residential)) ||
+			(isInCategories(CategoryID::Commecial) && target_addon->isInCategories(CategoryID::Commecial)) ||
+			(isInCategories(CategoryID::Office) && target_addon->isInCategories(CategoryID::Office)) ||
+			(isInCategories(CategoryID::Industrial) && target_addon->isInCategories(CategoryID::Industrial)) ||
+			(isInCategories(CategoryID::Farm) && target_addon->isInCategories(CategoryID::Farm)) ||
+			(isInCategories(CategoryID::Public) && target_addon->isInCategories(CategoryID::Public)) ||
+			(isInCategories(CategoryID::Park) && target_addon->isInCategories(CategoryID::Park)) ||
+			(isInCategories(CategoryID::Tile) && target_addon->isInCategories(CategoryID::Tile))) {
+			
+			return true;
+		}
+	}
+	
+	return false;
+}
+
 map<RateID::Type, EffectStruct> Addon::getEffects() {
 	return m_effects;
 }

@@ -254,6 +254,9 @@ bool Addon::isInCategories(Array<CategoryID::Type> searchCategories) {
 }
 
 bool Addon::isMatch(Addon* target_addon, CategoryID::Type hint) {
+	if (target_addon == nullptr) {
+		return false;
+	}
 	if (target_addon == this) {
 		return true;
 	}
@@ -281,6 +284,25 @@ bool Addon::isMatch(Addon* target_addon, CategoryID::Type hint) {
 			
 			return true;
 		}
+	}
+	
+	return false;
+}
+
+bool Addon::canConnect(Addon* target_addon) {
+	if (target_addon == nullptr) {
+		return false;
+	}
+	if (!isInCategories(CategoryID::Connectable) || !target_addon->isInCategories(CategoryID::Connectable)) {
+		return false;
+	}
+	
+	if ((isInCategories(CategoryID::Road) && target_addon->isInCategories(CategoryID::Road)) ||
+		(isInCategories(CategoryID::Train) && target_addon->isInCategories(CategoryID::Train)) ||
+		(isInCategories(CategoryID::Waterway) && target_addon->isInCategories(CategoryID::Waterway)) ||
+		(isInCategories(CategoryID::Airport) && target_addon->isInCategories(CategoryID::Airport))) {
+		
+		return true;
 	}
 	
 	return false;

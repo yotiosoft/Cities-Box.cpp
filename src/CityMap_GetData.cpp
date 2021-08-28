@@ -40,13 +40,47 @@ Size CityMap::getMapSize() {
 CategoryID::Type CityMap::getConnectableCategoryID(Addon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
+	
 	Array<CategoryID::Type> object_categories = addon->getCategories();
+	bool isConnectable = false;
 	for (auto object_category_single : object_categories) {
+		if (object_category_single == CategoryID::Connectable) {
+			isConnectable = true;
+		}
+		
 		if (object_category_single == CategoryID::Road || 
-			object_category_single == CategoryID::Railroad || 
-			object_category_single == CategoryID::Station || 
+			object_category_single == CategoryID::Train ||
 			object_category_single == CategoryID::Waterway || 
-			object_category_single == CategoryID::Taxiway || 
+			object_category_single == CategoryID::Airport) {
+			
+			object_category = object_category_single;
+			break;
+		}
+	}
+	
+	if (!isConnectable) {
+		return CategoryID::Disabled;
+	}
+	
+	return object_category;
+}
+
+CategoryID::Type CityMap::getConnectableCategoryIDExplicitly(Addon* addon) {
+	// 対象物のカテゴリを取得
+	CategoryID::Type object_category = CategoryID::Disabled;
+	
+	Array<CategoryID::Type> object_categories = addon->getCategories();
+	bool isConnectable = false;
+	for (auto object_category_single : object_categories) {
+		if (object_category_single == CategoryID::Connectable) {
+			isConnectable = true;
+		}
+		
+		if (object_category_single == CategoryID::Road ||
+			object_category_single == CategoryID::Railroad ||
+			object_category_single == CategoryID::Station ||
+			object_category_single == CategoryID::Waterway ||
+			object_category_single == CategoryID::Taxiway ||
 			object_category_single == CategoryID::Runway) {
 			
 			object_category = object_category_single;
@@ -54,9 +88,12 @@ CategoryID::Type CityMap::getConnectableCategoryID(Addon* addon) {
 		}
 	}
 	
+	if (!isConnectable) {
+		return CategoryID::Disabled;
+	}
+	
 	return object_category;
 }
-
 
 bool CityMap::m_get_element(String str, String searchElementName, String& ret) {
 	string strUTF8 = str.toUTF8();

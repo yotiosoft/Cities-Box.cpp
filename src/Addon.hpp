@@ -73,6 +73,7 @@ public:
 	bool isInCategories(CategoryID::Type searchCategory);
 	bool isInCategories(Array<CategoryID::Type> searchCategories);
 	bool isMatch(Addon* target_addon, CategoryID::Type hint);
+	bool canConnect(Addon* target_addon);
 	
 	// 効果を取得
 	map<RateID::Type, EffectStruct> getEffects();

@@ -34,7 +34,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 			origin_coordinate.y -= useTiles.y - 1;
 		}
 
-		// オブジェクトの生成	// 道路の更新と除去を区別する必要あり
+		// オブジェクトの生成
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
 
 		// 建設するタイル上の既存のオブジェクトを削除
@@ -124,7 +124,7 @@ bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_curs
 
 void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id) {
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
-		if (from_coordinate_object_struct.object_p->getAddonP()->isMatch(m_objects[object_id]->getAddonP(), CategoryID::Connectable)) {
+		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
 			from_coordinate_object_struct.object_p->connect(
 				road_network,
 				CoordinateStruct{ 0, 0 },			// 暫定
@@ -165,11 +165,9 @@ TypeID::Type CityMap::setRoadType(CoordinateStruct coordinate, Addon *addon) {
 	}
 	
 	// 既に道路が存在するなら、TypeIDはそのまま
-	cout << "oc: " << object_category << endl;
 	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
 	
 	if (current_objects.size() > 0) {
-		cout << "exist a " << endl;
 		return current_objects[0]->getTypeID();
 	}
 	
@@ -179,21 +177,9 @@ TypeID::Type CityMap::setRoadType(CoordinateStruct coordinate, Addon *addon) {
 DirectionID::Type CityMap::setRoadDirection(CoordinateStruct coordinate, Addon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
-	Array<CategoryID::Type> object_categories = addon->getCategories();
-	for (auto object_category_single : object_categories) {
-		if (object_category_single == CategoryID::Road || 
-			object_category_single == CategoryID::Railroad || 
-			object_category_single == CategoryID::Station ||
-			object_category_single == CategoryID::Waterway || 
-			object_category_single == CategoryID::Taxiway || 
-			object_category_single == CategoryID::Runway) {
-
-			object_category = object_category_single;
-			break;
-		}
-	}
+	object_category = getConnectableCategoryID(addon);
 	
-	// 既に道路が存在するなら、TypeIDはそのまま
+	// 既に道路が存在するなら、DirectionIDはそのまま
 	cout << "oc: " << object_category << endl;
 	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
 	

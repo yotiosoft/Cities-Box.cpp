@@ -8,22 +8,13 @@
 #include "ConnectableObject.hpp"
 
 void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
-	// arg_connect_coordinateのオブジェクトと繋げられるか確認
-	// 繋げられるならつなげる
+	// マップ上で接続
+	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate());
+	set_direction_id(relative_direction_id, false);
+	set_type_id();
 	
-	if ((arg_object_p->getAddonP()->isInCategories(CategoryID::Road) && m_addon_p->isInCategories(CategoryID::Road)) ||
-		(arg_object_p->getAddonP()->isInCategories(CategoryID::Train) && m_addon_p->isInCategories(CategoryID::Train)) ||
-		(arg_object_p->getAddonP()->isInCategories(CategoryID::Waterway) && m_addon_p->isInCategories(CategoryID::Waterway)) ||
-		(arg_object_p->getAddonP()->isInCategories(CategoryID::Airport) && m_addon_p->isInCategories(CategoryID::Airport))) {
-		
-		// マップ上で接続
-		DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate());
-		set_direction_id(relative_direction_id, false);
-		set_type_id();
-		
-		m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
-		cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
-	}
+	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
+	cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
 }
 
 void ConnectableObject::del(CityNetwork& road_network) {

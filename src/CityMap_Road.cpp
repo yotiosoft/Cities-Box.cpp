@@ -8,6 +8,11 @@
 #include "CityMap.hpp"
 
 bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+	// 同じアドオンが指定されたタイル上に存在するなら -> アドオンの変更は行わず、既存のアドオンのDirectionIDとTypeIDを変更
+	if (m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasAddon(selectedAddon)) {
+		return updateConnectionType(cursor, before_cursor, selectedAddon, needToBreak);
+	}
+	
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
 
@@ -63,7 +68,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		
 		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 		if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
-			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);;
+			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);
 		}
 
 		// 効果を反映
@@ -82,6 +87,38 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		}*/
 	}
 
+	return true;
+}
+
+bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+	// ObjectIDの決定
+	Object* object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectP(selectedAddon->getName(NameMode::English), NameMode::English);
+
+	TypeID::Type type = setRoadType(cursor.coordinate, selectedAddon);
+	DirectionID::Type direction = setRoadDirection(cursor.coordinate, selectedAddon);
+	
+	CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
+
+	CoordinateStruct origin_coordinate = cursor.coordinate;
+	if (direction == DirectionID::West) {
+		origin_coordinate.y -= useTiles.y - 1;
+	}
+	if (direction == DirectionID::East) {
+		origin_coordinate.x -= useTiles.x - 1;
+		origin_coordinate.y -= useTiles.y - 1;
+	}
+	else if (direction == DirectionID::South) {
+		origin_coordinate.y -= useTiles.y - 1;
+	}
+	
+	// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+	if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
+		connectObjects(before_cursor.coordinate, cursor.coordinate, object->getObjectID());
+	}
+
+	// 効果を反映
+	setRate(object, origin_coordinate, false);
+	
 	return true;
 }
 

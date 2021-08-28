@@ -30,39 +30,167 @@ delete object at 63, 23 of 0, 0
 After delete
 before erase
 after erase
+delete object at 63, 22 of 0, 0
+After delete
+before erase
+after erase
+delete object at 62, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 61, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 60, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 26 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
 delete object at 63, 26 of 0, 0
 After delete
 before erase
 after erase
-delete object at 62, 26 of 0, 0
-After delete
-before erase
-after erase
-delete object at 61, 26 of 0, 0
-After delete
-before erase
-after erase
-delete object at 60, 26 of 0, 0
-After delete
-before erase
-after erase
-delete object at 63, 27 of 0, 0
+delete object at 63, 26 of 0, 0
 After delete
 before put
 after put
 before erase
 after erase
-delete object at 63, 27 of 0, 0
-After delete
-before erase
-after erase
-delete object at 63, 27 of 0, 0
+delete object at 63, 26 of 0, 0
 After delete
 before put
 after put
 before erase
 after erase
-delete object at 63, 27 of 0, 0
+delete object at 63, 26 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 26 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 64, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 65, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 66, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 67, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 26 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 24 of 0, 0
+After delete
+before erase
+after erase
+delete object at 62, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 64, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 63, 25 of 0, 0
 After delete
 before put
 after put

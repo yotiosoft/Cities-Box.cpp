@@ -77,6 +77,7 @@ public:
 	// アドオンを設置
 	bool build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
+	bool updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
 	
 	// 道路を接続

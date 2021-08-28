@@ -44,6 +44,9 @@ public:
 	map<RateID::Type, int> getRate();
 	int getRate(RateID::Type rate_id);
 	
+	// 引数のアドオンがタイル上に存在するか？
+	bool hasAddon(Addon* addon_p);
+	
 	// Object情報を取得
 	bool isObjectExists(int arg_object_id);
 	Object* getObjectP(String arg_addon_name, NameMode::Type arg_name_mode);

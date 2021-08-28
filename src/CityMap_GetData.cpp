@@ -42,7 +42,13 @@ CategoryID::Type CityMap::getConnectableCategoryID(Addon* addon) {
 	CategoryID::Type object_category = CategoryID::Disabled;
 	Array<CategoryID::Type> object_categories = addon->getCategories();
 	for (auto object_category_single : object_categories) {
-		if (object_category_single == CategoryID::Road || object_category_single == CategoryID::Railroad || object_category_single == CategoryID::Waterway || object_category_single == CategoryID::Taxiway || object_category_single == CategoryID::Runway) {
+		if (object_category_single == CategoryID::Road || 
+			object_category_single == CategoryID::Railroad || 
+			object_category_single == CategoryID::Station || 
+			object_category_single == CategoryID::Waterway || 
+			object_category_single == CategoryID::Taxiway || 
+			object_category_single == CategoryID::Runway) {
+			
 			object_category = object_category_single;
 			break;
 		}

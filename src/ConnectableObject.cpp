@@ -12,7 +12,7 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	// 繋げられるならつなげる
 	
 	if ((arg_object_p->getAddonP()->isInCategories(CategoryID::Road) && m_addon_p->isInCategories(CategoryID::Road)) ||
-		(arg_object_p->getAddonP()->isInCategories(CategoryID::Railroad) && m_addon_p->isInCategories(CategoryID::Railroad)) ||
+		(arg_object_p->getAddonP()->isInCategories(CategoryID::Train) && m_addon_p->isInCategories(CategoryID::Train)) ||
 		(arg_object_p->getAddonP()->isInCategories(CategoryID::Waterway) && m_addon_p->isInCategories(CategoryID::Waterway)) ||
 		(arg_object_p->getAddonP()->isInCategories(CategoryID::Airport) && m_addon_p->isInCategories(CategoryID::Airport))) {
 		

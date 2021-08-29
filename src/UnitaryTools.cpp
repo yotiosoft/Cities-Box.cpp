@@ -431,6 +431,14 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 			return U"All";
 		case DirectionID::Offshore:
 			return U"Offshore";
+		case DirectionID::Northeast:
+			return U"Northeast";
+		case DirectionID::Southeast:
+			return U"Southeast";
+		case DirectionID::Southwest:
+			return U"Southwest";
+		case DirectionID::Northwest:
+			return U"Northwest";
 		case DirectionID::WithoutSouthwestNorthwest:
 			return U"WithoutSouthwestNorthwest";
 		case DirectionID::WithoutNortheastNorthwest:

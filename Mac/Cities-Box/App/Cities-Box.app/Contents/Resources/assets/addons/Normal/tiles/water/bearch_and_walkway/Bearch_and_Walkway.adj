@@ -259,7 +259,7 @@
     {
       "type_name": "WaterOffshore",
       "direction_names": [
-        "None"
+        "Offshore"
       ],
       "Directions": [
         {
@@ -301,7 +301,7 @@
       "direction_names": [
         "WithoutNortheastSoutheast",
         "WithoutSouthwestNorthwest",
-        "WithoutNorthwestSouthwest",
+        "WithoutNortheastNorthwest",
         "WithoutSoutheastSouthwest"
       ],
       "Directions": [
@@ -344,7 +344,7 @@
           }
         },
         {
-          "direction_name": "WithoutNorthwestSouthwest",
+          "direction_name": "WithoutNortheastNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -399,14 +399,14 @@
     {
       "type_name": "WaterIntersectionCrossWithoutOneCorner",
       "direction_names": [
-        "WithoutNorthEast",
-        "WithoutSouthEast",
-        "WithoutNorthWest",
-        "WithoutSouthWest"
+        "WithoutNortheast",
+        "WithoutSoutheast",
+        "WithoutNorthwest",
+        "WithoutSouthwest"
       ],
       "Directions": [
         {
-          "direction_name": "WithoutNorthEast",
+          "direction_name": "WithoutNortheast",
           "size": {
             "width": 64,
             "height": 64
@@ -425,7 +425,7 @@
           }
         },
         {
-          "direction_name": "WithoutSouthEast",
+          "direction_name": "WithoutSoutheast",
           "size": {
             "width": 64,
             "height": 64
@@ -444,7 +444,7 @@
           }
         },
         {
-          "direction_name": "WithoutNorthWest",
+          "direction_name": "WithoutNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -463,7 +463,7 @@
           }
         },
         {
-          "direction_name": "WithoutSouthWest",
+          "direction_name": "WithoutSouthwest",
           "size": {
             "width": 64,
             "height": 64

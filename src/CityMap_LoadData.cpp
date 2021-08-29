@@ -100,9 +100,87 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			// DirectionID
 			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
 			
-			if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
-				direction_id = DirectionID::All;
+			if (m_saved_version <= 142) {
+				if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+					direction_id = DirectionID::All;
+				}
+				
+				if (m_addons[addon_name]->isInCategories(CategoryID::Waterway)) {
+					if (type_id == TypeID::IntersectionCross) {
+						type_id = TypeID::WaterOffshore;
+						direction_id = DirectionID::Offshore;
+					}
+					if (type_id == TypeID::IntersectionT) {
+						type_id = TypeID::WaterIntersectionT;
+					}
+					if (type_id == TypeID::Turn) {
+						type_id = TypeID::WaterTurn;
+					}
+				}
+				
+				if (type_id == TypeID::WaterTurn) {
+					if (direction_id == DirectionID::NorthEast) {
+						direction_id = DirectionID::WithoutNorthNortheastEast;
+					}
+					if (direction_id == DirectionID::SouthEast) {
+						direction_id = DirectionID::WithoutEastSoutheastSouth;
+					}
+					if (direction_id == DirectionID::NorthWest) {
+						direction_id = DirectionID::WithoutSouthSouthwestWest;
+					}
+					if (direction_id == DirectionID::SouthWest) {
+						direction_id = DirectionID::WithoutNorthWestNorthwest;
+					}
+				}
+				else if (type_id == TypeID::WaterIntersectionT) {
+					if (direction_id == DirectionID::NorthSouthEast) {
+						direction_id = DirectionID::WithoutWest;
+					}
+					if (direction_id == DirectionID::NorthSouthWest) {
+						direction_id = DirectionID::WithoutEast;
+					}
+					if (direction_id == DirectionID::NorthEastWest) {
+						direction_id = DirectionID::WithoutSouth;
+					}
+					if (direction_id == DirectionID::SouthEastWest) {
+						direction_id = DirectionID::WithoutNorth;
+					}
+				}
+				else if (type_id == TypeID::IntersectionCross) {
+					if (direction_id == DirectionID::None) {
+						direction_id = DirectionID::Offshore;
+					}
+				}
+				else if (type_id == TypeID::WaterEstuary) {
+					if (direction_id == DirectionID::NorthSouthEast) {
+						direction_id = DirectionID::WithoutNortheastSoutheast;
+					}
+					if (direction_id == DirectionID::NorthSouthWest) {
+						direction_id = DirectionID::WithoutSouthwestNorthwest;
+					}
+					if (direction_id == DirectionID::NorthEastWest) {
+						direction_id = DirectionID::WithoutNortheastNorthwest;
+					}
+					if (direction_id == DirectionID::SouthEastWest) {
+						direction_id = DirectionID::WithoutSoutheastSouthwest;
+					}
+				}
+				else if (type_id == TypeID::WaterIntersectionCrossWithoutOneCorner) {
+					if (direction_id == DirectionID::NorthEast) {
+						direction_id = DirectionID::WithoutNortheast;
+					}
+					if (direction_id == DirectionID::SouthEast) {
+						direction_id = DirectionID::WithoutSoutheast;
+					}
+					if (direction_id == DirectionID::NorthWest) {
+						direction_id = DirectionID::WithoutNorthwest;
+					}
+					if (direction_id == DirectionID::SouthWest) {
+						direction_id = DirectionID::WithoutSouthwest;
+					}
+				}
 			}
+			
 			
 			// 原点
 			CoordinateStruct origin_coordinate;

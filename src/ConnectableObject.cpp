@@ -109,6 +109,33 @@ TypeID::Type ConnectableObject::get_type_id(DirectionID::Type arg_direction) {
 		case DirectionID::All:
 			return TypeID::IntersectionCross;
 			
+		case DirectionID::Offshore:
+			return TypeID::WaterOffshore;
+			
+		case DirectionID::WithoutSouthwestNorthwest:
+		case DirectionID::WithoutNortheastNorthwest:
+		case DirectionID::WithoutSoutheastSouthwest:
+		case DirectionID::WithoutNortheastSoutheast:
+			return TypeID::WaterEstuary;
+			
+		case DirectionID::WithoutEast:
+		case DirectionID::WithoutSouth:
+		case DirectionID::WithoutNorth:
+		case DirectionID::WithoutWest:
+			return TypeID::WaterIntersectionT;
+			
+		case DirectionID::WithoutNorthWestNorthwest:
+		case DirectionID::WithoutNorthNortheastEast:
+		case DirectionID::WithoutSouthSouthwestWest:
+		case DirectionID::WithoutEastSoutheastSouth:
+			return TypeID::WaterTurn;
+			
+		case DirectionID::WithoutNorthwest:
+		case DirectionID::WithoutNortheast:
+		case DirectionID::WithoutSouthwest:
+		case DirectionID::WithoutSoutheast:
+			return TypeID::WaterIntersectionCrossWithoutOneCorner;
+			
 		default:
 			return TypeID::Disabled;
 	}

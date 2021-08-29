@@ -197,28 +197,63 @@ namespace TypeID {
 // アドオンの方向の識別
 namespace DirectionID {
 	enum Type {
+		// Disabled
 		Disabled		= -1,
+		
+		// Default, Isolated
 		None			= 0,
 		
+		// DeadEnd
 		North			= 1,
 		South			= 2,
 		East			= 5,
 		West			= 9,
 		
-		EastWest		= 14,
-		NorthSouth		= 3,
+		// Normal
+		EastWest		= East + West,
+		NorthSouth		= North + South,
 		
-		SouthWest		= 11,
-		NorthWest		= 10,
-		SouthEast		= 7,
-		NorthEast		= 6,
+		// Turn
+		SouthWest		= South + West,
+		NorthWest		= North + West,
+		SouthEast		= South + East,
+		NorthEast		= North + East,
 		
-		SouthEastWest	= 16,
-		NorthEastWest	= 15,
-		NorthSouthWest	= 12,
-		NorthSouthEast	= 8,
+		// T字路
+		SouthEastWest	= South + East + West,
+		NorthEastWest	= North + East + West,
+		NorthSouthWest	= North + South + West,
+		NorthSouthEast	= North + South + East,
 		
-		All				= 17,
+		// 交差点
+		All				= North + East + South + West,
+		
+		// 斜め
+		Northeast		= 21,
+		Northwest		= 22,
+		Southeast		= 25,
+		Southwest		= 29,
+		
+		// 遠洋
+		Offshore		= North + Northeast + East + Southeast + South + Southwest + West + Northwest,
+		
+		// Estuary
+		WithoutSouthwestNortheast = Offshore - Southwest - Northeast,
+		WithoutNortheastNorthwest = Offshore - Northeast - Northwest,
+		WithoutSoutheastSouthwest = Offshore - Southeast - Southwest,
+		WithoutNortheastSoutheast = Offshore - Northeast - Southeast,
+		
+		// SeaIntersectionT
+		WithoutEast  = Offshore - Northeast - East - Southeast,
+		WithoutSouth = Offshore - Southeast - South - Southwest,
+		WithoutNorth = Offshore - North - Northeast - Northwest,
+		WithoutWest  = Offshore - Southwest - West - Northwest,
+		
+		// WaterIntersectionCrossWithoutOneCorner(WOC)
+		WithoutNorthwest = Offshore - Northwest,
+		WithoutNortheast = Offshore - Northeast,
+		WithoutSouthwest = Offshore - Southwest,
+		WithoutSoutheast = Offshore - Southeast
 	};
 }
 

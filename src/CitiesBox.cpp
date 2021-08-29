@@ -93,6 +93,24 @@ void CitiesBox() {
 	Vec2 before_cursor_pos = Cursor::Pos();
 	bool changed_cursor_style = true;
 	
+	cout << "Est: " << endl <<
+	DirectionID::WithoutSouthwestNortheast << endl <<
+	DirectionID::WithoutNortheastNorthwest << endl <<
+	DirectionID::WithoutSoutheastSouthwest << endl <<
+	DirectionID::WithoutNortheastSoutheast << endl <<
+	endl <<
+	DirectionID::WithoutEast << endl <<
+	DirectionID::WithoutSouth << endl <<
+	DirectionID::WithoutNorth << endl <<
+	DirectionID::WithoutWest << endl <<
+	endl <<
+	DirectionID::WithoutNorthwest << endl <<
+	DirectionID::WithoutNortheast << endl <<
+	DirectionID::WithoutSouthwest << endl <<
+	DirectionID::WithoutSoutheast << endl <<
+	endl <<
+	DirectionID::Offshore << endl;
+	
 	while (System::Update()) {
 		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
 		if (OS == "Windows" && changed_cursor_style) {

@@ -40,6 +40,7 @@ private:
 	
 	// DirectionID -> 道路のTypeIDに変換
 	TypeID::Type get_type_id(DirectionID::Type arg_direction);
+	TypeID::Type get_type_id_waterway(DirectionID::Type arg_direction);
 };
 
 #endif /* ConnectableObject_hpp */

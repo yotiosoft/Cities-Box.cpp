@@ -114,6 +114,41 @@ TypeID::Type ConnectableObject::get_type_id(DirectionID::Type arg_direction) {
 	}
 }
 
+TypeID::Type ConnectableObject::get_type_id_waterway(DirectionID::Type arg_direction) {
+	switch (arg_direction) {
+		case DirectionID::None:
+			return TypeID::UnderConstruction;
+			
+		case DirectionID::North:
+		case DirectionID::South:
+		case DirectionID::East:
+		case DirectionID::West:
+			return TypeID::DeadEnd;
+			
+		case DirectionID::EastWest:
+		case DirectionID::NorthSouth:
+			return TypeID::Default;
+			
+		case DirectionID::SouthWest:
+		case DirectionID::NorthWest:
+		case DirectionID::SouthEast:
+		case DirectionID::NorthEast:
+			return TypeID::Turn;
+			
+		case DirectionID::SouthEastWest:
+		case DirectionID::NorthEastWest:
+		case DirectionID::NorthSouthWest:
+		case DirectionID::NorthSouthEast:
+			return TypeID::IntersectionT;
+			
+		case DirectionID::All:
+			return TypeID::IntersectionCross;
+			
+		default:
+			return TypeID::Disabled;
+	}
+}
+
 // デストラクタ
 ConnectableObject::~ConnectableObject() {
 	

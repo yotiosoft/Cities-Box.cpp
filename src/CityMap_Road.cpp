@@ -8,6 +8,8 @@
 #include "CityMap.hpp"
 
 bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+	cout << "into build connect type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+	
 	// 同じアドオンが指定されたタイル上に存在するなら -> アドオンの変更は行わず、既存のアドオンのDirectionIDとTypeIDを変更
 	if (m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasAddon(selectedAddon)) {
 		return updateConnectionType(cursor, before_cursor, selectedAddon, needToBreak);
@@ -21,6 +23,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		DirectionID::Type direction = setRoadDirection(cursor.coordinate, selectedAddon);
 		
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
+		cout << "use tiles: " << useTiles.x << "," << useTiles.y << endl;
 
 		CoordinateStruct origin_coordinate = cursor.coordinate;
 		if (direction == DirectionID::West) {
@@ -47,7 +50,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 						unconnect = false;
 					}
 				}
-				
+				cout << "break at " << x << "," << y << endl;
 				breaking(CoordinateStruct{ x, y }, true, unconnect, unconnect);
 			}
 		}
@@ -92,6 +95,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 
 bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
+	cout << "update connection type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
 	Object* object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectP(selectedAddon->getName(NameMode::English), NameMode::English);
 
 	TypeID::Type type = setRoadType(cursor.coordinate, selectedAddon);
@@ -150,24 +154,13 @@ bool CityMap::canBuildRoadHere(CoordinateStruct coordinate) {
 TypeID::Type CityMap::setRoadType(CoordinateStruct coordinate, Addon *addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
-	Array<CategoryID::Type> object_categories = addon->getCategories();
-	for (auto object_category_single : object_categories) {
-		if (object_category_single == CategoryID::Road|| 
-			object_category_single == CategoryID::Railroad || 
-			object_category_single == CategoryID::Station ||
-			object_category_single == CategoryID::Waterway || 
-			object_category_single == CategoryID::Taxiway || 
-			object_category_single == CategoryID::Runway) {
-
-			object_category = object_category_single;
-			break;
-		}
-	}
+	object_category = getConnectableCategoryID(addon);
 	
 	// 既に道路が存在するなら、TypeIDはそのまま
 	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
 	
 	if (current_objects.size() > 0) {
+		cout << "type id: " << current_objects[0]->getTypeID() << endl;
 		return current_objects[0]->getTypeID();
 	}
 	
@@ -184,7 +177,7 @@ DirectionID::Type CityMap::setRoadDirection(CoordinateStruct coordinate, Addon* 
 	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
 	
 	if (current_objects.size() > 0) {
-		cout << "exist" << endl;
+		cout << "direction id: " << current_objects[0]->getDirectionID() << endl;
 		return current_objects[0]->getDirectionID();
 	}
 	

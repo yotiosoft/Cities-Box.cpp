@@ -184,12 +184,10 @@ namespace TypeID {
 		TileSnow								= 11,
 		WaterEstuary							= 12,
 		WaterIntersectionCrossWithoutOneCorner	= 13,
-		WaterIsolated							= 14,
-		RiverDeadEnd							= 15,
-		RiverDefault							= 16,
-		RiverIntersectionT						= 17,
-		RiverIntersectionCross					= 18,
-		RiverTurn								= 19,
+		Isolated								= 14,
+		WaterIntersectionT						= 16,
+		WaterOffshore							= 17,
+		WaterTurn								= 18,
 		
 	};
 }
@@ -231,23 +229,29 @@ namespace DirectionID {
 		// 斜め
 		Northeast		= 21,
 		Northwest		= 22,
-		Southeast		= 25,
+		Southeast		= 26,
 		Southwest		= 29,
 		
 		// 遠洋
 		Offshore		= North + Northeast + East + Southeast + South + Southwest + West + Northwest,
 		
-		// Estuary
-		WithoutSouthwestNortheast = Offshore - Southwest - Northeast,
+		// WaterEstuary
+		WithoutSouthwestNorthwest = Offshore - Southwest - Northwest,
 		WithoutNortheastNorthwest = Offshore - Northeast - Northwest,
 		WithoutSoutheastSouthwest = Offshore - Southeast - Southwest,
 		WithoutNortheastSoutheast = Offshore - Northeast - Southeast,
 		
-		// SeaIntersectionT
+		// WaterIntersectionT
 		WithoutEast  = Offshore - Northeast - East - Southeast,
 		WithoutSouth = Offshore - Southeast - South - Southwest,
 		WithoutNorth = Offshore - North - Northeast - Northwest,
 		WithoutWest  = Offshore - Southwest - West - Northwest,
+		
+		// WaterTurn
+		WithoutNorthWestNorthwest = Offshore - North - West - Northwest,
+		WithoutNorthNortheastEast = Offshore - North - Northeast - East,
+		WithoutSouthSouthwestWest = Offshore - South - Southwest - West,
+		WithoutEastSoutheastSouth = Offshore - East - Southeast - South,
 		
 		// WaterIntersectionCrossWithoutOneCorner(WOC)
 		WithoutNorthwest = Offshore - Northwest,

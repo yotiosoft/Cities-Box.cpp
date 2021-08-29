@@ -94,7 +94,7 @@ void CitiesBox() {
 	bool changed_cursor_style = true;
 	
 	cout << "Est: " << endl <<
-	DirectionID::WithoutSouthwestNortheast << endl <<
+	DirectionID::WithoutSouthwestNorthwest << endl <<
 	DirectionID::WithoutNortheastNorthwest << endl <<
 	DirectionID::WithoutSoutheastSouthwest << endl <<
 	DirectionID::WithoutNortheastSoutheast << endl <<

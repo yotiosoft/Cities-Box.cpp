@@ -190,16 +190,16 @@ TypeID::Type UnitaryTools::typeNameToTypeID(String type_name) {
 	if (type_name == U"UnderConstruction" || type_name == U"under_construction") {
 		return TypeID::UnderConstruction;
 	}
-	if (type_name == U"Default" || type_name == U"default") {
+	if (type_name == U"Default" || type_name == U"default" || type_name == U"RiverDefault" || type_name == U"river_default") {
 		return TypeID::Default;
 	}
-	if (type_name == U"Turn" || type_name == U"turn") {
+	if (type_name == U"Turn" || type_name == U"turn" || type_name == U"RiverTurn" || type_name == U"river_turn") {
 		return TypeID::Turn;
 	}
-	if (type_name == U"IntersectionT" || type_name == U"intersection_T") {
+	if (type_name == U"IntersectionT" || type_name == U"intersection_T" || type_name == U"RiverIntersectionT" || type_name == U"river_intersection_T") {
 		return TypeID::IntersectionT;
 	}
-	if (type_name == U"IntersectionCross" || type_name == U"intersection_cross") {
+	if (type_name == U"IntersectionCross" || type_name == U"intersection_cross" || type_name == U"RiverIntersectionCross" || type_name == U"river_intersection_cross") {
 		return TypeID::IntersectionCross;
 	}
 	if (type_name == U"DeadEnd" || type_name == U"dead_end") {
@@ -223,23 +223,17 @@ TypeID::Type UnitaryTools::typeNameToTypeID(String type_name) {
 	if (type_name == U"WaterIntersectionCrossWithoutOneCorner" || type_name == U"intersection_cross_without_one_corner") {
 		return TypeID::WaterIntersectionCrossWithoutOneCorner;
 	}
-	if (type_name == U"WaterIsolated" || type_name == U"isolated") {
-		return TypeID::WaterIsolated;
+	if (type_name == U"Isolated" || type_name == U"WaterIsolated" || type_name == U"isolated") {
+		return TypeID::Isolated;
 	}
-	if (type_name == U"RiverDeadEnd" || type_name == U"river_dead_end") {
-		return TypeID::RiverDeadEnd;
+	if (type_name == U"WaterIntersectionT" || type_name == U"water_intersection_T") {
+		return TypeID::WaterIntersectionT;
 	}
-	if (type_name == U"RiverDefault" || type_name == U"river_default") {
-		return TypeID::RiverDefault;
+	if (type_name == U"WaterOffshore" || type_name == U"water_offshore") {
+		return TypeID::WaterOffshore;
 	}
-	if (type_name == U"RiverIntersectionT" || type_name == U"river_intersection_T") {
-		return TypeID::RiverIntersectionT;
-	}
-	if (type_name == U"RiverIntersectionCross" || type_name == U"river_intersection_cross") {
-		return TypeID::RiverIntersectionCross;
-	}
-	if (type_name == U"RiverTurn" || type_name == U"river_turn") {
-		return TypeID::RiverTurn;
+	if (type_name == U"WaterTurn" || type_name == U"water_turn") {
+		return TypeID::WaterTurn;
 	}
 	
 	// 定義に該当しない場合は無効に
@@ -274,18 +268,14 @@ String UnitaryTools::typeIDToTypeName(TypeID::Type type_id) {
 			return U"WaterEstuary";
 		case TypeID::WaterIntersectionCrossWithoutOneCorner:
 			return U"WaterIntersectionCrossWithoutOneCorner";
-		case TypeID::WaterIsolated:
-			return U"WaterIsolated";
-		case TypeID::RiverDeadEnd:
-			return U"RiverDeadEnd";
-		case TypeID::RiverDefault:
-			return U"RiverDefault";
-		case TypeID::RiverIntersectionT:
-			return U"RiverIntersectionT";
-		case TypeID::RiverIntersectionCross:
-			return U"RiverIntersectionCross";
-		case TypeID::RiverTurn:
-			return U"RiverTurn";
+		case TypeID::Isolated:
+			return U"Isolated";
+		case TypeID::WaterIntersectionT:
+			return U"WaterIntersectionT";
+		case TypeID::WaterOffshore:
+			return U"WaterOffshore";
+		case TypeID::WaterTurn:
+			return U"WaterTurn";
 		case TypeID::Disabled:
 			break;
 	}
@@ -342,6 +332,57 @@ DirectionID::Type UnitaryTools::directionNameToDirectionID(String direction_name
 	if (direction_name == U"All") {
 		return DirectionID::All;
 	}
+	if (direction_name == U"Offshore") {
+		return DirectionID::Offshore;
+	}
+	if (direction_name == U"WithoutSouthWestNorthwest") {
+		return DirectionID::WithoutSouthwestNorthwest;
+	}
+	if (direction_name == U"WithoutSoutheastSouthwest") {
+		return DirectionID::WithoutSoutheastSouthwest;
+	}
+	if (direction_name == U"WithoutSoutheastSouthwest") {
+		return DirectionID::WithoutSoutheastSouthwest;
+	}
+	if (direction_name == U"WithoutNortheastSoutheast") {
+		return DirectionID::WithoutNortheastSoutheast;
+	}
+	if (direction_name == U"WithoutEast") {
+		return DirectionID::WithoutEast;
+	}
+	if (direction_name == U"WithoutSouth") {
+		return DirectionID::WithoutSouth;
+	}
+	if (direction_name == U"WithoutNorth") {
+		return DirectionID::WithoutNorth;
+	}
+	if (direction_name == U"WithoutWest") {
+		return DirectionID::WithoutWest;
+	}
+	if (direction_name == U"WithoutNorthWestNorthwest") {
+		return DirectionID::WithoutNorthWestNorthwest;
+	}
+	if (direction_name == U"WithoutNorthNortheastEast") {
+		return DirectionID::WithoutNorthNortheastEast;
+	}
+	if (direction_name == U"WithoutSouthSouthwestWest") {
+		return DirectionID::WithoutSouthSouthwestWest;
+	}
+	if (direction_name == U"WithoutEastSoutheastSouth") {
+		return DirectionID::WithoutEastSoutheastSouth;
+	}
+	if (direction_name == U"WithoutNorthwest") {
+		return DirectionID::WithoutNorthwest;
+	}
+	if (direction_name == U"WithoutNortheast") {
+		return DirectionID::WithoutNortheast;
+	}
+	if (direction_name == U"WithoutSouthwest") {
+		return DirectionID::WithoutSouthwest;
+	}
+	if (direction_name == U"WithoutSoutheast") {
+		return DirectionID::WithoutSoutheast;
+	}
 	
 	return DirectionID::Disabled;
 }
@@ -388,6 +429,40 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 			return U"NorthEast";
 		case DirectionID::All:
 			return U"All";
+		case DirectionID::Offshore:
+			return U"Offshore";
+		case DirectionID::WithoutSouthwestNorthwest:
+			return U"WithoutSouthwestNorthwest";
+		case DirectionID::WithoutNortheastNorthwest:
+			return U"WithoutNortheastNorthwest";
+		case DirectionID::WithoutSoutheastSouthwest:
+			return U"WithoutSoutheastSouthwest";
+		case DirectionID::WithoutNortheastSoutheast:
+			return U"WithoutNortheastSoutheast";
+		case DirectionID::WithoutEast:
+			return U"WithoutEast";
+		case DirectionID::WithoutSouth:
+			return U"WithoutSouth";
+		case DirectionID::WithoutNorth:
+			return U"WithoutNorth";
+		case DirectionID::WithoutWest:
+			return U"WithoutWest";
+		case DirectionID::WithoutNorthWestNorthwest:
+			return U"WithoutNorthWestNorthwest";
+		case DirectionID::WithoutNorthNortheastEast:
+			return U"WithoutNorthNortheastEast";
+		case DirectionID::WithoutSouthSouthwestWest:
+			return U"WithoutSouthSouthwestWest";
+		case DirectionID::WithoutEastSoutheastSouth:
+			return U"WithoutEastSoutheastSouth";
+		case DirectionID::WithoutNorthwest:
+			return U"WithoutNorthwest";
+		case DirectionID::WithoutNortheast:
+			return U"WithoutNortheast";
+		case DirectionID::WithoutSouthwest:
+			return U"WithoutSouthSouthwest";
+		case DirectionID::WithoutSoutheast:
+			return U"WithoutSoutheast";
 		case DirectionID::Disabled:
 			break;
 	}

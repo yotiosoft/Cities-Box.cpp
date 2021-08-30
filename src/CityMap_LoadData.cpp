@@ -94,30 +94,29 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 			// 固有名称
 			String original_name = object[U"original_name"].getString();
 			
-			// TypeID
-			TypeID::Type type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+			TypeID::Type type_id;
+			DirectionID::Type direction_id;
 			
-			// DirectionID
-			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
-			
-			if (m_saved_version <= 142) {
-				if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
-					direction_id = DirectionID::All;
+			if (m_saved_version <= 142 && m_addons[addon_name]->isInCategories(CategoryID::Waterway)) {
+				String type_id_str = object[U"typeID"].getString();
+				
+				direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+				
+				if (type_id_str == U"IntersectionCross" || type_id_str == U"intersection_cross") {
+					type_id = TypeID::WaterOffshore;
+					direction_id = DirectionID::Offshore;
+				}
+				else if (type_id_str == U"IntersectionT" || type_id_str == U"intersection_T") {
+					type_id = TypeID::WaterIntersectionT;
+				}
+				else if (type_id_str == U"Turn" || type_id_str == U"turn") {
+					type_id = TypeID::WaterTurn;
+				}
+				else {
+					type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
 				}
 				
-				if (m_addons[addon_name]->isInCategories(CategoryID::Waterway)) {
-					if (type_id == TypeID::IntersectionCross) {
-						type_id = TypeID::WaterOffshore;
-						direction_id = DirectionID::Offshore;
-					}
-					if (type_id == TypeID::IntersectionT) {
-						type_id = TypeID::WaterIntersectionT;
-					}
-					if (type_id == TypeID::Turn) {
-						type_id = TypeID::WaterTurn;
-					}
-				}
-				
+				// DirectionID
 				if (type_id == TypeID::WaterTurn) {
 					if (direction_id == DirectionID::NorthEast) {
 						direction_id = DirectionID::WithoutNorthNortheastEast;
@@ -179,8 +178,20 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						direction_id = DirectionID::WithoutSouthwest;
 					}
 				}
+				
+				//cout << "type: " << type_id << " / direction: " << direction_id << endl;
 			}
-			
+			else {
+				// TypeID
+				type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+				
+				// DirectionID
+				direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+				
+				if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+					direction_id = DirectionID::All;
+				}
+			}
 			
 			// 原点
 			CoordinateStruct origin_coordinate;

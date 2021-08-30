@@ -100,12 +100,21 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 		TypeID::Type typeID = UnitaryTools::typeNameToTypeID(type[U"type_name"].getString());
 		
 		m_use_types << UnitaryTools::typeIDToTypeName(typeID);
+		m_types[typeID] = AddonType(typeID);
+		cout << "TypeID: " << type[U"type_name"].getString() << endl;
 		
 		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
 			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(direction[U"direction_name"].getString());
 			
 			if (direction_id == DirectionID::None && typeID == TypeID::IntersectionCross) {
 				direction_id = DirectionID::All;
+			}
+			
+			if (direction_id == DirectionID::Disabled) {
+				cout << "Disabled direction at " << direction[U"direction_name"].getString() << " type: " << type[U"type_name"].getString() << endl;
+			}
+			if (typeID == TypeID::Disabled) {
+				cout << "Disabled type at " << type[U"type_name"].getString() << endl;
 			}
 			
 			// 新たなAddonDirectionStructを作成
@@ -134,6 +143,12 @@ bool Addon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name) {
 			
 			direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
 			direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			
+			if (typeID == TypeID::WaterOffshore) {
+				cout << "direction id: " << direction_id << endl;
+				cout << "size: " << direction_struct.size.x << "," << direction_struct.size.y << endl;
+				cout << "required tiles: " << direction_struct.requiredTiles.x << "," << direction_struct.requiredTiles.y << endl;
+			}
 			
 			// direction_structをlayerに追加
 			m_types[typeID].addAddonDirectionStruct(direction_struct);

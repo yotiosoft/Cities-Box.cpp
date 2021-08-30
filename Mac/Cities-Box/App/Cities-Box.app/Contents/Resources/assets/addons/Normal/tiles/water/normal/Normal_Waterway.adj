@@ -797,7 +797,7 @@
       ]
     },
     {
-      "type_name": "WaterOffshore",
+      "type_name": "IntersectionCross",
       "direction_names": [
         "None"
       ],

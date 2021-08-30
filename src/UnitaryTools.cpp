@@ -202,7 +202,7 @@ TypeID::Type UnitaryTools::typeNameToTypeID(String type_name) {
 	if (type_name == U"IntersectionCross" || type_name == U"intersection_cross" || type_name == U"RiverIntersectionCross" || type_name == U"river_intersection_cross") {
 		return TypeID::IntersectionCross;
 	}
-	if (type_name == U"DeadEnd" || type_name == U"dead_end") {
+	if (type_name == U"DeadEnd" || type_name == U"dead_end" || type_name == U"RiverDeadEnd" || type_name == U"river_dead_end") {
 		return TypeID::DeadEnd;
 	}
 	if (type_name == U"TrainCrossing" || type_name == U"train_crossing") {
@@ -335,14 +335,14 @@ DirectionID::Type UnitaryTools::directionNameToDirectionID(String direction_name
 	if (direction_name == U"Offshore") {
 		return DirectionID::Offshore;
 	}
-	if (direction_name == U"WithoutSouthWestNorthwest") {
+	if (direction_name == U"WithoutSouthwestNorthwest") {
 		return DirectionID::WithoutSouthwestNorthwest;
 	}
 	if (direction_name == U"WithoutSoutheastSouthwest") {
 		return DirectionID::WithoutSoutheastSouthwest;
 	}
-	if (direction_name == U"WithoutSoutheastSouthwest") {
-		return DirectionID::WithoutSoutheastSouthwest;
+	if (direction_name == U"WithoutNortheastNorthwest") {
+		return DirectionID::WithoutNortheastNorthwest;
 	}
 	if (direction_name == U"WithoutNortheastSoutheast") {
 		return DirectionID::WithoutNortheastSoutheast;

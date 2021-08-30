@@ -28,7 +28,8 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor) {
 			cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl << "{";
 			for (auto object_st : m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectStructs()) {
 				cout << object_st.object_p->getOriginCoordinate().x << "," << object_st.object_p->getOriginCoordinate().y;
-				cout << " / " << object_st.relative_coordinate.origin.x << "," << object_st.relative_coordinate.origin.y << " " << endl;
+				//cout << " / " << object_st.relative_coordinate.origin.x << "," << object_st.relative_coordinate.origin.y << " " << endl;
+				cout << "TypeID: " << object_st.object_p->getTypeID() << " / DirectionID: " << object_st.object_p->getDirectionID() << endl;
 			}
 			cout << "}" << endl;*/
 		}

@@ -904,8 +904,25 @@ Array<String> UnitaryTools::getStrArrayFromJsonArray(JSONArrayView json_array) {
 	Array<String> ret;
 	
 	for (const auto& element : json_array) {
-		ret << element.getString();
+		ret << element.get<String>();
 	}
 	
 	return ret;
+}
+
+Array<int> UnitaryTools::getIntArrayFromJsonArray(JSONArrayView json_array) {
+	Array<int> ret;
+	
+	for (const auto& element : json_array) {
+		ret << element.get<int>();
+	}
+	
+	return ret;
+}
+
+bool UnitaryTools::getBoolFromJson(JSON json) {
+	if (json.getString() == U"true") {
+		return true;
+	}
+	return false;
 }

@@ -16,7 +16,7 @@ void CitiesBox() {
 	UnitaryTools::debugInit();
 	
 	Window::SetStyle(WindowStyle::Sizable);
-	Scene::SetScaleMode(ScaleMode::ResizeFill);
+	Scene::SetResizeMode(ResizeMode::Virtual);
 	
 	Scene::SetBackground(Color(50, 50, 50));
 	
@@ -70,7 +70,7 @@ void CitiesBox() {
 	menu.set(PositionStruct{0, Scene::Height()-50}, Size(Scene::Width(), 50), &map, &font8, &font12, &font16);
 	
 	// 選択されたアドオン
-	Addon* selectedAddon;
+	CBAddon* selectedAddon;
 	
 	// 前回左クリックしたときのマップ上の座標
 	CoordinateStruct beforeMousePressedCoordinate = {0, 0};

@@ -1,0 +1,140 @@
+﻿{
+  "name": "Modern_Library",
+  "jp_name": "現代風図書館",
+  "author": "YotioSoft",
+  "summary": "ガラス張りの日当たりの良い図書館。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Modern_Library.png",
+  "Categories": [
+    "object_type",
+    "public",
+    "education"
+  ],
+  "effects": {
+    "education_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 3,
+      "grid": 3
+    }
+  },
+  "maximum_capacity": 100,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Modern_Library.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Modern_Library__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
+      ]
+    }
+  ]
+}

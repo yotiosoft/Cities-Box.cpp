@@ -1,0 +1,131 @@
+﻿{
+  "name": "White_Apartment_Complex",
+  "jp_name": "白壁の団地",
+  "author": "YotioSoft",
+  "summary": "白い壁の団地です。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_White_Apartment_Complex.png",
+  "Categories": [
+    "object_type",
+    "residential",
+    "high_density"
+  ],
+  "effects": {},
+  "maximum_capacity": 110,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 96,
+            "height": 116
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 96,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 115
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 96,
+            "height": 116
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 116
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 232
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 96,
+            "height": 116
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 96,
+            "y": 116
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 232
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 96,
+            "height": 116
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 115
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "White_Apartment_Complex.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "White_Apartment_Complex__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -122,11 +122,11 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 			
 			direction_struct.directionID = direction_id;
 			
-			direction_struct.size.x = direction[U"size.width"].get<int>();
-			direction_struct.size.y = direction[U"size.height"].get<int>();
+			direction_struct.size.x = direction[U"size"][U"width"].get<int>();
+			direction_struct.size.y = direction[U"size"][U"height"].get<int>();
 			
-			direction_struct.requiredTiles.x = direction[U"squares.width"].get<int>();
-			direction_struct.requiredTiles.y = direction[U"squares.height"].get<int>();
+			direction_struct.requiredTiles.x = direction[U"squares"][U"width"].get<int>();
+			direction_struct.requiredTiles.y = direction[U"squares"][U"height"].get<int>();
 			
 			// requiredTiles = (0, 0)の場合->(1, 1)に修正
 			if (direction_struct.requiredTiles.x == 0) {
@@ -138,11 +138,11 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 				need_to_convert = true;
 			}
 			
-			direction_struct.topLeft.x = direction[U"top_left.x"].get<int>();
-			direction_struct.topLeft.y = direction[U"top_left.y"].get<int>();
+			direction_struct.topLeft.x = direction[U"top_left"][U"x"].get<int>();
+			direction_struct.topLeft.y = direction[U"top_left"][U"y"].get<int>();
 			
-			direction_struct.bottomRight.x = direction[U"bottom_right.x"].get<int>();
-			direction_struct.bottomRight.y = direction[U"bottom_right.y"].get<int>();
+			direction_struct.bottomRight.x = direction[U"bottom_right"][U"x"].get<int>();
+			direction_struct.bottomRight.y = direction[U"bottom_right"][U"y"].get<int>();
 			
 			if (typeID == TypeID::WaterOffshore) {
 				cout << "direction id: " << direction_id << endl;
@@ -177,9 +177,9 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 				String image_path = layer[U"image"].getString();
 				
 				Color transparent_color;
-				transparent_color.r = layer[U"transparent_color.R"].get<int>();
-				transparent_color.g = layer[U"transparent_color.G"].get<int>();
-				transparent_color.b = layer[U"transparent_color.B"].get<int>();
+				transparent_color.r = layer[U"transparent_color"][U"R"].get<int>();
+				transparent_color.g = layer[U"transparent_color"][U"G"].get<int>();
+				transparent_color.b = layer[U"transparent_color"][U"B"].get<int>();
 				
 				Array<LayerType::Type> layer_types;
 				for (const auto& layer_type_str : layer[U"layer_types"].arrayView()) {
@@ -390,9 +390,9 @@ void CBAddon::m_converter() {
 	Array<JSON> json_belong_addon_set_names_array;
 	for (auto belong = m_belong_addons_set_name.begin(); belong!= m_belong_addons_set_name.end() ; belong++) {
 		JSON json_belong_addon_set_name = *belong;
-		json_belong_array_set_names_array << json_belong_addon_set_name;
+		json_belong_addon_set_names_array << json_belong_addon_set_name;
 	}
-	addonData[U"Belong_addon_set_name"] = json_belong_array_set_names_array;
+	addonData[U"Belong_addon_set_name"] = json_belong_addon_set_names_array;
 	
 	addonData[U"icon"] = m_addon_icon;
 	
@@ -471,10 +471,11 @@ void CBAddon::m_converter() {
 			json_layer[U"image"] = FileSystem::FileName(layer->getImagePath());
 			
 			// 透過色
+			Color transparent_color = layer->getTransparentColor();
 			JSON json_layer_transparent_color;
-			json_layer_transparent_color[U"R"] = transparennt_color.r;
-			json_layer_transparent_color[U"G"] = transparennt_color.g;
-			json_layer_transparent_color[U"B"] = transparennt_color.b;
+			json_layer_transparent_color[U"R"] = transparent_color.r;
+			json_layer_transparent_color[U"G"] = transparent_color.g;
+			json_layer_transparent_color[U"B"] = transparent_color.b;
 			json_layer[U"transparent_color"] = json_layer_transparent_color;
 			
 			// レイヤのタイプ

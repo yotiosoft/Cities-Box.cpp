@@ -7,8 +7,8 @@
 
 #include "CityMap.hpp"
 
-Array<Addon> CityMap::getAddon(CoordinateStruct coordinate) {
-	Array<Addon> retAddons;
+Array<CBAddon> CityMap::getAddon(CoordinateStruct coordinate) {
+	Array<CBAddon> retAddons;
 
 	for (int i = 0; i < m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
 		retAddons << *(m_tiles[coordinate.y][coordinate.x].addons[i]);
@@ -144,8 +144,8 @@ bool CityMap::m_get_types(String str, String searchElementName, Array<String>& r
 	return false;
 }
 
-Array<Addon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories) {
-	Array<Addon*> retAddons;
+Array<CBAddon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories) {
+	Array<CBAddon*> retAddons;
 
 	for (auto addon = m_addons.begin(); addon != m_addons.end(); addon++) {
 
@@ -175,7 +175,7 @@ Array<Addon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories) 
 	return retAddons;
 }
 
-map<String, Addon*> CityMap::getAllAddons() {
+map<String, CBAddon*> CityMap::getAllAddons() {
 	return m_addons;
 }
 

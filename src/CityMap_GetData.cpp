@@ -37,7 +37,7 @@ Size CityMap::getMapSize() {
 	return m_map_size;
 }
 
-CategoryID::Type CityMap::getConnectableCategoryID(Addon* addon) {
+CategoryID::Type CityMap::getConnectableCategoryID(CBAddon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
 	
@@ -65,7 +65,7 @@ CategoryID::Type CityMap::getConnectableCategoryID(Addon* addon) {
 	return object_category;
 }
 
-CategoryID::Type CityMap::getConnectableCategoryIDExplicitly(Addon* addon) {
+CategoryID::Type CityMap::getConnectableCategoryIDExplicitly(CBAddon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
 	

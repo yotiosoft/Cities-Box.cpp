@@ -9,7 +9,7 @@
 #define CitiesBox_hpp
 
 #include "AbstractSetting.hpp"
-#include "Addon.hpp"
+#include "CBAddon.hpp"
 #include "AddonMaker.hpp"
 #include "Button.hpp"
 #include "CityMap.hpp"

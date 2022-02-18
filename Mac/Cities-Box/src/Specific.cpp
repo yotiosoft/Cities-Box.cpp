@@ -14,21 +14,21 @@ Array<FileStruct> specific::getAllFilesName(string folderPath, string extension)
 	const char* targetDirlog = folderPath.c_str();
 	const char* targetFileExtension = ("."+extension).c_str();
 	DIR* dp = opendir(targetDirlog);
-	if (dp == NULL) {
+	if (dp == nullptr) {
 		return retStr;
 	}
 	
-	struct dirent* dent = NULL;
+	struct dirent* dent = nullptr;
 	while(true) {
 		dent = readdir(dp);
-		if(dent == NULL) {
+		if (dent == nullptr) {
 			break;
 		}
 		string fileName = dent->d_name;
 		
 		FileStruct newFS;
 		
-		if (dent != NULL && fileName != "." && fileName != "..") {
+		if (dent != nullptr && fileName != "." && fileName != "..") {
 			// サブディレクトリの中身も検索
 			if (fileName.find(".") == string::npos) {
 				Array<FileStruct> subDirStr = getAllFilesName(folderPath+"/"+fileName, extension);

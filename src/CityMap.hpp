@@ -11,7 +11,7 @@
 #define CityMap_hpp
 
 #include <Specific.hpp>
-#include "Addon.hpp"
+#include "CBAddon.hpp"
 #include "UnitaryTools.hpp"
 #include "Tile.hpp"
 #include "NormalObject.hpp"
@@ -32,10 +32,10 @@ public:
 	void loadAddons(String addonSetName);
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
-	Array<Addon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
+	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
 	
 	// アドオンリストを返す
-	map<String, Addon*> getAllAddons();
+	map<String, CBAddon*> getAllAddons();
 	
 	// 読込中画面
 	void loadingScreen();
@@ -44,7 +44,7 @@ public:
 	void draw(CameraStruct camera, CursorStruct& cursor);
 	
 	// Addon構造体の取得
-	Array<Addon> getAddon(CoordinateStruct coordinate);
+	Array<CBAddon> getAddon(CoordinateStruct coordinate);
 	
 	// 需要度の取得
 	RCOIFstruct getDemand();
@@ -62,8 +62,8 @@ public:
 	Size getMapSize();
 	
 	// 対象物の接続可能なタイプを取得
-	CategoryID::Type getConnectableCategoryID(Addon* addon);
-	CategoryID::Type getConnectableCategoryIDExplicitly(Addon* addon);
+	CategoryID::Type getConnectableCategoryID(CBAddon* addon);
+	CategoryID::Type getConnectableCategoryIDExplicitly(CBAddon* addon);
 	
 	// 座標から描画位置、描画位置から座標を取得
 	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
@@ -76,10 +76,10 @@ public:
 	bool hasCategory(CategoryID::Type searchCategory, CoordinateStruct coordinate);
 	
 	// アドオンを設置
-	bool build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
-	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
-	bool updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
-	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak);
+	bool build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+	bool updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
 	
 	// 道路を接続
 	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id);
@@ -101,11 +101,11 @@ public:
 	
 	// 道路の敷設の可否、TypeID, DirectionIDの設定
 	bool canBuildRoadHere(CoordinateStruct coordinate);
-	TypeID::Type setRoadType(CoordinateStruct coordinate, Addon* addon);
-	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, Addon* addon);
+	TypeID::Type setRoadType(CoordinateStruct coordinate, CBAddon* addon);
+	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, CBAddon* addon);
 	
 	// 建物の建設の可否、TypeID, DirectionIDの設定
-	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, Addon* addon);
+	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon);
 	
 	// アドオンを削除
 	void updateConnectedTiles(CoordinateStruct position);
@@ -167,7 +167,7 @@ private:
 	
 	bool m_loading_complete;
 	
-	map<String, Addon*> m_addons;
+	map<String, CBAddon*> m_addons;
 	
 	map<int, Object*> m_objects;
 	int m_max_object_id;

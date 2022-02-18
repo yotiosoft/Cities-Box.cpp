@@ -51,7 +51,7 @@
 		4BAAAECF26090BF4000B9E51 /* AbstractSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA826090BF1000B9E51 /* AbstractSetting.cpp */; };
 		4BAAAED026090BF4000B9E51 /* StartUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEA926090BF1000B9E51 /* StartUp.cpp */; };
 		4BAAAED126090BF4000B9E51 /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAA26090BF1000B9E51 /* DetailsBar.cpp */; };
-		4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAC26090BF2000B9E51 /* Addon.cpp */; };
+		4BAAAED226090BF4000B9E51 /* CBAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAC26090BF2000B9E51 /* CBAddon.cpp */; };
 		4BAAAED326090BF4000B9E51 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAD26090BF2000B9E51 /* Menu.cpp */; };
 		4BAAAED526090BF4000B9E51 /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */; };
 		4BAAAED626090BF4000B9E51 /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAAEB026090BF2000B9E51 /* RouteSolver.cpp */; };
@@ -123,7 +123,7 @@
 		4BAAAEA926090BF1000B9E51 /* StartUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartUp.cpp; path = ../../../src/StartUp.cpp; sourceTree = "<group>"; };
 		4BAAAEAA26090BF1000B9E51 /* DetailsBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DetailsBar.cpp; path = ../../../src/DetailsBar.cpp; sourceTree = "<group>"; };
 		4BAAAEAB26090BF1000B9E51 /* GeneralSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GeneralSetting.hpp; path = ../../../src/GeneralSetting.hpp; sourceTree = "<group>"; };
-		4BAAAEAC26090BF2000B9E51 /* Addon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Addon.cpp; path = ../../../src/Addon.cpp; sourceTree = "<group>"; };
+		4BAAAEAC26090BF2000B9E51 /* CBAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBAddon.cpp; path = ../../../src/CBAddon.cpp; sourceTree = "<group>"; };
 		4BAAAEAD26090BF2000B9E51 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Menu.cpp; path = ../../../src/Menu.cpp; sourceTree = "<group>"; };
 		4BAAAEAF26090BF2000B9E51 /* GeneralSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeneralSetting.cpp; path = ../../../src/GeneralSetting.cpp; sourceTree = "<group>"; };
 		4BAAAEB026090BF2000B9E51 /* RouteSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RouteSolver.cpp; path = ../../../src/RouteSolver.cpp; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		4BAAAEC226090BF3000B9E51 /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../../../src/Sound.hpp; sourceTree = "<group>"; };
 		4BAAAEC326090BF3000B9E51 /* Tile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Tile.hpp; path = ../../../src/Tile.hpp; sourceTree = "<group>"; };
 		4BAAAEC426090BF3000B9E51 /* AddonLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonLayer.hpp; path = ../../../src/AddonLayer.hpp; sourceTree = "<group>"; };
-		4BAAAEC526090BF3000B9E51 /* Addon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Addon.hpp; path = ../../../src/Addon.hpp; sourceTree = "<group>"; };
+		4BAAAEC526090BF3000B9E51 /* CBAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CBAddon.hpp; path = ../../../src/CBAddon.hpp; sourceTree = "<group>"; };
 		4BAAAEC626090BF3000B9E51 /* Images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Images.hpp; path = ../../../src/Images.hpp; sourceTree = "<group>"; };
 		4BAAAEC726090BF3000B9E51 /* SubWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubWindow.hpp; path = ../../../src/SubWindow.hpp; sourceTree = "<group>"; };
 		4BAAAEC826090BF4000B9E51 /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityMap.hpp; path = ../../../src/CityMap.hpp; sourceTree = "<group>"; };
@@ -233,8 +233,8 @@
 				4BAAAEE326090DB6000B9E51 /* Specific.hpp */,
 				4BAAAEA826090BF1000B9E51 /* AbstractSetting.cpp */,
 				4BAAAEB426090BF2000B9E51 /* AbstractSetting.hpp */,
-				4BAAAEAC26090BF2000B9E51 /* Addon.cpp */,
-				4BAAAEC526090BF3000B9E51 /* Addon.hpp */,
+				4BAAAEAC26090BF2000B9E51 /* CBAddon.cpp */,
+				4BAAAEC526090BF3000B9E51 /* CBAddon.hpp */,
 				4BAAAEBC26090BF3000B9E51 /* AddonDirectionStruct.hpp */,
 				4BAAAEA726090BF1000B9E51 /* AddonLayer.cpp */,
 				4BAAAEC426090BF3000B9E51 /* AddonLayer.hpp */,
@@ -395,7 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6F508026D68D8600F16A48 /* CityMap_LoadData.cpp in Sources */,
-				4BAAAED226090BF4000B9E51 /* Addon.cpp in Sources */,
+				4BAAAED226090BF4000B9E51 /* CBAddon.cpp in Sources */,
 				4BAAAEDB26090BF4000B9E51 /* PulldownMenu.cpp in Sources */,
 				4BAAAECC26090BF4000B9E51 /* AddonType.cpp in Sources */,
 				4B730AC226D4BA7400798F34 /* NormalObject.cpp in Sources */,

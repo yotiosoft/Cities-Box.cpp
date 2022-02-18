@@ -899,3 +899,13 @@ void UnitaryTools::setAlphaColor(Image& imageTemp, Color transparentRGB) {
 		}
 	}
 }
+
+Array<String> UnitaryTools::getStrArrayFromJsonArray(JSONArrayView json_array) {
+	Array<String> ret;
+	
+	for (const auto& element : json_array) {
+		ret << element.getString();
+	}
+	
+	return ret;
+}

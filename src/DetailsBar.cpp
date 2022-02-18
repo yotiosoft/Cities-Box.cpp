@@ -11,17 +11,17 @@ DetailsBar::DetailsBar(PositionStruct argPosition, Font* argFont) {
 	m_position = argPosition;
 	m_font = argFont;
 	
-	m_population_icon_texture = Texture(Icon(IconFont::Population, 20));
-	time_icon_texture = Texture(Icon(IconFont::Clock, 20));
+	m_population_icon_texture = Texture{Icon(IconFont::Population), 20};
+	time_icon_texture = Texture{Icon(IconFont::Clock), 20};
 	
-	m_temperature_low_icon_texture = Texture(Icon(IconFont::TemperatureLow, 20));
-	m_temperature_middle_icon_texture = Texture(Icon(IconFont::TemperatureMiddle, 20));
-	m_temperature_high_icon_texture = Texture(Icon(IconFont::TemperatureHigh, 20));
+	m_temperature_low_icon_texture = Texture{Icon(IconFont::TemperatureLow), 20};
+	m_temperature_middle_icon_texture = Texture{Icon(IconFont::TemperatureMiddle), 20};
+	m_temperature_high_icon_texture = Texture{Icon(IconFont::TemperatureHigh), 20};
 	
-	m_weather_sunny_icon = Texture(Icon(IconFont::Sunny, 20));
-	m_weather_cloudy_icon = Texture(Icon(IconFont::Cloudy, 20));
-	m_weather_rainy_icon = Texture(Icon(IconFont::Rainy, 20));
-	m_weather_snowy_icon = Texture(Icon(IconFont::Snowy, 20));
+	m_weather_sunny_icon = Texture{Icon(IconFont::Sunny), 20};
+	m_weather_cloudy_icon = Texture{Icon(IconFont::Cloudy), 20};
+	m_weather_rainy_icon = Texture{Icon(IconFont::Rainy), 20};
+	m_weather_snowy_icon = Texture{Icon(IconFont::Snowy), 20};
 }
 
 void DetailsBar::printWeather(Weather::Type weather) {

@@ -9,14 +9,14 @@
 #define Object_hpp
 
 #include <Specific.hpp>
-#include "Addon.hpp"
+#include "CBAddon.hpp"
 #include "CityNetwork.hpp"
 class Object {
 public:
 	// コンストラクタ
 	Object();
-	Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate);
-	Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
+	Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate);
+	Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate);
 	
 	// 原点を取得
 	CoordinateStruct getOriginCoordinate();
@@ -28,7 +28,7 @@ public:
 	String getOriginalName();
 	
 	// アドオンを取得
-	Addon* getAddonP();
+	CBAddon* getAddonP();
 	AddonDirectionStruct getAddonDirectionStruct();
 	
 	// TypeID
@@ -73,7 +73,7 @@ protected:
 	
 	/* 変数部 */
 	// 保持するアドオン
-	Addon* m_addon_p = nullptr;
+	CBAddon* m_addon_p = nullptr;
 	
 	// TypeID
 	TypeID::Type m_type_id;

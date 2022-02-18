@@ -9,7 +9,7 @@
 #define Menu_hpp
 
 #include <Specific.hpp>
-#include "Addon.hpp"
+#include "CBAddon.hpp"
 #include "Button.hpp"
 #include "CityMap.hpp"
 
@@ -47,7 +47,7 @@ public:
 	
 	void getSelectedAddon();
 	void update();
-	Addon* draw(bool& needUpdate);
+	CBAddon* draw(bool& needUpdate);
 	
 	void addonMenu();
 	
@@ -64,8 +64,8 @@ private:
 	
 	MenuMode::Type m_menu_mode;
 	
-	Array<Addon*> m_show_addons;
-	Addon* m_selected_addon;
+	Array<CBAddon*> m_show_addons;
+	CBAddon* m_selected_addon;
 	
 	Font* m_font8;
 	Font* m_font12;

@@ -10,7 +10,7 @@
 Object::Object() {
 }
 
-Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate) {
+Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate) {
 	m_object_id = arg_object_id;
 	m_addon_p = arg_addon_p;
 	m_original_name = arg_original_name;
@@ -23,7 +23,7 @@ Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, 
 	}
 }
 
-Object::Object(int arg_object_id, Addon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate) {
+Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate) {
 	m_object_id = arg_object_id;
 	m_addon_p = arg_addon_p;
 	m_original_name = arg_original_name;
@@ -55,7 +55,7 @@ String Object::getOriginalName() {
 }
 
 // アドオンを取得
-Addon* Object::getAddonP() {
+CBAddon* Object::getAddonP() {
 	return m_addon_p;
 }
 

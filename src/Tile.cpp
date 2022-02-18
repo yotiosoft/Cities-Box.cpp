@@ -103,7 +103,7 @@ int Tile::getRate(RateID::Type rate_id) {
 	}
 }
 // 引数のアドオンがタイル上に存在するか？
-bool Tile::hasAddon(Addon* addon_p) {
+bool Tile::hasAddon(CBAddon* addon_p) {
 	for (auto object : m_objects) {
 		if (object.object_p->getAddonP() == addon_p) {
 			return true;

@@ -10,11 +10,11 @@
 #define AddonMaker_hpp
 
 #include <Specific.hpp>
-#include "Addon.hpp"
+#include "CBAddon.hpp"
 #include "PulldownMenu.hpp"
 #include "Button.hpp"
 
-class AddonMaker : public Addon {
+class AddonMaker : public CBAddon {
 public:
 	string getVersion() {
 		return "1.0";

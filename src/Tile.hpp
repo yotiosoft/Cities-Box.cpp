@@ -45,7 +45,7 @@ public:
 	int getRate(RateID::Type rate_id);
 	
 	// 引数のアドオンがタイル上に存在するか？
-	bool hasAddon(Addon* addon_p);
+	bool hasAddon(CBAddon* addon_p);
 	
 	// Object情報を取得
 	bool isObjectExists(int arg_object_id);
@@ -87,7 +87,7 @@ public:
 	
 	RCOIFP::Type reservation;
 	
-	Array<Addon*> addons;
+	Array<CBAddon*> addons;
 	
 private:
 	// プライベート関数

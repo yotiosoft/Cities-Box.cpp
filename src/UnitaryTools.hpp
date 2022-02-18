@@ -66,6 +66,8 @@ namespace UnitaryTools {
 	void blendColorAndImage(Image& imageTemp, Color blendColor);
 
 	void setAlphaColor(Image& imageTemp, Color transparentRGB);
+
+	Array<String> getStrArrayFromJsonArray(JSONArrayView json_array);
 }
 
 #endif /* UnitaryTools_hpp */

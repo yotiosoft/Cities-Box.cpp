@@ -46,16 +46,16 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	
 	m_selected_addon_name = U"";
 	
-	m_population = Texture(Icon(IconFont::Population, 20));
+	m_population = Texture{Icon(IconFont::Population), 20};
 	
 	m_render = RenderTexture(m_size.x, m_size.y, Color(45, 52, 54));
 	
 	m_show_rate_menu = false;
 	
 	// 効果テクスチャを用意
-	m_effect_icons[RateID::CrimeRate] = Texture(Icon(IconFont::Crime, 16));
-	m_effect_icons[RateID::EducationRate] = Texture(Icon(IconFont::Education, 16));
-	m_effect_icons[RateID::LandPrice] = Texture(Icon(IconFont::LandPrice, 16));
+	m_effect_icons[RateID::CrimeRate] = Texture{Icon(IconFont::Crime), 16};
+	m_effect_icons[RateID::EducationRate] = Texture{Icon(IconFont::Education), 16};
+	m_effect_icons[RateID::LandPrice] = Texture{Icon(IconFont::LandPrice), 16};
 	/*
 	 m_effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
 	m_effect_icons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
@@ -178,7 +178,7 @@ void Menu::update() {
 	//(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
 }
 
-Addon* Menu::draw(bool& needUpdate) {
+CBAddon* Menu::draw(bool& needUpdate) {
 	m_render.draw(m_position.x, m_position.y);
 	
 	// ボタンが押されたときの動作

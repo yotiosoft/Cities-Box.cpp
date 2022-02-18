@@ -8,7 +8,7 @@
 #include "CityMap.hpp"
 
 // アドオンの設置
-bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	if (selectedAddon->isInCategories(CategoryID::Connectable)) {
 		return buildConnectableType(cursor, before_cursor, selectedAddon, needToBreak);
 	}
@@ -17,7 +17,7 @@ bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, Addon* sele
 	}
 }
 
-bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, Addon* selectedAddon, bool needToBreak) {
+bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
 	
@@ -153,7 +153,7 @@ CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate
 }
 
 // 建物の建設の可否
-tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(CoordinateStruct coordinate, Addon* addon) {
+tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon) {
 	TypeID::Type type_id = TypeID::Disabled;
 	DirectionID::Type direction_id = DirectionID::Disabled;
 	

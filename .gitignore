@@ -12,6 +12,7 @@
 *.tlog
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
 Windows/Cities-Box.cpp/Intermediate
+/Windows_old
 
 # Xcode
 #

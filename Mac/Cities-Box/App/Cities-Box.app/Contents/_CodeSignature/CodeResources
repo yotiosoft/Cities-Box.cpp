@@ -1632,6 +1632,10 @@
 		<data>
 		kMLBzZjTkN1qfVg+zRcmE1rvsXE=
 		</data>
+		<key>Resources/assets/data/141.cbj_unxor</key>
+		<data>
+		Wurh4zgbwttMkZDsgDgvN5pxObg=
+		</data>
 		<key>Resources/assets/data/images/area/commercial.png</key>
 		<data>
 		He/NBT3TPuMzuFo+MaUIbLLdWRM=
@@ -1758,11 +1762,11 @@
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
 		<data>
-		Dh0ZEysl0NE5vntIax3zIOLVAzM=
+		Wurh4zgbwttMkZDsgDgvN5pxObg=
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<data>
-		Dh0ZEysl0NE5vntIax3zIOLVAzM=
+		Wurh4zgbwttMkZDsgDgvN5pxObg=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
 		<data>
@@ -1770,7 +1774,7 @@
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj</key>
 		<data>
-		Bwz6tCwwkbovhxVMPX+3zSAYbUc=
+		I2c5qCbDNzPyoaIueTrr5zd2+I0=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj.cbj</key>
 		<data>
@@ -4912,6 +4916,13 @@
 			uzbpaXe6qob24r4KfHqh/Yy7qomo+jAxxvq/bcsyxmI=
 			</data>
 		</dict>
+		<key>Resources/assets/data/141.cbj_unxor</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JzoDPLmqivi53OjH8+zRA5D2CFSOy/fApidBI+YZ1jk=
+			</data>
+		</dict>
 		<key>Resources/assets/data/images/area/commercial.png</key>
 		<dict>
 			<key>hash2</key>
@@ -5133,14 +5144,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qm4jK9MHhBLQ5G5HPIUqGD9YGQKkoOnK58WrE8dn6vQ=
+			JzoDPLmqivi53OjH8+zRA5D2CFSOy/fApidBI+YZ1jk=
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qm4jK9MHhBLQ5G5HPIUqGD9YGQKkoOnK58WrE8dn6vQ=
+			JzoDPLmqivi53OjH8+zRA5D2CFSOy/fApidBI+YZ1jk=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
@@ -5154,7 +5165,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EwSD9qjaSZHZ0hiqAEO/iiLn1qe5GPvqgqUQ802/pog=
+			c6SnHvDWe80s/VZZkD041THUgk7PSgMDMPuuB1MnJ20=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj.cbj</key>

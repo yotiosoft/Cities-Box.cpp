@@ -900,20 +900,28 @@ void UnitaryTools::setAlphaColor(Image& imageTemp, Color transparentRGB) {
 	}
 }
 
-Array<String> UnitaryTools::getStrArrayFromJsonArray(JSONArrayView json_array) {
+Array<String> UnitaryTools::getStrArrayFromJsonArray(JSON json_array) {
 	Array<String> ret;
 	
-	for (const auto& element : json_array) {
+	if (json_array.getType() != JSONValueType::Array) {
+		return ret;
+	}
+	
+	for (const auto& element : json_array.arrayView()) {
 		ret << element.get<String>();
 	}
 	
 	return ret;
 }
 
-Array<int> UnitaryTools::getIntArrayFromJsonArray(JSONArrayView json_array) {
+Array<int> UnitaryTools::getIntArrayFromJsonArray(JSON json_array) {
 	Array<int> ret;
 	
-	for (const auto& element : json_array) {
+	if (json_array.getType() != JSONValueType::Array) {
+		return ret;
+	}
+	
+	for (const auto& element : json_array.arrayView()) {
 		ret << element.get<int>();
 	}
 	
@@ -921,8 +929,13 @@ Array<int> UnitaryTools::getIntArrayFromJsonArray(JSONArrayView json_array) {
 }
 
 bool UnitaryTools::getBoolFromJson(JSON json) {
-	if (json.getString() == U"true") {
-		return true;
+	if (json.getType() == JSONValueType::Bool) {
+		return json.get<bool>();
 	}
-	return false;
+	else  {
+		if (json.getString() == U"true") {
+			return true;
+		}
+		return false;
+	}
 }

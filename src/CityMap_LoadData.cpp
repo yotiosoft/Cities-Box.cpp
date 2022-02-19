@@ -84,292 +84,303 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {
 		m_max_object_id = 0;
-		for (const auto& object : mapData[U"Objects"].arrayView()) {
-			// オブジェクトID
-			int object_id = object[U"objectID"].get<int>();
-			
-			// アドオン名
-			String addon_name = object[U"addon_name"].getString();
-			
-			// 固有名称
-			String original_name = object[U"original_name"].getString();
-			
-			TypeID::Type type_id;
-			DirectionID::Type direction_id;
-			
-			if (m_saved_version <= 142 && m_addons[addon_name]->isInCategories(CategoryID::Waterway)) {
-				String type_id_str = object[U"typeID"].getString();
+		if (mapData[U"Objects"].getType() == JSONValueType::Array) {
+			for (const auto& object : mapData[U"Objects"].arrayView()) {
+				// オブジェクトID
+				int object_id = object[U"objectID"].get<int>();
 				
-				direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+				// アドオン名
+				String addon_name = object[U"addon_name"].getString();
 				
-				if (type_id_str == U"IntersectionCross" || type_id_str == U"intersection_cross") {
-					type_id = TypeID::WaterOffshore;
-					direction_id = DirectionID::Offshore;
-				}
-				else if (type_id_str == U"IntersectionT" || type_id_str == U"intersection_T") {
-					type_id = TypeID::WaterIntersectionT;
-				}
-				else if (type_id_str == U"Turn" || type_id_str == U"turn") {
-					type_id = TypeID::WaterTurn;
-				}
-				else {
-					type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
-				}
+				// 固有名称
+				String original_name = object[U"original_name"].getString();
 				
-				// DirectionID
-				if (type_id == TypeID::WaterTurn) {
-					if (direction_id == DirectionID::NorthEast) {
-						direction_id = DirectionID::WithoutNorthNortheastEast;
-					}
-					if (direction_id == DirectionID::SouthEast) {
-						direction_id = DirectionID::WithoutEastSoutheastSouth;
-					}
-					if (direction_id == DirectionID::NorthWest) {
-						direction_id = DirectionID::WithoutSouthSouthwestWest;
-					}
-					if (direction_id == DirectionID::SouthWest) {
-						direction_id = DirectionID::WithoutNorthWestNorthwest;
-					}
-				}
-				else if (type_id == TypeID::WaterIntersectionT) {
-					if (direction_id == DirectionID::NorthSouthEast) {
-						direction_id = DirectionID::WithoutWest;
-					}
-					if (direction_id == DirectionID::NorthSouthWest) {
-						direction_id = DirectionID::WithoutEast;
-					}
-					if (direction_id == DirectionID::NorthEastWest) {
-						direction_id = DirectionID::WithoutSouth;
-					}
-					if (direction_id == DirectionID::SouthEastWest) {
-						direction_id = DirectionID::WithoutNorth;
-					}
-				}
-				else if (type_id == TypeID::IntersectionCross) {
-					if (direction_id == DirectionID::None) {
+				TypeID::Type type_id;
+				DirectionID::Type direction_id;
+				
+				if (m_saved_version <= 142 && m_addons[addon_name]->isInCategories(CategoryID::Waterway)) {
+					String type_id_str = object[U"typeID"].getString();
+					
+					direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+					
+					if (type_id_str == U"IntersectionCross" || type_id_str == U"intersection_cross") {
+						type_id = TypeID::WaterOffshore;
 						direction_id = DirectionID::Offshore;
 					}
+					else if (type_id_str == U"IntersectionT" || type_id_str == U"intersection_T") {
+						type_id = TypeID::WaterIntersectionT;
+					}
+					else if (type_id_str == U"Turn" || type_id_str == U"turn") {
+						type_id = TypeID::WaterTurn;
+					}
+					else {
+						type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+					}
+					
+					// DirectionID
+					if (type_id == TypeID::WaterTurn) {
+						if (direction_id == DirectionID::NorthEast) {
+							direction_id = DirectionID::WithoutNorthNortheastEast;
+						}
+						if (direction_id == DirectionID::SouthEast) {
+							direction_id = DirectionID::WithoutEastSoutheastSouth;
+						}
+						if (direction_id == DirectionID::NorthWest) {
+							direction_id = DirectionID::WithoutSouthSouthwestWest;
+						}
+						if (direction_id == DirectionID::SouthWest) {
+							direction_id = DirectionID::WithoutNorthWestNorthwest;
+						}
+					}
+					else if (type_id == TypeID::WaterIntersectionT) {
+						if (direction_id == DirectionID::NorthSouthEast) {
+							direction_id = DirectionID::WithoutWest;
+						}
+						if (direction_id == DirectionID::NorthSouthWest) {
+							direction_id = DirectionID::WithoutEast;
+						}
+						if (direction_id == DirectionID::NorthEastWest) {
+							direction_id = DirectionID::WithoutSouth;
+						}
+						if (direction_id == DirectionID::SouthEastWest) {
+							direction_id = DirectionID::WithoutNorth;
+						}
+					}
+					else if (type_id == TypeID::IntersectionCross) {
+						if (direction_id == DirectionID::None) {
+							direction_id = DirectionID::Offshore;
+						}
+					}
+					else if (type_id == TypeID::WaterEstuary) {
+						if (direction_id == DirectionID::NorthSouthEast) {
+							direction_id = DirectionID::WithoutNortheastSoutheast;
+						}
+						if (direction_id == DirectionID::NorthSouthWest) {
+							direction_id = DirectionID::WithoutSouthwestNorthwest;
+						}
+						if (direction_id == DirectionID::NorthEastWest) {
+							direction_id = DirectionID::WithoutNortheastNorthwest;
+						}
+						if (direction_id == DirectionID::SouthEastWest) {
+							direction_id = DirectionID::WithoutSoutheastSouthwest;
+						}
+					}
+					else if (type_id == TypeID::WaterIntersectionCrossWithoutOneCorner) {
+						if (direction_id == DirectionID::NorthEast) {
+							direction_id = DirectionID::WithoutNortheast;
+						}
+						if (direction_id == DirectionID::SouthEast) {
+							direction_id = DirectionID::WithoutSoutheast;
+						}
+						if (direction_id == DirectionID::NorthWest) {
+							direction_id = DirectionID::WithoutNorthwest;
+						}
+						if (direction_id == DirectionID::SouthWest) {
+							direction_id = DirectionID::WithoutSouthwest;
+						}
+					}
+					
+					//cout << "type: " << type_id << " / direction: " << direction_id << endl;
 				}
-				else if (type_id == TypeID::WaterEstuary) {
-					if (direction_id == DirectionID::NorthSouthEast) {
-						direction_id = DirectionID::WithoutNortheastSoutheast;
-					}
-					if (direction_id == DirectionID::NorthSouthWest) {
-						direction_id = DirectionID::WithoutSouthwestNorthwest;
-					}
-					if (direction_id == DirectionID::NorthEastWest) {
-						direction_id = DirectionID::WithoutNortheastNorthwest;
-					}
-					if (direction_id == DirectionID::SouthEastWest) {
-						direction_id = DirectionID::WithoutSoutheastSouthwest;
-					}
-				}
-				else if (type_id == TypeID::WaterIntersectionCrossWithoutOneCorner) {
-					if (direction_id == DirectionID::NorthEast) {
-						direction_id = DirectionID::WithoutNortheast;
-					}
-					if (direction_id == DirectionID::SouthEast) {
-						direction_id = DirectionID::WithoutSoutheast;
-					}
-					if (direction_id == DirectionID::NorthWest) {
-						direction_id = DirectionID::WithoutNorthwest;
-					}
-					if (direction_id == DirectionID::SouthWest) {
-						direction_id = DirectionID::WithoutSouthwest;
+				else {
+					// TypeID
+					type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+					
+					// DirectionID
+					direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
+					
+					if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+						direction_id = DirectionID::All;
 					}
 				}
 				
-				//cout << "type: " << type_id << " / direction: " << direction_id << endl;
-			}
-			else {
-				// TypeID
-				type_id = UnitaryTools::typeNameToTypeID(object[U"typeID"].getString());
+				// 原点
+				CoordinateStruct origin_coordinate;
+				origin_coordinate.x = object[U"origin_coordinate"][U"x"].get<int>();
+				origin_coordinate.y = object[U"origin_coordinate"][U"y"].get<int>();
 				
-				// DirectionID
-				direction_id = UnitaryTools::directionNameToDirectionID(object[U"directionID"].getString());
-				
-				if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
-					direction_id = DirectionID::All;
+				// オブジェクトをリストに登録
+				// 道路や線路などConnectableなオブジェクトならConnectavleObjectに
+				if (m_addons[addon_name]->isInCategories(CategoryID::Connectable)) {
+					m_objects[object_id] = new ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
 				}
-			}
-			
-			// 原点
-			CoordinateStruct origin_coordinate;
-			origin_coordinate.x = object[U"origin_coordinate"][U"x"].get<int>();
-			origin_coordinate.y = object[U"origin_coordinate"][U"y"].get<int>();
-			
-			// オブジェクトをリストに登録
-			// 道路や線路などConnectableなオブジェクトならConnectavleObjectに
-			if (m_addons[addon_name]->isInCategories(CategoryID::Connectable)) {
-				m_objects[object_id] = new ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
-			}
-			// その他建物などはNormalObjectに
-			else {
-				m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
-			}
-			
-			if (object_id > m_max_object_id) {
-				m_max_object_id = object_id;
+				// その他建物などはNormalObjectに
+				else {
+					m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+				}
+				
+				if (object_id > m_max_object_id) {
+					m_max_object_id = object_id;
+				}
 			}
 		}
 	}
 	
 	int y = 0;
-	for (const auto& mapTiles : mapData[U"Map"].arrayView()) {
-		m_tiles.push_back(Array<Tile>());
-		int x = 0;
-		for (const auto& tile : mapTiles.arrayView()) {
-			m_tiles[y].push_back(Tile());
-			
-			CoordinateStruct tiles_count;
-			tiles_count.x = tile[U"tiles_count"][U"x"].get<int>();
-			tiles_count.y = tile[U"tiles_count"][U"y"].get<int>();
-			
-			if (m_saved_version <= 141) {			// r141以前なら内容を修正
-				m_max_object_id = 0;
-				
-				int serial_number = tile[U"serial_number"].get<int>();
-				int object_count = 0;
-				for (const auto& jAddons : tile[U"addons"].arrayView()) {
-					TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
-					DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
+	if (mapData[U"Map"].getType() == JSONValueType::Array) {
+		for (const auto& mapTiles : mapData[U"Map"].arrayView()) {
+			m_tiles.push_back(Array<Tile>());
+			int x = 0;
+			if (mapTiles.getType() == JSONValueType::Array) {
+				for (const auto& tile : mapTiles.arrayView()) {
+					m_tiles[y].push_back(Tile());
 					
-					if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
-						direction_id = DirectionID::All;
-					}
-					
-					if (direction_id != DirectionID::West) {
-						String addon_name = jAddons[U"name"].getString();
-						if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
-							tiles_count.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tiles_count.y;
-						}
-					}
-					
-					//tiles[y][x].category.push_back(j_addons[U"category"].getString());
-					m_tiles[y][x].addType(type_id);
-					m_tiles[y][x].addDirection(direction_id);
-					
-					// アドオンのポインタを登録
-					if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
-						m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+					if (m_saved_version <= 141) {			// r141以前なら内容を修正
+						CoordinateStruct tiles_count;
+						tiles_count.x = tile[U"tiles_count"][U"x"].get<int>();
+						tiles_count.y = tile[U"tiles_count"][U"y"].get<int>();
 						
-						// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
-						if (tiles_count.x == 0 && tiles_count.y == 0) {
-							// old_version_serial_num = 0なら空き番号に振り直す
-							// あるいはObjectIDが被った場合に振り直す
-							if (serial_number == 0 || m_objects.count(serial_number) > 0) {
-								serial_number = m_max_object_id + 1;
-								m_max_object_id ++;
-							}
-							
-							// オブジェクトをリストに登録
-							if (m_addons[jAddons[U"name"].getString()]->isInCategories(CategoryID::Connectable)) {
-								m_objects[serial_number] = new ConnectableObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
-							}
-							else {
-								m_objects[serial_number] = new NormalObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
-							}
-						}
-						else {
-							CoordinateStruct origin_coordinate;
-							origin_coordinate.x = x - tiles_count.x;
-							origin_coordinate.y = y - tiles_count.y;
-							
-							// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
-							if (m_objects[serial_number]->getOriginCoordinate().x != origin_coordinate.x ||
-								m_objects[serial_number]->getOriginCoordinate().y != origin_coordinate.y) {
+						int serial_number = tile[U"serial_number"].get<int>();
+						int object_count = 0;
+						if (tile[U"addons"].getType() == JSONValueType::Array) {
+							for (const auto& jAddons : tile[U"addons"].arrayView()) {
+								TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
+								DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
 								
-								cout << "at " << x << "," << y << " from " << origin_coordinate.x << "," << origin_coordinate.y << ":" << serial_number << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID() << endl;
+								if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
+									direction_id = DirectionID::All;
+								}
 								
-								serial_number = m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID();
+								if (direction_id != DirectionID::West) {
+									String addon_name = jAddons[U"name"].getString();
+									if (m_addons[addon_name]->getUseTiles(type_id, direction_id).y > 1) {
+										tiles_count.y = m_addons[addon_name]->getUseTiles(type_id, direction_id).y - 1 - tiles_count.y;
+									}
+								}
+								
+								//tiles[y][x].category.push_back(j_addons[U"category"].getString());
+								m_tiles[y][x].addType(type_id);
+								m_tiles[y][x].addDirection(direction_id);
+								
+								// アドオンのポインタを登録
+								if (m_addons.find(jAddons[U"name"].getString()) != m_addons.end()) {
+									m_tiles[y][x].addons.push_back(m_addons[jAddons[U"name"].getString()]);
+									
+									// 0x0の位置でオブジェクトを生成しオブジェクトリストに追加
+									if (tiles_count.x == 0 && tiles_count.y == 0) {
+										// 元々のserial_num == 0なら空き番号に振り直す <- 道路やタイルなど
+										// あるいはObjectIDが被った場合に振り直す
+										if (serial_number == 0 || m_objects.count(serial_number) > 0) {
+											serial_number = m_max_object_id + 1;
+											Console << U"SN==0 " << jAddons[U"name"].getString() << U" -> " << serial_number;
+											m_max_object_id ++;
+										}
+										
+										// オブジェクトをリストに登録
+										if (m_addons[jAddons[U"name"].getString()]->isInCategories(CategoryID::Connectable)) {
+											m_objects[serial_number] = new ConnectableObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+										}
+										else {
+											m_objects[serial_number] = new NormalObject(serial_number, m_addons[jAddons[U"name"].getString()], tile[U"original_name"].getString(), type_id, direction_id, CoordinateStruct{x, y});
+										}
+									}
+									else {
+										CoordinateStruct origin_coordinate;
+										origin_coordinate.x = x - tiles_count.x;
+										origin_coordinate.y = y - tiles_count.y;
+										
+										// 原点とObjectIDが一致しない -> ObjectIDを原点のものに修正
+										if (m_objects[serial_number]->getOriginCoordinate().x != origin_coordinate.x ||
+											m_objects[serial_number]->getOriginCoordinate().y != origin_coordinate.y) {
+											
+											//cout << "at " << x << "," << y << " from " << origin_coordinate.x << "," << origin_coordinate.y << ":" << serial_number << " to " << m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID() << endl;
+											
+											serial_number = m_tiles[origin_coordinate.y][origin_coordinate.x].getObjectP(jAddons[U"name"].getString(), NameMode::English)->getObjectID();
+										}
+									}
+									
+									// RelativeCoordinateStructを作成
+									RelativeCoordinateStruct relarive_coordinate;
+									relarive_coordinate.origin = m_objects[serial_number]->getOriginCoordinate();
+									relarive_coordinate.relative = tiles_count;
+									
+									// オブジェクトをタイルに格納
+									m_tiles[y][x].addObject(m_objects[serial_number], relarive_coordinate);
+									
+									if (serial_number > m_max_object_id) {
+										m_max_object_id = serial_number;
+									}
+								}
+								else {
+									cout << "Cant't find " << jAddons[U"name"].getString() << endl;
+								}
+								
+								//cout << m_objects.size() << endl;
+								
+								object_count ++;
 							}
-						}
-						
-						// RelativeCoordinateStructを作成
-						RelativeCoordinateStruct relarive_coordinate;
-						relarive_coordinate.origin = m_objects[serial_number]->getOriginCoordinate();
-						relarive_coordinate.relative = tiles_count;
-						
-						// オブジェクトをタイルに格納
-						m_tiles[y][x].addObject(m_objects[serial_number], relarive_coordinate);
-						
-						if (serial_number > m_max_object_id) {
-							m_max_object_id = serial_number;
 						}
 					}
 					else {
-						cout << "Cant't find " << jAddons[U"name"].getString() << endl;
+						if (tile[U"objects"].getType() == JSONValueType::Array) {
+							for (const auto& jObject : tile[U"objects"].arrayView()) {
+								// オブジェクトIDを取得
+								int object_id = jObject[U"objectID"].get<int>();
+								
+								// RelativeCoordinateStructを作成
+								RelativeCoordinateStruct relarive_coordinate;
+								relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
+								relarive_coordinate.relative.x = jObject[U"relative_coordinate"][U"x"].get<int>();
+								relarive_coordinate.relative.y = jObject[U"relative_coordinate"][U"y"].get<int>();
+								
+								m_tiles[y][x].addObject(m_objects[object_id], relarive_coordinate);
+							}
+						}
 					}
 					
-					//cout << m_objects.size() << endl;
+					m_tiles[y][x].residents = tile[U"residents"].get<int>();
 					
-					object_count ++;
+					m_tiles[y][x].workers.commercial = tile[U"workers"][U"commercial"].get<int>();
+					m_tiles[y][x].workers.office = tile[U"workers"][U"office"].get<int>();
+					m_tiles[y][x].workers.industrial = tile[U"workers"][U"industrial"].get<int>();
+					m_tiles[y][x].workers.farm = tile[U"workers"][U"farm"].get<int>();
+					m_tiles[y][x].workers.publicFacility = tile[U"workers"][U"public"].get<int>();
+					
+					m_tiles[y][x].students = tile[U"students"].get<int>();
+					
+					// 各率の読み込み
+					for (const auto& rate : tile[U"rate"]) {
+						m_tiles[y][x].rate[UnitaryTools::rateNameToRateID(rate.key)] = rate.value.get<int>();
+					}
+					
+					/*
+					tiles[y][x].crop.name = square[U"crop.name"].getString();
+					tiles[y][x].crop.amount = square[U"crop.amount"].get<int>();
+					*/
+					
+					
+					
+					m_tiles[y][x].age = UnitaryTools::getIntArrayFromJsonArray(tile[U"age"]);
+					
+					m_tiles[y][x].gender = UnitaryTools::getStrArrayFromJsonArray(tile[U"gender"]);
+					
+					if (tile[U"work_places"].getType() == JSONValueType::Array) {
+						for (const auto& workPlaces : tile[U"work_places"].arrayView()) {
+							m_tiles[y][x].workPlaces.push_back(WorkPlaceStruct());
+							
+							m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(Parse<int>(workPlaces[U"work_kind"].get<String>()));
+							m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
+						}
+					}
+					
+					if (tile[U"school"].getType() == JSONValueType::Array) {
+						for (const auto& schools : tile[U"school"].arrayView()) {
+							m_tiles[y][x].schools.push_back(SchoolStruct());
+							
+							m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(Parse<int>(schools[U"school_kind"].get<String>()));
+							m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
+						}
+					}
+					
+					//m_tiles[y][x].reservation = UnitaryTools::getRCOIFP(tile[U"reservation"].get<int>());
+					
+					m_tiles[y][x].setOriginalName(tile[U"original_name"].getString());
+					
+					x++;
 				}
 			}
-			else {
-				for (const auto& jObject : tile[U"objects"].arrayView()) {
-					// オブジェクトIDを取得
-					int object_id = jObject[U"objectID"].get<int>();
-					
-					// RelativeCoordinateStructを作成
-					RelativeCoordinateStruct relarive_coordinate;
-					relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
-					relarive_coordinate.relative.x = jObject[U"relative_coordinate"][U"x"].get<int>();
-					relarive_coordinate.relative.y = jObject[U"relative_coordinate"][U"y"].get<int>();
-					
-					m_tiles[y][x].addObject(m_objects[object_id], relarive_coordinate);
-				}
-			}
-			
-			m_tiles[y][x].residents = tile[U"residents"].get<int>();
-			
-			m_tiles[y][x].workers.commercial = tile[U"workers"][U"commercial"].get<int>();
-			m_tiles[y][x].workers.office = tile[U"workers"][U"office"].get<int>();
-			m_tiles[y][x].workers.industrial = tile[U"workers"][U"industrial"].get<int>();
-			m_tiles[y][x].workers.farm = tile[U"workers"][U"farm"].get<int>();
-			m_tiles[y][x].workers.publicFacility = tile[U"workers"][U"public"].get<int>();
-			
-			m_tiles[y][x].students = tile[U"students"].get<int>();
-			
-			// 各率の読み込み
-			for (const auto& rate : tile[U"rate"]) {
-				m_tiles[y][x].rate[UnitaryTools::rateNameToRateID(rate.key)] = rate.value.get<int>();
-			}
-			
-			/*
-			tiles[y][x].crop.name = square[U"crop.name"].getString();
-			tiles[y][x].crop.amount = square[U"crop.amount"].get<int>();
-			*/
-			
-			
-			
-			m_tiles[y][x].age = UnitaryTools::getIntArrayFromJsonArray(tile[U"age"].arrayView());
-			
-			m_tiles[y][x].gender = UnitaryTools::getStrArrayFromJsonArray(tile[U"gender"].arrayView());
-			
-			for (const auto& workPlaces : tile[U"work_places"].arrayView()) {
-				m_tiles[y][x].workPlaces.push_back(WorkPlaceStruct());
-				
-				m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(Parse<int>(workPlaces[U"work_kind"].get<String>()));
-				m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
-			}
-			
-			for (const auto& schools : tile[U"school"].arrayView()) {
-				m_tiles[y][x].schools.push_back(SchoolStruct());
-				
-				m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(Parse<int>(schools[U"school_kind"].get<String>()));
-				m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
-			}
-			
-			Console << x << U"," << y;
-			
-			//m_tiles[y][x].reservation = UnitaryTools::getRCOIFP(tile[U"reservation"].get<int>());
-			
-			m_tiles[y][x].setOriginalName(tile[U"original_name"].getString());
-			
-			x++;
+			y++;
 		}
-		y++;
 	}
 }
 

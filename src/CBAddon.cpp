@@ -55,7 +55,7 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 	m_addon_file_path = newFilePath;
 	JSON addonData = JSON::Load(Unicode::Widen(m_addon_file_path.file_path));
 	
-	m_belong_addons_set_name = UnitaryTools::getStrArrayFromJsonArray(addonData[U"Belong_addon_set_name"].arrayView());
+	m_belong_addons_set_name = UnitaryTools::getStrArrayFromJsonArray(addonData[U"Belong_addon_set_name"]);
 	bool belong = false;
 	for (int i=0; i<m_belong_addons_set_name.size(); i++) {
 		if (m_belong_addons_set_name[i].length() > 0) {
@@ -84,7 +84,7 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 	m_icon_texture = Texture(iconImage);
 	
 	// カテゴリ
-	Array<String> addon_categories_strarray = UnitaryTools::getStrArrayFromJsonArray(addonData[U"Categories"].arrayView());
+	Array<String> addon_categories_strarray = UnitaryTools::getStrArrayFromJsonArray(addonData[U"Categories"]);
 	for (auto addon_category_str : addon_categories_strarray) {
 		m_addon_categories << UnitaryTools::categoryNameToCategoryID(addon_category_str);
 	}
@@ -96,99 +96,107 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 		m_effects[rate_id].grid = effect.value[U"grid"].get<int>();
 	}
 	
-	for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
-		TypeID::Type typeID = UnitaryTools::typeNameToTypeID(type[U"type_name"].getString());
-		
-		m_use_types << UnitaryTools::typeIDToTypeName(typeID);
-		m_types[typeID] = AddonType(typeID);
-		cout << "TypeID: " << type[U"type_name"].getString() << endl;
-		
-		for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
-			DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(direction[U"direction_name"].getString());
+	if (addonData[U"Types"].getType() == JSONValueType::Array) {
+		for (const auto& type : addonData[U"Types"].arrayView()) {					// AddonType
+			TypeID::Type typeID = UnitaryTools::typeNameToTypeID(type[U"type_name"].getString());
 			
-			if (direction_id == DirectionID::None && typeID == TypeID::IntersectionCross) {
-				direction_id = DirectionID::All;
+			m_use_types << UnitaryTools::typeIDToTypeName(typeID);
+			m_types[typeID] = AddonType(typeID);
+			cout << "TypeID: " << type[U"type_name"].getString() << endl;
+			
+			if (type[U"Directions"].getType() == JSONValueType::Array) {
+				for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct
+					DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(direction[U"direction_name"].getString());
+					
+					if (direction_id == DirectionID::None && typeID == TypeID::IntersectionCross) {
+						direction_id = DirectionID::All;
+					}
+					
+					if (direction_id == DirectionID::Disabled) {
+						cout << "Disabled direction at " << direction[U"direction_name"].getString() << " type: " << type[U"type_name"].getString() << endl;
+					}
+					if (typeID == TypeID::Disabled) {
+						cout << "Disabled type at " << type[U"type_name"].getString() << endl;
+					}
+					
+					// 新たなAddonDirectionStructを作成
+					AddonDirectionStruct direction_struct;
+					
+					direction_struct.directionID = direction_id;
+					
+					direction_struct.size.x = direction[U"size"][U"width"].get<int>();
+					direction_struct.size.y = direction[U"size"][U"height"].get<int>();
+					
+					direction_struct.requiredTiles.x = direction[U"squares"][U"width"].get<int>();
+					direction_struct.requiredTiles.y = direction[U"squares"][U"height"].get<int>();
+					
+					// requiredTiles = (0, 0)の場合->(1, 1)に修正
+					if (direction_struct.requiredTiles.x == 0) {
+						direction_struct.requiredTiles.x = 1;
+						need_to_convert = true;
+					}
+					if (direction_struct.requiredTiles.y == 0) {
+						direction_struct.requiredTiles.y = 1;
+						need_to_convert = true;
+					}
+					
+					direction_struct.topLeft.x = direction[U"top_left"][U"x"].get<int>();
+					direction_struct.topLeft.y = direction[U"top_left"][U"y"].get<int>();
+					
+					direction_struct.bottomRight.x = direction[U"bottom_right"][U"x"].get<int>();
+					direction_struct.bottomRight.y = direction[U"bottom_right"][U"y"].get<int>();
+					
+					if (typeID == TypeID::WaterOffshore) {
+						cout << "direction id: " << direction_id << endl;
+						cout << "size: " << direction_struct.size.x << "," << direction_struct.size.y << endl;
+						cout << "required tiles: " << direction_struct.requiredTiles.x << "," << direction_struct.requiredTiles.y << endl;
+					}
+					
+					// direction_structをlayerに追加
+					m_types[typeID].addAddonDirectionStruct(direction_struct);
+				}
 			}
 			
-			if (direction_id == DirectionID::Disabled) {
-				cout << "Disabled direction at " << direction[U"direction_name"].getString() << " type: " << type[U"type_name"].getString() << endl;
-			}
-			if (typeID == TypeID::Disabled) {
-				cout << "Disabled type at " << type[U"type_name"].getString() << endl;
-			}
-			
-			// 新たなAddonDirectionStructを作成
-			AddonDirectionStruct direction_struct;
-			
-			direction_struct.directionID = direction_id;
-			
-			direction_struct.size.x = direction[U"size"][U"width"].get<int>();
-			direction_struct.size.y = direction[U"size"][U"height"].get<int>();
-			
-			direction_struct.requiredTiles.x = direction[U"squares"][U"width"].get<int>();
-			direction_struct.requiredTiles.y = direction[U"squares"][U"height"].get<int>();
-			
-			// requiredTiles = (0, 0)の場合->(1, 1)に修正
-			if (direction_struct.requiredTiles.x == 0) {
-				direction_struct.requiredTiles.x = 1;
-				need_to_convert = true;
-			}
-			if (direction_struct.requiredTiles.y == 0) {
-				direction_struct.requiredTiles.y = 1;
-				need_to_convert = true;
-			}
-			
-			direction_struct.topLeft.x = direction[U"top_left"][U"x"].get<int>();
-			direction_struct.topLeft.y = direction[U"top_left"][U"y"].get<int>();
-			
-			direction_struct.bottomRight.x = direction[U"bottom_right"][U"x"].get<int>();
-			direction_struct.bottomRight.y = direction[U"bottom_right"][U"y"].get<int>();
-			
-			if (typeID == TypeID::WaterOffshore) {
-				cout << "direction id: " << direction_id << endl;
-				cout << "size: " << direction_struct.size.x << "," << direction_struct.size.y << endl;
-				cout << "required tiles: " << direction_struct.requiredTiles.x << "," << direction_struct.requiredTiles.y << endl;
-			}
-			
-			// direction_structをlayerに追加
-			m_types[typeID].addAddonDirectionStruct(direction_struct);
-		}
-		
-		// r141以前のadjの場合
-		if (version <= 141) {
-			/*
-			int total_layers = 1;
-			String night_mask_filename = type[U"night_mask"].getString();
-			if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
-				total_layers = 2;
-			}
-			
-			Array<AddonLayer> layers;
-			for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer r141以前
-				m_load_layer_before141(layer_num, type, m_types[typeID], layers);
-			}
-			m_types[typeID].setLayers(layers);
-			need_to_convert = true;
-			 */
-		}
-		else {
-			Array<AddonLayer> layers;
-			for (const auto& layer : type[U"Layers"].arrayView()) {								// AddonLayer r142以降
-				String image_path = layer[U"image"].getString();
-				
-				Color transparent_color;
-				transparent_color.r = layer[U"transparent_color"][U"R"].get<int>();
-				transparent_color.g = layer[U"transparent_color"][U"G"].get<int>();
-				transparent_color.b = layer[U"transparent_color"][U"B"].get<int>();
-				
-				Array<LayerType::Type> layer_types;
-				for (const auto& layer_type_str : layer[U"layer_types"].arrayView()) {
-					layer_types << UnitaryTools::layerNameToLayerType(layer_type_str.getString());
+			// r141以前のadjの場合
+			if (version <= 141) {
+				/*
+				int total_layers = 1;
+				String night_mask_filename = type[U"night_mask"].getString();
+				if (FileSystem::IsFile(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+night_mask_filename)) {
+					total_layers = 2;
 				}
 				
-				layers << AddonLayer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_path, transparent_color, layer_types);
+				Array<AddonLayer> layers;
+				for (int layer_num=0; layer_num<total_layers; layer_num++) {						// AddonLayer r141以前
+					m_load_layer_before141(layer_num, type, m_types[typeID], layers);
+				}
+				m_types[typeID].setLayers(layers);
+				need_to_convert = true;
+				 */
 			}
-			m_types[typeID].setLayers(layers);
+			else {
+				Array<AddonLayer> layers;
+				if (type[U"Layers"].getType() == JSONValueType::Array) {
+					for (const auto& layer : type[U"Layers"].arrayView()) {								// AddonLayer r142以降
+						String image_path = layer[U"image"].getString();
+						
+						Color transparent_color;
+						transparent_color.r = layer[U"transparent_color"][U"R"].get<int>();
+						transparent_color.g = layer[U"transparent_color"][U"G"].get<int>();
+						transparent_color.b = layer[U"transparent_color"][U"B"].get<int>();
+						
+						Array<LayerType::Type> layer_types;
+						if (layer[U"layer_types"].getType() == JSONValueType::Array) {
+							for (const auto& layer_type_str : layer[U"layer_types"].arrayView()) {
+								layer_types << UnitaryTools::layerNameToLayerType(layer_type_str.getString());
+							}
+						}
+						
+						layers << AddonLayer(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+image_path, transparent_color, layer_types);
+					}
+				}
+				m_types[typeID].setLayers(layers);
+			}
 		}
 	}
 	

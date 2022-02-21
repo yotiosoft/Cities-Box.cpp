@@ -259,7 +259,7 @@
     {
       "type_name": "IntersectionCross",
       "direction_names": [
-        "None"
+        "All"
       ],
       "Directions": [
         {

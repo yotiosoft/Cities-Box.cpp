@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Bearch_and_Walkway",
   "jp_name": "おしゃれな水路",
   "author": "",
@@ -263,7 +263,7 @@
       ],
       "Directions": [
         {
-          "direction_name": "None",
+          "direction_name": "All",
           "size": {
             "width": 64,
             "height": 64

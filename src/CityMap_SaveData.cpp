@@ -93,6 +93,9 @@ bool CityMap::save() {
 		for (int x=0; x<m_map_size.x; x++) {
 			JSON json_map_x;
 			
+			json_map_x[U"coordinate"][U"x"] = x;
+			json_map_x[U"coordinate"][U"y"] = y;
+			
 			Array<JSON> json_map_x_objects;
 			for (ObjectStruct object_struct : m_tiles[y][x].getObjectStructs()) {
 				JSON json_map_x_object;

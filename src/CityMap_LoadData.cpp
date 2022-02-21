@@ -237,6 +237,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 								TypeID::Type type_id = UnitaryTools::typeNameToTypeID(jAddons[U"type_number"].getString());
 								DirectionID::Type direction_id = UnitaryTools::directionNameToDirectionID(jAddons[U"direction_number"].getString());
 								
+								// 水路用
 								if (direction_id == DirectionID::None && type_id == TypeID::IntersectionCross) {
 									direction_id = DirectionID::All;
 								}

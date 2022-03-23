@@ -140,6 +140,13 @@ void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int obj
 				CoordinateStruct{ 0, 0 },			// 暫定
 				from_coordinate_object_struct.object_p
 			);
+			
+			if (m_constructings[from.y][from.x] > 0) {
+				m_constructings[from.y][from.x] = 0;
+			}
+			if (m_constructings[to.y][to.x] > 0) {
+				m_constructings[to.y][to.x] = 0;
+			}
 		}
 	}
 }

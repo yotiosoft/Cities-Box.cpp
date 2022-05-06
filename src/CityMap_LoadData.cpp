@@ -359,8 +359,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						for (const auto& workPlaces : tile[U"work_places"].arrayView()) {
 							m_tiles[y][x].workPlaces.push_back(WorkPlaceStruct());
 							
-							m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(Parse<int>(workPlaces[U"work_kind"].get<String>()));
-							m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
+                            if (workPlaces[U"work_kind"].getType() == JSONValueType::Number)
+                                m_tiles[y][x].workPlaces.back().workPlace = UnitaryTools::getRCOIFP(workPlaces[U"work_kind"].get<int>());
+                            if (workPlaces[U"serial_number"].getType() == JSONValueType::Number)
+                                m_tiles[y][x].workPlaces.back().workPlacesSerialNumber = workPlaces[U"serial_number"].get<int>();
 						}
 					}
 					
@@ -368,8 +370,10 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 						for (const auto& schools : tile[U"school"].arrayView()) {
 							m_tiles[y][x].schools.push_back(SchoolStruct());
 							
-							m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(Parse<int>(schools[U"school_kind"].get<String>()));
-							m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
+                            if (schools[U"school_kind"].getType() == JSONValueType::Number)
+                                m_tiles[y][x].schools.back().school = UnitaryTools::getSchool(schools[U"school_kind"].get<int>());
+							if (schools[U"serial_number"].getType() == JSONValueType::Number)
+                                m_tiles[y][x].schools.back().schoolSerialNumber = schools[U"serial_number"].get<int>();
 						}
 					}
 					

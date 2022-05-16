@@ -172,7 +172,7 @@ private:
 	map<int, Object*> m_objects;
 	int m_max_object_id = 0;
 	
-	Array<Array<int>> m_constructings;
+	Grid<int> m_constructings;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

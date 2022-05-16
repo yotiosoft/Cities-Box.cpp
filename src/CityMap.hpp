@@ -106,6 +106,9 @@ public:
 	
 	// 建物の建設の可否、TypeID, DirectionIDの設定
 	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon);
+    
+    // 建設状態のアップデート
+    void breakUnconnectedRoads();
 	
 	// アドオンを削除
 	void updateConnectedTiles(CoordinateStruct position);
@@ -173,6 +176,7 @@ private:
 	int m_max_object_id = 0;
 	
 	Grid<int> m_constructings;
+    Array<Object*> m_constructing_connectable_objects;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

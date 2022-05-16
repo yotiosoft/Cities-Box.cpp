@@ -185,6 +185,9 @@ CBAddon* Menu::draw(bool& needUpdate) {
 	if (m_button[U"cursor"].pushRelative(m_position)) {
 		if (m_menu_mode != MenuMode::Cursor) {
 			releaseBeforeButton(m_menu_mode);
+            if (m_menu_mode == MenuMode::Road || m_menu_mode == MenuMode::Train) {
+                m_map->breakUnconnectedRoads();         // メニューを閉じた時点で建設が完了していない道路（＝孤立した道路）は除去
+            }
 		}
 		
 		m_menu_mode = MenuMode::Cursor;
@@ -207,6 +210,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 		}
 		else {
 			m_menu_mode = MenuMode::Cursor;
+            m_map->breakUnconnectedRoads();         // メニューを閉じた時点で建設が完了していない道路（＝孤立した道路）は除去
 		}
 		needUpdate = true;
 	}
@@ -222,6 +226,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 		}
 		else {
 			m_menu_mode = MenuMode::Cursor;
+            m_map->breakUnconnectedRoads();         // メニューを閉じた時点で建設が完了していない線路（＝孤立した線路）は除去
 		}
 		needUpdate = true;
 	}

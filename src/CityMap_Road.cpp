@@ -39,19 +39,22 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 
 		// オブジェクトの生成
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
+        
+        // 工事中の状態に指定
+        m_constructing_connectable_objects << m_objects[objectID];
 
 		// 建設するタイル上の既存のオブジェクトを削除
 		for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
 			for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
 				// もともとのアドオンと同種のアドオンなら：周囲の切断は行わない
-				bool unconnect = true;
+				bool disconnect = true;
 				for (auto object_p : m_tiles[y][x].getObjectsP(CategoryID::Connectable)) {
 					if (object_p->getAddonP()->isInCategories(getConnectableCategoryID(selectedAddon))) {
-						unconnect = false;
+						disconnect = false;
 					}
 				}
 				cout << "break at " << x << "," << y << endl;
-				breaking(CoordinateStruct{ x, y }, true, unconnect, unconnect);
+				breaking(CoordinateStruct{ x, y }, true, disconnect, disconnect);
 			}
 		}
 
@@ -69,13 +72,16 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 			}
 		}
 		
-		// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+		// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 		if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
 			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);
 		}
 
 		// 効果を反映
 		setRate(m_objects[objectID], origin_coordinate, false);
+        
+        // 建設開始
+        m_constructings[origin_coordinate.y][origin_coordinate.x] = 1;
 
 		// 周囲9マスを更新
 		/*
@@ -89,6 +95,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 			}
 		}*/
 	}
+    
 
 	return true;
 }
@@ -147,6 +154,10 @@ void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int obj
 			if (m_constructings[to.y][to.x] > 0) {
 				m_constructings[to.y][to.x] = 0;
 			}
+            
+            // 工事中状態を撤回
+            m_constructing_connectable_objects.remove(m_objects[object_id]);
+            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p);
 		}
 	}
 }
@@ -165,7 +176,6 @@ TypeID::Type CityMap::setRoadType(CoordinateStruct coordinate, CBAddon *addon) {
 	
 	// 既に道路が存在するなら、TypeIDはそのまま
 	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
-	
 	if (current_objects.size() > 0) {
 		cout << "type id: " << current_objects[0]->getTypeID() << endl;
 		return current_objects[0]->getTypeID();
@@ -189,4 +199,11 @@ DirectionID::Type CityMap::setRoadDirection(CoordinateStruct coordinate, CBAddon
 	}
 	
 	return DirectionID::None;					// 標準で孤立点に
+}
+
+// 道路建設メニューを閉じたとき、どのタイルとも接続されていない道路(線路)は除去
+void CityMap::breakUnconnectedRoads() {
+    for (auto obj : m_constructing_connectable_objects) {
+        breaking(obj->getOriginCoordinate(), false, true, true);
+    }
 }

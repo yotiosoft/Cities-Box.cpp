@@ -16,13 +16,13 @@
 #include "Enums.hpp"
 #include "Structs.hpp"
 
-#define CHIP_SIZE		64
-#define TITLE			U"Cities Box.cpp"
-#define VERSION			U"2.0 alpha2"
-#define RELEASE_NUMBER	142
-#define AROUND_TILES	4
-#define DIRECTIONS		15
-#define LAYER_TYPES		15
+#define CHIP_SIZE		        64
+#define TITLE			        U"Cities Box.cpp"
+#define VERSION			        U"2.0 alpha2"
+#define RELEASE_NUMBER	        142
+#define AROUND_TILES	        4
+#define DIRECTIONS		        15
+#define LAYER_TYPES		        15
 
 using namespace std;
 

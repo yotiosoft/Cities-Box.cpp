@@ -38,6 +38,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		}
 
 		// オブジェクトの生成
+        cout << "oc:" << origin_coordinate.x << "," << origin_coordinate.y << endl;
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
         
         // 工事中の状態に指定
@@ -79,9 +80,6 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 
 		// 効果を反映
 		setRate(m_objects[objectID], origin_coordinate, false);
-        
-        // 建設開始
-        m_constructings[origin_coordinate.y][origin_coordinate.x] = 1;
 
 		// 周囲9マスを更新
 		/*
@@ -147,13 +145,6 @@ void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int obj
 				CoordinateStruct{ 0, 0 },			// 暫定
 				from_coordinate_object_struct.object_p
 			);
-			
-			if (m_constructings[from.y][from.x] > 0) {
-				m_constructings[from.y][from.x] = 0;
-			}
-			if (m_constructings[to.y][to.x] > 0) {
-				m_constructings[to.y][to.x] = 0;
-			}
             
             // 工事中状態を撤回
             m_constructing_connectable_objects.remove(m_objects[object_id]);
@@ -206,4 +197,7 @@ void CityMap::breakUnconnectedRoads() {
     for (auto obj : m_constructing_connectable_objects) {
         breaking(obj->getOriginCoordinate(), false, true, true);
     }
+    
+    // リストをクリア
+    m_constructing_connectable_objects.clear();
 }

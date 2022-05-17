@@ -80,9 +80,6 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	m_tax.office = mapData[U"Tax"][U"office"].get<int>();
 	m_tax.industrial = mapData[U"Tax"][U"industrial"].get<int>();
 	m_tax.farm = mapData[U"Tax"][U"farm"].get<int>();
-    
-    // メンバ変数の初期化（マップサイズに依存するもの）
-    m_constructings.resize(m_map_size.x, m_map_size.y);
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {

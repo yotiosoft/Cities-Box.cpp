@@ -9,6 +9,42 @@
 
 bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	cout << "into build connect type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+    
+    // 異なる種類の接続可能オブジェクトが存在する場合
+    // -> 可能であれば橋や踏切を設置することで交差
+    if (selectedAddon->isInCategories(CategoryID::Road)) {
+        Object *other_type_connectable_object;
+        // 道路＆線路 -> 踏切
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
+            
+        }
+        // 道路＆水路 -> 橋
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
+            
+        }
+    }
+    if (selectedAddon->isInCategories(CategoryID::Railroad)) {
+        Object *other_type_connectable_object;
+        // 線路＆道路 -> 踏切
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
+            
+        }
+        // 線路＆水路 -> 橋
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
+            
+        }
+    }
+    if (selectedAddon->isInCategories(CategoryID::Waterway)) {
+        Object *other_type_connectable_object;
+        // 水路＆道路 -> 橋
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
+            
+        }
+        // 水路＆線路 -> 橋
+        if ((other_type_connectable_object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
+            
+        }
+    }
 	
 	// 同じアドオンが指定されたタイル上に存在するなら -> アドオンの変更は行わず、既存のアドオンのDirectionIDとTypeIDを変更
 	if (m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasAddon(selectedAddon)) {
@@ -120,7 +156,7 @@ bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_curs
 		origin_coordinate.y -= useTiles.y - 1;
 	}
 	
-	// ConnectableTypeの場合 -> カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
+	// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 	if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
 		connectObjects(before_cursor.coordinate, cursor.coordinate, object->getObjectID());
 	}

@@ -113,6 +113,16 @@ bool Tile::hasAddon(CBAddon* addon_p) {
 	return false;
 }
 
+// 引数のカテゴリに該当するアドオンがタイル上に存在するか？
+Object* Tile::hasCategory(CategoryID::Type category) {
+    for (auto object : m_objects) {
+        if (object.object_p->getAddonP()->isInCategories(category)) {
+            return object.object_p;
+        }
+    }
+    return nullptr;
+}
+
 // Object情報を取得
 bool Tile::isObjectExists(int arg_object_id) {
 	bool ret = false;

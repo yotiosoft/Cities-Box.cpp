@@ -46,6 +46,9 @@ public:
 	
 	// 引数のアドオンがタイル上に存在するか？
 	bool hasAddon(CBAddon* addon_p);
+    
+    // 引数のカテゴリに該当するアドオンがタイル上に存在するか？
+    Object* hasCategory(CategoryID::Type category);
 	
 	// Object情報を取得
 	bool isObjectExists(int arg_object_id);

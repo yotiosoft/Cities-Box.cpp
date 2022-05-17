@@ -41,7 +41,7 @@ public:
 	void loadingScreen();
 	
 	// マップの描画
-	void draw(CameraStruct camera, CursorStruct& cursor);
+	void draw(CameraStruct camera, CursorStruct& cursor, bool window_size_changed);
 	
 	// Addon構造体の取得
 	Array<CBAddon> getAddon(CoordinateStruct coordinate);
@@ -70,7 +70,7 @@ public:
 	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
 	// 描画範囲を取得
-	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera);
+	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera, bool window_size_changed);
 	
 	// いずれかのアドオンがカテゴリに含まれているか
 	bool hasCategory(CategoryID::Type searchCategory, CoordinateStruct coordinate);

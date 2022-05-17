@@ -24,6 +24,10 @@ DetailsBar::DetailsBar(PositionStruct argPosition, Font* argFont) {
 	m_weather_snowy_icon = Texture{Icon(IconFont::Snowy), 20};
 }
 
+void DetailsBar::setPos(PositionStruct argPosition) {
+	m_position = argPosition;
+}
+
 void DetailsBar::printWeather(Weather::Type weather) {
 	switch (weather) {
 		case Weather::Sunny:

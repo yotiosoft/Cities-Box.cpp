@@ -43,6 +43,7 @@ void CitiesBox() {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
 	GeneralSetting general_setting = title_menu_ret.second;
+	Size before_window_size = Scene::Size();
 	
 	// マップとアドオンの読み込み
 	CityMap map;
@@ -59,7 +60,7 @@ void CitiesBox() {
 	
 	// 描画処理
 	RenderTexture bufferTexture(Scene::Width(), Scene::Height(), Color(30, 30, 30));
-	bool updateMap = true, firstLoop = true;
+	bool updateMap = true, firstLoop = true, window_size_changed;
 	
 	// サブウィンドウ
 	//SubWindow subWindow(U"Test Window", &font16, Size(400, 200), Color(Palette::White));
@@ -112,11 +113,31 @@ void CitiesBox() {
 	DirectionID::Offshore << endl;
 	
 	while (System::Update()) {
+		window_size_changed = false;
+
 		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
 		if (OS == "Windows" && changed_cursor_style) {
 			specific::changeCursor();
 		}
 		
+		// ウィンドウサイズが変更されたら再描画
+		if (before_window_size != Scene::Size()) {
+			Size new_size = Scene::Size();
+
+			// テクスチャをリサイズ
+			bufferTexture = RenderTexture(new_size.x, new_size.y, Color(30, 30, 30));
+
+			// メニューを再設置
+			menu.set(PositionStruct{ 0, new_size.y - 50 }, Size(new_size.x, 50), &map, &font8, &font12, &font16);
+
+			// Details Barの位置を変更
+			detailsBar.setPos(PositionStruct{ new_size.x - 450, 10 });
+
+			before_window_size = new_size;
+			updateMap = true;
+			window_size_changed = true;
+		}
+
 		// カメラの操作
 		if (KeyLeft.pressed()) {
 			camera.position.x -= 20;
@@ -156,7 +177,7 @@ void CitiesBox() {
 			
 			// マップの描画
 			ScopedRenderTarget2D target(bufferTexture);
-			map.draw(camera, cursor);
+			map.draw(camera, cursor, window_size_changed);
 			
 			menu.update();
 			
@@ -192,7 +213,7 @@ void CitiesBox() {
 		//sub_window.draw();
 		//sub_window2.draw();
 		
-		// 時間を進ませて表示する
+		// 時間を進ませる
 		time = map.cityTime(1);
 		
 		// Details Barの表示

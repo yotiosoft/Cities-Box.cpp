@@ -56,6 +56,7 @@ public:
 private:
 	PositionStruct m_position;
 	Size m_size;
+    PositionStruct m_menu_buttons_pos;
 	
 	RenderTexture m_render;
 	

@@ -1,40 +1,24 @@
-delete object at 68, 65 of 0, 0
+delete object at 50, 62 of 0, 0
 After delete
 before erase
 after erase
-delete object at 69, 68 of 0, 0
+delete object at 50, 63 of 0, 0
 After delete
 before erase
 after erase
-delete object at 69, 67 of 0, 0
+delete object at 50, 64 of 0, 0
 After delete
 before erase
 after erase
-delete object at 70, 67 of 0, 0
+delete object at 50, 65 of 0, 0
 After delete
 before erase
 after erase
-delete object at 70, 66 of 0, 0
+delete object at 53, 65 of 0, 0
 After delete
 before erase
 after erase
-delete object at 70, 65 of 0, 0
-After delete
-before erase
-after erase
-delete object at 70, 64 of 0, 0
-After delete
-before erase
-after erase
-delete object at 70, 63 of 0, 0
-After delete
-before erase
-after erase
-delete object at 70, 62 of 0, 0
-After delete
-before erase
-after erase
-delete object at 68, 65 of 0, 0
+delete object at 53, 65 of 0, 0
 After delete
 before put
 after put

@@ -69,6 +69,7 @@ void CitiesBox() {
 	// メニュー
 	Menu menu;
 	menu.set(PositionStruct{0, Scene::Height()-50}, Size(Scene::Width(), 50), &map, &font8, &font12, &font16);
+    const int default_menu_size = Scene::Width();
 	
 	// 選択されたアドオン
 	CBAddon* selectedAddon;
@@ -128,7 +129,7 @@ void CitiesBox() {
 			bufferTexture = RenderTexture(new_size.x, new_size.y, Color(30, 30, 30));
 
 			// メニューを再設置
-			menu.set(PositionStruct{ 0, new_size.y - 50 }, Size(new_size.x, 50), &map, &font8, &font12, &font16);
+			menu.set(PositionStruct{ 0, new_size.y - 50 }, Size(default_menu_size, 50), &map, &font8, &font12, &font16);
 
 			// Details Barの位置を変更
 			detailsBar.setPos(PositionStruct{ new_size.x - 450, 10 });

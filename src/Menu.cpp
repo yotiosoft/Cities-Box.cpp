@@ -48,7 +48,8 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	
 	m_population = Texture{Icon(IconFont::Population), 20};
 	
-	m_render = RenderTexture(m_size.x, m_size.y, Color(45, 52, 54));
+	m_render = RenderTexture(Scene::Width(), m_size.y, Color(45, 52, 54));
+    m_menu_buttons_pos = PositionStruct{ Scene::Width()/2 - m_size.x/2, 0 };
 	
 	m_show_rate_menu = false;
 	
@@ -136,41 +137,41 @@ void Menu::update() {
 	m_render.clear(Color(45, 52, 54));
 	ScopedRenderTarget2D rt(m_render);
 	
-	m_button[U"cursor"].putRelative(PositionStruct{10, 0}, m_position);
+	m_button[U"cursor"].putRelative(PositionStruct{m_menu_buttons_pos.x + 10, 0}, m_position);
 	 
-	m_button[U"road"].putRelative(PositionStruct{55, 0}, m_position);
-	m_button[U"train"].putRelative(PositionStruct{55+35, 0}, m_position);
-	m_button[U"residential"].putRelative(PositionStruct{55+70, 0}, m_position);
-	m_button[U"commercial"].putRelative(PositionStruct{55+105, 0}, m_position);
-	m_button[U"office"].putRelative(PositionStruct{55+140, 0}, m_position);
-	m_button[U"industrial"].putRelative(PositionStruct{55+175, 0}, m_position);
-	m_button[U"farm"].putRelative(PositionStruct{55+210, 0}, m_position);
-	m_button[U"public"].putRelative(PositionStruct{55+245, 0}, m_position);
+	m_button[U"road"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55, 0}, m_position);
+	m_button[U"train"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+35, 0}, m_position);
+	m_button[U"residential"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+70, 0}, m_position);
+	m_button[U"commercial"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+105, 0}, m_position);
+	m_button[U"office"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+140, 0}, m_position);
+	m_button[U"industrial"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+175, 0}, m_position);
+	m_button[U"farm"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+210, 0}, m_position);
+	m_button[U"public"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+245, 0}, m_position);
 	
-	m_button[U"park"].putRelative(PositionStruct{345, 0}, m_position);
-	m_button[U"ship"].putRelative(PositionStruct{345+35, 0}, m_position);
-	m_button[U"air_port"].putRelative(PositionStruct{345+70, 0}, m_position);
-	m_button[U"tile"].putRelative(PositionStruct{345+105, 0}, m_position);
+	m_button[U"park"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345, 0}, m_position);
+	m_button[U"ship"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+35, 0}, m_position);
+	m_button[U"air_port"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+70, 0}, m_position);
+	m_button[U"tile"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+105, 0}, m_position);
 	
-	m_button[U"information"].putRelative(PositionStruct{495, 0}, m_position);
-	m_button[U"rate"].putRelative(PositionStruct{495+35, 0}, m_position);
-	m_button[U"delete"].putRelative(PositionStruct{495+70, 0}, m_position);
-	m_button[U"budget"].putRelative(PositionStruct{495+105, 0}, m_position);
-	m_button[U"setting"].putRelative(PositionStruct{495+140, 0}, m_position);
-	m_button[U"save"].putRelative(PositionStruct{495+175, 0}, m_position);
+	m_button[U"information"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495, 0}, m_position);
+	m_button[U"rate"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+35, 0}, m_position);
+	m_button[U"delete"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+70, 0}, m_position);
+	m_button[U"budget"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+105, 0}, m_position);
+	m_button[U"setting"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+140, 0}, m_position);
+	m_button[U"save"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+175, 0}, m_position);
 	
 	// RCOIFメータを表示
-	(*m_font8)(U"R").draw(m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
-	(*m_font8)(U"C").draw(m_size.x-80+3+8, m_size.y-15+2, Color(Palette::White));
-	(*m_font8)(U"O").draw(m_size.x-80+3+16, m_size.y-15+2, Color(Palette::White));
-	(*m_font8)(U"I").draw(m_size.x-80+3+24, m_size.y-15+2, Color(Palette::White));
-	(*m_font8)(U"F").draw(m_size.x-80+3+32, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"R").draw(m_menu_buttons_pos.x + m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"C").draw(m_menu_buttons_pos.x + m_size.x-80+3+8, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"O").draw(m_menu_buttons_pos.x + m_size.x-80+3+16, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"I").draw(m_menu_buttons_pos.x + m_size.x-80+3+24, m_size.y-15+2, Color(Palette::White));
+	(*m_font8)(U"F").draw(m_menu_buttons_pos.x + m_size.x-80+3+32, m_size.y-15+2, Color(Palette::White));
 	
-	Rect(m_size.x-80, m_size.y-15, 8, -max(m_map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
-	Rect(m_size.x-80+8, m_size.y-15, 8, -max(m_map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
-	Rect(m_size.x-80+16, m_size.y-15, 8, -max(m_map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
-	Rect(m_size.x-80+24, m_size.y-15, 8, -max(m_map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
-	Rect(m_size.x-80+32, m_size.y-15, 8, -max(m_map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
+	Rect(m_menu_buttons_pos.x + m_size.x-80, m_size.y-15, 8, -max(m_map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+8, m_size.y-15, 8, -max(m_map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+16, m_size.y-15, 8, -max(m_map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+24, m_size.y-15, 8, -max(m_map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+32, m_size.y-15, 8, -max(m_map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
 	
 	//population.draw(10, size.height-25);
 	//(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
@@ -424,8 +425,8 @@ void Menu::addonMenu() {
 		return;
 	}
 	
-	Rect(m_position.x+16, m_position.y-42, m_size.x, 42).draw(Color(9, 132, 227, 200));
-	Rect(m_position.x+16, m_position.y-80, m_size.x, 38).draw(Color(45, 52, 54, 200));
+	Rect(m_position.x+16, m_position.y-42, Scene::Width(), 42).draw(Color(9, 132, 227, 200));
+	Rect(m_position.x+16, m_position.y-80, Scene::Width(), 38).draw(Color(45, 52, 54, 200));
 	Rect(m_position.x, m_position.y-80, 16, 80).draw(Color(45, 52, 54, 200));
 	
 	if (m_show_addons.size() > 0) {
@@ -519,12 +520,12 @@ void Menu::addonMenu() {
 }
 
 bool Menu::rateMenu() {
-	Rect(m_position.x+495+35+16-32*4/2, m_position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
+	Rect(m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2, m_position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
 	
-	m_rate_button[RateID::LandPrice].put(PositionStruct{m_position.x+495+35+16-32*4/2+7, m_position.y-32*3+5});
-	m_rate_button[RateID::CrimeRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32, m_position.y-32*3+5});
-	m_rate_button[RateID::EducationRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*2, m_position.y-32*3+5});
-	m_rate_button[RateID::HappinessRate].put(PositionStruct{m_position.x+495+35+16-32*4/2+7+32*3, m_position.y-32*3+5});
+	m_rate_button[RateID::LandPrice].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7, m_position.y-32*3+5});
+	m_rate_button[RateID::CrimeRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32, m_position.y-32*3+5});
+	m_rate_button[RateID::EducationRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32*2, m_position.y-32*3+5});
+	m_rate_button[RateID::HappinessRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32*3, m_position.y-32*3+5});
 	
 	if (m_rate_button[RateID::LandPrice].push()) {
 		if (m_show_rate_id != RateID::LandPrice) {

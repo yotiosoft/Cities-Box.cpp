@@ -82,7 +82,7 @@ public:
 	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
 	
 	// 道路を接続
-	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id);
+	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id, bool do_not_update_type);
 	
 	// 効果の指定
 	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
@@ -110,8 +110,14 @@ public:
     // 建設状態のアップデート
     void breakUnconnectedRoads();
 	
-	// アドオンを削除
+	// アドオンの接続状態を更新
 	void updateConnectedTiles(CoordinateStruct position);
+    
+    // 踏切を設置（道路と線路が交差していれば）
+    bool putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type, DirectionID::Type &direction);
+    
+    // 橋を設置（道路/線路と水路が交差していれば）
+    bool putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type, DirectionID::Type &direction);
 	
 	// 座標がマップ範囲内に入っているか
 	bool isPositionAvailable(CoordinateStruct coordinate);

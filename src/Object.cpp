@@ -15,7 +15,8 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
 	m_addon_p = arg_addon_p;
 	m_original_name = arg_original_name;
 	m_start_coordinate = arg_start_coordinate;
-	
+    m_visible = true;
+    
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
 	for (int y = 0; y < m_connects.size(); y++) {
@@ -30,6 +31,7 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
 	m_type_id = arg_type_id;
 	m_direction_id = arg_direction_id;
 	m_start_coordinate = arg_start_coordinate;
+    m_visible = true;
 	
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
@@ -105,8 +107,17 @@ void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_dire
 	m_connects[arg_coordinate.y][arg_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{arg_direction, arg_object_p};
 }*/
 
+// 描画の有無の設定
+void Object::setVisible(bool visible) {
+    m_visible = visible;
+}
+
 // 描画
 void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {
+    if (!m_visible) {
+        return;         // 描画なしの場合は何もせずreturn
+    }
+    
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }
 

@@ -52,6 +52,9 @@ public:
 	
 	// TypeIDおよびDirectionIDの更新
 	virtual void update() = 0;
+    
+    // 描画の有無の設定
+    void setVisible(bool visible);
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
@@ -92,6 +95,9 @@ protected:
 	
 	// サイズ
 	Size m_size;
+    
+    // 描画の有無
+    bool m_visible;
 	
 	// 削除
 	bool m_deleted = false;

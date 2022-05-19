@@ -103,6 +103,9 @@ public:
 	bool canBuildRoadHere(CoordinateStruct coordinate);
 	TypeID::Type setRoadType(CoordinateStruct coordinate, CBAddon* addon);
 	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, CBAddon* addon);
+    
+    // 交差する方向を取得（踏切・橋用）
+    DirectionID::Type getCrossDirection(DirectionID::Type origin_direction);
 	
 	// 建物の建設の可否、TypeID, DirectionIDの設定
 	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon);

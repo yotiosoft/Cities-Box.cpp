@@ -1,112 +1,68 @@
-delete object at 68, 27 of 0, 0
+delete object at 54, 62 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 28 of 0, 0
+delete object at 54, 63 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 29 of 0, 0
+delete object at 54, 64 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 30 of 0, 0
+delete object at 54, 65 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 31 of 0, 0
+delete object at 54, 66 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 32 of 0, 0
+delete object at 54, 67 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 33 of 0, 0
+delete object at 54, 69 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 34 of 0, 0
+delete object at 54, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 35 of 0, 0
+delete object at 54, 71 of 0, 0
 After delete
 before erase
 after erase
-delete object at 64, 33 of 0, 0
+delete object at 54, 72 of 0, 0
 After delete
 before erase
 after erase
-delete object at 65, 33 of 0, 0
+delete object at 52, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 66, 33 of 0, 0
+delete object at 53, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 67, 33 of 0, 0
+delete object at 55, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 68, 33 of 0, 0
+delete object at 56, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 69, 33 of 0, 0
+delete object at 57, 70 of 0, 0
 After delete
 before erase
 after erase
-delete object at 70, 33 of 0, 0
+delete object at 57, 69 of 0, 0
 After delete
 before erase
 after erase
-delete object at 71, 33 of 0, 0
-After delete
-before erase
-after erase
-delete object at 72, 33 of 0, 0
-After delete
-before erase
-after erase
-delete object at 73, 33 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 35 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 34 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 33 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 32 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 31 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 30 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 29 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 28 of 0, 0
-After delete
-before erase
-after erase
-delete object at 71, 27 of 0, 0
+delete object at 52, 69 of 0, 0
 After delete
 before erase
 after erase

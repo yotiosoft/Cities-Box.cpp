@@ -116,11 +116,6 @@ void CitiesBox() {
 	while (System::Update()) {
 		window_size_changed = false;
 
-		// ウィンドウ内にカーソルが戻ったときに一度隠したカーソルをもとに戻す（Windowsのみ）
-		if (OS == "Windows" && changed_cursor_style) {
-			specific::changeCursor();
-		}
-		
 		// ウィンドウサイズが変更されたら再描画
 		if (before_window_size != Scene::Size()) {
 			Size new_size = Scene::Size();
@@ -257,11 +252,6 @@ void CitiesBox() {
 		bgm.playingBGM();
 		
 		System::Sleep(20);
-
-		// ウィンドウ内にカーソルが戻ったときに矢印カーソルに戻すために一度カーソルを隠す（Windowsのみ）
-		if (OS == "Windows") {
-			changed_cursor_style = specific::isCursorEntered(before_cursor_pos);
-		}
 	}
 	
 	map.freeMapAndAddons();

@@ -275,7 +275,7 @@ namespace RateID {
 // カテゴリ
 namespace CategoryID {
 	enum Type {
-		Disabled,
+		Disabled,           // 無効
 		
 		Connectable,		// 接続可能
 		Road,				// 道路

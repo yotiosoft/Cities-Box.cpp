@@ -258,6 +258,26 @@ Array<CategoryID::Type> CBAddon::getCategories() {
 	return m_addon_categories;
 }
 
+CategoryID::Type CBAddon::getConnectableCategory() {
+    if (isInCategories(CategoryID::Road)) {
+        return CategoryID::Road;
+    }
+    if (isInCategories(CategoryID::Railroad)) {
+        return CategoryID::Railroad;
+    }
+    if (isInCategories(CategoryID::Waterway)) {
+        return CategoryID::Waterway;
+    }
+    if (isInCategories(CategoryID::Runway)) {
+        return CategoryID::Runway;
+    }
+    if (isInCategories(CategoryID::Taxiway)) {
+        return CategoryID::Taxiway;
+    }
+    
+    return CategoryID::Disabled;
+}
+
 bool CBAddon::isInCategories(CategoryID::Type searchCategory) {
 	for (int i=0; i<m_addon_categories.size(); i++) {
 		if (m_addon_categories[i] == searchCategory) {

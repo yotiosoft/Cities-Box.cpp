@@ -91,7 +91,9 @@ public:
 	void update(CoordinateStruct position, ObjectStruct* object_struct, Array<CoordinateStruct>& needUpdate);
 	
 	// アドオンを除去
-	void breaking(CoordinateStruct position, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
+	void breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
+    void breakOnlyCategory(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
+    void breakOnce(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
 	
 	// アドオンの始点となるマスに移動する
 	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);

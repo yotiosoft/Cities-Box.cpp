@@ -68,6 +68,9 @@ public:
 	
 	// カテゴリを取得
 	Array<CategoryID::Type> getCategories();
+    
+    // 接続可能オブジェクトのカテゴリを取得
+    CategoryID::Type getConnectableCategory();
 	
 	// 指定したカテゴリに該当するか
 	bool isInCategories(CategoryID::Type searchCategory);

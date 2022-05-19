@@ -108,39 +108,49 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
 	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
-		// 効果を削除
-		setRate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
-
-		int delete_object_id = object_struct.object_p->getObjectID();
-
-		Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
-		for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
-			for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
-				// クリア処理
-				if (updateAroundTiles)
-					updateConnectedTiles(CoordinateStruct{x, y});
-				
-				m_tiles[y][x].deleteObject(delete_object_id);
-
-				// 更地になったら芝生を置く
-				// 要修正 : 共通の動作は一つの関数にまとめること
-				CoordinateStruct current_coordinate = CoordinateStruct{ x, y };
-				if ((!isTemporaryDelete || current_coordinate.x != coordinate.x || current_coordinate.y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
-					UnitaryTools::debugLog(U"before put");
-					m_put_grass(CoordinateStruct{ x, y });
-					UnitaryTools::debugLog(U"after put");
-				}
-			}
-		}
-		// クリア処理
-		// オブジェクト自体を除去
-		if (deleteThis)
-			delete(object_struct.object_p);
-
-		UnitaryTools::debugLog(U"before erase");
-		m_objects.erase(delete_object_id);
-		UnitaryTools::debugLog(U"after erase");
+        breakOnce(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
 	}
+}
+void CityMap::breakOnlyCategory(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+    // オブジェクトの除去
+    for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+        if (object_struct.object_p->getAddonP()->isInCategories(category)) {
+            breakOnce(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+        }
+    }
+}
+void CityMap::breakOnce(ObjectStruct &object_struct,CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+    // 効果を削除
+    setRate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
+
+    int delete_object_id = object_struct.object_p->getObjectID();
+
+    Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
+    for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
+        for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
+            // クリア処理
+            if (updateAroundTiles)
+                updateConnectedTiles(CoordinateStruct{x, y});
+            
+            m_tiles[y][x].deleteObject(delete_object_id);
+
+            // 更地になったら芝生を置く
+            // 要修正 : 共通の動作は一つの関数にまとめること
+            if ((!isTemporaryDelete || x != coordinate.x || y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
+                UnitaryTools::debugLog(U"before put");
+                m_put_grass(CoordinateStruct{ x, y });
+                UnitaryTools::debugLog(U"after put");
+            }
+        }
+    }
+    // クリア処理
+    // オブジェクト自体を除去
+    if (deleteThis)
+        delete(object_struct.object_p);
+
+    UnitaryTools::debugLog(U"before erase");
+    m_objects.erase(delete_object_id);
+    UnitaryTools::debugLog(U"after erase");
 }
 
 CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber) {

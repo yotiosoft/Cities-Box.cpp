@@ -228,6 +228,7 @@ bool Tile::deleteObject(int arg_object_id) {
 			UnitaryTools::debugLog(U"After delete");
 			return true;
 		}
+        it++;
 	}
 	
 	return false;

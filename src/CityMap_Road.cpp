@@ -59,17 +59,27 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
             m_constructing_connectable_objects << m_objects[objectID];
 
 		// 建設するタイル上の既存のオブジェクトを削除
-        if (!do_not_update_selected_addon_type) {
-            for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
-                for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
-                    // もともとのアドオンと同種のアドオンなら：周囲の切断は行わない
-                    bool disconnect = true;
-                    for (auto object_p : m_tiles[y][x].getObjectsP(CategoryID::Connectable)) {
-                        if (object_p->getAddonP()->isInCategories(getConnectableCategoryID(selectedAddon))) {
-                            disconnect = false;
-                        }
+        for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
+            for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
+                // もともとのアドオンと同種のアドオンなら：周囲の切断は行わない
+                bool disconnect = true;
+                for (auto object_p : m_tiles[y][x].getObjectsP(CategoryID::Connectable)) {
+                    if (object_p->getAddonP()->isInCategories(getConnectableCategoryID(selectedAddon))) {
+                        disconnect = false;
                     }
-                    cout << "break at " << x << "," << y << endl;
+                }
+                cout << "break at " << x << "," << y << endl;
+                
+                // 異なる接続可能オブジェクトが交差する場合 -> 同じタイプのオブジェクトのみ除去
+                if (do_not_update_selected_addon_type) {
+                    CategoryID::Type connectable_category = selectedAddon->getConnectableCategory();
+                    if (connectable_category == CategoryID::Disabled) {
+                        return false;
+                    }
+                    breakOnlyCategory(connectable_category, CoordinateStruct{ x, y }, true, false, true);
+                }
+                // その他 -> タイル上のすべてのオブジェクトを除去
+                else {
                     breaking(CoordinateStruct{ x, y }, true, disconnect, disconnect);
                 }
             }

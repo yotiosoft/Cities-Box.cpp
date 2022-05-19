@@ -4,6 +4,26 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/assets/addons/.DS_Store</key>
+		<data>
+		ZMnte8IPM3pFYokBDLPMG8z8Uvg=
+		</data>
+		<key>Resources/assets/addons/Normal/.DS_Store</key>
+		<data>
+		mD5gqTo9F6WTOsEsOfYFoVf861Q=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/.DS_Store</key>
+		<data>
+		bB3P8imtQ+1pmrWjDQWBn71xFMs=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/commercial/.DS_Store</key>
+		<data>
+		HRZp5NCf6412ucDBVAcd4HREPMM=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/.DS_Store</key>
+		<data>
+		zNFho5p2TQdYrcfG7LIBxS5p8y4=
+		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
 		NPeIpK2pyfz5oSsvcx+ISAhVZps=
@@ -343,6 +363,10 @@
 		<key>Resources/assets/addons/Normal/buildings/industrial/Electronics_Factory/icon_Electronics_Factory.png</key>
 		<data>
 		ms0NU+NSRdFrjJuFT5rAz3xbCXM=
+		</data>
+		<key>Resources/assets/addons/Normal/buildings/office/.DS_Store</key>
+		<data>
+		jIeWROZrwQIXnxJUihW5aoM/07A=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.adat</key>
 		<data>
@@ -1448,6 +1472,10 @@
 		<data>
 		k/MoX7k7AVgiatG6HK2s+iyLrm4=
 		</data>
+		<key>Resources/assets/addons/Normal/tiles/.DS_Store</key>
+		<data>
+		htIX0Y3BXqYzZW7dr7mevqrp4J4=
+		</data>
 		<key>Resources/assets/addons/Normal/tiles/concrete.png</key>
 		<data>
 		PAAy/yZi3VFLpUcduBOexwAysCM=
@@ -1467,6 +1495,10 @@
 		<key>Resources/assets/addons/Normal/tiles/ground/normal/tile_greenfield.png</key>
 		<data>
 		YQSg62zdemh1ktfFXlMwwX25n4I=
+		</data>
+		<key>Resources/assets/addons/Normal/tiles/water/.DS_Store</key>
+		<data>
+		e1gr3o6BFodWFzF8xOGRdhUdwus=
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/bearch_and_walkway/Bearch_and_Walkway.adat</key>
 		<data>
@@ -1798,7 +1830,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		fEBFyagJRVx7+8fQVkY0zlXQWdo=
+		lgybJwDYi45TZQ6Qb2KVohFLmXA=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -5207,7 +5239,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MYhhPd240B/RxeQWQJv7Y++CBJxSHBYmMkSMcLGRGNU=
+			tDW/53QTSWcz1Gv1QNNgGOa+YmCDyes+l7X1S4ZTF6I=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>

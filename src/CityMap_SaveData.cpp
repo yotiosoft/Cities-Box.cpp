@@ -104,6 +104,8 @@ bool CityMap::save() {
 				
 				json_map_x_object[U"relative_coordinate"][U"x"] = object_struct.relative_coordinate.relative.x;
 				json_map_x_object[U"relative_coordinate"][U"y"] = object_struct.relative_coordinate.relative.y;
+
+				json_map_x_object[U"visible"] = object_struct.object_p->getVisible();
 				
 				json_map_x_objects << json_map_x_object;
 			}

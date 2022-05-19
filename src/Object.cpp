@@ -111,6 +111,9 @@ void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_dire
 void Object::setVisible(bool visible) {
     m_visible = visible;
 }
+bool Object::getVisible() {
+	return m_visible;
+}
 
 // 描画
 void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {

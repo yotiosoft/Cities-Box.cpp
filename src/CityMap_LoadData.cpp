@@ -94,6 +94,12 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 				
 				// 固有名称
 				String original_name = object[U"original_name"].getString();
+
+				// 描画の有無
+				bool visible = true;
+				if (object.hasElement(U"visible")) {
+					visible = object[U"visible"].get<bool>();
+				}
 				
 				TypeID::Type type_id;
 				DirectionID::Type direction_id;
@@ -203,10 +209,12 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 				// 道路や線路などConnectableなオブジェクトならConnectavleObjectに
 				if (m_addons[addon_name]->isInCategories(CategoryID::Connectable)) {
 					m_objects[object_id] = new ConnectableObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+					m_objects[object_id]->setVisible(visible);
 				}
 				// その他建物などはNormalObjectに
 				else {
 					m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+					m_objects[object_id]->setVisible(visible);
 				}
 				
 				if (object_id > m_max_object_id) {

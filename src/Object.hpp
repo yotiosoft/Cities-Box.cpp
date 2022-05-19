@@ -55,6 +55,7 @@ public:
     
     // 描画の有無の設定
     void setVisible(bool visible);
+	bool getVisible();
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);

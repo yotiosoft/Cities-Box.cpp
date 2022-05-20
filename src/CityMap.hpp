@@ -105,7 +105,6 @@ public:
 	bool canBuildRoadHere(CoordinateStruct coordinate);
 	TypeID::Type setRoadType(CoordinateStruct coordinate, CBAddon* addon);
 	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, CBAddon* addon);
-    DirectionID::Type setBridgeDirection(CoordinateStruct coordinate, CBAddon* addon);
     
     // 交差する方向を取得（踏切・橋用）
     DirectionID::Type getCrossDirection(DirectionID::Type origin_direction);
@@ -120,10 +119,10 @@ public:
 	void updateConnectedTiles(CoordinateStruct position);
     
     // 踏切を設置（道路と線路が交差していれば）
-    bool putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type, DirectionID::Type &direction);
+    bool putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
     
     // 橋を設置（道路/線路と水路が交差していれば）
-    bool putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type, DirectionID::Type &direction);
+    bool putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
 	
 	// 座標がマップ範囲内に入っているか
 	bool isPositionAvailable(CoordinateStruct coordinate);

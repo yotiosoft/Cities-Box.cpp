@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Two_lane_gravel_road",
   "jp_name": "2車線砂利道",
   "author": "",
@@ -461,7 +461,11 @@
       "type_name": "TrainCrossing",
       "direction_names": [
         "NorthSouth",
-        "EastWest"
+        "EastWest",
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
@@ -501,6 +505,82 @@
             "x": 128,
             "y": 64
           }
+        },
+	{
+          "direction_name": "North",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+	{
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+	{
+          "direction_name": "East",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+	{
+          "direction_name": "West",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
         }
       ],
       "Layers": [
@@ -521,7 +601,11 @@
       "type_name": "Bridge",
       "direction_names": [
         "NorthSouth",
-        "EastWest"
+        "EastWest",
+        "North",
+        "South",
+        "East",
+        "West"
       ],
       "Directions": [
         {
@@ -545,6 +629,82 @@
         },
         {
           "direction_name": "EastWest",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        },
+{
+          "direction_name": "East",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+{
+          "direction_name": "West",
           "size": {
             "width": 64,
             "height": 64

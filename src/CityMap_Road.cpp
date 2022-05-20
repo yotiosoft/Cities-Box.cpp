@@ -152,14 +152,11 @@ bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_curs
 void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id) {
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
 		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
-            if (from_coordinate_object_struct.object_p->getTypeID() != TypeID::TrainCrossing
-            && from_coordinate_object_struct.object_p->getTypeID() != TypeID::Bridge) {
-                from_coordinate_object_struct.object_p->connect(
-                    road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
-                    m_objects[object_id]
-                );
-            }
+            from_coordinate_object_struct.object_p->connect(
+                road_network,
+                CoordinateStruct{ 0, 0 },            // 暫定
+                m_objects[object_id]
+            );
             
             // 橋や踏切を設置する必要があるか否か？
             bool other_crossable_object = false;

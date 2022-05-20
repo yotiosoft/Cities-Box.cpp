@@ -71,6 +71,10 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBA
 }
 
 void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {
+    if (arg_object->isDeleted()) {
+        return;
+    }
+    
 	// 効果を取得
 	map<RateID::Type, EffectStruct> effects = arg_object->getAddonP()->getEffects();
 
@@ -99,7 +103,7 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 				if (will_be_deleted) {
 					rate *= -1;
 				}
-				m_tiles[y][x].setRate(effect_map.first, rate);
+				m_tiles[y][x].setTileRate(effect_map.first, rate);
 			}
 		}
 	}

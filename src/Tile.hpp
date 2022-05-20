@@ -38,7 +38,7 @@ public:
 	DirectionID::Type getDirection(int num);
 	
 	// 効果の設定
-	void setRate(RateID::Type arg_rate_type, int arg_rate);
+	void setTileRate(RateID::Type arg_rate_type, int arg_rate);
 	
 	// 効果を取得
 	map<RateID::Type, int> getRate();

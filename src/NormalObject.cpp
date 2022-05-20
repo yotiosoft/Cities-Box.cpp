@@ -12,6 +12,11 @@ void NormalObject::connect(CityNetwork& road_network, CoordinateStruct arg_conne
 	return;
 }
 
+void NormalObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) {
+    // 道路用なので何もしない
+    return;
+}
+
 void NormalObject::del(CityNetwork& road_network) {
 	// 何もしない
 	return;

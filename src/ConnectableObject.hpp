@@ -20,6 +20,7 @@ public:
 	
 	// 周囲のオブジェクトと接続
 	void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p);
+    void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type);
 	
 	// 自分自身を削除
 	void del(CityNetwork& road_network);

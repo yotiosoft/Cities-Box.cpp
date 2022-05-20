@@ -82,7 +82,7 @@ public:
 	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
 	
 	// 道路を接続
-	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id, bool do_not_update_type);
+	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id);
 	
 	// 効果の指定
 	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
@@ -105,6 +105,7 @@ public:
 	bool canBuildRoadHere(CoordinateStruct coordinate);
 	TypeID::Type setRoadType(CoordinateStruct coordinate, CBAddon* addon);
 	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, CBAddon* addon);
+    DirectionID::Type setBridgeDirection(CoordinateStruct coordinate, CBAddon* addon);
     
     // 交差する方向を取得（踏切・橋用）
     DirectionID::Type getCrossDirection(DirectionID::Type origin_direction);
@@ -145,6 +146,7 @@ private:
 	bool m_get_element(String str, String searchElementName, int& ret);
 	bool m_get_element(String str, String searchElementName, bool& ret);
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
+    bool m_is_there_crossable_object(CBAddon *addon, CoordinateStruct coordinate);
 	
 	// 次のObjectID
 	int m_get_next_objectID();

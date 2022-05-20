@@ -21,19 +21,12 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 	if (canBuildRoadHere(cursor.coordinate)) {			// 設置可能なら...
         TypeID::Type type;
         DirectionID::Type direction;
-        bool do_not_update_selected_addon_type = true;
+        bool do_not_update_selected_addon_type = m_is_there_crossable_object(selectedAddon, cursor.coordinate);
+        Console << U"dnusat: " << do_not_update_selected_addon_type;
         
-        // 踏切を設置する必要がある場合は設置
-        if (!putTrainCrossing(selectedAddon, cursor.coordinate, type, direction)) {
-            // 橋を設置する必要がある場合は橋を設置
-            if (!putBridge(selectedAddon, cursor.coordinate, type, direction)) {
-                // いずれも必要ない場合は通常の設置
-                type = setRoadType(cursor.coordinate, selectedAddon);
-                direction = setRoadDirection(cursor.coordinate, selectedAddon);
-                
-                do_not_update_selected_addon_type = false;
-            }
-        }
+        // typeとdirectionを設置
+        type = setRoadType(cursor.coordinate, selectedAddon);
+        direction = setRoadDirection(cursor.coordinate, selectedAddon);
 		
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
 		cout << "use tiles: " << useTiles.x << "," << useTiles.y << endl;
@@ -55,8 +48,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
         
         // 工事中の状態に指定
-        if (!do_not_update_selected_addon_type)
-            m_constructing_connectable_objects << m_objects[objectID];
+        m_constructing_connectable_objects << m_objects[objectID];
 
 		// 建設するタイル上の既存のオブジェクトを削除
         for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
@@ -72,7 +64,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
                 
                 // 異なる接続可能オブジェクトが交差する場合 -> 同じタイプのオブジェクトのみ除去
                 if (do_not_update_selected_addon_type) {
-                    CategoryID::Type connectable_category = selectedAddon->getConnectableCategory();
+                    CategoryID::Type connectable_category = selectedAddon->getMainConnectableCategory();
                     if (connectable_category == CategoryID::Disabled) {
                         return false;
                     }
@@ -101,7 +93,7 @@ bool CityMap::buildConnectableType(CursorStruct cursor, CursorStruct before_curs
 		
 		// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 		if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
-			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID, do_not_update_selected_addon_type);
+			connectObjects(before_cursor.coordinate, cursor.coordinate, objectID);
 		}
 
 		// 効果を反映
@@ -148,13 +140,58 @@ bool CityMap::updateConnectionType(CursorStruct cursor, CursorStruct before_curs
 	
 	// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 	if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
-		connectObjects(before_cursor.coordinate, cursor.coordinate, object->getObjectID(), false);
+		connectObjects(before_cursor.coordinate, cursor.coordinate, object->getObjectID());
 	}
 
 	// 効果を反映
 	setRate(object, origin_coordinate, false);
 	
 	return true;
+}
+
+void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id) {
+	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
+		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
+            if (from_coordinate_object_struct.object_p->getTypeID() != TypeID::TrainCrossing
+            && from_coordinate_object_struct.object_p->getTypeID() != TypeID::Bridge) {
+                from_coordinate_object_struct.object_p->connect(
+                    road_network,
+                    CoordinateStruct{ 0, 0 },            // 暫定
+                    m_objects[object_id]
+                );
+            }
+            
+            // 橋や踏切を設置する必要があるか否か？
+            bool other_crossable_object = false;
+            TypeID::Type type = TypeID::Disabled;
+            DirectionID::Type direction = DirectionID::Disabled;
+            if (!(other_crossable_object = putTrainCrossing(m_objects[object_id]->getAddonP(), to, type, direction))) {
+                other_crossable_object = putBridge(m_objects[object_id]->getAddonP(), to, type, direction);
+            }
+            
+            // 橋や踏切を設置する必要がない場合は通常通り接続
+            if (other_crossable_object) {
+                m_objects[object_id]->connectWithSpecifiedType(
+                    road_network,
+                    CoordinateStruct{ 0, 0 },            // 暫定
+                    from_coordinate_object_struct.object_p,
+                    type
+                );
+            }
+            // 橋や踏切を設置する必要がある場合はtypeとdirectionを指定して接続
+            else {
+                m_objects[object_id]->connect(
+                    road_network,
+                    CoordinateStruct{ 0, 0 },            // 暫定
+                    from_coordinate_object_struct.object_p
+                );
+            }
+            
+            // 工事中状態を撤回
+            m_constructing_connectable_objects.remove(m_objects[object_id]);
+            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p);
+		}
+	}
 }
 
 // 踏切を設置（道路と線路が交差していれば）
@@ -166,7 +203,7 @@ bool CityMap::putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, Type
         // 道路＆線路 -> 踏切
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
             type = TypeID::TrainCrossing;
-            direction = other_type_connectable_object->getDirectionID();
+            //direction = other_type_connectable_object->getDirectionID();
             other_type_connectable_object->setVisible(false);
             return true;
         }
@@ -176,7 +213,7 @@ bool CityMap::putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, Type
         // 線路＆道路 -> 踏切
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
             type = TypeID::TrainCrossing;
-            direction = getCrossDirection(other_type_connectable_object->getDirectionID());
+            //direction = getCrossDirection(other_type_connectable_object->getDirectionID());
             other_type_connectable_object->setVisible(false);
             return true;
         }
@@ -194,7 +231,13 @@ bool CityMap::putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Typ
         // 道路＆水路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
             type = TypeID::Bridge;
+            /*
             direction = getCrossDirection(other_type_connectable_object->getDirectionID());
+            // 方向が定まらない場合（海や河川の上など）は道路の向きに従う
+            if (direction == DirectionID::None) {
+                direction = setRoadDirection(coordinate, addon);
+            }*/
+            Console << U"td: " << type << U" " << direction;
             return true;
         }
     }
@@ -203,7 +246,12 @@ bool CityMap::putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Typ
         // 線路＆水路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
             type = TypeID::Bridge;
+            /*
             direction = getCrossDirection(other_type_connectable_object->getDirectionID());
+            // 方向が定まらない場合（海や河川の上など）は道路の向きに従う
+            if (direction == DirectionID::None) {
+                direction = setRoadDirection(coordinate, addon);
+            }*/
             return true;
         }
     }
@@ -212,45 +260,31 @@ bool CityMap::putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Typ
         // 水路＆道路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
             type = TypeID::Bridge;
+            /*
             direction = other_type_connectable_object->getDirectionID();
+            // 方向が定まらない場合（海や河川の上など）は道路の向きに従う
+            if (direction == DirectionID::None) {
+                direction = setRoadDirection(coordinate, addon);
+            }*/
             return true;
         }
         // 水路＆線路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
             type = TypeID::Bridge;
+            /*
             direction = other_type_connectable_object->getDirectionID();
+            // 方向が定まらない場合（海や河川の上など）は道路の向きに従う
+            if (direction == DirectionID::None) {
+                direction = setRoadDirection(coordinate, addon);
+                if (direction == DirectionID::None) {
+                    direction = setBridgeDirection(coordinate, addon);
+                }
+            }*/
             return true;
         }
     }
     
     return false;
-}
-
-void CityMap::connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id, bool do_not_update_type) {
-	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
-		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
-            if (from_coordinate_object_struct.object_p->getTypeID() != TypeID::TrainCrossing
-            && from_coordinate_object_struct.object_p->getTypeID() != TypeID::Bridge) {
-                from_coordinate_object_struct.object_p->connect(
-                    road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
-                    m_objects[object_id]
-                );
-            }
-            
-            if (!do_not_update_type) {
-                m_objects[object_id]->connect(
-                    road_network,
-                    CoordinateStruct{ 0, 0 },			// 暫定
-                    from_coordinate_object_struct.object_p
-                );
-            }
-            
-            // 工事中状態を撤回
-            m_constructing_connectable_objects.remove(m_objects[object_id]);
-            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p);
-		}
-	}
 }
 
 bool CityMap::canBuildRoadHere(CoordinateStruct coordinate) {
@@ -280,16 +314,27 @@ DirectionID::Type CityMap::setRoadDirection(CoordinateStruct coordinate, CBAddon
 	CategoryID::Type object_category = CategoryID::Disabled;
 	object_category = getConnectableCategoryID(addon);
 	
-	// 既に道路が存在するなら、DirectionIDはそのまま
-	cout << "oc: " << object_category << endl;
-	Array<Object*> current_objects = m_tiles[coordinate.y][coordinate.x].getObjectsP(object_category);
-	
-	if (current_objects.size() > 0) {
-		cout << "direction id: " << current_objects[0]->getDirectionID() << endl;
-		return current_objects[0]->getDirectionID();
+	// 既に同じタイプ or 接続できるタイプのアドオンがタイル上に存在するなら、DirectionIDはそのまま
+    Object* object;
+	if ((object = m_tiles[coordinate.y][coordinate.x].hasCategory(object_category)) != nullptr) {
+		return object->getDirectionID();
 	}
 	
 	return DirectionID::None;					// 標準で孤立点に
+}
+
+DirectionID::Type CityMap::setBridgeDirection(CoordinateStruct coordinate, CBAddon* addon) {
+    // 対象物のカテゴリを取得
+    CategoryID::Type object_category = CategoryID::Disabled;
+    object_category = getConnectableCategoryID(addon);
+    
+    // 既に同じタイプ or 接続できるタイプのアドオンがタイル上に存在するなら、DirectionIDはそのまま
+    Object* object;
+    if ((object = m_tiles[coordinate.y][coordinate.x].hasCategory(object_category)) != nullptr) {
+        return object->getDirectionID();
+    }
+    
+    return DirectionID::None;                    // 標準で孤立点に
 }
 
 // 交差する方向を取得（踏切・橋用）
@@ -318,4 +363,34 @@ void CityMap::breakUnconnectedRoads() {
     
     // リストをクリア
     m_constructing_connectable_objects.clear();
+}
+
+// 交差可能なオブジェクトが存在するか否か
+bool CityMap::m_is_there_crossable_object(CBAddon *addon, CoordinateStruct coordinate) {
+    if (addon->isInCategories(CategoryID::Road)) {
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad) != nullptr) {
+            return true;
+        }
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway) != nullptr) {
+            return true;
+        }
+    }
+    if (addon->isInCategories(CategoryID::Railroad)) {
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road) != nullptr) {
+            return true;
+        }
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway) != nullptr) {
+            return true;
+        }
+    }
+    if (addon->isInCategories(CategoryID::Waterway)) {
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road) != nullptr) {
+            return true;
+        }
+        if (m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad) != nullptr) {
+            return true;
+        }
+    }
+    
+    return false;
 }

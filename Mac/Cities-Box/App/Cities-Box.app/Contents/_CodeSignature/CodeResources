@@ -1762,11 +1762,11 @@
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
 		<data>
-		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
+		um/p/4iPCvvbjboj3zIgVciT+wo=
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<data>
-		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
+		um/p/4iPCvvbjboj3zIgVciT+wo=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
 		<data>
@@ -1779,6 +1779,10 @@
 		<key>Resources/assets/data/maps/Sample_City.cbd.cbj.cbj</key>
 		<data>
 		sUnw/cbs2zwqaEWLkmAKzGmafAk=
+		</data>
+		<key>Resources/assets/data/maps/Sample_City_220520.cbd.cbj</key>
+		<data>
+		qDGMxoSr08nZDHEOHtmeQoEFc9A=
 		</data>
 		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>
 		<data>
@@ -1798,7 +1802,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		nVYiy69d/Xiaf5Mb0fpNn2OQZ18=
+		bbdBLww+sp8JGrIw5Zo2ZfT4OfE=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -5144,14 +5148,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
+			u5H4Ff/OTuOg+APendNo5BAJcEIWGYNtd0ZFgHjD3vU=
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
+			u5H4Ff/OTuOg+APendNo5BAJcEIWGYNtd0ZFgHjD3vU=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
@@ -5173,6 +5177,13 @@
 			<key>hash2</key>
 			<data>
 			0IFbjSuUAL3iOMij+UqS3WZTCSHnJqz2qlQ/yyQg/uI=
+			</data>
+		</dict>
+		<key>Resources/assets/data/maps/Sample_City_220520.cbd.cbj</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zmLi/19BGT7GFu3uLd3NtOBLGUuo5iXOEOGWVLAV+ow=
 			</data>
 		</dict>
 		<key>Resources/assets/fonts/NotoSansCJKjp/LICENSE_OFL.txt</key>
@@ -5207,7 +5218,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FjIiFeCmCrbSZFkhDlNlfD/3XdhRid+L1GtNwODlD5Y=
+			yjkyilc1PAF1ETetutYF4q5ZIC9hPreH4piEgsRUndc=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>

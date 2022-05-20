@@ -46,6 +46,7 @@ public:
 	
 	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
 	virtual void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) = 0;
+    virtual void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) = 0;
 	
 	// 自分自身を削除
 	virtual void del(CityNetwork& road_network) = 0;

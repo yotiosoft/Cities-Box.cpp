@@ -258,7 +258,7 @@ Array<CategoryID::Type> CBAddon::getCategories() {
 	return m_addon_categories;
 }
 
-CategoryID::Type CBAddon::getConnectableCategory() {
+CategoryID::Type CBAddon::getMainConnectableCategory() {
     if (isInCategories(CategoryID::Road)) {
         return CategoryID::Road;
     }

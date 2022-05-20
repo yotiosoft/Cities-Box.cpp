@@ -1,0 +1,44 @@
+delete object at 78, 25 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 26 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 27 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 28 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 29 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 31 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 32 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 33 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 34 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 35 of 0, 0
+After delete
+before erase
+after erase
+delete object at 78, 36 of 0, 0
+After delete
+before erase
+after erase

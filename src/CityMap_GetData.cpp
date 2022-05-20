@@ -183,7 +183,7 @@ map<String, CBAddon*> CityMap::getAllAddons() {
 bool CityMap::hasCategory(CategoryID::Type searchCategory, CoordinateStruct coordinate) {
 	Tile* currentTile = &m_tiles[coordinate.y][coordinate.x];
 
-	for (int i = 0; i < currentTile->addons.size(); i++) {
+	for (int i = 0; i < (int)currentTile->addons.size(); i++) {
 		if (currentTile->addons[i]->isInCategories(searchCategory)) {
 			return true;
 		}
@@ -191,8 +191,6 @@ bool CityMap::hasCategory(CategoryID::Type searchCategory, CoordinateStruct coor
 
 	return false;
 }
-
-
 
 TimeStruct CityMap::cityTime(int minutesDelta) {
 	m_time_now.minutes += minutesDelta;

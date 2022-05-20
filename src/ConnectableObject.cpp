@@ -11,10 +11,20 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	// マップ上で接続
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate());
 	set_direction_id(relative_direction_id, false);
-	set_type_id();
+    set_type_id();
 	
 	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
 	cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
+}
+
+void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) {
+    // マップ上で接続
+    DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate());
+    set_direction_id(relative_direction_id, false);
+    m_type_id = type;
+    
+    m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
+    cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
 }
 
 void ConnectableObject::del(CityNetwork& road_network) {

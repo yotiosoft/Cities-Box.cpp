@@ -57,6 +57,9 @@ public:
     // 描画の有無の設定
     void setVisible(bool visible);
 	bool getVisible();
+    
+    // 共通オブジェクトに指定
+    void setCommonObject();
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);
@@ -90,7 +93,7 @@ protected:
 	String m_original_name;
 	
 	// オブジェクト番号
-	int m_object_id;
+	int m_object_id = -1;
 	
 	// 始点
 	CoordinateStruct m_start_coordinate;
@@ -100,6 +103,9 @@ protected:
     
     // 描画の有無
     bool m_visible;
+    
+    // 共通オブジェクト（芝生）
+    bool m_common_object;
 	
 	// 削除
 	bool m_deleted = false;

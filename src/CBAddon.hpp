@@ -100,6 +100,9 @@ protected:
 	bool m_get_element(String str, String searchElementName, String& ret);
 	bool m_get_element(String str, String searchElementName, int& ret);
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
+    
+    // 共通オブジェクトの生成
+    
 	
 	// JSON形式に変換する
 	void m_converter();

@@ -16,6 +16,7 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
 	m_original_name = arg_original_name;
 	m_start_coordinate = arg_start_coordinate;
     m_visible = true;
+    m_common_object = false;
     
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
@@ -32,6 +33,7 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
 	m_direction_id = arg_direction_id;
 	m_start_coordinate = arg_start_coordinate;
     m_visible = true;
+    m_common_object = false;
 	
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
@@ -82,6 +84,10 @@ CoordinateStruct Object::getOriginCoordinate() {
 
 // ObjectID
 void Object::setObjectID(int arg_object_id) {
+    if (m_common_object && m_object_id >= 0) {
+        return;
+    }
+    
 	m_object_id = arg_object_id;
 }
 
@@ -109,10 +115,18 @@ void Object::connect(CoordinateStruct arg_coordinate, DirectionID::Type arg_dire
 
 // 描画の有無の設定
 void Object::setVisible(bool visible) {
+    if (m_common_object) {
+        return;
+    }
     m_visible = visible;
 }
 bool Object::getVisible() {
 	return m_visible;
+}
+
+// 共通オブジェクトに指定
+void Object::setCommonObject() {
+    m_common_object = true;
 }
 
 // 描画
@@ -126,6 +140,9 @@ void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct a
 
 // 削除
 void Object::setDeleted() {
+    if (m_common_object) {
+        return;
+    }
 	m_deleted = true;
 }
 

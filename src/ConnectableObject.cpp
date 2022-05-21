@@ -57,8 +57,8 @@ void ConnectableObject::del(CityNetwork& road_network) {
 }
 
 void ConnectableObject::update() {
-	for (int y=0; y<m_connects.size(); y++) {
-		for (int x=0; x<m_connects[y].size(); x++) {
+	for (int y=0; y<(int)m_connects.size(); y++) {
+		for (int x=0; x<(int)m_connects[y].size(); x++) {
 			for (auto it = m_connects[y][x].roadTypeConnect.begin(), e = m_connects[y][x].roadTypeConnect.end(); it != e; it++) {
 				// 接続先の道路が存在していなければ、切断する
 				if (it->second->isDeleted()) {

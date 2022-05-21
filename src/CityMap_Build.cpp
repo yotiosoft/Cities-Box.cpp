@@ -10,18 +10,18 @@
 // アドオンの設置
 bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	if (selectedAddon->isInCategories(CategoryID::Connectable)) {
-		return buildConnectableType(cursor, before_cursor, selectedAddon, needToBreak);
+		return m_build_connectable_type(cursor, before_cursor, selectedAddon, needToBreak);
 	}
 	else {
-		return buildBuilding(cursor, before_cursor, selectedAddon, needToBreak);
+		return m_build_building(cursor, before_cursor, selectedAddon, needToBreak);
 	}
 }
 
-bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
+bool CityMap::m_build_building(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
 	
-	tuple<bool, TypeID::Type, DirectionID::Type> build_tuple = canBuildBuildingHere(cursor.coordinate, selectedAddon);
+	tuple<bool, TypeID::Type, DirectionID::Type> build_tuple = m_can_build_building_here(cursor.coordinate, selectedAddon);
 	TypeID::Type type = get<1>(build_tuple);
 	DirectionID::Type direction = get<2>(build_tuple);
 	
@@ -64,13 +64,13 @@ bool CityMap::buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBA
 		}
 
 		// 効果を反映
-		setRate(m_objects[objectID], origin_coordinate, false);
+		m_set_rate(m_objects[objectID], origin_coordinate, false);
 	}
 
 	return true;
 }
 
-void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {
+void CityMap::m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {
     if (arg_object->isDeleted()) {
         return;
     }
@@ -112,20 +112,20 @@ void CityMap::setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate
 void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
 	// オブジェクトの除去
 	for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
-        breakOnce(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+        m_break_once(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
 	}
 }
-void CityMap::breakOnlyCategory(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
     // オブジェクトの除去
     for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
         if (object_struct.object_p->getAddonP()->isInCategories(category)) {
-            breakOnce(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+            m_break_once(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
         }
     }
 }
-void CityMap::breakOnce(ObjectStruct &object_struct,CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
     // 効果を削除
-    setRate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
+    m_set_rate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
 
     int delete_object_id = object_struct.object_p->getObjectID();
 
@@ -134,7 +134,7 @@ void CityMap::breakOnce(ObjectStruct &object_struct,CoordinateStruct coordinate,
         for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
             // クリア処理
             if (updateAroundTiles)
-                updateConnectedTiles(CoordinateStruct{x, y});
+                m_update_connected_tiles(CoordinateStruct{x, y});
             
             m_tiles[y][x].deleteObject(delete_object_id);
 
@@ -157,17 +157,8 @@ void CityMap::breakOnce(ObjectStruct &object_struct,CoordinateStruct coordinate,
     UnitaryTools::debugLog(U"after erase");
 }
 
-CoordinateStruct CityMap::moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber) {
-	Tile* searchTile = &m_tiles[searchCoordinate.y][searchCoordinate.x];
-
-	searchCoordinate.x -= searchTile->tilesCount.x;
-	searchCoordinate.y += searchTile->tilesCount.y;
-
-	return CoordinateStruct{ searchCoordinate.x, searchCoordinate.y };
-}
-
 // 建物の建設の可否
-tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon) {
+tuple<bool, TypeID::Type, DirectionID::Type> CityMap::m_can_build_building_here(CoordinateStruct coordinate, CBAddon* addon) {
 	TypeID::Type type_id = TypeID::Disabled;
 	DirectionID::Type direction_id = DirectionID::Disabled;
 	
@@ -225,7 +216,7 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::canBuildBuildingHere(Coord
 
 // アドオンを削除
 // 要修正 : タイルを直接弄らないこと
-void CityMap::updateConnectedTiles(CoordinateStruct position) {
+void CityMap::m_update_connected_tiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// 道路なら：disconnectする
@@ -244,15 +235,6 @@ void CityMap::updateConnectedTiles(CoordinateStruct position) {
 	currentTile->addons << selectedAddon;
 */
 	// 幸福度を戻す
-}
-
-bool CityMap::isPositionAvailable(CoordinateStruct coordinate) {
-	if (coordinate.x >= 0 && coordinate.x <= m_map_size.x - 1 && coordinate.y >= 0 && coordinate.y <= m_map_size.y - 1) {
-		return true;
-	}
-	else {
-		return false;
-	}
 }
 
 void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {

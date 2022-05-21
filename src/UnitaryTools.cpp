@@ -95,7 +95,7 @@ void UnitaryTools::saveTextFile(string filePath, Array<string> strV) {
 	ofstream ofs;
 	ofs.open(filePath, ios::out | ios::binary);
 	
-	for (int i = 0; i < strV.size(); i++) {
+	for (int i = 0; i < (int)strV.size(); i++) {
 		ofs << strV[i] << endl;
 	}
 }
@@ -104,7 +104,7 @@ void UnitaryTools::saveTextFile(string filePath, Array<FileStruct> fs) {
 	ofstream ofs;
 	ofs.open(filePath, ios::out | ios::binary);
 	
-	for (int i = 0; i < fs.size(); i++) {
+	for (int i = 0; i < (int)fs.size(); i++) {
 		ofs << fs[i].file_path << endl;
 		ofs << "    file_name   : " << fs[i].file_name << endl;
 		ofs << "    folder_path : " << fs[i].folder_path << endl;
@@ -389,7 +389,7 @@ DirectionID::Type UnitaryTools::directionNameToDirectionID(String direction_name
 
 Array<DirectionID::Type> UnitaryTools::directionNameToDirectionID(Array<String> direction_name) {
 	Array<DirectionID::Type> ret_array;
-	for (int i=0; i<direction_name.size(); i++) {
+	for (int i=0; i<(int)direction_name.size(); i++) {
 		ret_array << directionNameToDirectionID(direction_name[i]);
 	}
 	return ret_array;
@@ -550,6 +550,8 @@ Array<CoordinateStruct> UnitaryTools::getCoordinateByDirectionID(CoordinateStruc
 			return {getCoordinateByDirectionID(from, DirectionID::North)[0], getCoordinateByDirectionID(from, DirectionID::East)[0], getCoordinateByDirectionID(from, DirectionID::South)[0], getCoordinateByDirectionID(from, DirectionID::West)[0]};;
 		case DirectionID::Disabled:
 			break;
+        default:
+            break;
 	}
 	
 	return {from};

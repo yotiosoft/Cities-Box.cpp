@@ -12,7 +12,7 @@ void ImagesStruct::load(string filePath, string tag, Color transparent) {
 	Array<FileStruct> imageFiles = specific::getAllFilesName(filePath, "png");
 	
 	// 各ファイルを読み込み
-	for (int i=0; i<imageFiles.size(); i++) {
+	for (int i=0; i<(int)imageFiles.size(); i++) {
 		Image imageTemp(Unicode::Widen(imageFiles[i].file_path));
 		
 		if (transparent.r >= 0 && transparent.g >= 0 && transparent.b >= 0) {

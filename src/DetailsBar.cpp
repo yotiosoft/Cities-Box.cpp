@@ -34,6 +34,8 @@ void DetailsBar::printWeather(Weather::Type weather) {
 			m_weather_sunny_icon.draw(m_position.x+1, m_position.y+2+1, ColorF(0.0, 0.5));
 			m_weather_sunny_icon.draw(m_position.x, m_position.y+2, Color(240));
 			break;
+        default:
+            break;
 	};
 	
 	m_weather_region = m_position.x+20;

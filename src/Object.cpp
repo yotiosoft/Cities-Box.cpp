@@ -19,7 +19,7 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
     
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
-	for (int y = 0; y < m_connects.size(); y++) {
+	for (int y = 0; y < (int)m_connects.size(); y++) {
 		m_connects[y].resize(getAddonDirectionStruct().requiredTiles.x);
 	}
 }
@@ -35,7 +35,7 @@ Object::Object(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name
 	
 	// オブジェクトサイズ分のm_connectsを用意
 	m_connects.resize(getAddonDirectionStruct().requiredTiles.y);
-	for (int y = 0; y < m_connects.size(); y++) {
+	for (int y = 0; y < (int)m_connects.size(); y++) {
 		m_connects[y].resize(getAddonDirectionStruct().requiredTiles.x);
 	}
 	

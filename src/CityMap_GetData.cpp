@@ -10,7 +10,7 @@
 Array<CBAddon> CityMap::getAddon(CoordinateStruct coordinate) {
 	Array<CBAddon> retAddons;
 
-	for (int i = 0; i < m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
+	for (int i = 0; i < (int)m_tiles[coordinate.y][coordinate.x].addons.size(); i++) {
 		retAddons << *(m_tiles[coordinate.y][coordinate.x].addons[i]);
 	}
 
@@ -37,7 +37,7 @@ Size CityMap::getMapSize() {
 	return m_map_size;
 }
 
-CategoryID::Type CityMap::getConnectableCategoryID(CBAddon* addon) {
+CategoryID::Type CityMap::m_get_connectable_CategoryID(CBAddon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
 	
@@ -65,7 +65,7 @@ CategoryID::Type CityMap::getConnectableCategoryID(CBAddon* addon) {
 	return object_category;
 }
 
-CategoryID::Type CityMap::getConnectableCategoryIDExplicitly(CBAddon* addon) {
+CategoryID::Type CityMap::m_get_connectable_CategoryID_explicitly(CBAddon* addon) {
 	// 対象物のカテゴリを取得
 	CategoryID::Type object_category = CategoryID::Disabled;
 	
@@ -153,7 +153,7 @@ Array<CBAddon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories
 		vector<bool> fit = vector<bool>(selectedCategories.size(), false);
 
 		for (auto categoryName = anAddonCategories.begin(); categoryName != anAddonCategories.end(); categoryName++) {
-			for (int i = 0; i < selectedCategories.size(); i++) {
+			for (int i = 0; i < (int)selectedCategories.size(); i++) {
 				if (selectedCategories[i] == *categoryName) {
 					fit[i] = true;
 					break;
@@ -162,7 +162,7 @@ Array<CBAddon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories
 		}
 
 		bool fitted = true;
-		for (int i = 0; i < fit.size(); i++) {
+		for (int i = 0; i < (int)fit.size(); i++) {
 			if (!fit[i]) {
 				fitted = false;
 			}

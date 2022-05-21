@@ -27,7 +27,7 @@ typedef struct PositionStruct {
 	int x;
 	int y;
 	
-	const bool operator==(PositionStruct other) {
+	bool operator==(PositionStruct other) {
 		if (x == other.x && y == other.y) {
 			return true;
 		}
@@ -46,7 +46,7 @@ typedef struct CoordinateStruct {
 	int x;
 	int y;
 	
-	const bool operator==(CoordinateStruct other) {
+	bool operator==(CoordinateStruct other) {
 		if (x == other.x && y == other.y) {
 			return true;
 		}

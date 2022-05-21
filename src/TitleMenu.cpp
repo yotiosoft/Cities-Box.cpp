@@ -22,7 +22,6 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 	// 設定画面の宣言
 	GeneralSetting general_setting;
 	
-	bool b;
 	Color color_white = Color(Palette::White);
 
 	// カーソル変更用の変数
@@ -59,7 +58,7 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 			if (specific::openSaveData(filePathTemp)) {
 				filePath = filePathTemp;
 				
-				b = System::Update();
+				System::Update();
 				loadingScreen(font16);
 				return pair<bool, GeneralSetting>(true, general_setting);
 			}

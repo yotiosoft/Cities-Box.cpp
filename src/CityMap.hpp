@@ -25,11 +25,6 @@ public:
 	
 	// マップの読み込み
 	void load(String loadMapFilePath);
-	void loadCBD(String loadMapFilePath);
-	void loadCBJ(String loadMapFilePath);
-	
-	// アドオンの読み込み
-	void loadAddons(String addonSetName);
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
@@ -61,71 +56,24 @@ public:
 	// マップサイズの取得
 	Size getMapSize();
 	
-	// 対象物の接続可能なタイプを取得
-	CategoryID::Type getConnectableCategoryID(CBAddon* addon);
-	CategoryID::Type getConnectableCategoryIDExplicitly(CBAddon* addon);
-	
-	// 座標から描画位置、描画位置から座標を取得
-	CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
-	PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
-	
-	// 描画範囲を取得
-	pair<CoordinateStruct, CoordinateStruct> getDrawArea(CameraStruct camera, bool window_size_changed);
-	
 	// いずれかのアドオンがカテゴリに含まれているか
 	bool hasCategory(CategoryID::Type searchCategory, CoordinateStruct coordinate);
 	
-	// アドオンを設置
-	bool build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
-	bool buildConnectableType(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
-	bool updateConnectionType(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
-	bool buildBuilding(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
-	
-	// 道路を接続
-	void connectObjects(CoordinateStruct from, CoordinateStruct to, int object_id);
-	
-	// 効果の指定
-	void setRate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
-	
 	// アドオンを更新
 	void update(CoordinateStruct position, ObjectStruct* object_struct, Array<CoordinateStruct>& needUpdate);
-	
-	// アドオンを除去
-	void breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
-    void breakOnlyCategory(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
-    void breakOnce(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
-	
-	// アドオンの始点となるマスに移動する
-	CoordinateStruct moveToAddonStartTile(CoordinateStruct searchCoordinate, int addonNumber);
-	
-	// 指定した場所に合うアドオンのTypeとDirectionを取得
-	//bool getBuildTypeAndDirection(CoordinateStruct coordinate, Addon* selectedAddon, TypeID::Type& retType, DirectionID::Type& retDirection);
-	
-	// 道路の敷設の可否、TypeID, DirectionIDの設定
-	bool canBuildRoadHere(CoordinateStruct coordinate);
-	TypeID::Type setRoadType(CoordinateStruct coordinate, CBAddon* addon);
-	DirectionID::Type setRoadDirection(CoordinateStruct coordinate, CBAddon* addon);
     
-    // 交差する方向を取得（踏切・橋用）
-    DirectionID::Type getCrossDirection(DirectionID::Type origin_direction);
-	
-	// 建物の建設の可否、TypeID, DirectionIDの設定
-	tuple<bool, TypeID::Type, DirectionID::Type> canBuildBuildingHere(CoordinateStruct coordinate, CBAddon* addon);
+    // アドオンを設置
+    bool build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+    
+    // アドオンを除去
+    void breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
     
     // 建設状態のアップデート
     void breakUnconnectedRoads();
-	
-	// アドオンの接続状態を更新
-	void updateConnectedTiles(CoordinateStruct position);
     
-    // 踏切を設置（道路と線路が交差していれば）
-    bool putTrainCrossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
-    
-    // 橋を設置（道路/線路と水路が交差していれば）
-    bool putBridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
-	
-	// 座標がマップ範囲内に入っているか
-	bool isPositionAvailable(CoordinateStruct coordinate);
+    // 座標から描画位置、描画位置から座標を取得
+    CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
+    PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
 	// 時間を進ませて取得
 	TimeStruct cityTime(int minutesDelta);
@@ -146,13 +94,59 @@ private:
 	bool m_get_element(String str, String searchElementName, bool& ret);
 	bool m_get_types(String str, String searchElementName, Array<String>& ret);
     bool m_is_there_crossable_object(CBAddon *addon, CoordinateStruct coordinate);
-	
+    
+    // マップの読み込み
+    void m_load_CBJ(String loadMapFilePath);
+    
+    // アドオンの読み込み
+    void m_load_addons(String addonSetName);
+    
+    // 対象物の接続可能なタイプを取得
+    CategoryID::Type m_get_connectable_CategoryID(CBAddon* addon);
+    CategoryID::Type m_get_connectable_CategoryID_explicitly(CBAddon* addon);
+    
+    // 描画範囲を取得
+    pair<CoordinateStruct, CoordinateStruct> m_get_draw_area(CameraStruct camera, bool window_size_changed);
+    
+    // アドオンを設置
+    bool m_build_connectable_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+    bool m_update_connection_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+    bool m_build_building(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+    
+    // 道路を接続
+    void m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id);
+    
+    // 効果の指定
+    void m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
+    
+    // アドオンを除去
+    void m_break_only_category(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
+    void m_break_once(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
+    
+    // 道路の敷設の可否、TypeID, DirectionIDの設定
+    bool m_can_build_road_here(CoordinateStruct coordinate);
+    TypeID::Type m_set_road_type(CoordinateStruct coordinate, CBAddon* addon);
+    DirectionID::Type m_set_road_direction(CoordinateStruct coordinate, CBAddon* addon);
+    
+    // 建物の建設の可否、TypeID, DirectionIDの設定
+    tuple<bool, TypeID::Type, DirectionID::Type> m_can_build_building_here(CoordinateStruct coordinate, CBAddon* addon);
+    
+    // アドオンの接続状態を更新
+    void m_update_connected_tiles(CoordinateStruct position);
+    
+    // 踏切を設置（道路と線路が交差していれば）
+    bool m_put_train_crossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
+    
+    // 橋を設置（道路/線路と水路が交差していれば）
+    bool m_put_bridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);
+    
 	// 次のObjectID
 	int m_get_next_objectID();
 	
 	// 芝生を置く
 	void m_put_grass(CoordinateStruct arg_coordinate);
 	
+private:
 	// 道路ネットワーク
 	CityNetwork road_network;
 	

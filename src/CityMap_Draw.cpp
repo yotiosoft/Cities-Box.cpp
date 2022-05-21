@@ -9,8 +9,8 @@
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_changed) {
 	// マップを描画
-	for (short int y = getDrawArea(camera, window_size_changed).first.y; y < getDrawArea(camera, window_size_changed).second.y; y++) {
-		for (short int x = getDrawArea(camera, window_size_changed).first.x; x < getDrawArea(camera, window_size_changed).second.x; x++) {
+	for (short int y = m_get_draw_area(camera, window_size_changed).first.y; y < m_get_draw_area(camera, window_size_changed).second.y; y++) {
+		for (short int x = m_get_draw_area(camera, window_size_changed).first.x; x < m_get_draw_area(camera, window_size_changed).second.x; x++) {
 			PositionStruct drawPos = coordinateToPosition(CoordinateStruct{ x, y }, camera);
 
 			// 一マス分描画
@@ -76,7 +76,7 @@ CoordinateStruct CityMap::positionToCoordinate(PositionStruct position, CameraSt
 	return ret;
 }
 
-pair<CoordinateStruct, CoordinateStruct> CityMap::getDrawArea(CameraStruct camera, bool window_size_changed) {
+pair<CoordinateStruct, CoordinateStruct> CityMap::m_get_draw_area(CameraStruct camera, bool window_size_changed) {
 	// カメラの座標が変わっていなければrangeを返す
 	if (!window_size_changed && camera.position.x == m_camera_before.position.x && camera.position.y == m_camera_before.position.y) {
 		return m_range;

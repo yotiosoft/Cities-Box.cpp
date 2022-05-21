@@ -137,21 +137,21 @@ bool CityMap::save() {
 			 */
 			
 			Array<JSON> json_map_x_ages_array;
-			for (int i=0; i<m_tiles[y][x].age.size(); i++) {
+			for (int i=0; i<(int)m_tiles[y][x].age.size(); i++) {
 				JSON json_map_x_age = m_tiles[y][x].age[i];
 				json_map_x_ages_array << json_map_x_age;
 			}
 			json_map_x[U"age"] = json_map_x_ages_array;
 			
 			Array<JSON> json_map_x_genders_array;
-			for (int i=0; i<m_tiles[y][x].gender.size(); i++) {
+			for (int i=0; i<(int)m_tiles[y][x].gender.size(); i++) {
 				JSON json_map_x_gender = m_tiles[y][x].gender[i];
 				json_map_x_genders_array << json_map_x_gender;
 			}
 			json_map_x[U"gender"] = json_map_x_genders_array;
 			
 			Array<JSON> json_map_x_work_places_array;
-			for (int i=0; i<m_tiles[y][x].workPlaces.size(); i++) {
+			for (int i=0; i<(int)m_tiles[y][x].workPlaces.size(); i++) {
 				JSON json_map_x_work_places;
 				json_map_x_work_places[U"work_kind"] = m_tiles[y][x].workPlaces[i].workPlace;
 				json_map_x_work_places[U"serial_number"] = m_tiles[y][x].workPlaces[i].workPlacesSerialNumber;
@@ -161,7 +161,7 @@ bool CityMap::save() {
 			json_map_x[U"work_places"] = json_map_x_work_places_array;
 			
 			Array<JSON> json_schools_array;
-			for (int i=0; i<m_tiles[y][x].schools.size(); i++) {
+			for (int i=0; i<(int)m_tiles[y][x].schools.size(); i++) {
 				JSON json_school;
 				json_school[U"school_kind"] = m_tiles[y][x].schools[i].school;
 				json_school[U"serial_number"] = m_tiles[y][x].schools[i].schoolSerialNumber;

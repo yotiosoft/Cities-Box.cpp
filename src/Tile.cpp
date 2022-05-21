@@ -44,7 +44,7 @@ bool Tile::addType(TypeID::Type add_type) {
 }
 
 bool Tile::addTypes(Array<TypeID::Type> add_types) {
-	for (int i=0; i<add_types.size(); i++) {
+	for (int i=0; i<(int)add_types.size(); i++) {
 		m_types << add_types[i];
 	}
 	return true;
@@ -70,7 +70,7 @@ bool Tile::addDirection(DirectionID::Type add_direction) {
 }
 
 bool Tile::addDirections(Array<DirectionID::Type> add_directions) {
-	for (int i=0; i<add_directions.size(); i++) {
+	for (int i=0; i<(int)add_directions.size(); i++) {
 		m_directions << add_directions[i];
 	}
 	return true;
@@ -127,7 +127,7 @@ Object* Tile::hasCategory(CategoryID::Type category) {
 bool Tile::isObjectExists(int arg_object_id) {
 	bool ret = false;
 	
-	for (int i=0; i<m_objects.size(); i++) {
+	for (int i=0; i<(int)m_objects.size(); i++) {
 		if (m_objects[i].object_p->getObjectID() == arg_object_id) {
 			return true;
 		}
@@ -137,7 +137,7 @@ bool Tile::isObjectExists(int arg_object_id) {
 }
 
 Object* Tile::getObjectP(String arg_addon_name, NameMode::Type arg_name_mode) {
-	for (int i=0; i<m_objects.size(); i++) {
+	for (int i=0; i<(int)m_objects.size(); i++) {
 		if (m_objects[i].object_p->getAddonName(arg_name_mode) == arg_addon_name) {
 			return m_objects[i].object_p;
 		}
@@ -162,36 +162,9 @@ Array<ObjectStruct> Tile::getObjectStructs() {
 	return m_objects;
 }
 
-// 接続状態を更新
-bool Tile::updateConnections(Array<Array<Tile>>& arg_tiles) {
-	// 周囲のタイルを確認
-	for (auto object_st : m_objects) {
-		CoordinateStruct current_coordinate = object_st.relative_coordinate.origin + object_st.relative_coordinate.relative;
-		cout << current_coordinate.x << "," << current_coordinate.y << endl;
-		cout << object_st.object_p << endl;
-		
-		for (int y=max(current_coordinate.y-1, 0); y<min(current_coordinate.y+2, (int)arg_tiles.size()); y++) {
-			for (int x=max(current_coordinate.x-1, 0); x<min(current_coordinate.x+2, (int)arg_tiles.size()); x++) {
-				if (y == current_coordinate.y && x == current_coordinate.x) {
-					continue;
-				}
-				for (auto target_object_st : arg_tiles[y][x].getObjectStructs()) {
-					if (m_is_objects_category_match(object_st.object_p, target_object_st.object_p)) {
-						if (m_is_this_points_for_me(object_st, target_object_st)) {
-							cout << "Todo: connect" << endl;
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	return false;
-}
-
 // 描画
 void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
-	for (int i=0; i<m_objects.size(); i++) {
+	for (int i=0; i<(int)m_objects.size(); i++) {
 		int rate;
 		Color rateColor = Color(0, 0, 0, 0);
 		if (arg_show_rate_id != RateID::None) {
@@ -275,21 +248,6 @@ Color Tile::m_get_rate_color(int rate, bool upper, int standard) {
 	}
 	
 	return ret;
-}
-
-// そのオブジェクトが自分の方向を向いているか（updateConnectionsで使用）
-bool Tile::m_is_this_points_for_me(ObjectStruct& my_object_st, ObjectStruct& target_object_st) {
-	CoordinateStruct target_coordinate = target_object_st.relative_coordinate.origin + target_object_st.relative_coordinate.relative;
-	Array<CoordinateStruct> coordinates = UnitaryTools::getCoordinateByDirectionID(target_coordinate, target_object_st.object_p->getDirectionID());
-	
-	for (auto coordinate : coordinates) {
-		//cout << coordinate.x << "," << coordinate.y << " / " << (my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative).x << "," << (my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative).y << endl;
-		if (coordinate == my_object_st.relative_coordinate.origin + my_object_st.relative_coordinate.relative) {
-			return true;
-		}
-	}
-	
-	return false;
 }
 
 bool Tile::m_is_objects_category_match(Object* obj1, Object* obj2) {

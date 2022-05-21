@@ -13,7 +13,7 @@ void CityMap::load(String loadMapFilePath) {
 		loadCBD(loadMapFilePath);
 	}
 	else */if (FileSystem::Extension(loadMapFilePath) == U"cbj") {
-		loadCBJ(loadMapFilePath);
+		m_load_CBJ(loadMapFilePath);
 	}
 }
 
@@ -22,7 +22,7 @@ static s3d::String extracted(int i, Array<s3d::String> &workplaceStr) {
 	return workplaceAndSerial;
 }
 
-void CityMap::loadCBJ(String loadMapFilePath) {
+void CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_map_file_path = loadMapFilePath;
 	
 	ifstream ifs(m_map_file_path.toUTF8().c_str(), ios::in | ios::binary);
@@ -39,7 +39,7 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	
 	m_addon_set_name = mapData[U"Addon_Set"].getString();
 	// -> アドオン読み込み
-	loadAddons(m_addon_set_name);
+	m_load_addons(m_addon_set_name);
 	
 	m_city_name = mapData[U"City_Name"].getString();
 	
@@ -397,11 +397,11 @@ void CityMap::loadCBJ(String loadMapFilePath) {
 	}
 }
 
-void CityMap::loadAddons(String addonSetName) {
+void CityMap::m_load_addons(String addonSetName) {
 	//Array<FileStruct> addons_path = specific::getAllFilesName("./addons", "adat");
 	Array<FileStruct> addonsPath = specific::getAllFilesName("./addons", "adj");
 	
-	for (int i=0; i<addonsPath.size(); i++) {
+	for (int i=0; i<(int)addonsPath.size(); i++) {
 		cout << "from: " << addonsPath[i].file_path << endl;
 		FileStruct fileTemp = addonsPath[i];
 		

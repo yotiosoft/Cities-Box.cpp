@@ -28,7 +28,6 @@ using namespace std;
 
 class CityMap;
 class CBAddon;
-class ImagesStruct;
 
 // 周囲4方向
 const pair<DirectionID::Type, CoordinateStruct> AroundTiles[AROUND_TILES] = {

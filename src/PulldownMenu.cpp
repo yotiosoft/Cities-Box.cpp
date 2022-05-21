@@ -35,7 +35,7 @@ void PulldownMenu::draw() {
 	if (m_pulling_down) {
 		Rect(m_position.x, m_position.y+m_size.y, m_size.x, (m_font(m_list[m_selected_element_num]).region(0, 0).h + 4) * m_list.size()).draw(Palette::Snow);
 		
-		for (int i=0; i<m_list.size(); i++) {
+		for (int i=0; i<(int)m_list.size(); i++) {
 			int elementSizeH = m_font(m_list[i]).region(0, 0).h+4;
 			
 			if (Cursor::Pos().x >= m_position.x && Cursor::Pos().y >= m_position.y+m_size.y+elementSizeH*i && Cursor::Pos().x <= m_position.x+m_size.x && Cursor::Pos().y <= m_position.y+m_size.y+elementSizeH*(i+1)-1) {

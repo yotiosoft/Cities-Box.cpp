@@ -57,7 +57,7 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 	
 	m_belong_addons_set_name = UnitaryTools::getStrArrayFromJsonArray(addonData[U"Belong_addon_set_name"]);
 	bool belong = false;
-	for (int i=0; i<m_belong_addons_set_name.size(); i++) {
+	for (int i=0; i<(int)m_belong_addons_set_name.size(); i++) {
 		if (m_belong_addons_set_name[i].length() > 0) {
 			if (m_belong_addons_set_name[i] == loading_addons_set_name) {
 				belong = true;
@@ -279,7 +279,7 @@ CategoryID::Type CBAddon::getMainConnectableCategory() {
 }
 
 bool CBAddon::isInCategories(CategoryID::Type searchCategory) {
-	for (int i=0; i<m_addon_categories.size(); i++) {
+	for (int i=0; i<(int)m_addon_categories.size(); i++) {
 		if (m_addon_categories[i] == searchCategory) {
 			return true;
 		}
@@ -288,8 +288,8 @@ bool CBAddon::isInCategories(CategoryID::Type searchCategory) {
 }
 
 bool CBAddon::isInCategories(Array<CategoryID::Type> searchCategories) {
-	for (int i=0; i<m_addon_categories.size(); i++) {
-		for (int j=0; j<searchCategories.size(); j++) {
+	for (int i=0; i<(int)m_addon_categories.size(); i++) {
+		for (int j=0; j<(int)searchCategories.size(); j++) {
 			if (m_addon_categories[i] == searchCategories[j]) {
 				return true;
 			}
@@ -509,7 +509,7 @@ void CBAddon::m_converter() {
 			// レイヤのタイプ
 			Array<JSON> json_layer_types;
 			Array<LayerType::Type> layer_types = layer->getLayerTypesInit();
-			for (int layer_type_num = 0; layer_type_num < layer_types.size(); layer_type_num++) {
+			for (int layer_type_num = 0; layer_type_num < (int)layer_types.size(); layer_type_num++) {
 				JSON json_layer_type;
 				json_layer_type = UnitaryTools::layerTypeToLayerName(layer_types[layer_type_num]);
 				json_layer_types << json_layer_type;

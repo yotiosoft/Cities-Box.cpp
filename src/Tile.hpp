@@ -56,9 +56,6 @@ public:
 	Array<Object*> getObjectsP(CategoryID::Type category_id);
 	Array<ObjectStruct> getObjectStructs();
 	
-	// 接続状態を更新
-	bool updateConnections(Array<Array<Tile>>& arg_tiles);
-	
 	// 描画
 	void draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time);
 	
@@ -96,9 +93,6 @@ private:
 	// プライベート関数
 	// 各率を表示するときの色を取得
 	Color m_get_rate_color(int rate, bool upper, int standard);
-	
-	// そのオブジェクトが自分の方向を向いているか（updateConnectionsで使用）
-	bool m_is_this_points_for_me(ObjectStruct& my_object_st, ObjectStruct& target_object_st);
 	
 	// オブジェクト同士のカテゴリの一致
 	bool m_is_objects_category_match(Object* obj1, Object* obj2);

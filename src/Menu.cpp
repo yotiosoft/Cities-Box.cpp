@@ -431,7 +431,7 @@ void Menu::addonMenu() {
 	
 	if (m_show_addons.size() > 0) {
 		int selectedI = -1, cursorI = -1;
-		for (int i=0; i<m_show_addons.size(); i++) {
+		for (int i=0; i<(int)m_show_addons.size(); i++) {
 			String addonName = m_show_addons[i]->getName(NameMode::English);
 			
 			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= m_position.y-40+32);
@@ -498,14 +498,14 @@ void Menu::addonMenu() {
 			}
 		}
 		
-		for (int i=0; i<m_category_buttons.size(); i++) {
+		for (int i=0; i<(int)m_category_buttons.size(); i++) {
 			m_category_buttons[i].second.put(PositionStruct{0, m_position.y-37+16*i});
 			
 			if (m_category_buttons[i].second.push()) {
 				if (m_category_buttons[i].second.isActive()) {
 					m_show_addons = m_map->getFitAddons(Array<CategoryID::Type>{m_current_category, m_category_buttons[i].first});
 					
-					for (int j=0; j<m_category_buttons.size(); j++) {
+					for (int j=0; j<(int)m_category_buttons.size(); j++) {
 						if (j != i) {
 							m_category_buttons[j].second.release();
 						}

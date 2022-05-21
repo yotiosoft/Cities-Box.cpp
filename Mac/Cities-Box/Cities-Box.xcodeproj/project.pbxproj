@@ -15,7 +15,6 @@
 		2C5C46E326B4F023005E8C85 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46E226B4F023005E8C85 /* CoreAudio.framework */; };
 		2C5C46E526B4F02A005E8C85 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46E426B4F02A005E8C85 /* CoreMedia.framework */; };
 		2C5C46E726B4F034005E8C85 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46E626B4F034005E8C85 /* libSiv3D.a */; };
-		2C5C46E926B4F039005E8C85 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46E826B4F039005E8C85 /* libboost_filesystem.a */; };
 		2C5C46EB26B4F04D005E8C85 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46EA26B4F04D005E8C85 /* libfreetype.a */; };
 		2C5C46ED26B4F056005E8C85 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46EC26B4F056005E8C85 /* libharfbuzz.a */; };
 		2C5C46EF26B4F05B005E8C85 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C46EE26B4F05B005E8C85 /* liblibgif.a */; };
@@ -37,36 +36,36 @@
 		2C5C470F26B4F08A005E8C85 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C470D26B4F08A005E8C85 /* libopus.a */; };
 		2C5C471126B4F08E005E8C85 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C471026B4F08E005E8C85 /* libzlib.a */; };
 		2C6906D82298140F00A427D0 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C6906D72298140F00A427D0 /* engine */; };
-		4B6D9C2127C03100006B89A1 /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2027C03100006B89A1 /* Specific.cpp */; };
-		4B6D9C5F27C03117006B89A1 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2327C03115006B89A1 /* Menu.cpp */; };
-		4B6D9C6027C03117006B89A1 /* CityMap_Road.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2427C03115006B89A1 /* CityMap_Road.cpp */; };
-		4B6D9C6127C03117006B89A1 /* AddonMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2527C03115006B89A1 /* AddonMaker.cpp */; };
-		4B6D9C6227C03117006B89A1 /* Images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2627C03115006B89A1 /* Images.cpp */; };
-		4B6D9C6327C03117006B89A1 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2727C03115006B89A1 /* Button.cpp */; };
-		4B6D9C6427C03117006B89A1 /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2827C03115006B89A1 /* AddonLayer.cpp */; };
-		4B6D9C6527C03117006B89A1 /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2927C03115006B89A1 /* RouteSolver.cpp */; };
-		4B6D9C6627C03117006B89A1 /* CityMap_LoadData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2A27C03115006B89A1 /* CityMap_LoadData.cpp */; };
-		4B6D9C6727C03117006B89A1 /* CitiesBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C2D27C03115006B89A1 /* CitiesBox.cpp */; };
-		4B6D9C6827C03117006B89A1 /* TitleMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3427C03116006B89A1 /* TitleMenu.cpp */; };
-		4B6D9C6927C03117006B89A1 /* CityMap_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3527C03116006B89A1 /* CityMap_Draw.cpp */; };
-		4B6D9C6A27C03117006B89A1 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3A27C03116006B89A1 /* Object.cpp */; };
-		4B6D9C6B27C03117006B89A1 /* CityNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3B27C03116006B89A1 /* CityNetwork.cpp */; };
-		4B6D9C6C27C03117006B89A1 /* CityMap_GetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3D27C03116006B89A1 /* CityMap_GetData.cpp */; };
-		4B6D9C6D27C03117006B89A1 /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3E27C03116006B89A1 /* SubWindow.cpp */; };
-		4B6D9C6E27C03117006B89A1 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C3F27C03116006B89A1 /* Sound.cpp */; };
-		4B6D9C6F27C03117006B89A1 /* CBAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4027C03116006B89A1 /* CBAddon.cpp */; };
-		4B6D9C7027C03117006B89A1 /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4227C03116006B89A1 /* DetailsBar.cpp */; };
-		4B6D9C7127C03117006B89A1 /* CityMap_SaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4327C03116006B89A1 /* CityMap_SaveData.cpp */; };
-		4B6D9C7227C03117006B89A1 /* CityMap_Build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4527C03116006B89A1 /* CityMap_Build.cpp */; };
-		4B6D9C7327C03117006B89A1 /* PulldownMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4627C03116006B89A1 /* PulldownMenu.cpp */; };
-		4B6D9C7527C03117006B89A1 /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4827C03116006B89A1 /* GeneralSetting.cpp */; };
-		4B6D9C7627C03117006B89A1 /* NormalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4927C03116006B89A1 /* NormalObject.cpp */; };
-		4B6D9C7727C03117006B89A1 /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C4D27C03117006B89A1 /* AddonType.cpp */; };
-		4B6D9C7827C03117006B89A1 /* StartUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C5027C03117006B89A1 /* StartUp.cpp */; };
-		4B6D9C7927C03117006B89A1 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C5427C03117006B89A1 /* Tile.cpp */; };
-		4B6D9C7A27C03117006B89A1 /* AbstractSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C5927C03117006B89A1 /* AbstractSetting.cpp */; };
-		4B6D9C7B27C03117006B89A1 /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C5D27C03117006B89A1 /* ConnectableObject.cpp */; };
-		4B6D9C7C27C03117006B89A1 /* UnitaryTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D9C5E27C03117006B89A1 /* UnitaryTools.cpp */; };
+		2CD8412C283263B2005013A6 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD8412B283263B2005013A6 /* libboost_filesystem.a */; };
+		7C55EE0B2838A07A00E5435D /* Specific.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE092838A07A00E5435D /* Specific.cpp */; };
+		7C55EE482838A09A00E5435D /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE0C2838A09900E5435D /* Button.cpp */; };
+		7C55EE492838A09A00E5435D /* Images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE0D2838A09900E5435D /* Images.cpp */; };
+		7C55EE4A2838A09A00E5435D /* TitleMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE112838A09900E5435D /* TitleMenu.cpp */; };
+		7C55EE4B2838A09A00E5435D /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE162838A09900E5435D /* Sound.cpp */; };
+		7C55EE4C2838A09A00E5435D /* StartUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE172838A09900E5435D /* StartUp.cpp */; };
+		7C55EE4D2838A09A00E5435D /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE1B2838A09900E5435D /* Object.cpp */; };
+		7C55EE4E2838A09A00E5435D /* NormalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE1C2838A09900E5435D /* NormalObject.cpp */; };
+		7C55EE4F2838A09A00E5435D /* AddonMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE1F2838A09900E5435D /* AddonMaker.cpp */; };
+		7C55EE502838A09A00E5435D /* CityMap_Build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE202838A09900E5435D /* CityMap_Build.cpp */; };
+		7C55EE512838A09A00E5435D /* UnitaryTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE222838A09900E5435D /* UnitaryTools.cpp */; };
+		7C55EE522838A09A00E5435D /* AddonType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE232838A09900E5435D /* AddonType.cpp */; };
+		7C55EE532838A09A00E5435D /* SubWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE242838A09900E5435D /* SubWindow.cpp */; };
+		7C55EE542838A09A00E5435D /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE272838A09900E5435D /* DetailsBar.cpp */; };
+		7C55EE562838A09A00E5435D /* CBAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE292838A09900E5435D /* CBAddon.cpp */; };
+		7C55EE572838A09A00E5435D /* CityMap_Road.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */; };
+		7C55EE582838A09A00E5435D /* CityNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2B2838A09900E5435D /* CityNetwork.cpp */; };
+		7C55EE592838A09A00E5435D /* CityMap_GetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2D2838A09900E5435D /* CityMap_GetData.cpp */; };
+		7C55EE5A2838A09A00E5435D /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE302838A09900E5435D /* Tile.cpp */; };
+		7C55EE5C2838A09A00E5435D /* CityMap_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE392838A09900E5435D /* CityMap_Draw.cpp */; };
+		7C55EE5D2838A09A00E5435D /* CityMap_SaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE3B2838A09A00E5435D /* CityMap_SaveData.cpp */; };
+		7C55EE5E2838A09A00E5435D /* RouteSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE3C2838A09A00E5435D /* RouteSolver.cpp */; };
+		7C55EE5F2838A09A00E5435D /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE412838A09A00E5435D /* Menu.cpp */; };
+		7C55EE602838A09A00E5435D /* CitiesBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE422838A09A00E5435D /* CitiesBox.cpp */; };
+		7C55EE612838A09A00E5435D /* PulldownMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE432838A09A00E5435D /* PulldownMenu.cpp */; };
+		7C55EE622838A09A00E5435D /* AddonLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE442838A09A00E5435D /* AddonLayer.cpp */; };
+		7C55EE632838A09A00E5435D /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE452838A09A00E5435D /* ConnectableObject.cpp */; };
+		7C55EE642838A09A00E5435D /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE462838A09A00E5435D /* GeneralSetting.cpp */; };
+		7C55EE652838A09A00E5435D /* CityMap_LoadData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE472838A09A00E5435D /* CityMap_LoadData.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +79,6 @@
 		2C5C46E226B4F023005E8C85 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2C5C46E426B4F02A005E8C85 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2C5C46E626B4F034005E8C85 /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSiv3D.a; path = ../../lib/macOS/libSiv3D.a; sourceTree = "<group>"; };
-		2C5C46E826B4F039005E8C85 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/macOS/boost/libboost_filesystem.a; sourceTree = "<group>"; };
 		2C5C46EA26B4F04D005E8C85 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../lib/macOS/freetype/libfreetype.a; sourceTree = "<group>"; };
 		2C5C46EC26B4F056005E8C85 /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../../lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C5C46EE26B4F05B005E8C85 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../../lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
@@ -102,66 +100,65 @@
 		2C5C470D26B4F08A005E8C85 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopus.a; path = ../../lib/macOS/opus/libopus.a; sourceTree = "<group>"; };
 		2C5C471026B4F08E005E8C85 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = ../../lib/macOS/zlib/libzlib.a; sourceTree = "<group>"; };
 		2C6906D72298140F00A427D0 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
-		4B6D9C1F27C03100006B89A1 /* Specific.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Specific.hpp; sourceTree = "<group>"; };
-		4B6D9C2027C03100006B89A1 /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
-		4B6D9C2327C03115006B89A1 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Menu.cpp; path = ../../../src/Menu.cpp; sourceTree = "<group>"; };
-		4B6D9C2427C03115006B89A1 /* CityMap_Road.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Road.cpp; path = ../../../src/CityMap_Road.cpp; sourceTree = "<group>"; };
-		4B6D9C2527C03115006B89A1 /* AddonMaker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonMaker.cpp; path = ../../../src/AddonMaker.cpp; sourceTree = "<group>"; };
-		4B6D9C2627C03115006B89A1 /* Images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Images.cpp; path = ../../../src/Images.cpp; sourceTree = "<group>"; };
-		4B6D9C2727C03115006B89A1 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = ../../../src/Button.cpp; sourceTree = "<group>"; };
-		4B6D9C2827C03115006B89A1 /* AddonLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonLayer.cpp; path = ../../../src/AddonLayer.cpp; sourceTree = "<group>"; };
-		4B6D9C2927C03115006B89A1 /* RouteSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RouteSolver.cpp; path = ../../../src/RouteSolver.cpp; sourceTree = "<group>"; };
-		4B6D9C2A27C03115006B89A1 /* CityMap_LoadData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_LoadData.cpp; path = ../../../src/CityMap_LoadData.cpp; sourceTree = "<group>"; };
-		4B6D9C2B27C03115006B89A1 /* Menu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Menu.hpp; path = ../../../src/Menu.hpp; sourceTree = "<group>"; };
-		4B6D9C2C27C03115006B89A1 /* CityNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityNetwork.hpp; path = ../../../src/CityNetwork.hpp; sourceTree = "<group>"; };
-		4B6D9C2D27C03115006B89A1 /* CitiesBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CitiesBox.cpp; path = ../../../src/CitiesBox.cpp; sourceTree = "<group>"; };
-		4B6D9C2E27C03115006B89A1 /* PulldownMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PulldownMenu.hpp; path = ../../../src/PulldownMenu.hpp; sourceTree = "<group>"; };
-		4B6D9C2F27C03116006B89A1 /* GeneralSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GeneralSetting.hpp; path = ../../../src/GeneralSetting.hpp; sourceTree = "<group>"; };
-		4B6D9C3027C03116006B89A1 /* DetailsBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DetailsBar.hpp; path = ../../../src/DetailsBar.hpp; sourceTree = "<group>"; };
-		4B6D9C3127C03116006B89A1 /* Button.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Button.hpp; path = ../../../src/Button.hpp; sourceTree = "<group>"; };
-		4B6D9C3227C03116006B89A1 /* Enums.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Enums.hpp; path = ../../../src/Enums.hpp; sourceTree = "<group>"; };
-		4B6D9C3327C03116006B89A1 /* UnitaryTools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnitaryTools.hpp; path = ../../../src/UnitaryTools.hpp; sourceTree = "<group>"; };
-		4B6D9C3427C03116006B89A1 /* TitleMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleMenu.cpp; path = ../../../src/TitleMenu.cpp; sourceTree = "<group>"; };
-		4B6D9C3527C03116006B89A1 /* CityMap_Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Draw.cpp; path = ../../../src/CityMap_Draw.cpp; sourceTree = "<group>"; };
-		4B6D9C3627C03116006B89A1 /* ImagesStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ImagesStruct.hpp; path = ../../../src/ImagesStruct.hpp; sourceTree = "<group>"; };
-		4B6D9C3727C03116006B89A1 /* StartUp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StartUp.hpp; path = ../../../src/StartUp.hpp; sourceTree = "<group>"; };
-		4B6D9C3827C03116006B89A1 /* AddonType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonType.hpp; path = ../../../src/AddonType.hpp; sourceTree = "<group>"; };
-		4B6D9C3927C03116006B89A1 /* ConnectableObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConnectableObject.hpp; path = ../../../src/ConnectableObject.hpp; sourceTree = "<group>"; };
-		4B6D9C3A27C03116006B89A1 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = ../../../src/Object.cpp; sourceTree = "<group>"; };
-		4B6D9C3B27C03116006B89A1 /* CityNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityNetwork.cpp; path = ../../../src/CityNetwork.cpp; sourceTree = "<group>"; };
-		4B6D9C3C27C03116006B89A1 /* CitiesBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CitiesBox.hpp; path = ../../../src/CitiesBox.hpp; sourceTree = "<group>"; };
-		4B6D9C3D27C03116006B89A1 /* CityMap_GetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_GetData.cpp; path = ../../../src/CityMap_GetData.cpp; sourceTree = "<group>"; };
-		4B6D9C3E27C03116006B89A1 /* SubWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubWindow.cpp; path = ../../../src/SubWindow.cpp; sourceTree = "<group>"; };
-		4B6D9C3F27C03116006B89A1 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sound.cpp; path = ../../../src/Sound.cpp; sourceTree = "<group>"; };
-		4B6D9C4027C03116006B89A1 /* CBAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBAddon.cpp; path = ../../../src/CBAddon.cpp; sourceTree = "<group>"; };
-		4B6D9C4127C03116006B89A1 /* NormalObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalObject.hpp; path = ../../../src/NormalObject.hpp; sourceTree = "<group>"; };
-		4B6D9C4227C03116006B89A1 /* DetailsBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DetailsBar.cpp; path = ../../../src/DetailsBar.cpp; sourceTree = "<group>"; };
-		4B6D9C4327C03116006B89A1 /* CityMap_SaveData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_SaveData.cpp; path = ../../../src/CityMap_SaveData.cpp; sourceTree = "<group>"; };
-		4B6D9C4427C03116006B89A1 /* AddonMaker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonMaker.hpp; path = ../../../src/AddonMaker.hpp; sourceTree = "<group>"; };
-		4B6D9C4527C03116006B89A1 /* CityMap_Build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Build.cpp; path = ../../../src/CityMap_Build.cpp; sourceTree = "<group>"; };
-		4B6D9C4627C03116006B89A1 /* PulldownMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PulldownMenu.cpp; path = ../../../src/PulldownMenu.cpp; sourceTree = "<group>"; };
-		4B6D9C4827C03116006B89A1 /* GeneralSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeneralSetting.cpp; path = ../../../src/GeneralSetting.cpp; sourceTree = "<group>"; };
-		4B6D9C4927C03116006B89A1 /* NormalObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalObject.cpp; path = ../../../src/NormalObject.cpp; sourceTree = "<group>"; };
-		4B6D9C4A27C03116006B89A1 /* Structs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Structs.hpp; path = ../../../src/Structs.hpp; sourceTree = "<group>"; };
-		4B6D9C4B27C03117006B89A1 /* RouteSolver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RouteSolver.hpp; path = ../../../src/RouteSolver.hpp; sourceTree = "<group>"; };
-		4B6D9C4C27C03117006B89A1 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Object.hpp; path = ../../../src/Object.hpp; sourceTree = "<group>"; };
-		4B6D9C4D27C03117006B89A1 /* AddonType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonType.cpp; path = ../../../src/AddonType.cpp; sourceTree = "<group>"; };
-		4B6D9C4E27C03117006B89A1 /* AddonDirectionStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonDirectionStruct.hpp; path = ../../../src/AddonDirectionStruct.hpp; sourceTree = "<group>"; };
-		4B6D9C4F27C03117006B89A1 /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityMap.hpp; path = ../../../src/CityMap.hpp; sourceTree = "<group>"; };
-		4B6D9C5027C03117006B89A1 /* StartUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartUp.cpp; path = ../../../src/StartUp.cpp; sourceTree = "<group>"; };
-		4B6D9C5127C03117006B89A1 /* Tile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Tile.hpp; path = ../../../src/Tile.hpp; sourceTree = "<group>"; };
-		4B6D9C5327C03117006B89A1 /* TitleMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TitleMenu.hpp; path = ../../../src/TitleMenu.hpp; sourceTree = "<group>"; };
-		4B6D9C5427C03117006B89A1 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tile.cpp; path = ../../../src/Tile.cpp; sourceTree = "<group>"; };
-		4B6D9C5527C03117006B89A1 /* AddonLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonLayer.hpp; path = ../../../src/AddonLayer.hpp; sourceTree = "<group>"; };
-		4B6D9C5627C03117006B89A1 /* Images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Images.hpp; path = ../../../src/Images.hpp; sourceTree = "<group>"; };
-		4B6D9C5727C03117006B89A1 /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../../../src/Sound.hpp; sourceTree = "<group>"; };
-		4B6D9C5827C03117006B89A1 /* AbstractSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AbstractSetting.hpp; path = ../../../src/AbstractSetting.hpp; sourceTree = "<group>"; };
-		4B6D9C5927C03117006B89A1 /* AbstractSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractSetting.cpp; path = ../../../src/AbstractSetting.cpp; sourceTree = "<group>"; };
-		4B6D9C5A27C03117006B89A1 /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Header.hpp; path = ../../../src/Header.hpp; sourceTree = "<group>"; };
-		4B6D9C5B27C03117006B89A1 /* CBAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CBAddon.hpp; path = ../../../src/CBAddon.hpp; sourceTree = "<group>"; };
-		4B6D9C5C27C03117006B89A1 /* SubWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubWindow.hpp; path = ../../../src/SubWindow.hpp; sourceTree = "<group>"; };
-		4B6D9C5D27C03117006B89A1 /* ConnectableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConnectableObject.cpp; path = ../../../src/ConnectableObject.cpp; sourceTree = "<group>"; };
-		4B6D9C5E27C03117006B89A1 /* UnitaryTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnitaryTools.cpp; path = ../../../src/UnitaryTools.cpp; sourceTree = "<group>"; };
+		2CD8412B283263B2005013A6 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/macOS/boost/libboost_filesystem.a; sourceTree = "<group>"; };
+		7C55EE092838A07A00E5435D /* Specific.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Specific.cpp; sourceTree = "<group>"; };
+		7C55EE0A2838A07A00E5435D /* Specific.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Specific.hpp; sourceTree = "<group>"; };
+		7C55EE0C2838A09900E5435D /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = ../../../src/Button.cpp; sourceTree = "<group>"; };
+		7C55EE0D2838A09900E5435D /* Images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Images.cpp; path = ../../../src/Images.cpp; sourceTree = "<group>"; };
+		7C55EE0E2838A09900E5435D /* AddonLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonLayer.hpp; path = ../../../src/AddonLayer.hpp; sourceTree = "<group>"; };
+		7C55EE102838A09900E5435D /* Enums.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Enums.hpp; path = ../../../src/Enums.hpp; sourceTree = "<group>"; };
+		7C55EE112838A09900E5435D /* TitleMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleMenu.cpp; path = ../../../src/TitleMenu.cpp; sourceTree = "<group>"; };
+		7C55EE122838A09900E5435D /* GeneralSetting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GeneralSetting.hpp; path = ../../../src/GeneralSetting.hpp; sourceTree = "<group>"; };
+		7C55EE132838A09900E5435D /* RouteSolver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RouteSolver.hpp; path = ../../../src/RouteSolver.hpp; sourceTree = "<group>"; };
+		7C55EE142838A09900E5435D /* SubWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubWindow.hpp; path = ../../../src/SubWindow.hpp; sourceTree = "<group>"; };
+		7C55EE152838A09900E5435D /* TitleMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TitleMenu.hpp; path = ../../../src/TitleMenu.hpp; sourceTree = "<group>"; };
+		7C55EE162838A09900E5435D /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sound.cpp; path = ../../../src/Sound.cpp; sourceTree = "<group>"; };
+		7C55EE172838A09900E5435D /* StartUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartUp.cpp; path = ../../../src/StartUp.cpp; sourceTree = "<group>"; };
+		7C55EE182838A09900E5435D /* Images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Images.hpp; path = ../../../src/Images.hpp; sourceTree = "<group>"; };
+		7C55EE192838A09900E5435D /* NormalObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalObject.hpp; path = ../../../src/NormalObject.hpp; sourceTree = "<group>"; };
+		7C55EE1A2838A09900E5435D /* ConnectableObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConnectableObject.hpp; path = ../../../src/ConnectableObject.hpp; sourceTree = "<group>"; };
+		7C55EE1B2838A09900E5435D /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = ../../../src/Object.cpp; sourceTree = "<group>"; };
+		7C55EE1C2838A09900E5435D /* NormalObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalObject.cpp; path = ../../../src/NormalObject.cpp; sourceTree = "<group>"; };
+		7C55EE1D2838A09900E5435D /* StartUp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StartUp.hpp; path = ../../../src/StartUp.hpp; sourceTree = "<group>"; };
+		7C55EE1E2838A09900E5435D /* CBAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CBAddon.hpp; path = ../../../src/CBAddon.hpp; sourceTree = "<group>"; };
+		7C55EE1F2838A09900E5435D /* AddonMaker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonMaker.cpp; path = ../../../src/AddonMaker.cpp; sourceTree = "<group>"; };
+		7C55EE202838A09900E5435D /* CityMap_Build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Build.cpp; path = ../../../src/CityMap_Build.cpp; sourceTree = "<group>"; };
+		7C55EE212838A09900E5435D /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../../../src/Sound.hpp; sourceTree = "<group>"; };
+		7C55EE222838A09900E5435D /* UnitaryTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnitaryTools.cpp; path = ../../../src/UnitaryTools.cpp; sourceTree = "<group>"; };
+		7C55EE232838A09900E5435D /* AddonType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonType.cpp; path = ../../../src/AddonType.cpp; sourceTree = "<group>"; };
+		7C55EE242838A09900E5435D /* SubWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubWindow.cpp; path = ../../../src/SubWindow.cpp; sourceTree = "<group>"; };
+		7C55EE262838A09900E5435D /* Button.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Button.hpp; path = ../../../src/Button.hpp; sourceTree = "<group>"; };
+		7C55EE272838A09900E5435D /* DetailsBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DetailsBar.cpp; path = ../../../src/DetailsBar.cpp; sourceTree = "<group>"; };
+		7C55EE292838A09900E5435D /* CBAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBAddon.cpp; path = ../../../src/CBAddon.cpp; sourceTree = "<group>"; };
+		7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Road.cpp; path = ../../../src/CityMap_Road.cpp; sourceTree = "<group>"; };
+		7C55EE2B2838A09900E5435D /* CityNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityNetwork.cpp; path = ../../../src/CityNetwork.cpp; sourceTree = "<group>"; };
+		7C55EE2C2838A09900E5435D /* CitiesBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CitiesBox.hpp; path = ../../../src/CitiesBox.hpp; sourceTree = "<group>"; };
+		7C55EE2D2838A09900E5435D /* CityMap_GetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_GetData.cpp; path = ../../../src/CityMap_GetData.cpp; sourceTree = "<group>"; };
+		7C55EE2E2838A09900E5435D /* AddonDirectionStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonDirectionStruct.hpp; path = ../../../src/AddonDirectionStruct.hpp; sourceTree = "<group>"; };
+		7C55EE2F2838A09900E5435D /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityMap.hpp; path = ../../../src/CityMap.hpp; sourceTree = "<group>"; };
+		7C55EE302838A09900E5435D /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tile.cpp; path = ../../../src/Tile.cpp; sourceTree = "<group>"; };
+		7C55EE312838A09900E5435D /* UnitaryTools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnitaryTools.hpp; path = ../../../src/UnitaryTools.hpp; sourceTree = "<group>"; };
+		7C55EE322838A09900E5435D /* CityNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityNetwork.hpp; path = ../../../src/CityNetwork.hpp; sourceTree = "<group>"; };
+		7C55EE342838A09900E5435D /* PulldownMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PulldownMenu.hpp; path = ../../../src/PulldownMenu.hpp; sourceTree = "<group>"; };
+		7C55EE352838A09900E5435D /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Object.hpp; path = ../../../src/Object.hpp; sourceTree = "<group>"; };
+		7C55EE362838A09900E5435D /* Menu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Menu.hpp; path = ../../../src/Menu.hpp; sourceTree = "<group>"; };
+		7C55EE372838A09900E5435D /* Tile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Tile.hpp; path = ../../../src/Tile.hpp; sourceTree = "<group>"; };
+		7C55EE382838A09900E5435D /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Header.hpp; path = ../../../src/Header.hpp; sourceTree = "<group>"; };
+		7C55EE392838A09900E5435D /* CityMap_Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Draw.cpp; path = ../../../src/CityMap_Draw.cpp; sourceTree = "<group>"; };
+		7C55EE3A2838A09A00E5435D /* AddonType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonType.hpp; path = ../../../src/AddonType.hpp; sourceTree = "<group>"; };
+		7C55EE3B2838A09A00E5435D /* CityMap_SaveData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_SaveData.cpp; path = ../../../src/CityMap_SaveData.cpp; sourceTree = "<group>"; };
+		7C55EE3C2838A09A00E5435D /* RouteSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RouteSolver.cpp; path = ../../../src/RouteSolver.cpp; sourceTree = "<group>"; };
+		7C55EE3D2838A09A00E5435D /* DetailsBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DetailsBar.hpp; path = ../../../src/DetailsBar.hpp; sourceTree = "<group>"; };
+		7C55EE3E2838A09A00E5435D /* AddonMaker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonMaker.hpp; path = ../../../src/AddonMaker.hpp; sourceTree = "<group>"; };
+		7C55EE3F2838A09A00E5435D /* ImagesStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ImagesStruct.hpp; path = ../../../src/ImagesStruct.hpp; sourceTree = "<group>"; };
+		7C55EE402838A09A00E5435D /* Structs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Structs.hpp; path = ../../../src/Structs.hpp; sourceTree = "<group>"; };
+		7C55EE412838A09A00E5435D /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Menu.cpp; path = ../../../src/Menu.cpp; sourceTree = "<group>"; };
+		7C55EE422838A09A00E5435D /* CitiesBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CitiesBox.cpp; path = ../../../src/CitiesBox.cpp; sourceTree = "<group>"; };
+		7C55EE432838A09A00E5435D /* PulldownMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PulldownMenu.cpp; path = ../../../src/PulldownMenu.cpp; sourceTree = "<group>"; };
+		7C55EE442838A09A00E5435D /* AddonLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddonLayer.cpp; path = ../../../src/AddonLayer.cpp; sourceTree = "<group>"; };
+		7C55EE452838A09A00E5435D /* ConnectableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConnectableObject.cpp; path = ../../../src/ConnectableObject.cpp; sourceTree = "<group>"; };
+		7C55EE462838A09A00E5435D /* GeneralSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeneralSetting.cpp; path = ../../../src/GeneralSetting.cpp; sourceTree = "<group>"; };
+		7C55EE472838A09A00E5435D /* CityMap_LoadData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_LoadData.cpp; path = ../../../src/CityMap_LoadData.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,9 +170,9 @@
 				2C5C46E126B4F01C005E8C85 /* AVFoundation.framework in Frameworks */,
 				2C5C46E326B4F023005E8C85 /* CoreAudio.framework in Frameworks */,
 				2C5C46E526B4F02A005E8C85 /* CoreMedia.framework in Frameworks */,
-				2C5C46E926B4F039005E8C85 /* libboost_filesystem.a in Frameworks */,
 				2C5C46DD26B4F00D005E8C85 /* libcurl.tbd in Frameworks */,
 				2C5C46E726B4F034005E8C85 /* libSiv3D.a in Frameworks */,
+				2CD8412C283263B2005013A6 /* libboost_filesystem.a in Frameworks */,
 				2C5C470E26B4F08A005E8C85 /* libopusfile.a in Frameworks */,
 				2C5C471126B4F08E005E8C85 /* libzlib.a in Frameworks */,
 				2C5C470F26B4F08A005E8C85 /* libopus.a in Frameworks */,
@@ -225,66 +222,64 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4B6D9C5927C03117006B89A1 /* AbstractSetting.cpp */,
-				4B6D9C5827C03117006B89A1 /* AbstractSetting.hpp */,
-				4B6D9C4E27C03117006B89A1 /* AddonDirectionStruct.hpp */,
-				4B6D9C2827C03115006B89A1 /* AddonLayer.cpp */,
-				4B6D9C5527C03117006B89A1 /* AddonLayer.hpp */,
-				4B6D9C2527C03115006B89A1 /* AddonMaker.cpp */,
-				4B6D9C4427C03116006B89A1 /* AddonMaker.hpp */,
-				4B6D9C4D27C03117006B89A1 /* AddonType.cpp */,
-				4B6D9C3827C03116006B89A1 /* AddonType.hpp */,
-				4B6D9C2727C03115006B89A1 /* Button.cpp */,
-				4B6D9C3127C03116006B89A1 /* Button.hpp */,
-				4B6D9C4027C03116006B89A1 /* CBAddon.cpp */,
-				4B6D9C5B27C03117006B89A1 /* CBAddon.hpp */,
-				4B6D9C2D27C03115006B89A1 /* CitiesBox.cpp */,
-				4B6D9C3C27C03116006B89A1 /* CitiesBox.hpp */,
-				4B6D9C4527C03116006B89A1 /* CityMap_Build.cpp */,
-				4B6D9C3527C03116006B89A1 /* CityMap_Draw.cpp */,
-				4B6D9C3D27C03116006B89A1 /* CityMap_GetData.cpp */,
-				4B6D9C2A27C03115006B89A1 /* CityMap_LoadData.cpp */,
-				4B6D9C2427C03115006B89A1 /* CityMap_Road.cpp */,
-				4B6D9C4327C03116006B89A1 /* CityMap_SaveData.cpp */,
-				4B6D9C4F27C03117006B89A1 /* CityMap.hpp */,
-				4B6D9C3B27C03116006B89A1 /* CityNetwork.cpp */,
-				4B6D9C2C27C03115006B89A1 /* CityNetwork.hpp */,
-				4B6D9C5D27C03117006B89A1 /* ConnectableObject.cpp */,
-				4B6D9C3927C03116006B89A1 /* ConnectableObject.hpp */,
-				4B6D9C4227C03116006B89A1 /* DetailsBar.cpp */,
-				4B6D9C3027C03116006B89A1 /* DetailsBar.hpp */,
-				4B6D9C3227C03116006B89A1 /* Enums.hpp */,
-				4B6D9C4827C03116006B89A1 /* GeneralSetting.cpp */,
-				4B6D9C2F27C03116006B89A1 /* GeneralSetting.hpp */,
-				4B6D9C5A27C03117006B89A1 /* Header.hpp */,
-				4B6D9C2627C03115006B89A1 /* Images.cpp */,
-				4B6D9C5627C03117006B89A1 /* Images.hpp */,
-				4B6D9C3627C03116006B89A1 /* ImagesStruct.hpp */,
-				4B6D9C2327C03115006B89A1 /* Menu.cpp */,
-				4B6D9C2B27C03115006B89A1 /* Menu.hpp */,
-				4B6D9C4927C03116006B89A1 /* NormalObject.cpp */,
-				4B6D9C4127C03116006B89A1 /* NormalObject.hpp */,
-				4B6D9C3A27C03116006B89A1 /* Object.cpp */,
-				4B6D9C4C27C03117006B89A1 /* Object.hpp */,
-				4B6D9C4627C03116006B89A1 /* PulldownMenu.cpp */,
-				4B6D9C2E27C03115006B89A1 /* PulldownMenu.hpp */,
-				4B6D9C2927C03115006B89A1 /* RouteSolver.cpp */,
-				4B6D9C4B27C03117006B89A1 /* RouteSolver.hpp */,
-				4B6D9C3F27C03116006B89A1 /* Sound.cpp */,
-				4B6D9C5727C03117006B89A1 /* Sound.hpp */,
-				4B6D9C5027C03117006B89A1 /* StartUp.cpp */,
-				4B6D9C3727C03116006B89A1 /* StartUp.hpp */,
-				4B6D9C4A27C03116006B89A1 /* Structs.hpp */,
-				4B6D9C3E27C03116006B89A1 /* SubWindow.cpp */,
-				4B6D9C5C27C03117006B89A1 /* SubWindow.hpp */,
-				4B6D9C5427C03117006B89A1 /* Tile.cpp */,
-				4B6D9C5127C03117006B89A1 /* Tile.hpp */,
-				4B6D9C3427C03116006B89A1 /* TitleMenu.cpp */,
-				4B6D9C5327C03117006B89A1 /* TitleMenu.hpp */,
-				4B6D9C5E27C03117006B89A1 /* UnitaryTools.cpp */,
-				4B6D9C3327C03116006B89A1 /* UnitaryTools.hpp */,
-				4B6D9C2027C03100006B89A1 /* Specific.cpp */,
-				4B6D9C1F27C03100006B89A1 /* Specific.hpp */,
+				7C55EE2E2838A09900E5435D /* AddonDirectionStruct.hpp */,
+				7C55EE442838A09A00E5435D /* AddonLayer.cpp */,
+				7C55EE0E2838A09900E5435D /* AddonLayer.hpp */,
+				7C55EE1F2838A09900E5435D /* AddonMaker.cpp */,
+				7C55EE3E2838A09A00E5435D /* AddonMaker.hpp */,
+				7C55EE232838A09900E5435D /* AddonType.cpp */,
+				7C55EE3A2838A09A00E5435D /* AddonType.hpp */,
+				7C55EE0C2838A09900E5435D /* Button.cpp */,
+				7C55EE262838A09900E5435D /* Button.hpp */,
+				7C55EE292838A09900E5435D /* CBAddon.cpp */,
+				7C55EE1E2838A09900E5435D /* CBAddon.hpp */,
+				7C55EE422838A09A00E5435D /* CitiesBox.cpp */,
+				7C55EE2C2838A09900E5435D /* CitiesBox.hpp */,
+				7C55EE202838A09900E5435D /* CityMap_Build.cpp */,
+				7C55EE392838A09900E5435D /* CityMap_Draw.cpp */,
+				7C55EE2D2838A09900E5435D /* CityMap_GetData.cpp */,
+				7C55EE472838A09A00E5435D /* CityMap_LoadData.cpp */,
+				7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */,
+				7C55EE3B2838A09A00E5435D /* CityMap_SaveData.cpp */,
+				7C55EE2F2838A09900E5435D /* CityMap.hpp */,
+				7C55EE2B2838A09900E5435D /* CityNetwork.cpp */,
+				7C55EE322838A09900E5435D /* CityNetwork.hpp */,
+				7C55EE452838A09A00E5435D /* ConnectableObject.cpp */,
+				7C55EE1A2838A09900E5435D /* ConnectableObject.hpp */,
+				7C55EE272838A09900E5435D /* DetailsBar.cpp */,
+				7C55EE3D2838A09A00E5435D /* DetailsBar.hpp */,
+				7C55EE102838A09900E5435D /* Enums.hpp */,
+				7C55EE462838A09A00E5435D /* GeneralSetting.cpp */,
+				7C55EE122838A09900E5435D /* GeneralSetting.hpp */,
+				7C55EE382838A09900E5435D /* Header.hpp */,
+				7C55EE0D2838A09900E5435D /* Images.cpp */,
+				7C55EE182838A09900E5435D /* Images.hpp */,
+				7C55EE3F2838A09A00E5435D /* ImagesStruct.hpp */,
+				7C55EE412838A09A00E5435D /* Menu.cpp */,
+				7C55EE362838A09900E5435D /* Menu.hpp */,
+				7C55EE1C2838A09900E5435D /* NormalObject.cpp */,
+				7C55EE192838A09900E5435D /* NormalObject.hpp */,
+				7C55EE1B2838A09900E5435D /* Object.cpp */,
+				7C55EE352838A09900E5435D /* Object.hpp */,
+				7C55EE432838A09A00E5435D /* PulldownMenu.cpp */,
+				7C55EE342838A09900E5435D /* PulldownMenu.hpp */,
+				7C55EE3C2838A09A00E5435D /* RouteSolver.cpp */,
+				7C55EE132838A09900E5435D /* RouteSolver.hpp */,
+				7C55EE162838A09900E5435D /* Sound.cpp */,
+				7C55EE212838A09900E5435D /* Sound.hpp */,
+				7C55EE172838A09900E5435D /* StartUp.cpp */,
+				7C55EE1D2838A09900E5435D /* StartUp.hpp */,
+				7C55EE402838A09A00E5435D /* Structs.hpp */,
+				7C55EE242838A09900E5435D /* SubWindow.cpp */,
+				7C55EE142838A09900E5435D /* SubWindow.hpp */,
+				7C55EE302838A09900E5435D /* Tile.cpp */,
+				7C55EE372838A09900E5435D /* Tile.hpp */,
+				7C55EE112838A09900E5435D /* TitleMenu.cpp */,
+				7C55EE152838A09900E5435D /* TitleMenu.hpp */,
+				7C55EE222838A09900E5435D /* UnitaryTools.cpp */,
+				7C55EE312838A09900E5435D /* UnitaryTools.hpp */,
+				7C55EE092838A07A00E5435D /* Specific.cpp */,
+				7C55EE0A2838A07A00E5435D /* Specific.hpp */,
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 			);
 			path = src;
@@ -293,6 +288,7 @@
 		2CC7F9861F45930A0071A239 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CD8412B283263B2005013A6 /* libboost_filesystem.a */,
 				2C5C471026B4F08E005E8C85 /* libzlib.a */,
 				2C5C470D26B4F08A005E8C85 /* libopus.a */,
 				2C5C470C26B4F08A005E8C85 /* libopusfile.a */,
@@ -313,7 +309,6 @@
 				2C5C46EE26B4F05B005E8C85 /* liblibgif.a */,
 				2C5C46EC26B4F056005E8C85 /* libharfbuzz.a */,
 				2C5C46EA26B4F04D005E8C85 /* libfreetype.a */,
-				2C5C46E826B4F039005E8C85 /* libboost_filesystem.a */,
 				2C5C46E626B4F034005E8C85 /* libSiv3D.a */,
 				2C5C46E426B4F02A005E8C85 /* CoreMedia.framework */,
 				2C5C46E226B4F023005E8C85 /* CoreAudio.framework */,
@@ -357,7 +352,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C17787D1CE0A9D800BB8AD0 /* Build configuration list for PBXProject "Cities Box" */;
+			buildConfigurationList = 2C17787D1CE0A9D800BB8AD0 /* Build configuration list for PBXProject "Cities-Box" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -392,37 +387,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6D9C6927C03117006B89A1 /* CityMap_Draw.cpp in Sources */,
-				4B6D9C7B27C03117006B89A1 /* ConnectableObject.cpp in Sources */,
-				4B6D9C6127C03117006B89A1 /* AddonMaker.cpp in Sources */,
-				4B6D9C7927C03117006B89A1 /* Tile.cpp in Sources */,
-				4B6D9C6227C03117006B89A1 /* Images.cpp in Sources */,
-				4B6D9C7A27C03117006B89A1 /* AbstractSetting.cpp in Sources */,
-				4B6D9C7827C03117006B89A1 /* StartUp.cpp in Sources */,
-				4B6D9C7527C03117006B89A1 /* GeneralSetting.cpp in Sources */,
-				4B6D9C7327C03117006B89A1 /* PulldownMenu.cpp in Sources */,
-				4B6D9C6427C03117006B89A1 /* AddonLayer.cpp in Sources */,
-				4B6D9C6C27C03117006B89A1 /* CityMap_GetData.cpp in Sources */,
-				4B6D9C6A27C03117006B89A1 /* Object.cpp in Sources */,
-				4B6D9C7227C03117006B89A1 /* CityMap_Build.cpp in Sources */,
-				4B6D9C6627C03117006B89A1 /* CityMap_LoadData.cpp in Sources */,
-				4B6D9C7127C03117006B89A1 /* CityMap_SaveData.cpp in Sources */,
-				4B6D9C7727C03117006B89A1 /* AddonType.cpp in Sources */,
-				4B6D9C5F27C03117006B89A1 /* Menu.cpp in Sources */,
-				4B6D9C6327C03117006B89A1 /* Button.cpp in Sources */,
-				4B6D9C6027C03117006B89A1 /* CityMap_Road.cpp in Sources */,
-				4B6D9C7027C03117006B89A1 /* DetailsBar.cpp in Sources */,
-				4B6D9C6F27C03117006B89A1 /* CBAddon.cpp in Sources */,
+				7C55EE5C2838A09A00E5435D /* CityMap_Draw.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
-				4B6D9C2127C03100006B89A1 /* Specific.cpp in Sources */,
-				4B6D9C6D27C03117006B89A1 /* SubWindow.cpp in Sources */,
-				4B6D9C6827C03117006B89A1 /* TitleMenu.cpp in Sources */,
-				4B6D9C7627C03117006B89A1 /* NormalObject.cpp in Sources */,
-				4B6D9C6727C03117006B89A1 /* CitiesBox.cpp in Sources */,
-				4B6D9C6B27C03117006B89A1 /* CityNetwork.cpp in Sources */,
-				4B6D9C6527C03117006B89A1 /* RouteSolver.cpp in Sources */,
-				4B6D9C7C27C03117006B89A1 /* UnitaryTools.cpp in Sources */,
-				4B6D9C6E27C03117006B89A1 /* Sound.cpp in Sources */,
+				7C55EE582838A09A00E5435D /* CityNetwork.cpp in Sources */,
+				7C55EE5D2838A09A00E5435D /* CityMap_SaveData.cpp in Sources */,
+				7C55EE492838A09A00E5435D /* Images.cpp in Sources */,
+				7C55EE4D2838A09A00E5435D /* Object.cpp in Sources */,
+				7C55EE592838A09A00E5435D /* CityMap_GetData.cpp in Sources */,
+				7C55EE0B2838A07A00E5435D /* Specific.cpp in Sources */,
+				7C55EE5E2838A09A00E5435D /* RouteSolver.cpp in Sources */,
+				7C55EE5A2838A09A00E5435D /* Tile.cpp in Sources */,
+				7C55EE4C2838A09A00E5435D /* StartUp.cpp in Sources */,
+				7C55EE642838A09A00E5435D /* GeneralSetting.cpp in Sources */,
+				7C55EE4F2838A09A00E5435D /* AddonMaker.cpp in Sources */,
+				7C55EE5F2838A09A00E5435D /* Menu.cpp in Sources */,
+				7C55EE612838A09A00E5435D /* PulldownMenu.cpp in Sources */,
+				7C55EE622838A09A00E5435D /* AddonLayer.cpp in Sources */,
+				7C55EE512838A09A00E5435D /* UnitaryTools.cpp in Sources */,
+				7C55EE502838A09A00E5435D /* CityMap_Build.cpp in Sources */,
+				7C55EE572838A09A00E5435D /* CityMap_Road.cpp in Sources */,
+				7C55EE652838A09A00E5435D /* CityMap_LoadData.cpp in Sources */,
+				7C55EE4A2838A09A00E5435D /* TitleMenu.cpp in Sources */,
+				7C55EE482838A09A00E5435D /* Button.cpp in Sources */,
+				7C55EE542838A09A00E5435D /* DetailsBar.cpp in Sources */,
+				7C55EE4E2838A09A00E5435D /* NormalObject.cpp in Sources */,
+				7C55EE4B2838A09A00E5435D /* Sound.cpp in Sources */,
+				7C55EE562838A09A00E5435D /* CBAddon.cpp in Sources */,
+				7C55EE532838A09A00E5435D /* SubWindow.cpp in Sources */,
+				7C55EE522838A09A00E5435D /* AddonType.cpp in Sources */,
+				7C55EE602838A09A00E5435D /* CitiesBox.cpp in Sources */,
+				7C55EE632838A09A00E5435D /* ConnectableObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,8 +545,8 @@
 				HEADER_SEARCH_PATHS = (
 					../../include,
 					../../include/ThirdParty,
-					../../src,
 					./src,
+					../../src,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -573,14 +567,13 @@
 					../../lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-fvisibility=hidden",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yotiosoft.opensiv3d;
+				PRODUCT_BUNDLE_IDENTIFIER = siv3d.empty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -629,8 +622,8 @@
 				HEADER_SEARCH_PATHS = (
 					../../include,
 					../../include/ThirdParty,
-					../../src,
 					./src,
+					../../src,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -651,14 +644,13 @@
 					../../lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-fvisibility=hidden",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yotiosoft.opensiv3d;
+				PRODUCT_BUNDLE_IDENTIFIER = siv3d.empty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -672,7 +664,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C17787D1CE0A9D800BB8AD0 /* Build configuration list for PBXProject "Cities Box" */ = {
+		2C17787D1CE0A9D800BB8AD0 /* Build configuration list for PBXProject "Cities-Box" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C17787E1CE0A9D800BB8AD0 /* Debug */,

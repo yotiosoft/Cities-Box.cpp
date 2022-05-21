@@ -198,11 +198,7 @@ bool Tile::deleteObject(int arg_object_id) {
 			UnitaryTools::debugLog(U"delete object at {}, {} of {}, {}"_fmt(it->relative_coordinate.origin.x, it->relative_coordinate.origin.y, it->relative_coordinate.relative.x, it->relative_coordinate.relative.y));
 			cout << U"delete object at {}, {} of {}, {}"_fmt(it->relative_coordinate.origin.x, it->relative_coordinate.origin.y, it->relative_coordinate.relative.x, it->relative_coordinate.relative.y) << endl;
             
-            if (it->object_p->isCommonObject()) {
-                return false;
-            }
-            
-			m_objects.erase(it);
+            m_objects.erase(it);
 			UnitaryTools::debugLog(U"After delete");
 			return true;
 		}

@@ -140,7 +140,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
 
             // 更地になったら芝生を置く
             // 要修正 : 共通の動作は一つの関数にまとめること
-            if ((!isTemporaryDelete || x != coordinate.x || y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
+            if (!isTemporaryDelete && (x != coordinate.x || y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
                 UnitaryTools::debugLog(U"before put");
                 m_put_grass(CoordinateStruct{ x, y });
                 UnitaryTools::debugLog(U"after put");
@@ -149,7 +149,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
     }
     // クリア処理
     // オブジェクト自体を除去
-    if (deleteThis)
+    if (deleteThis && !object_struct.object_p->isCommonObject())
         delete(object_struct.object_p);
 
     UnitaryTools::debugLog(U"before erase");

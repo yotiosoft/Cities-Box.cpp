@@ -179,6 +179,7 @@ private:
 	map<String, CBAddon*> m_addons;
 	
 	map<int, Object*> m_objects;
+    map<String, Object*> m_common_objects;
 	int m_max_object_id = 0;
 	
     Array<Object*> m_constructing_connectable_objects;

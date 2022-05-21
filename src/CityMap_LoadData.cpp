@@ -213,8 +213,24 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 				}
 				// その他建物などはNormalObjectに
 				else {
-					m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
-					m_objects[object_id]->setVisible(visible);
+                    // タイルアドオンなら共通オブジェクトにまとめる
+                    bool object_loaded = false;
+                    if (m_addons[addon_name]->isInCategories(CategoryID::Tile)) {
+                        if (m_common_objects.find(addon_name) == m_common_objects.end()) {
+                            // m_common_objectsに共通オブジェクトが登録されてない場合は追加
+                            m_common_objects[addon_name] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+                            m_common_objects[addon_name]->setVisible(visible);
+                            m_common_objects[addon_name]->setCommonObject();
+                            
+                            m_objects[object_id] = m_common_objects[addon_name];
+                            object_loaded = true;
+                        }
+                    }
+                    
+                    if (!object_loaded) {
+                        m_objects[object_id] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
+                        m_objects[object_id]->setVisible(visible);
+                    }
 				}
 				
 				if (object_id > m_max_object_id) {
@@ -325,14 +341,31 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 							for (const auto& jObject : tile[U"objects"].arrayView()) {
 								// オブジェクトIDを取得
 								int object_id = jObject[U"objectID"].get<int>();
+                                
+                                Object *obj;
+                                // もし共通オブジェクトに登録されたアドオンであれば、共通オブジェクトに置き換え（タイルのみ）
+                                if (m_objects[object_id]->getAddonP()->isInCategories(CategoryID::Tile)) {
+                                    auto itr = m_common_objects.find(m_objects[object_id]->getAddonP()->getAuthorName());
+                                    if (itr != m_common_objects.end()) {
+                                        obj = itr->second;
+                                        m_objects[object_id]->setDeleted();
+                                        m_objects.erase(object_id);
+                                    }
+                                    else {
+                                        obj = m_objects[object_id];
+                                    }
+                                }
+                                else {
+                                    obj = m_objects[object_id];
+                                }
 								
 								// RelativeCoordinateStructを作成
 								RelativeCoordinateStruct relarive_coordinate;
-								relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
+								relarive_coordinate.origin = obj->getOriginCoordinate();
 								relarive_coordinate.relative.x = jObject[U"relative_coordinate"][U"x"].get<int>();
 								relarive_coordinate.relative.y = jObject[U"relative_coordinate"][U"y"].get<int>();
 								
-								m_tiles[y][x].addObject(m_objects[object_id], relarive_coordinate);
+								m_tiles[y][x].addObject(obj, relarive_coordinate);
 							}
 						}
 					}

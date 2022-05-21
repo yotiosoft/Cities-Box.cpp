@@ -60,6 +60,7 @@ public:
     
     // 共通オブジェクトに指定
     void setCommonObject();
+    bool isCommonObject();
 	
 	// 描画
 	void draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color);

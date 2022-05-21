@@ -217,6 +217,8 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
                     bool object_loaded = false;
                     if (m_addons[addon_name]->isInCategories(CategoryID::Tile)) {
                         if (m_common_objects.find(addon_name) == m_common_objects.end()) {
+                            UnitaryTools::debugLog(U"common object: name={} object_id={}"_fmt(addon_name, object_id));
+                            
                             // m_common_objectsに共通オブジェクトが登録されてない場合は追加
                             m_common_objects[addon_name] = new NormalObject(object_id, m_addons[addon_name], original_name, type_id, direction_id, origin_coordinate);
                             m_common_objects[addon_name]->setVisible(visible);
@@ -345,7 +347,7 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
                                 Object *obj;
                                 // もし共通オブジェクトに登録されたアドオンであれば、共通オブジェクトに置き換え（タイルのみ）
                                 if (m_objects[object_id]->getAddonP()->isInCategories(CategoryID::Tile)) {
-                                    auto itr = m_common_objects.find(m_objects[object_id]->getAddonP()->getAuthorName());
+                                    auto itr = m_common_objects.find(m_objects[object_id]->getAddonP()->getName(NameMode::English));
                                     if (itr != m_common_objects.end()) {
                                         obj = itr->second;
                                         m_objects[object_id]->setDeleted();

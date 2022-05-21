@@ -128,6 +128,9 @@ bool Object::getVisible() {
 void Object::setCommonObject() {
     m_common_object = true;
 }
+bool Object::isCommonObject() {
+    return m_common_object;
+}
 
 // 描画
 void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct arg_draw_position, TimeStruct arg_time, Color arg_add_color) {

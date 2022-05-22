@@ -345,25 +345,29 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 								int object_id = jObject[U"objectID"].get<int>();
                                 
                                 Object *obj;
+                                RelativeCoordinateStruct relarive_coordinate;
+                                
                                 // もし共通オブジェクトに登録されたアドオンであれば、共通オブジェクトに置き換え（タイルのみ）
                                 if (m_objects[object_id]->getAddonP()->isInCategories(CategoryID::Tile)) {
                                     auto itr = m_common_objects.find(m_objects[object_id]->getAddonP()->getName(NameMode::English));
                                     if (itr != m_common_objects.end()) {
                                         obj = itr->second;
+                                        relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
+                                        
                                         m_objects[object_id]->setDeleted();
                                         m_objects.erase(object_id);
                                     }
                                     else {
                                         obj = m_objects[object_id];
+                                        relarive_coordinate.origin = obj->getOriginCoordinate();
                                     }
                                 }
                                 else {
                                     obj = m_objects[object_id];
+                                    relarive_coordinate.origin = obj->getOriginCoordinate();
                                 }
 								
 								// RelativeCoordinateStructを作成
-								RelativeCoordinateStruct relarive_coordinate;
-								relarive_coordinate.origin = obj->getOriginCoordinate();
 								relarive_coordinate.relative.x = jObject[U"relative_coordinate"][U"x"].get<int>();
 								relarive_coordinate.relative.y = jObject[U"relative_coordinate"][U"y"].get<int>();
 								

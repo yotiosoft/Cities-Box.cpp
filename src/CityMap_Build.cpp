@@ -241,7 +241,7 @@ void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {
     auto common_object = m_common_objects.find(m_addons[U"tile_greenfield"]->getName(NameMode::English));
     if (common_object != m_common_objects.end()) {
         RelativeCoordinateStruct relative_coordinate;
-        relative_coordinate.origin = common_object->second->getOriginCoordinate();
+        relative_coordinate.origin = arg_coordinate;
         relative_coordinate.relative = CoordinateStruct{ 0, 0 };
         
         cout << "put grass: " << common_object->second->getObjectID() << endl;

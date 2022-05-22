@@ -149,12 +149,13 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
     }
     // クリア処理
     // オブジェクト自体を除去
-    if (deleteThis && !object_struct.object_p->isCommonObject())
-        delete(object_struct.object_p);
+	if (deleteThis && !object_struct.object_p->isCommonObject()) {
+		delete(object_struct.object_p);
 
-    UnitaryTools::debugLog(U"before erase");
-    m_objects.erase(delete_object_id);
-    UnitaryTools::debugLog(U"after erase");
+		UnitaryTools::debugLog(U"before erase");
+		m_objects.erase(delete_object_id);
+		UnitaryTools::debugLog(U"after erase");
+	}
 }
 
 // 建物の建設の可否

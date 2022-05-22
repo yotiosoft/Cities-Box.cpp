@@ -140,7 +140,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
 
             // 更地になったら芝生を置く
             // 要修正 : 共通の動作は一つの関数にまとめること
-            if (!isTemporaryDelete && (x != coordinate.x || y != coordinate.y) && m_tiles[y][x].getObjectStructs().size() == 0) {
+            if (!isTemporaryDelete && m_tiles[y][x].getObjectStructs().size() == 0) {
                 UnitaryTools::debugLog(U"before put");
                 m_put_grass(CoordinateStruct{ x, y });
                 UnitaryTools::debugLog(U"after put");
@@ -238,6 +238,19 @@ void CityMap::m_update_connected_tiles(CoordinateStruct position) {
 }
 
 void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {
+    auto common_object = m_common_objects.find(m_addons[U"tile_greenfield"]->getName(NameMode::English));
+    if (common_object != m_common_objects.end()) {
+        RelativeCoordinateStruct relative_coordinate;
+        relative_coordinate.origin = common_object->second->getOriginCoordinate();
+        relative_coordinate.relative = CoordinateStruct{ 0, 0 };
+        
+        cout << "put grass: " << common_object->second->getObjectID() << endl;
+        
+        m_tiles[arg_coordinate.y][arg_coordinate.x].addObject(common_object->second, relative_coordinate);
+        
+        return;
+    }
+    
 	int objectID = m_get_next_objectID();
 	cout << "put grass: " << objectID << endl;
 	m_objects[objectID] = new NormalObject(objectID, m_addons[U"tile_greenfield"], U"", TypeID::Normal, DirectionID::None, arg_coordinate);

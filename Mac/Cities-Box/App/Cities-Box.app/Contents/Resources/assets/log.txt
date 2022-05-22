@@ -1,50 +1,146 @@
 common object: name=tile_greenfield object_id=26
-delete object at 87, 62 of 0, 0
+delete object at 65, 30 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 54 of 0, 0
+before put
+after put
+before erase
+after erase
+delete object at 65, 30 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 53 of 0, 0
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 66, 30 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 51 of 0, 0
+before put
+after put
+before erase
+after erase
+delete object at 66, 30 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 50 of 0, 0
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 67, 30 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 49 of 0, 0
+before put
+after put
+before erase
+after erase
+delete object at 67, 30 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 49 of 0, 0
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 68, 30 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 50 of 0, 0
+before put
+after put
+before erase
+after erase
+delete object at 68, 30 of 0, 0
 After delete
 before erase
 after erase
-delete object at 90, 51 of 0, 0
+delete object at 25, 0 of 0, 0
 After delete
-before erase
-after erase
-delete object at 90, 53 of 0, 0
-After delete
-before erase
-after erase
-delete object at 90, 54 of 0, 0
-After delete
-before erase
-after erase
-delete object at 90, 54 of 0, 0
-After delete
+before put
+after put
 before erase
 after erase
 delete object at 25, 0 of 0, 0
@@ -57,55 +153,7 @@ before erase
 after erase
 before erase
 after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-before erase
-after erase
-delete object at 90, 62 of 0, 0
+delete object at 67, 33 of 0, 0
 After delete
 before erase
 after erase
@@ -113,11 +161,663 @@ before erase
 after erase
 before erase
 after erase
+before put
+after put
+before erase
+after erase
+delete object at 67, 32 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 67, 32 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 67, 31 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 67, 31 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 64, 30 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 64, 30 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 72, 35 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 72, 35 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 42 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 42 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 41 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 41 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 40 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 40 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 42 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
 before erase
 after erase
 before erase
 after erase
 before erase
 after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 41 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 41 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 42 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 42 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 43 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 43 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 44 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 44 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 40 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 40 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 68, 33 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 68, 33 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 65, 33 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 65, 33 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 74, 33 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before erase
+after erase
+before put
+after put
+before erase
+after erase
+delete object at 74, 33 of 0, 0
+After delete
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+After delete
+before put
+after put
 before erase
 after erase

@@ -289,7 +289,6 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 										// あるいはObjectIDが被った場合に振り直す
 										if (serial_number == 0 || m_objects.count(serial_number) > 0) {
 											serial_number = m_max_object_id + 1;
-											Console << U"SN==0 " << jAddons[U"name"].getString() << U" -> " << serial_number;
 											m_max_object_id ++;
 										}
 										
@@ -353,9 +352,11 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
                                     if (itr != m_common_objects.end()) {
                                         obj = itr->second;
                                         relarive_coordinate.origin = m_objects[object_id]->getOriginCoordinate();
-                                        
-                                        m_objects[object_id]->setDeleted();
-                                        m_objects.erase(object_id);
+										
+										if (itr->second->getObjectID() != object_id) {
+											m_objects[object_id]->setDeleted();
+											m_objects.erase(object_id);
+										}
                                     }
                                     else {
                                         obj = m_objects[object_id];

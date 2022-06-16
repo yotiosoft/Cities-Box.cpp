@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cities-Box.cpp", "Cities-Box.cpp\Cities-Box.cpp.vcxproj", "{0E2F0373-AEE1-4D73-B848-8B6A6CF21E05}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cities-Box.cpp", "Cities-Box.cpp\Cities-Box.cpp.vcxproj", "{D98613A7-A12F-4BF4-BCFE-353157213D6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0E2F0373-AEE1-4D73-B848-8B6A6CF21E05}.Debug|x64.ActiveCfg = Debug|x64
-		{0E2F0373-AEE1-4D73-B848-8B6A6CF21E05}.Debug|x64.Build.0 = Debug|x64
-		{0E2F0373-AEE1-4D73-B848-8B6A6CF21E05}.Release|x64.ActiveCfg = Release|x64
-		{0E2F0373-AEE1-4D73-B848-8B6A6CF21E05}.Release|x64.Build.0 = Release|x64
+		{D98613A7-A12F-4BF4-BCFE-353157213D6C}.Debug|x64.ActiveCfg = Debug|x64
+		{D98613A7-A12F-4BF4-BCFE-353157213D6C}.Debug|x64.Build.0 = Debug|x64
+		{D98613A7-A12F-4BF4-BCFE-353157213D6C}.Release|x64.ActiveCfg = Release|x64
+		{D98613A7-A12F-4BF4-BCFE-353157213D6C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6CD1EAB3-3136-4C07-B124-699651FD829E}
+		SolutionGuid = {EA841E5B-196C-447D-AAF6-6ED66DE45C5E}
 	EndGlobalSection
 EndGlobal

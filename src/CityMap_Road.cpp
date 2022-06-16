@@ -22,7 +22,6 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
         TypeID::Type type;
         DirectionID::Type direction;
         bool do_not_update_selected_addon_type = m_is_there_crossable_object(selectedAddon, cursor.coordinate);
-        Console << U"dnusat: " << do_not_update_selected_addon_type;
         
         // typeとdirectionを設置
         type = m_set_road_type(cursor.coordinate, selectedAddon);

@@ -1,14 +1,1 @@
 common object: name=tile_greenfield object_id=26
-<<<<<<< HEAD
-=======
-delete object at 70, 42 of 0, 0
-delete object at 71, 42 of 0, 0
-delete object at 72, 42 of 0, 0
-delete object at 73, 42 of 0, 0
-delete object at 75, 42 of 0, 0
-delete object at 76, 42 of 0, 0
-delete object at 77, 42 of 0, 0
-delete object at 78, 42 of 0, 0
-delete object at 79, 42 of 0, 0
-delete object at 80, 42 of 0, 0
->>>>>>> 2ab3ebf84c45555ab884bfaf40ed941122dac4d9

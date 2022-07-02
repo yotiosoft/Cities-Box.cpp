@@ -4,26 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/assets/addons/.DS_Store</key>
-		<data>
-		ZMnte8IPM3pFYokBDLPMG8z8Uvg=
-		</data>
-		<key>Resources/assets/addons/Normal/.DS_Store</key>
-		<data>
-		mD5gqTo9F6WTOsEsOfYFoVf861Q=
-		</data>
-		<key>Resources/assets/addons/Normal/buildings/.DS_Store</key>
-		<data>
-		bB3P8imtQ+1pmrWjDQWBn71xFMs=
-		</data>
-		<key>Resources/assets/addons/Normal/buildings/commercial/.DS_Store</key>
-		<data>
-		HRZp5NCf6412ucDBVAcd4HREPMM=
-		</data>
-		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/.DS_Store</key>
-		<data>
-		zNFho5p2TQdYrcfG7LIBxS5p8y4=
-		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
 		NPeIpK2pyfz5oSsvcx+ISAhVZps=
@@ -363,10 +343,6 @@
 		<key>Resources/assets/addons/Normal/buildings/industrial/Electronics_Factory/icon_Electronics_Factory.png</key>
 		<data>
 		ms0NU+NSRdFrjJuFT5rAz3xbCXM=
-		</data>
-		<key>Resources/assets/addons/Normal/buildings/office/.DS_Store</key>
-		<data>
-		jIeWROZrwQIXnxJUihW5aoM/07A=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/office/24-storied_Office/24-storied_Office.adat</key>
 		<data>
@@ -1472,10 +1448,6 @@
 		<data>
 		k/MoX7k7AVgiatG6HK2s+iyLrm4=
 		</data>
-		<key>Resources/assets/addons/Normal/tiles/.DS_Store</key>
-		<data>
-		htIX0Y3BXqYzZW7dr7mevqrp4J4=
-		</data>
 		<key>Resources/assets/addons/Normal/tiles/concrete.png</key>
 		<data>
 		PAAy/yZi3VFLpUcduBOexwAysCM=
@@ -1495,10 +1467,6 @@
 		<key>Resources/assets/addons/Normal/tiles/ground/normal/tile_greenfield.png</key>
 		<data>
 		YQSg62zdemh1ktfFXlMwwX25n4I=
-		</data>
-		<key>Resources/assets/addons/Normal/tiles/water/.DS_Store</key>
-		<data>
-		e1gr3o6BFodWFzF8xOGRdhUdwus=
 		</data>
 		<key>Resources/assets/addons/Normal/tiles/water/bearch_and_walkway/Bearch_and_Walkway.adat</key>
 		<data>
@@ -1794,11 +1762,11 @@
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
 		<data>
-		L8x7KekYZ/E3WWppuqqUhsUpTPQ=
+		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<data>
-		L8x7KekYZ/E3WWppuqqUhsUpTPQ=
+		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
 		<data>
@@ -1834,7 +1802,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		S66REL6WHMZjJ24HWk9I6x8vnR8=
+		rHNkM134cx4oFypQbdP1mZgF1wQ=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -5180,14 +5148,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ujwgDHvUnsQSdaZQwFqF8Ms5FS+cyrJ0RWE5BMa7Qw=
+			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ujwgDHvUnsQSdaZQwFqF8Ms5FS+cyrJ0RWE5BMa7Qw=
+			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
@@ -5250,7 +5218,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5oYYuH227gZ+NqQG9S0uOirM/przhNTGFyEeX+ZlI7E=
+			bjtul6VGZ9zr17rt80J23L3A4KqUTr8uETqAfS2/gR4=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>

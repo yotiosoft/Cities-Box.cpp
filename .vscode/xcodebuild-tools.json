@@ -1,0 +1,25 @@
+{
+    "workspace": "${workspaceRoot}/workspace.code-workspace",
+    "scheme": "Albus-Box",
+    "variables": {
+        "ARCHS": "x86_64"
+    },
+    "postBuildTasks": [
+        {
+            "name": "Sleep for a few seconds",
+            "program": "sleep",
+            "args": [ "3" ],
+            "cwd": "${workspaceRoot}"
+        }
+    ],
+    "debugConfigurations": [
+        {
+            "name": "test",
+            "cwd": "${workspaceRoot}",
+            "program": "${buildPath}/project",
+            "args": [
+                "${ARCHS}"
+            ]
+        }
+    ] 
+}

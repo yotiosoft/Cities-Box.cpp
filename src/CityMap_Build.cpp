@@ -224,8 +224,15 @@ void CityMap::m_update_connected_tiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// タイル状のConnectableオブジェクトを削除
+	Array<CoordinateStruct> need_to_del_list;
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
-		current_object->del(road_network);		// ここで周囲を更新
+		need_to_del_list = current_object->del(road_network);		// ここで周囲を更新
+
+		// 必要に応じて周囲タイルも削除
+		// タイルが孤立している場合など
+		for (auto coordinate : need_to_del_list) {
+			m_update_connected_tiles(coordinate);
+		}
 	}
 	
 	// 更地化

@@ -23,7 +23,8 @@ public:
     void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type);
 	
 	// 自分自身を削除
-	void del(CityNetwork& road_network);
+	// 戻り値；削除必須な周囲タイルのリスト（呼び出し元; CityMap::m_update_connected_tiles()側で処理）
+	Array<CoordinateStruct> del(CityNetwork& road_network);
 	
 	// TypeIDおよびDirectionIDの更新
 	void update();

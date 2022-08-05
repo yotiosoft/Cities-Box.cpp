@@ -17,9 +17,9 @@ void NormalObject::connectWithSpecifiedType(CityNetwork& road_network, Coordinat
     return;
 }
 
-void NormalObject::del(CityNetwork& road_network) {
+Array<CoordinateStruct> NormalObject::del(CityNetwork& road_network) {
 	// 何もしない
-	return;
+	return Array<CoordinateStruct>();
 }
 
 void NormalObject::update() {

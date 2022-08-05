@@ -49,7 +49,7 @@ public:
     virtual void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) = 0;
 	
 	// 自分自身を削除
-	virtual void del(CityNetwork& road_network) = 0;
+	virtual Array<CoordinateStruct> del(CityNetwork& road_network) = 0;
 	
 	// TypeIDおよびDirectionIDの更新
 	virtual void update() = 0;

@@ -28,7 +28,9 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
     cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
 }
 
-void ConnectableObject::del(CityNetwork& road_network) {
+Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {
+	Array<CoordinateStruct> ret;	// 切断後、削除必須な周囲タイルのリスト
+
 	// arg_connect_coordinateのオブジェクトと繋がっているか確認
 	// 繋がっていたら切断する
 	setDeleted();
@@ -54,11 +56,13 @@ void ConnectableObject::del(CityNetwork& road_network) {
 
 				// 切断後、接続先の向きが無効になっていたら接続先を削除
 				if (road_type_connect.first == DirectionID::Disabled) {
-					road_type_connect.second->del(road_network);
+					ret.push_back(road_type_connect.second->getOriginCoordinate());
 				}
 			}
 		}
 	}
+
+	return ret;
 }
 
 void ConnectableObject::update() {

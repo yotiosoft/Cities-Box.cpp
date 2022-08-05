@@ -55,7 +55,8 @@ Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {
 				}*/
 
 				// 切断後、接続先の向きが無効になっていたら接続先を削除
-				if (road_type_connect.first == DirectionID::Disabled) {
+				DirectionID::Type after_del_direction_id = road_type_connect.second->getDirectionID();
+				if (after_del_direction_id == DirectionID::Disabled || after_del_direction_id == DirectionID::None) {
 					ret.push_back(road_type_connect.second->getOriginCoordinate());
 				}
 			}

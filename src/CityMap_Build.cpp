@@ -133,9 +133,12 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
     for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
         for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
             // クリア処理
+
+			// 周囲の道路の向きを修正
             if (updateAroundTiles)
                 m_update_connected_tiles(CoordinateStruct{x, y});
-            
+
+			// オブジェクトをタイルから削除
             m_tiles[y][x].deleteObject(delete_object_id);
 
             // 更地になったら芝生を置く
@@ -148,7 +151,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
         }
     }
     // クリア処理
-    // オブジェクト自体を除去
+    // オブジェクト自体をm_objectsから除去
 	if (deleteThis && !object_struct.object_p->isCommonObject()) {
 		delete(object_struct.object_p);
 
@@ -220,7 +223,7 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::m_can_build_building_here(
 void CityMap::m_update_connected_tiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
-	// 道路なら：disconnectする
+	// タイル状のConnectableオブジェクトを削除
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
 		current_object->del(road_network);
 	}

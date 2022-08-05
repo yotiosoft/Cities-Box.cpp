@@ -51,6 +51,11 @@ void ConnectableObject::del(CityNetwork& road_network) {
 					
 					
 				}*/
+
+				// 切断後、接続先の向きが無効になっていたら接続先を削除
+				if (road_type_connect.first == DirectionID::Disabled) {
+					road_type_connect.second->del(road_network);
+				}
 			}
 		}
 	}

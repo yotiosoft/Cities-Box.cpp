@@ -218,14 +218,14 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::m_can_build_building_here(
 	return tuple<bool, TypeID::Type, DirectionID::Type>{false, type_id, direction_id};
 }
 
-// アドオンを削除
+// 接続している周囲のタイルの向きを更新する
 // 要修正 : タイルを直接弄らないこと
 void CityMap::m_update_connected_tiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// タイル状のConnectableオブジェクトを削除
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
-		current_object->del(road_network);
+		current_object->del(road_network);		// ここで周囲を更新
 	}
 	
 	// 更地化

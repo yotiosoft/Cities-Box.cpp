@@ -1,13 +1,83 @@
 common object: name=tile_greenfield object_id=26
+delete object at 54, 62 of 0, 0
 delete object at 25, 0 of 0, 0
 before put
 after put
-delete object at 60, 24 of 0, 0
+delete object at 57, 64 of 0, 0
 before erase
 after erase
 delete object at 25, 0 of 0, 0
 before put
 after put
-delete object at 58, 12 of 0, 0
+delete object at 54, 66 of 0, 0
 before erase
 after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 54, 66 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 51, 65 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 51, 65 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 52, 65 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 52, 65 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 47, 64 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 47, 64 of 0, 0
+before erase
+after erase
+delete object at 25, 0 of 0, 0
+before put
+after put
+delete object at 25, 0 of 0, 0
+before put
+after put
+before erase
+after erase
+delete object at 25, 0 of 0, 0

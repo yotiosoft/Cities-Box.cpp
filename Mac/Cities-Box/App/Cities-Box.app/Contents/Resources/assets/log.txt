@@ -1,1 +1,25 @@
 common object: name=tile_greenfield object_id=26
+delete object at 57, 62 of 0, 0
+delete object at 57, 63 of 0, 0
+delete object at 57, 64 of 0, 0
+delete object at 57, 65 of 0, 0
+delete object at 57, 66 of 0, 0
+delete object at 57, 67 of 0, 0
+delete object at 53, 67 of 0, 0
+delete object at 54, 67 of 0, 0
+delete object at 55, 67 of 0, 0
+delete object at 56, 67 of 0, 0
+delete object at 58, 67 of 0, 0
+delete object at 59, 67 of 0, 0
+delete object at 60, 67 of 0, 0
+delete object at 61, 67 of 0, 0
+delete object at 58, 66 of 0, 0
+delete object at 59, 66 of 0, 0
+delete object at 60, 66 of 0, 0
+delete object at 61, 66 of 0, 0
+delete object at 53, 64 of 0, 0
+delete object at 53, 64 of 0, 0
+before put
+after put
+before erase
+after erase

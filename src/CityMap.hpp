@@ -132,7 +132,7 @@ private:
     tuple<bool, TypeID::Type, DirectionID::Type> m_can_build_building_here(CoordinateStruct coordinate, CBAddon* addon);
     
     // アドオンの接続状態を更新
-    void m_update_connected_tiles(CoordinateStruct position);
+    Array<CoordinateStruct> m_update_connected_tiles(CoordinateStruct position);
     
     // 踏切を設置（道路と線路が交差していれば）
     bool m_put_train_crossing(CBAddon* addon, CoordinateStruct coordinate, TypeID::Type &type);

@@ -135,8 +135,15 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
             // クリア処理
 
 			// 周囲の道路の向きを修正
-            if (updateAroundTiles)
-                m_update_connected_tiles(CoordinateStruct{x, y});
+            if (updateAroundTiles) {
+				Array<CoordinateStruct> need_to_del_list = m_update_connected_tiles(CoordinateStruct{x, y});
+
+				// 必要に応じて周囲タイルも削除
+				// タイルが孤立している場合など
+				for (auto coordinate : need_to_del_list) {
+					breaking(coordinate, isTemporaryDelete, true, true);
+				}
+			}
 
 			// オブジェクトをタイルから削除
             m_tiles[y][x].deleteObject(delete_object_id);
@@ -220,32 +227,16 @@ tuple<bool, TypeID::Type, DirectionID::Type> CityMap::m_can_build_building_here(
 
 // 接続している周囲のタイルの向きを更新する
 // 要修正 : タイルを直接弄らないこと
-void CityMap::m_update_connected_tiles(CoordinateStruct position) {
+Array<CoordinateStruct> CityMap::m_update_connected_tiles(CoordinateStruct position) {
 	Tile* currentTile = &m_tiles[position.y][position.x];
 	
 	// タイル状のConnectableオブジェクトを削除
-	Array<CoordinateStruct> need_to_del_list;
+	Array<CoordinateStruct> ret;
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
-		need_to_del_list = current_object->del(road_network);		// ここで周囲を更新
-
-		// 必要に応じて周囲タイルも削除
-		// タイルが孤立している場合など
-		for (auto coordinate : need_to_del_list) {
-			m_update_connected_tiles(coordinate);
-		}
+		ret = current_object->del(road_network);		// ここで周囲を更新（戻り値：他に削除が必要な周囲タイルのリスト）
 	}
-	
-	// 更地化
-	/*
-	Addon* selectedAddon = m_addons[U"tile_greenfield"];
 
-	currentTile->clearAll();
-
-	currentTile->addType(TypeID::Normal);
-	currentTile->addDirection(DirectionID::None);
-	currentTile->addons << selectedAddon;
-*/
-	// 幸福度を戻す
+	return ret;
 }
 
 void CityMap::m_put_grass(CoordinateStruct arg_coordinate) {

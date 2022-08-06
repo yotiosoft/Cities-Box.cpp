@@ -123,7 +123,7 @@ void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct 
         }
     }
 }
-void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
     // 効果を削除
     m_set_rate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
 
@@ -141,6 +141,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
 			}
 
 			// オブジェクトをタイルから削除
+            Console << U"call deleteObject: " << x << U", " << y;
             m_tiles[y][x].deleteObject(delete_object_id);
 
             // 更地になったら芝生を置く

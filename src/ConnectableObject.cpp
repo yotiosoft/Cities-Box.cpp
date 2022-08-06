@@ -33,8 +33,9 @@ Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {
 
 	// arg_connect_coordinateのオブジェクトと繋がっているか確認
 	// 繋がっていたら切断する
-	setDeleted();
-	
+    
+	setDeleted();   // 自分自身を削除状態に設定
+    
 	for (auto connects : m_connects) {
 		for (auto connect : connects) {
 			for (auto road_type_connect : connect.roadTypeConnect) {
@@ -45,7 +46,7 @@ Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {
 				}
 
 				cout << "update at " << road_type_connect.second->getOriginCoordinate().x << "," << road_type_connect.second->getOriginCoordinate().y << endl;
-				road_type_connect.second->update();
+				road_type_connect.second->update();     // 自分の削除後に相手のタイルを更新
 				/*
 				if (road_type_connect.second->isOn(arg_connect_coordinate)) {
 					set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate()), true);
@@ -70,7 +71,7 @@ void ConnectableObject::update() {
 	for (int y=0; y<(int)m_connects.size(); y++) {
 		for (int x=0; x<(int)m_connects[y].size(); x++) {
 			for (auto it = m_connects[y][x].roadTypeConnect.begin(), e = m_connects[y][x].roadTypeConnect.end(); it != e; it++) {
-				// 接続先の道路が存在していなければ、切断する
+				// 接続先の道路が存在していなければ(deleted)、切断する
 				if (it->second->isDeleted()) {
 					cout << "update: delete for " << x << "," << y << endl;
 					//CoordinateStruct abs_coordinate = m_start_coordinate + CoordinateStruct{x, y};

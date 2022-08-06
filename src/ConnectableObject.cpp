@@ -78,6 +78,12 @@ void ConnectableObject::update() {
 					
 					set_direction_id(it->first, true);
 					set_type_id();
+                    
+                    // アップデート時、正しくない向きになっていたらaddon_pを削除
+                    if (!m_addon_p->isCorrectCondition(m_type_id, m_direction_id)) {
+                        m_addon_p = nullptr;
+                        setDeleted();
+                    }
 				}
 			}
 			

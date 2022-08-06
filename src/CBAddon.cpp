@@ -254,6 +254,18 @@ AddonDirectionStruct CBAddon::getDirectionStruct(TypeID::Type arg_type_id, Direc
 	return m_types[arg_type_id].getDirectionStruct(arg_direction_id);
 }
 
+bool CBAddon::isCorrectCondition(TypeID::Type type_id, DirectionID::Type direction_id) {
+    if (m_types.count(type_id) == 0) {
+        return false;
+    }
+    
+    if (m_types[type_id].getDirectionIDs().count(direction_id) == 0) {
+        return false;
+    }
+    
+    return true;
+}
+
 Array<CategoryID::Type> CBAddon::getCategories() {
 	return m_addon_categories;
 }

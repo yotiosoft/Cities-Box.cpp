@@ -65,6 +65,9 @@ public:
 	
 	// DirectionStructを参照
 	AddonDirectionStruct getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id);
+    
+    // 正しいTypeIDかつDirectionIDか？
+    bool isCorrectCondition(TypeID::Type type_id, DirectionID::Type direction_id);
 	
 	// カテゴリを取得
 	Array<CategoryID::Type> getCategories();

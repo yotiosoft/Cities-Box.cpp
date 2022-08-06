@@ -166,6 +166,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
     // タイルが孤立している場合など
     if (updateAroundTiles) {
         for (auto coordinate : need_to_del_list) {
+            Console << U"call breaking(): " << coordinate.x << U"," << coordinate.y;
             breaking(coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
         }
     }

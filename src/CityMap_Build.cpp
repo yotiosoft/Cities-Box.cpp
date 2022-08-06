@@ -128,6 +128,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
     m_set_rate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
 
     int delete_object_id = object_struct.object_p->getObjectID();
+    Array<CoordinateStruct> need_to_del_list;
 
     Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
     for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
@@ -136,13 +137,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
 
 			// 周囲の道路の向きを修正
             if (updateAroundTiles) {
-				Array<CoordinateStruct> need_to_del_list = m_update_connected_tiles(CoordinateStruct{x, y});
-
-				// 必要に応じて周囲タイルも削除
-				// タイルが孤立している場合など
-				for (auto coordinate : need_to_del_list) {
-					breaking(coordinate, isTemporaryDelete, true, true);
-				}
+                need_to_del_list.append(m_update_connected_tiles(CoordinateStruct{x, y}));
 			}
 
 			// オブジェクトをタイルから削除
@@ -166,6 +161,14 @@ void CityMap::m_break_once(ObjectStruct &object_struct,CoordinateStruct coordina
 		m_objects.erase(delete_object_id);
 		UnitaryTools::debugLog(U"after erase");
 	}
+    
+    // 必要に応じて周囲タイルも削除（周囲タイルにも影響する場合）
+    // タイルが孤立している場合など
+    if (updateAroundTiles) {
+        for (auto coordinate : need_to_del_list) {
+            breaking(coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+        }
+    }
 }
 
 // 建物の建設の可否

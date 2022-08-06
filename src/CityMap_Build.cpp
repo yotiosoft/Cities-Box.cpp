@@ -155,6 +155,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
     }
     // クリア処理
     // オブジェクト自体をm_objectsから除去
+    Array<CategoryID::Type> category_ids = object_struct.object_p->getAddonP()->getCategories();
 	if (deleteThis && !object_struct.object_p->isCommonObject()) {
 		delete(object_struct.object_p);
 
@@ -168,7 +169,9 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
     if (updateAroundTiles) {
         for (auto coordinate : need_to_del_list) {
             Console << U"call breaking(): " << coordinate.x << U"," << coordinate.y;
-            breaking(coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+            for (auto category_id : category_ids) {
+                m_break_only_category(category_id, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
+            }
         }
     }
 }

@@ -9,14 +9,3 @@ before erase
 after erase
 before erase
 after erase
-before erase
-after erase
-delete object at 28, 18 of 0, 0
-delete object at 28, 18 of 0, 0
-before put
-after put
-before erase
-after erase
-delete object at 28, 18 of 0, 0
-before put
-after put

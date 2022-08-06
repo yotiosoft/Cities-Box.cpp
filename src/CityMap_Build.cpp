@@ -118,6 +118,7 @@ void CityMap::breaking(CoordinateStruct coordinate, bool isTemporaryDelete, bool
 void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
     // オブジェクトの除去
     for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
+        // 周囲タイルの除去からの呼び出し時、アドオンが存在しない状態での削除は避ける
         if (object_struct.object_p->getAddonP()->isInCategories(category)) {
             m_break_once(object_struct, coordinate, isTemporaryDelete, updateAroundTiles, deleteThis);
         }

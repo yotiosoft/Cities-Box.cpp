@@ -80,11 +80,16 @@ void ConnectableObject::update() {
 					set_type_id();
                     
                     // 既に自身が無効なオブジェクトならdeleted状態に
+                    if (m_addon_p == nullptr) {
+                        setDeleted();
+                        break;
+                    }
                     
                     // アップデート時、正しくない向きになっていたらaddon_pを削除
                     if (!m_addon_p->isCorrectCondition(m_type_id, m_direction_id)) {
                         m_addon_p = nullptr;
                         setDeleted();
+                        break;
                     }
 				}
 			}

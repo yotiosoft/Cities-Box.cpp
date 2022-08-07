@@ -442,7 +442,7 @@ void CityMap::m_load_addons(String addonSetName) {
 	Array<FileStruct> addonsPath = specific::getAllFilesName("./addons", "adj");
 	
 	for (int i=0; i<(int)addonsPath.size(); i++) {
-		cout << "from: " << addonsPath[i].file_path << endl;
+		UnitaryTools::debugLog(U"m_load_addons", U"from " + Unicode::Widen(addonsPath[i].file_path));
 		FileStruct fileTemp = addonsPath[i];
 		
 		CBAddon* loadingAddon = new CBAddon();

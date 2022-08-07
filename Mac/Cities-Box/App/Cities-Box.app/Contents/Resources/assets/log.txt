@@ -1,1 +1,0 @@
-common object: name=tile_greenfield object_id=26

@@ -127,7 +127,13 @@ void UnitaryTools::debugInit() {
 }
 
 void UnitaryTools::debugLog(String str) {
+	Console << str;
 	addTextFile("log.txt", str.toUTF8()+"\n");;
+}
+void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, String str) {
+	String output_str(U"{}() at {} : {}", func_name, coordinate, str);
+	Console << output_str;
+	addTextFile("log.txt", output_str.toUTF8()+"\n");;
 }
 
 string UnitaryTools::replaceString(string beforeStr, string searchStr, string afterStr) {

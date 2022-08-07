@@ -24,6 +24,8 @@
 #define DIRECTIONS		        15
 #define LAYER_TYPES		        15
 
+#define _DEBUG					1		// Debugビルドか？（DebugLog()で使用）
+
 using namespace std;
 
 class CityMap;

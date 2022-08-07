@@ -128,21 +128,21 @@ void UnitaryTools::debugInit() {
 
 void UnitaryTools::debugLog(String str) {
 #ifdef _DEBUG
-	Console << str;
+	Console << U"Debug > " << str;
 	addTextFile("log.txt", str.toUTF8()+"\n");
 #endif
 }
 void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, String str) {
 #ifdef _DEBUG
-	String output_str = U"{}() at ({}, {}) : {}"_fmt(func_name, coordinate.x, coordinate.y, str);
-	Console << output_str;
+	String output_str = U"{}() at ({}, {}): {}"_fmt(func_name, coordinate.x, coordinate.y, str);
+	Console << U"Debug > " << output_str;
 	addTextFile("log.txt", output_str.toUTF8()+"\n");
 #endif
 }
 void UnitaryTools::debugLog(String func_name, String str) {
 #ifdef _DEBUG
-	String output_str = U"{}() : {}"_fmt(func_name, str);
-	Console << output_str;
+	String output_str = U"{}(): {}"_fmt(func_name, str);
+	Console << U"Debug > " << output_str;
 	addTextFile("log.txt", output_str.toUTF8()+"\n");
 #endif
 }

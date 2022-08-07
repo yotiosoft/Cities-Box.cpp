@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "*.ipp": "cpp"
     },
     "APP_NAME": "Cities-Box"
 }

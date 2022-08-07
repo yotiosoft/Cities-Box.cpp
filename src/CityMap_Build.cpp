@@ -120,7 +120,22 @@ void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct 
     for (ObjectStruct object_struct : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
         // 周囲タイルの除去からの呼び出し時、アドオンが存在しない状態での削除は避ける
         if (object_struct.object_p->isDeleted()) {
-            m_put_grass(coordinate);
+            Console << U"m_break_only_category";
+            
+            //Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
+            //for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
+                //for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
+                    // オブジェクトの削除
+                    int erasing_object_id = object_struct.object_p->getObjectID();
+                    m_tiles[coordinate.y][coordinate.x].deleteObject(erasing_object_id);
+                    m_objects.erase(erasing_object_id);
+                    
+                    // 草地タイルの設置
+                    m_put_grass(coordinate);
+                //}
+            //}
+            delete(object_struct.object_p);
+            
             continue;
         }
         

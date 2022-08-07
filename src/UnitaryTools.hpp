@@ -30,6 +30,7 @@ namespace UnitaryTools {
 
 	void debugInit();
 	void debugLog(String str);
+	void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, String str);
 
 	string replaceString(string beforeStr, string searchStr, string afterStr);
 

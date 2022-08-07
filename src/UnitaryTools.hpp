@@ -31,6 +31,7 @@ namespace UnitaryTools {
 	void debugInit();
 	void debugLog(String str);
 	void debugLog(String func_name, CoordinateStruct coordinate, String str);
+	void debugLog(String func_name, String str);
 
 	string replaceString(string beforeStr, string searchStr, string afterStr);
 

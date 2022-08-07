@@ -103,6 +103,7 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 			m_use_types << UnitaryTools::typeIDToTypeName(typeID);
 			m_types[typeID] = AddonType(typeID);
 			cout << "TypeID: " << type[U"type_name"].getString() << endl;
+			//UnitaryTools::debugLog(m_load_obj, )
 			
 			if (type[U"Directions"].getType() == JSONValueType::Array) {
 				for (const auto& direction : type[U"Directions"].arrayView()) {			// AddonDirectionStruct

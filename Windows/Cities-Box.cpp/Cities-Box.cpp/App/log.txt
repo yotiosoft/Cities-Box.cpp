@@ -209,3 +209,12 @@ m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
 common object: name=tile_greenfield object_id=26
+delete object at 25, 0 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+addDirectionID(): East
+addDirectionID(): West
+addDirectionID(): East
+addDirectionID(): West
+addDirectionID(): South
+addDirectionID(): North

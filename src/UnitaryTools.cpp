@@ -610,16 +610,15 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
 	
 	for (auto direction_id2_div_single : direction_id2_div) {
-		bool exist = false;
 		for (auto direction_id1_div_single : direction_id1_div) {
 			if (direction_id2_div_single == direction_id1_div_single) {
-				exist = true;
+				continue;
 			}
 		}
-		if (!exist) {
-			cout << direction_id2_div_single << endl;
-			direction_int += (int)direction_id2_div_single;
-		}
+		
+		// 足りない分のdirectionを足す
+		cout << direction_id2_div_single << endl;
+		direction_int += (int)direction_id2_div_single;
 	}
 	
 	return (DirectionID::Type)direction_int;

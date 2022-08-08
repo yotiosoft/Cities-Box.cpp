@@ -209,3 +209,50 @@ m_load_obj(): TypeID: Normal
 m_load_addons(): from ./addons/Normal/parks/Pond_Park/Pond_Park.adj
 m_load_obj(): TypeID: Normal
 common object: name=tile_greenfield object_id=26
+delete object at 28, 17 of 0, 0
+delete object at 29, 18 of 0, 0
+addDirectionID(): disabled
+addDirectionID(): disabled
+delete object at 26, 15 of 0, 0
+delete object at 27, 15 of 0, 0
+addDirectionID(): East
+addDirectionID(): West
+delete object at 27, 16 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 28, 16 of 0, 0
+addDirectionID(): East
+addDirectionID(): West
+delete object at 29, 16 of 0, 0
+addDirectionID(): East
+addDirectionID(): West
+delete object at 30, 16 of 0, 0
+addDirectionID(): East
+addDirectionID(): West
+delete object at 31, 16 of 0, 0
+addDirectionID(): East
+addDirectionID(): West
+delete object at 31, 17 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 31, 18 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 31, 19 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 31, 15 of 0, 0
+addDirectionID(): North
+addDirectionID(): South
+delete object at 32, 15 of 0, 0
+delete object at 32, 16 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 32, 17 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+delete object at 32, 18 of 0, 0
+addDirectionID(): South
+addDirectionID(): North
+addDirectionID(): East
+addDirectionID(): West

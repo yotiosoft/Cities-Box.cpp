@@ -132,6 +132,13 @@ void UnitaryTools::debugLog(String str) {
 	addTextFile("log.txt", str.toUTF8()+"\n");
 #endif
 }
+void UnitaryTools::debugLog(String func_name, String str) {
+#ifdef _DEBUG
+	String output_str = U"{}(): {}"_fmt(func_name, str);
+	Console << U"Debug > " << output_str;
+	addTextFile("log.txt", output_str.toUTF8()+"\n");
+#endif
+}
 void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, String str) {
 #ifdef _DEBUG
 	String output_str = U"{}() at ({}, {}): {}"_fmt(func_name, coordinate.x, coordinate.y, str);
@@ -139,12 +146,17 @@ void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, Strin
 	addTextFile("log.txt", output_str.toUTF8()+"\n");
 #endif
 }
-void UnitaryTools::debugLog(String func_name, String str) {
-#ifdef _DEBUG
-	String output_str = U"{}(): {}"_fmt(func_name, str);
-	Console << U"Debug > " << output_str;
-	addTextFile("log.txt", output_str.toUTF8()+"\n");
-#endif
+void UnitaryTools::debugLog(String func_name, DirectionID::Type direction_id) {
+	debugLog(func_name, directionIDToDirectionName(direction_id));
+}
+void UnitaryTools::debugLog(String func_name, TypeID::Type type_id) {
+	debugLog(func_name, typeIDToTypeName(type_id));
+}
+void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, DirectionID::Type direction_id) {
+	debugLog(func_name, coordinate, directionIDToDirectionName(direction_id));
+}
+void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, TypeID::Type type_id) {
+	debugLog(func_name, coordinate, typeIDToTypeName(type_id));
 }
 
 string UnitaryTools::replaceString(string beforeStr, string searchStr, string afterStr) {
@@ -495,7 +507,7 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 	return U"disabled";
 }
 
-DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after) {
+DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after, bool is_road) {
 	int dx = arg_after.x - arg_before.x;
 	int dy = arg_after.y - arg_before.y;
 	cout << "dx:" << dx << ", dy:" << dy << endl;
@@ -515,17 +527,21 @@ DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct ar
 	if (dx == 0 && dy == 1) {
 		return DirectionID::South;
 	}
-	if (dx == -1 && dy == -1) {
-		return DirectionID::NorthWest;
-	}
-	if (dx == 1 && dy == -1) {
-		return DirectionID::NorthEast;
-	}
-	if (dx == 1 && dy == 1) {
-		return DirectionID::SouthEast;
-	}
-	if (dx == -1 && dy == 1) {
-		return DirectionID::SouthWest;
+	
+	// 斜めの接続が可能な場合（水路など; is_road==0)
+	if (!is_road) {
+		if (dx == -1 && dy == -1) {
+			return DirectionID::NorthWest;
+		}
+		if (dx == 1 && dy == -1) {
+			return DirectionID::NorthEast;
+		}
+		if (dx == 1 && dy == 1) {
+			return DirectionID::SouthEast;
+		}
+		if (dx == -1 && dy == 1) {
+			return DirectionID::SouthWest;
+		}
 	}
 	
 	return DirectionID::Disabled;
@@ -610,16 +626,15 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
 	
 	for (auto direction_id2_div_single : direction_id2_div) {
-		bool exist = false;
 		for (auto direction_id1_div_single : direction_id1_div) {
 			if (direction_id2_div_single == direction_id1_div_single) {
-				exist = true;
+				continue;
 			}
 		}
-		if (!exist) {
-			cout << direction_id2_div_single << endl;
-			direction_int += (int)direction_id2_div_single;
-		}
+		
+		// 足りない分のdirectionを足す
+		debugLog(U"addDirectionID", direction_id2_div_single);
+		direction_int += (int)direction_id2_div_single;
 	}
 	
 	return (DirectionID::Type)direction_int;
@@ -627,22 +642,20 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 
 DirectionID::Type UnitaryTools::subDirectionID(DirectionID::Type direction_id1, DirectionID::Type direction_id2) {
 	int direction_int = (int)direction_id1;
-	cout << "in; " << direction_id1 << " -= " << direction_id2 << endl;
 	
 	Array<DirectionID::Type> direction_id1_div = splitDirections(direction_id1);
 	Array<DirectionID::Type> direction_id2_div = splitDirections(direction_id2);
 	
 	for (auto direction_id2_div_single : direction_id2_div) {
-		bool exist = false;
 		for (auto direction_id1_div_single : direction_id1_div) {
 			if (direction_id2_div_single == direction_id1_div_single) {
-				exist = true;
+				continue;
 			}
 		}
-		if (exist) {
-			cout << "minus: " << direction_id2_div_single << endl;
-			direction_int -= (int)direction_id2_div_single;
-		}
+
+		// 足りない分のdirectionを引く
+		debugLog(U"subDirectionID", direction_id2_div_single);
+		direction_int -= (int)direction_id2_div_single;
 	}
 	cout << direction_int << endl;
 	

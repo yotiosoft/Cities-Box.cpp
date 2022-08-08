@@ -30,8 +30,12 @@ namespace UnitaryTools {
 
 	void debugInit();
 	void debugLog(String str);
-	void debugLog(String func_name, CoordinateStruct coordinate, String str);
 	void debugLog(String func_name, String str);
+	void debugLog(String func_name, CoordinateStruct coordinate, String str);
+	void debugLog(String func_name, DirectionID::Type direction_id);
+	void debugLog(String func_name, TypeID::Type type_id);
+	void debugLog(String func_name, CoordinateStruct coordinate, DirectionID::Type direction_id);
+	void debugLog(String func_name, CoordinateStruct coordinate, TypeID::Type type_id);
 
 	string replaceString(string beforeStr, string searchStr, string afterStr);
 
@@ -46,7 +50,7 @@ namespace UnitaryTools {
 	String directionIDToDirectionName(DirectionID::Type direction_id);
 	Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
-	DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after);
+	DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after, bool is_road);
 
 	Array<CoordinateStruct> getCoordinateByDirectionID(CoordinateStruct from, DirectionID::Type direction_id);
 

@@ -50,7 +50,7 @@ namespace UnitaryTools {
 	String directionIDToDirectionName(DirectionID::Type direction_id);
 	Array<DirectionID::Type> directionNameToDirectionID(Array<String> direction_name);
 
-	DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after);
+	DirectionID::Type getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after, bool is_road);
 
 	Array<CoordinateStruct> getCoordinateByDirectionID(CoordinateStruct from, DirectionID::Type direction_id);
 

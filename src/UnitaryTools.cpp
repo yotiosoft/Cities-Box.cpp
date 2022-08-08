@@ -507,7 +507,7 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 	return U"disabled";
 }
 
-DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after) {
+DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after, bool is_road) {
 	int dx = arg_after.x - arg_before.x;
 	int dy = arg_after.y - arg_before.y;
 	cout << "dx:" << dx << ", dy:" << dy << endl;
@@ -527,17 +527,21 @@ DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct ar
 	if (dx == 0 && dy == 1) {
 		return DirectionID::South;
 	}
-	if (dx == -1 && dy == -1) {
-		return DirectionID::NorthWest;
-	}
-	if (dx == 1 && dy == -1) {
-		return DirectionID::NorthEast;
-	}
-	if (dx == 1 && dy == 1) {
-		return DirectionID::SouthEast;
-	}
-	if (dx == -1 && dy == 1) {
-		return DirectionID::SouthWest;
+	
+	// 斜めの接続が可能な場合（水路など; is_road==0)
+	if (!is_road) {
+		if (dx == -1 && dy == -1) {
+			return DirectionID::NorthWest;
+		}
+		if (dx == 1 && dy == -1) {
+			return DirectionID::NorthEast;
+		}
+		if (dx == 1 && dy == 1) {
+			return DirectionID::SouthEast;
+		}
+		if (dx == -1 && dy == 1) {
+			return DirectionID::SouthWest;
+		}
 	}
 	
 	return DirectionID::Disabled;

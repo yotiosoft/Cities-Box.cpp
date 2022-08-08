@@ -132,6 +132,13 @@ void UnitaryTools::debugLog(String str) {
 	addTextFile("log.txt", str.toUTF8()+"\n");
 #endif
 }
+void UnitaryTools::debugLog(String func_name, String str) {
+#ifdef _DEBUG
+	String output_str = U"{}(): {}"_fmt(func_name, str);
+	Console << U"Debug > " << output_str;
+	addTextFile("log.txt", output_str.toUTF8()+"\n");
+#endif
+}
 void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, String str) {
 #ifdef _DEBUG
 	String output_str = U"{}() at ({}, {}): {}"_fmt(func_name, coordinate.x, coordinate.y, str);
@@ -139,12 +146,17 @@ void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, Strin
 	addTextFile("log.txt", output_str.toUTF8()+"\n");
 #endif
 }
-void UnitaryTools::debugLog(String func_name, String str) {
-#ifdef _DEBUG
-	String output_str = U"{}(): {}"_fmt(func_name, str);
-	Console << U"Debug > " << output_str;
-	addTextFile("log.txt", output_str.toUTF8()+"\n");
-#endif
+void UnitaryTools::debugLog(String func_name, DirectionID::Type direction_id) {
+	debugLog(func_name, directionIDToDirectionName(direction_id));
+}
+void UnitaryTools::debugLog(String func_name, TypeID::Type type_id) {
+	debugLog(func_name, typeIDToTypeName(type_id));
+}
+void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, DirectionID::Type direction_id) {
+	debugLog(func_name, coordinate, directionIDToDirectionName(direction_id));
+}
+void UnitaryTools::debugLog(String func_name, CoordinateStruct coordinate, TypeID::Type type_id) {
+	debugLog(func_name, coordinate, typeIDToTypeName(type_id));
 }
 
 string UnitaryTools::replaceString(string beforeStr, string searchStr, string afterStr) {

@@ -30,8 +30,12 @@ namespace UnitaryTools {
 
 	void debugInit();
 	void debugLog(String str);
-	void debugLog(String func_name, CoordinateStruct coordinate, String str);
 	void debugLog(String func_name, String str);
+	void debugLog(String func_name, CoordinateStruct coordinate, String str);
+	void debugLog(String func_name, DirectionID::Type direction_id);
+	void debugLog(String func_name, TypeID::Type type_id);
+	void debugLog(String func_name, CoordinateStruct coordinate, DirectionID::Type direction_id);
+	void debugLog(String func_name, CoordinateStruct coordinate, TypeID::Type type_id);
 
 	string replaceString(string beforeStr, string searchStr, string afterStr);
 

@@ -617,7 +617,7 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 		}
 		
 		// 足りない分のdirectionを足す
-		cout << direction_id2_div_single << endl;
+		debugLog(U"addDirectionID", direction_id2_div_single);
 		direction_int += (int)direction_id2_div_single;
 	}
 	

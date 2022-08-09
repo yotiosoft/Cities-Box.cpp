@@ -29,16 +29,6 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 			if (x == cursor.coordinate.x && y == cursor.coordinate.y) {
 				cursor.texture->draw(cursor.position_per_tiles.x, cursor.position_per_tiles.y, Alpha(128));
 			}
-			
-			// テスト用
-			/*
-			cout << cursor.coordinate.x << "," << cursor.coordinate.y << endl << "{";
-			for (auto object_st : m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectStructs()) {
-				cout << object_st.object_p->getOriginCoordinate().x << "," << object_st.object_p->getOriginCoordinate().y;
-				//cout << " / " << object_st.relative_coordinate.origin.x << "," << object_st.relative_coordinate.origin.y << " " << endl;
-				cout << "TypeID: " << object_st.object_p->getTypeID() << " / DirectionID: " << object_st.object_p->getDirectionID() << endl;
-			}
-			cout << "}" << endl;*/
 		}
 	}
 

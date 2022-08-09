@@ -11,6 +11,7 @@ lib
 *.log
 *.tlog
 *.DS_Store
+*.vsidx
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v17/
 Windows/Cities-Box.cpp/Intermediate

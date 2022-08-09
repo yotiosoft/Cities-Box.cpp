@@ -10,22 +10,38 @@
 void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
 	// マップ上で接続
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
+
+	// Directionが無効なら自身のオブジェクトを削除し終了
+	if (relative_direction_id == DirectionID::Disabled) {
+		m_addon_p = nullptr;
+		setDeleted();
+		return;
+	}
+
 	set_direction_id(relative_direction_id, false);
     if (m_type_id != TypeID::TrainCrossing && m_type_id != TypeID::Bridge)
         set_type_id();
 	
 	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
-	cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
+	UnitaryTools::debugLog(U"connect", U"set roadtypeconect {} / {}"_fmt(m_direction_id, m_type_id));
 }
 
 void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) {
     // マップ上で接続
     DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
-    set_direction_id(relative_direction_id, false);
+    
+	// Directionが無効なら自身のオブジェクトを削除し終了
+	if (relative_direction_id == DirectionID::Disabled) {
+		m_addon_p = nullptr;
+		setDeleted();
+		return;
+	}
+	
+	set_direction_id(relative_direction_id, false);
     m_type_id = type;
     
     m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
-    cout << "set roadtypeconnect " << m_direction_id << " / " << m_type_id << endl;
+	UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect {} / {}"_fmt(m_direction_id, m_type_id));
 }
 
 Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {

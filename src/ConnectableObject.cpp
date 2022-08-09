@@ -23,7 +23,7 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
         set_type_id();
 	
 	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
-	//UnitaryTools::debugLog(U"connect", U"set roadtypeconect {} / {}"_fmt(m_direction_id, m_type_id));
+	UnitaryTools::debugLog(U"connect", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
 void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) {
@@ -41,7 +41,7 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
     m_type_id = type;
     
     m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
-	//UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect {} / {}"_fmt(m_direction_id, m_type_id));
+	UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
 Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {

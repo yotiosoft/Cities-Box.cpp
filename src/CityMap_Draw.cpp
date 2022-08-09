@@ -9,9 +9,11 @@
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_changed) {
 	// 削除されたオブジェクトをオブジェクトリストから除去
-	/*for (auto removing_object : remove_objects_list) {
-		m_objects.erase(removing_object);
-	}*/
+	for (auto removing_object : remove_objects_list) {
+		if (m_objects.count(removing_object) > 0) {
+			m_objects.erase(removing_object);
+		}
+	}
 
 	// マップを描画
 	for (short int y = m_get_draw_area(camera, window_size_changed).first.y; y < m_get_draw_area(camera, window_size_changed).second.y; y++) {

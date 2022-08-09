@@ -12,7 +12,7 @@
 #include "CBAddon.hpp"
 #include "CityNetwork.hpp"
 
-//Array<int> remove_objects_list;
+static Array<int> remove_objects_list;
 
 class Object {
 public:

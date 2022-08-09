@@ -210,3 +210,5 @@ m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
 common object: name=tile_greenfield object_id=26
 delete object at 25, 0 of 0, 0
+connect() at (0, 0): Direction disabled
+connect() at (0, 0): Direction disabled

@@ -147,6 +147,9 @@ void Object::setDeleted() {
         return;
     }
 	m_deleted = true;
+
+	// 削除リストに追加
+	//remove_objects_list << m_object_id;
 }
 
 bool Object::isDeleted() {

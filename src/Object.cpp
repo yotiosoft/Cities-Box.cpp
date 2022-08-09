@@ -137,6 +137,8 @@ void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct a
     if (!m_visible) {
         return;         // 描画なしの場合は何もせずreturn
     }
+
+	// アドオンのNULLチェック
     
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }

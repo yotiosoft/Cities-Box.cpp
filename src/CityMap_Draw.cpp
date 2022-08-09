@@ -8,17 +8,17 @@
 #include "CityMap.hpp"
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_changed) {
-	// 削除されたオブジェクトをオブジェクトリストから除去
-	for (auto removing_object : remove_objects_list) {
-		if (m_objects.count(removing_object) > 0) {
-			m_objects.erase(removing_object);
-		}
-	}
-
 	// マップを描画
 	for (short int y = m_get_draw_area(camera, window_size_changed).first.y; y < m_get_draw_area(camera, window_size_changed).second.y; y++) {
 		for (short int x = m_get_draw_area(camera, window_size_changed).first.x; x < m_get_draw_area(camera, window_size_changed).second.x; x++) {
 			PositionStruct drawPos = coordinateToPosition(CoordinateStruct{ x, y }, camera);
+
+			// 削除されたオブジェクトをタイルから除去
+			for (auto removing_object_id : remove_objects_list) {
+				if (m_tiles[y][x].isObjectExists(removing_object_id)) {
+					m_tiles[y][x].deleteObject(removing_object_id);
+				}
+			}
 
 			// 一マス分描画
 			if (drawPos.x >= -CHIP_SIZE && drawPos.y >= -CHIP_SIZE / 2 && drawPos.x <= Scene::Width() && drawPos.y <= Scene::Height() + CHIP_SIZE * 2) {
@@ -39,6 +39,14 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 				cout << "TypeID: " << object_st.object_p->getTypeID() << " / DirectionID: " << object_st.object_p->getDirectionID() << endl;
 			}
 			cout << "}" << endl;*/
+		}
+	}
+
+	// 削除されたオブジェクトをオブジェクトリストから除去
+	for (auto removing_object_id : remove_objects_list) {
+		if (m_objects.count(removing_object_id) > 0) {
+			delete(m_objects[removing_object_id]);
+			m_objects.erase(removing_object_id);
 		}
 	}
 }

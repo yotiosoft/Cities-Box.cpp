@@ -17,6 +17,7 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 			for (auto removing_object_id : remove_objects_list) {
 				if (m_tiles[y][x].isObjectExists(removing_object_id)) {
 					m_tiles[y][x].deleteObject(removing_object_id);
+					UnitaryTools::debugLog(U"draw", CoordinateStruct{ x, y }, U"delete object" + Format(removing_object_id));
 				}
 			}
 

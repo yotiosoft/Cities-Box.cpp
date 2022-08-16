@@ -55,6 +55,7 @@ public:
 	Object* getObjectP(String arg_addon_name, NameMode::Type arg_name_mode);
 	Array<Object*> getObjectsP(CategoryID::Type category_id);
 	Array<ObjectStruct> getObjectStructs();
+	int countObjects();
 	
 	// 描画
 	void draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time);

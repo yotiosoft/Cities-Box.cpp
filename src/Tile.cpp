@@ -162,6 +162,10 @@ Array<ObjectStruct> Tile::getObjectStructs() {
 	return m_objects;
 }
 
+int Tile::countObjects() {
+	return m_objects.size();
+}
+
 // 描画
 void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
 	// 描画

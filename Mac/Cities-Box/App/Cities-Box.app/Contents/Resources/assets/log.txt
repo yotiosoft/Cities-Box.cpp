@@ -209,5 +209,5 @@ m_load_obj(): TypeID: Normal
 m_load_addons(): from ./addons/Normal/parks/Pond_Park/Pond_Park.adj
 m_load_obj(): TypeID: Normal
 common object: name=tile_greenfield object_id=26
-delete object at 26, 18 of 0, 0
-delete object at 27, 19 of 0, 0
+delete object at 27, 17 of 0, 0
+delete object at 28, 18 of 0, 0

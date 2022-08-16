@@ -138,6 +138,9 @@ void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct a
         return;         // 描画なしの場合は何もせずreturn
     }
     
+    if (m_deleted || m_addon_p == nullptr)
+        return;         // このオブジェクトが無効化済みならreturn
+    
 	m_addon_p->draw(m_type_id, m_direction_id, arg_draw_position, arg_draw_coordinate, arg_add_color, arg_time);
 }
 

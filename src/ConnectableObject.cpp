@@ -13,6 +13,7 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {
+		UnitaryTools::debugLog(U"connect", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;
@@ -32,6 +33,7 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
     
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {
+		UnitaryTools::debugLog(U"connectWithSpecifiedType", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;

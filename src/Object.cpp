@@ -137,6 +137,8 @@ void Object::draw(RelativeCoordinateStruct arg_draw_coordinate, PositionStruct a
     if (!m_visible) {
         return;         // 描画なしの場合は何もせずreturn
     }
+
+	// アドオンのNULLチェック
     
     if (m_deleted || m_addon_p == nullptr)
         return;         // このオブジェクトが無効化済みならreturn

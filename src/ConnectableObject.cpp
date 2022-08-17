@@ -12,7 +12,10 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	DirectionID::Type before = getDirectionID();
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
 
-	UnitaryTools::debugLog(U"connect", arg_connect_coordinate, U"before: " + Format(before) + U" after: " + Format(relative_direction_id));
+	// 2周目の同じ方向への設置は無視する（更新する必要がないため）
+	if (before >= relative_direction_id) {
+		return;
+	}
 	
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {

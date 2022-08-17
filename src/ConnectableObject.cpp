@@ -19,6 +19,11 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 		return;
 	}
 
+	// 既に登録されていたら何も変更せず終了
+	if (m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+		return;
+	}
+
 	set_direction_id(relative_direction_id, false);
     if (m_type_id != TypeID::TrainCrossing && m_type_id != TypeID::Bridge)
         set_type_id();
@@ -36,6 +41,11 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
 		UnitaryTools::debugLog(U"connectWithSpecifiedType", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
+		return;
+	}
+
+	// 既に登録されていたら何も変更せず終了
+	if (m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
 		return;
 	}
 	

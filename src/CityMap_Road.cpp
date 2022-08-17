@@ -141,7 +141,7 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
 		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
             from_coordinate_object_struct.object_p->connect(
                 road_network,
-                CoordinateStruct{ 0, 0 },            // 暫定
+                CoordinateStruct{ 0, 0 },            // ToDo 暫定
                 m_objects[object_id]
             );
             
@@ -156,7 +156,7 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             if (other_crossable_object) {
                 m_objects[object_id]->connectWithSpecifiedType(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
+                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
                     from_coordinate_object_struct.object_p,
                     type
                 );
@@ -165,7 +165,7 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             else {
                 m_objects[object_id]->connect(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
+                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
                     from_coordinate_object_struct.object_p
                 );
             }

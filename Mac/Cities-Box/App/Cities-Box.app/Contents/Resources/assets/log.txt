@@ -209,33 +209,95 @@ m_load_obj(): TypeID: Normal
 m_load_addons(): from ./addons/Normal/parks/Pond_Park/Pond_Park.adj
 m_load_obj(): TypeID: Normal
 common object: name=tile_greenfield object_id=26
-delete object at 28, 16 of 0, 0
-delete object at 29, 16 of 0, 0
-addDirectionID(): East
-connect(): set roadtypeconect 5 / 7
-addDirectionID(): West
-connect(): set roadtypeconect 9 / 7
-delete object at 29, 17 of 0, 0
-addDirectionID(): South
-connect(): set roadtypeconect 11 / 4
-addDirectionID(): North
-connect(): set roadtypeconect 1 / 7
+delete object at 27, 17 of 0, 0
 delete object at 27, 18 of 0, 0
-delete object at 28, 19 of 0, 0
-connect() at (0, 0): Direction disabled
-connect() at (0, 0): Direction disabled
-delete object at 26, 17 of 0, 0
-delete object at 26, 18 of 0, 0
 addDirectionID(): South
 connect(): set roadtypeconect 2 / 7
 addDirectionID(): North
 connect(): set roadtypeconect 1 / 7
-delete object at 27, 18 of 0, 0
+delete object at 28, 18 of 0, 0
 addDirectionID(): East
 connect(): set roadtypeconect 6 / 4
 addDirectionID(): West
 connect(): set roadtypeconect 9 / 7
-delete object at 29, 19 of 0, 0
-delete object at 30, 20 of 0, 0
+delete object at 28, 15 of 0, 0
+delete object at 29, 16 of 0, 0
 connect() at (0, 0): Direction disabled
 connect() at (0, 0): Direction disabled
+delete object at 29, 18 of 0, 0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 30, 18 of 0, 0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 30, 17 of 0, 0
+addDirectionID(): North
+connect(): set roadtypeconect 10 / 4
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 30, 16 of 0, 0
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 30, 15 of 0, 0
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 29, 15 of 0, 0
+addDirectionID(): West
+connect(): set roadtypeconect 11 / 4
+addDirectionID(): East
+connect(): set roadtypeconect 5 / 7
+delete object at 28, 15 of 0, 0
+addDirectionID(): West
+connect(): set roadtypeconect 14 / 3
+addDirectionID(): East
+connect(): set roadtypeconect 5 / 7
+delete object at 27, 15 of 0, 0
+addDirectionID(): West
+connect(): set roadtypeconect 14 / 3
+addDirectionID(): East
+connect(): set roadtypeconect 5 / 7
+delete object at 27, 16 of 0, 0
+addDirectionID(): South
+connect(): set roadtypeconect 7 / 4
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+addDirectionID(): South
+connect(): set roadtypeconect 5 / 7
+addDirectionID(): North
+connect(): set roadtypeconect 7 / 4
+addDirectionID(): East
+connect(): set roadtypeconect 19 / 0
+addDirectionID(): West
+connect(): set roadtypeconect 23 / 0
+addDirectionID(): East
+connect(): set roadtypeconect 28 / 0
+addDirectionID(): West
+connect(): set roadtypeconect 19 / 0
+addDirectionID(): North
+connect(): set roadtypeconect 20 / 0
+addDirectionID(): South
+connect(): set roadtypeconect 5 / 7
+addDirectionID(): North
+connect(): set roadtypeconect 6 / 4
+addDirectionID(): South
+connect(): set roadtypeconect 5 / 7
+addDirectionID(): North
+connect(): set roadtypeconect 6 / 4
+addDirectionID(): South
+connect(): set roadtypeconect 13 / 0
+addDirectionID(): West
+connect(): set roadtypeconect 22 / 0
+addDirectionID(): East
+connect(): set roadtypeconect 19 / 0

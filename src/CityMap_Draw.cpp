@@ -13,16 +13,8 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 		for (short int x = m_get_draw_area(camera, window_size_changed).first.x; x < m_get_draw_area(camera, window_size_changed).second.x; x++) {
 			PositionStruct drawPos = coordinateToPosition(CoordinateStruct{ x, y }, camera);
 
-			// 削除されたオブジェクトをタイルから除去
-			// ToDo: こっちはもう要らないかも
-			for (auto removing_object_id : remove_objects_list) {
-				if (m_tiles[y][x].isObjectExists(removing_object_id)) {
-					m_tiles[y][x].deleteObject(removing_object_id);
-					UnitaryTools::debugLog(U"draw", CoordinateStruct{ x, y }, U"delete object" + Format(removing_object_id));
-				}
-			}
-
-			// タイルのオブジェクトが0個になっていたら芝生に置き換え
+			// 削除されたオブジェクトをタイルから除去(Tileにて)
+			// -> タイルのオブジェクトが0個になっていたら芝生に置き換え
 			if (m_tiles[y][x].countObjects() == 0) {
 				m_put_grass(CoordinateStruct{ x, y });
 			}

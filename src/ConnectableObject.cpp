@@ -8,6 +8,9 @@
 #include "ConnectableObject.hpp"
 
 void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
+	// 先に現在のdirectionを取得
+	// 現在のdirectionが適用可能なら、更新せずに戻る
+
 	// マップ上で接続
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
 	

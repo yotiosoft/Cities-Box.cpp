@@ -9,7 +9,7 @@
 
 void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
 	// マップ上で接続
-	DirectionID::Type relative_direction_id = (DirectionID::Type)((int)getDirectionID() +(int)UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway)));
+	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
 	
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {

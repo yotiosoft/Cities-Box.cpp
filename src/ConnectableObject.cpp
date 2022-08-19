@@ -7,10 +7,15 @@
 
 #include "ConnectableObject.hpp"
 
-void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p) {
+void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
 	// マップ上で接続
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
 	
+	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
+	if (!from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+		return;
+	}
+
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {
 		UnitaryTools::debugLog(U"connect", arg_connect_coordinate, U"Direction disabled");
@@ -27,10 +32,15 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	UnitaryTools::debugLog(U"connect", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
-void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type) {
+void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
     // マップ上で接続
     DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
     
+	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
+	if (!from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+		return;
+	}
+
 	// Directionが無効なら自身のオブジェクトを削除し終了
 	if (relative_direction_id == DirectionID::Disabled) {
 		UnitaryTools::debugLog(U"connectWithSpecifiedType", arg_connect_coordinate, U"Direction disabled");

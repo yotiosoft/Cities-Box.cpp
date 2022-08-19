@@ -17,8 +17,8 @@ public:
 	NormalObject(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, CoordinateStruct arg_start_coordinate) : Object(arg_object_id, arg_addon_p, arg_original_name, arg_start_coordinate) {};
 	NormalObject(int arg_object_id, CBAddon* arg_addon_p, String arg_original_name, TypeID::Type arg_type_id, DirectionID::Type arg_direction_id, CoordinateStruct arg_start_coordinate) : Object(arg_object_id, arg_addon_p, arg_original_name, arg_type_id, arg_direction_id, arg_start_coordinate) {};
 	
-	void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p);
-    void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type);
+	void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here);
+    void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here);
 	
 	// 自分自身を削除
 	Array<CoordinateStruct> del(CityNetwork& road_network);

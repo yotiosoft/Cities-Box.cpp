@@ -12,7 +12,7 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
 	
 	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
-	if (!from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
 		return;
 	}
 
@@ -37,7 +37,7 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
     DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
     
 	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
-	if (!from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
 		return;
 	}
 

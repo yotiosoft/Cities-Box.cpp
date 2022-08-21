@@ -510,7 +510,7 @@ String UnitaryTools::directionIDToDirectionName(DirectionID::Type direction_id) 
 DirectionID::Type UnitaryTools::getDirectionIDfromDifference(CoordinateStruct arg_before, CoordinateStruct arg_after, bool is_road) {
 	int dx = arg_after.x - arg_before.x;
 	int dy = arg_after.y - arg_before.y;
-	cout << "dx:" << dx << ", dy:" << dy << endl;
+	debugLog(U"UnitaryTools::getDirectionIDfromDifference", U"dx:" + Format(dx) + U", dy:" + Format(dy));
 	
 	if (dx == 0 && dy == 0) {
 		return DirectionID::None;

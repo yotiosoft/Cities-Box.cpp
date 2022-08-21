@@ -162,6 +162,10 @@ Array<ObjectStruct> Tile::getObjectStructs() {
 	return m_objects;
 }
 
+int Tile::countObjects() {
+	return m_objects.size();
+}
+
 // 描画
 void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position, TimeStruct arg_time) {
 	// 描画
@@ -176,6 +180,13 @@ void Tile::draw(RateID::Type arg_show_rate_id, PositionStruct arg_draw_position,
 			else {
 				rateColor = m_get_rate_color(rate, true, 50);
 			}
+		}
+
+		// もしObjectがdeletedならオブジェクトを削除
+		if (m_objects[i].object_p->isDeleted()) {
+			m_objects.remove_at(i);
+			i--;
+			continue;
 		}
 		
 		m_objects[i].object_p->draw(m_objects[i].relative_coordinate, arg_draw_position, arg_time, rateColor);

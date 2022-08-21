@@ -139,10 +139,12 @@ bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_
 void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id) {
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
 		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
+            // 現在のマスに接続設定
             from_coordinate_object_struct.object_p->connect(
                 road_network,
-                CoordinateStruct{ 0, 0 },            // 暫定
-                m_objects[object_id]
+                CoordinateStruct{ 0, 0 },            // ToDo 暫定
+                m_objects[object_id],
+                true
             );
             
             // 橋や踏切を設置する必要があるか否か？
@@ -152,21 +154,24 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
                 other_crossable_object = m_put_bridge(m_objects[object_id]->getAddonP(), to, type);
             }
             
-            // 橋や踏切を設置する必要がない場合は通常通り接続
+            // 相手の接続先に接続設定
+            // 橋や踏切を設置する必要がある場合はtypeとdirectionを指定して接続
             if (other_crossable_object) {
                 m_objects[object_id]->connectWithSpecifiedType(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
+                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
                     from_coordinate_object_struct.object_p,
-                    type
+                    type,
+                    false
                 );
             }
-            // 橋や踏切を設置する必要がある場合はtypeとdirectionを指定して接続
+            // 橋や踏切を設置する必要がない場合は通常通り接続
             else {
                 m_objects[object_id]->connect(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // 暫定
-                    from_coordinate_object_struct.object_p
+                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
+                    from_coordinate_object_struct.object_p,
+                    false
                 );
             }
             

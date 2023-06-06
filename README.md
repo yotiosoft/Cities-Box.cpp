@@ -3,6 +3,10 @@
 A free city-building game that works on multiple platforms.  
 At now, only Japanese language is supported.
 
+## Associated repository
+Hot Soup Processor (HSP) version (before 2019):  
+https://github.com/yotiosoft/Cities-Box
+
 ## Development Environment
 - for Windows
 	- OS : Windows 10 Home 64bit

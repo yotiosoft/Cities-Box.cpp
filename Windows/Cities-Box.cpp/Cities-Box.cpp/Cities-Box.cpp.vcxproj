@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{7bd9036a-7367-4113-be38-dbb3ec1b3fd2}</ProjectGuid>
+    <ProjectGuid>{d8cdc587-6ee5-4c0f-abd5-e0d785f833f4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cities_Box_cpp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -49,31 +49,32 @@
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
     <TargetName>$(ProjectName)(debug)</TargetName>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
-    <IncludePath>./;../../../src;$(SIV3D_0_6_5)\include;$(SIV3D_0_6_5)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_5)\lib\Windows;$(LibraryPath)</LibraryPath>
+    <IncludePath>./;../../../src;$(SIV3D_0_6_15)\include;$(SIV3D_0_6_15)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_15)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
-    <IncludePath>$(SIV3D_0_6_5)\include;$(SIV3D_0_6_5)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_5)\lib\Windows;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SIV3D_0_6_15)\include;$(SIV3D_0_6_15)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_15)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableSpecificWarnings>26451;26812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:__cplusplus /source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -91,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -100,6 +101,7 @@
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -144,6 +146,10 @@
     <ClCompile Include="..\..\..\src\UnitaryTools.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Specific.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -222,6 +228,8 @@
     <None Include="App\engine\shader\d3d11\forward3d.vs" />
     <None Include="App\engine\shader\d3d11\fullscreen_triangle.ps" />
     <None Include="App\engine\shader\d3d11\fullscreen_triangle.vs" />
+    <None Include="App\engine\shader\d3d11\gaussian_blur_13.ps" />
+    <None Include="App\engine\shader\d3d11\gaussian_blur_5.ps" />
     <None Include="App\engine\shader\d3d11\gaussian_blur_9.ps" />
     <None Include="App\engine\shader\d3d11\line3d.ps" />
     <None Include="App\engine\shader\d3d11\line3d.vs" />
@@ -230,6 +238,8 @@
     <None Include="App\engine\shader\d3d11\msdffont_outlineshadow.ps" />
     <None Include="App\engine\shader\d3d11\msdffont_shadow.ps" />
     <None Include="App\engine\shader\d3d11\msdfprint.ps" />
+    <None Include="App\engine\shader\d3d11\quad_warp.ps" />
+    <None Include="App\engine\shader\d3d11\quad_warp.vs" />
     <None Include="App\engine\shader\d3d11\round_dot.ps" />
     <None Include="App\engine\shader\d3d11\sdffont.ps" />
     <None Include="App\engine\shader\d3d11\sdffont_outline.ps" />
@@ -247,6 +257,8 @@
     <None Include="App\engine\shader\glsl\forward3d.vert" />
     <None Include="App\engine\shader\glsl\fullscreen_triangle.frag" />
     <None Include="App\engine\shader\glsl\fullscreen_triangle.vert" />
+    <None Include="App\engine\shader\glsl\gaussian_blur_13.frag" />
+    <None Include="App\engine\shader\glsl\gaussian_blur_5.frag" />
     <None Include="App\engine\shader\glsl\gaussian_blur_9.frag" />
     <None Include="App\engine\shader\glsl\line3d.frag" />
     <None Include="App\engine\shader\glsl\line3d.vert" />
@@ -255,6 +267,8 @@
     <None Include="App\engine\shader\glsl\msdffont_outlineshadow.frag" />
     <None Include="App\engine\shader\glsl\msdffont_shadow.frag" />
     <None Include="App\engine\shader\glsl\msdfprint.frag" />
+    <None Include="App\engine\shader\glsl\quad_warp.frag" />
+    <None Include="App\engine\shader\glsl\quad_warp.vert" />
     <None Include="App\engine\shader\glsl\round_dot.frag" />
     <None Include="App\engine\shader\glsl\sdffont.frag" />
     <None Include="App\engine\shader\glsl\sdffont_outline.frag" />
@@ -297,6 +311,8 @@
     <None Include="App\example\shader\glsl\default2d_texture.frag" />
     <None Include="App\example\shader\glsl\default3d_forward.frag" />
     <None Include="App\example\shader\glsl\default3d_forward.vert" />
+    <None Include="App\example\shader\glsl\default3d_forward_shadow_depth.frag" />
+    <None Include="App\example\shader\glsl\default3d_forward_shadow_shading.frag" />
     <None Include="App\example\shader\glsl\extract_bright_linear.frag" />
     <None Include="App\example\shader\glsl\forward_fog.frag" />
     <None Include="App\example\shader\glsl\forward_triplanar.frag" />
@@ -339,6 +355,39 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\AbstractSetting.hpp" />
+    <ClInclude Include="..\..\..\src\AddonDirectionStruct.hpp" />
+    <ClInclude Include="..\..\..\src\AddonLayer.hpp" />
+    <ClInclude Include="..\..\..\src\AddonMaker.hpp" />
+    <ClInclude Include="..\..\..\src\AddonType.hpp" />
+    <ClInclude Include="..\..\..\src\Button.hpp" />
+    <ClInclude Include="..\..\..\src\CBAddon.hpp" />
+    <ClInclude Include="..\..\..\src\CitiesBox.hpp" />
+    <ClInclude Include="..\..\..\src\CityMap.hpp" />
+    <ClInclude Include="..\..\..\src\CityNetwork.hpp" />
+    <ClInclude Include="..\..\..\src\ConnectableObject.hpp" />
+    <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
+    <ClInclude Include="..\..\..\src\Enums.hpp" />
+    <ClInclude Include="..\..\..\src\GeneralSetting.hpp" />
+    <ClInclude Include="..\..\..\src\Header.hpp" />
+    <ClInclude Include="..\..\..\src\Images.hpp" />
+    <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
+    <ClInclude Include="..\..\..\src\Menu.hpp" />
+    <ClInclude Include="..\..\..\src\NormalObject.hpp" />
+    <ClInclude Include="..\..\..\src\Object.hpp" />
+    <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
+    <ClInclude Include="..\..\..\src\RouteSolver.hpp" />
+    <ClInclude Include="..\..\..\src\Sound.hpp" />
+    <ClInclude Include="..\..\..\src\StartUp.hpp" />
+    <ClInclude Include="..\..\..\src\Structs.hpp" />
+    <ClInclude Include="..\..\..\src\SubWindow.hpp" />
+    <ClInclude Include="..\..\..\src\Tile.hpp" />
+    <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
+    <ClInclude Include="..\..\..\src\UnitaryTools.hpp" />
+    <ClInclude Include="Specific.hpp" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">
       <FileType>Document</FileType>
     </None>
@@ -369,6 +418,9 @@
       <FileType>Document</FileType>
     </None>
     <None Include="App\example\shader\hlsl\default3d_forward.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="App\example\shader\hlsl\default3d_forward_shadow.hlsl">
       <FileType>Document</FileType>
     </None>
     <None Include="App\example\shader\hlsl\extract_bright_linear.hlsl">
@@ -419,38 +471,6 @@
     <None Include="App\example\shader\hlsl\terrain_normal.hlsl">
       <FileType>Document</FileType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\src\AbstractSetting.hpp" />
-    <ClInclude Include="..\..\..\src\AddonDirectionStruct.hpp" />
-    <ClInclude Include="..\..\..\src\AddonLayer.hpp" />
-    <ClInclude Include="..\..\..\src\AddonMaker.hpp" />
-    <ClInclude Include="..\..\..\src\AddonType.hpp" />
-    <ClInclude Include="..\..\..\src\Button.hpp" />
-    <ClInclude Include="..\..\..\src\CBAddon.hpp" />
-    <ClInclude Include="..\..\..\src\CitiesBox.hpp" />
-    <ClInclude Include="..\..\..\src\CityMap.hpp" />
-    <ClInclude Include="..\..\..\src\CityNetwork.hpp" />
-    <ClInclude Include="..\..\..\src\ConnectableObject.hpp" />
-    <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
-    <ClInclude Include="..\..\..\src\Enums.hpp" />
-    <ClInclude Include="..\..\..\src\GeneralSetting.hpp" />
-    <ClInclude Include="..\..\..\src\Header.hpp" />
-    <ClInclude Include="..\..\..\src\Images.hpp" />
-    <ClInclude Include="..\..\..\src\ImagesStruct.hpp" />
-    <ClInclude Include="..\..\..\src\Menu.hpp" />
-    <ClInclude Include="..\..\..\src\NormalObject.hpp" />
-    <ClInclude Include="..\..\..\src\Object.hpp" />
-    <ClInclude Include="..\..\..\src\PulldownMenu.hpp" />
-    <ClInclude Include="..\..\..\src\RouteSolver.hpp" />
-    <ClInclude Include="..\..\..\src\Sound.hpp" />
-    <ClInclude Include="..\..\..\src\StartUp.hpp" />
-    <ClInclude Include="..\..\..\src\Structs.hpp" />
-    <ClInclude Include="..\..\..\src\SubWindow.hpp" />
-    <ClInclude Include="..\..\..\src\Tile.hpp" />
-    <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
-    <ClInclude Include="..\..\..\src\UnitaryTools.hpp" />
-    <ClInclude Include="Specific.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

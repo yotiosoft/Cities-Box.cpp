@@ -12,6 +12,7 @@ lib
 *.tlog
 *.DS_Store
 *.vsidx
+*.exe
 Windows/Cities-Box.cpp/.vs/*
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v17/

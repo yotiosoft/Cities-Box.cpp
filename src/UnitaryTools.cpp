@@ -627,6 +627,7 @@ DirectionID::Type UnitaryTools::addDirectionID(DirectionID::Type direction_id1, 
 	
 	for (auto direction_id2_div_single : direction_id2_div) {
 		for (auto direction_id1_div_single : direction_id1_div) {
+			cout << "direction_id1_div_single = " << direction_id1_div_single << " direction_id2_div_single = " << direction_id2_div_single << endl;
 			if (direction_id2_div_single == direction_id1_div_single) {
 				continue;
 			}

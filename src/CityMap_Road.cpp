@@ -140,10 +140,12 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
 		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
             // 現在のマスに接続設定
+            cout << "m_connect_objects: from " << from.x << "," << from.y << " to " << to.x << "," << to.y << endl;
+            cout << "from_coordinate_object_struct: " << from_coordinate_object_struct.relative_coordinate.origin.x << "," << from_coordinate_object_struct.relative_coordinate.origin.y << endl;
             from_coordinate_object_struct.object_p->connect(
                 road_network,
-                CoordinateStruct{ 0, 0 },            // ToDo 暫定
-                m_objects[object_id],
+                CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
+                m_objects[object_id],                // 相手先から自分自身への接続を指定
                 true
             );
             
@@ -159,8 +161,8 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             if (other_crossable_object) {
                 m_objects[object_id]->connectWithSpecifiedType(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
-                    from_coordinate_object_struct.object_p,
+                    CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
+                    from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
                     type,
                     false
                 );
@@ -169,8 +171,8 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             else {
                 m_objects[object_id]->connect(
                     road_network,
-                    CoordinateStruct{ 0, 0 },            // ToDo 暫定
-                    from_coordinate_object_struct.object_p,
+                    CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
+                    from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
                     false
                 );
             }

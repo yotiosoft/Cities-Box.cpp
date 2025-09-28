@@ -146,9 +146,6 @@ void CitiesBox() {
 			updateMap = true;
 		}
 		
-		
-		//cout << "cursor: " << cursor.coordinate.x << "," << cursor.coordinate.y << " : " << map.getAddon(cursor.coordinate)[0].getName() << endl;
-		
 		// マップなどを更新する必要がある場合はバッファに描画（更新）する
 		if (updateMap) {
 			bufferTexture.clear(Color(30, 30, 30));
@@ -161,18 +158,6 @@ void CitiesBox() {
 			
 			if (firstLoop) {
 				firstLoop = false;
-				
-				// サブウィンドウの描画
-				/*
-				sub_window.getRenderTexture()->clear(Color(Palette::White));
-				ScopedRenderTarget2D target(*sub_window.getRenderTexture());
-				font16(U"テストですと").draw(0, 0, Color(Palette::Black));
-				sub_window.update();
-				
-				sub_window2.getRenderTexture()->clear(Color(Palette::White));
-				target = ScopedRenderTarget2D(*sub_window2.getRenderTexture());
-				font16(U"テストですよ").draw(0, 0, Color(Palette::Black));
-				sub_window2.update();*/
 			}
 			else {
 				updateMap = false;
@@ -188,8 +173,6 @@ void CitiesBox() {
 		
 		// バッファを描画
 		bufferTexture.draw(0, 0);
-		//sub_window.draw();
-		//sub_window2.draw();
 		
 		// 時間を進ませる
 		time = map.cityTime(1);

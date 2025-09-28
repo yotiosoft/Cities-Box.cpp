@@ -13,9 +13,16 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 
 	// マップ上で接続
 	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
-	
-	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
-	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+
+	// 自身が接続開始地点ではなく、かつ既に接続済みであり、同じ向きに接続済みオブジェクトがあるなら何もしない
+	Array<DirectionID::Type> direction_id_div = UnitaryTools::splitDirections(m_direction_id);
+	bool exist = false;
+	for (DirectionID::Type direction_id : direction_id_div) {
+		if (direction_id == relative_direction_id) {
+			exist = true;
+		}
+	}
+	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0 && exist) {
 		return;
 	}
 
@@ -39,8 +46,15 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
     // マップ上で接続
     DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
     
-	// 自身が接続開始地点ではなく、かつ既に接続済みであれば何もしない
-	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0) {
+	// 自身が接続開始地点ではなく、かつ既に接続済みであり、同じ向きに接続済みオブジェクトがあるなら何もしない
+	Array<DirectionID::Type> direction_id_div = UnitaryTools::splitDirections(m_direction_id);
+	bool exist = false;
+	for (DirectionID::Type direction_id : direction_id_div) {
+		if (direction_id == relative_direction_id) {
+			exist = true;
+		}
+	}
+	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0 && exist) {
 		return;
 	}
 

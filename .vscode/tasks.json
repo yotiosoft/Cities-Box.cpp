@@ -4,52 +4,26 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "debug-build",
-            "type": "shell",
-            "command": "xcodebuild",
-            "args": [
-                "-project",
-                "./Mac/${config:APP_NAME}/${config:APP_NAME}.xcodeproj",
-                "ARCHS=x86_64",
-                "-configuration",
-                "Debug"
-            ],
-        },
-        {
-            "label": "debug-build-run",
-            "type": "shell",
-            "command": "./Mac/${config:APP_NAME}/App/${config:APP_NAME}.app/Contents/MacOS/${config:APP_NAME}",
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "label": "vs-debug-build",
+            "type": "process",
+            "command": "Windows\\vsdevcmd-debug.bat",
+            "args": ["Windows\\Cities-Box.cpp\\Cities-Box.cpp\\Cities-Box.cpp", "Windows\\Cities-Box.cpp\\Cities-Box.cpp", "Cities-Box.cpp"],
+            "group": "build",
+            "presentation": {
+                  "reveal": "always"
             },
-            "dependsOn": [
-                "debug-build"
-            ]
+            "problemMatcher": "$msCompile"
         },
         {
-            "label": "release-build",
-            "type": "shell",
-            "command": "xcodebuild",
-            "args": [
-                "-project",
-                "./Mac/${config:APP_NAME}/${config:APP_NAME}.xcodeproj",
-                "ARCHS=x86_64",
-                "-configuration",
-                "Release"
-            ],
-        },
-        {
-            "label": "release-build-run",
-            "type": "shell",
-            "command": "./Mac/${config:APP_NAME}/App/${config:APP_NAME}.app/Contents/MacOS/${config:APP_NAME}",
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "label": "vs-release-build",
+            "type": "process",
+            "command": "Windows\\vsdevcmd-release.bat",
+            "args": ["Windows\\Cities-Box.cpp\\Cities-Box.cpp\\Cities-Box.cpp", "Windows\\Cities-Box.cpp\\Cities-Box.cpp", "Cities-Box.cpp"],
+            "group": "build",
+            "presentation": {
+                  "reveal": "always"
             },
-            "dependsOn": [
-                "release-build"
-            ]
+            "problemMatcher": "$msCompile"
         }
     ]
 }

@@ -210,6 +210,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::Car, Button(IconFont::CAR, 16, 16, PositionStruct{0, 0}));
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
             m_map->breakUnconnectedRoads();         // メニューを閉じた時点で建設が完了していない道路（＝孤立した道路）は除去
 		}
@@ -226,6 +227,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
             m_map->breakUnconnectedRoads();         // メニューを閉じた時点で建設が完了していない線路（＝孤立した線路）は除去
 		}
@@ -244,6 +246,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::HighDensity, Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -261,6 +264,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons << pair<CategoryID::Type, Button>(CategoryID::HighDensity, Button(IconFont::Office, 16, 16, PositionStruct{2, 0}));
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -276,6 +280,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -291,6 +296,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -306,6 +312,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -321,6 +328,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -336,6 +344,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -351,6 +360,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -366,6 +376,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -381,6 +392,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_category_buttons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;
@@ -396,6 +408,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			m_show_addons.clear();
 		}
 		else {
+			m_show_addons.clear();
 			m_menu_mode = MenuMode::Cursor;
 		}
 		needUpdate = true;

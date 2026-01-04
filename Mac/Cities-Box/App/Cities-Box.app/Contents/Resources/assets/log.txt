@@ -209,16 +209,418 @@ m_load_obj(): TypeID: Normal
 m_load_addons(): from ./addons/Normal/parks/Pond_Park/Pond_Park.adj
 m_load_obj(): TypeID: Normal
 common object: name=tile_greenfield object_id=26
-delete object at 26, 16 of 0, 0
-delete object at 27, 16 of 0, 0
+delete object at 44, 74 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 10 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 11 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 16 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connectWithSpecifiedType(): set roadtypeconect 9 / 9
+delete object at 46, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 9
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 47, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 48, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 49, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 50, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 51, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 52, 75 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 49, 73 of 0, 0
+delete object at 49, 74 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 15 / 5
+delete object at 49, 76 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 17 / 6
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 49, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 49, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 52, 80 of 0, 0
+delete object at 52, 79 of 0, 0
+delete object at 52, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 2 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 4 / 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 5 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 4 / 0
+delete object at 52, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 5 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 53, 82 of 0, 0
+delete object at 53, 81 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 52, 81 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 11 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 5 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 6 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 7 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 8 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 7 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 8 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 4 / 0
+delete object at 52, 76 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 5 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 11 / 4
+delete object at 53, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 54, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 19 / 0
+delete object at 53, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 20 / 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 54, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 7 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 12 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 10 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 12 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 11 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 9 / 7
+delete object at 53, 79 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 54, 79 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 54, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 11 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 55, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 6 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 56, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 57, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 58, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 19 / 0
+delete object at 57, 79 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 20 / 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 57, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 57, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 2 / 7
+delete object at 47, 82 of 0, 0
+delete object at 48, 82 of 0, 0
 UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
 addDirectionID(): East
 connect(): set roadtypeconect 5 / 7
 UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
 addDirectionID(): West
 connect(): set roadtypeconect 9 / 7
-delete object at 28, 16 of 0, 0
+delete object at 49, 82 of 0, 0
 UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 50, 82 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 51, 82 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 19 / 0
+delete object at 49, 83 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 16 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 49, 84 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 49, 85 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 50, 85 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 6 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 11 / 4
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 16 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 18 / 0
+delete object at 47, 73 of 0, 0
+delete object at 48, 73 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 5 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 11 / 4
+delete object at 50, 73 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 16 / 5
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 51, 73 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
+addDirectionID(): West
+connect(): set roadtypeconect 9 / 7
+delete object at 52, 73 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:1, dy:0
+addDirectionID(): East
+connect(): set roadtypeconect 14 / 3
 UnitaryTools::getDirectionIDfromDifference(): dx:-1, dy:0
 addDirectionID(): West
 connect(): set roadtypeconect 9 / 7

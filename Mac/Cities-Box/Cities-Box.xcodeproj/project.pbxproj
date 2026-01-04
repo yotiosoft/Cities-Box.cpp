@@ -66,6 +66,10 @@
 		7C55EE632838A09A00E5435D /* ConnectableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE452838A09A00E5435D /* ConnectableObject.cpp */; };
 		7C55EE642838A09A00E5435D /* GeneralSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE462838A09A00E5435D /* GeneralSetting.cpp */; };
 		7C55EE652838A09A00E5435D /* CityMap_LoadData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE472838A09A00E5435D /* CityMap_LoadData.cpp */; };
+		7CEA4EA52F0A821E001538F9 /* Cargo.toml in Resources */ = {isa = PBXBuildFile; fileRef = 7CEA4E982F0A821E001538F9 /* Cargo.toml */; };
+		7CEA4EAA2F0A821E001538F9 /* lib.rs in Resources */ = {isa = PBXBuildFile; fileRef = 7CEA4E782F0A821E001538F9 /* lib.rs */; };
+		7CEA503A2F0A89B7001538F9 /* librust_test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CEA50392F0A8996001538F9 /* librust_test.a */; };
+		7CEA503C2F0A8D3F001538F9 /* rust_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA503B2F0A8D3F001538F9 /* rust_interface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +163,13 @@
 		7C55EE452838A09A00E5435D /* ConnectableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConnectableObject.cpp; path = ../../../src/ConnectableObject.cpp; sourceTree = "<group>"; };
 		7C55EE462838A09A00E5435D /* GeneralSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeneralSetting.cpp; path = ../../../src/GeneralSetting.cpp; sourceTree = "<group>"; };
 		7C55EE472838A09A00E5435D /* CityMap_LoadData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_LoadData.cpp; path = ../../../src/CityMap_LoadData.cpp; sourceTree = "<group>"; };
+		7CEA4E682F0A7DA8001538F9 /* rust-test */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = "rust-test"; path = "../../src/rust-test/target/x86_64-apple-darwin/release/rust-test"; sourceTree = "<group>"; };
+		7CEA4E692F0A7DF1001538F9 /* rust_test-b08ada0fa8d29c95 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = "rust_test-b08ada0fa8d29c95"; path = "../../src/rust-test/target/x86_64-apple-darwin/release/deps/rust_test-b08ada0fa8d29c95"; sourceTree = "<group>"; };
+		7CEA4E782F0A821E001538F9 /* lib.rs */ = {isa = PBXFileReference; lastKnownFileType = text; path = lib.rs; sourceTree = "<group>"; };
+		7CEA4E982F0A821E001538F9 /* Cargo.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.toml; sourceTree = "<group>"; };
+		7CEA50382F0A85E8001538F9 /* rust_interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rust_interface.h; sourceTree = "<group>"; };
+		7CEA50392F0A8996001538F9 /* librust_test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librust_test.a; path = "../../src/rust-test/target/x86_64-apple-darwin/release/librust_test.a"; sourceTree = "<group>"; };
+		7CEA503B2F0A8D3F001538F9 /* rust_interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rust_interface.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +194,7 @@
 				2C5C470926B4F084005E8C85 /* libopencv_core.a in Frameworks */,
 				2C5C470A26B4F084005E8C85 /* libopencv_photo.a in Frameworks */,
 				2C5C470B26B4F084005E8C85 /* libopencv_videoio.a in Frameworks */,
+				7CEA503A2F0A89B7001538F9 /* librust_test.a in Frameworks */,
 				2C5C46FF26B4F07D005E8C85 /* libwebp.a in Frameworks */,
 				2C5C46FB26B4F076005E8C85 /* libvorbisfile.a in Frameworks */,
 				2C5C46FC26B4F076005E8C85 /* libvorbisenc.a in Frameworks */,
@@ -222,6 +234,7 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				7CEA4E992F0A821E001538F9 /* rust-test */,
 				7C55EE2E2838A09900E5435D /* AddonDirectionStruct.hpp */,
 				7C55EE442838A09A00E5435D /* AddonLayer.cpp */,
 				7C55EE0E2838A09900E5435D /* AddonLayer.hpp */,
@@ -288,6 +301,9 @@
 		2CC7F9861F45930A0071A239 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CEA50392F0A8996001538F9 /* librust_test.a */,
+				7CEA4E692F0A7DF1001538F9 /* rust_test-b08ada0fa8d29c95 */,
+				7CEA4E682F0A7DA8001538F9 /* rust-test */,
 				2CD8412B283263B2005013A6 /* libboost_filesystem.a */,
 				2C5C471026B4F08E005E8C85 /* libzlib.a */,
 				2C5C470D26B4F08A005E8C85 /* libopus.a */,
@@ -319,6 +335,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7CEA4E792F0A821E001538F9 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				7CEA4E782F0A821E001538F9 /* lib.rs */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		7CEA4E992F0A821E001538F9 /* rust-test */ = {
+			isa = PBXGroup;
+			children = (
+				7CEA503B2F0A8D3F001538F9 /* rust_interface.cpp */,
+				7CEA50382F0A85E8001538F9 /* rust_interface.h */,
+				7CEA4E792F0A821E001538F9 /* src */,
+				7CEA4E982F0A821E001538F9 /* Cargo.toml */,
+			);
+			name = "rust-test";
+			path = "/Users/ytani/git/CitiesBox.cpp/src/rust-test";
+			sourceTree = "<absolute>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -326,6 +362,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C1778931CE0A9EA00BB8AD0 /* Build configuration list for PBXNativeTarget "Cities-Box" */;
 			buildPhases = (
+				7CEA4E612F0A72C6001538F9 /* Build Rust crates */,
 				2C1778801CE0A9EA00BB8AD0 /* Sources */,
 				2C1778811CE0A9EA00BB8AD0 /* Frameworks */,
 				2C1778821CE0A9EA00BB8AD0 /* Resources */,
@@ -376,11 +413,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6906D82298140F00A427D0 /* engine in Resources */,
+				7CEA4EA52F0A821E001538F9 /* Cargo.toml in Resources */,
+				7CEA4EAA2F0A821E001538F9 /* lib.rs in Resources */,
 				2C1778A31CE0B65500BB8AD0 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7CEA4E612F0A72C6001538F9 /* Build Rust crates */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Rust crates";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Rustのツールチェーンにパスを通す（環境に合わせて調整）\nexport PATH=\"$HOME/.cargo/bin:$PATH\"\n\n# プロジェクトのルートに移動（Rustディレクトリが project_root/src/rust-test の場合）\ncd \"$PROJECT_DIR/../../src/rust-test\"\n\n# アーキテクチャに合わせてビルド (Apple Siliconなら aarch64, Intelなら x86_64)\nif [ \"$ARCHS\" = \"arm64\" ]; then\n    cargo build --release --target aarch64-apple-darwin --target-dir \"$PROJECT_DIR/../../rust-lib/rust-test/\"\nelse\n    cargo build --release --target x86_64-apple-darwin --target-dir \"$PROJECT_DIR/../../rust-lib/rust-test/\"\nfi\n\n# C source file の生成\ncxxbridge src/lib.rs > rust_interface.cpp\n\n# ヘッダの自動更新\ncxxbridge src/lib.rs --header > \"$PROJECT_DIR/../../src/rust-test/rust_interface.h\"\ncxxbridge --header > \"$PROJECT_DIR/../../src/cxx.h\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C1778801CE0A9EA00BB8AD0 /* Sources */ = {
@@ -398,6 +458,7 @@
 				7C55EE5E2838A09A00E5435D /* RouteSolver.cpp in Sources */,
 				7C55EE5A2838A09A00E5435D /* Tile.cpp in Sources */,
 				7C55EE4C2838A09A00E5435D /* StartUp.cpp in Sources */,
+				7CEA503C2F0A8D3F001538F9 /* rust_interface.cpp in Sources */,
 				7C55EE642838A09A00E5435D /* GeneralSetting.cpp in Sources */,
 				7C55EE4F2838A09A00E5435D /* AddonMaker.cpp in Sources */,
 				7C55EE5F2838A09A00E5435D /* Menu.cpp in Sources */,
@@ -565,6 +626,7 @@
 					../../lib/macOS/opencv,
 					../../lib/macOS/opus,
 					../../lib/macOS/zlib,
+					"../../rust-lib/rust-test/x86_64-apple-darwin/release",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -642,6 +704,7 @@
 					../../lib/macOS/opencv,
 					../../lib/macOS/opus,
 					../../lib/macOS/zlib,
+					"../../rust-lib/rust-test/x86_64-apple-darwin/release",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;

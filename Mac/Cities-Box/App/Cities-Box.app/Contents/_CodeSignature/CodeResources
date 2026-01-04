@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/Cargo.toml</key>
+		<data>
+		TLvI91GAyzCWt4/e18XhDuioCxQ=
+		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
 		NPeIpK2pyfz5oSsvcx+ISAhVZps=
@@ -1802,7 +1806,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		YGsZPgfLjucADdC0N5ffqfJJ3/c=
+		X1I1BDbeFOmp35EW+/7jzcLETX8=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -2084,9 +2088,24 @@
 		<data>
 		9emrBmeT3JTQifdOwiOcykaaHG0=
 		</data>
+		<key>Resources/lib.rs</key>
+		<data>
+		CUh5Jx0QC2mPRfVYbol6+6HHxXM=
+		</data>
+		<key>Resources/main.rs</key>
+		<data>
+		XvrbAjEs07tL4YxzhwjT+DG1Avs=
+		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Resources/Cargo.toml</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f00zlpm7MpNyZ6/ilw79G8dmjghssnygN6nKIseG8qY=
+			</data>
+		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<dict>
 			<key>hash2</key>
@@ -5234,7 +5253,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			K9evvpLnFuJ9G4ogNJGzT0/fAJSVRR07ypTtkA21G3E=
+			oNELltYK4gXIWeJVPbpcFWOglWQvfYZT6yFXt8IHC5M=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
@@ -5725,6 +5744,20 @@
 			<key>hash2</key>
 			<data>
 			jGhopn+raq2F+Qdvh4/FF/ls7O8n5qoQWwT0q6sJXRw=
+			</data>
+		</dict>
+		<key>Resources/lib.rs</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vT1KZM1R1db51Mqf0M8iEW3Unt5AYQOJnuo8vqlfJvA=
+			</data>
+		</dict>
+		<key>Resources/main.rs</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XZVjCDVBsahKmZSE14slj2Wr/n98KJ4BUKLVuGg2pqI=
 			</data>
 		</dict>
 	</dict>

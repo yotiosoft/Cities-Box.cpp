@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Cargo.toml</key>
 		<data>
-		TLvI91GAyzCWt4/e18XhDuioCxQ=
+		hdRoKWqzoAJ4Oy9LtvS5KtECW7o=
 		</data>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
 		<data>
@@ -1766,11 +1766,11 @@
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_temp</key>
 		<data>
-		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
+		Wurh4zgbwttMkZDsgDgvN5pxObg=
 		</data>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<data>
-		Kqis7G0rWE0cLN8HI1/HyVKWTpU=
+		Wurh4zgbwttMkZDsgDgvN5pxObg=
 		</data>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
 		<data>
@@ -1806,7 +1806,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		X1I1BDbeFOmp35EW+/7jzcLETX8=
+		/3uCjlj36Rc9J3FNxaV4k0w8Cf8=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -2103,7 +2103,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			f00zlpm7MpNyZ6/ilw79G8dmjghssnygN6nKIseG8qY=
+			wcnIEPgmnGzbWRECWSqlZduTadjgwRD4s2QY2aeoBPs=
 			</data>
 		</dict>
 		<key>Resources/assets/addons/Normal/buildings/commercial/high_density/Buy-Buy_Building/Buy-Buy_Building.adat</key>
@@ -5183,14 +5183,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
+			JzoDPLmqivi53OjH8+zRA5D2CFSOy/fApidBI+YZ1jk=
 			</data>
 		</dict>
 		<key>Resources/assets/data/map_temp.cbj_unxor</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zMBxk3OpkSRV3nFR6VgpSQhBd6g/dsbqP76jycairp8=
+			JzoDPLmqivi53OjH8+zRA5D2CFSOy/fApidBI+YZ1jk=
 			</data>
 		</dict>
 		<key>Resources/assets/data/maps/Sample_City.cbd</key>
@@ -5253,7 +5253,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oNELltYK4gXIWeJVPbpcFWOglWQvfYZT6yFXt8IHC5M=
+			Hm69bR2bCyOX0siau5NyNqe7KypKJdiJFoDu5Ecn4VA=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>

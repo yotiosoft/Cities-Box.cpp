@@ -11,14 +11,23 @@
 
 #include <Specific.hpp>
 #include "UnitaryTools.hpp"
+#include <citiesbox-rs/citiesbox-rs.h>
+
+class Images {
+public:
+    Images();
+
+    // 指定したパスから画像をロード
+    void load(const String& filePath, const String& tag);
+    void load(const String& filePath, const String& tag, const Color& transparent);
+
+    // 外部からテクスチャを参照するためのマップ
+    // images[tag][filename_without_ext]
+    std::map<String, std::map<String, ImageStruct>> images;
+
+private:
+    // Rust側のカタログ管理オブジェクト
+    rust::images::ImageCatalog *m_catalog;
+};
 
 #endif /* Images_hpp */
-
-typedef struct Images {
-	// 指定したパスから画像ファイルをすべて読み込み
-	void load(string filePath, string tag);
-	void load(string filePath, string tag, Color transparent);
-	
-	// 画像の格納する構造体の連想配列
-	map<string, map<string, ImageStruct>> images;
-} Images;

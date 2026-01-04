@@ -1,0 +1,1 @@
+/Users/ytani/git/CitiesBox.cpp/Mac/Cities-Box/../../rust-lib/citiesbox-rs/x86_64-apple-darwin/release/libcitiesbox_rs.a: /Users/ytani/git/CitiesBox.cpp/src/citiesbox-rs/src/images.rs /Users/ytani/git/CitiesBox.cpp/src/citiesbox-rs/src/lib.rs

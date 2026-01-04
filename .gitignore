@@ -47,3 +47,12 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+## Rust projects
+rust-lib/*/*/release/build
+rust-lib/*/*/release/deps
+rust-lib/*/*/release/examples
+rust-lib/*/*/release/incremental
+rust-lib/*/release/
+
+

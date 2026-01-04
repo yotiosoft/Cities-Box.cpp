@@ -1806,7 +1806,7 @@
 		</data>
 		<key>Resources/assets/log.txt</key>
 		<data>
-		/3uCjlj36Rc9J3FNxaV4k0w8Cf8=
+		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
 		</data>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
 		<data>
@@ -2088,9 +2088,13 @@
 		<data>
 		9emrBmeT3JTQifdOwiOcykaaHG0=
 		</data>
+		<key>Resources/images.rs</key>
+		<data>
+		ZnLPR0saJAnzSOAMFnBvERQurSk=
+		</data>
 		<key>Resources/lib.rs</key>
 		<data>
-		CUh5Jx0QC2mPRfVYbol6+6HHxXM=
+		X/muu5KlXRwuFYEcJqVcl2XMx00=
 		</data>
 		<key>Resources/main.rs</key>
 		<data>
@@ -5253,7 +5257,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Hm69bR2bCyOX0siau5NyNqe7KypKJdiJFoDu5Ecn4VA=
+			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 			</data>
 		</dict>
 		<key>Resources/assets/sound/BGM/Bumper_Tag.mp3</key>
@@ -5746,11 +5750,18 @@
 			jGhopn+raq2F+Qdvh4/FF/ls7O8n5qoQWwT0q6sJXRw=
 			</data>
 		</dict>
+		<key>Resources/images.rs</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Re+F3Uy2jXqXqJCzVHJBKXqS3PoAiEaiKTo1LOrz+0c=
+			</data>
+		</dict>
 		<key>Resources/lib.rs</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vT1KZM1R1db51Mqf0M8iEW3Unt5AYQOJnuo8vqlfJvA=
+			EApPtg0EapdrG96M2w8QIXA0gtN4JVvqcD0hNh0jiIo=
 			</data>
 		</dict>
 		<key>Resources/main.rs</key>

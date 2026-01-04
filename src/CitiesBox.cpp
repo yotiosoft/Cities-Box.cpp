@@ -8,7 +8,6 @@
 //
 
 #include "CitiesBox.hpp"
-#include <rust-test/rust_interface.h>
 
 void CitiesBox() {
 	Window::SetTitle(TITLE);
@@ -90,11 +89,6 @@ void CitiesBox() {
 	
 	// 更新前のLayerType
 	LayerType::Type before_layer_type = UnitaryTools::timeToLayerType(time);
-    
-    // Rust test
-    auto test_rust = get_rust_test_class();
-    System::MessageBoxOK(Format(test_rust->get()));
-    System::MessageBoxOK(Format(test_rust->get()));
 
 	// カーソル変更用の変数
 	// ライブラリ側のWindows版でウィンドウのリサイズ後にカーソルがもとに戻らないバグに対する応急措置

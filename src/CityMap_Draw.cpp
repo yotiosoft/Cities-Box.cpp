@@ -21,7 +21,7 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 
 			// 一マス分描画
 			if (drawPos.x >= -CHIP_SIZE && drawPos.y >= -CHIP_SIZE / 2 && drawPos.x <= Scene::Width() && drawPos.y <= Scene::Height() + CHIP_SIZE * 2) {
-				m_tiles[y][x].draw(m_show_rate, drawPos, cityTime(0));
+				m_tiles[y][x].draw(m_show_rate, drawPos, getCityTime());
 			}
 
 			// カーソルの描画

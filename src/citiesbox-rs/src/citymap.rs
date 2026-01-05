@@ -1,6 +1,7 @@
 #[cxx::bridge(namespace = "rust::citymap")]
 mod ffi {
     // C++ 側の構造体を定義（POD: Plain Old Data として）
+    #[derive(Clone)]
     struct TimeStruct {
         year: i32,
         month: i32,
@@ -23,16 +24,18 @@ mod ffi {
 
         fn new_city_map() -> Box<RustCityMap>;
 
+        // 初期化
+        fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: TimeStruct, demand: RCOIFstruct);
+
         // ステータス取得
         fn get_population(&self) -> i32;
         fn get_money(&self) -> i32;
         fn get_temperature(&self) -> i32;
-        fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: TimeStruct, demand: RCOIFstruct);
         fn get_demand(&self) -> RCOIFstruct;
 
         // 時間進行
         fn city_time(&mut self, minutes_delta: i32) -> TimeStruct;
-        fn update_demand(&mut self);
+        fn update_world(&mut self, minutes_delta: i32) -> TimeStruct;
     }
 }
 
@@ -45,14 +48,7 @@ pub struct RustCityMap {
 }
 
 impl RustCityMap {
-    fn get_population(&self) -> i32 { self.population }
-    fn get_money(&self) -> i32 { self.money }
-    fn get_temperature(&self) -> i32 { self.temperature }
-    fn get_demand(&self) -> ffi::RCOIFstruct { self.demand.clone() }
-    fn city_time(&mut self, minutes_delta: i32) -> ffi::TimeStruct {
-        self.time.city_time(minutes_delta)
-    }
-
+    // 初期化
     fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: ffi::TimeStruct, demand: ffi::RCOIFstruct) {
         self.demand = demand;
         self.population = pop;
@@ -61,8 +57,42 @@ impl RustCityMap {
         self.time = time;
     }
 
-    fn update_demand(&mut self) {
-        // Todo: 需要の更新ロジックを実装
+    // ステータス取得
+    fn get_population(&self) -> i32 { self.population }
+    fn get_money(&self) -> i32 { self.money }
+    fn get_temperature(&self) -> i32 { self.temperature }
+    fn get_demand(&self) -> ffi::RCOIFstruct { self.demand.clone() }
+
+    // 時間進行
+    fn city_time(&mut self, minutes_delta: i32) -> ffi::TimeStruct {
+        self.time.city_time(minutes_delta)
+    }
+    // 時間進行 + 需要度更新
+    fn update_world(&mut self, minutes_delta: i32) -> ffi::TimeStruct {
+        let previous_date = self.time.date;
+        let new_time = self.time.city_time(minutes_delta);
+        self.time = new_time;
+
+        // 日付が変わった場合、需要度を更新するロジックをここに追加
+        if self.time.date != previous_date {
+            // 需要度の更新ロジック（例としてランダムに変化させる）
+            use rand::Rng;
+            let mut rng = rand::thread_rng();
+            self.demand.residential += rng.gen_range(-5.0..5.0);
+            self.demand.commercial += rng.gen_range(-5.0..5.0);
+            self.demand.office += rng.gen_range(-5.0..5.0);
+            self.demand.industrial += rng.gen_range(-5.0..5.0);
+            self.demand.farm += rng.gen_range(-5.0..5.0);
+
+            // 需要度の範囲を制限（例: 0.0 から 100.0 の間）
+            self.demand.residential = self.demand.residential.clamp(0.0, 100.0);
+            self.demand.commercial = self.demand.commercial.clamp(0.0, 100.0);
+            self.demand.office = self.demand.office.clamp(0.0, 100.0);
+            self.demand.industrial = self.demand.industrial.clamp(0.0, 100.0);
+            self.demand.farm = self.demand.farm.clamp(0.0, 100.0);
+        }
+
+        self.time.clone()
     }
 }
 

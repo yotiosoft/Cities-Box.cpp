@@ -44,9 +44,6 @@ public:
 	// Addon構造体の取得
 	Array<CBAddon> getAddon(CoordinateStruct coordinate);
 	
-	// 需要度の取得
-	RCOIFstruct getDemand();
-	
 	// マップサイズの取得
 	Size getMapSize();
 	
@@ -89,13 +86,21 @@ public:
 	}
 	
 	// 時間を進ませて取得 : Rust 側の実装
-	TimeStruct cityTime(int minutesDelta) {
-		return m_rust_core->city_time(minutesDelta);
+	TimeStruct updateWorld(int minutesDelta) {
+		return m_rust_core->update_world(minutesDelta);
+	}
+	TimeStruct getCityTime() {
+		return m_rust_core->city_time(0);
 	}
 
 	// 気温の取得 : Rust 側の実装
 	int getTemperature() {
 		return m_rust_core->get_temperature();
+	}
+
+	// 需要度の取得 : Rust 側の実装
+	RCOIFstruct getDemand() {
+		return m_rust_core->get_demand();
 	}
 	
 private:

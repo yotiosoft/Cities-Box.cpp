@@ -175,7 +175,8 @@ void CitiesBox() {
 		bufferTexture.draw(0, 0);
 		
 		// 時間を進ませる
-		time = map.cityTime(1);
+		// 日付が変わる時、需要度も更新する
+		time = map.updateWorld(1);
 		
 		// Details Barの表示
 		detailsBar.printWeather(Weather::Sunny);

@@ -295,13 +295,13 @@ struct RCOIFstruct final {
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
+  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   ::std::int32_t get_population() const noexcept;
   ::std::int32_t get_money() const noexcept;
   ::std::int32_t get_temperature() const noexcept;
-  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   ::rust::citymap::RCOIFstruct get_demand() const noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
-  void update_demand() noexcept;
+  ::rust::citymap::TimeStruct update_world(::std::int32_t minutes_delta) noexcept;
   ~RustCityMap() = delete;
 
 private:

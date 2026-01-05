@@ -23,11 +23,11 @@ bool CityMap::save() {
 	mapData[U"Map_size"][U"width"] = m_map_size.x;
 	mapData[U"Map_size"][U"height"] = m_map_size.y;
 	
-	mapData[U"Time"][U"year"] = m_rust_core->city_time(0).year;
-	mapData[U"Time"][U"month"] = m_rust_core->city_time(0).month;
-	mapData[U"Time"][U"date"] = m_rust_core->city_time(0).date;
-	mapData[U"Time"][U"hour"] = m_rust_core->city_time(0).hour;
-	mapData[U"Time"][U"minutes"] = m_rust_core->city_time(0).minutes;
+	mapData[U"Time"][U"year"] = getCityTime().year;
+	mapData[U"Time"][U"month"] = getCityTime().month;
+	mapData[U"Time"][U"date"] = getCityTime().date;
+	mapData[U"Time"][U"hour"] = getCityTime().hour;
+	mapData[U"Time"][U"minutes"] = getCityTime().minutes;
 	
 	mapData[U"Demand"][U"residential"] = m_rust_core->get_demand().residential;
 	mapData[U"Demand"][U"commercial"] = m_rust_core->get_demand().commercial;

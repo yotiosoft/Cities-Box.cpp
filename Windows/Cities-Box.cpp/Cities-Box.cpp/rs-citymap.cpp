@@ -6,6 +6,7 @@
 
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic ignored "-Wshadow"
 #ifdef __clang__
 #pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
 #endif // __clang__
@@ -262,6 +263,13 @@ struct operator_new<T, decltype(T::operator new(sizeof(T)))> {
 } // namespace detail
 
 template <typename T>
+union ManuallyDrop {
+  T value;
+  ManuallyDrop(T &&value) : value(::std::move(value)) {}
+  ~ManuallyDrop() {}
+};
+
+template <typename T>
 union MaybeUninit {
   T value;
   void *operator new(::std::size_t sz) { return detail::operator_new<T>{}(sz); }
@@ -319,7 +327,7 @@ struct RustCityMap final : public ::rust::Opaque {
   ::std::int32_t get_population() const noexcept;
   ::std::int32_t get_money() const noexcept;
   ::std::int32_t get_temperature() const noexcept;
-  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp) noexcept;
+  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time) noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
   ~RustCityMap() = delete;
 
@@ -344,7 +352,7 @@ extern "C" {
 
 ::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_temperature(::rust::citymap::RustCityMap const &self) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$set_status(::rust::citymap::RustCityMap &self, ::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$set_status(::rust::citymap::RustCityMap &self, ::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct *time) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
 } // extern "C"
@@ -373,8 +381,9 @@ void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCity
   return rust$citymap$cxxbridge1$192$RustCityMap$get_temperature(*this);
 }
 
-void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp) noexcept {
-  rust$citymap$cxxbridge1$192$RustCityMap$set_status(*this, pop, money, temp);
+void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time) noexcept {
+  ::rust::ManuallyDrop<::rust::citymap::TimeStruct> time$(::std::move(time));
+  rust$citymap$cxxbridge1$192$RustCityMap$set_status(*this, pop, money, temp, &time$.value);
 }
 
 ::rust::citymap::TimeStruct RustCityMap::city_time(::std::int32_t minutes_delta) noexcept {

@@ -26,7 +26,7 @@ mod ffi {
         fn get_population(&self) -> i32;
         fn get_money(&self) -> i32;
         fn get_temperature(&self) -> i32;
-        fn set_status(&mut self, pop: i32, money: i32, temp: i32);
+        fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: TimeStruct);
 
         // 時間進行ロジック
         fn city_time(&mut self, minutes_delta: i32) -> TimeStruct;
@@ -45,10 +45,11 @@ impl RustCityMap {
     fn get_money(&self) -> i32 { self.money }
     fn get_temperature(&self) -> i32 { self.temperature }
 
-    fn set_status(&mut self, pop: i32, money: i32, temp: i32) {
+    fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: ffi::TimeStruct) {
         self.population = pop;
         self.money = money;
         self.temperature = temp;
+        self.time = time;
     }
 
     // CityMap_GetData.cpp の cityTime ロジックを移植
@@ -92,6 +93,6 @@ fn new_city_map() -> Box<RustCityMap> {
         population: 0,
         money: 0,
         temperature: 0,
-        time: ffi::TimeStruct { year: 2026, month: 1, date: 1, hour: 10, minutes: 0 },
+        time: ffi::TimeStruct { year: 0, month: 0, date: 0, hour: 0, minutes: 0 },
     })
 }

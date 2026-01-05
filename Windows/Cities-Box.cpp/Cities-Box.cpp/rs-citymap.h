@@ -298,7 +298,7 @@ struct RustCityMap final : public ::rust::Opaque {
   ::std::int32_t get_population() const noexcept;
   ::std::int32_t get_money() const noexcept;
   ::std::int32_t get_temperature() const noexcept;
-  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp) noexcept;
+  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time) noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
   ~RustCityMap() = delete;
 

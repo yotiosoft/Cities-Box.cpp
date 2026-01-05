@@ -71,16 +71,16 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 
 	// Rust コアオブジェクトへの設定
 	auto total_population = mapData[U"Total_Population"].get<int>();
-	auto time_now = TimeStruct{
+	auto money = mapData[U"Money"].get<int>();
+	auto temperature = mapData[U"Temperature"].get<int>();
+	rust::citymap::TimeStruct time_now = rust::citymap::TimeStruct{
 		mapData[U"Time"][U"year"].get<int>(),
 		mapData[U"Time"][U"month"].get<int>(),
 		mapData[U"Time"][U"date"].get<int>(),
 		mapData[U"Time"][U"hour"].get<int>(),
 		mapData[U"Time"][U"minutes"].get<int>()
 	};
-	auto money = mapData[U"Money"].get<int>();
-	auto temperature = mapData[U"Temperature"].get<int>();
-	m_rust_core->set_status(total_population, money, temperature);
+	m_rust_core->set_status(total_population, money, temperature, time_now);
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {

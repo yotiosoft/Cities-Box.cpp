@@ -1,3 +1,14 @@
+cd ""%2"\..\..\..\src\citiesbox-rs"
+cargo build --release --target x86_64-pc-windows-msvc --target-dir "%2"
+cxxbridge src/lib.rs --header > ""%2"\citiesbox-rs.h"
+cxxbridge src/images.rs --header > ""%2"\rs-images.h"
+cxxbridge src/citymap.rs --header > ""%2"\rs-citymap.h"
+cxxbridge src/lib.rs > ""%2"\citiesbox-rs.cpp"
+cxxbridge src/images.rs > ""%2"\rs-images.cpp"
+cxxbridge src/citymap.rs > ""%2"\rs-citymap.cpp"
+cxxbridge --header > ""%2"\cxx.h"
+
+cd "..\..\"
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 msbuild ""%1".vcxproj" /p:configuration=release
 cd ""%2/App"

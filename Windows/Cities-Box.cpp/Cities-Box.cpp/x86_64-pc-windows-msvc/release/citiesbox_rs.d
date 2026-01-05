@@ -1,1 +1,0 @@
-C:\Users\ytani\git\Cities-Box.cpp\Windows\Cities-Box.cpp\Cities-Box.cpp\x86_64-pc-windows-msvc\release\citiesbox_rs.lib: C:\Users\ytani\git\Cities-Box.cpp\src\citiesbox-rs\src\citymap.rs C:\Users\ytani\git\Cities-Box.cpp\src\citiesbox-rs\src\images.rs C:\Users\ytani\git\Cities-Box.cpp\src\citiesbox-rs\src\lib.rs

@@ -11,3 +11,13 @@ cxx = "1.0"
 
 [build-dependencies]
 cxx-build = "1.0"
+
+[profile.dev]
+incremental = false
+opt-level = 0
+debug = true
+panic = "unwind"
+
+[profile.release]
+# 一時的にリリースビルドでもデバッグランタイムを使う設定（検証用）
+# debug = true

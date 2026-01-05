@@ -237,6 +237,12 @@
     <ClCompile Include="citiesbox-rs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rs-images.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rs-citymap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -996,6 +1002,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cxx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rs-citymap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rs-images.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

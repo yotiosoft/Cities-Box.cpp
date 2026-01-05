@@ -45,30 +45,18 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 	
 	m_mayor_name = mapData[U"Mayor_Name"].getString();
 	
-	m_total_population = mapData[U"Total_Population"].get<int>();
-	
 	m_change_weather = UnitaryTools::getBoolFromJson(mapData[U"Change_Weather"]);
-	
-	m_temperature = mapData[U"Temperature"].get<int>();
 	
 	m_dark_on_night = UnitaryTools::getBoolFromJson(mapData[U"Dark_on_Night"]);
 	
 	m_map_size.x = mapData[U"Map_size"][U"width"].get<int>();
 	m_map_size.y = mapData[U"Map_size"][U"height"].get<int>();
 	
-	m_time_now.year = mapData[U"Time"][U"year"].get<int>();
-	m_time_now.month = mapData[U"Time"][U"month"].get<int>();
-	m_time_now.date = mapData[U"Time"][U"date"].get<int>();
-	m_time_now.hour = mapData[U"Time"][U"hour"].get<int>();
-	m_time_now.minutes = mapData[U"Time"][U"minutes"].get<int>();
-	
 	m_demand.residential = mapData[U"Demand"][U"residential"].get<int>();
 	m_demand.commercial = mapData[U"Demand"][U"commercial"].get<int>();
 	m_demand.office = mapData[U"Demand"][U"office"].get<int>();
 	m_demand.industrial = mapData[U"Demand"][U"industrial"].get<int>();
 	m_demand.farm = mapData[U"Demand"][U"farm"].get<int>();
-	
-	m_money = mapData[U"Money"].get<int>();
 	
 	m_budget.police = mapData[U"Budget"][U"police"].get<int>();
 	m_budget.fireDepertment = mapData[U"Budget"][U"fire_depertment"].get<int>();
@@ -80,6 +68,19 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_tax.office = mapData[U"Tax"][U"office"].get<int>();
 	m_tax.industrial = mapData[U"Tax"][U"industrial"].get<int>();
 	m_tax.farm = mapData[U"Tax"][U"farm"].get<int>();
+
+	// Rust コアオブジェクトへの設定
+	auto total_population = mapData[U"Total_Population"].get<int>();
+	auto time_now = TimeStruct{
+		mapData[U"Time"][U"year"].get<int>(),
+		mapData[U"Time"][U"month"].get<int>(),
+		mapData[U"Time"][U"date"].get<int>(),
+		mapData[U"Time"][U"hour"].get<int>(),
+		mapData[U"Time"][U"minutes"].get<int>()
+	};
+	auto money = mapData[U"Money"].get<int>();
+	auto temperature = mapData[U"Temperature"].get<int>();
+	m_rust_core->set_status(total_population, money, temperature);
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {

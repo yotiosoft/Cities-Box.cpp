@@ -17,12 +17,15 @@
 #include "NormalObject.hpp"
 #include "ConnectableObject.hpp"
 #include "CityNetwork.hpp"
+#include <rs-citymap.h>
 
 class CityMap {
 public:
 	// コンストラクタ
-	CityMap() {};
-	
+	CityMap()
+		: m_rust_core(rust::citymap::new_city_map()) // Rust側のオブジェクトを初期化
+	{}
+
 	// マップの読み込み
 	void load(String loadMapFilePath);
 	
@@ -43,15 +46,6 @@ public:
 	
 	// 需要度の取得
 	RCOIFstruct getDemand();
-	
-	// 人口の取得
-	int getPopulation();
-	
-	// 資金の取得
-	int getMoney();
-	
-	// 気温の取得
-	int getTemperature();
 	
 	// マップサイズの取得
 	Size getMapSize();
@@ -75,9 +69,6 @@ public:
     CoordinateStruct positionToCoordinate(PositionStruct position, CameraStruct camera);
     PositionStruct coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera);
 	
-	// 時間を進ませて取得
-	TimeStruct cityTime(int minutesDelta);
-	
 	// レート表示モード
 	void setShowRate(RateID::Type effect_id);
 	
@@ -86,6 +77,28 @@ public:
 	
 	// メモリ解放
 	void freeMapAndAddons();
+	
+	// 人口の取得 : Rust 側の実装
+	int getPopulation() { 
+		return m_rust_core->get_population(); 
+	}
+
+	// 資金の取得 : Rust 側の実装
+	int getMoney() { 
+		return m_rust_core->get_money(); 
+	}
+	
+	// 時間を進ませて取得 : Rust 側の実装
+	TimeStruct cityTime(int minutesDelta) {
+		auto t = m_rust_core->city_time(minutesDelta);
+		// Rust の TimeStruct を Siv3D の TimeStruct に変換（必要なら）
+		return TimeStruct{ t.year, t.month, t.date, t.hour, t.minutes };
+	}
+
+	// 気温の取得 : Rust 側の実装
+	int getTemperature() {
+		return m_rust_core->get_temperature();
+	}
 	
 private:
 	/* プライベート関数 */
@@ -147,6 +160,9 @@ private:
 	void m_put_grass(CoordinateStruct arg_coordinate);
 	
 private:
+	// Rust 側のコアロジック
+	rust::Box<rust::citymap::RustCityMap> m_rust_core;
+
 	// 道路ネットワーク
 	CityNetwork road_network;
 	
@@ -156,18 +172,12 @@ private:
 	
 	String m_city_name;
 	String m_mayor_name;
-	int m_total_population;
 	bool m_change_weather;
-	int m_temperature;
 	bool m_dark_on_night;
 	
 	Size m_map_size;
 	
-	TimeStruct m_time_now;
-	
 	RCOIFstruct m_demand;
-	
-	int m_money;
 	
 	BudgetStruct m_budget;
 	RCOIFstruct m_tax;

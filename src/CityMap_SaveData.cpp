@@ -15,19 +15,19 @@ bool CityMap::save() {
 	mapData[U"Addon_Set"] = m_addon_set_name;
 	mapData[U"City_Name"] = m_city_name;
 	mapData[U"Mayor_Name"] = m_mayor_name;
-	mapData[U"Total_Population"] = m_total_population;
+	mapData[U"Total_Population"] = m_rust_core->get_population();
 	mapData[U"Change_Weather"] = m_change_weather;
-	mapData[U"Temperature"] = m_temperature;
+	mapData[U"Temperature"] = m_rust_core->get_temperature();
 	mapData[U"Dark_on_Night"] = m_dark_on_night;
 	
 	mapData[U"Map_size"][U"width"] = m_map_size.x;
 	mapData[U"Map_size"][U"height"] = m_map_size.y;
 	
-	mapData[U"Time"][U"year"] = m_time_now.year;
-	mapData[U"Time"][U"month"] = m_time_now.month;
-	mapData[U"Time"][U"date"] = m_time_now.date;
-	mapData[U"Time"][U"hour"] = m_time_now.hour;
-	mapData[U"Time"][U"minutes"] = m_time_now.minutes;
+	mapData[U"Time"][U"year"] = m_rust_core->city_time(0).year;
+	mapData[U"Time"][U"month"] = m_rust_core->city_time(0).month;
+	mapData[U"Time"][U"date"] = m_rust_core->city_time(0).date;
+	mapData[U"Time"][U"hour"] = m_rust_core->city_time(0).hour;
+	mapData[U"Time"][U"minutes"] = m_rust_core->city_time(0).minutes;
 	
 	mapData[U"Demand"][U"residential"] = m_demand.residential;
 	mapData[U"Demand"][U"commercial"] = m_demand.commercial;
@@ -35,7 +35,7 @@ bool CityMap::save() {
 	mapData[U"Demand"][U"industrial"] = m_demand.industrial;
 	mapData[U"Demand"][U"farm"] = m_demand.farm;
 	
-	mapData[U"Money"] = m_money;
+	mapData[U"Money"] = m_rust_core->get_money();
 	
 	mapData[U"Budget"][U"police"] = m_budget.police;
 	mapData[U"Budget"][U"fire_depertment"] = m_budget.fireDepertment;

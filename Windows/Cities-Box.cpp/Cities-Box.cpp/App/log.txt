@@ -259,3 +259,21 @@ connect(): set roadtypeconect 3 / 3
 UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
 addDirectionID(): North
 connect(): set roadtypeconect 1 / 7
+delete object at 42, 83 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 84 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 41, 82 of 0, 0
+delete object at 41, 83 of 0, 0
+delete object at 41, 78 of 0, 0
+delete object at 41, 79 of 0, 0

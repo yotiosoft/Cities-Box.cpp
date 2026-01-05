@@ -21,18 +21,6 @@ RCOIFstruct CityMap::getDemand() {
 	return m_demand;
 }
 
-int CityMap::getPopulation() {
-	return m_total_population;
-}
-
-int CityMap::getMoney() {
-	return m_money;
-}
-
-int CityMap::getTemperature() {
-	return m_temperature;
-}
-
 Size CityMap::getMapSize() {
 	return m_map_size;
 }
@@ -190,49 +178,6 @@ bool CityMap::hasCategory(CategoryID::Type searchCategory, CoordinateStruct coor
 	}
 
 	return false;
-}
-
-TimeStruct CityMap::cityTime(int minutesDelta) {
-	m_time_now.minutes += minutesDelta;
-
-	if (m_time_now.minutes >= 60) {
-		m_time_now.hour++;
-		m_time_now.minutes -= 60;
-
-		if (m_time_now.hour >= 24) {
-			m_time_now.date++;
-			m_time_now.hour -= 24;
-
-			if (m_time_now.month == 4 || m_time_now.month == 6 || m_time_now.month == 9 || m_time_now.month == 11) {
-				if (m_time_now.date >= 31) {
-					m_time_now.month++;
-					m_time_now.date -= 30;
-				}
-			}
-			else if (m_time_now.month == 2) {
-				if (m_time_now.year % 4 == 0 && m_time_now.date >= 30) {
-					m_time_now.month++;
-					m_time_now.date -= 29;
-				}
-				else if (m_time_now.date >= 29) {
-					m_time_now.month++;
-					m_time_now.date -= 28;
-				}
-			}
-			else if (m_time_now.date >= 32) {
-				m_time_now.month++;
-				m_time_now.date -= 31;
-
-				if (m_time_now.month >= 13) {
-					m_time_now.year++;
-					m_time_now.month -= 12;
-				}
-			}
-		}
-	}
-
-
-	return m_time_now;
 }
 
 int CityMap::m_get_next_objectID() {

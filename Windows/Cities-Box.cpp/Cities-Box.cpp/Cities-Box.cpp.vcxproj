@@ -121,11 +121,15 @@
 cargo build --release --target x86_64-pc-windows-msvc --target-dir $(ProjectDir)
 cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
 
-cxxbridge src/images.rs --header &gt;&gt; "$(ProjectDir)citiesbox-rs.h"
+cxxbridge src/images.rs --header &gt; "$(ProjectDir)rs-images.h"
+
+cxxbridge src/citymap.rs --header &gt; "$(ProjectDir)rs-citymap.h"
 
 cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
 
-cxxbridge src/images.rs &gt;&gt; "$(ProjectDir)citiesbox-rs.cpp"
+cxxbridge src/images.rs &gt; "$(ProjectDir)rs-images.cpp"
+
+cxxbridge src/citymap.rs &gt; "$(ProjectDir)rs-citymap.cpp"
 
 cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     </PreBuildEvent>
@@ -162,6 +166,8 @@ cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     <ClCompile Include="..\..\..\src\UnitaryTools.cpp" />
     <ClCompile Include="citiesbox-rs.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="rs-citymap.cpp" />
+    <ClCompile Include="rs-images.cpp" />
     <ClCompile Include="Specific.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -403,6 +409,8 @@ cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     <ClInclude Include="..\..\..\src\UnitaryTools.hpp" />
     <ClInclude Include="citiesbox-rs.h" />
     <ClInclude Include="cxx.h" />
+    <ClInclude Include="rs-citymap.h" />
+    <ClInclude Include="rs-images.h" />
     <ClInclude Include="Specific.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

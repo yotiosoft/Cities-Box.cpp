@@ -1,6 +1,8 @@
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <new>
+#include <string>
 #include <type_traits>
 #include <utility>
 
@@ -15,6 +17,79 @@
 namespace rust {
 inline namespace cxxbridge1 {
 // #include "rust/cxx.h"
+
+struct unsafe_bitcopy_t;
+
+#ifndef CXXBRIDGE1_RUST_STRING
+#define CXXBRIDGE1_RUST_STRING
+class String final {
+public:
+  String() noexcept;
+  String(const String &) noexcept;
+  String(String &&) noexcept;
+  ~String() noexcept;
+
+  String(const std::string &);
+  String(const char *);
+  String(const char *, std::size_t);
+  String(const char16_t *);
+  String(const char16_t *, std::size_t);
+#ifdef __cpp_char8_t
+  String(const char8_t *s);
+  String(const char8_t *s, std::size_t len);
+#endif
+
+  static String lossy(const std::string &) noexcept;
+  static String lossy(const char *) noexcept;
+  static String lossy(const char *, std::size_t) noexcept;
+  static String lossy(const char16_t *) noexcept;
+  static String lossy(const char16_t *, std::size_t) noexcept;
+
+  String &operator=(const String &) & noexcept;
+  String &operator=(String &&) & noexcept;
+
+  explicit operator std::string() const;
+
+  const char *data() const noexcept;
+  std::size_t size() const noexcept;
+  std::size_t length() const noexcept;
+  bool empty() const noexcept;
+
+  const char *c_str() noexcept;
+
+  std::size_t capacity() const noexcept;
+  void reserve(size_t new_cap) noexcept;
+
+  using iterator = char *;
+  iterator begin() noexcept;
+  iterator end() noexcept;
+
+  using const_iterator = const char *;
+  const_iterator begin() const noexcept;
+  const_iterator end() const noexcept;
+  const_iterator cbegin() const noexcept;
+  const_iterator cend() const noexcept;
+
+  bool operator==(const String &) const noexcept;
+  bool operator!=(const String &) const noexcept;
+  bool operator<(const String &) const noexcept;
+  bool operator<=(const String &) const noexcept;
+  bool operator>(const String &) const noexcept;
+  bool operator>=(const String &) const noexcept;
+
+  void swap(String &) noexcept;
+
+  String(unsafe_bitcopy_t, const String &) noexcept;
+
+private:
+  struct lossy_t;
+  String(lossy_t, const char *, std::size_t) noexcept;
+  String(lossy_t, const char16_t *, std::size_t) noexcept;
+  friend void swap(String &lhs, String &rhs) noexcept { lhs.swap(rhs); }
+
+  std::array<std::uintptr_t, 3> repr;
+};
+#endif // CXXBRIDGE1_RUST_STRING
 
 #ifndef CXXBRIDGE1_RUST_BOX
 #define CXXBRIDGE1_RUST_BOX
@@ -331,6 +406,12 @@ struct RustCityMap final : public ::rust::Opaque {
   ::rust::citymap::RCOIFstruct get_demand() const noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
   ::rust::citymap::TimeStruct update_world(::std::int32_t minutes_delta) noexcept;
+  void set_city_metadata(::rust::String city_name, ::rust::String mayor_name, ::rust::String addon_set) noexcept;
+  void set_financial_data(::std::int32_t money, ::std::int32_t population) noexcept;
+  void set_budget(::std::int32_t police, ::std::int32_t fire, ::std::int32_t post, ::std::int32_t edu) noexcept;
+  void set_tax(double r, double c, double o, double i, double f) noexcept;
+  void set_environment(::std::int32_t year, ::std::int32_t month, ::std::int32_t date, ::std::int32_t hour, ::std::int32_t min, bool weather, bool night) noexcept;
+  ::rust::String generate_save_json() const noexcept;
   ~RustCityMap() = delete;
 
 private:
@@ -361,6 +442,18 @@ void rust$citymap$cxxbridge1$192$RustCityMap$get_demand(::rust::citymap::RustCit
 void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_city_metadata(::rust::citymap::RustCityMap &self, ::rust::String *city_name, ::rust::String *mayor_name, ::rust::String *addon_set) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_financial_data(::rust::citymap::RustCityMap &self, ::std::int32_t money, ::std::int32_t population) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_budget(::rust::citymap::RustCityMap &self, ::std::int32_t police, ::std::int32_t fire, ::std::int32_t post, ::std::int32_t edu) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_tax(::rust::citymap::RustCityMap &self, double r, double c, double o, double i, double f) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_environment(::rust::citymap::RustCityMap &self, ::std::int32_t year, ::std::int32_t month, ::std::int32_t date, ::std::int32_t hour, ::std::int32_t min, bool weather, bool night) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$generate_save_json(::rust::citymap::RustCityMap const &self, ::rust::String *return$) noexcept;
 } // extern "C"
 
 ::std::size_t RustCityMap::layout::size() noexcept {
@@ -408,6 +501,32 @@ void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::in
 ::rust::citymap::TimeStruct RustCityMap::update_world(::std::int32_t minutes_delta) noexcept {
   ::rust::MaybeUninit<::rust::citymap::TimeStruct> return$;
   rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &return$.value);
+  return ::std::move(return$.value);
+}
+
+void RustCityMap::set_city_metadata(::rust::String city_name, ::rust::String mayor_name, ::rust::String addon_set) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_city_metadata(*this, &city_name, &mayor_name, &addon_set);
+}
+
+void RustCityMap::set_financial_data(::std::int32_t money, ::std::int32_t population) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_financial_data(*this, money, population);
+}
+
+void RustCityMap::set_budget(::std::int32_t police, ::std::int32_t fire, ::std::int32_t post, ::std::int32_t edu) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_budget(*this, police, fire, post, edu);
+}
+
+void RustCityMap::set_tax(double r, double c, double o, double i, double f) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_tax(*this, r, c, o, i, f);
+}
+
+void RustCityMap::set_environment(::std::int32_t year, ::std::int32_t month, ::std::int32_t date, ::std::int32_t hour, ::std::int32_t min, bool weather, bool night) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_environment(*this, year, month, date, hour, min, weather, night);
+}
+
+::rust::String RustCityMap::generate_save_json() const noexcept {
+  ::rust::MaybeUninit<::rust::String> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$generate_save_json(*this, &return$.value);
   return ::std::move(return$.value);
 }
 } // namespace citymap

@@ -69,6 +69,9 @@ public:
 	// レート表示モード
 	void setShowRate(RateID::Type effect_id);
 	
+	// Rust コアオブジェクトとの同期（保存前に実行）
+	void syncToRust();
+
 	// マップ保存
 	bool save();
 	

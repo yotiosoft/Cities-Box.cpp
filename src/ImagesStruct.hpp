@@ -11,7 +11,7 @@
 
 #include <Specific.hpp>
 #include "UnitaryTools.hpp"
-#include <citiesbox-rs/citiesbox-rs.h>
+#include <citiesbox-rs.h>
 
 #endif /* Images_hpp */
 

@@ -209,3 +209,53 @@ m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
 common object: name=tile_greenfield object_id=26
+delete object at 42, 75 of 0, 0
+delete object at 42, 76 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 17 / 6
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 77 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 78 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 79 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 80 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 81 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7
+delete object at 42, 82 of 0, 0
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:1
+addDirectionID(): South
+connect(): set roadtypeconect 3 / 3
+UnitaryTools::getDirectionIDfromDifference(): dx:0, dy:-1
+addDirectionID(): North
+connect(): set roadtypeconect 1 / 7

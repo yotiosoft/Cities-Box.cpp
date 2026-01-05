@@ -102,6 +102,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -109,10 +110,25 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <DelayLoadDLLs>advapi32.dll;crypt32.dll;dwmapi.dll;gdi32.dll;imm32.dll;ole32.dll;oleaut32.dll;opengl32.dll;shell32.dll;shlwapi.dll;user32.dll;winmm.dll;ws2_32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AdditionalLibraryDirectories>$(ProjectDir)x86_64-pc-windows-msvc\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)x86_64-pc-windows-msvc\release\citiesbox_rs.lib;ntdll.lib;userenv.lib;ws2_32.lib;bcrypt.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cd "$(ProjectDir)..\..\..\src\citiesbox-rs"
+cargo build --release --target x86_64-pc-windows-msvc --target-dir $(ProjectDir)
+cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
+
+cxxbridge src/images.rs --header &gt;&gt; "$(ProjectDir)citiesbox-rs.h"
+
+cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
+
+cxxbridge src/images.rs &gt;&gt; "$(ProjectDir)citiesbox-rs.cpp"
+
+cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\AbstractSetting.cpp" />
@@ -144,6 +160,7 @@
     <ClCompile Include="..\..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\..\src\TitleMenu.cpp" />
     <ClCompile Include="..\..\..\src\UnitaryTools.cpp" />
+    <ClCompile Include="citiesbox-rs.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Specific.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -384,6 +401,8 @@
     <ClInclude Include="..\..\..\src\Tile.hpp" />
     <ClInclude Include="..\..\..\src\TitleMenu.hpp" />
     <ClInclude Include="..\..\..\src\UnitaryTools.hpp" />
+    <ClInclude Include="citiesbox-rs.h" />
+    <ClInclude Include="cxx.h" />
     <ClInclude Include="Specific.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

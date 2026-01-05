@@ -234,6 +234,9 @@
     <ClCompile Include="Specific.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="citiesbox-rs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -987,6 +990,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\UnitaryTools.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="citiesbox-rs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cxx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

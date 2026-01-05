@@ -1,8 +1,32 @@
 use serde::{ Serialize, Deserialize };
 use std::collections::HashMap;
 
+#[repr(C)] // C++とメモリレイアウトを完全に一致させる
+pub struct RawTileData {
+    pub residents: i32,
+    pub workers_commercial: i32,
+    pub workers_office: i32,
+    pub workers_industrial: i32,
+    pub workers_farm: i32,
+    pub workers_public: i32,
+    pub students: i32,
+    pub reservation: i32,
+}
+
 #[cxx::bridge(namespace = "rust::citymap")]
 mod ffi {
+    // Rust側の構造体をC++に見せる
+    struct RawTileData {
+        residents: i32,
+        workers_commercial: i32,
+        workers_office: i32,
+        workers_industrial: i32,
+        workers_farm: i32,
+        workers_public: i32,
+        students: i32,
+        reservation: i32,
+    }
+
     // C++ 側の構造体を定義（POD: Plain Old Data として）
     #[derive(Clone)]
     struct TimeStruct {
@@ -30,6 +54,29 @@ mod ffi {
         // 初期化
         fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: TimeStruct, demand: RCOIFstruct);
 
+        // マップサイズの初期化（タイルのメモリ確保）
+        fn init_map_size(&mut self, width: i32, height: i32);
+
+        // オブジェクトの登録
+        fn clear_objects(&mut self);
+        fn add_object(&mut self, 
+            id: i32, 
+            addon_en: String, 
+            orig_name: String, 
+            type_id: i32, 
+            dir_id: i32, 
+            x: i32, 
+            y: i32, 
+            visible: bool
+        );
+
+        // タイルデータの詳細設定
+        fn set_tile_basic(&mut self, x: i32, y: i32, residents: i32, students: i32, reservation: i32, orig_name: String);
+        fn set_tile_workers(&mut self, x: i32, y: i32, comm: i32, offi: i32, indu: i32, farm: i32, publ: i32);
+        fn add_tile_object_ref(&mut self, x: i32, y: i32, obj_id: i32, rel_x: i32, rel_y: i32, visible: bool);
+        fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<i32>);
+        fn add_tile_rate(&mut self, x: i32, y: i32, key: String, value: i32);
+
         // ステータス取得
         fn get_population(&self) -> i32;
         fn get_money(&self) -> i32;
@@ -51,8 +98,13 @@ mod ffi {
         // 時間と天候の設定
         fn set_environment(&mut self, year: i32, month: i32, date: i32, hour: i32, min: i32, weather: bool, night: bool);
 
-        // セーブデータ生成（前回定義したもの）
+        // セーブデータ生成
         fn generate_save_json(&self) -> String;
+        
+        // スライス（配列の参照）として一括で受け取る
+        fn bulk_set_tiles(&mut self, data: &[RawTileData], width: i32, height: i32);
+        // 保存まで実行
+        fn save_to_file(&self, path: String) -> bool;
     }
 }
 
@@ -100,6 +152,27 @@ pub struct RustCityMap {
 }
 
 impl RustCityMap {
+    // スライス（配列の参照）として一括で受け取る
+    fn bulk_set_tiles(&mut self, data: &[ffi::RawTileData], width: i32, height: i32) {
+        self.map_size = [width, height];
+        // データを流し込む（統計やレート等は別途Setterを呼ぶか、一旦クリア）
+        self.tiles = data.iter().enumerate().map(|(i, d)| {
+            let mut tile = RustTile::default((i as i32) % width, (i as i32) / width);
+            tile.residents = d.residents;
+            tile.workers_commercial = d.workers_commercial;
+            tile.workers_office = d.workers_office;
+            tile.workers_industrial = d.workers_industrial;
+            tile.workers_farm = d.workers_farm;
+            tile.workers_public = d.workers_public;
+            tile.students = d.students;
+            tile.reservation = d.reservation;
+            tile
+        }).collect::<Vec<_>>() // 一旦フラットなリストとして作り
+        .chunks(width as usize) // widthごとに分割して Vec<Vec<RustTile>> に
+        .map(|chunk| chunk.to_vec())
+        .collect();
+    }
+
     // 初期化
     fn set_status(&mut self, pop: i32, money: i32, temp: i32, time: ffi::TimeStruct, demand: ffi::RCOIFstruct) {
         self.demand = demand;
@@ -107,6 +180,77 @@ impl RustCityMap {
         self.money = money;
         self.temperature = temp;
         self.time = time;
+    }
+
+    // マップがロードされた時にまず呼ぶ
+    fn init_map_size(&mut self, width: i32, height: i32) {
+        self.map_size = [width, height];
+        self.tiles = (0..height).map(|y| {
+            (0..width).map(|x| RustTile::default(x, y)).collect()
+        }).collect();
+    }
+
+    fn add_object(&mut self, id: i32, addon_en: String, orig_name: String, type_id: i32, dir_id: i32, x: i32, y: i32, visible: bool) {
+        self.objects.insert(id, RustObject {
+            id,
+            addon_name_en: addon_en,
+            original_name: orig_name,
+            type_id,
+            direction_id: dir_id,
+            origin_coordinate: CoordinateJson { x, y },
+            visible,
+        });
+    }
+
+    fn set_tile_basic(&mut self, x: i32, y: i32, residents: i32, students: i32, reservation: i32, orig_name: String) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.residents = residents;
+            tile.students = students;
+            tile.reservation = reservation;
+            tile.original_name = orig_name;
+        }
+    }
+
+    fn add_tile_object_ref(&mut self, x: i32, y: i32, obj_id: i32, rel_x: i32, rel_y: i32, visible: bool) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.object_structs.push(RustTileObjectReference {
+                object_id: obj_id,
+                relative_x: rel_x,
+                relative_y: rel_y,
+                visible,
+            });
+        }
+    }
+
+    fn add_tile_rate(&mut self, x: i32, y: i32, key: String, value: i32) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.rate.insert(key, value);
+        }
+    }
+
+    // オブジェクトリストを空にする（同期の開始時に呼ぶ）
+    fn clear_objects(&mut self) {
+        self.objects.clear();
+    }
+
+    // タイルの労働者情報を一括設定
+    fn set_tile_workers(&mut self, x: i32, y: i32, comm: i32, offi: i32, indu: i32, farm: i32, publ: i32) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.workers_commercial = comm;
+            tile.workers_office = offi;
+            tile.workers_industrial = indu;
+            tile.workers_farm = farm;
+            tile.workers_public = publ;
+        }
+    }
+
+    // タイルの統計データ（年齢・性別）を設定
+    // cxxbridge を介して Vec<i32> を直接受け取る
+    fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<i32>) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.age = ages;
+            tile.gender = genders;
+        }
     }
 
     // ステータス取得
@@ -313,6 +457,19 @@ impl RustCityMap {
         // 4. JSON文字列へ変換 (Pretty Print)
         serde_json::to_string_pretty(&save_data).unwrap_or_else(|_| "{}".to_string())
     }
+
+    pub fn save_to_file(&self, path: String) -> bool {
+        let json_str = self.generate_save_json();
+        let encrypted = self.apply_xor_encryption(json_str, "citiesboxmapdatafilexor");
+        std::fs::write(path, encrypted).is_ok()
+    }
+
+    fn apply_xor_encryption(&self, input: String, key: &str) -> Vec<u8> {
+        let key_bytes = key.as_bytes();
+        input.as_bytes().iter().enumerate().map(|(i, &b)| {
+            b ^ key_bytes[i % key_bytes.len()]
+        }).collect()
+    }
 }
 
 impl ffi::TimeStruct {
@@ -498,6 +655,7 @@ pub struct SchoolJson {
 }
 
 // タイルデータ
+#[derive(Clone)]
 pub struct RustTile {
     pub residents: i32,
     pub workers_commercial: i32,
@@ -520,6 +678,18 @@ pub struct RustTile {
     
     // タイル上のオブジェクト情報 (ObjectStruct相当)
     pub object_structs: Vec<RustTileObjectReference>,
+}
+
+impl RustTile {
+    fn default(x: i32, y: i32) -> Self {
+        Self {
+            residents: 0, workers_commercial: 0, workers_office: 0, workers_industrial: 0, workers_farm: 0, workers_public: 0,
+            students: 0, reservation: 0, original_name: String::new(),
+            rate: HashMap::new(), age: Vec::new(), gender: Vec::new(),
+            work_places: Vec::new(), schools: Vec::new(),
+            object_structs: Vec::new(),
+        }
+    }
 }
 
 pub struct RustObject {
@@ -569,6 +739,7 @@ impl RustObject {
     }
 }
 
+#[derive(Clone)]
 pub struct RustTileObjectReference {
     pub object_id: i32,
     pub relative_x: i32,
@@ -576,11 +747,13 @@ pub struct RustTileObjectReference {
     pub visible: bool,
 }
 
+#[derive(Clone)]
 pub struct RustWorkPlace {
     pub kind: i32,
     pub serial_number: i32,
 }
 
+#[derive(Clone)]
 pub struct RustSchool {
     pub kind: i32,
     pub serial_number: i32,

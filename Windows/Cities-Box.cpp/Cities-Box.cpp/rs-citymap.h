@@ -282,11 +282,11 @@ struct TimeStruct final {
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
 struct RCOIFstruct final {
-  double r CXX_DEFAULT_VALUE(0);
-  double c CXX_DEFAULT_VALUE(0);
-  double o CXX_DEFAULT_VALUE(0);
-  double i CXX_DEFAULT_VALUE(0);
-  double f CXX_DEFAULT_VALUE(0);
+  ::std::int32_t residential CXX_DEFAULT_VALUE(0);
+  ::std::int32_t commercial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t office CXX_DEFAULT_VALUE(0);
+  ::std::int32_t industrial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t farm CXX_DEFAULT_VALUE(0);
 
   using IsRelocatable = ::std::true_type;
 };

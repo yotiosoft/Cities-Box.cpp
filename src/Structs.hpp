@@ -9,6 +9,7 @@
 #define Structures_hpp
 
 #include <stdio.h>
+#include <rs-citymap.h>
 
 using namespace std;
 
@@ -98,22 +99,10 @@ typedef struct CursorStruct {
 } CursorStruct;
 
 // 時間
-typedef struct TimeStruct {
-	int year;
-	int month;
-	int date;
-	int hour;
-	int minutes;
-} TimeStruct;
+using TimeStruct = rust::citymap::TimeStruct;
 
 // RCOIFメータの値を格納
-typedef struct RCOIFstruct {
-	int residential;
-	int commercial;
-	int office;
-	int industrial;
-	int farm;
-} RCOIFstruct;
+using RCOIFstruct = rust::citymap::RCOIFstruct;
 
 // 労働者情報
 typedef struct WorkersStruct {

@@ -10,11 +10,11 @@ mod ffi {
     }
 
     struct RCOIFstruct {
-        r: f64,
-        c: f64,
-        o: f64,
-        i: f64,
-        f: f64,
+        residential: i32,
+        commercial: i32,
+        office: i32,
+        industrial: i32,
+        farm: i32,
     }
 
     extern "Rust" {

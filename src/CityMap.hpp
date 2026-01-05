@@ -90,9 +90,7 @@ public:
 	
 	// 時間を進ませて取得 : Rust 側の実装
 	TimeStruct cityTime(int minutesDelta) {
-		auto t = m_rust_core->city_time(minutesDelta);
-		// Rust の TimeStruct を Siv3D の TimeStruct に変換（必要なら）
-		return TimeStruct{ t.year, t.month, t.date, t.hour, t.minutes };
+		return m_rust_core->city_time(minutesDelta);
 	}
 
 	// 気温の取得 : Rust 側の実装

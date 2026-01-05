@@ -18,7 +18,7 @@ Array<CBAddon> CityMap::getAddon(CoordinateStruct coordinate) {
 }
 
 RCOIFstruct CityMap::getDemand() {
-	return m_demand;
+	return m_rust_core->get_demand();
 }
 
 Size CityMap::getMapSize() {

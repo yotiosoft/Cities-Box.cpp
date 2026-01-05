@@ -311,11 +311,11 @@ struct TimeStruct final {
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
 struct RCOIFstruct final {
-  ::std::int32_t residential CXX_DEFAULT_VALUE(0);
-  ::std::int32_t commercial CXX_DEFAULT_VALUE(0);
-  ::std::int32_t office CXX_DEFAULT_VALUE(0);
-  ::std::int32_t industrial CXX_DEFAULT_VALUE(0);
-  ::std::int32_t farm CXX_DEFAULT_VALUE(0);
+  double residential CXX_DEFAULT_VALUE(0);
+  double commercial CXX_DEFAULT_VALUE(0);
+  double office CXX_DEFAULT_VALUE(0);
+  double industrial CXX_DEFAULT_VALUE(0);
+  double farm CXX_DEFAULT_VALUE(0);
 
   using IsRelocatable = ::std::true_type;
 };
@@ -327,8 +327,10 @@ struct RustCityMap final : public ::rust::Opaque {
   ::std::int32_t get_population() const noexcept;
   ::std::int32_t get_money() const noexcept;
   ::std::int32_t get_temperature() const noexcept;
-  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time) noexcept;
+  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
+  ::rust::citymap::RCOIFstruct get_demand() const noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
+  void update_demand() noexcept;
   ~RustCityMap() = delete;
 
 private:
@@ -352,9 +354,13 @@ extern "C" {
 
 ::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_temperature(::rust::citymap::RustCityMap const &self) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$set_status(::rust::citymap::RustCityMap &self, ::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct *time) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$set_status(::rust::citymap::RustCityMap &self, ::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct *time, ::rust::citymap::RCOIFstruct *demand) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$get_demand(::rust::citymap::RustCityMap const &self, ::rust::citymap::RCOIFstruct *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$update_demand(::rust::citymap::RustCityMap &self) noexcept;
 } // extern "C"
 
 ::std::size_t RustCityMap::layout::size() noexcept {
@@ -381,15 +387,26 @@ void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCity
   return rust$citymap$cxxbridge1$192$RustCityMap$get_temperature(*this);
 }
 
-void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time) noexcept {
+void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept {
   ::rust::ManuallyDrop<::rust::citymap::TimeStruct> time$(::std::move(time));
-  rust$citymap$cxxbridge1$192$RustCityMap$set_status(*this, pop, money, temp, &time$.value);
+  ::rust::ManuallyDrop<::rust::citymap::RCOIFstruct> demand$(::std::move(demand));
+  rust$citymap$cxxbridge1$192$RustCityMap$set_status(*this, pop, money, temp, &time$.value, &demand$.value);
+}
+
+::rust::citymap::RCOIFstruct RustCityMap::get_demand() const noexcept {
+  ::rust::MaybeUninit<::rust::citymap::RCOIFstruct> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$get_demand(*this, &return$.value);
+  return ::std::move(return$.value);
 }
 
 ::rust::citymap::TimeStruct RustCityMap::city_time(::std::int32_t minutes_delta) noexcept {
   ::rust::MaybeUninit<::rust::citymap::TimeStruct> return$;
   rust$citymap$cxxbridge1$192$RustCityMap$city_time(*this, minutes_delta, &return$.value);
   return ::std::move(return$.value);
+}
+
+void RustCityMap::update_demand() noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$update_demand(*this);
 }
 } // namespace citymap
 } // namespace rust

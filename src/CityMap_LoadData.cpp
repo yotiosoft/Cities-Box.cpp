@@ -52,11 +52,12 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_map_size.x = mapData[U"Map_size"][U"width"].get<int>();
 	m_map_size.y = mapData[U"Map_size"][U"height"].get<int>();
 	
-	m_demand.residential = mapData[U"Demand"][U"residential"].get<int>();
-	m_demand.commercial = mapData[U"Demand"][U"commercial"].get<int>();
-	m_demand.office = mapData[U"Demand"][U"office"].get<int>();
-	m_demand.industrial = mapData[U"Demand"][U"industrial"].get<int>();
-	m_demand.farm = mapData[U"Demand"][U"farm"].get<int>();
+	RCOIFstruct demand;
+	demand.residential = mapData[U"Demand"][U"residential"].get<double>();
+	demand.commercial = mapData[U"Demand"][U"commercial"].get<double>();
+	demand.office = mapData[U"Demand"][U"office"].get<double>();
+	demand.industrial = mapData[U"Demand"][U"industrial"].get<double>();
+	demand.farm = mapData[U"Demand"][U"farm"].get<double>();
 	
 	m_budget.police = mapData[U"Budget"][U"police"].get<int>();
 	m_budget.fireDepertment = mapData[U"Budget"][U"fire_depertment"].get<int>();
@@ -80,7 +81,7 @@ void CityMap::m_load_CBJ(String loadMapFilePath) {
 		mapData[U"Time"][U"hour"].get<int>(),
 		mapData[U"Time"][U"minutes"].get<int>()
 	};
-	m_rust_core->set_status(total_population, money, temperature, time_now);
+	m_rust_core->set_status(total_population, money, temperature, time_now, demand);
 	
 	// オブジェクトの読み込み(r142以降)
 	if (m_saved_version >= 142) {

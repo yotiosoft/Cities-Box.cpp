@@ -175,8 +175,6 @@ private:
 	
 	Size m_map_size;
 	
-	RCOIFstruct m_demand;
-	
 	BudgetStruct m_budget;
 	RCOIFstruct m_tax;
 	

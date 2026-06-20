@@ -119,7 +119,7 @@ private:
     bool m_load_CBJ(String loadMapFilePath);
     
     // アドオンの読み込み
-    void m_load_addons(String addonSetName);
+    void m_load_addons(String addonSetName, map<String, CBAddon*>& destination);
     
     // 対象物の接続可能なタイプを取得
     CategoryID::Type m_get_connectable_CategoryID(CBAddon* addon);

@@ -42,6 +42,25 @@ void CityMap::syncToRust() {
 }
 
 bool CityMap::save() {
+	// C++側のObjectが、現在所有しているAddonだけを参照していることを
+	// Rust状態へ書き込む前に確認する。
+	map<int, String> objectAddonNames;
+	for (const auto& [id, object] : m_objects) {
+		if (object == nullptr || object->getAddonP() == nullptr) {
+			UnitaryTools::debugLog(U"save error: ObjectID {} のアドオン参照が無効です。"_fmt(id));
+			return false;
+		}
+
+		const CBAddon* addon = object->getAddonP();
+		const auto addonIt = std::find_if(m_addons.begin(), m_addons.end(),
+			[addon](const auto& entry) { return entry.second == addon; });
+		if (addonIt == m_addons.end()) {
+			UnitaryTools::debugLog(U"save error: ObjectID {} が解放済みのアドオンを参照しています。"_fmt(id));
+			return false;
+		}
+		objectAddonNames[id] = addonIt->first;
+	}
+
 	// 1. C++側の最新状態をRustに送る
     syncToRust();
     
@@ -78,7 +97,7 @@ bool CityMap::save() {
     for (auto const& [id, object] : m_objects) {
         m_rust_core->add_object(
             id,
-            object->getAddonName(NameMode::English).toUTF8(),
+            objectAddonNames.at(id).toUTF8(),
             object->getOriginalName().toUTF8(),
             UnitaryTools::typeIDToTypeName(object->getTypeID()).toUTF8(),
             UnitaryTools::directionIDToDirectionName(object->getDirectionID()).toUTF8(),
@@ -165,4 +184,5 @@ void CityMap::freeMapAndAddons() {
 	m_objects.clear();
 	m_common_objects.clear();
 	m_addons.clear();
+	m_constructing_connectable_objects.clear();
 }

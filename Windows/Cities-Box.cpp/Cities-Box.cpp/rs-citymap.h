@@ -923,6 +923,8 @@ namespace rust {
     struct LoadedWorkPlaceData;
     struct LoadedSchoolData;
     struct LoadedTileData;
+    struct LoadedCityData;
+    struct LoadCityResult;
     struct RustCityMap;
   }
 }
@@ -1051,29 +1053,54 @@ struct LoadedTileData final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileData
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+struct LoadedCityData final {
+  ::std::int32_t version CXX_DEFAULT_VALUE(0);
+  ::rust::String addon_set_name;
+  ::rust::String city_name;
+  ::rust::String mayor_name;
+  ::std::int32_t total_population CXX_DEFAULT_VALUE(0);
+  bool change_weather CXX_DEFAULT_VALUE(false);
+  ::std::int32_t temperature CXX_DEFAULT_VALUE(0);
+  bool dark_on_night CXX_DEFAULT_VALUE(false);
+  ::std::int32_t map_width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_height CXX_DEFAULT_VALUE(0);
+  ::rust::citymap::TimeStruct time;
+  ::rust::citymap::RCOIFstruct demand;
+  ::std::int32_t money CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_police CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_fire CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_post CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_education CXX_DEFAULT_VALUE(0);
+  double tax_residential CXX_DEFAULT_VALUE(0);
+  double tax_commercial CXX_DEFAULT_VALUE(0);
+  double tax_office CXX_DEFAULT_VALUE(0);
+  double tax_industrial CXX_DEFAULT_VALUE(0);
+  double tax_farm CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::rust::citymap::LoadedObjectData> objects;
+  ::rust::Vec<::rust::citymap::LoadedTileData> tiles;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+struct LoadCityResult final {
+  bool success CXX_DEFAULT_VALUE(false);
+  ::rust::String error_message;
+  ::rust::citymap::LoadedCityData city;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
-  bool load_from_file(::rust::String path) noexcept;
-  ::rust::String get_last_load_error() const noexcept;
-  ::rust::String get_city_name() const noexcept;
-  ::rust::String get_mayor_name() const noexcept;
-  ::rust::String get_addon_set_name() const noexcept;
-  bool get_change_weather() const noexcept;
-  bool get_dark_on_night() const noexcept;
-  ::std::int32_t get_map_width() const noexcept;
-  ::std::int32_t get_map_height() const noexcept;
-  ::std::int32_t get_budget_police() const noexcept;
-  ::std::int32_t get_budget_fire() const noexcept;
-  ::std::int32_t get_budget_post() const noexcept;
-  ::std::int32_t get_budget_education() const noexcept;
-  double get_tax_residential() const noexcept;
-  double get_tax_commercial() const noexcept;
-  double get_tax_office() const noexcept;
-  double get_tax_industrial() const noexcept;
-  double get_tax_farm() const noexcept;
-  ::rust::Vec<::rust::citymap::LoadedObjectData> get_loaded_objects() const noexcept;
-  ::rust::Vec<::rust::citymap::LoadedTileData> get_loaded_tiles() const noexcept;
+  ::rust::citymap::LoadCityResult load_city_map(::rust::String path) noexcept;
+  bool commit_loaded_city_map() noexcept;
   void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   void init_map_size(::std::int32_t width, ::std::int32_t height) noexcept;
   void clear_objects() noexcept;

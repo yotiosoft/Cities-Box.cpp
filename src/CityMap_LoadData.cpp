@@ -11,6 +11,23 @@ namespace {
 	String fromRustString(const rust::String& value) {
 		return Unicode::FromUTF8(std::string(value.data(), value.size()));
 	}
+
+	struct StagedCityMap {
+		Array<Array<Tile>> tiles;
+		map<String, CBAddon*> addons;
+		map<int, Object*> objects;
+		map<String, Object*> commonObjects;
+		int maxObjectID = 0;
+
+		~StagedCityMap() {
+			for (auto& [id, object] : objects) {
+				delete object;
+			}
+			for (auto& [name, addon] : addons) {
+				delete addon;
+			}
+		}
+	};
 }
 
 bool CityMap::load(String loadMapFilePath) {
@@ -21,9 +38,7 @@ bool CityMap::load(String loadMapFilePath) {
 	}
 
 	try {
-		if (m_load_CBJ(loadMapFilePath)) {
-			return true;
-		}
+		return m_load_CBJ(loadMapFilePath);
 	}
 	catch (const std::exception& exception) {
 		m_last_load_error = U"読み込み処理中にエラーが発生しました: {}"_fmt(Unicode::FromUTF8(exception.what()));
@@ -31,50 +46,33 @@ bool CityMap::load(String loadMapFilePath) {
 	catch (...) {
 		m_last_load_error = U"読み込み処理中に不明なエラーが発生しました。";
 	}
-
-	freeMapAndAddons();
 	return false;
 }
 
 bool CityMap::m_load_CBJ(String loadMapFilePath) {
-	m_map_file_path = loadMapFilePath;
-	if (!m_rust_core->load_from_file(loadMapFilePath.toUTF8())) {
-		m_last_load_error = fromRustString(m_rust_core->get_last_load_error());
+	auto loadResult = m_rust_core->load_city_map(loadMapFilePath.toUTF8());
+	if (!loadResult.success) {
+		m_last_load_error = fromRustString(loadResult.error_message);
+		return false;
+	}
+	const auto& loadedCity = loadResult.city;
+	const Size loadedMapSize{ loadedCity.map_width, loadedCity.map_height };
+	String loadedAddonSet = fromRustString(loadedCity.addon_set_name);
+	String loadedCityName = fromRustString(loadedCity.city_name);
+	String loadedMayorName = fromRustString(loadedCity.mayor_name);
+
+	StagedCityMap staged;
+	m_load_addons(loadedAddonSet, staged.addons);
+	if (staged.addons.empty()) {
+		m_last_load_error = U"アドオンセット「{}」を読み込めませんでした。"_fmt(loadedAddonSet);
 		return false;
 	}
 
-	// 復号、JSON解析、検証、旧形式変換はRust側で完了済み。
-	// C++側では描画・ゲームロジック用オブジェクトだけを復元する。
-	m_saved_version = 142;
-	m_addon_set_name = fromRustString(m_rust_core->get_addon_set_name());
-	m_city_name = fromRustString(m_rust_core->get_city_name());
-	m_mayor_name = fromRustString(m_rust_core->get_mayor_name());
-	m_change_weather = m_rust_core->get_change_weather();
-	m_dark_on_night = m_rust_core->get_dark_on_night();
-	m_map_size = Size{ m_rust_core->get_map_width(), m_rust_core->get_map_height() };
-
-	m_budget.police = m_rust_core->get_budget_police();
-	m_budget.fireDepertment = m_rust_core->get_budget_fire();
-	m_budget.postOffice = m_rust_core->get_budget_post();
-	m_budget.education = m_rust_core->get_budget_education();
-	m_tax.residential = m_rust_core->get_tax_residential();
-	m_tax.commercial = m_rust_core->get_tax_commercial();
-	m_tax.office = m_rust_core->get_tax_office();
-	m_tax.industrial = m_rust_core->get_tax_industrial();
-	m_tax.farm = m_rust_core->get_tax_farm();
-
-	m_load_addons(m_addon_set_name);
-	if (m_addons.empty()) {
-		m_last_load_error = U"アドオンセット「{}」を読み込めませんでした。"_fmt(m_addon_set_name);
-		return false;
-	}
-
-	m_max_object_id = 0;
-	auto loadedObjects = m_rust_core->get_loaded_objects();
-	for (const auto& loaded : loadedObjects) {
+	// Rustで検証済みの定義から、C++描画用Objectだけを生成する。
+	for (const auto& loaded : loadedCity.objects) {
 		const String addonName = fromRustString(loaded.addon_name);
-		const auto addonIt = m_addons.find(addonName);
-		if (addonIt == m_addons.end()) {
+		const auto addonIt = staged.addons.find(addonName);
+		if (addonIt == staged.addons.end()) {
 			m_last_load_error = U"必要なアドオン「{}」が見つかりません。"_fmt(addonName);
 			return false;
 		}
@@ -88,38 +86,36 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 		if (addonIt->second->isInCategories(CategoryID::Connectable)) {
 			object = new ConnectableObject(loaded.id, addonIt->second, originalName, typeID, directionID, origin);
 		}
-		else if (addonIt->second->isInCategories(CategoryID::Tile) && m_common_objects.find(addonName) == m_common_objects.end()) {
+		else if (addonIt->second->isInCategories(CategoryID::Tile) && staged.commonObjects.find(addonName) == staged.commonObjects.end()) {
 			object = new NormalObject(loaded.id, addonIt->second, originalName, typeID, directionID, origin);
 			object->setCommonObject();
-			m_common_objects[addonName] = object;
+			staged.commonObjects[addonName] = object;
 		}
 		else {
 			object = new NormalObject(loaded.id, addonIt->second, originalName, typeID, directionID, origin);
 		}
 
 		object->setVisible(loaded.visible);
-		m_objects[loaded.id] = object;
-		m_max_object_id = Max(m_max_object_id, loaded.id);
+		staged.objects[loaded.id] = object;
+		staged.maxObjectID = Max(staged.maxObjectID, loaded.id);
 	}
 
-	auto loadedTiles = m_rust_core->get_loaded_tiles();
-	const size_t expectedTileCount = static_cast<size_t>(m_map_size.x) * static_cast<size_t>(m_map_size.y);
-	if (loadedTiles.size() != expectedTileCount) {
+	const size_t expectedTileCount = static_cast<size_t>(loadedMapSize.x) * static_cast<size_t>(loadedMapSize.y);
+	if (loadedCity.tiles.size() != expectedTileCount) {
 		m_last_load_error = U"Rust側から受け取ったタイル数がマップサイズと一致しません。";
 		return false;
 	}
 
-	m_tiles.clear();
-	m_tiles.resize(m_map_size.y);
-	for (auto& row : m_tiles) {
-		row.resize(m_map_size.x);
+	staged.tiles.resize(loadedMapSize.y);
+	for (auto& row : staged.tiles) {
+		row.resize(loadedMapSize.x);
 	}
 	Array<int> duplicateTileObjectIDs;
 
-	for (int y = 0; y < m_map_size.y; ++y) {
-		for (int x = 0; x < m_map_size.x; ++x) {
-			const auto& loaded = loadedTiles[static_cast<size_t>(y) * m_map_size.x + x];
-			Tile& tile = m_tiles[y][x];
+	for (int y = 0; y < loadedMapSize.y; ++y) {
+		for (int x = 0; x < loadedMapSize.x; ++x) {
+			const auto& loaded = loadedCity.tiles[static_cast<size_t>(y) * loadedMapSize.x + x];
+			Tile& tile = staged.tiles[y][x];
 			tile.residents = loaded.residents;
 			tile.workers.commercial = loaded.workers_commercial;
 			tile.workers.office = loaded.workers_office;
@@ -147,8 +143,8 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 			}
 
 			for (const auto& objectRef : loaded.objects) {
-				const auto objectIt = m_objects.find(objectRef.object_id);
-				if (objectIt == m_objects.end()) {
+				const auto objectIt = staged.objects.find(objectRef.object_id);
+				if (objectIt == staged.objects.end()) {
 					m_last_load_error = U"存在しないObjectID {}がタイルから参照されています。"_fmt(objectRef.object_id);
 					return false;
 				}
@@ -157,8 +153,8 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 				Object* tileObject = sourceObject;
 				if (sourceObject->getAddonP()->isInCategories(CategoryID::Tile)) {
 					const String addonName = sourceObject->getAddonP()->getName(NameMode::English);
-					const auto commonIt = m_common_objects.find(addonName);
-					if (commonIt != m_common_objects.end()) {
+					const auto commonIt = staged.commonObjects.find(addonName);
+					if (commonIt != staged.commonObjects.end()) {
 						tileObject = commonIt->second;
 						if (tileObject->getObjectID() != objectRef.object_id && !duplicateTileObjectIDs.contains(objectRef.object_id)) {
 							duplicateTileObjectIDs << objectRef.object_id;
@@ -174,26 +170,61 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 		}
 	}
 
-	// Tileカテゴリは全タイルで共通オブジェクトを使うため、個別定義を破棄する。
 	for (const int objectID : duplicateTileObjectIDs) {
-		const auto objectIt = m_objects.find(objectID);
-		if (objectIt != m_objects.end()) {
+		const auto objectIt = staged.objects.find(objectID);
+		if (objectIt != staged.objects.end()) {
 			delete objectIt->second;
-			m_objects.erase(objectIt);
+			staged.objects.erase(objectIt);
 		}
 	}
 
+	// C++側の構築が完了してからRust状態を確定し、両側を同時に切り替える。
+	if (!m_rust_core->commit_loaded_city_map()) {
+		m_last_load_error = U"Rust側のロード結果を確定できませんでした。";
+		return false;
+	}
+
+	// 旧データを先に明示解放する。以降のswapでは新データの所有権だけが
+	// CityMapへ移り、StagedCityMapのデストラクタは新しいポインタに触れない。
+	freeMapAndAddons();
+	m_tiles.swap(staged.tiles);
+	m_addons.swap(staged.addons);
+	m_objects.swap(staged.objects);
+	m_common_objects.swap(staged.commonObjects);
+	m_max_object_id = staged.maxObjectID;
+	m_saved_version = loadedCity.version;
+	m_addon_set_name.swap(loadedAddonSet);
+	m_city_name.swap(loadedCityName);
+	m_mayor_name.swap(loadedMayorName);
+	m_change_weather = loadedCity.change_weather;
+	m_dark_on_night = loadedCity.dark_on_night;
+	m_map_size = loadedMapSize;
+	m_budget.police = loadedCity.budget_police;
+	m_budget.fireDepertment = loadedCity.budget_fire;
+	m_budget.postOffice = loadedCity.budget_post;
+	m_budget.education = loadedCity.budget_education;
+	m_tax.residential = loadedCity.tax_residential;
+	m_tax.commercial = loadedCity.tax_commercial;
+	m_tax.office = loadedCity.tax_office;
+	m_tax.industrial = loadedCity.tax_industrial;
+	m_tax.farm = loadedCity.tax_farm;
+	m_map_file_path.swap(loadMapFilePath);
 	return true;
 }
 
-void CityMap::m_load_addons(String addonSetName) {
+void CityMap::m_load_addons(String addonSetName, map<String, CBAddon*>& destination) {
 	Array<FileStruct> addonsPath = specific::getAllFilesName("./addons", "adj");
 
 	for (int i = 0; i < static_cast<int>(addonsPath.size()); ++i) {
 		UnitaryTools::debugLog(U"m_load_addons", U"from " + Unicode::Widen(addonsPath[i].file_path));
 		CBAddon* loadingAddon = new CBAddon();
 		if (loadingAddon->load(addonsPath[i], addonSetName)) {
-			m_addons[loadingAddon->getName(NameMode::English)] = loadingAddon;
+			const String name = loadingAddon->getName(NameMode::English);
+			const auto existing = destination.find(name);
+			if (existing != destination.end()) {
+				delete existing->second;
+			}
+			destination[name] = loadingAddon;
 		}
 		else {
 			delete loadingAddon;

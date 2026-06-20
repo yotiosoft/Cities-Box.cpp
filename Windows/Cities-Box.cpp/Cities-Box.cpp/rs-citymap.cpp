@@ -952,6 +952,8 @@ namespace rust {
     struct LoadedWorkPlaceData;
     struct LoadedSchoolData;
     struct LoadedTileData;
+    struct LoadedCityData;
+    struct LoadCityResult;
     struct RustCityMap;
   }
 }
@@ -1080,29 +1082,54 @@ struct LoadedTileData final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileData
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+struct LoadedCityData final {
+  ::std::int32_t version CXX_DEFAULT_VALUE(0);
+  ::rust::String addon_set_name;
+  ::rust::String city_name;
+  ::rust::String mayor_name;
+  ::std::int32_t total_population CXX_DEFAULT_VALUE(0);
+  bool change_weather CXX_DEFAULT_VALUE(false);
+  ::std::int32_t temperature CXX_DEFAULT_VALUE(0);
+  bool dark_on_night CXX_DEFAULT_VALUE(false);
+  ::std::int32_t map_width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_height CXX_DEFAULT_VALUE(0);
+  ::rust::citymap::TimeStruct time;
+  ::rust::citymap::RCOIFstruct demand;
+  ::std::int32_t money CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_police CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_fire CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_post CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_education CXX_DEFAULT_VALUE(0);
+  double tax_residential CXX_DEFAULT_VALUE(0);
+  double tax_commercial CXX_DEFAULT_VALUE(0);
+  double tax_office CXX_DEFAULT_VALUE(0);
+  double tax_industrial CXX_DEFAULT_VALUE(0);
+  double tax_farm CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::rust::citymap::LoadedObjectData> objects;
+  ::rust::Vec<::rust::citymap::LoadedTileData> tiles;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedCityData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+struct LoadCityResult final {
+  bool success CXX_DEFAULT_VALUE(false);
+  ::rust::String error_message;
+  ::rust::citymap::LoadedCityData city;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
-  bool load_from_file(::rust::String path) noexcept;
-  ::rust::String get_last_load_error() const noexcept;
-  ::rust::String get_city_name() const noexcept;
-  ::rust::String get_mayor_name() const noexcept;
-  ::rust::String get_addon_set_name() const noexcept;
-  bool get_change_weather() const noexcept;
-  bool get_dark_on_night() const noexcept;
-  ::std::int32_t get_map_width() const noexcept;
-  ::std::int32_t get_map_height() const noexcept;
-  ::std::int32_t get_budget_police() const noexcept;
-  ::std::int32_t get_budget_fire() const noexcept;
-  ::std::int32_t get_budget_post() const noexcept;
-  ::std::int32_t get_budget_education() const noexcept;
-  double get_tax_residential() const noexcept;
-  double get_tax_commercial() const noexcept;
-  double get_tax_office() const noexcept;
-  double get_tax_industrial() const noexcept;
-  double get_tax_farm() const noexcept;
-  ::rust::Vec<::rust::citymap::LoadedObjectData> get_loaded_objects() const noexcept;
-  ::rust::Vec<::rust::citymap::LoadedTileData> get_loaded_tiles() const noexcept;
+  ::rust::citymap::LoadCityResult load_city_map(::rust::String path) noexcept;
+  bool commit_loaded_city_map() noexcept;
   void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   void init_map_size(::std::int32_t width, ::std::int32_t height) noexcept;
   void clear_objects() noexcept;
@@ -1146,45 +1173,9 @@ extern "C" {
 
 ::rust::citymap::RustCityMap *rust$citymap$cxxbridge1$192$new_city_map() noexcept;
 
-bool rust$citymap$cxxbridge1$192$RustCityMap$load_from_file(::rust::citymap::RustCityMap &self, ::rust::String *path) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$load_city_map(::rust::citymap::RustCityMap &self, ::rust::String *path, ::rust::citymap::LoadCityResult *return$) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$get_last_load_error(::rust::citymap::RustCityMap const &self, ::rust::String *return$) noexcept;
-
-void rust$citymap$cxxbridge1$192$RustCityMap$get_city_name(::rust::citymap::RustCityMap const &self, ::rust::String *return$) noexcept;
-
-void rust$citymap$cxxbridge1$192$RustCityMap$get_mayor_name(::rust::citymap::RustCityMap const &self, ::rust::String *return$) noexcept;
-
-void rust$citymap$cxxbridge1$192$RustCityMap$get_addon_set_name(::rust::citymap::RustCityMap const &self, ::rust::String *return$) noexcept;
-
-bool rust$citymap$cxxbridge1$192$RustCityMap$get_change_weather(::rust::citymap::RustCityMap const &self) noexcept;
-
-bool rust$citymap$cxxbridge1$192$RustCityMap$get_dark_on_night(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_map_width(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_map_height(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_budget_police(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_budget_fire(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_budget_post(::rust::citymap::RustCityMap const &self) noexcept;
-
-::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_budget_education(::rust::citymap::RustCityMap const &self) noexcept;
-
-double rust$citymap$cxxbridge1$192$RustCityMap$get_tax_residential(::rust::citymap::RustCityMap const &self) noexcept;
-
-double rust$citymap$cxxbridge1$192$RustCityMap$get_tax_commercial(::rust::citymap::RustCityMap const &self) noexcept;
-
-double rust$citymap$cxxbridge1$192$RustCityMap$get_tax_office(::rust::citymap::RustCityMap const &self) noexcept;
-
-double rust$citymap$cxxbridge1$192$RustCityMap$get_tax_industrial(::rust::citymap::RustCityMap const &self) noexcept;
-
-double rust$citymap$cxxbridge1$192$RustCityMap$get_tax_farm(::rust::citymap::RustCityMap const &self) noexcept;
-
-void rust$citymap$cxxbridge1$192$RustCityMap$get_loaded_objects(::rust::citymap::RustCityMap const &self, ::rust::Vec<::rust::citymap::LoadedObjectData> *return$) noexcept;
-
-void rust$citymap$cxxbridge1$192$RustCityMap$get_loaded_tiles(::rust::citymap::RustCityMap const &self, ::rust::Vec<::rust::citymap::LoadedTileData> *return$) noexcept;
+bool rust$citymap$cxxbridge1$192$RustCityMap$commit_loaded_city_map(::rust::citymap::RustCityMap &self) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$set_status(::rust::citymap::RustCityMap &self, ::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct *time, ::rust::citymap::RCOIFstruct *demand) noexcept;
 
@@ -1251,96 +1242,14 @@ bool rust$citymap$cxxbridge1$192$RustCityMap$save_to_file(::rust::citymap::RustC
   return ::rust::Box<::rust::citymap::RustCityMap>::from_raw(rust$citymap$cxxbridge1$192$new_city_map());
 }
 
-bool RustCityMap::load_from_file(::rust::String path) noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$load_from_file(*this, &path);
-}
-
-::rust::String RustCityMap::get_last_load_error() const noexcept {
-  ::rust::MaybeUninit<::rust::String> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_last_load_error(*this, &return$.value);
+::rust::citymap::LoadCityResult RustCityMap::load_city_map(::rust::String path) noexcept {
+  ::rust::MaybeUninit<::rust::citymap::LoadCityResult> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$load_city_map(*this, &path, &return$.value);
   return ::std::move(return$.value);
 }
 
-::rust::String RustCityMap::get_city_name() const noexcept {
-  ::rust::MaybeUninit<::rust::String> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_city_name(*this, &return$.value);
-  return ::std::move(return$.value);
-}
-
-::rust::String RustCityMap::get_mayor_name() const noexcept {
-  ::rust::MaybeUninit<::rust::String> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_mayor_name(*this, &return$.value);
-  return ::std::move(return$.value);
-}
-
-::rust::String RustCityMap::get_addon_set_name() const noexcept {
-  ::rust::MaybeUninit<::rust::String> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_addon_set_name(*this, &return$.value);
-  return ::std::move(return$.value);
-}
-
-bool RustCityMap::get_change_weather() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_change_weather(*this);
-}
-
-bool RustCityMap::get_dark_on_night() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_dark_on_night(*this);
-}
-
-::std::int32_t RustCityMap::get_map_width() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_map_width(*this);
-}
-
-::std::int32_t RustCityMap::get_map_height() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_map_height(*this);
-}
-
-::std::int32_t RustCityMap::get_budget_police() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_budget_police(*this);
-}
-
-::std::int32_t RustCityMap::get_budget_fire() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_budget_fire(*this);
-}
-
-::std::int32_t RustCityMap::get_budget_post() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_budget_post(*this);
-}
-
-::std::int32_t RustCityMap::get_budget_education() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_budget_education(*this);
-}
-
-double RustCityMap::get_tax_residential() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_tax_residential(*this);
-}
-
-double RustCityMap::get_tax_commercial() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_tax_commercial(*this);
-}
-
-double RustCityMap::get_tax_office() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_tax_office(*this);
-}
-
-double RustCityMap::get_tax_industrial() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_tax_industrial(*this);
-}
-
-double RustCityMap::get_tax_farm() const noexcept {
-  return rust$citymap$cxxbridge1$192$RustCityMap$get_tax_farm(*this);
-}
-
-::rust::Vec<::rust::citymap::LoadedObjectData> RustCityMap::get_loaded_objects() const noexcept {
-  ::rust::MaybeUninit<::rust::Vec<::rust::citymap::LoadedObjectData>> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_loaded_objects(*this, &return$.value);
-  return ::std::move(return$.value);
-}
-
-::rust::Vec<::rust::citymap::LoadedTileData> RustCityMap::get_loaded_tiles() const noexcept {
-  ::rust::MaybeUninit<::rust::Vec<::rust::citymap::LoadedTileData>> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$get_loaded_tiles(*this, &return$.value);
-  return ::std::move(return$.value);
+bool RustCityMap::commit_loaded_city_map() noexcept {
+  return rust$citymap$cxxbridge1$192$RustCityMap$commit_loaded_city_map(*this);
 }
 
 void RustCityMap::set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept {
@@ -1498,10 +1407,6 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedSchoolData$reserve_total(::rust::Vec
 void cxxbridge1$rust_vec$rust$citymap$LoadedSchoolData$set_len(::rust::Vec<::rust::citymap::LoadedSchoolData> *ptr, ::std::size_t len) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedSchoolData$truncate(::rust::Vec<::rust::citymap::LoadedSchoolData> *ptr, ::std::size_t len) noexcept;
 
-::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
-void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
-void cxxbridge1$box$rust$citymap$RustCityMap$drop(::rust::Box<::rust::citymap::RustCityMap> *ptr) noexcept;
-
 void cxxbridge1$rust_vec$rust$citymap$LoadedObjectData$new(::rust::Vec<::rust::citymap::LoadedObjectData> const *ptr) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedObjectData$drop(::rust::Vec<::rust::citymap::LoadedObjectData> *ptr) noexcept;
 ::std::size_t cxxbridge1$rust_vec$rust$citymap$LoadedObjectData$len(::rust::Vec<::rust::citymap::LoadedObjectData> const *ptr) noexcept;
@@ -1519,6 +1424,10 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$drop(::rust::Vec<::rust::ci
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$reserve_total(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t new_cap) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$set_len(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t len) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t len) noexcept;
+
+::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
+void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
+void cxxbridge1$box$rust$citymap$RustCityMap$drop(::rust::Box<::rust::citymap::RustCityMap> *ptr) noexcept;
 } // extern "C"
 
 namespace rust {
@@ -1652,18 +1561,6 @@ void Vec<::rust::citymap::LoadedSchoolData>::truncate(::std::size_t len) {
   return cxxbridge1$rust_vec$rust$citymap$LoadedSchoolData$truncate(this, len);
 }
 template <>
-::rust::citymap::RustCityMap *Box<::rust::citymap::RustCityMap>::allocation::alloc() noexcept {
-  return cxxbridge1$box$rust$citymap$RustCityMap$alloc();
-}
-template <>
-void Box<::rust::citymap::RustCityMap>::allocation::dealloc(::rust::citymap::RustCityMap *ptr) noexcept {
-  cxxbridge1$box$rust$citymap$RustCityMap$dealloc(ptr);
-}
-template <>
-void Box<::rust::citymap::RustCityMap>::drop() noexcept {
-  cxxbridge1$box$rust$citymap$RustCityMap$drop(this);
-}
-template <>
 Vec<::rust::citymap::LoadedObjectData>::Vec() noexcept {
   cxxbridge1$rust_vec$rust$citymap$LoadedObjectData$new(this);
 }
@@ -1726,6 +1623,18 @@ void Vec<::rust::citymap::LoadedTileData>::set_len(::std::size_t len) noexcept {
 template <>
 void Vec<::rust::citymap::LoadedTileData>::truncate(::std::size_t len) {
   return cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(this, len);
+}
+template <>
+::rust::citymap::RustCityMap *Box<::rust::citymap::RustCityMap>::allocation::alloc() noexcept {
+  return cxxbridge1$box$rust$citymap$RustCityMap$alloc();
+}
+template <>
+void Box<::rust::citymap::RustCityMap>::allocation::dealloc(::rust::citymap::RustCityMap *ptr) noexcept {
+  cxxbridge1$box$rust$citymap$RustCityMap$dealloc(ptr);
+}
+template <>
+void Box<::rust::citymap::RustCityMap>::drop() noexcept {
+  cxxbridge1$box$rust$citymap$RustCityMap$drop(this);
 }
 } // namespace cxxbridge1
 } // namespace rust

@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, OpenOptions};
 use std::io::{self, Write};
@@ -851,32 +851,47 @@ mod ffi {
         schools: Vec<LoadedSchoolData>,
     }
 
+    struct LoadedCityData {
+        version: i32,
+        addon_set_name: String,
+        city_name: String,
+        mayor_name: String,
+        total_population: i32,
+        change_weather: bool,
+        temperature: i32,
+        dark_on_night: bool,
+        map_width: i32,
+        map_height: i32,
+        time: TimeStruct,
+        demand: RCOIFstruct,
+        money: i32,
+        budget_police: i32,
+        budget_fire: i32,
+        budget_post: i32,
+        budget_education: i32,
+        tax_residential: f64,
+        tax_commercial: f64,
+        tax_office: f64,
+        tax_industrial: f64,
+        tax_farm: f64,
+        objects: Vec<LoadedObjectData>,
+        tiles: Vec<LoadedTileData>,
+    }
+
+    struct LoadCityResult {
+        success: bool,
+        error_message: String,
+        city: LoadedCityData,
+    }
+
     extern "Rust" {
         type RustCityMap;
 
         fn new_city_map() -> Box<RustCityMap>;
 
-        // セーブデータの読み込み・検証・現行形式への変換
-        fn load_from_file(&mut self, path: String) -> bool;
-        fn get_last_load_error(&self) -> String;
-        fn get_city_name(&self) -> String;
-        fn get_mayor_name(&self) -> String;
-        fn get_addon_set_name(&self) -> String;
-        fn get_change_weather(&self) -> bool;
-        fn get_dark_on_night(&self) -> bool;
-        fn get_map_width(&self) -> i32;
-        fn get_map_height(&self) -> i32;
-        fn get_budget_police(&self) -> i32;
-        fn get_budget_fire(&self) -> i32;
-        fn get_budget_post(&self) -> i32;
-        fn get_budget_education(&self) -> i32;
-        fn get_tax_residential(&self) -> f64;
-        fn get_tax_commercial(&self) -> f64;
-        fn get_tax_office(&self) -> f64;
-        fn get_tax_industrial(&self) -> f64;
-        fn get_tax_farm(&self) -> f64;
-        fn get_loaded_objects(&self) -> Vec<LoadedObjectData>;
-        fn get_loaded_tiles(&self) -> Vec<LoadedTileData>;
+        // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
+        fn load_city_map(&mut self, path: String) -> LoadCityResult;
+        fn commit_loaded_city_map(&mut self) -> bool;
 
         // 初期化
         fn set_status(
@@ -1022,21 +1037,188 @@ pub struct RustCityMap {
     // タイルデータ
     pub tiles: Vec<Vec<RustTile>>,
 
-    pub last_load_error: String,
+    pending_load: Option<SaveDataJson>,
+}
+
+fn empty_loaded_city_data() -> ffi::LoadedCityData {
+    ffi::LoadedCityData {
+        version: 0,
+        addon_set_name: String::new(),
+        city_name: String::new(),
+        mayor_name: String::new(),
+        total_population: 0,
+        change_weather: false,
+        temperature: 0,
+        dark_on_night: false,
+        map_width: 0,
+        map_height: 0,
+        time: ffi::TimeStruct {
+            year: 0,
+            month: 0,
+            date: 0,
+            hour: 0,
+            minutes: 0,
+        },
+        demand: ffi::RCOIFstruct {
+            residential: 0.0,
+            commercial: 0.0,
+            office: 0.0,
+            industrial: 0.0,
+            farm: 0.0,
+        },
+        money: 0,
+        budget_police: 0,
+        budget_fire: 0,
+        budget_post: 0,
+        budget_education: 0,
+        tax_residential: 0.0,
+        tax_commercial: 0.0,
+        tax_office: 0.0,
+        tax_industrial: 0.0,
+        tax_farm: 0.0,
+        objects: Vec::new(),
+        tiles: Vec::new(),
+    }
+}
+
+fn loaded_city_data(data: &SaveDataJson) -> ffi::LoadedCityData {
+    let mut objects: Vec<_> = data.objects.iter().collect();
+    objects.sort_by_key(|object| object.object_id);
+
+    ffi::LoadedCityData {
+        version: data.version,
+        addon_set_name: data.addon_set.clone(),
+        city_name: data.city_name.clone(),
+        mayor_name: data.mayor_name.clone(),
+        total_population: data.total_population,
+        change_weather: data.change_weather,
+        temperature: data.temperature,
+        dark_on_night: data.dark_on_night,
+        map_width: data.map_size.width,
+        map_height: data.map_size.height,
+        time: ffi::TimeStruct {
+            year: data.time.year,
+            month: data.time.month,
+            date: data.time.date,
+            hour: data.time.hour,
+            minutes: data.time.minutes,
+        },
+        demand: ffi::RCOIFstruct {
+            residential: data.demand.residential,
+            commercial: data.demand.commercial,
+            office: data.demand.office,
+            industrial: data.demand.industrial,
+            farm: data.demand.farm,
+        },
+        money: data.money,
+        budget_police: data.budget.police,
+        budget_fire: data.budget.fire_depertment,
+        budget_post: data.budget.post_office,
+        budget_education: data.budget.education,
+        tax_residential: data.tax.residential,
+        tax_commercial: data.tax.commercial,
+        tax_office: data.tax.office,
+        tax_industrial: data.tax.industrial,
+        tax_farm: data.tax.farm,
+        objects: objects
+            .into_iter()
+            .map(|object| ffi::LoadedObjectData {
+                id: object.object_id,
+                addon_name: object.addon_name.clone(),
+                original_name: object.original_name.clone(),
+                type_name: object.type_id.clone(),
+                direction_name: object.direction_id.clone(),
+                origin_x: object.origin_coordinate.x,
+                origin_y: object.origin_coordinate.y,
+                visible: object.visible,
+            })
+            .collect(),
+        tiles: data
+            .map
+            .iter()
+            .flat_map(|row| row.iter())
+            .map(|tile| {
+                let mut rates: Vec<_> = tile.rate.iter().collect();
+                rates.sort_by(|left, right| left.0.cmp(right.0));
+                ffi::LoadedTileData {
+                    residents: tile.residents,
+                    workers_commercial: tile.workers.commercial,
+                    workers_office: tile.workers.office,
+                    workers_industrial: tile.workers.industrial,
+                    workers_farm: tile.workers.farm,
+                    workers_public: tile.workers.public,
+                    students: tile.students,
+                    reservation: tile.reservation,
+                    original_name: tile.original_name.clone(),
+                    ages: tile.age.clone(),
+                    genders: tile.gender.clone(),
+                    objects: tile
+                        .objects
+                        .iter()
+                        .map(|object| ffi::LoadedTileObjectData {
+                            object_id: object.object_id,
+                            relative_x: object.relative_coordinate.x,
+                            relative_y: object.relative_coordinate.y,
+                        })
+                        .collect(),
+                    rates: rates
+                        .into_iter()
+                        .map(|(name, value)| ffi::LoadedRateData {
+                            name: name.clone(),
+                            value: *value,
+                        })
+                        .collect(),
+                    work_places: tile
+                        .work_places
+                        .iter()
+                        .map(|workplace| ffi::LoadedWorkPlaceData {
+                            kind: workplace.work_kind,
+                            serial_number: workplace.serial_number,
+                        })
+                        .collect(),
+                    schools: tile
+                        .school
+                        .iter()
+                        .map(|school| ffi::LoadedSchoolData {
+                            kind: school.school_kind,
+                            serial_number: school.serial_number,
+                        })
+                        .collect(),
+                }
+            })
+            .collect(),
+    }
 }
 
 impl RustCityMap {
-    fn load_from_file(&mut self, path: String) -> bool {
+    fn load_city_map(&mut self, path: String) -> ffi::LoadCityResult {
         match read_and_normalize_map(Path::new(&path)) {
             Ok((data, _catalog)) => {
-                self.apply_loaded_data(data);
-                self.last_load_error.clear();
-                true
+                let city = loaded_city_data(&data);
+                self.pending_load = Some(data);
+                ffi::LoadCityResult {
+                    success: true,
+                    error_message: String::new(),
+                    city,
+                }
             }
             Err(error) => {
-                self.last_load_error = error;
-                false
+                self.pending_load = None;
+                ffi::LoadCityResult {
+                    success: false,
+                    error_message: error,
+                    city: empty_loaded_city_data(),
+                }
             }
+        }
+    }
+
+    fn commit_loaded_city_map(&mut self) -> bool {
+        if let Some(data) = self.pending_load.take() {
+            self.apply_loaded_data(data);
+            true
+        } else {
+            false
         }
     }
 
@@ -1143,132 +1325,6 @@ impl RustCityMap {
                     .collect()
             })
             .collect();
-    }
-
-    fn get_last_load_error(&self) -> String {
-        self.last_load_error.clone()
-    }
-    fn get_city_name(&self) -> String {
-        self.city_name.clone()
-    }
-    fn get_mayor_name(&self) -> String {
-        self.mayor_name.clone()
-    }
-    fn get_addon_set_name(&self) -> String {
-        self.addon_set_name.clone()
-    }
-    fn get_change_weather(&self) -> bool {
-        self.change_weather
-    }
-    fn get_dark_on_night(&self) -> bool {
-        self.dark_on_night
-    }
-    fn get_map_width(&self) -> i32 {
-        self.map_size[0]
-    }
-    fn get_map_height(&self) -> i32 {
-        self.map_size[1]
-    }
-    fn get_budget_police(&self) -> i32 {
-        self.budget_police
-    }
-    fn get_budget_fire(&self) -> i32 {
-        self.budget_fire
-    }
-    fn get_budget_post(&self) -> i32 {
-        self.budget_post
-    }
-    fn get_budget_education(&self) -> i32 {
-        self.budget_education
-    }
-    fn get_tax_residential(&self) -> f64 {
-        self.tax_residential
-    }
-    fn get_tax_commercial(&self) -> f64 {
-        self.tax_commercial
-    }
-    fn get_tax_office(&self) -> f64 {
-        self.tax_office
-    }
-    fn get_tax_industrial(&self) -> f64 {
-        self.tax_industrial
-    }
-    fn get_tax_farm(&self) -> f64 {
-        self.tax_farm
-    }
-
-    fn get_loaded_objects(&self) -> Vec<ffi::LoadedObjectData> {
-        let mut objects: Vec<_> = self.objects.values().collect();
-        objects.sort_by_key(|object| object.id);
-        objects
-            .into_iter()
-            .map(|object| ffi::LoadedObjectData {
-                id: object.id,
-                addon_name: object.addon_name_en.clone(),
-                original_name: object.original_name.clone(),
-                type_name: object.type_id.clone(),
-                direction_name: object.direction_id.clone(),
-                origin_x: object.origin_coordinate.x,
-                origin_y: object.origin_coordinate.y,
-                visible: object.visible,
-            })
-            .collect()
-    }
-
-    fn get_loaded_tiles(&self) -> Vec<ffi::LoadedTileData> {
-        self.tiles
-            .iter()
-            .flat_map(|row| row.iter())
-            .map(|tile| {
-                let mut rates: Vec<_> = tile.rate.iter().collect();
-                rates.sort_by(|left, right| left.0.cmp(right.0));
-                ffi::LoadedTileData {
-                    residents: tile.residents,
-                    workers_commercial: tile.workers_commercial,
-                    workers_office: tile.workers_office,
-                    workers_industrial: tile.workers_industrial,
-                    workers_farm: tile.workers_farm,
-                    workers_public: tile.workers_public,
-                    students: tile.students,
-                    reservation: tile.reservation,
-                    original_name: tile.original_name.clone(),
-                    ages: tile.age.clone(),
-                    genders: tile.gender.clone(),
-                    objects: tile
-                        .object_structs
-                        .iter()
-                        .map(|object| ffi::LoadedTileObjectData {
-                            object_id: object.object_id,
-                            relative_x: object.relative_x,
-                            relative_y: object.relative_y,
-                        })
-                        .collect(),
-                    rates: rates
-                        .into_iter()
-                        .map(|(name, value)| ffi::LoadedRateData {
-                            name: name.clone(),
-                            value: *value,
-                        })
-                        .collect(),
-                    work_places: tile
-                        .work_places
-                        .iter()
-                        .map(|workplace| ffi::LoadedWorkPlaceData {
-                            kind: workplace.kind,
-                            serial_number: workplace.serial_number,
-                        })
-                        .collect(),
-                    schools: tile
-                        .schools
-                        .iter()
-                        .map(|school| ffi::LoadedSchoolData {
-                            kind: school.kind,
-                            serial_number: school.serial_number,
-                        })
-                        .collect(),
-                }
-            })
-            .collect()
     }
 
     // スライス（配列の参照）として一括で受け取る
@@ -2062,7 +2118,7 @@ fn new_city_map() -> Box<RustCityMap> {
         // --- オブジェクト・タイル管理 (最初は空) ---
         objects: HashMap::new(),
         tiles: Vec::new(),
-        last_load_error: String::new(),
+        pending_load: None,
     })
 }
 
@@ -2160,48 +2216,51 @@ mod tests {
             .join(file_name)
     }
 
-    #[test]
-    fn loads_current_map_into_rust_state() {
+    fn assert_batch_load(file_name: &str) {
         let mut city = new_city_map();
-        let path = windows_map_path("Sample_City.cbd.cbj");
-        assert!(
-            city.load_from_file(path.to_string_lossy().into_owned()),
-            "{}",
-            city.get_last_load_error()
-        );
+        let path = windows_map_path(file_name);
+        let result = city.load_city_map(path.to_string_lossy().into_owned());
+        assert!(result.success, "{}", result.error_message);
+        assert_eq!(result.city.version, 142);
+        assert_eq!((result.city.map_width, result.city.map_height), (100, 100));
+        assert_eq!(result.city.tiles.len(), 10_000);
+        assert!(!result.city.objects.is_empty());
+
+        assert!(city.commit_loaded_city_map());
         assert_eq!(city.version, 142);
         assert_eq!(city.map_size, [100, 100]);
         assert_eq!(city.tiles.len(), 100);
         assert!(!city.objects.is_empty());
+        assert!(!city.commit_loaded_city_map());
+    }
+
+    #[test]
+    fn loads_current_map_into_rust_state() {
+        assert_batch_load("Sample_City.cbd.cbj");
     }
 
     #[test]
     fn loads_original_r142_map_into_rust_state() {
-        let mut city = new_city_map();
-        let path = windows_map_path("backup.cbj");
-        assert!(
-            city.load_from_file(path.to_string_lossy().into_owned()),
-            "{}",
-            city.get_last_load_error()
-        );
-        assert_eq!(city.version, 142);
-        assert_eq!(city.map_size, [100, 100]);
-        assert_eq!(city.tiles.len(), 100);
-        assert!(!city.objects.is_empty());
+        assert_batch_load("backup.cbj");
     }
 
     #[test]
     fn converts_legacy_map_to_current_rust_state() {
+        assert_batch_load("Sample_City.cbd.cbj.cbj");
+    }
+
+    #[test]
+    fn failed_batch_load_returns_only_an_error() {
         let mut city = new_city_map();
-        let path = windows_map_path("Sample_City.cbd.cbj.cbj");
-        assert!(
-            city.load_from_file(path.to_string_lossy().into_owned()),
-            "{}",
-            city.get_last_load_error()
+        let result = city.load_city_map(
+            windows_map_path("missing.cbj")
+                .to_string_lossy()
+                .into_owned(),
         );
-        assert_eq!(city.version, 142);
-        assert_eq!(city.map_size, [100, 100]);
-        assert_eq!(city.tiles.len(), 100);
-        assert!(!city.objects.is_empty());
+        assert!(!result.success);
+        assert!(!result.error_message.is_empty());
+        assert!(result.city.objects.is_empty());
+        assert!(result.city.tiles.is_empty());
+        assert!(!city.commit_loaded_city_map());
     }
 }

@@ -209,23 +209,3 @@ m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
 delete object at 25, 0 of 0, 0
-before put
-after put
-delete object at 64, 49 of 0, 0
-before erase
-after erase
-delete object at 25, 0 of 0, 0
-before put
-after put
-delete object at 64, 49 of 0, 0
-before erase
-after erase
-delete object at 25, 0 of 0, 0
-before put
-after put
-delete object at 25, 0 of 0, 0
-before put
-after put
-delete object at 25, 0 of 0, 0
-before put
-after put

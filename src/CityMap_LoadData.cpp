@@ -199,15 +199,6 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_change_weather = loadedCity.change_weather;
 	m_dark_on_night = loadedCity.dark_on_night;
 	m_map_size = loadedMapSize;
-	m_budget.police = loadedCity.budget_police;
-	m_budget.fireDepertment = loadedCity.budget_fire;
-	m_budget.postOffice = loadedCity.budget_post;
-	m_budget.education = loadedCity.budget_education;
-	m_tax.residential = loadedCity.tax_residential;
-	m_tax.commercial = loadedCity.tax_commercial;
-	m_tax.office = loadedCity.tax_office;
-	m_tax.industrial = loadedCity.tax_industrial;
-	m_tax.farm = loadedCity.tax_farm;
 	m_map_file_path.swap(loadMapFilePath);
 	return true;
 }

@@ -8,6 +8,8 @@
 #include "CityMap.hpp"
 
 void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_changed) {
+	const TimeStruct cityTime = getSimulationSnapshot().time;
+
 	// マップを描画
 	for (short int y = m_get_draw_area(camera, window_size_changed).first.y; y < m_get_draw_area(camera, window_size_changed).second.y; y++) {
 		for (short int x = m_get_draw_area(camera, window_size_changed).first.x; x < m_get_draw_area(camera, window_size_changed).second.x; x++) {
@@ -21,7 +23,7 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 
 			// 一マス分描画
 			if (drawPos.x >= -CHIP_SIZE && drawPos.y >= -CHIP_SIZE / 2 && drawPos.x <= Scene::Width() && drawPos.y <= Scene::Height() + CHIP_SIZE * 2) {
-				m_tiles[y][x].draw(m_show_rate, drawPos, getCityTime());
+				m_tiles[y][x].draw(m_show_rate, drawPos, cityTime);
 			}
 
 			// カーソルの描画

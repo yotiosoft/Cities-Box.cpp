@@ -114,41 +114,7 @@ impl RustCityMap {
         self.addon_set_name = addon_set;
     }
 
-    pub(super) fn set_financial_data(&mut self, money: i32, population: i32) {
-        self.money = money;
-        self.population = population;
-    }
-
-    pub(super) fn set_budget(&mut self, police: i32, fire: i32, post: i32, edu: i32) {
-        self.budget_police = police;
-        self.budget_fire = fire;
-        self.budget_post = post;
-        self.budget_education = edu;
-    }
-
-    pub(super) fn set_tax(&mut self, r: f64, c: f64, o: f64, i: f64, f: f64) {
-        self.tax_residential = r;
-        self.tax_commercial = c;
-        self.tax_office = o;
-        self.tax_industrial = i;
-        self.tax_farm = f;
-    }
-
-    pub(super) fn set_environment(
-        &mut self,
-        year: i32,
-        month: i32,
-        date: i32,
-        hour: i32,
-        min: i32,
-        weather: bool,
-        night: bool,
-    ) {
-        self.time.year = year;
-        self.time.month = month;
-        self.time.date = date;
-        self.time.hour = hour;
-        self.time.minutes = min;
+    pub(super) fn set_display_settings(&mut self, weather: bool, night: bool) {
         self.change_weather = weather;
         self.dark_on_night = night;
     }
@@ -244,41 +210,41 @@ impl RustCityMap {
             addon_set: self.addon_set_name.clone(),
             city_name: self.city_name.clone(),
             mayor_name: self.mayor_name.clone(),
-            total_population: self.population,
+            total_population: self.simulation.population,
             change_weather: self.change_weather,
-            temperature: self.temperature,
+            temperature: self.simulation.temperature,
             dark_on_night: self.dark_on_night,
             map_size: MapSizeJson {
                 width: self.map_size[0],
                 height: self.map_size[1],
             },
             time: TimeJson {
-                year: self.time.year,
-                month: self.time.month,
-                date: self.time.date,
-                hour: self.time.hour,
-                minutes: self.time.minutes,
+                year: self.simulation.time.year,
+                month: self.simulation.time.month,
+                date: self.simulation.time.date,
+                hour: self.simulation.time.hour,
+                minutes: self.simulation.time.minutes,
             },
             demand: DemandJson {
-                residential: self.demand.residential,
-                commercial: self.demand.commercial,
-                office: self.demand.office,
-                industrial: self.demand.industrial,
-                farm: self.demand.farm,
+                residential: self.simulation.demand.residential,
+                commercial: self.simulation.demand.commercial,
+                office: self.simulation.demand.office,
+                industrial: self.simulation.demand.industrial,
+                farm: self.simulation.demand.farm,
             },
-            money: self.money,
+            money: self.simulation.money,
             budget: BudgetJson {
-                police: self.budget_police,
-                fire_depertment: self.budget_fire,
-                post_office: self.budget_post,
-                education: self.budget_education,
+                police: self.simulation.budget_police,
+                fire_depertment: self.simulation.budget_fire,
+                post_office: self.simulation.budget_post,
+                education: self.simulation.budget_education,
             },
             tax: TaxJson {
-                residential: self.tax_residential,
-                commercial: self.tax_commercial,
-                office: self.tax_office,
-                industrial: self.tax_industrial,
-                farm: self.tax_farm,
+                residential: self.simulation.tax_residential,
+                commercial: self.simulation.tax_commercial,
+                office: self.simulation.tax_office,
+                industrial: self.simulation.tax_industrial,
+                farm: self.simulation.tax_farm,
             },
             objects: objects_json,
             map: map_json,

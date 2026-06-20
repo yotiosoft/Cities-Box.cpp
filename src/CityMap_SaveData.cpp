@@ -17,28 +17,9 @@ void CityMap::syncToRust() {
         m_addon_set_name.toUTF8()
     );
 
-    // 予算の同期
-    m_rust_core->set_budget(
-        m_budget.police,
-        m_budget.fireDepertment,
-        m_budget.postOffice,
-        m_budget.education
-    );
-
-    m_rust_core->set_tax(
-        m_tax.residential,
-        m_tax.commercial,
-        m_tax.office,
-        m_tax.industrial,
-        m_tax.farm
-    );
-
-    // 環境設定の同期
-    auto time = getCityTime();
-    m_rust_core->set_environment(
-        time.year, time.month, time.date, time.hour, time.minutes,
-        m_change_weather, m_dark_on_night
-    );
+    // 描画設定だけを同期する。時刻・人口・資金・気温・需要・予算・税率は
+    // Rust側が所有しているため、C++から書き戻さない。
+    m_rust_core->set_display_settings(m_change_weather, m_dark_on_night);
 }
 
 bool CityMap::save() {

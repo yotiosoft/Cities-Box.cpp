@@ -83,6 +83,9 @@ public:
 	
 	// 効果を取得
 	map<RateID::Type, EffectStruct> getEffects();
+
+	// 収容人数または最大従業員数を取得
+	int getMaximumCapacity() const { return m_maximum_capacity; }
 	
 	// アイコンのテクスチャの取得
 	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
@@ -135,7 +138,7 @@ protected:
 	Array<String> m_use_types;
 	
 	// 収容人数 or 最大従業員数
-	int m_maximum_capacity;
+	int m_maximum_capacity = 0;
 	
 	// 建物の効果
 	map<RateID::Type, EffectStruct> m_effects;

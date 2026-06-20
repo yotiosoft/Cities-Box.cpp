@@ -840,35 +840,35 @@ impl RustCityMap {
         self.addon_set_name = data.addon_set;
         self.city_name = data.city_name;
         self.mayor_name = data.mayor_name;
-        self.population = data.total_population;
+        self.simulation.population = data.total_population;
         self.change_weather = data.change_weather;
-        self.temperature = data.temperature;
+        self.simulation.temperature = data.temperature;
         self.dark_on_night = data.dark_on_night;
         self.map_size = [data.map_size.width, data.map_size.height];
-        self.time = ffi::TimeStruct {
+        self.simulation.time = ffi::TimeStruct {
             year: data.time.year,
             month: data.time.month,
             date: data.time.date,
             hour: data.time.hour,
             minutes: data.time.minutes,
         };
-        self.demand = ffi::RCOIFstruct {
+        self.simulation.demand = ffi::RCOIFstruct {
             residential: data.demand.residential,
             commercial: data.demand.commercial,
             office: data.demand.office,
             industrial: data.demand.industrial,
             farm: data.demand.farm,
         };
-        self.money = data.money;
-        self.budget_police = data.budget.police;
-        self.budget_fire = data.budget.fire_depertment;
-        self.budget_post = data.budget.post_office;
-        self.budget_education = data.budget.education;
-        self.tax_residential = data.tax.residential;
-        self.tax_commercial = data.tax.commercial;
-        self.tax_office = data.tax.office;
-        self.tax_industrial = data.tax.industrial;
-        self.tax_farm = data.tax.farm;
+        self.simulation.money = data.money;
+        self.simulation.budget_police = data.budget.police;
+        self.simulation.budget_fire = data.budget.fire_depertment;
+        self.simulation.budget_post = data.budget.post_office;
+        self.simulation.budget_education = data.budget.education;
+        self.simulation.tax_residential = data.tax.residential;
+        self.simulation.tax_commercial = data.tax.commercial;
+        self.simulation.tax_office = data.tax.office;
+        self.simulation.tax_industrial = data.tax.industrial;
+        self.simulation.tax_farm = data.tax.farm;
 
         self.objects = data
             .objects

@@ -48,6 +48,9 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 	m_addon_summary = addonData[U"summary"].getString();
 	
 	m_addon_icon = addonData[U"icon"].getString();
+	if (addonData[U"maximum_capacity"].getType() == JSONValueType::Number) {
+		m_maximum_capacity = addonData[U"maximum_capacity"].get<int>();
+	}
 	
 	// アイコンを読み込み
 	Image iconImage(Unicode::Widen(m_addon_file_path.folder_path)+U"/"+m_addon_icon);

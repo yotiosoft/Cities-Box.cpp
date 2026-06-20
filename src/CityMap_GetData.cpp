@@ -7,6 +7,56 @@
 
 #include "CityMap.hpp"
 
+SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
+	rust::Vec<rust::citymap::ResidentialTileState> residentialTiles;
+
+	// 日付をまたぐ場合だけ、C++が所有する最新の住宅状態を値として渡す。
+	if (m_rust_core->will_run_daily_update(minutesDelta)) {
+		for (int y = 0; y < m_map_size.y; ++y) {
+			for (int x = 0; x < m_map_size.x; ++x) {
+				Tile& tile = m_tiles[y][x];
+				Object* residentialObject = tile.hasCategory(CategoryID::Residential);
+				if (residentialObject == nullptr || residentialObject->getAddonP() == nullptr) {
+					continue;
+				}
+
+				rust::citymap::ResidentialTileState state;
+				state.x = x;
+				state.y = y;
+				state.residents = tile.residents;
+				state.maximum_capacity = residentialObject->getAddonP()->getMaximumCapacity();
+				for (const int age : tile.age) {
+					state.ages.push_back(age);
+				}
+				for (const String& gender : tile.gender) {
+					state.genders.push_back(gender.toUTF8());
+				}
+				residentialTiles.push_back(std::move(state));
+			}
+		}
+	}
+
+	auto update = m_rust_core->update_world(minutesDelta, std::move(residentialTiles));
+	for (const auto& state : update.residential_tiles) {
+		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {
+			continue;
+		}
+
+		Tile& tile = m_tiles[state.y][state.x];
+		tile.residents = state.residents;
+		tile.age.clear();
+		tile.gender.clear();
+		for (const int age : state.ages) {
+			tile.age << age;
+		}
+		for (const auto& gender : state.genders) {
+			tile.gender << Unicode::FromUTF8(std::string(gender.data(), gender.size()));
+		}
+	}
+
+	return update.snapshot;
+}
+
 Array<CBAddon> CityMap::getAddon(CoordinateStruct coordinate) {
 	Array<CBAddon> retAddons;
 

@@ -14,7 +14,7 @@
     "low_density"
   ],
   "effects": {},
-  "maximum_capacity": 115,
+  "maximum_capacity": 8,
   "Types": [
     {
       "type_name": "Normal",

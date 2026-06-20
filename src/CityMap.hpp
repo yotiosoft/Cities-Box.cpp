@@ -79,32 +79,18 @@ public:
 	// メモリ解放
 	void freeMapAndAddons();
 	
-	// 人口の取得 : Rust 側の実装
-	int getPopulation() { 
-		return m_rust_core->get_population(); 
-	}
-
-	// 資金の取得 : Rust 側の実装
-	int getMoney() { 
-		return m_rust_core->get_money(); 
-	}
-	
-	// 時間を進ませて取得 : Rust 側の実装
-	TimeStruct updateWorld(int minutesDelta) {
-		return m_rust_core->update_world(minutesDelta);
+	// Rust側の都市状態を更新し、表示に必要な値を一括で取得する
+	SimulationSnapshot updateWorld(int minutesDelta);
+	SimulationSnapshot getSimulationSnapshot() {
+		return m_rust_core->simulation_snapshot();
 	}
 	TimeStruct getCityTime() {
-		return m_rust_core->city_time(0);
+		return getSimulationSnapshot().time;
 	}
 
-	// 気温の取得 : Rust 側の実装
-	int getTemperature() {
-		return m_rust_core->get_temperature();
-	}
-
-	// 需要度の取得 : Rust 側の実装
+	// メニュー向け互換ラッパー。状態の所有・計算はRust側に限定する。
 	RCOIFstruct getDemand() {
-		return m_rust_core->get_demand();
+		return getSimulationSnapshot().demand;
 	}
 	
 private:
@@ -179,9 +165,6 @@ private:
 	bool m_dark_on_night;
 	
 	Size m_map_size;
-	
-	BudgetStruct m_budget;
-	RCOIFstruct m_tax;
 	
 	Array<Array<Tile>> m_tiles;
 	

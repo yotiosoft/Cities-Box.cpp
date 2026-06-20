@@ -81,8 +81,9 @@ void CitiesBox() {
 	CoordinateStruct beforeMousePressedCoordinate = {0, 0};
 	bool pressing = false;
 	
-	// 時間
-	TimeStruct time{0, 0, 0, 0, 0};
+	// Rust側の都市状態（表示用スナップショット）
+	SimulationSnapshot simulation = map.getSimulationSnapshot();
+	TimeStruct time = simulation.time;
 	
 	// Details Barの設定
 	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
@@ -179,14 +180,15 @@ void CitiesBox() {
 		
 		// 時間を進ませる
 		// 日付が変わる時、需要度も更新する
-		time = map.updateWorld(1);
+		simulation = map.updateWorld(1);
+		time = simulation.time;
 		
 		// Details Barの表示
 		detailsBar.printWeather(Weather::Sunny);
-		detailsBar.printTemperature(map.getTemperature());
+		detailsBar.printTemperature(simulation.temperature);
 		detailsBar.printTime(time);
-		detailsBar.printPopulation(map.getPopulation());
-		detailsBar.printMoney(map.getMoney());
+		detailsBar.printPopulation(simulation.population);
+		detailsBar.printMoney(simulation.money);
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す

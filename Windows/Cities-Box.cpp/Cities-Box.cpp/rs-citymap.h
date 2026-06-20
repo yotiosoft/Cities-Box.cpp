@@ -917,6 +917,9 @@ namespace rust {
     struct RawTileData;
     struct TimeStruct;
     struct RCOIFstruct;
+    struct SimulationSnapshot;
+    struct ResidentialTileState;
+    struct SimulationUpdate;
     struct LoadedObjectData;
     struct LoadedTileObjectData;
     struct LoadedRateData;
@@ -972,6 +975,52 @@ struct RCOIFstruct final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationSnapshot
+#define CXXBRIDGE1_STRUCT_rust$citymap$SimulationSnapshot
+struct SimulationSnapshot final {
+  ::rust::citymap::TimeStruct time;
+  ::std::int32_t population CXX_DEFAULT_VALUE(0);
+  ::std::int32_t money CXX_DEFAULT_VALUE(0);
+  ::std::int32_t temperature CXX_DEFAULT_VALUE(0);
+  ::rust::citymap::RCOIFstruct demand;
+  ::std::int32_t budget_police CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_fire CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_post CXX_DEFAULT_VALUE(0);
+  ::std::int32_t budget_education CXX_DEFAULT_VALUE(0);
+  double tax_residential CXX_DEFAULT_VALUE(0);
+  double tax_commercial CXX_DEFAULT_VALUE(0);
+  double tax_office CXX_DEFAULT_VALUE(0);
+  double tax_industrial CXX_DEFAULT_VALUE(0);
+  double tax_farm CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$SimulationSnapshot
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
+#define CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
+struct ResidentialTileState final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t residents CXX_DEFAULT_VALUE(0);
+  ::std::int32_t maximum_capacity CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::std::int32_t> ages;
+  ::rust::Vec<::rust::String> genders;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationUpdate
+#define CXXBRIDGE1_STRUCT_rust$citymap$SimulationUpdate
+struct SimulationUpdate final {
+  ::rust::citymap::SimulationSnapshot snapshot;
+  ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$SimulationUpdate
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedObjectData
 #define CXXBRIDGE1_STRUCT_rust$citymap$LoadedObjectData
@@ -1101,7 +1150,6 @@ struct LoadCityResult final {
 struct RustCityMap final : public ::rust::Opaque {
   ::rust::citymap::LoadCityResult load_city_map(::rust::String path) noexcept;
   bool commit_loaded_city_map() noexcept;
-  void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   void init_map_size(::std::int32_t width, ::std::int32_t height) noexcept;
   void clear_objects() noexcept;
   void add_object(::std::int32_t id, ::rust::String addon_en, ::rust::String orig_name, ::rust::String type_id, ::rust::String dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept;
@@ -1112,18 +1160,12 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept;
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
-  ::std::int32_t get_population() const noexcept;
-  ::std::int32_t get_money() const noexcept;
-  ::std::int32_t get_temperature() const noexcept;
-  ::rust::citymap::RCOIFstruct get_demand() const noexcept;
-  ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
-  ::rust::citymap::TimeStruct update_world(::std::int32_t minutes_delta) noexcept;
+  ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
+  bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void set_city_metadata(::rust::String city_name, ::rust::String mayor_name, ::rust::String addon_set) noexcept;
-  void set_financial_data(::std::int32_t money, ::std::int32_t population) noexcept;
-  void set_budget(::std::int32_t police, ::std::int32_t fire, ::std::int32_t post, ::std::int32_t edu) noexcept;
-  void set_tax(double r, double c, double o, double i, double f) noexcept;
-  void set_environment(::std::int32_t year, ::std::int32_t month, ::std::int32_t date, ::std::int32_t hour, ::std::int32_t min, bool weather, bool night) noexcept;
+  void set_display_settings(bool weather, bool night) noexcept;
   ::rust::String generate_save_json() const noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;

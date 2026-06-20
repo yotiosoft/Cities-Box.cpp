@@ -104,6 +104,9 @@ using TimeStruct = rust::citymap::TimeStruct;
 // RCOIFメータの値を格納
 using RCOIFstruct = rust::citymap::RCOIFstruct;
 
+// Rust側が所有する都市シミュレーション状態の読み取り用スナップショット
+using SimulationSnapshot = rust::citymap::SimulationSnapshot;
+
 // 労働者情報
 typedef struct WorkersStruct {
 	int commercial;

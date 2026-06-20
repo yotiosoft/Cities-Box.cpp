@@ -19,7 +19,7 @@
       "grid": 3
     }
   },
-  "maximum_capacity": 116,
+  "maximum_capacity": 100,
   "Types": [
     {
       "type_name": "Normal",

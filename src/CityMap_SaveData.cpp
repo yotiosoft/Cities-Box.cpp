@@ -153,13 +153,16 @@ bool CityMap::save() {
 }
 
 void CityMap::freeMapAndAddons() {
+	for (auto i = m_objects.begin(); i != m_objects.end() ; i++) {
+		delete(i->second);
+	}
+
 	for (auto i = m_addons.begin(); i != m_addons.end() ; i++) {
 		delete(i->second);
 	}
 	
-	for (auto i = m_objects.begin(); i != m_objects.end() ; i++) {
-		delete(i->second);
-	}
-	
 	Array<Array<Tile>>().swap(m_tiles);
+	m_objects.clear();
+	m_common_objects.clear();
+	m_addons.clear();
 }

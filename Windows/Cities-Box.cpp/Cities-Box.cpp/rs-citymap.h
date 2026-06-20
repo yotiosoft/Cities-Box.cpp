@@ -917,6 +917,12 @@ namespace rust {
     struct RawTileData;
     struct TimeStruct;
     struct RCOIFstruct;
+    struct LoadedObjectData;
+    struct LoadedTileObjectData;
+    struct LoadedRateData;
+    struct LoadedWorkPlaceData;
+    struct LoadedSchoolData;
+    struct LoadedTileData;
     struct RustCityMap;
   }
 }
@@ -965,9 +971,109 @@ struct RCOIFstruct final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RCOIFstruct
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedObjectData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedObjectData
+struct LoadedObjectData final {
+  ::std::int32_t id CXX_DEFAULT_VALUE(0);
+  ::rust::String addon_name;
+  ::rust::String original_name;
+  ::rust::String type_name;
+  ::rust::String direction_name;
+  ::std::int32_t origin_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t origin_y CXX_DEFAULT_VALUE(0);
+  bool visible CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedObjectData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileObjectData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileObjectData
+struct LoadedTileObjectData final {
+  ::std::int32_t object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t relative_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t relative_y CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileObjectData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedRateData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedRateData
+struct LoadedRateData final {
+  ::rust::String name;
+  ::std::int32_t value CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedRateData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedWorkPlaceData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedWorkPlaceData
+struct LoadedWorkPlaceData final {
+  ::std::int32_t kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t serial_number CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedWorkPlaceData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedSchoolData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedSchoolData
+struct LoadedSchoolData final {
+  ::std::int32_t kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t serial_number CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedSchoolData
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileData
+#define CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileData
+struct LoadedTileData final {
+  ::std::int32_t residents CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers_commercial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers_office CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers_industrial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers_farm CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers_public CXX_DEFAULT_VALUE(0);
+  ::std::int32_t students CXX_DEFAULT_VALUE(0);
+  ::std::int32_t reservation CXX_DEFAULT_VALUE(0);
+  ::rust::String original_name;
+  ::rust::Vec<::std::int32_t> ages;
+  ::rust::Vec<::rust::String> genders;
+  ::rust::Vec<::rust::citymap::LoadedTileObjectData> objects;
+  ::rust::Vec<::rust::citymap::LoadedRateData> rates;
+  ::rust::Vec<::rust::citymap::LoadedWorkPlaceData> work_places;
+  ::rust::Vec<::rust::citymap::LoadedSchoolData> schools;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadedTileData
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
+  bool load_from_file(::rust::String path) noexcept;
+  ::rust::String get_last_load_error() const noexcept;
+  ::rust::String get_city_name() const noexcept;
+  ::rust::String get_mayor_name() const noexcept;
+  ::rust::String get_addon_set_name() const noexcept;
+  bool get_change_weather() const noexcept;
+  bool get_dark_on_night() const noexcept;
+  ::std::int32_t get_map_width() const noexcept;
+  ::std::int32_t get_map_height() const noexcept;
+  ::std::int32_t get_budget_police() const noexcept;
+  ::std::int32_t get_budget_fire() const noexcept;
+  ::std::int32_t get_budget_post() const noexcept;
+  ::std::int32_t get_budget_education() const noexcept;
+  double get_tax_residential() const noexcept;
+  double get_tax_commercial() const noexcept;
+  double get_tax_office() const noexcept;
+  double get_tax_industrial() const noexcept;
+  double get_tax_farm() const noexcept;
+  ::rust::Vec<::rust::citymap::LoadedObjectData> get_loaded_objects() const noexcept;
+  ::rust::Vec<::rust::citymap::LoadedTileData> get_loaded_tiles() const noexcept;
   void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   void init_map_size(::std::int32_t width, ::std::int32_t height) noexcept;
   void clear_objects() noexcept;

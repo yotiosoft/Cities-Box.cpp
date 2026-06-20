@@ -47,7 +47,10 @@ void CitiesBox() {
 	
 	// マップとアドオンの読み込み
 	CityMap map;
-	map.load(mapFilePath);
+	if (!map.load(mapFilePath)) {
+		System::MessageBoxOK(U"マップの読み込みに失敗しました。\n\n{}"_fmt(map.getLastLoadError()));
+		return;
+	}
 	
 	// カメラの初期位置
 	CameraStruct camera;

@@ -18,7 +18,9 @@ Windows/Cities-Box.cpp/.vs/*
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v16/
 Windows/Cities-Box.cpp/.vs/Cities-Box.cpp/v17/
 Windows/Cities-Box.cpp/Intermediate
+Windows/Cities-Box.cpp/Cities-Box.cpp/Intermediate/
 /Windows_old
+/skills/cities-box-project-context/
 
 # Xcode
 #
@@ -46,3 +48,27 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+## Rust projects
+rust-lib/*/*/release/build
+rust-lib/*/*/release/deps
+rust-lib/*/*/release/examples
+rust-lib/*/*/release/incremental
+rust-lib/*/release/
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/release/build
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/release/deps
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/release/examples
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/release/incremental
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/release/.fingerprint
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/debug/build
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/debug/deps
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/debug/examples
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/debug/incremental
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/x86_64-pc-windows-msvc/debug/.fingerprint
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/release/
+Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/debug/
+src/citiesbox-rs/Windows/
+src/citiesbox-rs/target/
+# Map files
+*.bak
+

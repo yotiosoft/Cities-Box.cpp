@@ -27,7 +27,8 @@ public:
 	{}
 
 	// マップの読み込み
-	void load(String loadMapFilePath);
+	bool load(String loadMapFilePath);
+	const String& getLastLoadError() const { return m_last_load_error; }
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
@@ -115,7 +116,7 @@ private:
     bool m_is_there_crossable_object(CBAddon *addon, CoordinateStruct coordinate);
     
     // マップの読み込み
-    void m_load_CBJ(String loadMapFilePath);
+    bool m_load_CBJ(String loadMapFilePath);
     
     // アドオンの読み込み
     void m_load_addons(String addonSetName);
@@ -202,6 +203,7 @@ private:
 	pair<CoordinateStruct, CoordinateStruct> m_range;
 	
 	String m_map_file_path;
+	String m_last_load_error;
 	
 	RateID::Type m_show_rate = RateID::None;
 };

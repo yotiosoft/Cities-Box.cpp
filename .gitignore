@@ -69,3 +69,6 @@ Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/release/
 Windows/Cities-Box.cpp/Cities-Box.cpp/citiesbox-rs/debug/
 src/citiesbox-rs/Windows/
 src/citiesbox-rs/target/
+# Map files
+*.bak
+Windows/Cities-Box.cpp/Cities-Box.cpp/App/data/

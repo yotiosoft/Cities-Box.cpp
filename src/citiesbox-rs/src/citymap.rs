@@ -1,5 +1,99 @@
 use serde::{ Serialize, Deserialize };
 use std::collections::HashMap;
+use std::fs::{self, OpenOptions};
+use std::io::{self, Write};
+use std::path::{Path, PathBuf};
+
+fn sidecar_path(path: &Path, suffix: &str) -> PathBuf {
+    let mut value = path.as_os_str().to_os_string();
+    value.push(suffix);
+    PathBuf::from(value)
+}
+
+fn write_and_sync(path: &Path, contents: &[u8]) -> io::Result<()> {
+    let mut file = OpenOptions::new().write(true).create_new(true).open(path)?;
+    file.write_all(contents)?;
+    file.sync_all()
+}
+
+fn io_context(context: &str, error: io::Error) -> io::Error {
+    io::Error::new(error.kind(), format!("{context}: {error}"))
+}
+
+#[cfg(windows)]
+fn replace_path_atomically(replacement: &Path, target: &Path) -> io::Result<()> {
+    use std::iter;
+    use std::os::windows::ffi::OsStrExt;
+
+    #[link(name = "Kernel32")]
+    unsafe extern "system" {
+        fn MoveFileExW(existing_file_name: *const u16, new_file_name: *const u16, flags: u32) -> i32;
+    }
+
+    fn wide(path: &Path) -> Vec<u16> {
+        path.as_os_str().encode_wide().chain(iter::once(0)).collect()
+    }
+
+    const MOVEFILE_REPLACE_EXISTING: u32 = 0x0000_0001;
+    const MOVEFILE_WRITE_THROUGH: u32 = 0x0000_0008;
+
+    let replacement_wide = wide(replacement);
+    let target_wide = wide(target);
+    let succeeded = unsafe {
+        MoveFileExW(
+            replacement_wide.as_ptr(),
+            target_wide.as_ptr(),
+            MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH,
+        )
+    };
+
+    if succeeded == 0 {
+        Err(io::Error::last_os_error())
+    } else {
+        Ok(())
+    }
+}
+
+#[cfg(not(windows))]
+fn replace_path_atomically(replacement: &Path, target: &Path) -> io::Result<()> {
+    fs::rename(replacement, target)
+}
+
+fn replace_file_atomically(target: &Path, replacement: &Path, backup: &Path) -> io::Result<()> {
+    if target.exists() {
+        let backup_temp = sidecar_path(backup, &format!(".tmp.{}", std::process::id()));
+        let backup_result = (|| {
+            fs::copy(target, &backup_temp).map_err(|error| io_context("copy backup", error))?;
+            OpenOptions::new()
+                .read(true)
+                .write(true)
+                .open(&backup_temp)
+                .and_then(|file| file.sync_all())
+                .map_err(|error| io_context("sync backup", error))?;
+            replace_path_atomically(&backup_temp, backup)
+                .map_err(|error| io_context("replace backup", error))
+        })();
+        if backup_result.is_err() {
+            let _ = fs::remove_file(&backup_temp);
+        }
+        backup_result?;
+    }
+    replace_path_atomically(replacement, target).map_err(|error| io_context("replace save", error))
+}
+
+fn atomic_write_with_backup(path: &Path, contents: &[u8]) -> io::Result<()> {
+    let temp = sidecar_path(path, &format!(".tmp.{}", std::process::id()));
+    let backup = sidecar_path(path, ".bak");
+    let result = (|| {
+        write_and_sync(&temp, contents)?;
+        replace_file_atomically(path, &temp, &backup)
+    })();
+
+    if result.is_err() {
+        let _ = fs::remove_file(&temp);
+    }
+    result
+}
 
 #[repr(C)] // C++とメモリレイアウトを完全に一致させる
 pub struct RawTileData {
@@ -480,8 +574,17 @@ impl RustCityMap {
 
     pub fn save_to_file(&self, path: String) -> bool {
         let json_str = self.generate_save_json();
+        if json_str.is_empty() || json_str == "{}" {
+            return false;
+        }
         let encrypted = self.apply_xor_encryption(json_str, "citiesboxmapdatafilexor");
-        std::fs::write(path, encrypted).is_ok()
+        match atomic_write_with_backup(Path::new(&path), &encrypted) {
+            Ok(()) => true,
+            Err(error) => {
+                eprintln!("Failed to save map to {path}: {error}");
+                false
+            }
+        }
     }
 
     fn apply_xor_encryption(&self, input: String, key: &str) -> Vec<u8> {
@@ -815,6 +918,7 @@ fn new_city_map() -> Box<RustCityMap> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::{SystemTime, UNIX_EPOCH};
 
     #[test]
     fn save_json_uses_the_cpp_loader_compatible_schema() {
@@ -849,5 +953,38 @@ mod tests {
         assert_eq!(saved.map[0][0].gender, ["male", "female"]);
         assert_eq!(saved.map[0][0].work_places.len(), 1);
         assert_eq!(saved.map[0][0].school.len(), 1);
+    }
+
+    #[test]
+    fn atomic_save_keeps_the_previous_file_as_backup() {
+        let unique = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos();
+        let path = std::env::temp_dir().join(format!(
+            "citiesbox-save-test-{}-{unique}.cbj",
+            std::process::id()
+        ));
+        let backup = sidecar_path(&path, ".bak");
+        let temp = sidecar_path(&path, &format!(".tmp.{}", std::process::id()));
+        let path_string = path.to_string_lossy().into_owned();
+
+        let mut city = new_city_map();
+        city.set_city_metadata("First".to_string(), "Mayor".to_string(), "Normal".to_string());
+        assert!(city.save_to_file(path_string.clone()));
+        let first_save = fs::read(&path).unwrap();
+
+        city.set_city_metadata("Second".to_string(), "Mayor".to_string(), "Normal".to_string());
+        assert!(city.save_to_file(path_string));
+
+        assert_eq!(fs::read(&backup).unwrap(), first_save);
+        assert_ne!(fs::read(&path).unwrap(), first_save);
+
+        let second_save = fs::read(&path).unwrap();
+        city.set_city_metadata("Third".to_string(), "Mayor".to_string(), "Normal".to_string());
+        assert!(city.save_to_file(path.to_string_lossy().into_owned()));
+        assert_eq!(fs::read(&backup).unwrap(), second_save);
+        assert_ne!(fs::read(&path).unwrap(), second_save);
+        assert!(!temp.exists());
+
+        let _ = fs::remove_file(path);
+        let _ = fs::remove_file(backup);
     }
 }

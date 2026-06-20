@@ -8,6 +8,8 @@
 #include "CityMap.hpp"
 
 void CityMap::syncToRust() {
+    m_rust_core->set_save_version(RELEASE_NUMBER);
+
     // 基本メタデータの同期
     m_rust_core->set_city_metadata(
         m_city_name.toUTF8(),
@@ -21,6 +23,14 @@ void CityMap::syncToRust() {
         m_budget.fireDepertment,
         m_budget.postOffice,
         m_budget.education
+    );
+
+    m_rust_core->set_tax(
+        m_tax.residential,
+        m_tax.commercial,
+        m_tax.office,
+        m_tax.industrial,
+        m_tax.farm
     );
 
     // 環境設定の同期
@@ -70,8 +80,8 @@ bool CityMap::save() {
             id,
             object->getAddonName(NameMode::English).toUTF8(),
             object->getOriginalName().toUTF8(),
-            (int)object->getTypeID(),
-            (int)object->getDirectionID(),
+            UnitaryTools::typeIDToTypeName(object->getTypeID()).toUTF8(),
+            UnitaryTools::directionIDToDirectionName(object->getDirectionID()).toUTF8(),
             object->getOriginCoordinate().x,
             object->getOriginCoordinate().y,
             object->getVisible()
@@ -86,15 +96,32 @@ bool CityMap::save() {
             // 地名の同期
             m_rust_core->set_tile_basic(x, y, t.residents, t.students, t.reservation, t.getOriginalName().toUTF8());
 
-            // 統計の同期 (ParseOr を使用して String から int32_t へ)
-            rust::Vec<int32_t> rustAges, rustGenders;
+            // 統計の同期
+            rust::Vec<int32_t> rustAges;
+            rust::Vec<rust::String> rustGenders;
             for (const auto& a : t.age) {
-                rustAges.push_back(ParseOr<int32_t>(s3d::Format(a), 0));
+                rustAges.push_back(static_cast<int32_t>(a));
             }
             for (const auto& g : t.gender) {
-                rustGenders.push_back(ParseOr<int32_t>(s3d::Format(g), 0));
+                rustGenders.push_back(g.toUTF8());
             }
             m_rust_core->set_tile_stats(x, y, std::move(rustAges), std::move(rustGenders));
+
+            for (const auto& work_place : t.workPlaces) {
+                m_rust_core->add_tile_work_place(
+                    x, y,
+                    static_cast<int32_t>(work_place.workPlace),
+                    work_place.workPlacesSerialNumber
+                );
+            }
+
+            for (const auto& school : t.schools) {
+                m_rust_core->add_tile_school(
+                    x, y,
+                    static_cast<int32_t>(school.school),
+                    school.schoolSerialNumber
+                );
+            }
 
             // レートの同期
             for (auto const& [id, value] : t.rate) {

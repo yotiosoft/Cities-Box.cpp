@@ -1000,18 +1000,21 @@ struct RustCityMap final : public ::rust::Opaque {
   void set_status(::std::int32_t pop, ::std::int32_t money, ::std::int32_t temp, ::rust::citymap::TimeStruct time, ::rust::citymap::RCOIFstruct demand) noexcept;
   void init_map_size(::std::int32_t width, ::std::int32_t height) noexcept;
   void clear_objects() noexcept;
-  void add_object(::std::int32_t id, ::rust::String addon_en, ::rust::String orig_name, ::std::int32_t type_id, ::std::int32_t dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept;
+  void add_object(::std::int32_t id, ::rust::String addon_en, ::rust::String orig_name, ::rust::String type_id, ::rust::String dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept;
   void set_tile_basic(::std::int32_t x, ::std::int32_t y, ::std::int32_t residents, ::std::int32_t students, ::std::int32_t reservation, ::rust::String orig_name) noexcept;
   void set_tile_workers(::std::int32_t x, ::std::int32_t y, ::std::int32_t comm, ::std::int32_t offi, ::std::int32_t indu, ::std::int32_t farm, ::std::int32_t publ) noexcept;
   void add_tile_object_ref(::std::int32_t x, ::std::int32_t y, ::std::int32_t obj_id, ::std::int32_t rel_x, ::std::int32_t rel_y, bool visible) noexcept;
-  void set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::std::int32_t> genders) noexcept;
+  void set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::rust::String> genders) noexcept;
   void add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept;
+  void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
+  void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::std::int32_t get_population() const noexcept;
   ::std::int32_t get_money() const noexcept;
   ::std::int32_t get_temperature() const noexcept;
   ::rust::citymap::RCOIFstruct get_demand() const noexcept;
   ::rust::citymap::TimeStruct city_time(::std::int32_t minutes_delta) noexcept;
   ::rust::citymap::TimeStruct update_world(::std::int32_t minutes_delta) noexcept;
+  void set_save_version(::std::int32_t version) noexcept;
   void set_city_metadata(::rust::String city_name, ::rust::String mayor_name, ::rust::String addon_set) noexcept;
   void set_financial_data(::std::int32_t money, ::std::int32_t population) noexcept;
   void set_budget(::std::int32_t police, ::std::int32_t fire, ::std::int32_t post, ::std::int32_t edu) noexcept;
@@ -1043,7 +1046,7 @@ void rust$citymap$cxxbridge1$192$RustCityMap$init_map_size(::rust::citymap::Rust
 
 void rust$citymap$cxxbridge1$192$RustCityMap$clear_objects(::rust::citymap::RustCityMap &self) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$add_object(::rust::citymap::RustCityMap &self, ::std::int32_t id, ::rust::String *addon_en, ::rust::String *orig_name, ::std::int32_t type_id, ::std::int32_t dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$add_object(::rust::citymap::RustCityMap &self, ::std::int32_t id, ::rust::String *addon_en, ::rust::String *orig_name, ::rust::String *type_id, ::rust::String *dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$set_tile_basic(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t residents, ::std::int32_t students, ::std::int32_t reservation, ::rust::String *orig_name) noexcept;
 
@@ -1051,9 +1054,13 @@ void rust$citymap$cxxbridge1$192$RustCityMap$set_tile_workers(::rust::citymap::R
 
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_object_ref(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t obj_id, ::std::int32_t rel_x, ::std::int32_t rel_y, bool visible) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$set_tile_stats(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> *ages, ::rust::Vec<::std::int32_t> *genders) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$set_tile_stats(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> *ages, ::rust::Vec<::rust::String> *genders) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_rate(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::rust::String *key, ::std::int32_t value) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_work_place(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_school(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
 
 ::std::int32_t rust$citymap$cxxbridge1$192$RustCityMap$get_population(::rust::citymap::RustCityMap const &self) noexcept;
 
@@ -1066,6 +1073,8 @@ void rust$citymap$cxxbridge1$192$RustCityMap$get_demand(::rust::citymap::RustCit
 void rust$citymap$cxxbridge1$192$RustCityMap$city_time(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::citymap::TimeStruct *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_save_version(::rust::citymap::RustCityMap &self, ::std::int32_t version) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$set_city_metadata(::rust::citymap::RustCityMap &self, ::rust::String *city_name, ::rust::String *mayor_name, ::rust::String *addon_set) noexcept;
 
@@ -1110,8 +1119,8 @@ void RustCityMap::clear_objects() noexcept {
   rust$citymap$cxxbridge1$192$RustCityMap$clear_objects(*this);
 }
 
-void RustCityMap::add_object(::std::int32_t id, ::rust::String addon_en, ::rust::String orig_name, ::std::int32_t type_id, ::std::int32_t dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept {
-  rust$citymap$cxxbridge1$192$RustCityMap$add_object(*this, id, &addon_en, &orig_name, type_id, dir_id, x, y, visible);
+void RustCityMap::add_object(::std::int32_t id, ::rust::String addon_en, ::rust::String orig_name, ::rust::String type_id, ::rust::String dir_id, ::std::int32_t x, ::std::int32_t y, bool visible) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$add_object(*this, id, &addon_en, &orig_name, &type_id, &dir_id, x, y, visible);
 }
 
 void RustCityMap::set_tile_basic(::std::int32_t x, ::std::int32_t y, ::std::int32_t residents, ::std::int32_t students, ::std::int32_t reservation, ::rust::String orig_name) noexcept {
@@ -1126,14 +1135,22 @@ void RustCityMap::add_tile_object_ref(::std::int32_t x, ::std::int32_t y, ::std:
   rust$citymap$cxxbridge1$192$RustCityMap$add_tile_object_ref(*this, x, y, obj_id, rel_x, rel_y, visible);
 }
 
-void RustCityMap::set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::std::int32_t> genders) noexcept {
+void RustCityMap::set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::rust::String> genders) noexcept {
   ::rust::ManuallyDrop<::rust::Vec<::std::int32_t>> ages$(::std::move(ages));
-  ::rust::ManuallyDrop<::rust::Vec<::std::int32_t>> genders$(::std::move(genders));
+  ::rust::ManuallyDrop<::rust::Vec<::rust::String>> genders$(::std::move(genders));
   rust$citymap$cxxbridge1$192$RustCityMap$set_tile_stats(*this, x, y, &ages$.value, &genders$.value);
 }
 
 void RustCityMap::add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept {
   rust$citymap$cxxbridge1$192$RustCityMap$add_tile_rate(*this, x, y, &key, value);
+}
+
+void RustCityMap::add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$add_tile_work_place(*this, x, y, kind, serial_number);
+}
+
+void RustCityMap::add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$add_tile_school(*this, x, y, kind, serial_number);
 }
 
 ::std::int32_t RustCityMap::get_population() const noexcept {
@@ -1164,6 +1181,10 @@ void RustCityMap::add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::Stri
   ::rust::MaybeUninit<::rust::citymap::TimeStruct> return$;
   rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &return$.value);
   return ::std::move(return$.value);
+}
+
+void RustCityMap::set_save_version(::std::int32_t version) noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$set_save_version(*this, version);
 }
 
 void RustCityMap::set_city_metadata(::rust::String city_name, ::rust::String mayor_name, ::rust::String addon_set) noexcept {

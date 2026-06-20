@@ -63,8 +63,8 @@ mod ffi {
             id: i32, 
             addon_en: String, 
             orig_name: String, 
-            type_id: i32, 
-            dir_id: i32, 
+            type_id: String,
+            dir_id: String,
             x: i32, 
             y: i32, 
             visible: bool
@@ -74,8 +74,10 @@ mod ffi {
         fn set_tile_basic(&mut self, x: i32, y: i32, residents: i32, students: i32, reservation: i32, orig_name: String);
         fn set_tile_workers(&mut self, x: i32, y: i32, comm: i32, offi: i32, indu: i32, farm: i32, publ: i32);
         fn add_tile_object_ref(&mut self, x: i32, y: i32, obj_id: i32, rel_x: i32, rel_y: i32, visible: bool);
-        fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<i32>);
+        fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<String>);
         fn add_tile_rate(&mut self, x: i32, y: i32, key: String, value: i32);
+        fn add_tile_work_place(&mut self, x: i32, y: i32, kind: i32, serial_number: i32);
+        fn add_tile_school(&mut self, x: i32, y: i32, kind: i32, serial_number: i32);
 
         // ステータス取得
         fn get_population(&self) -> i32;
@@ -88,6 +90,7 @@ mod ffi {
         fn update_world(&mut self, minutes_delta: i32) -> TimeStruct;
 
         // 基本情報の同期用
+        fn set_save_version(&mut self, version: i32);
         fn set_city_metadata(&mut self, city_name: String, mayor_name: String, addon_set: String);
         fn set_financial_data(&mut self, money: i32, population: i32);
         
@@ -116,7 +119,7 @@ pub struct RustCityMap {
     time: ffi::TimeStruct,
 
     // 都市の基本情報
-    pub version: String,
+    pub version: i32,
     pub addon_set_name: String,
     pub city_name: String,
     pub mayor_name: String,
@@ -190,7 +193,7 @@ impl RustCityMap {
         }).collect();
     }
 
-    fn add_object(&mut self, id: i32, addon_en: String, orig_name: String, type_id: i32, dir_id: i32, x: i32, y: i32, visible: bool) {
+    fn add_object(&mut self, id: i32, addon_en: String, orig_name: String, type_id: String, dir_id: String, x: i32, y: i32, visible: bool) {
         self.objects.insert(id, RustObject {
             id,
             addon_name_en: addon_en,
@@ -246,10 +249,22 @@ impl RustCityMap {
 
     // タイルの統計データ（年齢・性別）を設定
     // cxxbridge を介して Vec<i32> を直接受け取る
-    fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<i32>) {
+    fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<String>) {
         if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
             tile.age = ages;
             tile.gender = genders;
+        }
+    }
+
+    fn add_tile_work_place(&mut self, x: i32, y: i32, kind: i32, serial_number: i32) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.work_places.push(RustWorkPlace { kind, serial_number });
+        }
+    }
+
+    fn add_tile_school(&mut self, x: i32, y: i32, kind: i32, serial_number: i32) {
+        if let Some(tile) = self.tiles.get_mut(y as usize).and_then(|row| row.get_mut(x as usize)) {
+            tile.schools.push(RustSchool { kind, serial_number });
         }
     }
 
@@ -292,6 +307,10 @@ impl RustCityMap {
     }
 
     // マップデータの設定・取得
+    fn set_save_version(&mut self, version: i32) {
+        self.version = version;
+    }
+
     fn set_city_metadata(&mut self, city_name: String, mayor_name: String, addon_set: String) {
         self.city_name = city_name;
         self.mayor_name = mayor_name;
@@ -337,12 +356,13 @@ impl RustCityMap {
                 object_id: *id,
                 addon_name: obj.get_addon_name_en(),
                 original_name: obj.get_original_name(),
-                type_id: obj.get_type_id_name(),      // UnitaryTools::typeIDToTypeName 相当
-                direction_id: obj.get_direction_name(), // UnitaryTools::directionIDToDirectionName 相当
+                type_id: obj.type_id.clone(),
+                direction_id: obj.direction_id.clone(),
                 origin_coordinate: CoordinateJson {
                     x: obj.origin_coordinate.x,
                     y: obj.origin_coordinate.y,
                 },
+                visible: obj.visible,
             })
             .collect();
 
@@ -410,7 +430,7 @@ impl RustCityMap {
 
         // 3. すべてを SaveDataJson に統合
         let save_data = SaveDataJson {
-            version: self.version.clone(),
+            version: self.version,
             addon_set: self.addon_set_name.clone(),
             city_name: self.city_name.clone(),
             mayor_name: self.mayor_name.clone(),
@@ -513,7 +533,7 @@ impl ffi::TimeStruct {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SaveDataJson {
     #[serde(rename = "Version")]
-    pub version: String,
+    pub version: i32,
     #[serde(rename = "Addon_Set")]
     pub addon_set: String,
     #[serde(rename = "City_Name")]
@@ -600,6 +620,7 @@ pub struct ObjectEntryJson {
     #[serde(rename = "directionID")]
     pub direction_id: String,
     pub origin_coordinate: CoordinateJson,
+    pub visible: bool,
 }
 
 // --- タイルデータ用 (m_tiles[y][x]) ---
@@ -612,7 +633,7 @@ pub struct TileJson {
     pub students: i32,
     pub rate: HashMap<String, i32>, // 存在する値のみ保存
     pub age: Vec<i32>,
-    pub gender: Vec<i32>,
+    pub gender: Vec<String>,
     pub work_places: Vec<WorkPlaceJson>,
     pub school: Vec<SchoolJson>,
     pub reservation: i32,
@@ -672,7 +693,7 @@ pub struct RustTile {
     
     // 配列データ
     pub age: Vec<i32>,
-    pub gender: Vec<i32>,
+    pub gender: Vec<String>,
     pub work_places: Vec<RustWorkPlace>,
     pub schools: Vec<RustSchool>,
     
@@ -696,8 +717,8 @@ pub struct RustObject {
     pub id: i32,
     pub addon_name_en: String,
     pub original_name: String,
-    pub type_id: i32,      // 内部数値
-    pub direction_id: i32, // 内部数値
+    pub type_id: String,
+    pub direction_id: String,
     pub origin_coordinate: CoordinateJson,
     pub visible: bool,
 }
@@ -713,30 +734,6 @@ impl RustObject {
         self.original_name.clone()
     }
 
-    // TypeID (数値) を C++ 側と互換性のある文字列に変換
-    pub fn get_type_id_name(&self) -> String {
-        // C++ の UnitaryTools::typeIDToTypeName の移植
-        match self.type_id {
-            0 => "Normal".to_string(),
-            1 => "Road".to_string(),
-            2 => "Rail".to_string(),
-            3 => "Bridge".to_string(),
-            // 必要に応じて C++ 側の定義に合わせて追加
-            _ => "Unknown".to_string(),
-        }
-    }
-
-    // DirectionID (数値) を C++ 側と互換性のある文字列に変換
-    pub fn get_direction_name(&self) -> String {
-        // C++ の UnitaryTools::directionIDToDirectionName の移植
-        match self.direction_id {
-            0 => "North".to_string(),
-            1 => "East".to_string(),
-            2 => "South".to_string(),
-            3 => "West".to_string(),
-            _ => "None".to_string(),
-        }
-    }
 }
 
 #[derive(Clone)]
@@ -763,7 +760,7 @@ pub struct RustSchool {
 fn new_city_map() -> Box<RustCityMap> {
     Box::new(RustCityMap {
         // --- 基本メタデータ ---
-        version: String::from("1.0.0"), // RELEASE_NUMBER 相当
+        version: 142,
         addon_set_name: String::new(),
         city_name: String::from("New City"),
         mayor_name: String::from("Mayor"),
@@ -813,4 +810,44 @@ fn new_city_map() -> Box<RustCityMap> {
         objects: HashMap::new(),
         tiles: Vec::new(),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn save_json_uses_the_cpp_loader_compatible_schema() {
+        let mut city = new_city_map();
+        city.set_save_version(142);
+        city.init_map_size(1, 1);
+        city.add_object(
+            7,
+            "road".to_string(),
+            "".to_string(),
+            "IntersectionT".to_string(),
+            "NorthSouthEast".to_string(),
+            0,
+            0,
+            false,
+        );
+        city.set_tile_stats(
+            0,
+            0,
+            vec![12, 34],
+            vec!["male".to_string(), "female".to_string()],
+        );
+        city.add_tile_work_place(0, 0, 2, 101);
+        city.add_tile_school(0, 0, 1, 202);
+
+        let saved: SaveDataJson = serde_json::from_str(&city.generate_save_json()).unwrap();
+
+        assert_eq!(saved.version, 142);
+        assert_eq!(saved.objects[0].type_id, "IntersectionT");
+        assert_eq!(saved.objects[0].direction_id, "NorthSouthEast");
+        assert!(!saved.objects[0].visible);
+        assert_eq!(saved.map[0][0].gender, ["male", "female"]);
+        assert_eq!(saved.map[0][0].work_places.len(), 1);
+        assert_eq!(saved.map[0][0].school.len(), 1);
+    }
 }

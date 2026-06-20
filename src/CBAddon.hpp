@@ -99,11 +99,6 @@ protected:
 	bool m_load_adat(FileStruct newFilePath, String loadingAddonsSetName);
 	bool m_load_adj(FileStruct newFilePath, String loadingAddonsSetName);
 	
-	// adatファイル読み込み関連
-	bool m_get_element(String str, String searchElementName, String& ret);
-	bool m_get_element(String str, String searchElementName, int& ret);
-	bool m_get_types(String str, String searchElementName, Array<String>& ret);
-    
     // 共通オブジェクトの生成
     
 	

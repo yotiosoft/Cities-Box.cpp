@@ -10,35 +10,6 @@
 CBAddon::CBAddon() {
 }
 
-bool CBAddon::m_get_element(String str, String searchElementName, String& ret) {
-	string strUTF8 = str.toUTF8();
-	
-	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
-		ret = str.substr(strUTF8.find("\"") + 1, str.length() - (strUTF8.find("\"") + 2));
-		return true;
-	}
-	return false;
-}
-
-bool CBAddon::m_get_element(String str, String searchElementName, int& ret) {
-	string strUTF8 = str.toUTF8();
-	
-	if (strUTF8.find(searchElementName.toUTF8()) != string::npos && strUTF8.find("=") != string::npos) {
-		ret = stoi(strUTF8.substr(strUTF8.find("\"") + 1, str.length() - (strUTF8.find("\"") + 2)));
-		return true;
-	}
-	return false;
-}
-
-bool CBAddon::m_get_types(String str, String searchElementName, Array<String>& ret) {
-	String aRet;
-	if (m_get_element(str, searchElementName, aRet)) {
-		ret = UnitaryTools::split(aRet, U", ");
-		return true;
-	}
-	return false;
-}
-
 bool CBAddon::load(FileStruct newFilePath, String loadingAddonsSetName) {
 	if (FileSystem::Extension(Unicode::Widen(newFilePath.file_path)) == U"adat") {
 		//return m_load_adat(newFilePath, loadingAddonsSetName);

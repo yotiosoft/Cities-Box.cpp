@@ -79,55 +79,6 @@ CategoryID::Type CityMap::m_get_connectable_CategoryID_explicitly(CBAddon* addon
 	return object_category;
 }
 
-bool CityMap::m_get_element(String str, String searchElementName, String& ret) {
-	string strUTF8 = str.toUTF8();
-	string searchElementNameUTF8 = searchElementName.toUTF8();
-
-	if (strUTF8.find(searchElementNameUTF8) != string::npos && strUTF8.find("=") != string::npos) {
-		ret = Unicode::Widen(strUTF8.substr(strUTF8.find("\"") + 1, strUTF8.find(";") - (strUTF8.find("\"") + 2)));
-		return true;
-	}
-	return false;
-}
-
-bool CityMap::m_get_element(String str, String searchElementName, int& ret) {
-	string strUTF8 = str.toUTF8();
-	string searchElementNameUTF8 = searchElementName.toUTF8();
-
-	if (strUTF8.find(searchElementNameUTF8) != string::npos && strUTF8.find("=") != string::npos) {
-		ret = stoi(strUTF8.substr(strUTF8.find("= ") + 2, strUTF8.find(";") - (strUTF8.find("= ") + 2)));
-		return true;
-	}
-	return false;
-}
-
-bool CityMap::m_get_element(String str, String searchElementName, bool& ret) {
-	string strUTF8 = str.toUTF8();
-	string searchElementNameUTF8 = searchElementName.toUTF8();
-
-	if (strUTF8.find(searchElementNameUTF8) != string::npos && strUTF8.find("=") != string::npos) {
-		int intTemp = stoi(strUTF8.substr(strUTF8.find("= ") + 2, strUTF8.find(";") - (strUTF8.find("= ") + 2)));
-		if (intTemp == 1) {
-			ret = true;
-			return true;
-		}
-		else if (intTemp == 0) {
-			ret = false;
-			return true;
-		}
-	}
-	return false;
-}
-
-bool CityMap::m_get_types(String str, String searchElementName, Array<String>& ret) {
-	String aRet;
-	if (m_get_element(str, searchElementName, aRet)) {
-		ret = UnitaryTools::split(aRet, U", ");
-		return true;
-	}
-	return false;
-}
-
 Array<CBAddon*> CityMap::getFitAddons(Array<CategoryID::Type> selectedCategories) {
 	Array<CBAddon*> retAddons;
 

@@ -109,10 +109,6 @@ public:
 	
 private:
 	/* プライベート関数 */
-	bool m_get_element(String str, String searchElementName, String& ret);
-	bool m_get_element(String str, String searchElementName, int& ret);
-	bool m_get_element(String str, String searchElementName, bool& ret);
-	bool m_get_types(String str, String searchElementName, Array<String>& ret);
     bool m_is_there_crossable_object(CBAddon *addon, CoordinateStruct coordinate);
     
     // マップの読み込み

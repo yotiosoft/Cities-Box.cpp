@@ -950,6 +950,7 @@ namespace rust {
     struct ResidentialTileState;
     struct WorkPlaceTileState;
     struct SchoolTileState;
+    struct DemandTileState;
     struct SimulationMapStats;
     struct SimulationUpdate;
     struct LoadedObjectData;
@@ -1075,6 +1076,17 @@ struct SchoolTileState final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$SchoolTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
+#define CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
+struct DemandTileState final {
+  ::std::int32_t land_price CXX_DEFAULT_VALUE(0);
+  ::std::int32_t crime_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t education_rate CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
 #define CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
@@ -1224,7 +1236,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
-  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;
@@ -1269,7 +1281,7 @@ void rust$citymap$cxxbridge1$192$RustCityMap$simulation_snapshot(::rust::citymap
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$will_run_daily_update(::rust::citymap::RustCityMap const &self, ::std::int32_t minutes_delta) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> *residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> *work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> *school_tiles, ::rust::citymap::SimulationMapStats *map_stats, ::rust::citymap::SimulationUpdate *return$) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> *residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> *work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> *school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> *demand_tiles, ::rust::citymap::SimulationMapStats *map_stats, ::rust::citymap::SimulationUpdate *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$set_save_version(::rust::citymap::RustCityMap &self, ::std::int32_t version) noexcept;
 
@@ -1344,13 +1356,14 @@ bool RustCityMap::will_run_daily_update(::std::int32_t minutes_delta) const noex
   return rust$citymap$cxxbridge1$192$RustCityMap$will_run_daily_update(*this, minutes_delta);
 }
 
-::rust::citymap::SimulationUpdate RustCityMap::update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept {
+::rust::citymap::SimulationUpdate RustCityMap::update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept {
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ResidentialTileState>> residential_tiles$(::std::move(residential_tiles));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::WorkPlaceTileState>> work_place_tiles$(::std::move(work_place_tiles));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::SchoolTileState>> school_tiles$(::std::move(school_tiles));
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::DemandTileState>> demand_tiles$(::std::move(demand_tiles));
   ::rust::ManuallyDrop<::rust::citymap::SimulationMapStats> map_stats$(::std::move(map_stats));
   ::rust::MaybeUninit<::rust::citymap::SimulationUpdate> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &residential_tiles$.value, &work_place_tiles$.value, &school_tiles$.value, &map_stats$.value, &return$.value);
+  rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &residential_tiles$.value, &work_place_tiles$.value, &school_tiles$.value, &demand_tiles$.value, &map_stats$.value, &return$.value);
   return ::std::move(return$.value);
 }
 
@@ -1453,6 +1466,15 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(::rust::Vec<::rust
 ::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$drop(::rust::Box<::rust::citymap::RustCityMap> *ptr) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$DemandTileState$new(::rust::Vec<::rust::citymap::DemandTileState> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$DemandTileState$drop(::rust::Vec<::rust::citymap::DemandTileState> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$DemandTileState$len(::rust::Vec<::rust::citymap::DemandTileState> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$DemandTileState$capacity(::rust::Vec<::rust::citymap::DemandTileState> const *ptr) noexcept;
+::rust::citymap::DemandTileState const *cxxbridge1$rust_vec$rust$citymap$DemandTileState$data(::rust::Vec<::rust::citymap::DemandTileState> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$DemandTileState$reserve_total(::rust::Vec<::rust::citymap::DemandTileState> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$DemandTileState$set_len(::rust::Vec<::rust::citymap::DemandTileState> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$DemandTileState$truncate(::rust::Vec<::rust::citymap::DemandTileState> *ptr, ::std::size_t len) noexcept;
 } // extern "C"
 
 namespace rust {
@@ -1756,6 +1778,38 @@ void Box<::rust::citymap::RustCityMap>::allocation::dealloc(::rust::citymap::Rus
 template <>
 void Box<::rust::citymap::RustCityMap>::drop() noexcept {
   cxxbridge1$box$rust$citymap$RustCityMap$drop(this);
+}
+template <>
+Vec<::rust::citymap::DemandTileState>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$DemandTileState$new(this);
+}
+template <>
+void Vec<::rust::citymap::DemandTileState>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::DemandTileState>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::DemandTileState>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$capacity(this);
+}
+template <>
+::rust::citymap::DemandTileState const *Vec<::rust::citymap::DemandTileState>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$data(this);
+}
+template <>
+void Vec<::rust::citymap::DemandTileState>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::DemandTileState>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::DemandTileState>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$DemandTileState$truncate(this, len);
 }
 } // namespace cxxbridge1
 } // namespace rust

@@ -69,12 +69,14 @@ impl SimulationState {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn update_world_with_source<S: SimulationRandomSource>(
         &mut self,
         minutes_delta: i32,
         residential_tiles: &mut [ffi::ResidentialTileState],
         work_place_tiles: &mut [ffi::WorkPlaceTileState],
         school_tiles: &mut [ffi::SchoolTileState],
+        demand_tiles: &[ffi::DemandTileState],
         map_stats: &ffi::SimulationMapStats,
         random: &mut S,
     ) -> u32 {
@@ -89,7 +91,7 @@ impl SimulationState {
             if self.time.date == 1 {
                 self.update_monthly_finances(map_stats);
             }
-            self.update_daily_demand(random);
+            self.update_daily_demand(demand_tiles, work_place_tiles, random);
         }
         elapsed_days
     }
@@ -102,7 +104,7 @@ mod tests {
     #[test]
     fn runs_daily_processing_for_every_elapsed_day() {
         let mut state = state_at(2024, 2, 27, 12, 0);
-        assert_eq!(advance(&mut state, 4 * 24 * 60 + 90), (4, 20));
+        assert_eq!(advance(&mut state, 4 * 24 * 60 + 90), 4);
         assert_eq!(
             (
                 state.time.year,
@@ -118,6 +120,6 @@ mod tests {
     #[test]
     fn does_not_run_daily_processing_without_a_date_change() {
         let mut state = state_at(2024, 6, 1, 10, 0);
-        assert_eq!(advance(&mut state, 12 * 60), (0, 0));
+        assert_eq!(advance(&mut state, 12 * 60), 0);
     }
 }

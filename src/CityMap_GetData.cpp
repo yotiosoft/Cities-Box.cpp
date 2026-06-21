@@ -11,6 +11,7 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 	rust::Vec<rust::citymap::ResidentialTileState> residentialTiles;
 	rust::Vec<rust::citymap::WorkPlaceTileState> workPlaceTiles;
 	rust::Vec<rust::citymap::SchoolTileState> schoolTiles;
+	rust::Vec<rust::citymap::DemandTileState> demandTiles;
 	rust::citymap::SimulationMapStats mapStats;
 	const bool runsDailyUpdate = m_rust_core->will_run_daily_update(minutesDelta);
 
@@ -19,6 +20,11 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		for (int y = 0; y < m_map_size.y; ++y) {
 			for (int x = 0; x < m_map_size.x; ++x) {
 				Tile& tile = m_tiles[y][x];
+				rust::citymap::DemandTileState demandState;
+				demandState.land_price = tile.getRate(RateID::LandPrice);
+				demandState.crime_rate = tile.getRate(RateID::CrimeRate);
+				demandState.education_rate = tile.getRate(RateID::EducationRate);
+				demandTiles.push_back(std::move(demandState));
 				Object* residentialObject = tile.hasCategory(CategoryID::Residential);
 				if (residentialObject != nullptr && residentialObject->getAddonP() != nullptr) {
 					++mapStats.residential_tiles;
@@ -105,6 +111,7 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		std::move(residentialTiles),
 		std::move(workPlaceTiles),
 		std::move(schoolTiles),
+		std::move(demandTiles),
 		mapStats
 	);
 	for (const auto& state : update.residential_tiles) {

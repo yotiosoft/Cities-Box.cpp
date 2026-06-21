@@ -121,6 +121,7 @@ mod tests {
             &mut tiles,
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -129,7 +130,8 @@ mod tests {
         assert_eq!(tiles[0].ages, [0, 1, 115]);
         assert_eq!(tiles[0].genders, ["m", "f", "m"]);
         assert_eq!(state.population, 3);
-        assert_eq!(state.demand.residential, 47.0);
+        // HSPと同様、入居による減算後に日次需要式で再計算される。
+        assert_eq!(state.demand.residential, 10.0);
         assert_eq!(random.upper_bounds[0], 10);
     }
 
@@ -144,6 +146,7 @@ mod tests {
             &mut tiles,
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -166,6 +169,7 @@ mod tests {
             &mut tiles,
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -188,6 +192,7 @@ mod tests {
             &mut tiles,
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -220,6 +225,7 @@ mod tests {
             &mut tiles,
             &mut workplaces,
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );

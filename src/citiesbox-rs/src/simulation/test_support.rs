@@ -3,8 +3,6 @@ use crate::citymap::ffi;
 use std::collections::VecDeque;
 
 pub(super) struct FixedRandom {
-    pub(super) demand_change: f64,
-    pub(super) demand_calls: usize,
     integers: VecDeque<i32>,
     pub(super) upper_bounds: Vec<i32>,
     pub(super) temperature_change: bool,
@@ -14,8 +12,6 @@ pub(super) struct FixedRandom {
 impl FixedRandom {
     pub(super) fn new(integers: impl IntoIterator<Item = i32>) -> Self {
         Self {
-            demand_change: 0.0,
-            demand_calls: 0,
             integers: integers.into_iter().collect(),
             upper_bounds: Vec::new(),
             temperature_change: false,
@@ -25,11 +21,6 @@ impl FixedRandom {
 }
 
 impl SimulationRandomSource for FixedRandom {
-    fn next_demand_change(&mut self) -> f64 {
-        self.demand_calls += 1;
-        self.demand_change
-    }
-
     fn random_below(&mut self, upper_exclusive: i32) -> i32 {
         self.upper_bounds.push(upper_exclusive);
         let value = self.integers.pop_front().unwrap_or_default();
@@ -79,15 +70,15 @@ pub(super) fn residential_tile(residents: i32, maximum_capacity: i32) -> ffi::Re
     }
 }
 
-pub(super) fn advance(state: &mut SimulationState, minutes: i32) -> (u32, usize) {
+pub(super) fn advance(state: &mut SimulationState, minutes: i32) -> u32 {
     let mut random = FixedRandom::new([]);
-    let days = state.update_world_with_source(
+    state.update_world_with_source(
         minutes,
         &mut [],
         &mut [],
         &mut [],
+        &[],
         &empty_map_stats(),
         &mut random,
-    );
-    (days, random.demand_calls)
+    )
 }

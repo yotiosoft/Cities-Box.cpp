@@ -50,14 +50,14 @@ mod tests {
     #[test]
     fn advances_sixty_minutes() {
         let mut state = state_at(2024, 1, 1, 10, 15);
-        assert_eq!(advance(&mut state, 60), (0, 0));
+        assert_eq!(advance(&mut state, 60), 0);
         assert_eq!((state.time.hour, state.time.minutes), (11, 15));
     }
 
     #[test]
     fn advances_twenty_four_hours() {
         let mut state = state_at(2024, 1, 1, 10, 15);
-        assert_eq!(advance(&mut state, 24 * 60), (1, 5));
+        assert_eq!(advance(&mut state, 24 * 60), 1);
         assert_eq!(
             (state.time.year, state.time.month, state.time.date),
             (2024, 1, 2)
@@ -121,7 +121,7 @@ mod tests {
     #[test]
     fn ignores_negative_minutes() {
         let mut state = state_at(2024, 1, 1, 10, 15);
-        assert_eq!(advance(&mut state, -1), (0, 0));
+        assert_eq!(advance(&mut state, -1), 0);
         assert_eq!((state.time.hour, state.time.minutes), (10, 15));
     }
 }

@@ -32,6 +32,7 @@ impl RustCityMap {
         mut residential_tiles: Vec<ffi::ResidentialTileState>,
         mut work_place_tiles: Vec<ffi::WorkPlaceTileState>,
         mut school_tiles: Vec<ffi::SchoolTileState>,
+        demand_tiles: Vec<ffi::DemandTileState>,
         map_stats: ffi::SimulationMapStats,
     ) -> ffi::SimulationUpdate {
         let mut random = RandomSimulationSource::new();
@@ -40,6 +41,7 @@ impl RustCityMap {
             &mut residential_tiles,
             &mut work_place_tiles,
             &mut school_tiles,
+            &demand_tiles,
             &map_stats,
             &mut random,
         );

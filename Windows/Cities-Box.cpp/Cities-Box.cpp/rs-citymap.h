@@ -921,6 +921,7 @@ namespace rust {
     struct ResidentialTileState;
     struct WorkPlaceTileState;
     struct SchoolTileState;
+    struct DemandTileState;
     struct SimulationMapStats;
     struct SimulationUpdate;
     struct LoadedObjectData;
@@ -1046,6 +1047,17 @@ struct SchoolTileState final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$SchoolTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
+#define CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
+struct DemandTileState final {
+  ::std::int32_t land_price CXX_DEFAULT_VALUE(0);
+  ::std::int32_t crime_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t education_rate CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
 #define CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
@@ -1195,7 +1207,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
-  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;

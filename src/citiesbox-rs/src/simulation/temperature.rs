@@ -108,6 +108,7 @@ mod tests {
             &mut [],
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -127,6 +128,7 @@ mod tests {
             &mut [],
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );
@@ -135,6 +137,7 @@ mod tests {
             &mut [],
             &mut [],
             &mut [],
+            &[],
             &empty_map_stats(),
             &mut random,
         );

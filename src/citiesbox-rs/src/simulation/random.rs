@@ -1,7 +1,6 @@
 use rand::Rng;
 
 pub(super) trait SimulationRandomSource {
-    fn next_demand_change(&mut self) -> f64;
     fn random_below(&mut self, upper_exclusive: i32) -> i32;
     fn should_change_temperature(&mut self) -> bool;
     fn temperature_direction_roll(&mut self) -> i32;
@@ -18,10 +17,6 @@ impl RandomSimulationSource {
 }
 
 impl SimulationRandomSource for RandomSimulationSource {
-    fn next_demand_change(&mut self) -> f64 {
-        self.rng.random_range(-5.0..5.0)
-    }
-
     fn random_below(&mut self, upper_exclusive: i32) -> i32 {
         if upper_exclusive <= 1 {
             0

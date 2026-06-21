@@ -97,6 +97,12 @@ pub(crate) mod ffi {
         students: i32,
     }
 
+    struct DemandTileState {
+        land_price: i32,
+        crime_rate: i32,
+        education_rate: i32,
+    }
+
     struct SimulationMapStats {
         residential_tiles: i32,
         commercial_tiles: i32,
@@ -236,6 +242,7 @@ pub(crate) mod ffi {
             residential_tiles: Vec<ResidentialTileState>,
             work_place_tiles: Vec<WorkPlaceTileState>,
             school_tiles: Vec<SchoolTileState>,
+            demand_tiles: Vec<DemandTileState>,
             map_stats: SimulationMapStats,
         ) -> SimulationUpdate;
 
@@ -487,6 +494,7 @@ mod tests {
         assert!(updated.commit_loaded_city_map());
         let update = updated.update_world(
             1,
+            Vec::new(),
             Vec::new(),
             Vec::new(),
             Vec::new(),

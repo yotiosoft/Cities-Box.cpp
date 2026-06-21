@@ -3,6 +3,8 @@ use rand::Rng;
 pub(super) trait SimulationRandomSource {
     fn next_demand_change(&mut self) -> f64;
     fn random_below(&mut self, upper_exclusive: i32) -> i32;
+    fn should_change_temperature(&mut self) -> bool;
+    fn temperature_direction_roll(&mut self) -> i32;
 }
 
 pub(super) struct RandomSimulationSource {
@@ -26,5 +28,13 @@ impl SimulationRandomSource for RandomSimulationSource {
         } else {
             self.rng.random_range(0..upper_exclusive)
         }
+    }
+
+    fn should_change_temperature(&mut self) -> bool {
+        self.rng.random_range(0..20) == 0
+    }
+
+    fn temperature_direction_roll(&mut self) -> i32 {
+        self.rng.random_range(0..8)
     }
 }

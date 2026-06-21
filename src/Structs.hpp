@@ -115,14 +115,6 @@ typedef struct WorkersStruct {
 	int farm;
 	int publicFacility;
 } WorkersStruct;
-// 支出情報
-typedef struct BudgetStruct {
-	int police;
-	int fireDepertment;
-	int postOffice;
-	int education;
-} BudgetStruct;
-
 // 勤務地情報
 typedef struct WorkPlaceStruct {
 	RCOIFP::Type workPlace;

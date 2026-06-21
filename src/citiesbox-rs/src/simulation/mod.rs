@@ -3,6 +3,7 @@ mod finance;
 mod population;
 mod random;
 mod state;
+mod temperature;
 mod time;
 
 #[cfg(test)]

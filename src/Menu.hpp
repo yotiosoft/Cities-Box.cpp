@@ -84,7 +84,6 @@ private:
 	bool m_show_rate_menu;
 	RateID::Type m_show_rate_id;
 	
-	Texture m_population;
 };
 
 #endif /* Menu_hpp */

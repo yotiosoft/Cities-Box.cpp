@@ -459,7 +459,7 @@ mod tests {
         let load = updated.load_city_map(first_path.to_string_lossy().into_owned());
         assert!(load.success, "{}", load.error_message);
         assert!(updated.commit_loaded_city_map());
-        updated.update_world(1, Vec::new(), crate::simulation::empty_map_stats());
+        let update = updated.update_world(1, Vec::new(), crate::simulation::empty_map_stats());
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));
 
         let mut reloaded = new_city_map();
@@ -480,7 +480,7 @@ mod tests {
         );
         assert_eq!(saved.total_population, 12_345);
         assert_eq!(saved.money, 678_901);
-        assert_eq!(saved.temperature, -7);
+        assert_eq!(saved.temperature, update.snapshot.temperature);
         assert_eq!(
             (
                 saved.demand.residential,

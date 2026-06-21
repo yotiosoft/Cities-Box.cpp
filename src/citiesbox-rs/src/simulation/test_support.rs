@@ -7,6 +7,8 @@ pub(super) struct FixedRandom {
     pub(super) demand_calls: usize,
     integers: VecDeque<i32>,
     pub(super) upper_bounds: Vec<i32>,
+    pub(super) temperature_change: bool,
+    pub(super) temperature_direction: i32,
 }
 
 impl FixedRandom {
@@ -16,6 +18,8 @@ impl FixedRandom {
             demand_calls: 0,
             integers: integers.into_iter().collect(),
             upper_bounds: Vec::new(),
+            temperature_change: false,
+            temperature_direction: 0,
         }
     }
 }
@@ -31,6 +35,14 @@ impl SimulationRandomSource for FixedRandom {
         let value = self.integers.pop_front().unwrap_or_default();
         assert!(value >= 0 && value < upper_exclusive.max(1));
         value
+    }
+
+    fn should_change_temperature(&mut self) -> bool {
+        self.temperature_change
+    }
+
+    fn temperature_direction_roll(&mut self) -> i32 {
+        self.temperature_direction
     }
 }
 

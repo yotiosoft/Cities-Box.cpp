@@ -17,7 +17,7 @@ public:
 
 	void setPos(PositionStruct argPosition);
 	
-	void printWeather(Weather::Type weather);
+	void printWeather();
 	void printTemperature(int temperature);
 	void printPopulation(int totalPopulation);
 	void printMoney(int money);
@@ -35,15 +35,11 @@ private:
 	Texture time_icon_texture;
 	
 	Texture m_weather_sunny_icon;
-	Texture m_weather_cloudy_icon;
-	Texture m_weather_rainy_icon;
-	Texture m_weather_snowy_icon;
 	
 	int m_weather_region;
 	int m_temperature_region;
 	int m_population_print_region;
 	int m_money_print_region;
-	int m_time_print_region;
 };
 
 #endif /* DetailsBar_hpp */

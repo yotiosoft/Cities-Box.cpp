@@ -70,9 +70,6 @@ public:
 	// レート表示モード
 	void setShowRate(RateID::Type effect_id);
 	
-	// Rust コアオブジェクトとの同期（保存前に実行）
-	void syncToRust();
-
 	// マップ保存
 	bool save();
 	
@@ -84,10 +81,6 @@ public:
 	SimulationSnapshot getSimulationSnapshot() {
 		return m_rust_core->simulation_snapshot();
 	}
-	TimeStruct getCityTime() {
-		return getSimulationSnapshot().time;
-	}
-
 	// メニュー向け互換ラッパー。状態の所有・計算はRust側に限定する。
 	RCOIFstruct getDemand() {
 		return getSimulationSnapshot().demand;
@@ -156,19 +149,9 @@ private:
 	CityNetwork road_network;
 	
 	/* プライベート変数 */
-	int m_saved_version;
-	String m_addon_set_name;
-	
-	String m_city_name;
-	String m_mayor_name;
-	bool m_change_weather;
-	bool m_dark_on_night;
-	
 	Size m_map_size;
 	
 	Array<Array<Tile>> m_tiles;
-	
-	bool m_loading_complete;
 	
 	map<String, CBAddon*> m_addons;
 	

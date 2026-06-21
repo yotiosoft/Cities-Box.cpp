@@ -184,7 +184,7 @@ void CitiesBox() {
 		time = simulation.time;
 		
 		// Details Barの表示
-		detailsBar.printWeather(Weather::Sunny);
+		detailsBar.printWeather();
 		detailsBar.printTemperature(simulation.temperature);
 		detailsBar.printTime(time);
 		detailsBar.printPopulation(simulation.population);

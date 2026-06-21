@@ -208,4 +208,3 @@ m_load_obj(): TypeID: Default
 m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
-delete object at 25, 0 of 0, 0

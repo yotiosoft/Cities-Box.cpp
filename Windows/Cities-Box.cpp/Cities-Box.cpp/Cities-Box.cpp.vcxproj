@@ -101,13 +101,13 @@ cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
 
 cxxbridge src/images.rs --header &gt; "$(ProjectDir)rs-images.h"
 
-cxxbridge src/citymap.rs --header &gt; "$(ProjectDir)rs-citymap.h"
+cxxbridge src/citymap/mod.rs --header &gt; "$(ProjectDir)rs-citymap.h"
 
 cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
 
 cxxbridge src/images.rs &gt; "$(ProjectDir)rs-images.cpp"
 
-cxxbridge src/citymap.rs &gt; "$(ProjectDir)rs-citymap.cpp"
+cxxbridge src/citymap/mod.rs &gt; "$(ProjectDir)rs-citymap.cpp"
 
 cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     </PreBuildEvent>
@@ -151,13 +151,13 @@ cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
 
 cxxbridge src/images.rs --header &gt; "$(ProjectDir)rs-images.h"
 
-cxxbridge src/citymap.rs --header &gt; "$(ProjectDir)rs-citymap.h"
+cxxbridge src/citymap/mod.rs --header &gt; "$(ProjectDir)rs-citymap.h"
 
 cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
 
 cxxbridge src/images.rs &gt; "$(ProjectDir)rs-images.cpp"
 
-cxxbridge src/citymap.rs &gt; "$(ProjectDir)rs-citymap.cpp"
+cxxbridge src/citymap/mod.rs &gt; "$(ProjectDir)rs-citymap.cpp"
 
 cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     </PreBuildEvent>

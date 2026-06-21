@@ -9,6 +9,7 @@
 
 SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 	rust::Vec<rust::citymap::ResidentialTileState> residentialTiles;
+	rust::citymap::SimulationMapStats mapStats;
 
 	// 日付をまたぐ場合だけ、C++が所有する最新の住宅状態を値として渡す。
 	if (m_rust_core->will_run_daily_update(minutesDelta)) {
@@ -16,27 +17,36 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 			for (int x = 0; x < m_map_size.x; ++x) {
 				Tile& tile = m_tiles[y][x];
 				Object* residentialObject = tile.hasCategory(CategoryID::Residential);
-				if (residentialObject == nullptr || residentialObject->getAddonP() == nullptr) {
-					continue;
+				if (residentialObject != nullptr && residentialObject->getAddonP() != nullptr) {
+					++mapStats.residential_tiles;
+
+					rust::citymap::ResidentialTileState state;
+					state.x = x;
+					state.y = y;
+					state.residents = tile.residents;
+					state.maximum_capacity = residentialObject->getAddonP()->getMaximumCapacity();
+					for (const int age : tile.age) {
+						state.ages.push_back(age);
+					}
+					for (const String& gender : tile.gender) {
+						state.genders.push_back(gender.toUTF8());
+					}
+					residentialTiles.push_back(std::move(state));
 				}
 
-				rust::citymap::ResidentialTileState state;
-				state.x = x;
-				state.y = y;
-				state.residents = tile.residents;
-				state.maximum_capacity = residentialObject->getAddonP()->getMaximumCapacity();
-				for (const int age : tile.age) {
-					state.ages.push_back(age);
-				}
-				for (const String& gender : tile.gender) {
-					state.genders.push_back(gender.toUTF8());
-				}
-				residentialTiles.push_back(std::move(state));
+				mapStats.commercial_tiles += tile.hasCategory(CategoryID::Commecial) != nullptr;
+				mapStats.office_tiles += tile.hasCategory(CategoryID::Office) != nullptr;
+				mapStats.industrial_tiles += tile.hasCategory(CategoryID::Industrial) != nullptr;
+				mapStats.farm_tiles += tile.hasCategory(CategoryID::Farm) != nullptr;
+				mapStats.police_stations += tile.hasCategory(CategoryID::Police) != nullptr;
+				mapStats.fire_departments += tile.hasCategory(CategoryID::FireDepartment) != nullptr;
+				mapStats.post_offices += tile.hasCategory(CategoryID::PostOffice) != nullptr;
+				mapStats.education_facilities += tile.hasCategory(CategoryID::Education) != nullptr;
 			}
 		}
 	}
 
-	auto update = m_rust_core->update_world(minutesDelta, std::move(residentialTiles));
+	auto update = m_rust_core->update_world(minutesDelta, std::move(residentialTiles), mapStats);
 	for (const auto& state : update.residential_tiles) {
 		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {
 			continue;

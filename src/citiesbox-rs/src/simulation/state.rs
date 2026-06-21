@@ -76,6 +76,9 @@ impl SimulationState {
         map_stats: &ffi::SimulationMapStats,
         random: &mut S,
     ) -> u32 {
+        if minutes_delta > 0 {
+            self.update_temperature(random);
+        }
         let elapsed_days = self.time.advance_clock(minutes_delta);
         for _ in 0..elapsed_days {
             self.time.advance_one_day();

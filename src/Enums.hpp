@@ -90,9 +90,6 @@ namespace IconFont {
 		Clock				= 0xf017,
 		
 		Sunny				= 0xf185,
-		Cloudy				= 0xf0c2,
-		Rainy				= 0xf740,
-		Snowy				= 0xf2dc,
 		
 		TemperatureLow		= 0xf2ca,
 		TemperatureMiddle	= 0xf2c9,
@@ -112,16 +109,6 @@ namespace RCOIFcolor {
 	}
 }
 */
-
-// 天気の定義
-namespace Weather {
-	enum Type {
-		Sunny	= 0,
-		Cloudy	= 1,
-		Rainy	= 2,
-		Snowy	= 3,
-	};
-}
 
 // レイヤのタイプ
 namespace LayerType {

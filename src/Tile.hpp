@@ -75,7 +75,6 @@ public:
 	WorkersStruct workers;
 	int students;
 	
-	int happinessRate;
 	map<RateID::Type, int> rate;
 	
 	//CropStruct crop;

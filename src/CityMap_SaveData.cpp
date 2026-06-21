@@ -7,21 +7,6 @@
 
 #include "CityMap.hpp"
 
-void CityMap::syncToRust() {
-    m_rust_core->set_save_version(RELEASE_NUMBER);
-
-    // 基本メタデータの同期
-    m_rust_core->set_city_metadata(
-        m_city_name.toUTF8(),
-        m_mayor_name.toUTF8(),
-        m_addon_set_name.toUTF8()
-    );
-
-    // 描画設定だけを同期する。時刻・人口・資金・気温・需要・予算・税率は
-    // Rust側が所有しているため、C++から書き戻さない。
-    m_rust_core->set_display_settings(m_change_weather, m_dark_on_night);
-}
-
 bool CityMap::save() {
 	// C++側のObjectが、現在所有しているAddonだけを参照していることを
 	// Rust状態へ書き込む前に確認する。
@@ -42,8 +27,8 @@ bool CityMap::save() {
 		objectAddonNames[id] = addonIt->first;
 	}
 
-	// 1. C++側の最新状態をRustに送る
-    syncToRust();
+	// 1. 保存形式のバージョンを更新する
+    m_rust_core->set_save_version(RELEASE_NUMBER);
     
     // 2. Rust側でJSONを生成
     std::vector<rust::citymap::RawTileData> buffer;

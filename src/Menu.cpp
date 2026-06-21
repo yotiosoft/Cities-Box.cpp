@@ -45,9 +45,7 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_menu_mode = MenuMode::None;
 	
 	m_selected_addon_name = U"";
-	
-	m_population = Texture{Icon(IconFont::Population), 20};
-	
+
 	m_render = RenderTexture(Scene::Width(), m_size.y, Color(45, 52, 54));
     m_menu_buttons_pos = PositionStruct{ Scene::Width()/2 - m_size.x/2, 0 };
 	

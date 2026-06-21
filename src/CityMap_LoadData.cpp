@@ -58,8 +58,6 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 	const auto& loadedCity = loadResult.city;
 	const Size loadedMapSize{ loadedCity.map_width, loadedCity.map_height };
 	String loadedAddonSet = fromRustString(loadedCity.addon_set_name);
-	String loadedCityName = fromRustString(loadedCity.city_name);
-	String loadedMayorName = fromRustString(loadedCity.mayor_name);
 
 	StagedCityMap staged;
 	m_load_addons(loadedAddonSet, staged.addons);
@@ -192,12 +190,6 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_objects.swap(staged.objects);
 	m_common_objects.swap(staged.commonObjects);
 	m_max_object_id = staged.maxObjectID;
-	m_saved_version = loadedCity.version;
-	m_addon_set_name.swap(loadedAddonSet);
-	m_city_name.swap(loadedCityName);
-	m_mayor_name.swap(loadedMayorName);
-	m_change_weather = loadedCity.change_weather;
-	m_dark_on_night = loadedCity.dark_on_night;
 	m_map_size = loadedMapSize;
 	m_map_file_path.swap(loadMapFilePath);
 	return true;

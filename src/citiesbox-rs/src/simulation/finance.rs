@@ -81,7 +81,7 @@ mod tests {
         };
         let mut random = FixedRandom::new([]);
 
-        state.update_world_with_source(1, &mut [], &stats, &mut random);
+        state.update_world_with_source(1, &mut [], &mut [], &mut [], &stats, &mut random);
 
         assert_eq!((state.time.month, state.time.date), (5, 1));
         assert_eq!(state.money, 71_450);
@@ -96,7 +96,7 @@ mod tests {
         stats.police_stations = 1;
         let mut random = FixedRandom::new([]);
 
-        state.update_world_with_source(1, &mut [], &stats, &mut random);
+        state.update_world_with_source(1, &mut [], &mut [], &mut [], &stats, &mut random);
 
         assert_eq!((state.time.month, state.time.date), (5, 2));
         assert_eq!(state.money, 100_000);
@@ -115,7 +115,14 @@ mod tests {
         stats.residential_tiles = 1;
         let mut random = FixedRandom::new([]);
 
-        state.update_world_with_source(30 * 24 * 60, &mut [], &stats, &mut random);
+        state.update_world_with_source(
+            30 * 24 * 60,
+            &mut [],
+            &mut [],
+            &mut [],
+            &stats,
+            &mut random,
+        );
 
         assert_eq!((state.time.month, state.time.date), (3, 1));
         assert_eq!(state.money, 120);

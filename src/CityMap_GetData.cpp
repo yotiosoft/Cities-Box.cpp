@@ -9,10 +9,13 @@
 
 SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 	rust::Vec<rust::citymap::ResidentialTileState> residentialTiles;
+	rust::Vec<rust::citymap::WorkPlaceTileState> workPlaceTiles;
+	rust::Vec<rust::citymap::SchoolTileState> schoolTiles;
 	rust::citymap::SimulationMapStats mapStats;
+	const bool runsDailyUpdate = m_rust_core->will_run_daily_update(minutesDelta);
 
 	// 日付をまたぐ場合だけ、C++が所有する最新の住宅状態を値として渡す。
-	if (m_rust_core->will_run_daily_update(minutesDelta)) {
+	if (runsDailyUpdate) {
 		for (int y = 0; y < m_map_size.y; ++y) {
 			for (int x = 0; x < m_map_size.x; ++x) {
 				Tile& tile = m_tiles[y][x];
@@ -31,7 +34,58 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 					for (const String& gender : tile.gender) {
 						state.genders.push_back(gender.toUTF8());
 					}
+					for (const WorkPlaceStruct& workPlace : tile.workPlaces) {
+						state.work_place_kinds.push_back(static_cast<int32_t>(workPlace.workPlace));
+						state.work_place_serial_numbers.push_back(workPlace.workPlacesSerialNumber);
+					}
+					for (const SchoolStruct& school : tile.schools) {
+						state.school_kinds.push_back(static_cast<int32_t>(school.school));
+						state.school_serial_numbers.push_back(school.schoolSerialNumber);
+					}
 					residentialTiles.push_back(std::move(state));
+				}
+
+				auto addWorkPlace = [&](CategoryID::Type category, RCOIFP::Type kind, int workers) {
+					Object* object = tile.hasCategory(category);
+					if (object == nullptr || object->getAddonP() == nullptr) {
+						return false;
+					}
+					rust::citymap::WorkPlaceTileState state;
+					state.x = x;
+					state.y = y;
+					state.kind = static_cast<int32_t>(kind);
+					state.serial_number = object->getObjectID();
+					state.maximum_capacity = object->getAddonP()->getMaximumCapacity();
+					state.workers = workers;
+					workPlaceTiles.push_back(std::move(state));
+					return true;
+				};
+				if (!addWorkPlace(CategoryID::Commecial, RCOIFP::Commercial, tile.workers.commercial)
+					&& !addWorkPlace(CategoryID::Office, RCOIFP::Office, tile.workers.office)
+					&& !addWorkPlace(CategoryID::Industrial, RCOIFP::Industrial, tile.workers.industrial)
+					&& !addWorkPlace(CategoryID::Farm, RCOIFP::Farm, tile.workers.farm)) {
+					addWorkPlace(CategoryID::Public, RCOIFP::Public, tile.workers.publicFacility);
+				}
+
+				auto addSchool = [&](CategoryID::Type category, School::Type kind) {
+					Object* object = tile.hasCategory(category);
+					if (object == nullptr || object->getAddonP() == nullptr) {
+						return false;
+					}
+					rust::citymap::SchoolTileState state;
+					state.x = x;
+					state.y = y;
+					state.kind = static_cast<int32_t>(kind);
+					state.serial_number = object->getObjectID();
+					state.maximum_capacity = object->getAddonP()->getMaximumCapacity();
+					state.students = tile.students;
+					schoolTiles.push_back(std::move(state));
+					return true;
+				};
+				if (!addSchool(CategoryID::ElementarySchool, School::ElementarySchool)
+					&& !addSchool(CategoryID::JuniorHighSchool, School::JuniorHighSchool)
+					&& !addSchool(CategoryID::HighSchool, School::HighSchool)) {
+					addSchool(CategoryID::University, School::University);
 				}
 
 				mapStats.commercial_tiles += tile.hasCategory(CategoryID::Commecial) != nullptr;
@@ -46,7 +100,13 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		}
 	}
 
-	auto update = m_rust_core->update_world(minutesDelta, std::move(residentialTiles), mapStats);
+	auto update = m_rust_core->update_world(
+		minutesDelta,
+		std::move(residentialTiles),
+		std::move(workPlaceTiles),
+		std::move(schoolTiles),
+		mapStats
+	);
 	for (const auto& state : update.residential_tiles) {
 		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {
 			continue;
@@ -61,6 +121,86 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		}
 		for (const auto& gender : state.genders) {
 			tile.gender << Unicode::FromUTF8(std::string(gender.data(), gender.size()));
+		}
+		tile.workPlaces.clear();
+		const size_t workPlaceCount = Min(state.work_place_kinds.size(), state.work_place_serial_numbers.size());
+		for (size_t i = 0; i < workPlaceCount; ++i) {
+			tile.workPlaces << WorkPlaceStruct{
+				UnitaryTools::getRCOIFP(state.work_place_kinds[i]),
+				state.work_place_serial_numbers[i]
+			};
+		}
+		tile.schools.clear();
+		const size_t schoolCount = Min(state.school_kinds.size(), state.school_serial_numbers.size());
+		for (size_t i = 0; i < schoolCount; ++i) {
+			tile.schools << SchoolStruct{
+				UnitaryTools::getSchool(state.school_kinds[i]),
+				state.school_serial_numbers[i]
+			};
+		}
+
+		if (runsDailyUpdate) {
+			auto workKindName = [](int32_t kind) {
+				switch (UnitaryTools::getRCOIFP(kind)) {
+				case RCOIFP::Commercial: return U"commercial";
+				case RCOIFP::Office: return U"office";
+				case RCOIFP::Industrial: return U"industrial";
+				case RCOIFP::Farm: return U"farm";
+				case RCOIFP::Public: return U"public";
+				default: return U"unknown";
+				}
+			};
+			auto schoolKindName = [](int32_t kind) {
+				switch (UnitaryTools::getSchool(kind)) {
+				case School::ElementarySchool: return U"elementary";
+				case School::JuniorHighSchool: return U"junior-high";
+				case School::HighSchool: return U"high-school";
+				case School::University: return U"university";
+				default: return U"unknown";
+				}
+			};
+			String destinations;
+			for (size_t i = 0; i < workPlaceCount; ++i) {
+				if (!destinations.isEmpty()) {
+					destinations += U", ";
+				}
+				destinations += U"{}#{}"_fmt(workKindName(state.work_place_kinds[i]), state.work_place_serial_numbers[i]);
+			}
+			String schools;
+			for (size_t i = 0; i < schoolCount; ++i) {
+				if (!schools.isEmpty()) {
+					schools += U", ";
+				}
+				schools += U"{}#{}"_fmt(schoolKindName(state.school_kinds[i]), state.school_serial_numbers[i]);
+			}
+			UnitaryTools::debugLog(
+				U"employment",
+				CoordinateStruct{ state.x, state.y },
+				U"residents={}, workers={}, workplaces=[{}], students={}, schools=[{}]"_fmt(
+					state.residents, workPlaceCount, destinations, schoolCount, schools
+				)
+			);
+		}
+	}
+
+	for (const auto& state : update.work_place_tiles) {
+		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {
+			continue;
+		}
+		Tile& tile = m_tiles[state.y][state.x];
+		switch (UnitaryTools::getRCOIFP(state.kind)) {
+		case RCOIFP::Commercial: tile.workers.commercial = state.workers; break;
+		case RCOIFP::Office: tile.workers.office = state.workers; break;
+		case RCOIFP::Industrial: tile.workers.industrial = state.workers; break;
+		case RCOIFP::Farm: tile.workers.farm = state.workers; break;
+		case RCOIFP::Public: tile.workers.publicFacility = state.workers; break;
+		default: break;
+		}
+	}
+
+	for (const auto& state : update.school_tiles) {
+		if (state.x >= 0 && state.y >= 0 && state.x < m_map_size.x && state.y < m_map_size.y) {
+			m_tiles[state.y][state.x].students = state.students;
 		}
 	}
 

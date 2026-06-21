@@ -1,4 +1,5 @@
 mod demand;
+mod employment;
 mod finance;
 mod population;
 mod random;
@@ -29,18 +30,24 @@ impl RustCityMap {
         &mut self,
         minutes_delta: i32,
         mut residential_tiles: Vec<ffi::ResidentialTileState>,
+        mut work_place_tiles: Vec<ffi::WorkPlaceTileState>,
+        mut school_tiles: Vec<ffi::SchoolTileState>,
         map_stats: ffi::SimulationMapStats,
     ) -> ffi::SimulationUpdate {
         let mut random = RandomSimulationSource::new();
         self.simulation.update_world_with_source(
             minutes_delta,
             &mut residential_tiles,
+            &mut work_place_tiles,
+            &mut school_tiles,
             &map_stats,
             &mut random,
         );
         ffi::SimulationUpdate {
             snapshot: self.simulation.snapshot(),
             residential_tiles,
+            work_place_tiles,
+            school_tiles,
         }
     }
 }

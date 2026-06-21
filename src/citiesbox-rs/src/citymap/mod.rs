@@ -73,6 +73,28 @@ pub(crate) mod ffi {
         maximum_capacity: i32,
         ages: Vec<i32>,
         genders: Vec<String>,
+        work_place_kinds: Vec<i32>,
+        work_place_serial_numbers: Vec<i32>,
+        school_kinds: Vec<i32>,
+        school_serial_numbers: Vec<i32>,
+    }
+
+    struct WorkPlaceTileState {
+        x: i32,
+        y: i32,
+        kind: i32,
+        serial_number: i32,
+        maximum_capacity: i32,
+        workers: i32,
+    }
+
+    struct SchoolTileState {
+        x: i32,
+        y: i32,
+        kind: i32,
+        serial_number: i32,
+        maximum_capacity: i32,
+        students: i32,
     }
 
     struct SimulationMapStats {
@@ -90,6 +112,8 @@ pub(crate) mod ffi {
     struct SimulationUpdate {
         snapshot: SimulationSnapshot,
         residential_tiles: Vec<ResidentialTileState>,
+        work_place_tiles: Vec<WorkPlaceTileState>,
+        school_tiles: Vec<SchoolTileState>,
     }
 
     struct LoadedObjectData {
@@ -210,6 +234,8 @@ pub(crate) mod ffi {
             &mut self,
             minutes_delta: i32,
             residential_tiles: Vec<ResidentialTileState>,
+            work_place_tiles: Vec<WorkPlaceTileState>,
+            school_tiles: Vec<SchoolTileState>,
             map_stats: SimulationMapStats,
         ) -> SimulationUpdate;
 
@@ -459,7 +485,13 @@ mod tests {
         let load = updated.load_city_map(first_path.to_string_lossy().into_owned());
         assert!(load.success, "{}", load.error_message);
         assert!(updated.commit_loaded_city_map());
-        let update = updated.update_world(1, Vec::new(), crate::simulation::empty_map_stats());
+        let update = updated.update_world(
+            1,
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            crate::simulation::empty_map_stats(),
+        );
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));
 
         let mut reloaded = new_city_map();

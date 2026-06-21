@@ -103,7 +103,14 @@ mod tests {
         state.temperature = 20;
         let mut random = changing_random(2);
 
-        state.update_world_with_source(60, &mut [], &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            60,
+            &mut [],
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!((state.time.hour, state.time.minutes), (8, 0));
         assert_eq!(state.temperature, 19);
@@ -115,8 +122,22 @@ mod tests {
         state.temperature = 20;
         let mut random = changing_random(0);
 
-        state.update_world_with_source(0, &mut [], &empty_map_stats(), &mut random);
-        state.update_world_with_source(-1, &mut [], &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            0,
+            &mut [],
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
+        state.update_world_with_source(
+            -1,
+            &mut [],
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!(state.temperature, 20);
     }

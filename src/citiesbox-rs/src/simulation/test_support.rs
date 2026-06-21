@@ -72,11 +72,22 @@ pub(super) fn residential_tile(residents: i32, maximum_capacity: i32) -> ffi::Re
         maximum_capacity,
         ages: (0..residents).map(|age| age + 20).collect(),
         genders: (0..residents).map(|_| "m".to_string()).collect(),
+        work_place_kinds: Vec::new(),
+        work_place_serial_numbers: Vec::new(),
+        school_kinds: Vec::new(),
+        school_serial_numbers: Vec::new(),
     }
 }
 
 pub(super) fn advance(state: &mut SimulationState, minutes: i32) -> (u32, usize) {
     let mut random = FixedRandom::new([]);
-    let days = state.update_world_with_source(minutes, &mut [], &empty_map_stats(), &mut random);
+    let days = state.update_world_with_source(
+        minutes,
+        &mut [],
+        &mut [],
+        &mut [],
+        &empty_map_stats(),
+        &mut random,
+    );
     (days, random.demand_calls)
 }

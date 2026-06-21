@@ -919,6 +919,8 @@ namespace rust {
     struct RCOIFstruct;
     struct SimulationSnapshot;
     struct ResidentialTileState;
+    struct WorkPlaceTileState;
+    struct SchoolTileState;
     struct SimulationMapStats;
     struct SimulationUpdate;
     struct LoadedObjectData;
@@ -1008,10 +1010,42 @@ struct ResidentialTileState final {
   ::std::int32_t maximum_capacity CXX_DEFAULT_VALUE(0);
   ::rust::Vec<::std::int32_t> ages;
   ::rust::Vec<::rust::String> genders;
+  ::rust::Vec<::std::int32_t> work_place_kinds;
+  ::rust::Vec<::std::int32_t> work_place_serial_numbers;
+  ::rust::Vec<::std::int32_t> school_kinds;
+  ::rust::Vec<::std::int32_t> school_serial_numbers;
 
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$WorkPlaceTileState
+#define CXXBRIDGE1_STRUCT_rust$citymap$WorkPlaceTileState
+struct WorkPlaceTileState final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t serial_number CXX_DEFAULT_VALUE(0);
+  ::std::int32_t maximum_capacity CXX_DEFAULT_VALUE(0);
+  ::std::int32_t workers CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$WorkPlaceTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SchoolTileState
+#define CXXBRIDGE1_STRUCT_rust$citymap$SchoolTileState
+struct SchoolTileState final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t serial_number CXX_DEFAULT_VALUE(0);
+  ::std::int32_t maximum_capacity CXX_DEFAULT_VALUE(0);
+  ::std::int32_t students CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$SchoolTileState
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
 #define CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
@@ -1035,6 +1069,8 @@ struct SimulationMapStats final {
 struct SimulationUpdate final {
   ::rust::citymap::SimulationSnapshot snapshot;
   ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles;
+  ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles;
+  ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles;
 
   using IsRelocatable = ::std::true_type;
 };
@@ -1159,7 +1195,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
-  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;

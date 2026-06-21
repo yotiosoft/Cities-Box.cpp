@@ -30,7 +30,14 @@ mod tests {
         high.demand.farm = 99.0;
         let mut increase = FixedRandom::new([]);
         increase.demand_change = 4.9;
-        high.update_world_with_source(24 * 60, &mut [], &empty_map_stats(), &mut increase);
+        high.update_world_with_source(
+            24 * 60,
+            &mut [],
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut increase,
+        );
         assert_eq!(high.demand.residential, 100.0);
         assert_eq!(high.demand.commercial, 100.0);
         assert_eq!(high.demand.office, 100.0);
@@ -44,7 +51,14 @@ mod tests {
         high.demand.office = 1.0;
         high.demand.industrial = 1.0;
         high.demand.farm = 1.0;
-        high.update_world_with_source(24 * 60, &mut [], &empty_map_stats(), &mut decrease);
+        high.update_world_with_source(
+            24 * 60,
+            &mut [],
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut decrease,
+        );
         assert_eq!(high.demand.residential, 0.0);
         assert_eq!(high.demand.commercial, 0.0);
         assert_eq!(high.demand.office, 0.0);

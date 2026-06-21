@@ -103,6 +103,7 @@ impl SimulationState {
 
 #[cfg(test)]
 mod tests {
+    use crate::citymap::ffi;
     use crate::simulation::{
         empty_map_stats,
         test_support::{FixedRandom, residential_tile, state_at},
@@ -115,7 +116,14 @@ mod tests {
         let mut tiles = vec![residential_tile(0, 8)];
         let mut random = FixedRandom::new([9, 0, 3, 4, 0, 5, 1, 119, 0]);
 
-        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            1,
+            &mut tiles,
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!(tiles[0].residents, 3);
         assert_eq!(tiles[0].ages, [0, 1, 115]);
@@ -131,7 +139,14 @@ mod tests {
         let mut tiles = vec![residential_tile(10, 20)];
         let mut random = FixedRandom::new([9, 1, 5]);
 
-        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            1,
+            &mut tiles,
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!(tiles[0].residents, 5);
         assert_eq!(tiles[0].ages.len(), 5);
@@ -146,7 +161,14 @@ mod tests {
         let mut tiles = vec![residential_tile(4, 8), residential_tile(7, 20)];
         let mut random = FixedRandom::new([0, 0]);
 
-        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            1,
+            &mut tiles,
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!(state.population, 11);
     }
@@ -161,11 +183,50 @@ mod tests {
         // 人口変動なし、120歳は必ず死亡、119歳は生存。
         let mut random = FixedRandom::new([0, 0, 1]);
 
-        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
+        state.update_world_with_source(
+            1,
+            &mut tiles,
+            &mut [],
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
 
         assert_eq!(tiles[0].residents, 1);
         assert_eq!(tiles[0].ages, [120]);
         assert_eq!(tiles[0].genders, ["m"]);
         assert_eq!(state.population, 1);
+    }
+
+    #[test]
+    fn moving_out_reconciles_household_jobs_and_workplace_workers() {
+        let mut state = state_at(2024, 1, 1, 23, 59);
+        let mut tile = residential_tile(10, 20);
+        tile.work_place_kinds = vec![1; 10];
+        tile.work_place_serial_numbers = vec![42; 10];
+        let mut tiles = vec![tile];
+        let mut workplaces = vec![ffi::WorkPlaceTileState {
+            x: 3,
+            y: 4,
+            kind: 1,
+            serial_number: 42,
+            maximum_capacity: 20,
+            workers: 10,
+        }];
+        let mut random = FixedRandom::new([9, 1, 5]);
+
+        state.update_world_with_source(
+            1,
+            &mut tiles,
+            &mut workplaces,
+            &mut [],
+            &empty_map_stats(),
+            &mut random,
+        );
+
+        assert_eq!(tiles[0].residents, 5);
+        assert_eq!(tiles[0].work_place_kinds.len(), 5);
+        assert_eq!(tiles[0].work_place_serial_numbers.len(), 5);
+        assert_eq!(workplaces[0].workers, 5);
     }
 }

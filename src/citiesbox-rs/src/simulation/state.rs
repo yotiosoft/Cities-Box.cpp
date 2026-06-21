@@ -73,6 +73,8 @@ impl SimulationState {
         &mut self,
         minutes_delta: i32,
         residential_tiles: &mut [ffi::ResidentialTileState],
+        work_place_tiles: &mut [ffi::WorkPlaceTileState],
+        school_tiles: &mut [ffi::SchoolTileState],
         map_stats: &ffi::SimulationMapStats,
         random: &mut S,
     ) -> u32 {
@@ -83,6 +85,7 @@ impl SimulationState {
         for _ in 0..elapsed_days {
             self.time.advance_one_day();
             self.update_daily_population(residential_tiles, random);
+            self.update_daily_employment(residential_tiles, work_place_tiles, school_tiles, random);
             if self.time.date == 1 {
                 self.update_monthly_finances(map_stats);
             }

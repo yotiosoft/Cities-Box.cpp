@@ -655,40 +655,9 @@ fn read_and_normalize_map(
 
 fn empty_loaded_city_data() -> ffi::LoadedCityData {
     ffi::LoadedCityData {
-        version: 0,
         addon_set_name: String::new(),
-        city_name: String::new(),
-        mayor_name: String::new(),
-        total_population: 0,
-        change_weather: false,
-        temperature: 0,
-        dark_on_night: false,
         map_width: 0,
         map_height: 0,
-        time: ffi::TimeStruct {
-            year: 0,
-            month: 0,
-            date: 0,
-            hour: 0,
-            minutes: 0,
-        },
-        demand: ffi::RCOIFstruct {
-            residential: 0.0,
-            commercial: 0.0,
-            office: 0.0,
-            industrial: 0.0,
-            farm: 0.0,
-        },
-        money: 0,
-        budget_police: 0,
-        budget_fire: 0,
-        budget_post: 0,
-        budget_education: 0,
-        tax_residential: 0.0,
-        tax_commercial: 0.0,
-        tax_office: 0.0,
-        tax_industrial: 0.0,
-        tax_farm: 0.0,
         objects: Vec::new(),
         tiles: Vec::new(),
     }
@@ -699,40 +668,9 @@ fn loaded_city_data(data: &SaveDataJson) -> ffi::LoadedCityData {
     objects.sort_by_key(|object| object.object_id);
 
     ffi::LoadedCityData {
-        version: data.version,
         addon_set_name: data.addon_set.clone(),
-        city_name: data.city_name.clone(),
-        mayor_name: data.mayor_name.clone(),
-        total_population: data.total_population,
-        change_weather: data.change_weather,
-        temperature: data.temperature,
-        dark_on_night: data.dark_on_night,
         map_width: data.map_size.width,
         map_height: data.map_size.height,
-        time: ffi::TimeStruct {
-            year: data.time.year,
-            month: data.time.month,
-            date: data.time.date,
-            hour: data.time.hour,
-            minutes: data.time.minutes,
-        },
-        demand: ffi::RCOIFstruct {
-            residential: data.demand.residential,
-            commercial: data.demand.commercial,
-            office: data.demand.office,
-            industrial: data.demand.industrial,
-            farm: data.demand.farm,
-        },
-        money: data.money,
-        budget_police: data.budget.police,
-        budget_fire: data.budget.fire_depertment,
-        budget_post: data.budget.post_office,
-        budget_education: data.budget.education,
-        tax_residential: data.tax.residential,
-        tax_commercial: data.tax.commercial,
-        tax_office: data.tax.office,
-        tax_industrial: data.tax.industrial,
-        tax_farm: data.tax.farm,
         objects: objects
             .into_iter()
             .map(|object| ffi::LoadedObjectData {

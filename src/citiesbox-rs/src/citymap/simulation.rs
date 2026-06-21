@@ -49,11 +49,13 @@ impl RustCityMap {
         &mut self,
         minutes_delta: i32,
         mut residential_tiles: Vec<ffi::ResidentialTileState>,
+        map_stats: ffi::SimulationMapStats,
     ) -> ffi::SimulationUpdate {
         let mut random = RandomSimulationSource::new();
         self.simulation.update_world_with_source(
             minutes_delta,
             &mut residential_tiles,
+            &map_stats,
             &mut random,
         );
         ffi::SimulationUpdate {
@@ -87,18 +89,21 @@ impl SimulationState {
         &mut self,
         minutes_delta: i32,
         residential_tiles: &mut [ffi::ResidentialTileState],
+        map_stats: &ffi::SimulationMapStats,
         random: &mut S,
     ) -> u32 {
         let elapsed_days = self.time.advance_clock(minutes_delta);
         for _ in 0..elapsed_days {
             self.time.advance_one_day();
             self.update_daily_population(residential_tiles, random);
+            if self.time.date == 1 {
+                self.update_monthly_finances(map_stats);
+            }
             self.update_daily_demand(random);
         }
         elapsed_days
     }
 
-    // HSP版 Cities_Box.hsp の processing_start_of_day を移植。
     fn update_daily_population<S: SimulationRandomSource>(
         &mut self,
         residential_tiles: &mut [ffi::ResidentialTileState],
@@ -141,7 +146,7 @@ impl SimulationState {
             return;
         }
 
-        // HSPのrnd(free_capacity)と同じく、増加数は0..free_capacity未満。
+        // 増加数は0..free_capacity未満
         let added = random.random_below(free_capacity);
         tile.residents += added;
         self.demand.residential -= f64::from(added);
@@ -206,6 +211,63 @@ impl SimulationState {
         self.demand.industrial =
             (self.demand.industrial + random.next_demand_change()).clamp(0.0, 100.0);
         self.demand.farm = (self.demand.farm + random.next_demand_change()).clamp(0.0, 100.0);
+    }
+
+    fn update_monthly_finances(&mut self, map_stats: &ffi::SimulationMapStats) {
+        let expenses = [
+            (map_stats.police_stations, self.budget_police),
+            (map_stats.fire_departments, self.budget_fire),
+            (map_stats.post_offices, self.budget_post),
+            (map_stats.education_facilities, self.budget_education),
+        ]
+        .into_iter()
+        .fold(0_i64, |total, (count, budget)| {
+            total.saturating_add(
+                i64::from(count.max(0))
+                    .saturating_mul(i64::from(budget.max(0)))
+                    .saturating_mul(10),
+            )
+        });
+
+        let income = [
+            (map_stats.residential_tiles, self.tax_residential),
+            (map_stats.commercial_tiles, self.tax_commercial),
+            (map_stats.office_tiles, self.tax_office),
+            (map_stats.industrial_tiles, self.tax_industrial),
+            (map_stats.farm_tiles, self.tax_farm),
+        ]
+        .into_iter()
+        .map(|(count, tax)| f64::from(count.max(0)) * finite_nonnegative(tax))
+        .sum::<f64>()
+        .trunc() as i64;
+
+        let updated_money = i64::from(self.money)
+            .saturating_add(income)
+            .saturating_sub(expenses);
+        self.money = updated_money.clamp(i64::from(i32::MIN), i64::from(i32::MAX)) as i32;
+    }
+}
+
+fn finite_nonnegative(value: f64) -> f64 {
+    if value.is_finite() {
+        value.max(0.0)
+    } else {
+        0.0
+    }
+}
+
+#[cfg(test)]
+pub(super) fn empty_map_stats() -> ffi::SimulationMapStats {
+    ffi::SimulationMapStats {
+        residential_tiles: 0,
+        commercial_tiles: 0,
+        office_tiles: 0,
+        industrial_tiles: 0,
+        farm_tiles: 0,
+        police_stations: 0,
+        fire_departments: 0,
+        post_offices: 0,
+        education_facilities: 0,
     }
 }
 
@@ -311,7 +373,8 @@ mod tests {
 
     fn advance(state: &mut SimulationState, minutes: i32) -> (u32, usize) {
         let mut random = FixedRandom::new([]);
-        let days = state.update_world_with_source(minutes, &mut [], &mut random);
+        let days =
+            state.update_world_with_source(minutes, &mut [], &empty_map_stats(), &mut random);
         (days, random.demand_calls)
     }
 
@@ -415,7 +478,7 @@ mod tests {
         let mut tiles = vec![residential_tile(0, 8)];
         let mut random = FixedRandom::new([9, 0, 3, 4, 0, 5, 1, 119, 0]);
 
-        state.update_world_with_source(1, &mut tiles, &mut random);
+        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
 
         assert_eq!(tiles[0].residents, 3);
         assert_eq!(tiles[0].ages, [0, 1, 115]);
@@ -431,7 +494,7 @@ mod tests {
         let mut tiles = vec![residential_tile(10, 20)];
         let mut random = FixedRandom::new([9, 1, 5]);
 
-        state.update_world_with_source(1, &mut tiles, &mut random);
+        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
 
         assert_eq!(tiles[0].residents, 5);
         assert_eq!(tiles[0].ages.len(), 5);
@@ -446,7 +509,7 @@ mod tests {
         let mut tiles = vec![residential_tile(4, 8), residential_tile(7, 20)];
         let mut random = FixedRandom::new([0, 0]);
 
-        state.update_world_with_source(1, &mut tiles, &mut random);
+        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
 
         assert_eq!(state.population, 11);
     }
@@ -461,7 +524,7 @@ mod tests {
         // 人口変動なし、120歳は必ず死亡、119歳は生存。
         let mut random = FixedRandom::new([0, 0, 1]);
 
-        state.update_world_with_source(1, &mut tiles, &mut random);
+        state.update_world_with_source(1, &mut tiles, &empty_map_stats(), &mut random);
 
         assert_eq!(tiles[0].residents, 1);
         assert_eq!(tiles[0].ages, [120]);
@@ -479,7 +542,7 @@ mod tests {
         high.demand.farm = 99.0;
         let mut increase = FixedRandom::new([]);
         increase.demand_change = 4.9;
-        high.update_world_with_source(24 * 60, &mut [], &mut increase);
+        high.update_world_with_source(24 * 60, &mut [], &empty_map_stats(), &mut increase);
         assert_eq!(high.demand.residential, 100.0);
         assert_eq!(high.demand.commercial, 100.0);
         assert_eq!(high.demand.office, 100.0);
@@ -493,7 +556,7 @@ mod tests {
         high.demand.office = 1.0;
         high.demand.industrial = 1.0;
         high.demand.farm = 1.0;
-        high.update_world_with_source(24 * 60, &mut [], &mut decrease);
+        high.update_world_with_source(24 * 60, &mut [], &empty_map_stats(), &mut decrease);
         assert_eq!(high.demand.residential, 0.0);
         assert_eq!(high.demand.commercial, 0.0);
         assert_eq!(high.demand.office, 0.0);
@@ -506,5 +569,71 @@ mod tests {
         let mut state = state_at(2024, 1, 1, 10, 15);
         assert_eq!(advance(&mut state, -1), (0, 0));
         assert_eq!((state.time.hour, state.time.minutes), (10, 15));
+    }
+
+    #[test]
+    fn collects_taxes_and_pays_budgets_on_the_first_of_the_month() {
+        let mut state = state_at(2024, 4, 30, 23, 59);
+        state.money = 100_000;
+        state.budget_police = 100;
+        state.budget_fire = 200;
+        state.budget_post = 300;
+        state.budget_education = 400;
+        state.tax_residential = 7.0;
+        state.tax_commercial = 8.0;
+        state.tax_office = 9.0;
+        state.tax_industrial = 10.0;
+        state.tax_farm = 11.0;
+        let stats = ffi::SimulationMapStats {
+            residential_tiles: 10,
+            commercial_tiles: 20,
+            office_tiles: 30,
+            industrial_tiles: 40,
+            farm_tiles: 50,
+            police_stations: 1,
+            fire_departments: 2,
+            post_offices: 3,
+            education_facilities: 4,
+        };
+        let mut random = FixedRandom::new([]);
+
+        state.update_world_with_source(1, &mut [], &stats, &mut random);
+
+        assert_eq!((state.time.month, state.time.date), (5, 1));
+        assert_eq!(state.money, 71_450);
+    }
+
+    #[test]
+    fn does_not_update_finances_on_other_dates() {
+        let mut state = state_at(2024, 5, 1, 23, 59);
+        state.money = 100_000;
+        let mut stats = empty_map_stats();
+        stats.residential_tiles = 10;
+        stats.police_stations = 1;
+        let mut random = FixedRandom::new([]);
+
+        state.update_world_with_source(1, &mut [], &stats, &mut random);
+
+        assert_eq!((state.time.month, state.time.date), (5, 2));
+        assert_eq!(state.money, 100_000);
+    }
+
+    #[test]
+    fn updates_finances_for_every_crossed_month() {
+        let mut state = state_at(2024, 1, 31, 23, 59);
+        state.money = 100;
+        state.tax_residential = 10.0;
+        state.budget_police = 0;
+        state.budget_fire = 0;
+        state.budget_post = 0;
+        state.budget_education = 0;
+        let mut stats = empty_map_stats();
+        stats.residential_tiles = 1;
+        let mut random = FixedRandom::new([]);
+
+        state.update_world_with_source(30 * 24 * 60, &mut [], &stats, &mut random);
+
+        assert_eq!((state.time.month, state.time.date), (3, 1));
+        assert_eq!(state.money, 120);
     }
 }

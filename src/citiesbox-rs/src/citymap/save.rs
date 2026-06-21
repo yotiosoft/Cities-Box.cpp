@@ -103,24 +103,8 @@ impl RustCityMap {
         self.version = version;
     }
 
-    pub(super) fn set_city_metadata(
-        &mut self,
-        city_name: String,
-        mayor_name: String,
-        addon_set: String,
-    ) {
-        self.city_name = city_name;
-        self.mayor_name = mayor_name;
-        self.addon_set_name = addon_set;
-    }
-
-    pub(super) fn set_display_settings(&mut self, weather: bool, night: bool) {
-        self.change_weather = weather;
-        self.dark_on_night = night;
-    }
-
     // セーブデータ JSON 文字列生成
-    pub fn generate_save_json(&self) -> String {
+    pub(super) fn generate_save_json(&self) -> String {
         // 1. オブジェクトデータの集計 (m_objects 相当)
         let objects_json: Vec<ObjectEntryJson> = self
             .objects

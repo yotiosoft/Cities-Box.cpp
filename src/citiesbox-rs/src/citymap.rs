@@ -16,18 +16,6 @@ use models::*;
 use save::sidecar_path;
 use state::SimulationState;
 
-#[repr(C)] // C++とメモリレイアウトを完全に一致させる
-pub struct RawTileData {
-    pub residents: i32,
-    pub workers_commercial: i32,
-    pub workers_office: i32,
-    pub workers_industrial: i32,
-    pub workers_farm: i32,
-    pub workers_public: i32,
-    pub students: i32,
-    pub reservation: i32,
-}
-
 #[cxx::bridge(namespace = "rust::citymap")]
 mod ffi {
     // Rust側の構造体をC++に見せる
@@ -88,6 +76,18 @@ mod ffi {
         genders: Vec<String>,
     }
 
+    struct SimulationMapStats {
+        residential_tiles: i32,
+        commercial_tiles: i32,
+        office_tiles: i32,
+        industrial_tiles: i32,
+        farm_tiles: i32,
+        police_stations: i32,
+        fire_departments: i32,
+        post_offices: i32,
+        education_facilities: i32,
+    }
+
     struct SimulationUpdate {
         snapshot: SimulationSnapshot,
         residential_tiles: Vec<ResidentialTileState>,
@@ -144,28 +144,9 @@ mod ffi {
     }
 
     struct LoadedCityData {
-        version: i32,
         addon_set_name: String,
-        city_name: String,
-        mayor_name: String,
-        total_population: i32,
-        change_weather: bool,
-        temperature: i32,
-        dark_on_night: bool,
         map_width: i32,
         map_height: i32,
-        time: TimeStruct,
-        demand: RCOIFstruct,
-        money: i32,
-        budget_police: i32,
-        budget_fire: i32,
-        budget_post: i32,
-        budget_education: i32,
-        tax_residential: f64,
-        tax_commercial: f64,
-        tax_office: f64,
-        tax_industrial: f64,
-        tax_farm: f64,
         objects: Vec<LoadedObjectData>,
         tiles: Vec<LoadedTileData>,
     }
@@ -184,9 +165,6 @@ mod ffi {
         // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
         fn load_city_map(&mut self, path: String) -> LoadCityResult;
         fn commit_loaded_city_map(&mut self) -> bool;
-
-        // マップサイズの初期化（タイルのメモリ確保）
-        fn init_map_size(&mut self, width: i32, height: i32);
 
         // オブジェクトの登録
         fn clear_objects(&mut self);
@@ -212,16 +190,6 @@ mod ffi {
             reservation: i32,
             orig_name: String,
         );
-        fn set_tile_workers(
-            &mut self,
-            x: i32,
-            y: i32,
-            comm: i32,
-            offi: i32,
-            indu: i32,
-            farm: i32,
-            publ: i32,
-        );
         fn add_tile_object_ref(
             &mut self,
             x: i32,
@@ -243,15 +211,11 @@ mod ffi {
             &mut self,
             minutes_delta: i32,
             residential_tiles: Vec<ResidentialTileState>,
+            map_stats: SimulationMapStats,
         ) -> SimulationUpdate;
 
         // 基本情報の同期用
         fn set_save_version(&mut self, version: i32);
-        fn set_city_metadata(&mut self, city_name: String, mayor_name: String, addon_set: String);
-        fn set_display_settings(&mut self, weather: bool, night: bool);
-
-        // セーブデータ生成
-        fn generate_save_json(&self) -> String;
 
         // スライス（配列の参照）として一括で受け取る
         fn bulk_set_tiles(&mut self, data: &[RawTileData], width: i32, height: i32);
@@ -318,7 +282,8 @@ mod tests {
     fn save_json_uses_the_cpp_loader_compatible_schema() {
         let mut city = new_city_map();
         city.set_save_version(142);
-        city.init_map_size(1, 1);
+        city.map_size = [1, 1];
+        city.tiles = vec![vec![RustTile::default()]];
         city.add_object(
             7,
             "road".to_string(),
@@ -364,30 +329,20 @@ mod tests {
         let path_string = path.to_string_lossy().into_owned();
 
         let mut city = new_city_map();
-        city.set_city_metadata(
-            "First".to_string(),
-            "Mayor".to_string(),
-            "Normal".to_string(),
-        );
+        city.city_name = "First".to_string();
+        city.mayor_name = "Mayor".to_string();
+        city.addon_set_name = "Normal".to_string();
         assert!(city.save_to_file(path_string.clone()));
         let first_save = fs::read(&path).unwrap();
 
-        city.set_city_metadata(
-            "Second".to_string(),
-            "Mayor".to_string(),
-            "Normal".to_string(),
-        );
+        city.city_name = "Second".to_string();
         assert!(city.save_to_file(path_string));
 
         assert_eq!(fs::read(&backup).unwrap(), first_save);
         assert_ne!(fs::read(&path).unwrap(), first_save);
 
         let second_save = fs::read(&path).unwrap();
-        city.set_city_metadata(
-            "Third".to_string(),
-            "Mayor".to_string(),
-            "Normal".to_string(),
-        );
+        city.city_name = "Third".to_string();
         assert!(city.save_to_file(path.to_string_lossy().into_owned()));
         assert_eq!(fs::read(&backup).unwrap(), second_save);
         assert_ne!(fs::read(&path).unwrap(), second_save);
@@ -408,7 +363,6 @@ mod tests {
         let path = windows_map_path(file_name);
         let result = city.load_city_map(path.to_string_lossy().into_owned());
         assert!(result.success, "{}", result.error_message);
-        assert_eq!(result.city.version, 142);
         assert_eq!((result.city.map_width, result.city.map_height), (100, 100));
         assert_eq!(result.city.tiles.len(), 10_000);
         assert!(!result.city.objects.is_empty());
@@ -506,7 +460,7 @@ mod tests {
         let load = updated.load_city_map(first_path.to_string_lossy().into_owned());
         assert!(load.success, "{}", load.error_message);
         assert!(updated.commit_loaded_city_map());
-        updated.update_world(1, Vec::new());
+        updated.update_world(1, Vec::new(), simulation::empty_map_stats());
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));
 
         let mut reloaded = new_city_map();

@@ -56,30 +56,20 @@ impl RustCityMap {
         // データを流し込む（統計やレート等は別途Setterを呼ぶか、一旦クリア）
         self.tiles = data
             .iter()
-            .enumerate()
-            .map(|(i, d)| {
-                let mut tile = RustTile::default((i as i32) % width, (i as i32) / width);
-                tile.residents = d.residents;
-                tile.workers_commercial = d.workers_commercial;
-                tile.workers_office = d.workers_office;
-                tile.workers_industrial = d.workers_industrial;
-                tile.workers_farm = d.workers_farm;
-                tile.workers_public = d.workers_public;
-                tile.students = d.students;
-                tile.reservation = d.reservation;
-                tile
+            .map(|d| RustTile {
+                residents: d.residents,
+                workers_commercial: d.workers_commercial,
+                workers_office: d.workers_office,
+                workers_industrial: d.workers_industrial,
+                workers_farm: d.workers_farm,
+                workers_public: d.workers_public,
+                students: d.students,
+                reservation: d.reservation,
+                ..Default::default()
             })
             .collect::<Vec<_>>() // 一旦フラットなリストとして作り
             .chunks(width as usize) // widthごとに分割して Vec<Vec<RustTile>> に
             .map(|chunk| chunk.to_vec())
-            .collect();
-    }
-
-    // マップがロードされた時にまず呼ぶ
-    pub(super) fn init_map_size(&mut self, width: i32, height: i32) {
-        self.map_size = [width, height];
-        self.tiles = (0..height)
-            .map(|y| (0..width).map(|x| RustTile::default(x, y)).collect())
             .collect();
     }
 
@@ -165,30 +155,6 @@ impl RustCityMap {
     // オブジェクトリストを空にする（同期の開始時に呼ぶ）
     pub(super) fn clear_objects(&mut self) {
         self.objects.clear();
-    }
-
-    // タイルの労働者情報を一括設定
-    pub(super) fn set_tile_workers(
-        &mut self,
-        x: i32,
-        y: i32,
-        comm: i32,
-        offi: i32,
-        indu: i32,
-        farm: i32,
-        publ: i32,
-    ) {
-        if let Some(tile) = self
-            .tiles
-            .get_mut(y as usize)
-            .and_then(|row| row.get_mut(x as usize))
-        {
-            tile.workers_commercial = comm;
-            tile.workers_office = offi;
-            tile.workers_industrial = indu;
-            tile.workers_farm = farm;
-            tile.workers_public = publ;
-        }
     }
 
     // タイルの統計データ（年齢・性別）を設定

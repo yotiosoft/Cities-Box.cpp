@@ -147,7 +147,7 @@ pub struct SchoolJson {
 }
 
 // タイルデータ
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct RustTile {
     pub residents: i32,
     pub workers_commercial: i32,
@@ -170,28 +170,6 @@ pub struct RustTile {
 
     // タイル上のオブジェクト情報 (ObjectStruct相当)
     pub object_structs: Vec<RustTileObjectReference>,
-}
-
-impl RustTile {
-    pub(super) fn default(x: i32, y: i32) -> Self {
-        Self {
-            residents: 0,
-            workers_commercial: 0,
-            workers_office: 0,
-            workers_industrial: 0,
-            workers_farm: 0,
-            workers_public: 0,
-            students: 0,
-            reservation: 0,
-            original_name: String::new(),
-            rate: HashMap::new(),
-            age: Vec::new(),
-            gender: Vec::new(),
-            work_places: Vec::new(),
-            schools: Vec::new(),
-            object_structs: Vec::new(),
-        }
-    }
 }
 
 pub struct RustObject {

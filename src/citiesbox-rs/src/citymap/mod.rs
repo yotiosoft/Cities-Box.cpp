@@ -8,16 +8,15 @@ use std::path::{Path, PathBuf};
 mod load;
 mod models;
 mod save;
-mod simulation;
 mod state;
 
+use crate::simulation::SimulationState;
 use models::*;
 #[cfg(test)]
 use save::sidecar_path;
-use state::SimulationState;
 
 #[cxx::bridge(namespace = "rust::citymap")]
-mod ffi {
+pub(crate) mod ffi {
     // Rust側の構造体をC++に見せる
     struct RawTileData {
         residents: i32,
@@ -227,7 +226,7 @@ mod ffi {
 pub struct RustCityMap {
     // OpenSiv3Dに依存しない都市状態。simulation.rs はこの値だけを更新し、
     // 保存用のタイル・オブジェクト写像を参照しない。
-    simulation: SimulationState,
+    pub(crate) simulation: SimulationState,
 
     // 都市の基本情報
     pub version: i32,
@@ -460,7 +459,7 @@ mod tests {
         let load = updated.load_city_map(first_path.to_string_lossy().into_owned());
         assert!(load.success, "{}", load.error_message);
         assert!(updated.commit_loaded_city_map());
-        updated.update_world(1, Vec::new(), simulation::empty_map_stats());
+        updated.update_world(1, Vec::new(), crate::simulation::empty_map_stats());
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));
 
         let mut reloaded = new_city_map();

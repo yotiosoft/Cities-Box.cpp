@@ -1,55 +1,5 @@
 use super::*;
 
-pub(super) struct SimulationState {
-    pub(super) time: ffi::TimeStruct,
-    pub(super) population: i32,
-    pub(super) money: i32,
-    pub(super) temperature: i32,
-    pub(super) demand: ffi::RCOIFstruct,
-    pub(super) budget_police: i32,
-    pub(super) budget_fire: i32,
-    pub(super) budget_post: i32,
-    pub(super) budget_education: i32,
-    pub(super) tax_residential: f64,
-    pub(super) tax_commercial: f64,
-    pub(super) tax_office: f64,
-    pub(super) tax_industrial: f64,
-    pub(super) tax_farm: f64,
-}
-
-impl SimulationState {
-    pub(super) fn new() -> Self {
-        Self {
-            time: ffi::TimeStruct {
-                year: 2024,
-                month: 1,
-                date: 1,
-                hour: 0,
-                minutes: 0,
-            },
-            population: 0,
-            money: 100_000,
-            temperature: 20,
-            demand: ffi::RCOIFstruct {
-                residential: 0.0,
-                commercial: 0.0,
-                office: 0.0,
-                industrial: 0.0,
-                farm: 0.0,
-            },
-            budget_police: 100,
-            budget_fire: 100,
-            budget_post: 100,
-            budget_education: 100,
-            tax_residential: 7.0,
-            tax_commercial: 7.0,
-            tax_office: 7.0,
-            tax_industrial: 7.0,
-            tax_farm: 7.0,
-        }
-    }
-}
-
 impl RustCityMap {
     pub(super) fn bulk_set_tiles(&mut self, data: &[ffi::RawTileData], width: i32, height: i32) {
         self.map_size = [width, height];

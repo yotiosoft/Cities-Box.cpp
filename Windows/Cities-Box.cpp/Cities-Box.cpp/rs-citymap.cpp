@@ -1235,6 +1235,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
+  void charge_construction_cost() noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
   ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
@@ -1278,6 +1279,8 @@ void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_work_place(::rust::citymap
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_school(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$simulation_snapshot(::rust::citymap::RustCityMap const &self, ::rust::citymap::SimulationSnapshot *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$charge_construction_cost(::rust::citymap::RustCityMap &self) noexcept;
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$will_run_daily_update(::rust::citymap::RustCityMap const &self, ::std::int32_t minutes_delta) noexcept;
 
@@ -1350,6 +1353,10 @@ void RustCityMap::add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int
   ::rust::MaybeUninit<::rust::citymap::SimulationSnapshot> return$;
   rust$citymap$cxxbridge1$192$RustCityMap$simulation_snapshot(*this, &return$.value);
   return ::std::move(return$.value);
+}
+
+void RustCityMap::charge_construction_cost() noexcept {
+  rust$citymap$cxxbridge1$192$RustCityMap$charge_construction_cost(*this);
 }
 
 bool RustCityMap::will_run_daily_update(::std::int32_t minutes_delta) const noexcept {

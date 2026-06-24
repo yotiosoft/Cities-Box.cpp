@@ -19,6 +19,10 @@ impl RustCityMap {
         self.simulation.snapshot()
     }
 
+    pub(crate) fn charge_construction_cost(&mut self) {
+        self.simulation.charge_construction_cost();
+    }
+
     pub(crate) fn will_run_daily_update(&self, minutes_delta: i32) -> bool {
         let mut time = self.simulation.time.clone();
         time.advance_clock(minutes_delta) > 0

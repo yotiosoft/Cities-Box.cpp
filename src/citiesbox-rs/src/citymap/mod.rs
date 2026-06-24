@@ -235,6 +235,7 @@ pub(crate) mod ffi {
 
         // シミュレーション状態の取得と更新
         fn simulation_snapshot(&self) -> SimulationSnapshot;
+        fn charge_construction_cost(&mut self);
         fn will_run_daily_update(&self, minutes_delta: i32) -> bool;
         fn update_world(
             &mut self,
@@ -344,6 +345,15 @@ mod tests {
         assert_eq!(saved.map[0][0].gender, ["male", "female"]);
         assert_eq!(saved.map[0][0].work_places.len(), 1);
         assert_eq!(saved.map[0][0].school.len(), 1);
+    }
+
+    #[test]
+    fn construction_cost_is_visible_in_the_cpp_snapshot() {
+        let mut city = new_city_map();
+
+        city.charge_construction_cost();
+
+        assert_eq!(city.simulation_snapshot().money, 99_995);
     }
 
     #[test]

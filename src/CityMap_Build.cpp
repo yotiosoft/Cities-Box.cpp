@@ -65,9 +65,13 @@ bool CityMap::m_build_building(CursorStruct cursor, CursorStruct before_cursor, 
 
 		// 効果を反映
 		m_set_rate(m_objects[objectID], origin_coordinate, false);
+
+		// 旧版と同じく、建設に成功したときだけ資金を減らす
+		m_rust_core->charge_construction_cost();
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 void CityMap::m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted) {

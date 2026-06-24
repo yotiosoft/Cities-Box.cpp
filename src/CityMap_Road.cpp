@@ -97,10 +97,13 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 
 		// 効果を反映
 		m_set_rate(m_objects[objectID], origin_coordinate, false);
-	}
-    
 
-	return true;
+		// 旧版と同じく、新しい道路等を1マス敷設するごとに資金を減らす
+		m_rust_core->charge_construction_cost();
+		return true;
+	}
+
+	return false;
 }
 
 bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {

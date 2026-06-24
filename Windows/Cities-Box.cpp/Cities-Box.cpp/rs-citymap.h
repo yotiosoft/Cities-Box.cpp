@@ -1206,6 +1206,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
+  void charge_construction_cost() noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
   ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
   void set_save_version(::std::int32_t version) noexcept;

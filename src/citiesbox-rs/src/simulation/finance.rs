@@ -1,7 +1,13 @@
 use super::SimulationState;
 use crate::citymap::ffi;
 
+const CONSTRUCTION_COST: i32 = 5;
+
 impl SimulationState {
+    pub(super) fn charge_construction_cost(&mut self) {
+        self.money = self.money.saturating_sub(CONSTRUCTION_COST);
+    }
+
     pub(super) fn update_monthly_finances(&mut self, map_stats: &ffi::SimulationMapStats) {
         let expenses = [
             (map_stats.police_stations, self.budget_police),
@@ -127,5 +133,16 @@ mod tests {
 
         assert_eq!((state.time.month, state.time.date), (3, 1));
         assert_eq!(state.money, 120);
+    }
+
+    #[test]
+    fn charges_five_for_each_successful_construction() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.money = 100;
+
+        state.charge_construction_cost();
+        state.charge_construction_cost();
+
+        assert_eq!(state.money, 90);
     }
 }

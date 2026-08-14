@@ -17,6 +17,9 @@ jobs:
     name: Rust tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: src/citiesbox-rs
 
     steps:
       - name: Check out repository
@@ -27,5 +30,16 @@ jobs:
           rustup toolchain install stable --profile minimal --no-self-update
           rustup default stable
 
+      - name: Prepare save file fixtures
+        working-directory: .
+        env:
+          MAP_DIR: Windows/Cities-Box.cpp/Cities-Box.cpp/App/data/maps
+          FIXTURE_DIR: Mac/Cities-Box/App/Cities-Box.app/Contents/Resources/assets/data/maps
+        run: |
+          mkdir -p "$MAP_DIR"
+          cp "$FIXTURE_DIR/Sample_City.cbd.cbj" "$MAP_DIR/Sample_City.cbd.cbj"
+          cp "$FIXTURE_DIR/Sample_City.cbd.cbj" "$MAP_DIR/backup.cbj"
+          cp "$FIXTURE_DIR/Sample_City.cbd.cbj.cbj" "$MAP_DIR/Sample_City.cbd.cbj.cbj"
+
       - name: Run citiesbox-rs tests
-        run: cargo test --manifest-path src/citiesbox-rs/Cargo.toml --locked
+        run: cargo test --locked

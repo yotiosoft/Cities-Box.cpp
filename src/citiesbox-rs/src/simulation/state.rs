@@ -69,6 +69,22 @@ impl SimulationState {
         }
     }
 
+    pub(super) fn set_finance_settings(
+        &mut self,
+        budget: ffi::BudgetSettings,
+        tax: ffi::TaxSettings,
+    ) {
+        self.budget_police = budget.police.max(0);
+        self.budget_fire = budget.fire.max(0);
+        self.budget_post = budget.post.max(0);
+        self.budget_education = budget.education.max(0);
+        self.tax_residential = normalize_tax(tax.residential);
+        self.tax_commercial = normalize_tax(tax.commercial);
+        self.tax_office = normalize_tax(tax.office);
+        self.tax_industrial = normalize_tax(tax.industrial);
+        self.tax_farm = normalize_tax(tax.farm);
+    }
+
     #[allow(clippy::too_many_arguments)]
     pub(super) fn update_world_with_source<S: SimulationRandomSource>(
         &mut self,
@@ -94,6 +110,14 @@ impl SimulationState {
             self.update_daily_demand(demand_tiles, work_place_tiles, random);
         }
         elapsed_days
+    }
+}
+
+fn normalize_tax(value: f64) -> f64 {
+    if value.is_finite() {
+        value.max(0.0)
+    } else {
+        0.0
     }
 }
 

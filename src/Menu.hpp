@@ -52,6 +52,7 @@ public:
 	void addonMenu();
 	
 	bool rateMenu();
+	bool budgetMenu();
 	
 private:
 	PositionStruct m_position;
@@ -82,6 +83,7 @@ private:
 	CategoryID::Type m_current_category;
 	
 	bool m_show_rate_menu;
+	bool m_show_budget_menu;
 	RateID::Type m_show_rate_id;
 	
 };

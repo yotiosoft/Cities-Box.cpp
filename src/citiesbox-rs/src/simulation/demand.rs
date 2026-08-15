@@ -181,4 +181,43 @@ mod tests {
         zero.update_daily_demand(&[], &workplaces, &mut zero_random);
         assert_eq!(zero.demand.commercial, 0.0);
     }
+
+    #[test]
+    fn all_demands_stay_within_the_supported_range() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.population = 1;
+        state.demand = ffi::RCOIFstruct {
+            residential: -1_000.0,
+            commercial: -1_000.0,
+            office: 1_000.0,
+            industrial: -1_000.0,
+            farm: 1_000.0,
+        };
+        let workplaces = [
+            workplace(COMMERCIAL, 1),
+            workplace(OFFICE, 1),
+            workplace(INDUSTRIAL, 1),
+            workplace(FARM, 1),
+        ];
+        let mut random = FixedRandom::new([19, 0, 29, 0, 29]);
+
+        state.update_daily_demand(
+            &[demand_tile(i32::MAX, i32::MIN, i32::MAX)],
+            &workplaces,
+            &mut random,
+        );
+
+        for demand in [
+            state.demand.residential,
+            state.demand.commercial,
+            state.demand.office,
+            state.demand.industrial,
+            state.demand.farm,
+        ] {
+            assert!(
+                (0.0..=100.0).contains(&demand),
+                "out-of-range demand: {demand}"
+            );
+        }
+    }
 }

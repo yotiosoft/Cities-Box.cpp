@@ -947,6 +947,8 @@ namespace rust {
     struct TimeStruct;
     struct RCOIFstruct;
     struct SimulationSnapshot;
+    struct BudgetSettings;
+    struct TaxSettings;
     struct ResidentialTileState;
     struct WorkPlaceTileState;
     struct SchoolTileState;
@@ -1030,6 +1032,31 @@ struct SimulationSnapshot final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$SimulationSnapshot
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BudgetSettings
+#define CXXBRIDGE1_STRUCT_rust$citymap$BudgetSettings
+struct BudgetSettings final {
+  ::std::int32_t police CXX_DEFAULT_VALUE(0);
+  ::std::int32_t fire CXX_DEFAULT_VALUE(0);
+  ::std::int32_t post CXX_DEFAULT_VALUE(0);
+  ::std::int32_t education CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BudgetSettings
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$TaxSettings
+#define CXXBRIDGE1_STRUCT_rust$citymap$TaxSettings
+struct TaxSettings final {
+  double residential CXX_DEFAULT_VALUE(0);
+  double commercial CXX_DEFAULT_VALUE(0);
+  double office CXX_DEFAULT_VALUE(0);
+  double industrial CXX_DEFAULT_VALUE(0);
+  double farm CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$TaxSettings
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
 #define CXXBRIDGE1_STRUCT_rust$citymap$ResidentialTileState
@@ -1235,6 +1262,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
+  ::rust::citymap::SimulationSnapshot set_finance_settings(::rust::citymap::BudgetSettings budget, ::rust::citymap::TaxSettings tax) noexcept;
   void charge_construction_cost() noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
   ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
@@ -1279,6 +1307,8 @@ void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_work_place(::rust::citymap
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_school(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$simulation_snapshot(::rust::citymap::RustCityMap const &self, ::rust::citymap::SimulationSnapshot *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$set_finance_settings(::rust::citymap::RustCityMap &self, ::rust::citymap::BudgetSettings *budget, ::rust::citymap::TaxSettings *tax, ::rust::citymap::SimulationSnapshot *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$charge_construction_cost(::rust::citymap::RustCityMap &self) noexcept;
 
@@ -1352,6 +1382,14 @@ void RustCityMap::add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int
 ::rust::citymap::SimulationSnapshot RustCityMap::simulation_snapshot() const noexcept {
   ::rust::MaybeUninit<::rust::citymap::SimulationSnapshot> return$;
   rust$citymap$cxxbridge1$192$RustCityMap$simulation_snapshot(*this, &return$.value);
+  return ::std::move(return$.value);
+}
+
+::rust::citymap::SimulationSnapshot RustCityMap::set_finance_settings(::rust::citymap::BudgetSettings budget, ::rust::citymap::TaxSettings tax) noexcept {
+  ::rust::ManuallyDrop<::rust::citymap::BudgetSettings> budget$(::std::move(budget));
+  ::rust::ManuallyDrop<::rust::citymap::TaxSettings> tax$(::std::move(tax));
+  ::rust::MaybeUninit<::rust::citymap::SimulationSnapshot> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$set_finance_settings(*this, &budget$.value, &tax$.value, &return$.value);
   return ::std::move(return$.value);
 }
 

@@ -87,6 +87,14 @@
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cd /d "$(ProjectDir)..\..\..\src\citiesbox-rs"
+set "RUSTFLAGS=-C target-feature=+crt-static"
+set "CXXFLAGS=/MTd /D_DEBUG /Od /D_ITERATOR_DEBUG_LEVEL=2"
+set "CFLAGS=/MTd /D_DEBUG /Od /D_ITERATOR_DEBUG_LEVEL=2"
+cargo build --target x86_64-pc-windows-msvc --target-dir "$(ProjectDir)citiesbox-rs"</Command>
+      <Message>Building citiesbox-rs (Debug)</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -119,6 +127,11 @@
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cd /d "$(ProjectDir)..\..\..\src\citiesbox-rs"
+cargo build --release --target x86_64-pc-windows-msvc --target-dir "$(ProjectDir)citiesbox-rs"</Command>
+      <Message>Building citiesbox-rs (Release)</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\AbstractSetting.cpp" />

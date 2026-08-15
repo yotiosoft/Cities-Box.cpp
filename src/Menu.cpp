@@ -50,6 +50,7 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
     m_menu_buttons_pos = PositionStruct{ Scene::Width()/2 - m_size.x/2, 0 };
 	
 	m_show_rate_menu = false;
+	m_show_budget_menu = false;
 	
 	// 効果テクスチャを用意
 	m_effect_icons[RateID::CrimeRate] = Texture{Icon(IconFont::Crime), 16};
@@ -416,6 +417,11 @@ CBAddon* Menu::draw(bool& needUpdate) {
 		m_show_rate_menu = !m_show_rate_menu;
 		needUpdate = true;
 	}
+
+	if (m_button[U"budget"].pushRelative(m_position)) {
+		m_show_budget_menu = !m_show_budget_menu;
+		needUpdate = true;
+	}
 	
 	if (m_button[U"save"].pushRelative(m_position)) {
 		if (!m_map->save()) {
@@ -429,8 +435,82 @@ CBAddon* Menu::draw(bool& needUpdate) {
 			needUpdate = true;
 		}
 	}
+
+	if (m_show_budget_menu) {
+		if (budgetMenu()) {
+			needUpdate = true;
+		}
+	}
 	
 	return m_selected_addon;
+}
+
+bool Menu::budgetMenu() {
+	SimulationSnapshot snapshot = m_map->getSimulationSnapshot();
+	BudgetSettings budget{
+		snapshot.budget_police,
+		snapshot.budget_fire,
+		snapshot.budget_post,
+		snapshot.budget_education
+	};
+	TaxSettings tax{
+		snapshot.tax_residential,
+		snapshot.tax_commercial,
+		snapshot.tax_office,
+		snapshot.tax_industrial,
+		snapshot.tax_farm
+	};
+
+	const int panelWidth = 360;
+	const int rowHeight = 25;
+	const int panelHeight = 10 * rowHeight + 42;
+	const int left = m_position.x + m_menu_buttons_pos.x + 430;
+	const int top = m_position.y - panelHeight;
+	Rect(left, top, panelWidth, panelHeight).draw(Color(45, 52, 54, 235));
+	(*m_font16)(U"予算・税金").draw(left + 12, top + 8);
+	(*m_font12)(U"各月で徴税・支出する予算と税金の設定").draw(left + 12, top + 27, Color(200));
+
+	bool changed = false;
+	auto drawRow = [&](const String& label, const String& value, int row, auto decrease, auto increase) {
+		const int y = top + 46 + row * rowHeight;
+		(*m_font12)(label).draw(left + 12, y + 3);
+		const Rect minus(left + 205, y, 28, 21);
+		const Rect plus(left + 316, y, 28, 21);
+		minus.draw(Color(75, 82, 84));
+		plus.draw(Color(75, 82, 84));
+		(*m_font16)(U"-").drawAt(minus.center());
+		(*m_font16)(U"+").drawAt(plus.center());
+		(*m_font12)(value).drawAt(left + 274, y + 10);
+		if (minus.leftClicked()) {
+			decrease();
+			changed = true;
+		}
+		if (plus.leftClicked()) {
+			increase();
+			changed = true;
+		}
+	};
+	auto decreaseBudget = [](int32& value) { value = (value < 10) ? 0 : value - 10; };
+	auto increaseBudget = [](int32& value) {
+		if (value <= INT32_MAX - 10) {
+			value += 10;
+		}
+	};
+
+	drawRow(U"Police", Format(budget.police), 0, [&]{ decreaseBudget(budget.police); }, [&]{ increaseBudget(budget.police); });
+	drawRow(U"Fire", Format(budget.fire), 1, [&]{ decreaseBudget(budget.fire); }, [&]{ increaseBudget(budget.fire); });
+	drawRow(U"Post", Format(budget.post), 2, [&]{ decreaseBudget(budget.post); }, [&]{ increaseBudget(budget.post); });
+	drawRow(U"Education", Format(budget.education), 3, [&]{ decreaseBudget(budget.education); }, [&]{ increaseBudget(budget.education); });
+	drawRow(U"Residential", U"{:.1f}"_fmt(tax.residential), 4, [&]{ tax.residential -= 1.0; }, [&]{ tax.residential += 1.0; });
+	drawRow(U"Commercial", U"{:.1f}"_fmt(tax.commercial), 5, [&]{ tax.commercial -= 1.0; }, [&]{ tax.commercial += 1.0; });
+	drawRow(U"Office", U"{:.1f}"_fmt(tax.office), 6, [&]{ tax.office -= 1.0; }, [&]{ tax.office += 1.0; });
+	drawRow(U"Industrial", U"{:.1f}"_fmt(tax.industrial), 7, [&]{ tax.industrial -= 1.0; }, [&]{ tax.industrial += 1.0; });
+	drawRow(U"Farm", U"{:.1f}"_fmt(tax.farm), 8, [&]{ tax.farm -= 1.0; }, [&]{ tax.farm += 1.0; });
+
+	if (changed) {
+		snapshot = m_map->setFinanceSettings(budget, tax);
+	}
+	return changed;
 }
 
 void Menu::addonMenu() {

@@ -19,6 +19,15 @@ impl RustCityMap {
         self.simulation.snapshot()
     }
 
+    pub(crate) fn set_finance_settings(
+        &mut self,
+        budget: ffi::BudgetSettings,
+        tax: ffi::TaxSettings,
+    ) -> ffi::SimulationSnapshot {
+        self.simulation.set_finance_settings(budget, tax);
+        self.simulation.snapshot()
+    }
+
     pub(crate) fn charge_construction_cost(&mut self) {
         self.simulation.charge_construction_cost();
     }

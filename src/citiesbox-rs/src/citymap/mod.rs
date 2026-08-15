@@ -66,6 +66,21 @@ pub(crate) mod ffi {
         tax_farm: f64,
     }
 
+    struct BudgetSettings {
+        police: i32,
+        fire: i32,
+        post: i32,
+        education: i32,
+    }
+
+    struct TaxSettings {
+        residential: f64,
+        commercial: f64,
+        office: f64,
+        industrial: f64,
+        farm: f64,
+    }
+
     struct ResidentialTileState {
         x: i32,
         y: i32,
@@ -235,6 +250,11 @@ pub(crate) mod ffi {
 
         // シミュレーション状態の取得と更新
         fn simulation_snapshot(&self) -> SimulationSnapshot;
+        fn set_finance_settings(
+            &mut self,
+            budget: BudgetSettings,
+            tax: TaxSettings,
+        ) -> SimulationSnapshot;
         fn charge_construction_cost(&mut self);
         fn will_run_daily_update(&self, minutes_delta: i32) -> bool;
         fn update_world(
@@ -354,6 +374,172 @@ mod tests {
         city.charge_construction_cost();
 
         assert_eq!(city.simulation_snapshot().money, 99_995);
+    }
+
+    fn budget_settings(police: i32, fire: i32, post: i32, education: i32) -> ffi::BudgetSettings {
+        ffi::BudgetSettings {
+            police,
+            fire,
+            post,
+            education,
+        }
+    }
+
+    fn tax_settings(
+        residential: f64,
+        commercial: f64,
+        office: f64,
+        industrial: f64,
+        farm: f64,
+    ) -> ffi::TaxSettings {
+        ffi::TaxSettings {
+            residential,
+            commercial,
+            office,
+            industrial,
+            farm,
+        }
+    }
+
+    #[test]
+    fn set_finance_settings_normalizes_and_returns_the_snapshot() {
+        let mut city = new_city_map();
+
+        let snapshot = city.set_finance_settings(
+            budget_settings(-1, 20, -30, 40),
+            tax_settings(-1.0, 2.5, f64::NAN, f64::INFINITY, f64::NEG_INFINITY),
+        );
+
+        assert_eq!(
+            (
+                snapshot.budget_police,
+                snapshot.budget_fire,
+                snapshot.budget_post,
+                snapshot.budget_education
+            ),
+            (0, 20, 0, 40)
+        );
+        assert_eq!(
+            (
+                snapshot.tax_residential,
+                snapshot.tax_commercial,
+                snapshot.tax_office,
+                snapshot.tax_industrial,
+                snapshot.tax_farm
+            ),
+            (0.0, 2.5, 0.0, 0.0, 0.0)
+        );
+    }
+
+    #[test]
+    fn finance_settings_survive_update_world() {
+        let mut city = new_city_map();
+        city.set_finance_settings(
+            budget_settings(11, 22, 33, 44),
+            tax_settings(1.0, 2.0, 3.0, 4.0, 5.0),
+        );
+
+        let update = city.update_world(
+            1,
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            crate::simulation::empty_map_stats(),
+        );
+
+        assert_eq!(
+            (
+                update.snapshot.budget_police,
+                update.snapshot.budget_fire,
+                update.snapshot.budget_post,
+                update.snapshot.budget_education,
+                update.snapshot.tax_residential,
+                update.snapshot.tax_commercial,
+                update.snapshot.tax_office,
+                update.snapshot.tax_industrial,
+                update.snapshot.tax_farm,
+            ),
+            (11, 22, 33, 44, 1.0, 2.0, 3.0, 4.0, 5.0)
+        );
+    }
+
+    #[test]
+    fn finance_settings_survive_save_and_reload() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = windows_map_path(&format!(
+            "citiesbox-finance-roundtrip-{}-{unique}.cbj",
+            std::process::id()
+        ));
+        let backup = sidecar_path(&path, ".bak");
+        let mut city = new_city_map();
+        city.addon_set_name = "Normal".to_string();
+        city.map_size = [1, 1];
+        city.tiles = vec![vec![RustTile::default()]];
+        city.set_finance_settings(
+            budget_settings(11, 22, 33, 44),
+            tax_settings(1.0, 2.0, 3.0, 4.0, 5.0),
+        );
+        assert!(city.save_to_file(path.to_string_lossy().into_owned()));
+
+        let mut reloaded = new_city_map();
+        let load = reloaded.load_city_map(path.to_string_lossy().into_owned());
+        assert!(load.success, "{}", load.error_message);
+        assert!(reloaded.commit_loaded_city_map());
+        let snapshot = reloaded.simulation_snapshot();
+
+        assert_eq!(
+            (
+                snapshot.budget_police,
+                snapshot.budget_fire,
+                snapshot.budget_post,
+                snapshot.budget_education,
+                snapshot.tax_residential,
+                snapshot.tax_commercial,
+                snapshot.tax_office,
+                snapshot.tax_industrial,
+                snapshot.tax_farm,
+            ),
+            (11, 22, 33, 44, 1.0, 2.0, 3.0, 4.0, 5.0)
+        );
+
+        let _ = fs::remove_file(path);
+        let _ = fs::remove_file(backup);
+    }
+
+    #[test]
+    fn monthly_finances_use_the_updated_settings() {
+        let mut city = new_city_map();
+        city.simulation.time = ffi::TimeStruct {
+            year: 2024,
+            month: 1,
+            date: 31,
+            hour: 23,
+            minutes: 59,
+        };
+        city.simulation.money = 100_000;
+        city.set_finance_settings(
+            budget_settings(10, 20, 30, 40),
+            tax_settings(1.0, 2.0, 3.0, 4.0, 5.0),
+        );
+        let stats = ffi::SimulationMapStats {
+            residential_tiles: 1,
+            commercial_tiles: 1,
+            office_tiles: 1,
+            industrial_tiles: 1,
+            farm_tiles: 1,
+            police_stations: 1,
+            fire_departments: 1,
+            post_offices: 1,
+            education_facilities: 1,
+        };
+
+        let update = city.update_world(1, Vec::new(), Vec::new(), Vec::new(), Vec::new(), stats);
+
+        assert_eq!(update.snapshot.money, 99_015);
     }
 
     #[test]

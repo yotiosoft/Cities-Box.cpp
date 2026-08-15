@@ -106,6 +106,8 @@ using RCOIFstruct = rust::citymap::RCOIFstruct;
 
 // Rust側が所有する都市シミュレーション状態の読み取り用スナップショット
 using SimulationSnapshot = rust::citymap::SimulationSnapshot;
+using BudgetSettings = rust::citymap::BudgetSettings;
+using TaxSettings = rust::citymap::TaxSettings;
 
 // 労働者情報
 typedef struct WorkersStruct {

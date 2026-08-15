@@ -7,6 +7,10 @@
 
 #include "CityMap.hpp"
 
+SimulationSnapshot CityMap::setFinanceSettings(BudgetSettings budget, TaxSettings tax) {
+	return m_rust_core->set_finance_settings(budget, tax);
+}
+
 SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 	rust::Vec<rust::citymap::ResidentialTileState> residentialTiles;
 	rust::Vec<rust::citymap::WorkPlaceTileState> workPlaceTiles;

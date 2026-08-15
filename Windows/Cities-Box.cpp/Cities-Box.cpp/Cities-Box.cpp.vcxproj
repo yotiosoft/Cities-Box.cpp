@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{d8cdc587-6ee5-4c0f-abd5-e0d785f833f4}</ProjectGuid>
+    <ProjectGuid>{38694d4b-026e-46f0-9af2-4cad6c8d2090}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cities_Box_cpp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -49,16 +49,16 @@
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
     <TargetName>$(ProjectName)(debug)</TargetName>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
-    <IncludePath>./;../../../src;$(SIV3D_0_6_15)\include;$(SIV3D_0_6_15)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_15)\lib\Windows;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\;..\..\..\src;$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
-    <IncludePath>./;../../../src/;$(SIV3D_0_6_15)\include;$(SIV3D_0_6_15)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_15)\lib\Windows;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\;..\..\..\src;$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -75,42 +75,18 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <DelayLoadDLLs>advapi32.dll;crypt32.dll;dwmapi.dll;gdi32.dll;imm32.dll;ole32.dll;oleaut32.dll;opengl32.dll;shell32.dll;shlwapi.dll;user32.dll;winmm.dll;ws2_32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>citiesbox_rs.lib;ntdll.lib;userenv.lib;ws2_32.lib;bcrypt.lib;advapi32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libcpmt.lib;libcmt.lib</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>libcpmt.lib;libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
-    <PreBuildEvent>
-      <Command>cd "$(ProjectDir)..\..\..\src\citiesbox-rs"
-set RUSTFLAGS=-C target-feature=+crt-static
-
-set CXXFLAGS=/MTd /D_DEBUG /Zi /Od /D_ITERATOR_DEBUG_LEVEL=2
-
-set CFLAGS=/MTd /D_DEBUG /Zi /Od /D_ITERATOR_DEBUG_LEVEL=2
-cargo build --target x86_64-pc-windows-msvc --target-dir $(ProjectDir)citiesbox-rs
-cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
-
-cxxbridge src/images.rs --header &gt; "$(ProjectDir)rs-images.h"
-
-cxxbridge src/citymap/mod.rs --header &gt; "$(ProjectDir)rs-citymap.h"
-
-cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
-
-cxxbridge src/images.rs &gt; "$(ProjectDir)rs-images.cpp"
-
-cxxbridge src/citymap/mod.rs &gt; "$(ProjectDir)rs-citymap.cpp"
-
-cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -125,12 +101,10 @@ cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableSpecificWarnings>26451;26812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zc:__cplusplus /source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -138,29 +112,13 @@ cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <DelayLoadDLLs>advapi32.dll;crypt32.dll;dwmapi.dll;gdi32.dll;imm32.dll;ole32.dll;oleaut32.dll;opengl32.dll;shell32.dll;shlwapi.dll;user32.dll;winmm.dll;ws2_32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>citiesbox_rs.lib;ntdll.lib;userenv.lib;ws2_32.lib;bcrypt.lib;advapi32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcpmt.lib;libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
-    <PreBuildEvent>
-      <Command>cd "$(ProjectDir)..\..\..\src\citiesbox-rs"
-cargo build --release --target x86_64-pc-windows-msvc --target-dir $(ProjectDir)citiesbox-rs
-cxxbridge src/lib.rs --header &gt; $(ProjectDir)"citiesbox-rs.h"
-
-cxxbridge src/images.rs --header &gt; "$(ProjectDir)rs-images.h"
-
-cxxbridge src/citymap/mod.rs --header &gt; "$(ProjectDir)rs-citymap.h"
-
-cxxbridge src/lib.rs &gt; "$(ProjectDir)citiesbox-rs.cpp"
-
-cxxbridge src/images.rs &gt; "$(ProjectDir)rs-images.cpp"
-
-cxxbridge src/citymap/mod.rs &gt; "$(ProjectDir)rs-citymap.cpp"
-
-cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\AbstractSetting.cpp" />
@@ -250,6 +208,7 @@ cxxbridge --header &gt; "$(ProjectDir)cxx.h"</Command>
     <Text Include="App\example\video\river.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\src\.editorconfig" />
     <None Include=".editorconfig" />
     <None Include="App\dll\soundtouch\SoundTouch_x64.dll" />
     <None Include="App\engine\font\fontawesome\fontawesome-brands.otf.zstdcmp" />

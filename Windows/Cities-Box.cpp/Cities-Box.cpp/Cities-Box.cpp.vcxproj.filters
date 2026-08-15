@@ -144,6 +144,18 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="citiesbox-rs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rs-citymap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rs-images.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Specific.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\AbstractSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -229,18 +241,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\UnitaryTools.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Specific.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="citiesbox-rs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rs-images.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rs-citymap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -864,6 +864,9 @@
     <None Include="App\engine\shader\glsl\quad_warp.frag">
       <Filter>Resource Files\engine\shader\glsl</Filter>
     </None>
+    <None Include="..\..\..\src\.editorconfig">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="App\example\test.mp3">
@@ -906,6 +909,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="citiesbox-rs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cxx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rs-citymap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rs-images.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Specific.hpp">
@@ -996,18 +1011,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\UnitaryTools.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="citiesbox-rs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cxx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rs-citymap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rs-images.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

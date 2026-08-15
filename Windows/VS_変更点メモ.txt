@@ -1,0 +1,41 @@
+プロジェクト > プロパティ > C/C++ > コマンド ライン > 追加のオプション
+/source-charset:utf-8
+
+共通ソースコード (../src/)
+Source Files に追加
+また、プロジェクト > プロパティ > VC++ ディレクトリ > インクルード ディレクトリに "..\..\src" を追加
+
+
+2026-08-15: Visual Studio 2026 / OpenSiv3D 0.6.16 への移行
+
+・プラットフォーム ツールセット
+  Debug / Release ともに v145
+
+・OpenSiv3D
+  インクルード ディレクトリ:
+    $(SIV3D_0_6_16)\include
+    $(SIV3D_0_6_16)\include\ThirdParty
+  ライブラリ ディレクトリ:
+    $(SIV3D_0_6_16)\lib\Windows
+
+・citiesbox-rs（Debug | x64）
+  C/C++ > コード生成 > ランタイム ライブラリ:
+    マルチスレッド デバッグ (/MTd)
+  リンカー > 全般 > 追加のライブラリ ディレクトリ:
+    $(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\debug;%(AdditionalLibraryDirectories)
+  リンカー > 入力 > 追加の依存ファイル:
+    citiesbox_rs.lib;ntdll.lib;userenv.lib;ws2_32.lib;bcrypt.lib;advapi32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)
+  リンカー > 入力 > 特定の既定のライブラリの無視:
+    libcpmt.lib;libcmt.lib;%(IgnoreSpecificDefaultLibraries)
+
+・citiesbox-rs（Release | x64）
+  C/C++ > コード生成 > ランタイム ライブラリ:
+    マルチスレッド (/MT)
+  リンカー > 全般 > 追加のライブラリ ディレクトリ:
+    $(ProjectDir)citiesbox-rs\x86_64-pc-windows-msvc\release;%(AdditionalLibraryDirectories)
+  リンカー > 入力 > 追加の依存ファイル:
+    citiesbox_rs.lib;ntdll.lib;userenv.lib;ws2_32.lib;bcrypt.lib;advapi32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)
+  リンカー > 入力 > 特定の既定のライブラリの無視:
+    libcpmt.lib;libcmt.lib;%(IgnoreSpecificDefaultLibraries)
+
+上記の citiesbox-rs リンカー設定がない場合、rust::cxxbridge1::Vec / String / Slice などの未解決の外部シンボルが発生する。

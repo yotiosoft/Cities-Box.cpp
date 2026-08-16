@@ -40,9 +40,14 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 
 			rust::citymap::SimulationObjectState state;
 			state.object_id = objectID;
-			for (const CategoryID::Type category : object->getAddonP()->getCategories()) {
+			CBAddon* addon = object->getAddonP();
+			for (const CategoryID::Type category : addon->getCategories()) {
 				state.category_ids.push_back(static_cast<int32_t>(category));
 			}
+			state.monthly_maintenance_police = addon->getMonthlyMaintenancePolice();
+			state.monthly_maintenance_fire = addon->getMonthlyMaintenanceFire();
+			state.monthly_maintenance_post = addon->getMonthlyMaintenancePost();
+			state.monthly_maintenance_education = addon->getMonthlyMaintenanceEducation();
 			simulationObjects.push_back(std::move(state));
 		}
 

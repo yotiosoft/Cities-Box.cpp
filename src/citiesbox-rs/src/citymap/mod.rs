@@ -121,6 +121,10 @@ pub(crate) mod ffi {
     struct SimulationObjectState {
         object_id: i32,
         category_ids: Vec<i32>,
+        monthly_maintenance_police: i64,
+        monthly_maintenance_fire: i64,
+        monthly_maintenance_post: i64,
+        monthly_maintenance_education: i64,
     }
 
     struct SimulationUpdate {
@@ -399,7 +403,7 @@ mod tests {
         let mut city = new_city_map();
 
         let snapshot = city.set_finance_settings(
-            budget_settings(-1, 20, -30, 40),
+            budget_settings(-1, 201, -30, i32::MAX),
             tax_settings(-1.0, 2.5, f64::NAN, f64::INFINITY, f64::NEG_INFINITY),
         );
 
@@ -410,7 +414,7 @@ mod tests {
                 snapshot.budget_post,
                 snapshot.budget_education
             ),
-            (0, 20, 0, 40)
+            (0, 200, 0, 200)
         );
         assert_eq!(
             (
@@ -524,6 +528,10 @@ mod tests {
             .map(|(index, category_id)| ffi::SimulationObjectState {
                 object_id: index as i32,
                 category_ids: vec![category_id],
+                monthly_maintenance_police: 1_000,
+                monthly_maintenance_fire: 1_000,
+                monthly_maintenance_post: 1_000,
+                monthly_maintenance_education: 1_000,
             })
             .collect();
 

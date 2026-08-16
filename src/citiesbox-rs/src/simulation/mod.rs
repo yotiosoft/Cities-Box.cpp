@@ -13,6 +13,7 @@ mod test_support;
 use crate::citymap::{RustCityMap, ffi};
 use random::RandomSimulationSource;
 pub(crate) use state::SimulationState;
+pub(crate) use state::normalize_budget;
 
 impl RustCityMap {
     pub(crate) fn simulation_snapshot(&self) -> ffi::SimulationSnapshot {

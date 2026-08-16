@@ -86,6 +86,10 @@ public:
 
 	// 収容人数または最大従業員数を取得
 	int getMaximumCapacity() const { return m_maximum_capacity; }
+	int64 getMonthlyMaintenancePolice() const { return m_monthly_maintenance_police; }
+	int64 getMonthlyMaintenanceFire() const { return m_monthly_maintenance_fire; }
+	int64 getMonthlyMaintenancePost() const { return m_monthly_maintenance_post; }
+	int64 getMonthlyMaintenanceEducation() const { return m_monthly_maintenance_education; }
 	
 	// アイコンのテクスチャの取得
 	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
@@ -139,6 +143,10 @@ protected:
 	
 	// 収容人数 or 最大従業員数
 	int m_maximum_capacity = 0;
+	int64 m_monthly_maintenance_police = 0;
+	int64 m_monthly_maintenance_fire = 0;
+	int64 m_monthly_maintenance_post = 0;
+	int64 m_monthly_maintenance_education = 0;
 	
 	// 建物の効果
 	map<RateID::Type, EffectStruct> m_effects;

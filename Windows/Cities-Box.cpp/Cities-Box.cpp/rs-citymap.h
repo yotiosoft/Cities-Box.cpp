@@ -1091,6 +1091,10 @@ struct DemandTileState final {
 struct SimulationObjectState final {
   ::std::int32_t object_id CXX_DEFAULT_VALUE(0);
   ::rust::Vec<::std::int32_t> category_ids;
+  ::std::int64_t monthly_maintenance_police CXX_DEFAULT_VALUE(0);
+  ::std::int64_t monthly_maintenance_fire CXX_DEFAULT_VALUE(0);
+  ::std::int64_t monthly_maintenance_post CXX_DEFAULT_VALUE(0);
+  ::std::int64_t monthly_maintenance_education CXX_DEFAULT_VALUE(0);
 
   using IsRelocatable = ::std::true_type;
 };

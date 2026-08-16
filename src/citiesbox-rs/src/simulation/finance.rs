@@ -1,6 +1,6 @@
 use super::{
-    SimulationState,
     employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE},
+    SimulationState,
 };
 use crate::citymap::ffi;
 use std::collections::{HashMap, HashSet};
@@ -16,7 +16,7 @@ const CATEGORY_POST_OFFICE: i32 = 27;
 const CATEGORY_EDUCATION: i32 = 28;
 
 #[derive(Default)]
-struct FinanceObjectCounts {
+struct FinanceMaintenance {
     police: i64,
     fire: i64,
     post: i64,
@@ -33,21 +33,17 @@ impl SimulationState {
         work_place_tiles: &[ffi::WorkPlaceTileState],
         simulation_objects: &[ffi::SimulationObjectState],
     ) {
-        let counts = count_finance_objects(simulation_objects);
+        let maintenance = count_finance_maintenance(simulation_objects);
         let workers = count_business_workers(work_place_tiles);
         let expenses = [
-            (counts.police, self.budget_police),
-            (counts.fire, self.budget_fire),
-            (counts.post, self.budget_post),
-            (counts.education, self.budget_education),
+            (maintenance.police, self.budget_police),
+            (maintenance.fire, self.budget_fire),
+            (maintenance.post, self.budget_post),
+            (maintenance.education, self.budget_education),
         ]
         .into_iter()
-        .fold(0_i64, |total, (count, budget)| {
-            total.saturating_add(
-                count
-                    .saturating_mul(i64::from(budget.max(0)))
-                    .saturating_mul(10),
-            )
+        .fold(0_i64, |total, (maintenance, budget)| {
+            total.saturating_add(scale_maintenance(maintenance, budget))
         });
 
         let residential_income = f64::from(self.population.max(0))
@@ -111,8 +107,10 @@ fn count_business_workers(work_place_tiles: &[ffi::WorkPlaceTileState]) -> Busin
     counts
 }
 
-fn count_finance_objects(simulation_objects: &[ffi::SimulationObjectState]) -> FinanceObjectCounts {
-    let mut counts = FinanceObjectCounts::default();
+fn count_finance_maintenance(
+    simulation_objects: &[ffi::SimulationObjectState],
+) -> FinanceMaintenance {
+    let mut maintenance = FinanceMaintenance::default();
     let mut seen_object_ids = HashSet::new();
 
     for object in simulation_objects {
@@ -121,13 +119,29 @@ fn count_finance_objects(simulation_objects: &[ffi::SimulationObjectState]) -> F
         }
 
         let categories = &object.category_ids;
-        counts.police += i64::from(categories.contains(&CATEGORY_POLICE));
-        counts.fire += i64::from(categories.contains(&CATEGORY_FIRE_DEPARTMENT));
-        counts.post += i64::from(categories.contains(&CATEGORY_POST_OFFICE));
-        counts.education += i64::from(categories.contains(&CATEGORY_EDUCATION));
+        if categories.contains(&CATEGORY_POLICE) {
+            maintenance.police = maintenance
+                .police
+                .saturating_add(object.monthly_maintenance_police.max(0));
+        }
+        if categories.contains(&CATEGORY_FIRE_DEPARTMENT) {
+            maintenance.fire = maintenance
+                .fire
+                .saturating_add(object.monthly_maintenance_fire.max(0));
+        }
+        if categories.contains(&CATEGORY_POST_OFFICE) {
+            maintenance.post = maintenance
+                .post
+                .saturating_add(object.monthly_maintenance_post.max(0));
+        }
+        if categories.contains(&CATEGORY_EDUCATION) {
+            maintenance.education = maintenance
+                .education
+                .saturating_add(object.monthly_maintenance_education.max(0));
+        }
     }
 
-    counts
+    maintenance
 }
 
 fn finite_nonnegative(value: f64) -> f64 {
@@ -136,6 +150,12 @@ fn finite_nonnegative(value: f64) -> f64 {
     } else {
         0.0
     }
+}
+
+fn scale_maintenance(maintenance: i64, budget: i32) -> i64 {
+    let scaled =
+        i128::from(maintenance.max(0)) * i128::from(super::state::normalize_budget(budget)) / 100;
+    scaled.min(i128::from(i64::MAX)) as i64
 }
 
 #[cfg(test)]
@@ -147,7 +167,7 @@ mod tests {
         citymap::ffi,
         simulation::{
             employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE, PUBLIC},
-            test_support::{FixedRandom, residential_tile, state_at},
+            test_support::{residential_tile, state_at, FixedRandom},
         },
     };
 
@@ -161,6 +181,10 @@ mod tests {
                 objects.push(ffi::SimulationObjectState {
                     object_id: next_id,
                     category_ids: vec![category_id],
+                    monthly_maintenance_police: 1_000,
+                    monthly_maintenance_fire: 1_000,
+                    monthly_maintenance_post: 1_000,
+                    monthly_maintenance_education: 1_000,
                 });
                 next_id += 1;
             }
@@ -188,10 +212,10 @@ mod tests {
     fn collects_taxes_and_pays_budgets_on_the_first_of_the_month() {
         let mut state = state_at(2024, 4, 30, 23, 59);
         state.money = 100_000;
-        state.budget_police = 100;
-        state.budget_fire = 200;
-        state.budget_post = 300;
-        state.budget_education = 400;
+        state.budget_police = 50;
+        state.budget_fire = 100;
+        state.budget_post = 150;
+        state.budget_education = 200;
         state.tax_residential = 7.0;
         state.tax_commercial = 8.0;
         state.tax_office = 9.0;
@@ -217,7 +241,70 @@ mod tests {
         );
 
         assert_eq!((state.time.month, state.time.date), (5, 1));
-        assert_eq!(state.money, 70_070);
+        assert_eq!(state.money, 85_070);
+    }
+
+    #[test]
+    fn applies_budget_percentage_to_custom_maintenance_costs() {
+        let object = ffi::SimulationObjectState {
+            object_id: 1,
+            category_ids: vec![CATEGORY_POLICE, CATEGORY_EDUCATION],
+            monthly_maintenance_police: 1_001,
+            monthly_maintenance_fire: 0,
+            monthly_maintenance_post: 0,
+            monthly_maintenance_education: 2_000,
+        };
+
+        for (budget, expected_expense) in
+            [(0, 0), (50, 500), (100, 1_001), (150, 1_501), (200, 2_002)]
+        {
+            let mut state = state_at(2024, 1, 1, 0, 0);
+            state.money = 10_000;
+            state.tax_residential = 0.0;
+            state.budget_police = budget;
+            state.budget_fire = 0;
+            state.budget_post = 0;
+            state.budget_education = 0;
+
+            state.update_monthly_finances(&[], std::slice::from_ref(&object));
+
+            assert_eq!(state.money, 10_000 - expected_expense);
+        }
+
+        let mut compound = state_at(2024, 1, 1, 0, 0);
+        compound.money = 10_000;
+        compound.tax_residential = 0.0;
+        compound.budget_police = 0;
+        compound.budget_fire = 0;
+        compound.budget_post = 0;
+        compound.budget_education = 150;
+        compound.update_monthly_finances(&[], &[object]);
+        assert_eq!(compound.money, 7_000);
+    }
+
+    #[test]
+    fn clamps_budget_and_maintenance_values_during_calculation() {
+        let object = ffi::SimulationObjectState {
+            object_id: 1,
+            category_ids: vec![CATEGORY_POLICE, CATEGORY_FIRE_DEPARTMENT],
+            monthly_maintenance_police: i64::MAX,
+            monthly_maintenance_fire: -1_000,
+            monthly_maintenance_post: 0,
+            monthly_maintenance_education: 0,
+        };
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.money = i32::MAX;
+        state.tax_residential = 0.0;
+        state.budget_police = i32::MAX;
+        state.budget_fire = i32::MAX;
+        state.budget_post = -1;
+        state.budget_education = -1;
+
+        state.update_monthly_finances(&[], &[object]);
+
+        assert_eq!(state.money, i32::MIN);
+        assert_eq!(super::scale_maintenance(i64::MAX, i32::MAX), i64::MAX);
+        assert_eq!(super::scale_maintenance(-1, 100), 0);
     }
 
     #[test]
@@ -481,10 +568,18 @@ mod tests {
                 ffi::SimulationObjectState {
                     object_id: 42,
                     category_ids: vec![19],
+                    monthly_maintenance_police: 0,
+                    monthly_maintenance_fire: 0,
+                    monthly_maintenance_post: 0,
+                    monthly_maintenance_education: 0,
                 },
                 ffi::SimulationObjectState {
                     object_id: 42,
                     category_ids: vec![19],
+                    monthly_maintenance_police: 0,
+                    monthly_maintenance_fire: 0,
+                    monthly_maintenance_post: 0,
+                    monthly_maintenance_education: 0,
                 },
             ],
         );
@@ -517,21 +612,33 @@ mod tests {
             ffi::SimulationObjectState {
                 object_id: 10,
                 category_ids: vec![CATEGORY_POLICE, CATEGORY_POLICE, CATEGORY_EDUCATION],
+                monthly_maintenance_police: 1_000,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 1_000,
             },
             ffi::SimulationObjectState {
                 object_id: 10,
                 category_ids: vec![CATEGORY_POLICE],
+                monthly_maintenance_police: 1_000,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 0,
             },
             ffi::SimulationObjectState {
                 object_id: 11,
                 category_ids: vec![CATEGORY_POLICE],
+                monthly_maintenance_police: 1_000,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 0,
             },
         ];
 
-        let counts = super::count_finance_objects(&objects);
+        let maintenance = super::count_finance_maintenance(&objects);
 
-        assert_eq!(counts.police, 2);
-        assert_eq!(counts.education, 1);
+        assert_eq!(maintenance.police, 2_000);
+        assert_eq!(maintenance.education, 1_000);
     }
 
     #[test]

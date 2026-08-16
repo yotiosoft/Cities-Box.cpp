@@ -491,16 +491,12 @@ bool Menu::budgetMenu() {
 		}
 	};
 	auto decreaseBudget = [](int32& value) { value = (value < 10) ? 0 : value - 10; };
-	auto increaseBudget = [](int32& value) {
-		if (value <= INT32_MAX - 10) {
-			value += 10;
-		}
-	};
+	auto increaseBudget = [](int32& value) { value = Min(value + 10, 200); };
 
-	drawRow(U"Police", Format(budget.police), 0, [&]{ decreaseBudget(budget.police); }, [&]{ increaseBudget(budget.police); });
-	drawRow(U"Fire", Format(budget.fire), 1, [&]{ decreaseBudget(budget.fire); }, [&]{ increaseBudget(budget.fire); });
-	drawRow(U"Post", Format(budget.post), 2, [&]{ decreaseBudget(budget.post); }, [&]{ increaseBudget(budget.post); });
-	drawRow(U"Education", Format(budget.education), 3, [&]{ decreaseBudget(budget.education); }, [&]{ increaseBudget(budget.education); });
+	drawRow(U"Police", Format(budget.police) + U"%", 0, [&]{ decreaseBudget(budget.police); }, [&]{ increaseBudget(budget.police); });
+	drawRow(U"Fire", Format(budget.fire) + U"%", 1, [&]{ decreaseBudget(budget.fire); }, [&]{ increaseBudget(budget.fire); });
+	drawRow(U"Post", Format(budget.post) + U"%", 2, [&]{ decreaseBudget(budget.post); }, [&]{ increaseBudget(budget.post); });
+	drawRow(U"Education", Format(budget.education) + U"%", 3, [&]{ decreaseBudget(budget.education); }, [&]{ increaseBudget(budget.education); });
 	drawRow(U"Residential", U"{:.1f}%"_fmt(tax.residential), 4, [&]{ tax.residential -= 1.0; }, [&]{ tax.residential += 1.0; });
 	drawRow(U"Commercial", U"{:.1f}%"_fmt(tax.commercial), 5, [&]{ tax.commercial -= 1.0; }, [&]{ tax.commercial += 1.0; });
 	drawRow(U"Office", U"{:.1f}%"_fmt(tax.office), 6, [&]{ tax.office -= 1.0; }, [&]{ tax.office += 1.0; });

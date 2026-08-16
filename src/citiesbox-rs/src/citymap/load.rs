@@ -798,10 +798,12 @@ impl RustCityMap {
             farm: data.demand.farm,
         };
         self.simulation.money = data.money;
-        self.simulation.budget_police = data.budget.police;
-        self.simulation.budget_fire = data.budget.fire_depertment;
-        self.simulation.budget_post = data.budget.post_office;
-        self.simulation.budget_education = data.budget.education;
+        self.simulation.budget_police = crate::simulation::normalize_budget(data.budget.police);
+        self.simulation.budget_fire =
+            crate::simulation::normalize_budget(data.budget.fire_depertment);
+        self.simulation.budget_post = crate::simulation::normalize_budget(data.budget.post_office);
+        self.simulation.budget_education =
+            crate::simulation::normalize_budget(data.budget.education);
         self.simulation.tax_residential = data.tax.residential;
         self.simulation.tax_commercial = data.tax.commercial;
         self.simulation.tax_office = data.tax.office;

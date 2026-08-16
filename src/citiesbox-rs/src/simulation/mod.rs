@@ -41,6 +41,7 @@ impl RustCityMap {
 
     // C++が所有する現在の住宅タイルを値として受け取り、更新結果を返す。
     // 保存用のRustマップ写像は参照しないため、古いマップ状態では計算しない。
+    #[allow(clippy::too_many_arguments)]
     pub(crate) fn update_world(
         &mut self,
         minutes_delta: i32,
@@ -48,15 +49,17 @@ impl RustCityMap {
         mut work_place_tiles: Vec<ffi::WorkPlaceTileState>,
         mut school_tiles: Vec<ffi::SchoolTileState>,
         demand_tiles: Vec<ffi::DemandTileState>,
+        special_demand: ffi::SpecialDemandState,
         simulation_objects: Vec<ffi::SimulationObjectState>,
     ) -> ffi::SimulationUpdate {
         let mut random = RandomSimulationSource::new();
-        self.simulation.update_world_with_source(
+        self.simulation.update_world_with_demand_inputs(
             minutes_delta,
             &mut residential_tiles,
             &mut work_place_tiles,
             &mut school_tiles,
             &demand_tiles,
+            &special_demand,
             &simulation_objects,
             &mut random,
         );

@@ -62,6 +62,7 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 				demandState.land_price = tile.getRate(RateID::LandPrice);
 				demandState.crime_rate = tile.getRate(RateID::CrimeRate);
 				demandState.education_rate = tile.getRate(RateID::EducationRate);
+				demandState.noise_rate = tile.getRate(RateID::NoiseRate);
 				demandTiles.push_back(std::move(demandState));
 				Object* residentialObject = tile.hasCategory(CategoryID::Residential);
 				if (residentialObject != nullptr && residentialObject->getAddonP() != nullptr) {
@@ -140,6 +141,7 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		std::move(workPlaceTiles),
 		std::move(schoolTiles),
 		std::move(demandTiles),
+		rust::citymap::SpecialDemandState{},
 		std::move(simulationObjects)
 	);
 	for (const auto& state : update.residential_tiles) {

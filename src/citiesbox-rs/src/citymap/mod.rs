@@ -116,6 +116,15 @@ pub(crate) mod ffi {
         land_price: i32,
         crime_rate: i32,
         education_rate: i32,
+        noise_rate: i32,
+    }
+
+    struct SpecialDemandState {
+        residential: i32,
+        commercial: i32,
+        office: i32,
+        industrial: i32,
+        farm: i32,
     }
 
     struct SimulationObjectState {
@@ -258,6 +267,7 @@ pub(crate) mod ffi {
         ) -> SimulationSnapshot;
         fn charge_construction_cost(&mut self);
         fn will_run_daily_update(&self, minutes_delta: i32) -> bool;
+        #[allow(clippy::too_many_arguments)]
         fn update_world(
             &mut self,
             minutes_delta: i32,
@@ -265,6 +275,7 @@ pub(crate) mod ffi {
             work_place_tiles: Vec<WorkPlaceTileState>,
             school_tiles: Vec<SchoolTileState>,
             demand_tiles: Vec<DemandTileState>,
+            special_demand: SpecialDemandState,
             simulation_objects: Vec<SimulationObjectState>,
         ) -> SimulationUpdate;
 
@@ -402,6 +413,16 @@ mod tests {
         }
     }
 
+    fn no_special_demand() -> ffi::SpecialDemandState {
+        ffi::SpecialDemandState {
+            residential: 0,
+            commercial: 0,
+            office: 0,
+            industrial: 0,
+            farm: 0,
+        }
+    }
+
     #[test]
     fn set_finance_settings_normalizes_and_returns_the_snapshot() {
         let mut city = new_city_map();
@@ -446,6 +467,7 @@ mod tests {
             Vec::new(),
             Vec::new(),
             Vec::new(),
+            no_special_demand(),
             Vec::new(),
         );
 
@@ -549,6 +571,7 @@ mod tests {
             Vec::new(),
             Vec::new(),
             Vec::new(),
+            no_special_demand(),
             simulation_objects,
         );
 
@@ -707,6 +730,7 @@ mod tests {
             Vec::new(),
             Vec::new(),
             Vec::new(),
+            no_special_demand(),
             Vec::new(),
         );
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));

@@ -85,6 +85,7 @@ impl SimulationState {
         self.tax_farm = normalize_tax(tax.farm);
     }
 
+    #[cfg(test)]
     #[allow(clippy::too_many_arguments)]
     pub(super) fn update_world_with_source<S: SimulationRandomSource>(
         &mut self,
@@ -93,6 +94,36 @@ impl SimulationState {
         work_place_tiles: &mut [ffi::WorkPlaceTileState],
         school_tiles: &mut [ffi::SchoolTileState],
         demand_tiles: &[ffi::DemandTileState],
+        simulation_objects: &[ffi::SimulationObjectState],
+        random: &mut S,
+    ) -> u32 {
+        self.update_world_with_demand_inputs(
+            minutes_delta,
+            residential_tiles,
+            work_place_tiles,
+            school_tiles,
+            demand_tiles,
+            &ffi::SpecialDemandState {
+                residential: 0,
+                commercial: 0,
+                office: 0,
+                industrial: 0,
+                farm: 0,
+            },
+            simulation_objects,
+            random,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    pub(super) fn update_world_with_demand_inputs<S: SimulationRandomSource>(
+        &mut self,
+        minutes_delta: i32,
+        residential_tiles: &mut [ffi::ResidentialTileState],
+        work_place_tiles: &mut [ffi::WorkPlaceTileState],
+        school_tiles: &mut [ffi::SchoolTileState],
+        demand_tiles: &[ffi::DemandTileState],
+        special_demand: &ffi::SpecialDemandState,
         simulation_objects: &[ffi::SimulationObjectState],
         random: &mut S,
     ) -> u32 {
@@ -107,7 +138,7 @@ impl SimulationState {
             if self.time.date == 1 {
                 self.update_monthly_finances(work_place_tiles, simulation_objects);
             }
-            self.update_daily_demand(demand_tiles, work_place_tiles, random);
+            self.update_daily_demand(demand_tiles, work_place_tiles, special_demand, random);
         }
         elapsed_days
     }
@@ -137,7 +168,31 @@ pub(super) fn scale_by_tax(value: i32, tax: f64) -> i32 {
 #[cfg(test)]
 mod tests {
     use super::{normalize_tax, tax_attractiveness};
-    use crate::simulation::test_support::{advance, state_at};
+    use crate::{
+        citymap::ffi,
+        simulation::test_support::{FixedRandom, advance, state_at},
+    };
+
+    fn special_commercial(value: i32) -> ffi::SpecialDemandState {
+        ffi::SpecialDemandState {
+            residential: 0,
+            commercial: value,
+            office: 0,
+            industrial: 0,
+            farm: 0,
+        }
+    }
+
+    fn commercial_workplace() -> ffi::WorkPlaceTileState {
+        ffi::WorkPlaceTileState {
+            x: 0,
+            y: 0,
+            kind: 1,
+            serial_number: 1,
+            maximum_capacity: 1,
+            workers: 0,
+        }
+    }
 
     #[test]
     fn normalizes_tax_and_applies_penalty_only_above_ten_percent() {
@@ -172,5 +227,52 @@ mod tests {
     fn does_not_run_daily_processing_without_a_date_change() {
         let mut state = state_at(2024, 6, 1, 10, 0);
         assert_eq!(advance(&mut state, 12 * 60), 0);
+    }
+
+    #[test]
+    fn demand_does_not_update_without_a_date_change() {
+        let mut state = state_at(2024, 6, 1, 10, 0);
+        state.demand.commercial = 40.0;
+        let mut workplaces = [commercial_workplace()];
+        let mut random = FixedRandom::new([]);
+
+        let days = state.update_world_with_demand_inputs(
+            12 * 60,
+            &mut [],
+            &mut workplaces,
+            &mut [],
+            &[],
+            &special_commercial(5),
+            &[],
+            &mut random,
+        );
+
+        assert_eq!(days, 0);
+        assert_eq!(state.demand.commercial, 40.0);
+        assert!(random.upper_bounds.is_empty());
+    }
+
+    #[test]
+    fn demand_updates_once_for_each_elapsed_day() {
+        let mut state = state_at(2024, 6, 1, 10, 0);
+        state.demand.commercial = 40.0;
+        let mut workplaces = [commercial_workplace()];
+        // Cは各日、乱数10（増減0）+ special 5。
+        let mut random = FixedRandom::new([10, 10]);
+
+        let days = state.update_world_with_demand_inputs(
+            2 * 24 * 60,
+            &mut [],
+            &mut workplaces,
+            &mut [],
+            &[],
+            &special_commercial(5),
+            &[],
+            &mut random,
+        );
+
+        assert_eq!(days, 2);
+        assert_eq!(state.demand.commercial, 50.0);
+        assert_eq!(random.upper_bounds, [30, 30]);
     }
 }

@@ -953,6 +953,7 @@ namespace rust {
     struct WorkPlaceTileState;
     struct SchoolTileState;
     struct DemandTileState;
+    struct SpecialDemandState;
     struct SimulationObjectState;
     struct SimulationUpdate;
     struct LoadedObjectData;
@@ -1110,10 +1111,24 @@ struct DemandTileState final {
   ::std::int32_t land_price CXX_DEFAULT_VALUE(0);
   ::std::int32_t crime_rate CXX_DEFAULT_VALUE(0);
   ::std::int32_t education_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t noise_rate CXX_DEFAULT_VALUE(0);
 
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
+#define CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
+struct SpecialDemandState final {
+  ::std::int32_t residential CXX_DEFAULT_VALUE(0);
+  ::std::int32_t commercial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t office CXX_DEFAULT_VALUE(0);
+  ::std::int32_t industrial CXX_DEFAULT_VALUE(0);
+  ::std::int32_t farm CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationObjectState
 #define CXXBRIDGE1_STRUCT_rust$citymap$SimulationObjectState
@@ -1266,7 +1281,7 @@ struct RustCityMap final : public ::rust::Opaque {
   ::rust::citymap::SimulationSnapshot set_finance_settings(::rust::citymap::BudgetSettings budget, ::rust::citymap::TaxSettings tax) noexcept;
   void charge_construction_cost() noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
-  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SpecialDemandState special_demand, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;
@@ -1315,7 +1330,7 @@ void rust$citymap$cxxbridge1$192$RustCityMap$charge_construction_cost(::rust::ci
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$will_run_daily_update(::rust::citymap::RustCityMap const &self, ::std::int32_t minutes_delta) noexcept;
 
-void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> *residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> *work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> *school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> *demand_tiles, ::rust::Vec<::rust::citymap::SimulationObjectState> *simulation_objects, ::rust::citymap::SimulationUpdate *return$) noexcept;
+void rust$citymap$cxxbridge1$192$RustCityMap$update_world(::rust::citymap::RustCityMap &self, ::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> *residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> *work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> *school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> *demand_tiles, ::rust::citymap::SpecialDemandState *special_demand, ::rust::Vec<::rust::citymap::SimulationObjectState> *simulation_objects, ::rust::citymap::SimulationUpdate *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$set_save_version(::rust::citymap::RustCityMap &self, ::std::int32_t version) noexcept;
 
@@ -1402,14 +1417,15 @@ bool RustCityMap::will_run_daily_update(::std::int32_t minutes_delta) const noex
   return rust$citymap$cxxbridge1$192$RustCityMap$will_run_daily_update(*this, minutes_delta);
 }
 
-::rust::citymap::SimulationUpdate RustCityMap::update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept {
+::rust::citymap::SimulationUpdate RustCityMap::update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SpecialDemandState special_demand, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept {
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ResidentialTileState>> residential_tiles$(::std::move(residential_tiles));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::WorkPlaceTileState>> work_place_tiles$(::std::move(work_place_tiles));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::SchoolTileState>> school_tiles$(::std::move(school_tiles));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::DemandTileState>> demand_tiles$(::std::move(demand_tiles));
+  ::rust::ManuallyDrop<::rust::citymap::SpecialDemandState> special_demand$(::std::move(special_demand));
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::SimulationObjectState>> simulation_objects$(::std::move(simulation_objects));
   ::rust::MaybeUninit<::rust::citymap::SimulationUpdate> return$;
-  rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &residential_tiles$.value, &work_place_tiles$.value, &school_tiles$.value, &demand_tiles$.value, &simulation_objects$.value, &return$.value);
+  rust$citymap$cxxbridge1$192$RustCityMap$update_world(*this, minutes_delta, &residential_tiles$.value, &work_place_tiles$.value, &school_tiles$.value, &demand_tiles$.value, &special_demand$.value, &simulation_objects$.value, &return$.value);
   return ::std::move(return$.value);
 }
 

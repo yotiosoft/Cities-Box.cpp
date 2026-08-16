@@ -11,11 +11,16 @@ impl SimulationState {
         &mut self,
         demand_tiles: &[ffi::DemandTileState],
         work_place_tiles: &[ffi::WorkPlaceTileState],
+        special_demand: &ffi::SpecialDemandState,
         random: &mut S,
     ) {
         let residential = if self.population > 0 {
             let happiness_average = average_happiness(demand_tiles);
-            hsp_demand_limit(happiness_average + 10 - random.random_below(20))
+            hsp_demand_limit(
+                happiness_average
+                    .saturating_add(10 - random.random_below(20))
+                    .saturating_add(special_demand.residential),
+            )
         } else {
             100.0
         };
@@ -25,6 +30,7 @@ impl SimulationState {
             update_business_demand(
                 self.demand.commercial,
                 has_capacity(work_place_tiles, COMMERCIAL),
+                special_demand.commercial,
                 random,
             ),
             self.tax_commercial,
@@ -33,6 +39,7 @@ impl SimulationState {
             update_business_demand(
                 self.demand.office,
                 has_capacity(work_place_tiles, OFFICE),
+                special_demand.office,
                 random,
             ),
             self.tax_office,
@@ -41,6 +48,7 @@ impl SimulationState {
             update_business_demand(
                 self.demand.industrial,
                 has_capacity(work_place_tiles, INDUSTRIAL),
+                special_demand.industrial,
                 random,
             ),
             self.tax_industrial,
@@ -49,6 +57,7 @@ impl SimulationState {
             update_business_demand(
                 self.demand.farm,
                 has_capacity(work_place_tiles, FARM),
+                special_demand.farm,
                 random,
             ),
             self.tax_farm,
@@ -73,11 +82,15 @@ fn average_happiness(tiles: &[ffi::DemandTileState]) -> i32 {
 }
 
 fn tile_happiness(tile: &ffi::DemandTileState) -> i32 {
-    // HSPの日次処理式を移植。現行モデルにNoiseがないため、その項は0として扱う。
+    // HSPの日次処理式を移植。各項はHSPのint変換と同じく個別に切り捨てる。
     let land_price = ((f64::from(tile.land_price) / 200.0) * 100.0 * 0.40) as i32;
     let crime = (f64::from(tile.crime_rate / 50) * 0.20) as i32;
     let education = ((f64::from(tile.education_rate) / 60.0) * 100.0 * 0.20) as i32;
-    land_price - crime + education
+    let noise = (f64::from(tile.noise_rate) * 0.20) as i32;
+    land_price
+        .saturating_sub(crime)
+        .saturating_add(education)
+        .saturating_sub(noise)
 }
 
 fn has_capacity(tiles: &[ffi::WorkPlaceTileState], kind: i32) -> bool {
@@ -89,12 +102,17 @@ fn has_capacity(tiles: &[ffi::WorkPlaceTileState], kind: i32) -> bool {
 fn update_business_demand<S: SimulationRandomSource>(
     current: f64,
     capacity_exists: bool,
+    special_demand: i32,
     random: &mut S,
 ) -> f64 {
     if !capacity_exists {
         return 100.0;
     }
-    hsp_demand_limit(current as i32 + random.random_below(30) - 10)
+    hsp_demand_limit(
+        (current as i32)
+            .saturating_add(random.random_below(30) - 10)
+            .saturating_add(special_demand),
+    )
 }
 
 fn hsp_demand_limit(value: i32) -> f64 {
@@ -117,6 +135,31 @@ mod tests {
             land_price,
             crime_rate,
             education_rate,
+            noise_rate: 0,
+        }
+    }
+
+    fn demand_tile_with_noise(
+        land_price: i32,
+        crime_rate: i32,
+        education_rate: i32,
+        noise_rate: i32,
+    ) -> ffi::DemandTileState {
+        ffi::DemandTileState {
+            land_price,
+            crime_rate,
+            education_rate,
+            noise_rate,
+        }
+    }
+
+    fn special_demand() -> ffi::SpecialDemandState {
+        ffi::SpecialDemandState {
+            residential: 0,
+            commercial: 0,
+            office: 0,
+            industrial: 0,
+            farm: 0,
         }
     }
 
@@ -136,7 +179,7 @@ mod tests {
         let mut state = state_at(2024, 1, 1, 0, 0);
         let mut random = FixedRandom::new([]);
 
-        state.update_daily_demand(&[], &[], &mut random);
+        state.update_daily_demand(&[], &[], &special_demand(), &mut random);
 
         assert_eq!(state.demand.residential, 100.0);
         assert_eq!(state.demand.commercial, 100.0);
@@ -153,11 +196,67 @@ mod tests {
         let tiles = [demand_tile(100, 0, 60), demand_tile(0, 0, 0)];
         let mut random = FixedRandom::new([0]);
 
-        state.update_daily_demand(&tiles, &[], &mut random);
+        state.update_daily_demand(&tiles, &[], &special_demand(), &mut random);
 
         // 幸福度は40と0、平均20。乱数0なら +10。
         assert_eq!(state.demand.residential, 30.0);
         assert_eq!(random.upper_bounds, [20]);
+    }
+
+    #[test]
+    fn noise_reduces_residential_happiness_by_twenty_percent() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.population = 1;
+        let mut random = FixedRandom::new([0]);
+
+        state.update_daily_demand(
+            &[demand_tile_with_noise(100, 0, 60, 25)],
+            &[],
+            &special_demand(),
+            &mut random,
+        );
+
+        // 地価20 + 教育20 - 騒音5 + 乱数補正10。
+        assert_eq!(state.demand.residential, 45.0);
+        assert_eq!(random.upper_bounds, [20]);
+    }
+
+    #[test]
+    fn special_demand_is_applied_to_each_hsp_demand_formula_and_clamped() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.population = 1;
+        state.demand.commercial = 50.0;
+        state.demand.office = 50.0;
+        state.demand.industrial = 50.0;
+        state.demand.farm = 50.0;
+        let workplaces = [
+            workplace(COMMERCIAL, 1),
+            workplace(OFFICE, 1),
+            workplace(INDUSTRIAL, 1),
+            workplace(FARM, 1),
+        ];
+        let special = ffi::SpecialDemandState {
+            residential: 5,
+            commercial: 6,
+            office: -7,
+            industrial: 100,
+            farm: -100,
+        };
+        let mut random = FixedRandom::new([10, 10, 10, 10, 10]);
+
+        state.update_daily_demand(
+            &[demand_tile(100, 0, 60)],
+            &workplaces,
+            &special,
+            &mut random,
+        );
+
+        assert_eq!(state.demand.residential, 45.0);
+        assert_eq!(state.demand.commercial, 56.0);
+        assert_eq!(state.demand.office, 43.0);
+        assert_eq!(state.demand.industrial, 100.0);
+        assert_eq!(state.demand.farm, 1.0);
+        assert_eq!(random.upper_bounds, [20, 30, 30, 30, 30]);
     }
 
     #[test]
@@ -175,7 +274,7 @@ mod tests {
         ];
         let mut random = FixedRandom::new([0, 10, 29, 5]);
 
-        state.update_daily_demand(&[], &workplaces, &mut random);
+        state.update_daily_demand(&[], &workplaces, &special_demand(), &mut random);
 
         assert_eq!(state.demand.commercial, 40.0);
         assert_eq!(state.demand.office, 50.0);
@@ -205,7 +304,12 @@ mod tests {
         ];
         let mut random = FixedRandom::new([0, 10, 10, 10, 10]);
 
-        state.update_daily_demand(&[demand_tile(200, 0, 60)], &workplaces, &mut random);
+        state.update_daily_demand(
+            &[demand_tile(200, 0, 60)],
+            &workplaces,
+            &special_demand(),
+            &mut random,
+        );
 
         assert_eq!(state.demand.residential, 20.0);
         assert_eq!(state.demand.commercial, 0.0);
@@ -220,13 +324,13 @@ mod tests {
 
         let mut negative = state_at(2024, 1, 1, 0, 0);
         let mut negative_random = FixedRandom::new([0]);
-        negative.update_daily_demand(&[], &workplaces, &mut negative_random);
+        negative.update_daily_demand(&[], &workplaces, &special_demand(), &mut negative_random);
         assert_eq!(negative.demand.commercial, 1.0);
 
         let mut zero = state_at(2024, 1, 1, 0, 0);
         zero.demand.commercial = 10.0;
         let mut zero_random = FixedRandom::new([0]);
-        zero.update_daily_demand(&[], &workplaces, &mut zero_random);
+        zero.update_daily_demand(&[], &workplaces, &special_demand(), &mut zero_random);
         assert_eq!(zero.demand.commercial, 0.0);
     }
 
@@ -252,6 +356,7 @@ mod tests {
         state.update_daily_demand(
             &[demand_tile(i32::MAX, i32::MIN, i32::MAX)],
             &workplaces,
+            &special_demand(),
             &mut random,
         );
 

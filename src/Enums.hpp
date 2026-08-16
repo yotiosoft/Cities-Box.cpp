@@ -255,6 +255,7 @@ namespace RateID {
 		LandPrice,
 		CrimeRate,
 		EducationRate,
+		NoiseRate,
 		HappinessRate
 	};
 }

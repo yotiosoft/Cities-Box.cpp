@@ -871,6 +871,9 @@ RateID::Type UnitaryTools::rateNameToRateID(String rate_name) {
 	if (rate_name == U"EducationRate" || rate_name == U"education_rate") {
 		return RateID::EducationRate;
 	}
+	if (rate_name == U"NoiseRate" || rate_name == U"noise_rate" || rate_name == U"Noise" || rate_name == U"noise") {
+		return RateID::NoiseRate;
+	}
 	if (rate_name == U"HappinessRate" || rate_name == U"happiness_rate") {
 		return RateID::HappinessRate;
 	}
@@ -886,6 +889,8 @@ String UnitaryTools::rateIDToRateName(RateID::Type rate_id) {
 			return U"CrimeRate";
 		case RateID::EducationRate:
 			return U"EducationRate";
+		case RateID::NoiseRate:
+			return U"NoiseRate";
 		case RateID::HappinessRate:
 			return U"HappinessRate";
 		default:

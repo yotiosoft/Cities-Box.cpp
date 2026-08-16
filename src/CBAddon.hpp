@@ -90,6 +90,10 @@ public:
 	int64 getMonthlyMaintenanceFire() const { return m_monthly_maintenance_fire; }
 	int64 getMonthlyMaintenancePost() const { return m_monthly_maintenance_post; }
 	int64 getMonthlyMaintenanceEducation() const { return m_monthly_maintenance_education; }
+	bool hasMonthlyMaintenancePolice() const { return m_has_monthly_maintenance_police; }
+	bool hasMonthlyMaintenanceFire() const { return m_has_monthly_maintenance_fire; }
+	bool hasMonthlyMaintenancePost() const { return m_has_monthly_maintenance_post; }
+	bool hasMonthlyMaintenanceEducation() const { return m_has_monthly_maintenance_education; }
 	
 	// アイコンのテクスチャの取得
 	void drawIcon(PositionStruct position, PositionStruct leftTop, Size size);
@@ -147,6 +151,10 @@ protected:
 	int64 m_monthly_maintenance_fire = 0;
 	int64 m_monthly_maintenance_post = 0;
 	int64 m_monthly_maintenance_education = 0;
+	bool m_has_monthly_maintenance_police = false;
+	bool m_has_monthly_maintenance_fire = false;
+	bool m_has_monthly_maintenance_post = false;
+	bool m_has_monthly_maintenance_education = false;
 	
 	// 建物の効果
 	map<RateID::Type, EffectStruct> m_effects;

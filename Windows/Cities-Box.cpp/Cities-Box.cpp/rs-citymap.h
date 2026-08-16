@@ -1095,6 +1095,10 @@ struct SimulationObjectState final {
   ::std::int64_t monthly_maintenance_fire CXX_DEFAULT_VALUE(0);
   ::std::int64_t monthly_maintenance_post CXX_DEFAULT_VALUE(0);
   ::std::int64_t monthly_maintenance_education CXX_DEFAULT_VALUE(0);
+  bool has_monthly_maintenance_police CXX_DEFAULT_VALUE(false);
+  bool has_monthly_maintenance_fire CXX_DEFAULT_VALUE(false);
+  bool has_monthly_maintenance_post CXX_DEFAULT_VALUE(false);
+  bool has_monthly_maintenance_education CXX_DEFAULT_VALUE(false);
 
   using IsRelocatable = ::std::true_type;
 };

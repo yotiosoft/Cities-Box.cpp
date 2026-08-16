@@ -125,6 +125,10 @@ pub(crate) mod ffi {
         monthly_maintenance_fire: i64,
         monthly_maintenance_post: i64,
         monthly_maintenance_education: i64,
+        has_monthly_maintenance_police: bool,
+        has_monthly_maintenance_fire: bool,
+        has_monthly_maintenance_post: bool,
+        has_monthly_maintenance_education: bool,
     }
 
     struct SimulationUpdate {
@@ -532,6 +536,10 @@ mod tests {
                 monthly_maintenance_fire: 1_000,
                 monthly_maintenance_post: 1_000,
                 monthly_maintenance_education: 1_000,
+                has_monthly_maintenance_police: true,
+                has_monthly_maintenance_fire: true,
+                has_monthly_maintenance_post: true,
+                has_monthly_maintenance_education: true,
             })
             .collect();
 

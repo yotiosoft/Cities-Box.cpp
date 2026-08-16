@@ -712,7 +712,7 @@ CategoryID::Type UnitaryTools::categoryNameToCategoryID(String category_name) {
 		return CategoryID::Farm;
 	if (category_name == U"public")
 		return CategoryID::Public;
-	if (category_name == U"fire_department")
+	if (category_name == U"fire_department" || category_name == U"fire_depertment")
 		return CategoryID::FireDepartment;
 	if (category_name == U"police")
 		return CategoryID::Police;

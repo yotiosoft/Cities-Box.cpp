@@ -1,25 +1,25 @@
 # TODO
 
-## Finance and public-service budgets
+## 財政と公共サービス予算
 
-- [ ] Apply each service budget percentage to the corresponding gameplay effect, not only to its monthly expense.
-  - Define the effect curve for 0–200% funding before implementation; do not assume that effects scale linearly.
-  - Determine behavior for underfunding, overfunding, delayed recovery, and whether changes take effect immediately or at the next monthly finance update.
-  - Cover police, fire, post, and education separately because their affected rates and operating rules may differ.
-  - Keep the gameplay calculation in Rust. C++ should continue to provide map/addon data and render the resulting state.
+- [ ] 各公共サービスの予算率を、月次支出だけでなく対応するゲーム内効果にも反映する。
+  - 実装前に、予算率0～200%に対する効果曲線を定義する。効果が単純に線形変化するとは仮定しない。
+  - 予算不足、超過予算、効果回復の遅延、および変更を即時反映するか次回月次財政処理から反映するかを決める。
+  - 警察、消防、郵便、教育では対象レートと運用規則が異なる可能性があるため、カテゴリごとに仕様を定義する。
+  - ゲーム内効果の計算はRust側に置く。C++側は引き続きマップ・アドオン情報の提供と結果の描画を担当する。
 
-- [ ] Define how land price affects finance calculations.
-  - Decide whether land price changes residential tax, business tax, maintenance costs, or a separate property-tax source.
-  - Specify whether to use per-tile land price, an occupied-area average, a population-weighted average, or a building-level value.
-  - Deduplicate multi-tile buildings so the same property is not counted once per tile.
-  - Define normalization, caps, rounding, update timing, and behavior for missing or invalid land-price data.
-  - Extend `SimulationMapStats` or the cxx input structs only after the required statistic is defined, and preserve the existing save-data format.
+- [ ] 地価を財政計算へ反映する方法を定義する。
+  - 地価を住宅税、事業税、維持費、または独立した固定資産税のどれへ反映するかを決める。
+  - タイル単位の地価、占有範囲の平均、人口加重平均、建物単位の値のどれを使用するかを定義する。
+  - 複数タイル建物は重複排除し、同じ資産をタイルごとに複数回計上しない。
+  - 正規化、上限、丸め、更新タイミング、および地価データが存在しない場合や異常値の場合の扱いを定義する。
+  - 必要な統計値を確定してから `SimulationMapStats` またはcxx入力構造体を最小限拡張し、既存のセーブデータ形式を維持する。
 
-- [ ] Add addon-authoring UI for the category-specific monthly maintenance fields.
+- [ ] カテゴリ別月額維持費を設定するアドオン作成UIを追加する。
   - `monthly_maintenance_police`
   - `monthly_maintenance_fire`
   - `monthly_maintenance_post`
   - `monthly_maintenance_education`
-  - Existing addons without these fields currently use 1,000 per matching service category for backward-compatible 100% funding costs.
+  - フィールドを空欄にした場合は省略し、Rust側のカテゴリ別既定値を使用する。
 
-- [ ] Complete a Windows Release x64 C++ build after resolving the local MSBuild `Path`/`PATH` duplicate environment-variable error (`MSB6001`).
+- [ ] ローカルMSBuild環境の `Path` / `PATH` 重複によるエラー（`MSB6001`）を解消し、Windows Release x64のC++ビルドを完了する。

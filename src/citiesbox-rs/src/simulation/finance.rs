@@ -1,6 +1,6 @@
 use super::{
-    employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE},
     SimulationState,
+    employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE},
 };
 use crate::citymap::ffi;
 use std::collections::{HashMap, HashSet};
@@ -8,6 +8,10 @@ use std::collections::{HashMap, HashSet};
 const CONSTRUCTION_COST: i32 = 5;
 const RESIDENTIAL_TAX_BASE_PER_RESIDENT: f64 = 100.0;
 const BUSINESS_TAX_BASE_PER_WORKER: f64 = 100.0;
+const DEFAULT_MONTHLY_MAINTENANCE_POLICE: i64 = 1_200;
+const DEFAULT_MONTHLY_MAINTENANCE_FIRE: i64 = 1_400;
+const DEFAULT_MONTHLY_MAINTENANCE_POST: i64 = 600;
+const DEFAULT_MONTHLY_MAINTENANCE_EDUCATION: i64 = 1_000;
 
 // Values are shared with CategoryID::Type in src/Enums.hpp.
 const CATEGORY_FIRE_DEPARTMENT: i32 = 25;
@@ -120,28 +124,44 @@ fn count_finance_maintenance(
 
         let categories = &object.category_ids;
         if categories.contains(&CATEGORY_POLICE) {
-            maintenance.police = maintenance
-                .police
-                .saturating_add(object.monthly_maintenance_police.max(0));
+            maintenance.police = maintenance.police.saturating_add(resolve_maintenance(
+                object.monthly_maintenance_police,
+                object.has_monthly_maintenance_police,
+                DEFAULT_MONTHLY_MAINTENANCE_POLICE,
+            ));
         }
         if categories.contains(&CATEGORY_FIRE_DEPARTMENT) {
-            maintenance.fire = maintenance
-                .fire
-                .saturating_add(object.monthly_maintenance_fire.max(0));
+            maintenance.fire = maintenance.fire.saturating_add(resolve_maintenance(
+                object.monthly_maintenance_fire,
+                object.has_monthly_maintenance_fire,
+                DEFAULT_MONTHLY_MAINTENANCE_FIRE,
+            ));
         }
         if categories.contains(&CATEGORY_POST_OFFICE) {
-            maintenance.post = maintenance
-                .post
-                .saturating_add(object.monthly_maintenance_post.max(0));
+            maintenance.post = maintenance.post.saturating_add(resolve_maintenance(
+                object.monthly_maintenance_post,
+                object.has_monthly_maintenance_post,
+                DEFAULT_MONTHLY_MAINTENANCE_POST,
+            ));
         }
         if categories.contains(&CATEGORY_EDUCATION) {
-            maintenance.education = maintenance
-                .education
-                .saturating_add(object.monthly_maintenance_education.max(0));
+            maintenance.education = maintenance.education.saturating_add(resolve_maintenance(
+                object.monthly_maintenance_education,
+                object.has_monthly_maintenance_education,
+                DEFAULT_MONTHLY_MAINTENANCE_EDUCATION,
+            ));
         }
     }
 
     maintenance
+}
+
+fn resolve_maintenance(value: i64, is_defined: bool, default: i64) -> i64 {
+    if is_defined && value >= 0 {
+        value
+    } else {
+        default
+    }
 }
 
 fn finite_nonnegative(value: f64) -> f64 {
@@ -167,7 +187,7 @@ mod tests {
         citymap::ffi,
         simulation::{
             employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE, PUBLIC},
-            test_support::{residential_tile, state_at, FixedRandom},
+            test_support::{FixedRandom, residential_tile, state_at},
         },
     };
 
@@ -185,6 +205,10 @@ mod tests {
                     monthly_maintenance_fire: 1_000,
                     monthly_maintenance_post: 1_000,
                     monthly_maintenance_education: 1_000,
+                    has_monthly_maintenance_police: true,
+                    has_monthly_maintenance_fire: true,
+                    has_monthly_maintenance_post: true,
+                    has_monthly_maintenance_education: true,
                 });
                 next_id += 1;
             }
@@ -253,6 +277,10 @@ mod tests {
             monthly_maintenance_fire: 0,
             monthly_maintenance_post: 0,
             monthly_maintenance_education: 2_000,
+            has_monthly_maintenance_police: true,
+            has_monthly_maintenance_fire: true,
+            has_monthly_maintenance_post: true,
+            has_monthly_maintenance_education: true,
         };
 
         for (budget, expected_expense) in
@@ -283,6 +311,67 @@ mod tests {
     }
 
     #[test]
+    fn uses_category_defaults_only_when_addon_cost_is_missing_or_invalid() {
+        let objects = vec![
+            ffi::SimulationObjectState {
+                object_id: 1,
+                category_ids: vec![CATEGORY_POLICE],
+                monthly_maintenance_police: 0,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 0,
+                has_monthly_maintenance_police: false,
+                has_monthly_maintenance_fire: false,
+                has_monthly_maintenance_post: false,
+                has_monthly_maintenance_education: false,
+            },
+            ffi::SimulationObjectState {
+                object_id: 2,
+                category_ids: vec![CATEGORY_FIRE_DEPARTMENT],
+                monthly_maintenance_police: 0,
+                monthly_maintenance_fire: -1,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 0,
+                has_monthly_maintenance_police: false,
+                has_monthly_maintenance_fire: true,
+                has_monthly_maintenance_post: false,
+                has_monthly_maintenance_education: false,
+            },
+            ffi::SimulationObjectState {
+                object_id: 3,
+                category_ids: vec![CATEGORY_POST_OFFICE],
+                monthly_maintenance_police: 0,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 0,
+                has_monthly_maintenance_police: false,
+                has_monthly_maintenance_fire: false,
+                has_monthly_maintenance_post: true,
+                has_monthly_maintenance_education: false,
+            },
+            ffi::SimulationObjectState {
+                object_id: 4,
+                category_ids: vec![CATEGORY_EDUCATION],
+                monthly_maintenance_police: 0,
+                monthly_maintenance_fire: 0,
+                monthly_maintenance_post: 0,
+                monthly_maintenance_education: 2_500,
+                has_monthly_maintenance_police: false,
+                has_monthly_maintenance_fire: false,
+                has_monthly_maintenance_post: false,
+                has_monthly_maintenance_education: true,
+            },
+        ];
+
+        let maintenance = super::count_finance_maintenance(&objects);
+
+        assert_eq!(maintenance.police, 1_200);
+        assert_eq!(maintenance.fire, 1_400);
+        assert_eq!(maintenance.post, 0);
+        assert_eq!(maintenance.education, 2_500);
+    }
+
+    #[test]
     fn clamps_budget_and_maintenance_values_during_calculation() {
         let object = ffi::SimulationObjectState {
             object_id: 1,
@@ -291,6 +380,10 @@ mod tests {
             monthly_maintenance_fire: -1_000,
             monthly_maintenance_post: 0,
             monthly_maintenance_education: 0,
+            has_monthly_maintenance_police: true,
+            has_monthly_maintenance_fire: true,
+            has_monthly_maintenance_post: true,
+            has_monthly_maintenance_education: true,
         };
         let mut state = state_at(2024, 1, 1, 0, 0);
         state.money = i32::MAX;
@@ -572,6 +665,10 @@ mod tests {
                     monthly_maintenance_fire: 0,
                     monthly_maintenance_post: 0,
                     monthly_maintenance_education: 0,
+                    has_monthly_maintenance_police: false,
+                    has_monthly_maintenance_fire: false,
+                    has_monthly_maintenance_post: false,
+                    has_monthly_maintenance_education: false,
                 },
                 ffi::SimulationObjectState {
                     object_id: 42,
@@ -580,6 +677,10 @@ mod tests {
                     monthly_maintenance_fire: 0,
                     monthly_maintenance_post: 0,
                     monthly_maintenance_education: 0,
+                    has_monthly_maintenance_police: false,
+                    has_monthly_maintenance_fire: false,
+                    has_monthly_maintenance_post: false,
+                    has_monthly_maintenance_education: false,
                 },
             ],
         );
@@ -616,6 +717,10 @@ mod tests {
                 monthly_maintenance_fire: 0,
                 monthly_maintenance_post: 0,
                 monthly_maintenance_education: 1_000,
+                has_monthly_maintenance_police: true,
+                has_monthly_maintenance_fire: true,
+                has_monthly_maintenance_post: true,
+                has_monthly_maintenance_education: true,
             },
             ffi::SimulationObjectState {
                 object_id: 10,
@@ -624,6 +729,10 @@ mod tests {
                 monthly_maintenance_fire: 0,
                 monthly_maintenance_post: 0,
                 monthly_maintenance_education: 0,
+                has_monthly_maintenance_police: true,
+                has_monthly_maintenance_fire: true,
+                has_monthly_maintenance_post: true,
+                has_monthly_maintenance_education: true,
             },
             ffi::SimulationObjectState {
                 object_id: 11,
@@ -632,6 +741,10 @@ mod tests {
                 monthly_maintenance_fire: 0,
                 monthly_maintenance_post: 0,
                 monthly_maintenance_education: 0,
+                has_monthly_maintenance_police: true,
+                has_monthly_maintenance_fire: true,
+                has_monthly_maintenance_post: true,
+                has_monthly_maintenance_education: true,
             },
         ];
 

@@ -48,6 +48,10 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 			state.monthly_maintenance_fire = addon->getMonthlyMaintenanceFire();
 			state.monthly_maintenance_post = addon->getMonthlyMaintenancePost();
 			state.monthly_maintenance_education = addon->getMonthlyMaintenanceEducation();
+			state.has_monthly_maintenance_police = addon->hasMonthlyMaintenancePolice();
+			state.has_monthly_maintenance_fire = addon->hasMonthlyMaintenanceFire();
+			state.has_monthly_maintenance_post = addon->hasMonthlyMaintenancePost();
+			state.has_monthly_maintenance_education = addon->hasMonthlyMaintenanceEducation();
 			simulationObjects.push_back(std::move(state));
 		}
 

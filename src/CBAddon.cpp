@@ -63,19 +63,20 @@ bool CBAddon::m_load_adj(FileStruct newFilePath, String loading_addons_set_name)
 		m_addon_categories << UnitaryTools::categoryNameToCategoryID(addon_category_str);
 	}
 
-	// Existing addons did not define maintenance costs. Preserve their former
-	// 1,000-per-service monthly cost when the corresponding field is absent.
-	auto loadMonthlyMaintenance = [&](StringView key, CategoryID::Type category) {
+	auto loadMonthlyMaintenance = [&](StringView key, int64& output, bool& hasValue) {
 		const JSON value = addonData[key];
 		if (value.getType() == JSONValueType::Number) {
-			return value.get<int64>();
+			hasValue = true;
+			output = value.get<int64>();
+			return;
 		}
-		return isInCategories(category) ? int64{ 1000 } : int64{ 0 };
+		hasValue = false;
+		output = 0;
 	};
-	m_monthly_maintenance_police = loadMonthlyMaintenance(U"monthly_maintenance_police", CategoryID::Police);
-	m_monthly_maintenance_fire = loadMonthlyMaintenance(U"monthly_maintenance_fire", CategoryID::FireDepartment);
-	m_monthly_maintenance_post = loadMonthlyMaintenance(U"monthly_maintenance_post", CategoryID::PostOffice);
-	m_monthly_maintenance_education = loadMonthlyMaintenance(U"monthly_maintenance_education", CategoryID::Education);
+	loadMonthlyMaintenance(U"monthly_maintenance_police", m_monthly_maintenance_police, m_has_monthly_maintenance_police);
+	loadMonthlyMaintenance(U"monthly_maintenance_fire", m_monthly_maintenance_fire, m_has_monthly_maintenance_fire);
+	loadMonthlyMaintenance(U"monthly_maintenance_post", m_monthly_maintenance_post, m_has_monthly_maintenance_post);
+	loadMonthlyMaintenance(U"monthly_maintenance_education", m_monthly_maintenance_education, m_has_monthly_maintenance_education);
 	
 	// 建物の効果
 	for (const auto& effect : addonData[U"effects"]) {
@@ -442,10 +443,18 @@ void CBAddon::m_converter() {
 	}
 	
 	addonData[U"maximum_capacity"] = m_maximum_capacity;
-	addonData[U"monthly_maintenance_police"] = m_monthly_maintenance_police;
-	addonData[U"monthly_maintenance_fire"] = m_monthly_maintenance_fire;
-	addonData[U"monthly_maintenance_post"] = m_monthly_maintenance_post;
-	addonData[U"monthly_maintenance_education"] = m_monthly_maintenance_education;
+	if (m_has_monthly_maintenance_police) {
+		addonData[U"monthly_maintenance_police"] = m_monthly_maintenance_police;
+	}
+	if (m_has_monthly_maintenance_fire) {
+		addonData[U"monthly_maintenance_fire"] = m_monthly_maintenance_fire;
+	}
+	if (m_has_monthly_maintenance_post) {
+		addonData[U"monthly_maintenance_post"] = m_monthly_maintenance_post;
+	}
+	if (m_has_monthly_maintenance_education) {
+		addonData[U"monthly_maintenance_education"] = m_monthly_maintenance_education;
+	}
 	
 	Array<JSON> json_types_array;
 	for (auto type = m_types.begin(); type != m_types.end(); type++) {

@@ -46,7 +46,7 @@ impl RustCityMap {
         mut work_place_tiles: Vec<ffi::WorkPlaceTileState>,
         mut school_tiles: Vec<ffi::SchoolTileState>,
         demand_tiles: Vec<ffi::DemandTileState>,
-        map_stats: ffi::SimulationMapStats,
+        simulation_objects: Vec<ffi::SimulationObjectState>,
     ) -> ffi::SimulationUpdate {
         let mut random = RandomSimulationSource::new();
         self.simulation.update_world_with_source(
@@ -55,7 +55,7 @@ impl RustCityMap {
             &mut work_place_tiles,
             &mut school_tiles,
             &demand_tiles,
-            &map_stats,
+            &simulation_objects,
             &mut random,
         );
         ffi::SimulationUpdate {
@@ -64,20 +64,5 @@ impl RustCityMap {
             work_place_tiles,
             school_tiles,
         }
-    }
-}
-
-#[cfg(test)]
-pub(crate) fn empty_map_stats() -> ffi::SimulationMapStats {
-    ffi::SimulationMapStats {
-        residential_tiles: 0,
-        commercial_tiles: 0,
-        office_tiles: 0,
-        industrial_tiles: 0,
-        farm_tiles: 0,
-        police_stations: 0,
-        fire_departments: 0,
-        post_offices: 0,
-        education_facilities: 0,
     }
 }

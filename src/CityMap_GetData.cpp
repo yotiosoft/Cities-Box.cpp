@@ -7,6 +7,18 @@
 
 #include "CityMap.hpp"
 
+namespace {
+	static_assert(CategoryID::Residential == 19);
+	static_assert(CategoryID::Commecial == 20);
+	static_assert(CategoryID::Office == 21);
+	static_assert(CategoryID::Industrial == 22);
+	static_assert(CategoryID::Farm == 23);
+	static_assert(CategoryID::FireDepartment == 25);
+	static_assert(CategoryID::Police == 26);
+	static_assert(CategoryID::PostOffice == 27);
+	static_assert(CategoryID::Education == 28);
+}
+
 SimulationSnapshot CityMap::setFinanceSettings(BudgetSettings budget, TaxSettings tax) {
 	return m_rust_core->set_finance_settings(budget, tax);
 }
@@ -16,11 +28,24 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 	rust::Vec<rust::citymap::WorkPlaceTileState> workPlaceTiles;
 	rust::Vec<rust::citymap::SchoolTileState> schoolTiles;
 	rust::Vec<rust::citymap::DemandTileState> demandTiles;
-	rust::citymap::SimulationMapStats mapStats;
+	rust::Vec<rust::citymap::SimulationObjectState> simulationObjects;
 	const bool runsDailyUpdate = m_rust_core->will_run_daily_update(minutesDelta);
 
 	// 日付をまたぐ場合だけ、C++が所有する最新の住宅状態を値として渡す。
 	if (runsDailyUpdate) {
+		for (const auto& [objectID, object] : m_objects) {
+			if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr) {
+				continue;
+			}
+
+			rust::citymap::SimulationObjectState state;
+			state.object_id = objectID;
+			for (const CategoryID::Type category : object->getAddonP()->getCategories()) {
+				state.category_ids.push_back(static_cast<int32_t>(category));
+			}
+			simulationObjects.push_back(std::move(state));
+		}
+
 		for (int y = 0; y < m_map_size.y; ++y) {
 			for (int x = 0; x < m_map_size.x; ++x) {
 				Tile& tile = m_tiles[y][x];
@@ -31,8 +56,6 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 				demandTiles.push_back(std::move(demandState));
 				Object* residentialObject = tile.hasCategory(CategoryID::Residential);
 				if (residentialObject != nullptr && residentialObject->getAddonP() != nullptr) {
-					++mapStats.residential_tiles;
-
 					rust::citymap::ResidentialTileState state;
 					state.x = x;
 					state.y = y;
@@ -98,14 +121,6 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 					addSchool(CategoryID::University, School::University);
 				}
 
-				mapStats.commercial_tiles += tile.hasCategory(CategoryID::Commecial) != nullptr;
-				mapStats.office_tiles += tile.hasCategory(CategoryID::Office) != nullptr;
-				mapStats.industrial_tiles += tile.hasCategory(CategoryID::Industrial) != nullptr;
-				mapStats.farm_tiles += tile.hasCategory(CategoryID::Farm) != nullptr;
-				mapStats.police_stations += tile.hasCategory(CategoryID::Police) != nullptr;
-				mapStats.fire_departments += tile.hasCategory(CategoryID::FireDepartment) != nullptr;
-				mapStats.post_offices += tile.hasCategory(CategoryID::PostOffice) != nullptr;
-				mapStats.education_facilities += tile.hasCategory(CategoryID::Education) != nullptr;
 			}
 		}
 	}
@@ -116,7 +131,7 @@ SimulationSnapshot CityMap::updateWorld(int minutesDelta) {
 		std::move(workPlaceTiles),
 		std::move(schoolTiles),
 		std::move(demandTiles),
-		mapStats
+		std::move(simulationObjects)
 	);
 	for (const auto& state : update.residential_tiles) {
 		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {

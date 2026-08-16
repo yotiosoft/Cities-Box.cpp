@@ -1,4 +1,4 @@
-use super::{SimulationState, empty_map_stats, random::SimulationRandomSource};
+use super::{SimulationState, random::SimulationRandomSource};
 use crate::citymap::ffi;
 use std::collections::VecDeque;
 
@@ -72,13 +72,5 @@ pub(super) fn residential_tile(residents: i32, maximum_capacity: i32) -> ffi::Re
 
 pub(super) fn advance(state: &mut SimulationState, minutes: i32) -> u32 {
     let mut random = FixedRandom::new([]);
-    state.update_world_with_source(
-        minutes,
-        &mut [],
-        &mut [],
-        &mut [],
-        &[],
-        &empty_map_stats(),
-        &mut random,
-    )
+    state.update_world_with_source(minutes, &mut [], &mut [], &mut [], &[], &[], &mut random)
 }

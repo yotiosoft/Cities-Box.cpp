@@ -118,16 +118,9 @@ pub(crate) mod ffi {
         education_rate: i32,
     }
 
-    struct SimulationMapStats {
-        residential_tiles: i32,
-        commercial_tiles: i32,
-        office_tiles: i32,
-        industrial_tiles: i32,
-        farm_tiles: i32,
-        police_stations: i32,
-        fire_departments: i32,
-        post_offices: i32,
-        education_facilities: i32,
+    struct SimulationObjectState {
+        object_id: i32,
+        category_ids: Vec<i32>,
     }
 
     struct SimulationUpdate {
@@ -264,7 +257,7 @@ pub(crate) mod ffi {
             work_place_tiles: Vec<WorkPlaceTileState>,
             school_tiles: Vec<SchoolTileState>,
             demand_tiles: Vec<DemandTileState>,
-            map_stats: SimulationMapStats,
+            simulation_objects: Vec<SimulationObjectState>,
         ) -> SimulationUpdate;
 
         // 基本情報の同期用
@@ -445,7 +438,7 @@ mod tests {
             Vec::new(),
             Vec::new(),
             Vec::new(),
-            crate::simulation::empty_map_stats(),
+            Vec::new(),
         );
 
         assert_eq!(
@@ -525,19 +518,23 @@ mod tests {
             budget_settings(10, 20, 30, 40),
             tax_settings(1.0, 2.0, 3.0, 4.0, 5.0),
         );
-        let stats = ffi::SimulationMapStats {
-            residential_tiles: 1,
-            commercial_tiles: 1,
-            office_tiles: 1,
-            industrial_tiles: 1,
-            farm_tiles: 1,
-            police_stations: 1,
-            fire_departments: 1,
-            post_offices: 1,
-            education_facilities: 1,
-        };
+        let simulation_objects = [19, 20, 21, 22, 23, 26, 25, 27, 28]
+            .into_iter()
+            .enumerate()
+            .map(|(index, category_id)| ffi::SimulationObjectState {
+                object_id: index as i32,
+                category_ids: vec![category_id],
+            })
+            .collect();
 
-        let update = city.update_world(1, Vec::new(), Vec::new(), Vec::new(), Vec::new(), stats);
+        let update = city.update_world(
+            1,
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            simulation_objects,
+        );
 
         assert_eq!(update.snapshot.money, 99_015);
     }
@@ -694,7 +691,7 @@ mod tests {
             Vec::new(),
             Vec::new(),
             Vec::new(),
-            crate::simulation::empty_map_stats(),
+            Vec::new(),
         );
         assert!(updated.save_to_file(second_path.to_string_lossy().into_owned()));
 

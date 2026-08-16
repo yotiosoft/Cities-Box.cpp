@@ -924,7 +924,7 @@ namespace rust {
     struct WorkPlaceTileState;
     struct SchoolTileState;
     struct DemandTileState;
-    struct SimulationMapStats;
+    struct SimulationObjectState;
     struct SimulationUpdate;
     struct LoadedObjectData;
     struct LoadedTileObjectData;
@@ -1086,22 +1086,15 @@ struct DemandTileState final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
 
-#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
-#define CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
-struct SimulationMapStats final {
-  ::std::int32_t residential_tiles CXX_DEFAULT_VALUE(0);
-  ::std::int32_t commercial_tiles CXX_DEFAULT_VALUE(0);
-  ::std::int32_t office_tiles CXX_DEFAULT_VALUE(0);
-  ::std::int32_t industrial_tiles CXX_DEFAULT_VALUE(0);
-  ::std::int32_t farm_tiles CXX_DEFAULT_VALUE(0);
-  ::std::int32_t police_stations CXX_DEFAULT_VALUE(0);
-  ::std::int32_t fire_departments CXX_DEFAULT_VALUE(0);
-  ::std::int32_t post_offices CXX_DEFAULT_VALUE(0);
-  ::std::int32_t education_facilities CXX_DEFAULT_VALUE(0);
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationObjectState
+#define CXXBRIDGE1_STRUCT_rust$citymap$SimulationObjectState
+struct SimulationObjectState final {
+  ::std::int32_t object_id CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::std::int32_t> category_ids;
 
   using IsRelocatable = ::std::true_type;
 };
-#endif // CXXBRIDGE1_STRUCT_rust$citymap$SimulationMapStats
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$SimulationObjectState
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SimulationUpdate
 #define CXXBRIDGE1_STRUCT_rust$citymap$SimulationUpdate
@@ -1236,7 +1229,7 @@ struct RustCityMap final : public ::rust::Opaque {
   ::rust::citymap::SimulationSnapshot set_finance_settings(::rust::citymap::BudgetSettings budget, ::rust::citymap::TaxSettings tax) noexcept;
   void charge_construction_cost() noexcept;
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
-  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SimulationMapStats map_stats) noexcept;
+  ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;

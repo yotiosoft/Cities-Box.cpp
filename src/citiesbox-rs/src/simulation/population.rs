@@ -104,10 +104,7 @@ impl SimulationState {
 #[cfg(test)]
 mod tests {
     use crate::citymap::ffi;
-    use crate::simulation::{
-        empty_map_stats,
-        test_support::{FixedRandom, residential_tile, state_at},
-    };
+    use crate::simulation::test_support::{FixedRandom, residential_tile, state_at};
 
     #[test]
     fn empty_home_has_ten_percent_move_in_check() {
@@ -116,15 +113,7 @@ mod tests {
         let mut tiles = vec![residential_tile(0, 8)];
         let mut random = FixedRandom::new([9, 0, 3, 4, 0, 5, 1, 119, 0]);
 
-        state.update_world_with_source(
-            1,
-            &mut tiles,
-            &mut [],
-            &mut [],
-            &[],
-            &empty_map_stats(),
-            &mut random,
-        );
+        state.update_world_with_source(1, &mut tiles, &mut [], &mut [], &[], &[], &mut random);
 
         assert_eq!(tiles[0].residents, 3);
         assert_eq!(tiles[0].ages, [0, 1, 115]);
@@ -141,15 +130,7 @@ mod tests {
         let mut tiles = vec![residential_tile(10, 20)];
         let mut random = FixedRandom::new([9, 1, 5]);
 
-        state.update_world_with_source(
-            1,
-            &mut tiles,
-            &mut [],
-            &mut [],
-            &[],
-            &empty_map_stats(),
-            &mut random,
-        );
+        state.update_world_with_source(1, &mut tiles, &mut [], &mut [], &[], &[], &mut random);
 
         assert_eq!(tiles[0].residents, 5);
         assert_eq!(tiles[0].ages.len(), 5);
@@ -164,15 +145,7 @@ mod tests {
         let mut tiles = vec![residential_tile(4, 8), residential_tile(7, 20)];
         let mut random = FixedRandom::new([0, 0]);
 
-        state.update_world_with_source(
-            1,
-            &mut tiles,
-            &mut [],
-            &mut [],
-            &[],
-            &empty_map_stats(),
-            &mut random,
-        );
+        state.update_world_with_source(1, &mut tiles, &mut [], &mut [], &[], &[], &mut random);
 
         assert_eq!(state.population, 11);
     }
@@ -187,15 +160,7 @@ mod tests {
         // 人口変動なし、120歳は必ず死亡、119歳は生存。
         let mut random = FixedRandom::new([0, 0, 1]);
 
-        state.update_world_with_source(
-            1,
-            &mut tiles,
-            &mut [],
-            &mut [],
-            &[],
-            &empty_map_stats(),
-            &mut random,
-        );
+        state.update_world_with_source(1, &mut tiles, &mut [], &mut [], &[], &[], &mut random);
 
         assert_eq!(tiles[0].residents, 1);
         assert_eq!(tiles[0].ages, [120]);
@@ -226,7 +191,7 @@ mod tests {
             &mut workplaces,
             &mut [],
             &[],
-            &empty_map_stats(),
+            &[],
             &mut random,
         );
 

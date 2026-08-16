@@ -1,15 +1,15 @@
-use super::SimulationState;
+use super::{
+    SimulationState,
+    employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE},
+};
 use crate::citymap::ffi;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 const CONSTRUCTION_COST: i32 = 5;
 const RESIDENTIAL_TAX_BASE_PER_RESIDENT: f64 = 100.0;
+const BUSINESS_TAX_BASE_PER_WORKER: f64 = 100.0;
 
 // Values are shared with CategoryID::Type in src/Enums.hpp.
-const CATEGORY_COMMERCIAL: i32 = 20;
-const CATEGORY_OFFICE: i32 = 21;
-const CATEGORY_INDUSTRIAL: i32 = 22;
-const CATEGORY_FARM: i32 = 23;
 const CATEGORY_FIRE_DEPARTMENT: i32 = 25;
 const CATEGORY_POLICE: i32 = 26;
 const CATEGORY_POST_OFFICE: i32 = 27;
@@ -17,10 +17,6 @@ const CATEGORY_EDUCATION: i32 = 28;
 
 #[derive(Default)]
 struct FinanceObjectCounts {
-    commercial: i64,
-    office: i64,
-    industrial: i64,
-    farm: i64,
     police: i64,
     fire: i64,
     post: i64,
@@ -34,9 +30,11 @@ impl SimulationState {
 
     pub(super) fn update_monthly_finances(
         &mut self,
+        work_place_tiles: &[ffi::WorkPlaceTileState],
         simulation_objects: &[ffi::SimulationObjectState],
     ) {
         let counts = count_finance_objects(simulation_objects);
+        let workers = count_business_workers(work_place_tiles);
         let expenses = [
             (counts.police, self.budget_police),
             (counts.fire, self.budget_fire),
@@ -58,13 +56,15 @@ impl SimulationState {
             / 100.0;
         let income = residential_income
             + [
-                (counts.commercial, self.tax_commercial),
-                (counts.office, self.tax_office),
-                (counts.industrial, self.tax_industrial),
-                (counts.farm, self.tax_farm),
+                (workers.commercial, self.tax_commercial),
+                (workers.office, self.tax_office),
+                (workers.industrial, self.tax_industrial),
+                (workers.farm, self.tax_farm),
             ]
             .into_iter()
-            .map(|(count, tax)| count as f64 * finite_nonnegative(tax))
+            .map(|(count, tax)| {
+                count as f64 * BUSINESS_TAX_BASE_PER_WORKER * finite_nonnegative(tax) / 100.0
+            })
             .sum::<f64>();
         let income = income.trunc() as i64;
 
@@ -73,6 +73,42 @@ impl SimulationState {
             .saturating_sub(expenses);
         self.money = updated_money.clamp(i64::from(i32::MIN), i64::from(i32::MAX)) as i32;
     }
+}
+
+#[derive(Default)]
+struct BusinessWorkerCounts {
+    commercial: i64,
+    office: i64,
+    industrial: i64,
+    farm: i64,
+}
+
+fn count_business_workers(work_place_tiles: &[ffi::WorkPlaceTileState]) -> BusinessWorkerCounts {
+    let mut workplaces = HashMap::new();
+    for tile in work_place_tiles {
+        if tile.serial_number < 0 || !matches!(tile.kind, COMMERCIAL | OFFICE | INDUSTRIAL | FARM) {
+            continue;
+        }
+
+        workplaces
+            .entry((tile.kind, tile.serial_number))
+            .and_modify(|workers: &mut i64| {
+                *workers = (*workers).max(i64::from(tile.workers.max(0)));
+            })
+            .or_insert_with(|| i64::from(tile.workers.max(0)));
+    }
+
+    let mut counts = BusinessWorkerCounts::default();
+    for ((kind, _), workers) in workplaces {
+        match kind {
+            COMMERCIAL => counts.commercial = counts.commercial.saturating_add(workers),
+            OFFICE => counts.office = counts.office.saturating_add(workers),
+            INDUSTRIAL => counts.industrial = counts.industrial.saturating_add(workers),
+            FARM => counts.farm = counts.farm.saturating_add(workers),
+            _ => {}
+        }
+    }
+    counts
 }
 
 fn count_finance_objects(simulation_objects: &[ffi::SimulationObjectState]) -> FinanceObjectCounts {
@@ -85,10 +121,6 @@ fn count_finance_objects(simulation_objects: &[ffi::SimulationObjectState]) -> F
         }
 
         let categories = &object.category_ids;
-        counts.commercial += i64::from(categories.contains(&CATEGORY_COMMERCIAL));
-        counts.office += i64::from(categories.contains(&CATEGORY_OFFICE));
-        counts.industrial += i64::from(categories.contains(&CATEGORY_INDUSTRIAL));
-        counts.farm += i64::from(categories.contains(&CATEGORY_FARM));
         counts.police += i64::from(categories.contains(&CATEGORY_POLICE));
         counts.fire += i64::from(categories.contains(&CATEGORY_FIRE_DEPARTMENT));
         counts.post += i64::from(categories.contains(&CATEGORY_POST_OFFICE));
@@ -109,12 +141,14 @@ fn finite_nonnegative(value: f64) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::{
-        CATEGORY_COMMERCIAL, CATEGORY_EDUCATION, CATEGORY_FARM, CATEGORY_FIRE_DEPARTMENT,
-        CATEGORY_INDUSTRIAL, CATEGORY_OFFICE, CATEGORY_POLICE, CATEGORY_POST_OFFICE,
+        CATEGORY_EDUCATION, CATEGORY_FIRE_DEPARTMENT, CATEGORY_POLICE, CATEGORY_POST_OFFICE,
     };
     use crate::{
         citymap::ffi,
-        simulation::test_support::{FixedRandom, residential_tile, state_at},
+        simulation::{
+            employment::{COMMERCIAL, FARM, INDUSTRIAL, OFFICE, PUBLIC},
+            test_support::{FixedRandom, residential_tile, state_at},
+        },
     };
 
     fn simulation_objects(
@@ -134,6 +168,22 @@ mod tests {
         objects
     }
 
+    fn workplace(
+        kind: i32,
+        serial_number: i32,
+        maximum_capacity: i32,
+        workers: i32,
+    ) -> ffi::WorkPlaceTileState {
+        ffi::WorkPlaceTileState {
+            x: 0,
+            y: 0,
+            kind,
+            serial_number,
+            maximum_capacity,
+            workers,
+        }
+    }
+
     #[test]
     fn collects_taxes_and_pays_budgets_on_the_first_of_the_month() {
         let mut state = state_at(2024, 4, 30, 23, 59);
@@ -149,10 +199,6 @@ mod tests {
         state.tax_farm = 11.0;
         let mut residential_tiles = vec![residential_tile(10, 10)];
         let objects = simulation_objects(&[
-            (CATEGORY_COMMERCIAL, 20),
-            (CATEGORY_OFFICE, 30),
-            (CATEGORY_INDUSTRIAL, 40),
-            (CATEGORY_FARM, 50),
             (CATEGORY_POLICE, 1),
             (CATEGORY_FIRE_DEPARTMENT, 2),
             (CATEGORY_POST_OFFICE, 3),
@@ -171,7 +217,7 @@ mod tests {
         );
 
         assert_eq!((state.time.month, state.time.date), (5, 1));
-        assert_eq!(state.money, 71_450);
+        assert_eq!(state.money, 70_070);
     }
 
     #[test]
@@ -304,6 +350,100 @@ mod tests {
     }
 
     #[test]
+    fn business_tax_uses_workers_for_each_tax_category() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.money = 100;
+        state.population = 0;
+        state.tax_residential = 0.0;
+        state.tax_commercial = 7.0;
+        state.tax_office = 8.0;
+        state.tax_industrial = 9.0;
+        state.tax_farm = 10.0;
+        let workplaces = vec![
+            workplace(COMMERCIAL, 1, 10, 10),
+            workplace(OFFICE, 2, 20, 20),
+            workplace(INDUSTRIAL, 3, 30, 30),
+            workplace(FARM, 4, 40, 40),
+        ];
+
+        state.update_monthly_finances(&workplaces, &[]);
+
+        assert_eq!(state.money, 1_000);
+    }
+
+    #[test]
+    fn business_tax_supports_fractional_percent_rates() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.money = 0;
+        state.population = 0;
+        state.tax_residential = 0.0;
+        state.tax_commercial = 7.5;
+        let workplaces = vec![workplace(COMMERCIAL, 1, 10, 10)];
+
+        state.update_monthly_finances(&workplaces, &[]);
+
+        assert_eq!(state.money, 75);
+    }
+
+    #[test]
+    fn deduplicates_multi_tile_workplaces_and_ignores_invalid_kinds() {
+        let workplaces = vec![
+            workplace(COMMERCIAL, 10, 10, 3),
+            workplace(COMMERCIAL, 10, 10, 5),
+            workplace(OFFICE, 10, 10, 7),
+            workplace(INDUSTRIAL, 11, 10, -2),
+            workplace(FARM, -1, 10, 9),
+            workplace(PUBLIC, 12, 10, 8),
+            workplace(999, 13, 10, 6),
+        ];
+
+        let counts = super::count_business_workers(&workplaces);
+
+        assert_eq!(counts.commercial, 5);
+        assert_eq!(counts.office, 7);
+        assert_eq!(counts.industrial, 0);
+        assert_eq!(counts.farm, 0);
+    }
+
+    #[test]
+    fn monthly_tax_uses_workers_after_employment_update() {
+        let mut state = state_at(2024, 4, 30, 23, 59);
+        state.money = 100;
+        state.tax_residential = 0.0;
+        state.tax_commercial = 7.0;
+        state.tax_office = 0.0;
+        state.tax_industrial = 0.0;
+        state.tax_farm = 0.0;
+        state.budget_police = 0;
+        state.budget_fire = 0;
+        state.budget_post = 0;
+        state.budget_education = 0;
+        let mut home = residential_tile(1, 1);
+        home.work_place_kinds = vec![COMMERCIAL];
+        home.work_place_serial_numbers = vec![42];
+        let mut homes = vec![home];
+        let mut workplaces = vec![
+            workplace(COMMERCIAL, 42, 1, 0),
+            workplace(COMMERCIAL, 42, 1, 0),
+        ];
+        let mut random = FixedRandom::new([]);
+
+        state.update_world_with_source(
+            1,
+            &mut homes,
+            &mut workplaces,
+            &mut [],
+            &[],
+            &[],
+            &mut random,
+        );
+
+        assert_eq!(workplaces[0].workers, 1);
+        assert_eq!(workplaces[1].workers, 1);
+        assert_eq!(state.money, 107);
+    }
+
+    #[test]
     fn residential_tax_uses_population_and_fractional_percent_rate() {
         let mut state = state_at(2024, 1, 1, 0, 0);
         state.money = 100;
@@ -318,7 +458,7 @@ mod tests {
         state.budget_post = 0;
         state.budget_education = 0;
 
-        state.update_monthly_finances(&[]);
+        state.update_monthly_finances(&[], &[]);
 
         assert_eq!(state.money, 850);
     }
@@ -329,22 +469,25 @@ mod tests {
         without_homes.money = 0;
         without_homes.population = 10;
         without_homes.tax_residential = 7.0;
-        without_homes.update_monthly_finances(&[]);
+        without_homes.update_monthly_finances(&[], &[]);
 
         let mut with_multi_tile_home = state_at(2024, 1, 1, 0, 0);
         with_multi_tile_home.money = 0;
         with_multi_tile_home.population = 10;
         with_multi_tile_home.tax_residential = 7.0;
-        with_multi_tile_home.update_monthly_finances(&[
-            ffi::SimulationObjectState {
-                object_id: 42,
-                category_ids: vec![19],
-            },
-            ffi::SimulationObjectState {
-                object_id: 42,
-                category_ids: vec![19],
-            },
-        ]);
+        with_multi_tile_home.update_monthly_finances(
+            &[],
+            &[
+                ffi::SimulationObjectState {
+                    object_id: 42,
+                    category_ids: vec![19],
+                },
+                ffi::SimulationObjectState {
+                    object_id: 42,
+                    category_ids: vec![19],
+                },
+            ],
+        );
 
         assert_eq!(without_homes.money, 70);
         assert_eq!(with_multi_tile_home.money, 70);
@@ -358,12 +501,12 @@ mod tests {
         empty_city.population = 0;
         empty_city.tax_residential = 7.0;
 
-        empty_city.update_monthly_finances(&residential_objects);
+        empty_city.update_monthly_finances(&[], &residential_objects);
 
         assert_eq!(empty_city.money, 100);
 
         empty_city.population = -10;
-        empty_city.update_monthly_finances(&residential_objects);
+        empty_city.update_monthly_finances(&[], &residential_objects);
 
         assert_eq!(empty_city.money, 100);
     }

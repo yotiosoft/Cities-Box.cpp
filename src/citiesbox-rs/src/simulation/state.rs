@@ -105,7 +105,7 @@ impl SimulationState {
             self.update_daily_population(residential_tiles, random);
             self.update_daily_employment(residential_tiles, work_place_tiles, school_tiles, random);
             if self.time.date == 1 {
-                self.update_monthly_finances(simulation_objects);
+                self.update_monthly_finances(work_place_tiles, simulation_objects);
             }
             self.update_daily_demand(demand_tiles, work_place_tiles, random);
         }

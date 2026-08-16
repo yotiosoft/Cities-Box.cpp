@@ -536,7 +536,7 @@ mod tests {
             simulation_objects,
         );
 
-        assert_eq!(update.snapshot.money, 99_014);
+        assert_eq!(update.snapshot.money, 99_000);
     }
 
     #[test]

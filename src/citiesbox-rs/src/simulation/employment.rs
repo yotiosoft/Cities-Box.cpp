@@ -2,11 +2,11 @@ use super::{SimulationState, random::SimulationRandomSource};
 use crate::citymap::ffi;
 use std::collections::{HashMap, HashSet};
 
-const COMMERCIAL: i32 = 1;
-const OFFICE: i32 = 2;
-const INDUSTRIAL: i32 = 3;
-const FARM: i32 = 4;
-const PUBLIC: i32 = 5;
+pub(super) const COMMERCIAL: i32 = 1;
+pub(super) const OFFICE: i32 = 2;
+pub(super) const INDUSTRIAL: i32 = 3;
+pub(super) const FARM: i32 = 4;
+pub(super) const PUBLIC: i32 = 5;
 
 const ELEMENTARY_SCHOOL: i32 = 0;
 const JUNIOR_HIGH_SCHOOL: i32 = 1;

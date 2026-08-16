@@ -502,10 +502,10 @@ bool Menu::budgetMenu() {
 	drawRow(U"Post", Format(budget.post), 2, [&]{ decreaseBudget(budget.post); }, [&]{ increaseBudget(budget.post); });
 	drawRow(U"Education", Format(budget.education), 3, [&]{ decreaseBudget(budget.education); }, [&]{ increaseBudget(budget.education); });
 	drawRow(U"Residential", U"{:.1f}%"_fmt(tax.residential), 4, [&]{ tax.residential -= 1.0; }, [&]{ tax.residential += 1.0; });
-	drawRow(U"Commercial", U"{:.1f}"_fmt(tax.commercial), 5, [&]{ tax.commercial -= 1.0; }, [&]{ tax.commercial += 1.0; });
-	drawRow(U"Office", U"{:.1f}"_fmt(tax.office), 6, [&]{ tax.office -= 1.0; }, [&]{ tax.office += 1.0; });
-	drawRow(U"Industrial", U"{:.1f}"_fmt(tax.industrial), 7, [&]{ tax.industrial -= 1.0; }, [&]{ tax.industrial += 1.0; });
-	drawRow(U"Farm", U"{:.1f}"_fmt(tax.farm), 8, [&]{ tax.farm -= 1.0; }, [&]{ tax.farm += 1.0; });
+	drawRow(U"Commercial", U"{:.1f}%"_fmt(tax.commercial), 5, [&]{ tax.commercial -= 1.0; }, [&]{ tax.commercial += 1.0; });
+	drawRow(U"Office", U"{:.1f}%"_fmt(tax.office), 6, [&]{ tax.office -= 1.0; }, [&]{ tax.office += 1.0; });
+	drawRow(U"Industrial", U"{:.1f}%"_fmt(tax.industrial), 7, [&]{ tax.industrial -= 1.0; }, [&]{ tax.industrial += 1.0; });
+	drawRow(U"Farm", U"{:.1f}%"_fmt(tax.farm), 8, [&]{ tax.farm -= 1.0; }, [&]{ tax.farm += 1.0; });
 
 	if (changed) {
 		snapshot = m_map->setFinanceSettings(budget, tax);

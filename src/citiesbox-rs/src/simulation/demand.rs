@@ -13,34 +13,52 @@ impl SimulationState {
         work_place_tiles: &[ffi::WorkPlaceTileState],
         random: &mut S,
     ) {
-        self.demand.residential = if self.population > 0 {
+        let residential = if self.population > 0 {
             let happiness_average = average_happiness(demand_tiles);
             hsp_demand_limit(happiness_average + 10 - random.random_below(20))
         } else {
             100.0
         };
+        self.demand.residential = apply_tax_penalty(residential, self.tax_residential);
 
-        self.demand.commercial = update_business_demand(
-            self.demand.commercial,
-            has_capacity(work_place_tiles, COMMERCIAL),
-            random,
+        self.demand.commercial = apply_tax_penalty(
+            update_business_demand(
+                self.demand.commercial,
+                has_capacity(work_place_tiles, COMMERCIAL),
+                random,
+            ),
+            self.tax_commercial,
         );
-        self.demand.office = update_business_demand(
-            self.demand.office,
-            has_capacity(work_place_tiles, OFFICE),
-            random,
+        self.demand.office = apply_tax_penalty(
+            update_business_demand(
+                self.demand.office,
+                has_capacity(work_place_tiles, OFFICE),
+                random,
+            ),
+            self.tax_office,
         );
-        self.demand.industrial = update_business_demand(
-            self.demand.industrial,
-            has_capacity(work_place_tiles, INDUSTRIAL),
-            random,
+        self.demand.industrial = apply_tax_penalty(
+            update_business_demand(
+                self.demand.industrial,
+                has_capacity(work_place_tiles, INDUSTRIAL),
+                random,
+            ),
+            self.tax_industrial,
         );
-        self.demand.farm = update_business_demand(
-            self.demand.farm,
-            has_capacity(work_place_tiles, FARM),
-            random,
+        self.demand.farm = apply_tax_penalty(
+            update_business_demand(
+                self.demand.farm,
+                has_capacity(work_place_tiles, FARM),
+                random,
+            ),
+            self.tax_farm,
         );
     }
+}
+
+fn apply_tax_penalty(demand: f64, tax: f64) -> f64 {
+    let penalty = (1.0 - super::state::tax_attractiveness(tax)) * 100.0;
+    (demand - penalty).clamp(0.0, 100.0)
 }
 
 fn average_happiness(tiles: &[ffi::DemandTileState]) -> i32 {
@@ -164,6 +182,36 @@ mod tests {
         assert_eq!(state.demand.industrial, 69.0);
         assert_eq!(state.demand.farm, 45.0);
         assert_eq!(random.upper_bounds, [30, 30, 30, 30]);
+    }
+
+    #[test]
+    fn high_taxes_reduce_only_the_corresponding_demands() {
+        let mut state = state_at(2024, 1, 1, 0, 0);
+        state.population = 1;
+        state.tax_residential = 30.0;
+        state.tax_commercial = 30.0;
+        state.tax_office = 10.0;
+        state.tax_industrial = 10.0;
+        state.tax_farm = 10.0;
+        state.demand.commercial = 50.0;
+        state.demand.office = 50.0;
+        state.demand.industrial = 50.0;
+        state.demand.farm = 50.0;
+        let workplaces = [
+            workplace(COMMERCIAL, 1),
+            workplace(OFFICE, 1),
+            workplace(INDUSTRIAL, 1),
+            workplace(FARM, 1),
+        ];
+        let mut random = FixedRandom::new([0, 10, 10, 10, 10]);
+
+        state.update_daily_demand(&[demand_tile(200, 0, 60)], &workplaces, &mut random);
+
+        assert_eq!(state.demand.residential, 20.0);
+        assert_eq!(state.demand.commercial, 0.0);
+        assert_eq!(state.demand.office, 50.0);
+        assert_eq!(state.demand.industrial, 50.0);
+        assert_eq!(state.demand.farm, 50.0);
     }
 
     #[test]

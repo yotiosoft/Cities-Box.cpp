@@ -45,7 +45,11 @@ impl SimulationState {
         }
 
         // 増加数は0..free_capacity未満
-        let added = random.random_below(free_capacity);
+        let added =
+            super::state::scale_by_tax(random.random_below(free_capacity), self.tax_residential);
+        if added == 0 {
+            return;
+        }
         tile.residents += added;
         self.demand.residential -= f64::from(added);
 
@@ -122,6 +126,26 @@ mod tests {
         // HSPと同様、入居による減算後に日次需要式で再計算される。
         assert_eq!(state.demand.residential, 10.0);
         assert_eq!(random.upper_bounds[0], 10);
+    }
+
+    #[test]
+    fn high_residential_tax_reduces_move_in_count() {
+        let mut normal = state_at(2024, 2, 2, 0, 0);
+        normal.tax_residential = 10.0;
+        let mut normal_tiles = vec![residential_tile(0, 20)];
+        let mut normal_random = FixedRandom::new([
+            9, 0, 10, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0,
+        ]);
+        normal.update_daily_population(&mut normal_tiles, &mut normal_random);
+
+        let mut high = state_at(2024, 2, 2, 0, 0);
+        high.tax_residential = 30.0;
+        let mut high_tiles = vec![residential_tile(0, 20)];
+        let mut high_random = FixedRandom::new([9, 0, 10, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0]);
+        high.update_daily_population(&mut high_tiles, &mut high_random);
+
+        assert_eq!(normal_tiles[0].residents, 10);
+        assert_eq!(high_tiles[0].residents, 5);
     }
 
     #[test]

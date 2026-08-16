@@ -26,14 +26,18 @@ struct Facilities {
 }
 
 impl Facilities {
-    fn workplaces(tiles: &[ffi::WorkPlaceTileState]) -> Self {
+    fn workplaces(tiles: &[ffi::WorkPlaceTileState], tax_for_kind: impl Fn(i32) -> f64) -> Self {
         Self::new(tiles.iter().map(|tile| {
             (
                 FacilityKey {
                     kind: tile.kind,
                     serial_number: tile.serial_number,
                 },
-                tile.maximum_capacity,
+                if tile.kind == PUBLIC {
+                    tile.maximum_capacity.max(0)
+                } else {
+                    super::state::scale_by_tax(tile.maximum_capacity, tax_for_kind(tile.kind))
+                },
             )
         }))
     }
@@ -113,7 +117,13 @@ impl SimulationState {
         school_tiles: &mut [ffi::SchoolTileState],
         random: &mut S,
     ) {
-        let mut workplaces = Facilities::workplaces(work_place_tiles);
+        let mut workplaces = Facilities::workplaces(work_place_tiles, |kind| match kind {
+            COMMERCIAL => self.tax_commercial,
+            OFFICE => self.tax_office,
+            INDUSTRIAL => self.tax_industrial,
+            FARM => self.tax_farm,
+            _ => 0.0,
+        });
         let mut schools = Facilities::schools(school_tiles);
 
         for tile in residential_tiles {
@@ -383,5 +393,28 @@ mod tests {
 
         assert_eq!(workplaces[0].workers, 1);
         assert_eq!(workplaces[1].workers, 1);
+    }
+
+    #[test]
+    fn high_business_tax_reduces_private_capacity_but_not_public_capacity() {
+        let tiles = [workplace(COMMERCIAL, 10, 10), workplace(PUBLIC, 20, 10)];
+        let mut facilities = Facilities::workplaces(&tiles, |_| 30.0);
+        let commercial = FacilityKey {
+            kind: COMMERCIAL,
+            serial_number: 10,
+        };
+        let public = FacilityKey {
+            kind: PUBLIC,
+            serial_number: 20,
+        };
+
+        for _ in 0..5 {
+            assert!(facilities.try_reserve(commercial));
+        }
+        assert!(!facilities.try_reserve(commercial));
+        for _ in 0..10 {
+            assert!(facilities.try_reserve(public));
+        }
+        assert!(!facilities.try_reserve(public));
     }
 }

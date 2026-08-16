@@ -804,11 +804,11 @@ impl RustCityMap {
         self.simulation.budget_post = crate::simulation::normalize_budget(data.budget.post_office);
         self.simulation.budget_education =
             crate::simulation::normalize_budget(data.budget.education);
-        self.simulation.tax_residential = data.tax.residential;
-        self.simulation.tax_commercial = data.tax.commercial;
-        self.simulation.tax_office = data.tax.office;
-        self.simulation.tax_industrial = data.tax.industrial;
-        self.simulation.tax_farm = data.tax.farm;
+        self.simulation.tax_residential = crate::simulation::normalize_tax(data.tax.residential);
+        self.simulation.tax_commercial = crate::simulation::normalize_tax(data.tax.commercial);
+        self.simulation.tax_office = crate::simulation::normalize_tax(data.tax.office);
+        self.simulation.tax_industrial = crate::simulation::normalize_tax(data.tax.industrial);
+        self.simulation.tax_farm = crate::simulation::normalize_tax(data.tax.farm);
 
         self.objects = data
             .objects

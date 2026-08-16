@@ -468,7 +468,7 @@ bool Menu::budgetMenu() {
 	const int top = m_position.y - panelHeight;
 	Rect(left, top, panelWidth, panelHeight).draw(Color(45, 52, 54, 235));
 	(*m_font16)(U"予算・税金").draw(left + 12, top + 8);
-	(*m_font12)(U"各月で徴税・支出する予算と税金の設定").draw(left + 12, top + 27, Color(200));
+	(*m_font12)(U"各月の予算と税金。税率10%超で需要・稼働率が低下").draw(left + 12, top + 27, Color(200));
 
 	bool changed = false;
 	auto drawRow = [&](const String& label, const String& value, int row, auto decrease, auto increase) {
@@ -492,16 +492,18 @@ bool Menu::budgetMenu() {
 	};
 	auto decreaseBudget = [](int32& value) { value = (value < 10) ? 0 : value - 10; };
 	auto increaseBudget = [](int32& value) { value = Min(value + 10, 200); };
+	auto decreaseTax = [](double& value) { value = Max(value - 1.0, 0.0); };
+	auto increaseTax = [](double& value) { value = Min(value + 1.0, 100.0); };
 
 	drawRow(U"Police", Format(budget.police) + U"%", 0, [&]{ decreaseBudget(budget.police); }, [&]{ increaseBudget(budget.police); });
 	drawRow(U"Fire", Format(budget.fire) + U"%", 1, [&]{ decreaseBudget(budget.fire); }, [&]{ increaseBudget(budget.fire); });
 	drawRow(U"Post", Format(budget.post) + U"%", 2, [&]{ decreaseBudget(budget.post); }, [&]{ increaseBudget(budget.post); });
 	drawRow(U"Education", Format(budget.education) + U"%", 3, [&]{ decreaseBudget(budget.education); }, [&]{ increaseBudget(budget.education); });
-	drawRow(U"Residential", U"{:.1f}%"_fmt(tax.residential), 4, [&]{ tax.residential -= 1.0; }, [&]{ tax.residential += 1.0; });
-	drawRow(U"Commercial", U"{:.1f}%"_fmt(tax.commercial), 5, [&]{ tax.commercial -= 1.0; }, [&]{ tax.commercial += 1.0; });
-	drawRow(U"Office", U"{:.1f}%"_fmt(tax.office), 6, [&]{ tax.office -= 1.0; }, [&]{ tax.office += 1.0; });
-	drawRow(U"Industrial", U"{:.1f}%"_fmt(tax.industrial), 7, [&]{ tax.industrial -= 1.0; }, [&]{ tax.industrial += 1.0; });
-	drawRow(U"Farm", U"{:.1f}%"_fmt(tax.farm), 8, [&]{ tax.farm -= 1.0; }, [&]{ tax.farm += 1.0; });
+	drawRow(U"Residential", U"{:.1f}%"_fmt(tax.residential), 4, [&]{ decreaseTax(tax.residential); }, [&]{ increaseTax(tax.residential); });
+	drawRow(U"Commercial", U"{:.1f}%"_fmt(tax.commercial), 5, [&]{ decreaseTax(tax.commercial); }, [&]{ increaseTax(tax.commercial); });
+	drawRow(U"Office", U"{:.1f}%"_fmt(tax.office), 6, [&]{ decreaseTax(tax.office); }, [&]{ increaseTax(tax.office); });
+	drawRow(U"Industrial", U"{:.1f}%"_fmt(tax.industrial), 7, [&]{ decreaseTax(tax.industrial); }, [&]{ increaseTax(tax.industrial); });
+	drawRow(U"Farm", U"{:.1f}%"_fmt(tax.farm), 8, [&]{ decreaseTax(tax.farm); }, [&]{ increaseTax(tax.farm); });
 
 	if (changed) {
 		snapshot = m_map->setFinanceSettings(budget, tax);

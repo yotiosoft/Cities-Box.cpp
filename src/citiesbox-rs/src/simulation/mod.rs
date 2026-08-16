@@ -14,6 +14,7 @@ use crate::citymap::{RustCityMap, ffi};
 use random::RandomSimulationSource;
 pub(crate) use state::SimulationState;
 pub(crate) use state::normalize_budget;
+pub(crate) use state::normalize_tax;
 
 impl RustCityMap {
     pub(crate) fn simulation_snapshot(&self) -> ffi::SimulationSnapshot {

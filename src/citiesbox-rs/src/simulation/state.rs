@@ -117,17 +117,40 @@ pub(crate) fn normalize_budget(value: i32) -> i32 {
     value.clamp(0, 200)
 }
 
-fn normalize_tax(value: f64) -> f64 {
+pub(crate) fn normalize_tax(value: f64) -> f64 {
     if value.is_finite() {
-        value.max(0.0)
+        value.clamp(0.0, 100.0)
     } else {
         0.0
     }
 }
 
+pub(super) fn tax_attractiveness(value: f64) -> f64 {
+    let excess = (normalize_tax(value) - 10.0).max(0.0);
+    100.0 / (100.0 + excess * 5.0)
+}
+
+pub(super) fn scale_by_tax(value: i32, tax: f64) -> i32 {
+    (f64::from(value.max(0)) * tax_attractiveness(tax)).floor() as i32
+}
+
 #[cfg(test)]
 mod tests {
+    use super::{normalize_tax, tax_attractiveness};
     use crate::simulation::test_support::{advance, state_at};
+
+    #[test]
+    fn normalizes_tax_and_applies_penalty_only_above_ten_percent() {
+        assert_eq!(normalize_tax(-1.0), 0.0);
+        assert_eq!(normalize_tax(101.0), 100.0);
+        assert_eq!(normalize_tax(f64::NAN), 0.0);
+        assert_eq!(normalize_tax(f64::INFINITY), 0.0);
+        assert_eq!(tax_attractiveness(0.0), 1.0);
+        assert_eq!(tax_attractiveness(10.0), 1.0);
+        assert!((tax_attractiveness(15.0) - 0.8).abs() < f64::EPSILON);
+        assert!((tax_attractiveness(30.0) - 0.5).abs() < f64::EPSILON);
+        assert!((tax_attractiveness(100.0) - (100.0 / 550.0)).abs() < f64::EPSILON);
+    }
 
     #[test]
     fn runs_daily_processing_for_every_elapsed_day() {

@@ -408,7 +408,7 @@ mod tests {
 
         let snapshot = city.set_finance_settings(
             budget_settings(-1, 201, -30, i32::MAX),
-            tax_settings(-1.0, 2.5, f64::NAN, f64::INFINITY, f64::NEG_INFINITY),
+            tax_settings(-1.0, 200.0, f64::NAN, f64::INFINITY, f64::NEG_INFINITY),
         );
 
         assert_eq!(
@@ -428,7 +428,7 @@ mod tests {
                 snapshot.tax_industrial,
                 snapshot.tax_farm
             ),
-            (0.0, 2.5, 0.0, 0.0, 0.0)
+            (0.0, 100.0, 0.0, 0.0, 0.0)
         );
     }
 

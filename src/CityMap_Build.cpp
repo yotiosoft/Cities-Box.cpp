@@ -78,38 +78,54 @@ void CityMap::m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordin
     if (arg_object->isDeleted()) {
         return;
     }
-    
-	// 効果を取得
-	map<RateID::Type, EffectStruct> effects = arg_object->getAddonP()->getEffects();
 
-	// 中央座標を取得
-	int center_x = arg_origin_coordinate.x + round(arg_object->getAddonDirectionStruct().requiredTiles.x / 2);
-	int center_y = arg_origin_coordinate.y + round(arg_object->getAddonDirectionStruct().requiredTiles.y / 2);
-
-	// それぞれの効果を反映
-	for (auto effect_map : effects) {
-		EffectStruct effect = effect_map.second;
-		int effect_per_tile = effect.influence / effect.grid;
-
-		for (int relative_y = -effect.grid; relative_y <= effect.grid; relative_y++) {
-			int y = center_y + relative_y;
-			if (y < 0 || y >= m_map_size.y) {
-				continue;
-			}
-
-			for (int relative_x = -effect.grid; relative_x < effect.grid; relative_x++) {
-				int x = center_x + relative_x;
-				if (x < 0 || x >= m_map_size.x) {
-					continue;
-				}
-
-				int rate = effect_per_tile * max(abs(effect.grid - 1 - relative_y), abs(effect.grid - 1 - relative_x));
-				if (will_be_deleted) {
-					rate *= -1;
-				}
-				m_tiles[y][x].setTileRate(effect_map.first, rate);
-			}
+	rust::Vec<rust::citymap::TileRateState> tiles;
+	for (int y = 0; y < m_map_size.y; ++y) {
+		for (int x = 0; x < m_map_size.x; ++x) {
+			const Tile& tile = m_tiles[y][x];
+			rust::citymap::TileRateState state;
+			state.x = x;
+			state.y = y;
+			state.land_price = tile.rate.count(RateID::LandPrice) ? tile.rate.at(RateID::LandPrice) : 0;
+			state.crime_rate = tile.rate.count(RateID::CrimeRate) ? tile.rate.at(RateID::CrimeRate) : 0;
+			state.education_rate = tile.rate.count(RateID::EducationRate) ? tile.rate.at(RateID::EducationRate) : 0;
+			state.noise_rate = tile.rate.count(RateID::NoiseRate) ? tile.rate.at(RateID::NoiseRate) : 0;
+			state.happiness_rate = tile.rate.count(RateID::HappinessRate) ? tile.rate.at(RateID::HappinessRate) : 0;
+			tiles.push_back(std::move(state));
 		}
+	}
+
+	rust::Vec<rust::citymap::RateEffect> effects;
+	const auto requiredTiles = arg_object->getAddonDirectionStruct().requiredTiles;
+	const int centerX = arg_origin_coordinate.x + requiredTiles.x / 2;
+	const int centerY = arg_origin_coordinate.y + requiredTiles.y / 2;
+	for (const auto& [rateID, effect] : arg_object->getAddonP()->getEffects()) {
+		rust::citymap::RateEffect state;
+		state.rate_kind = static_cast<int32_t>(rateID);
+		state.influence = effect.influence;
+		state.range = effect.grid;
+		state.origin_x = centerX;
+		state.origin_y = centerY;
+		state.will_be_deleted = will_be_deleted;
+		effects.push_back(std::move(state));
+	}
+
+	const auto updated = m_rust_core->update_rates(
+		m_map_size.x,
+		m_map_size.y,
+		std::move(tiles),
+		std::move(effects)
+	);
+	for (const auto& state : updated) {
+		if (state.x < 0 || state.y < 0 || state.x >= m_map_size.x || state.y >= m_map_size.y) {
+			continue;
+		}
+		Tile& tile = m_tiles[state.y][state.x];
+		tile.rate[RateID::LandPrice] = state.land_price;
+		tile.rate[RateID::CrimeRate] = state.crime_rate;
+		tile.rate[RateID::EducationRate] = state.education_rate;
+		tile.rate[RateID::NoiseRate] = state.noise_rate;
+		tile.rate[RateID::HappinessRate] = state.happiness_rate;
 	}
 }
 

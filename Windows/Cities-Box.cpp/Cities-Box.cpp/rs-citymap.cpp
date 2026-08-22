@@ -953,6 +953,8 @@ namespace rust {
     struct WorkPlaceTileState;
     struct SchoolTileState;
     struct DemandTileState;
+    struct TileRateState;
+    struct RateEffect;
     struct SpecialDemandState;
     struct SimulationObjectState;
     struct SimulationUpdate;
@@ -1117,6 +1119,35 @@ struct DemandTileState final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+#define CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+struct TileRateState final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t land_price CXX_DEFAULT_VALUE(0);
+  ::std::int32_t crime_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t education_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t noise_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t happiness_rate CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+#define CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+struct RateEffect final {
+  ::std::int32_t rate_kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t influence CXX_DEFAULT_VALUE(0);
+  ::std::int32_t range CXX_DEFAULT_VALUE(0);
+  ::std::int32_t origin_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t origin_y CXX_DEFAULT_VALUE(0);
+  bool will_be_deleted CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
 #define CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
 struct SpecialDemandState final {
@@ -1275,6 +1306,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_object_ref(::std::int32_t x, ::std::int32_t y, ::std::int32_t obj_id, ::std::int32_t rel_x, ::std::int32_t rel_y, bool visible) noexcept;
   void set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::rust::String> genders) noexcept;
   void add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept;
+  ::rust::Vec<::rust::citymap::TileRateState> update_rates(::std::int32_t width, ::std::int32_t height, ::rust::Vec<::rust::citymap::TileRateState> tiles, ::rust::Vec<::rust::citymap::RateEffect> effects) noexcept;
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;
@@ -1317,6 +1349,8 @@ void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_object_ref(::rust::citymap
 void rust$citymap$cxxbridge1$192$RustCityMap$set_tile_stats(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> *ages, ::rust::Vec<::rust::String> *genders) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_rate(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::rust::String *key, ::std::int32_t value) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$update_rates(::rust::citymap::RustCityMap &self, ::std::int32_t width, ::std::int32_t height, ::rust::Vec<::rust::citymap::TileRateState> *tiles, ::rust::Vec<::rust::citymap::RateEffect> *effects, ::rust::Vec<::rust::citymap::TileRateState> *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$add_tile_work_place(::rust::citymap::RustCityMap &self, ::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
 
@@ -1385,6 +1419,14 @@ void RustCityMap::set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec
 
 void RustCityMap::add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept {
   rust$citymap$cxxbridge1$192$RustCityMap$add_tile_rate(*this, x, y, &key, value);
+}
+
+::rust::Vec<::rust::citymap::TileRateState> RustCityMap::update_rates(::std::int32_t width, ::std::int32_t height, ::rust::Vec<::rust::citymap::TileRateState> tiles, ::rust::Vec<::rust::citymap::RateEffect> effects) noexcept {
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::TileRateState>> tiles$(::std::move(tiles));
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::RateEffect>> effects$(::std::move(effects));
+  ::rust::MaybeUninit<::rust::Vec<::rust::citymap::TileRateState>> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$update_rates(*this, width, height, &tiles$.value, &effects$.value, &return$.value);
+  return ::std::move(return$.value);
 }
 
 void RustCityMap::add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept {
@@ -1528,6 +1570,24 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(::rust::Vec<::rust
 ::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$drop(::rust::Box<::rust::citymap::RustCityMap> *ptr) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$TileRateState$new(::rust::Vec<::rust::citymap::TileRateState> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$TileRateState$drop(::rust::Vec<::rust::citymap::TileRateState> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$TileRateState$len(::rust::Vec<::rust::citymap::TileRateState> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$TileRateState$capacity(::rust::Vec<::rust::citymap::TileRateState> const *ptr) noexcept;
+::rust::citymap::TileRateState const *cxxbridge1$rust_vec$rust$citymap$TileRateState$data(::rust::Vec<::rust::citymap::TileRateState> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$TileRateState$reserve_total(::rust::Vec<::rust::citymap::TileRateState> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$TileRateState$set_len(::rust::Vec<::rust::citymap::TileRateState> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$TileRateState$truncate(::rust::Vec<::rust::citymap::TileRateState> *ptr, ::std::size_t len) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$RateEffect$new(::rust::Vec<::rust::citymap::RateEffect> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$RateEffect$drop(::rust::Vec<::rust::citymap::RateEffect> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$RateEffect$len(::rust::Vec<::rust::citymap::RateEffect> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$RateEffect$capacity(::rust::Vec<::rust::citymap::RateEffect> const *ptr) noexcept;
+::rust::citymap::RateEffect const *cxxbridge1$rust_vec$rust$citymap$RateEffect$data(::rust::Vec<::rust::citymap::RateEffect> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$RateEffect$reserve_total(::rust::Vec<::rust::citymap::RateEffect> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$RateEffect$set_len(::rust::Vec<::rust::citymap::RateEffect> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$RateEffect$truncate(::rust::Vec<::rust::citymap::RateEffect> *ptr, ::std::size_t len) noexcept;
 
 void cxxbridge1$rust_vec$rust$citymap$DemandTileState$new(::rust::Vec<::rust::citymap::DemandTileState> const *ptr) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$DemandTileState$drop(::rust::Vec<::rust::citymap::DemandTileState> *ptr) noexcept;
@@ -1849,6 +1909,70 @@ void Box<::rust::citymap::RustCityMap>::allocation::dealloc(::rust::citymap::Rus
 template <>
 void Box<::rust::citymap::RustCityMap>::drop() noexcept {
   cxxbridge1$box$rust$citymap$RustCityMap$drop(this);
+}
+template <>
+Vec<::rust::citymap::TileRateState>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$TileRateState$new(this);
+}
+template <>
+void Vec<::rust::citymap::TileRateState>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::TileRateState>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::TileRateState>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$capacity(this);
+}
+template <>
+::rust::citymap::TileRateState const *Vec<::rust::citymap::TileRateState>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$data(this);
+}
+template <>
+void Vec<::rust::citymap::TileRateState>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::TileRateState>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::TileRateState>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$TileRateState$truncate(this, len);
+}
+template <>
+Vec<::rust::citymap::RateEffect>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$RateEffect$new(this);
+}
+template <>
+void Vec<::rust::citymap::RateEffect>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::RateEffect>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::RateEffect>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$capacity(this);
+}
+template <>
+::rust::citymap::RateEffect const *Vec<::rust::citymap::RateEffect>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$data(this);
+}
+template <>
+void Vec<::rust::citymap::RateEffect>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::RateEffect>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::RateEffect>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$RateEffect$truncate(this, len);
 }
 template <>
 Vec<::rust::citymap::DemandTileState>::Vec() noexcept {

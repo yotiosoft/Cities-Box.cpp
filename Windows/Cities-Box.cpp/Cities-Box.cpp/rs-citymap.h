@@ -924,6 +924,8 @@ namespace rust {
     struct WorkPlaceTileState;
     struct SchoolTileState;
     struct DemandTileState;
+    struct TileRateState;
+    struct RateEffect;
     struct SpecialDemandState;
     struct SimulationObjectState;
     struct SimulationUpdate;
@@ -1088,6 +1090,35 @@ struct DemandTileState final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$DemandTileState
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+#define CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+struct TileRateState final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t land_price CXX_DEFAULT_VALUE(0);
+  ::std::int32_t crime_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t education_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t noise_rate CXX_DEFAULT_VALUE(0);
+  ::std::int32_t happiness_rate CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$TileRateState
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+#define CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+struct RateEffect final {
+  ::std::int32_t rate_kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t influence CXX_DEFAULT_VALUE(0);
+  ::std::int32_t range CXX_DEFAULT_VALUE(0);
+  ::std::int32_t origin_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t origin_y CXX_DEFAULT_VALUE(0);
+  bool will_be_deleted CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$RateEffect
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
 #define CXXBRIDGE1_STRUCT_rust$citymap$SpecialDemandState
 struct SpecialDemandState final {
@@ -1246,6 +1277,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void add_tile_object_ref(::std::int32_t x, ::std::int32_t y, ::std::int32_t obj_id, ::std::int32_t rel_x, ::std::int32_t rel_y, bool visible) noexcept;
   void set_tile_stats(::std::int32_t x, ::std::int32_t y, ::rust::Vec<::std::int32_t> ages, ::rust::Vec<::rust::String> genders) noexcept;
   void add_tile_rate(::std::int32_t x, ::std::int32_t y, ::rust::String key, ::std::int32_t value) noexcept;
+  ::rust::Vec<::rust::citymap::TileRateState> update_rates(::std::int32_t width, ::std::int32_t height, ::rust::Vec<::rust::citymap::TileRateState> tiles, ::rust::Vec<::rust::citymap::RateEffect> effects) noexcept;
   void add_tile_work_place(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   void add_tile_school(::std::int32_t x, ::std::int32_t y, ::std::int32_t kind, ::std::int32_t serial_number) noexcept;
   ::rust::citymap::SimulationSnapshot simulation_snapshot() const noexcept;

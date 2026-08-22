@@ -7,6 +7,7 @@ use std::path::{Path, PathBuf};
 
 mod load;
 mod models;
+mod rates;
 mod save;
 mod state;
 
@@ -117,6 +118,26 @@ pub(crate) mod ffi {
         crime_rate: i32,
         education_rate: i32,
         noise_rate: i32,
+    }
+
+    #[derive(Clone)]
+    struct TileRateState {
+        x: i32,
+        y: i32,
+        land_price: i32,
+        crime_rate: i32,
+        education_rate: i32,
+        noise_rate: i32,
+        happiness_rate: i32,
+    }
+
+    struct RateEffect {
+        rate_kind: i32,
+        influence: i32,
+        range: i32,
+        origin_x: i32,
+        origin_y: i32,
+        will_be_deleted: bool,
     }
 
     struct SpecialDemandState {
@@ -255,6 +276,13 @@ pub(crate) mod ffi {
         );
         fn set_tile_stats(&mut self, x: i32, y: i32, ages: Vec<i32>, genders: Vec<String>);
         fn add_tile_rate(&mut self, x: i32, y: i32, key: String, value: i32);
+        fn update_rates(
+            &mut self,
+            width: i32,
+            height: i32,
+            tiles: Vec<TileRateState>,
+            effects: Vec<RateEffect>,
+        ) -> Vec<TileRateState>;
         fn add_tile_work_place(&mut self, x: i32, y: i32, kind: i32, serial_number: i32);
         fn add_tile_school(&mut self, x: i32, y: i32, kind: i32, serial_number: i32);
 

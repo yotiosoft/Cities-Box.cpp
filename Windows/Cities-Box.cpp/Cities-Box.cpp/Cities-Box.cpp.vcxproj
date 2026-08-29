@@ -386,6 +386,7 @@ cargo build --release --target x86_64-pc-windows-msvc --target-dir "$(ProjectDir
     <ClInclude Include="..\..\..\src\CBAddon.hpp" />
     <ClInclude Include="..\..\..\src\CitiesBox.hpp" />
     <ClInclude Include="..\..\..\src\CityMap.hpp" />
+    <ClInclude Include="..\..\..\src\ConnectableBehavior.hpp" />
     <ClInclude Include="..\..\..\src\ConnectableObject.hpp" />
     <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
     <ClInclude Include="..\..\..\src\Enums.hpp" />

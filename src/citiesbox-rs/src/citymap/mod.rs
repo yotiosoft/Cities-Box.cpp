@@ -408,6 +408,54 @@ mod tests {
     }
 
     #[test]
+    fn connectable_shape_and_tile_reference_survive_save_and_reload() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = windows_map_path(&format!(
+            "citiesbox-connectable-roundtrip-{}-{unique}.cbj",
+            std::process::id()
+        ));
+
+        let mut source = new_city_map();
+        source.set_save_version(142);
+        source.addon_set_name = "Normal".to_string();
+        source.map_size = [1, 1];
+        source.tiles = vec![vec![RustTile::default()]];
+        source.add_object(
+            42,
+            "Two_lane_normal_road(white_line)".to_string(),
+            "".to_string(),
+            "IntersectionT".to_string(),
+            "NorthSouthEast".to_string(),
+            0,
+            0,
+            true,
+        );
+        source.add_tile_object_ref(0, 0, 42, 0, 0, true);
+        assert!(source.save_to_file(path.to_string_lossy().into_owned()));
+
+        let mut loaded = new_city_map();
+        let result = loaded.load_city_map(path.to_string_lossy().into_owned());
+        assert!(result.success, "{}", result.error_message);
+        assert_eq!(result.city.objects.len(), 1);
+        assert_eq!(result.city.objects[0].id, 42);
+        assert_eq!(result.city.objects[0].type_name, "IntersectionT");
+        assert_eq!(result.city.objects[0].direction_name, "NorthSouthEast");
+        assert_eq!(result.city.tiles[0].objects.len(), 1);
+        assert_eq!(result.city.tiles[0].objects[0].object_id, 42);
+
+        assert!(loaded.commit_loaded_city_map());
+        let object = loaded.objects.get(&42).unwrap();
+        assert_eq!(object.type_id, "IntersectionT");
+        assert_eq!(object.direction_id, "NorthSouthEast");
+        assert_eq!(loaded.tiles[0][0].object_structs[0].object_id, 42);
+
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
     fn construction_cost_is_visible_in_the_cpp_snapshot() {
         let mut city = new_city_map();
 

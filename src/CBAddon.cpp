@@ -6,6 +6,7 @@
 //
 
 #include "CBAddon.hpp"
+#include "ConnectableBehavior.hpp"
 
 CBAddon::CBAddon() {
 }
@@ -306,52 +307,16 @@ bool CBAddon::isMatch(CBAddon* target_addon, CategoryID::Type hint) {
 	if (target_addon == this) {
 		return true;
 	}
-	
-	if (hint == CategoryID::Connectable) {
-		if ((isInCategories(CategoryID::Road) && target_addon->isInCategories(CategoryID::Road)) ||
-			(isInCategories(CategoryID::Railroad) && target_addon->isInCategories(CategoryID::Railroad)) ||
-			(isInCategories(CategoryID::Station) && target_addon->isInCategories(CategoryID::Station)) ||
-			(isInCategories(CategoryID::Waterway) && target_addon->isInCategories(CategoryID::Waterway)) ||
-			(isInCategories(CategoryID::Taxiway) && target_addon->isInCategories(CategoryID::Taxiway)) ||
-			(isInCategories(CategoryID::Runway) && target_addon->isInCategories(CategoryID::Runway))) {
-			
-			return true;
-		}
-	}
-	else if (hint == CategoryID::ObjectType) {
-		if ((isInCategories(CategoryID::Residential) && target_addon->isInCategories(CategoryID::Residential)) ||
-			(isInCategories(CategoryID::Commecial) && target_addon->isInCategories(CategoryID::Commecial)) ||
-			(isInCategories(CategoryID::Office) && target_addon->isInCategories(CategoryID::Office)) ||
-			(isInCategories(CategoryID::Industrial) && target_addon->isInCategories(CategoryID::Industrial)) ||
-			(isInCategories(CategoryID::Farm) && target_addon->isInCategories(CategoryID::Farm)) ||
-			(isInCategories(CategoryID::Public) && target_addon->isInCategories(CategoryID::Public)) ||
-			(isInCategories(CategoryID::Park) && target_addon->isInCategories(CategoryID::Park)) ||
-			(isInCategories(CategoryID::Tile) && target_addon->isInCategories(CategoryID::Tile))) {
-			
-			return true;
-		}
-	}
-	
-	return false;
+
+	return ConnectableBehavior::categoriesMatch(m_addon_categories, target_addon->m_addon_categories, hint);
 }
 
 bool CBAddon::canConnect(CBAddon* target_addon) {
 	if (target_addon == nullptr) {
 		return false;
 	}
-	if (!isInCategories(CategoryID::Connectable) || !target_addon->isInCategories(CategoryID::Connectable)) {
-		return false;
-	}
-	
-	if ((isInCategories(CategoryID::Road) && target_addon->isInCategories(CategoryID::Road)) ||
-		(isInCategories(CategoryID::Train) && target_addon->isInCategories(CategoryID::Train)) ||
-		(isInCategories(CategoryID::Waterway) && target_addon->isInCategories(CategoryID::Waterway)) ||
-		(isInCategories(CategoryID::Airport) && target_addon->isInCategories(CategoryID::Airport))) {
-		
-		return true;
-	}
-	
-	return false;
+
+	return ConnectableBehavior::categoriesCanConnect(m_addon_categories, target_addon->m_addon_categories);
 }
 
 map<RateID::Type, EffectStruct> CBAddon::getEffects() {

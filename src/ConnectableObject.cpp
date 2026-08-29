@@ -6,6 +6,7 @@
 //
 
 #include "ConnectableObject.hpp"
+#include "ConnectableBehavior.hpp"
 
 void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
 	// 先に現在のdirectionを取得
@@ -160,65 +161,7 @@ void ConnectableObject::set_type_id() {
 }
 
 TypeID::Type ConnectableObject::get_type_id(DirectionID::Type arg_direction) {
-	switch (arg_direction) {
-		case DirectionID::None:
-			return TypeID::Normal;
-			
-		case DirectionID::North:
-		case DirectionID::South:
-		case DirectionID::East:
-		case DirectionID::West:
-			return TypeID::DeadEnd;
-			
-		case DirectionID::EastWest:
-		case DirectionID::NorthSouth:
-			return TypeID::Default;
-			
-		case DirectionID::SouthWest:
-		case DirectionID::NorthWest:
-		case DirectionID::SouthEast:
-		case DirectionID::NorthEast:
-			return TypeID::Turn;
-			
-		case DirectionID::SouthEastWest:
-		case DirectionID::NorthEastWest:
-		case DirectionID::NorthSouthWest:
-		case DirectionID::NorthSouthEast:
-			return TypeID::IntersectionT;
-			
-		case DirectionID::All:
-			return TypeID::IntersectionCross;
-			
-		case DirectionID::Offshore:
-			return TypeID::WaterOffshore;
-			
-		case DirectionID::WithoutSouthwestNorthwest:
-		case DirectionID::WithoutNortheastNorthwest:
-		case DirectionID::WithoutSoutheastSouthwest:
-		case DirectionID::WithoutNortheastSoutheast:
-			return TypeID::WaterEstuary;
-			
-		case DirectionID::WithoutEast:
-		case DirectionID::WithoutSouth:
-		case DirectionID::WithoutNorth:
-		case DirectionID::WithoutWest:
-			return TypeID::WaterIntersectionT;
-			
-		case DirectionID::WithoutNorthWestNorthwest:
-		case DirectionID::WithoutNorthNortheastEast:
-		case DirectionID::WithoutSouthSouthwestWest:
-		case DirectionID::WithoutEastSoutheastSouth:
-			return TypeID::WaterTurn;
-			
-		case DirectionID::WithoutNorthwest:
-		case DirectionID::WithoutNortheast:
-		case DirectionID::WithoutSouthwest:
-		case DirectionID::WithoutSoutheast:
-			return TypeID::WaterIntersectionCrossWithoutOneCorner;
-			
-		default:
-			return TypeID::Disabled;
-	}
+	return ConnectableBehavior::typeFromDirection(arg_direction);
 }
 
 TypeID::Type ConnectableObject::get_type_id_waterway(DirectionID::Type arg_direction) {

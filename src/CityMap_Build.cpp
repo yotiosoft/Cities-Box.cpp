@@ -280,7 +280,7 @@ Array<CoordinateStruct> CityMap::m_update_connected_tiles(CoordinateStruct posit
 	// タイル状のConnectableオブジェクトを削除
 	Array<CoordinateStruct> ret;
 	for (auto current_object : currentTile->getObjectsP(CategoryID::Connectable)) {
-		ret = current_object->del(road_network);		// ここで周囲を更新（戻り値：他に削除が必要な周囲タイルのリスト）
+		ret = current_object->del();		// ここで周囲を更新（戻り値：他に削除が必要な周囲タイルのリスト）
 	}
 
 	return ret;

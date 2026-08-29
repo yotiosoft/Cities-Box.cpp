@@ -53,7 +53,6 @@
 		7C55EE542838A09A00E5435D /* DetailsBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE272838A09900E5435D /* DetailsBar.cpp */; };
 		7C55EE562838A09A00E5435D /* CBAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE292838A09900E5435D /* CBAddon.cpp */; };
 		7C55EE572838A09A00E5435D /* CityMap_Road.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */; };
-		7C55EE582838A09A00E5435D /* CityNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2B2838A09900E5435D /* CityNetwork.cpp */; };
 		7C55EE592838A09A00E5435D /* CityMap_GetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE2D2838A09900E5435D /* CityMap_GetData.cpp */; };
 		7C55EE5A2838A09A00E5435D /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE302838A09900E5435D /* Tile.cpp */; };
 		7C55EE5C2838A09A00E5435D /* CityMap_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C55EE392838A09900E5435D /* CityMap_Draw.cpp */; };
@@ -136,14 +135,12 @@
 		7C55EE272838A09900E5435D /* DetailsBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DetailsBar.cpp; path = ../../../src/DetailsBar.cpp; sourceTree = "<group>"; };
 		7C55EE292838A09900E5435D /* CBAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBAddon.cpp; path = ../../../src/CBAddon.cpp; sourceTree = "<group>"; };
 		7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_Road.cpp; path = ../../../src/CityMap_Road.cpp; sourceTree = "<group>"; };
-		7C55EE2B2838A09900E5435D /* CityNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityNetwork.cpp; path = ../../../src/CityNetwork.cpp; sourceTree = "<group>"; };
 		7C55EE2C2838A09900E5435D /* CitiesBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CitiesBox.hpp; path = ../../../src/CitiesBox.hpp; sourceTree = "<group>"; };
 		7C55EE2D2838A09900E5435D /* CityMap_GetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CityMap_GetData.cpp; path = ../../../src/CityMap_GetData.cpp; sourceTree = "<group>"; };
 		7C55EE2E2838A09900E5435D /* AddonDirectionStruct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddonDirectionStruct.hpp; path = ../../../src/AddonDirectionStruct.hpp; sourceTree = "<group>"; };
 		7C55EE2F2838A09900E5435D /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityMap.hpp; path = ../../../src/CityMap.hpp; sourceTree = "<group>"; };
 		7C55EE302838A09900E5435D /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tile.cpp; path = ../../../src/Tile.cpp; sourceTree = "<group>"; };
 		7C55EE312838A09900E5435D /* UnitaryTools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnitaryTools.hpp; path = ../../../src/UnitaryTools.hpp; sourceTree = "<group>"; };
-		7C55EE322838A09900E5435D /* CityNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CityNetwork.hpp; path = ../../../src/CityNetwork.hpp; sourceTree = "<group>"; };
 		7C55EE342838A09900E5435D /* PulldownMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PulldownMenu.hpp; path = ../../../src/PulldownMenu.hpp; sourceTree = "<group>"; };
 		7C55EE352838A09900E5435D /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Object.hpp; path = ../../../src/Object.hpp; sourceTree = "<group>"; };
 		7C55EE362838A09900E5435D /* Menu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Menu.hpp; path = ../../../src/Menu.hpp; sourceTree = "<group>"; };
@@ -258,8 +255,6 @@
 				7C55EE2A2838A09900E5435D /* CityMap_Road.cpp */,
 				7C55EE3B2838A09A00E5435D /* CityMap_SaveData.cpp */,
 				7C55EE2F2838A09900E5435D /* CityMap.hpp */,
-				7C55EE2B2838A09900E5435D /* CityNetwork.cpp */,
-				7C55EE322838A09900E5435D /* CityNetwork.hpp */,
 				7C55EE452838A09A00E5435D /* ConnectableObject.cpp */,
 				7C55EE1A2838A09900E5435D /* ConnectableObject.hpp */,
 				7C55EE272838A09900E5435D /* DetailsBar.cpp */,
@@ -455,7 +450,6 @@
 			files = (
 				7C55EE5C2838A09A00E5435D /* CityMap_Draw.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
-				7C55EE582838A09A00E5435D /* CityNetwork.cpp in Sources */,
 				7C55EE5D2838A09A00E5435D /* CityMap_SaveData.cpp in Sources */,
 				7C55EE492838A09A00E5435D /* Images.cpp in Sources */,
 				7C55EE4D2838A09A00E5435D /* Object.cpp in Sources */,

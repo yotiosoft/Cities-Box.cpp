@@ -7,17 +7,17 @@
 
 #include "NormalObject.hpp"
 
-void NormalObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
+void NormalObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
 	// 道路用なので何もしない
 	return;
 }
 
-void NormalObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
+void NormalObject::connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
     // 道路用なので何もしない
     return;
 }
 
-Array<CoordinateStruct> NormalObject::del(CityNetwork& road_network) {
+Array<CoordinateStruct> NormalObject::del() {
 	// 何もしない
 	return Array<CoordinateStruct>();
 }

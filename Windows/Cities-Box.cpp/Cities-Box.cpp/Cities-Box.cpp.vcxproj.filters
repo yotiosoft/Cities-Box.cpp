@@ -195,9 +195,6 @@
     <ClCompile Include="..\..\..\src\CityMap_SaveData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\CityNetwork.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\ConnectableObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -951,9 +948,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\CityMap.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\CityNetwork.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\ConnectableObject.hpp">

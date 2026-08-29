@@ -146,7 +146,6 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             cout << "m_connect_objects: from " << from.x << "," << from.y << " to " << to.x << "," << to.y << endl;
             cout << "from_coordinate_object_struct: " << from_coordinate_object_struct.relative_coordinate.origin.x << "," << from_coordinate_object_struct.relative_coordinate.origin.y << endl;
             from_coordinate_object_struct.object_p->connect(
-                road_network,
                 CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
                 m_objects[object_id],                // 相手先から自分自身への接続を指定
                 true
@@ -163,7 +162,6 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             // 橋や踏切を設置する必要がある場合はtypeとdirectionを指定して接続
             if (other_crossable_object) {
                 m_objects[object_id]->connectWithSpecifiedType(
-                    road_network,
                     CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
                     from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
                     type,
@@ -173,7 +171,6 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             // 橋や踏切を設置する必要がない場合は通常通り接続
             else {
                 m_objects[object_id]->connect(
-                    road_network,
                     CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
                     from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
                     false

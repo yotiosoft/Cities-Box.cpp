@@ -147,7 +147,6 @@ cargo build --release --target x86_64-pc-windows-msvc --target-dir "$(ProjectDir
     <ClCompile Include="..\..\..\src\CityMap_LoadData.cpp" />
     <ClCompile Include="..\..\..\src\CityMap_Road.cpp" />
     <ClCompile Include="..\..\..\src\CityMap_SaveData.cpp" />
-    <ClCompile Include="..\..\..\src\CityNetwork.cpp" />
     <ClCompile Include="..\..\..\src\ConnectableObject.cpp" />
     <ClCompile Include="..\..\..\src\DetailsBar.cpp" />
     <ClCompile Include="..\..\..\src\GeneralSetting.cpp" />
@@ -387,7 +386,6 @@ cargo build --release --target x86_64-pc-windows-msvc --target-dir "$(ProjectDir
     <ClInclude Include="..\..\..\src\CBAddon.hpp" />
     <ClInclude Include="..\..\..\src\CitiesBox.hpp" />
     <ClInclude Include="..\..\..\src\CityMap.hpp" />
-    <ClInclude Include="..\..\..\src\CityNetwork.hpp" />
     <ClInclude Include="..\..\..\src\ConnectableObject.hpp" />
     <ClInclude Include="..\..\..\src\DetailsBar.hpp" />
     <ClInclude Include="..\..\..\src\Enums.hpp" />

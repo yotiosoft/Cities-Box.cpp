@@ -16,7 +16,6 @@
 #include "Tile.hpp"
 #include "NormalObject.hpp"
 #include "ConnectableObject.hpp"
-#include "CityNetwork.hpp"
 #include <rs-citymap.h>
 
 class CityMap {
@@ -146,9 +145,6 @@ private:
 	// Rust 側のコアロジック
 	rust::Box<rust::citymap::RustCityMap> m_rust_core;
 
-	// 道路ネットワーク
-	CityNetwork road_network;
-	
 	/* プライベート変数 */
 	Size m_map_size;
 	

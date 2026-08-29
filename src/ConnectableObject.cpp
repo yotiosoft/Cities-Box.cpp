@@ -7,7 +7,7 @@
 
 #include "ConnectableObject.hpp"
 
-void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
+void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
 	// 先に現在のdirectionを取得
 	// 現在のdirectionが適用可能なら、更新せずに戻る
 
@@ -42,7 +42,7 @@ void ConnectableObject::connect(CityNetwork& road_network, CoordinateStruct arg_
 	UnitaryTools::debugLog(U"connect", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
-void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
+void ConnectableObject::connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
     // マップ上で接続
     DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
     
@@ -73,7 +73,7 @@ void ConnectableObject::connectWithSpecifiedType(CityNetwork& road_network, Coor
 	UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
-Array<CoordinateStruct> ConnectableObject::del(CityNetwork& road_network) {
+Array<CoordinateStruct> ConnectableObject::del() {
 	Array<CoordinateStruct> ret;	// 切断後、削除必須な周囲タイルのリスト
 
 	// arg_connect_coordinateのオブジェクトと繋がっているか確認

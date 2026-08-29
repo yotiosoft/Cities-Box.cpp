@@ -10,7 +10,6 @@
 
 #include <Specific.hpp>
 #include "CBAddon.hpp"
-#include "CityNetwork.hpp"
 
 static Array<int> remove_objects_list;
 
@@ -48,11 +47,11 @@ public:
 	bool isOn(CoordinateStruct arg_coordinate);
 	
 	// 周囲のオブジェクトと接続（ConnectableTypeの場合）
-	virtual void connect(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) = 0;
-    virtual void connectWithSpecifiedType(CityNetwork& road_network, CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) = 0;
+	virtual void connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) = 0;
+    virtual void connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) = 0;
 	
 	// 自分自身を削除
-	virtual Array<CoordinateStruct> del(CityNetwork& road_network) = 0;
+	virtual Array<CoordinateStruct> del() = 0;
 	
 	// TypeIDおよびDirectionIDの更新
 	virtual void update() = 0;

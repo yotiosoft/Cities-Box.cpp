@@ -80,6 +80,59 @@ namespace {
 		expect(typeFromDirection(DirectionID::None) == TypeID::Normal, "removing the last connection restores the current no-connection shape");
 	}
 
+	void testDirectionDecisionsUseValueData() {
+		using ConnectableBehavior::Coordinate;
+		using ConnectableBehavior::directionFromDifference;
+		expect(directionFromDifference(Coordinate{4, 4}, Coordinate{5, 4}, false) == DirectionID::East, "adjacent coordinates determine a cardinal direction");
+		expect(directionFromDifference(Coordinate{4, 4}, Coordinate{5, 5}, false) == DirectionID::Disabled, "road directions reject diagonal neighbors");
+		expect(directionFromDifference(Coordinate{4, 4}, Coordinate{5, 5}, true) == DirectionID::SouthEast, "waterway directions accept diagonal neighbors");
+		expect(directionFromDifference(Coordinate{4, 4}, Coordinate{6, 4}, true) == DirectionID::Disabled, "non-adjacent coordinates cannot connect");
+	}
+
+	void testConnectionPlanning() {
+		ConnectableBehavior::ConnectionRequest request;
+		request.from = {10, 10};
+		request.to = {11, 10};
+		request.currentDirection = DirectionID::North;
+		request.currentType = TypeID::DeadEnd;
+		auto decision = ConnectableBehavior::planConnection(request);
+		expect(decision.status == ConnectableBehavior::ConnectionStatus::Apply, "a new adjacent connection is applied");
+		expect(decision.relativeDirection == DirectionID::East, "connection planning returns the relative direction");
+		expect(decision.updatedDirection == DirectionID::NorthEast, "connection planning combines the existing and new directions");
+		expect(decision.updatedType == TypeID::Turn, "connection planning selects the resulting shape");
+
+		request.currentDirection = DirectionID::NorthEast;
+		request.currentType = TypeID::Turn;
+		request.fromHere = true;
+		request.connectionSlotOccupied = true;
+		decision = ConnectableBehavior::planConnection(request);
+		expect(decision.status == ConnectableBehavior::ConnectionStatus::AlreadyConnected, "an occupied slot in an existing direction is not connected twice");
+
+		request.fromHere = false;
+		request.forceType = true;
+		request.forcedType = TypeID::TrainCrossing;
+		decision = ConnectableBehavior::planConnection(request);
+		expect(decision.status == ConnectableBehavior::ConnectionStatus::Apply, "the opposite endpoint can still record its connection");
+		expect(decision.updatedType == TypeID::TrainCrossing, "a crossing request keeps its specified type");
+
+		request.from = {10, 10};
+		request.to = {12, 10};
+		decision = ConnectableBehavior::planConnection(request);
+		expect(decision.status == ConnectableBehavior::ConnectionStatus::InvalidDirection, "a non-adjacent connection is rejected");
+	}
+
+	void testRemovalPlanning() {
+		auto decision = ConnectableBehavior::planRemoval({DirectionID::NorthSouth, DirectionID::South});
+		expect(decision.updatedDirection == DirectionID::North, "removing one side leaves the remaining direction");
+		expect(decision.updatedType == TypeID::DeadEnd, "removing one side recalculates the shape");
+		expect(!decision.isolated, "a remaining direction is not isolated");
+
+		decision = ConnectableBehavior::planRemoval({DirectionID::North, DirectionID::North});
+		expect(decision.updatedDirection == DirectionID::None, "removing the final side leaves no direction");
+		expect(decision.updatedType == TypeID::Normal, "removing the final side restores the current no-connection shape");
+		expect(decision.isolated, "a segment with no direction is isolated");
+	}
+
 	void testConnectionCompatibility() {
 		const Categories<2> road{CategoryID::Connectable, CategoryID::Road};
 		const Categories<2> otherRoad{CategoryID::Connectable, CategoryID::Road};
@@ -120,6 +173,9 @@ int main() {
 	testRoadShapes();
 	testWaterwayShapes();
 	testBuildAndRemovalShapeTransitions();
+	testDirectionDecisionsUseValueData();
+	testConnectionPlanning();
+	testRemovalPlanning();
 	testConnectionCompatibility();
 	testCrossingTypes();
 	std::cout << "connectable behavior characterization tests passed\n";

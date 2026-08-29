@@ -10,7 +10,9 @@ Covered behavior:
 - current `canConnect()` compatibility through Road, Train, Waterway, and Airport categories;
 - current `isMatch()` distinction between Railroad/Station and Runway/Taxiway;
 - train-crossing and bridge category combinations;
-- representative connection-extension and removal shape transitions.
+- representative connection-extension and removal shape transitions;
+- coordinate-to-direction decisions without OpenSiv3D types;
+- value-based connection and removal decision results.
 
 Run from a Visual Studio Developer PowerShell:
 

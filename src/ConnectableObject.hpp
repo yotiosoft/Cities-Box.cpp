@@ -31,17 +31,6 @@ public:
 	// デストラクタ
 	~ConnectableObject();
 	
-private:
-	/* 関数部 */
-	// オブジェクトのDirectionIDを設定
-	void set_direction_id(DirectionID::Type arg_direction, bool is_deleted);
-	
-	// オブジェクトのTypeIDを設定
-	void set_type_id();
-	
-	// DirectionID -> 道路のTypeIDに変換
-	TypeID::Type get_type_id(DirectionID::Type arg_direction);
-	TypeID::Type get_type_id_waterway(DirectionID::Type arg_direction);
 };
 
 #endif /* ConnectableObject_hpp */

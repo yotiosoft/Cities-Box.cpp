@@ -9,68 +9,68 @@
 #include "ConnectableBehavior.hpp"
 
 void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
-	// 先に現在のdirectionを取得
-	// 現在のdirectionが適用可能なら、更新せずに戻る
+	const auto from = m_start_coordinate + arg_connect_coordinate;
+	const auto to = arg_object_p->getOriginCoordinate();
+	ConnectableBehavior::ConnectionRequest request;
+	request.from = {from.x, from.y};
+	request.to = {to.x, to.y};
+	request.currentDirection = m_direction_id;
+	request.currentType = m_type_id;
+	request.allowDiagonal = m_addon_p->isInCategories(CategoryID::Waterway);
+	request.fromHere = from_here;
+	request.connectionSlotOccupied = !m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty();
+	const auto decision = ConnectableBehavior::planConnection(request);
 
-	// マップ上で接続
-	DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
-
-	// 自身が接続開始地点ではなく、かつ既に接続済みであり、同じ向きに接続済みオブジェクトがあるなら何もしない
-	Array<DirectionID::Type> direction_id_div = UnitaryTools::splitDirections(m_direction_id);
-	bool exist = false;
-	for (DirectionID::Type direction_id : direction_id_div) {
-		if (direction_id == relative_direction_id) {
-			exist = true;
-		}
-	}
-	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0 && exist) {
+	if (decision.status == ConnectableBehavior::ConnectionStatus::AlreadyConnected) {
 		return;
 	}
 
 	// Directionが無効なら自身のオブジェクトを削除し終了
-	if (relative_direction_id == DirectionID::Disabled) {
+	if (decision.status == ConnectableBehavior::ConnectionStatus::InvalidDirection) {
 		UnitaryTools::debugLog(U"connect", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;
 	}
 
-	set_direction_id(relative_direction_id, false);
-    if (m_type_id != TypeID::TrainCrossing && m_type_id != TypeID::Bridge)
-        set_type_id();
+	m_direction_id = decision.updatedDirection;
+	m_type_id = decision.updatedType;
 	
-	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
+	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{decision.relativeDirection, arg_object_p};
 	UnitaryTools::debugLog(U"connect", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
 void ConnectableObject::connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
-    // マップ上で接続
-    DirectionID::Type relative_direction_id = UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate(), !m_addon_p->isInCategories(CategoryID::Waterway));
-    
-	// 自身が接続開始地点ではなく、かつ既に接続済みであり、同じ向きに接続済みオブジェクトがあるなら何もしない
-	Array<DirectionID::Type> direction_id_div = UnitaryTools::splitDirections(m_direction_id);
-	bool exist = false;
-	for (DirectionID::Type direction_id : direction_id_div) {
-		if (direction_id == relative_direction_id) {
-			exist = true;
-		}
-	}
-	if (from_here && m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.size() > 0 && exist) {
+	const auto from = m_start_coordinate + arg_connect_coordinate;
+	const auto to = arg_object_p->getOriginCoordinate();
+	ConnectableBehavior::ConnectionRequest request;
+	request.from = {from.x, from.y};
+	request.to = {to.x, to.y};
+	request.currentDirection = m_direction_id;
+	request.currentType = m_type_id;
+	request.allowDiagonal = m_addon_p->isInCategories(CategoryID::Waterway);
+	request.fromHere = from_here;
+	request.connectionSlotOccupied = !m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty();
+	request.forceType = true;
+	request.forcedType = type;
+	const auto decision = ConnectableBehavior::planConnection(request);
+
+	if (decision.status == ConnectableBehavior::ConnectionStatus::AlreadyConnected) {
 		return;
 	}
 
 	// Directionが無効なら自身のオブジェクトを削除し終了
-	if (relative_direction_id == DirectionID::Disabled) {
+	if (decision.status == ConnectableBehavior::ConnectionStatus::InvalidDirection) {
 		UnitaryTools::debugLog(U"connectWithSpecifiedType", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;
 	}
 	
-	set_direction_id(relative_direction_id, false);
-    m_type_id = type;
+	m_direction_id = decision.updatedDirection;
+	m_type_id = decision.updatedType;
     
-    m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{relative_direction_id, arg_object_p};
+	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{decision.relativeDirection, arg_object_p};
 	UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
@@ -93,13 +93,6 @@ Array<CoordinateStruct> ConnectableObject::del() {
 
 				cout << "update at " << road_type_connect.second->getOriginCoordinate().x << "," << road_type_connect.second->getOriginCoordinate().y << endl;
 				road_type_connect.second->update();     // 自分の削除後に相手のタイルを更新
-				/*
-				if (road_type_connect.second->isOn(arg_connect_coordinate)) {
-					set_direction_id(UnitaryTools::getDirectionIDfromDifference(m_start_coordinate + arg_connect_coordinate, arg_object_p->getOriginCoordinate()), true);
-					set_type_id();
-					
-					
-				}*/
 
 				// 切断後、接続先の向きが無効になっていたら接続先を削除
 				DirectionID::Type after_del_direction_id = road_type_connect.second->getDirectionID();
@@ -122,8 +115,9 @@ void ConnectableObject::update() {
 					cout << "update: delete for " << x << "," << y << endl;
 					//CoordinateStruct abs_coordinate = m_start_coordinate + CoordinateStruct{x, y};
 					
-					set_direction_id(it->first, true);
-					set_type_id();
+					const auto decision = ConnectableBehavior::planRemoval({m_direction_id, it->first});
+					m_direction_id = decision.updatedDirection;
+					m_type_id = decision.updatedType;
                     
                     // 既に自身が無効なオブジェクトならdeleted状態に
                     if (m_addon_p == nullptr) {
@@ -142,60 +136,6 @@ void ConnectableObject::update() {
 			
 			m_connects[y][x].roadTypeConnect.remove_if([](pair<DirectionID::Type, Object*> v) { return v.second->isDeleted(); });
 		}
-	}
-}
-
-void ConnectableObject::set_direction_id(DirectionID::Type arg_direction, bool is_deleted) {
-	if (is_deleted) {	// 削除時
-		m_direction_id = UnitaryTools::subDirectionID(m_direction_id, arg_direction);
-	}
-	else {				// 接続時
-		m_direction_id = UnitaryTools::addDirectionID(m_direction_id, arg_direction);
-	}
-	
-	return;
-}
-
-void ConnectableObject::set_type_id() {
-	m_type_id = get_type_id(m_direction_id);
-}
-
-TypeID::Type ConnectableObject::get_type_id(DirectionID::Type arg_direction) {
-	return ConnectableBehavior::typeFromDirection(arg_direction);
-}
-
-TypeID::Type ConnectableObject::get_type_id_waterway(DirectionID::Type arg_direction) {
-	switch (arg_direction) {
-		case DirectionID::None:
-			return TypeID::UnderConstruction;
-			
-		case DirectionID::North:
-		case DirectionID::South:
-		case DirectionID::East:
-		case DirectionID::West:
-			return TypeID::DeadEnd;
-			
-		case DirectionID::EastWest:
-		case DirectionID::NorthSouth:
-			return TypeID::Default;
-			
-		case DirectionID::SouthWest:
-		case DirectionID::NorthWest:
-		case DirectionID::SouthEast:
-		case DirectionID::NorthEast:
-			return TypeID::Turn;
-			
-		case DirectionID::SouthEastWest:
-		case DirectionID::NorthEastWest:
-		case DirectionID::NorthSouthWest:
-		case DirectionID::NorthSouthEast:
-			return TypeID::IntersectionT;
-			
-		case DirectionID::All:
-			return TypeID::IntersectionCross;
-			
-		default:
-			return TypeID::Disabled;
 	}
 }
 

@@ -6,71 +6,101 @@
 //
 
 #include "ConnectableObject.hpp"
-#include "ConnectableBehavior.hpp"
+#include <rs-citymap.h>
+
+namespace {
+	rust::citymap::ConnectableConnectionDecision planConnectionInRust(
+		CoordinateStruct from,
+		CoordinateStruct to,
+		DirectionID::Type currentDirection,
+		TypeID::Type currentType,
+		bool allowDiagonal,
+		bool fromHere,
+		bool connectionSlotOccupied,
+		bool forceType,
+		TypeID::Type forcedType
+	) {
+		rust::citymap::ConnectableConnectionRequest request;
+		request.from_x = from.x;
+		request.from_y = from.y;
+		request.to_x = to.x;
+		request.to_y = to.y;
+		request.current_direction = static_cast<int>(currentDirection);
+		request.current_type = static_cast<int>(currentType);
+		request.allow_diagonal = allowDiagonal;
+		request.from_here = fromHere;
+		request.connection_slot_occupied = connectionSlotOccupied;
+		request.force_type = forceType;
+		request.forced_type = static_cast<int>(forcedType);
+		return rust::citymap::plan_connectable_connection(request);
+	}
+}
 
 void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
 	const auto from = m_start_coordinate + arg_connect_coordinate;
 	const auto to = arg_object_p->getOriginCoordinate();
-	ConnectableBehavior::ConnectionRequest request;
-	request.from = {from.x, from.y};
-	request.to = {to.x, to.y};
-	request.currentDirection = m_direction_id;
-	request.currentType = m_type_id;
-	request.allowDiagonal = m_addon_p->isInCategories(CategoryID::Waterway);
-	request.fromHere = from_here;
-	request.connectionSlotOccupied = !m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty();
-	const auto decision = ConnectableBehavior::planConnection(request);
+	const auto decision = planConnectionInRust(
+		from,
+		to,
+		m_direction_id,
+		m_type_id,
+		m_addon_p->isInCategories(CategoryID::Waterway),
+		from_here,
+		!m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty(),
+		false,
+		TypeID::Disabled
+	);
 
-	if (decision.status == ConnectableBehavior::ConnectionStatus::AlreadyConnected) {
+	if (decision.status == rust::citymap::ConnectableConnectionStatus::AlreadyConnected) {
 		return;
 	}
 
 	// Directionが無効なら自身のオブジェクトを削除し終了
-	if (decision.status == ConnectableBehavior::ConnectionStatus::InvalidDirection) {
+	if (decision.status == rust::citymap::ConnectableConnectionStatus::InvalidDirection) {
 		UnitaryTools::debugLog(U"connect", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;
 	}
 
-	m_direction_id = decision.updatedDirection;
-	m_type_id = decision.updatedType;
+	m_direction_id = static_cast<DirectionID::Type>(decision.updated_direction);
+	m_type_id = static_cast<TypeID::Type>(decision.updated_type);
 	
-	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{decision.relativeDirection, arg_object_p};
+	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{static_cast<DirectionID::Type>(decision.relative_direction), arg_object_p};
 	UnitaryTools::debugLog(U"connect", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
 void ConnectableObject::connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
 	const auto from = m_start_coordinate + arg_connect_coordinate;
 	const auto to = arg_object_p->getOriginCoordinate();
-	ConnectableBehavior::ConnectionRequest request;
-	request.from = {from.x, from.y};
-	request.to = {to.x, to.y};
-	request.currentDirection = m_direction_id;
-	request.currentType = m_type_id;
-	request.allowDiagonal = m_addon_p->isInCategories(CategoryID::Waterway);
-	request.fromHere = from_here;
-	request.connectionSlotOccupied = !m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty();
-	request.forceType = true;
-	request.forcedType = type;
-	const auto decision = ConnectableBehavior::planConnection(request);
+	const auto decision = planConnectionInRust(
+		from,
+		to,
+		m_direction_id,
+		m_type_id,
+		m_addon_p->isInCategories(CategoryID::Waterway),
+		from_here,
+		!m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect.empty(),
+		true,
+		type
+	);
 
-	if (decision.status == ConnectableBehavior::ConnectionStatus::AlreadyConnected) {
+	if (decision.status == rust::citymap::ConnectableConnectionStatus::AlreadyConnected) {
 		return;
 	}
 
 	// Directionが無効なら自身のオブジェクトを削除し終了
-	if (decision.status == ConnectableBehavior::ConnectionStatus::InvalidDirection) {
+	if (decision.status == rust::citymap::ConnectableConnectionStatus::InvalidDirection) {
 		UnitaryTools::debugLog(U"connectWithSpecifiedType", arg_connect_coordinate, U"Direction disabled");
 		m_addon_p = nullptr;
 		setDeleted();
 		return;
 	}
 	
-	m_direction_id = decision.updatedDirection;
-	m_type_id = decision.updatedType;
+	m_direction_id = static_cast<DirectionID::Type>(decision.updated_direction);
+	m_type_id = static_cast<TypeID::Type>(decision.updated_type);
     
-	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{decision.relativeDirection, arg_object_p};
+	m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect << pair<DirectionID::Type, Object*>{static_cast<DirectionID::Type>(decision.relative_direction), arg_object_p};
 	UnitaryTools::debugLog(U"connectWithSpecifiedType", U"set roadtypeconect " + Format(m_direction_id) + U" / " + Format(m_type_id));
 }
 
@@ -115,9 +145,12 @@ void ConnectableObject::update() {
 					cout << "update: delete for " << x << "," << y << endl;
 					//CoordinateStruct abs_coordinate = m_start_coordinate + CoordinateStruct{x, y};
 					
-					const auto decision = ConnectableBehavior::planRemoval({m_direction_id, it->first});
-					m_direction_id = decision.updatedDirection;
-					m_type_id = decision.updatedType;
+					const auto decision = rust::citymap::plan_connectable_removal(
+						static_cast<int>(m_direction_id),
+						static_cast<int>(it->first)
+					);
+					m_direction_id = static_cast<DirectionID::Type>(decision.updated_direction);
+					m_type_id = static_cast<TypeID::Type>(decision.updated_type);
                     
                     // 既に自身が無効なオブジェクトならdeleted状態に
                     if (m_addon_p == nullptr) {

@@ -944,6 +944,10 @@ union MaybeUninit {
 namespace rust {
   namespace citymap {
     struct RawTileData;
+    enum class ConnectableConnectionStatus : ::std::uint8_t;
+    struct ConnectableConnectionRequest;
+    struct ConnectableConnectionDecision;
+    struct ConnectableRemovalDecision;
     struct TimeStruct;
     struct RCOIFstruct;
     struct SimulationSnapshot;
@@ -987,6 +991,57 @@ struct RawTileData final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RawTileData
+
+#ifndef CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+#define CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+enum class ConnectableConnectionStatus : ::std::uint8_t {
+  Apply = 0,
+  AlreadyConnected = 1,
+  InvalidDirection = 2,
+};
+#endif // CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+struct ConnectableConnectionRequest final {
+  ::std::int32_t from_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t from_y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t current_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t current_type CXX_DEFAULT_VALUE(0);
+  bool allow_diagonal CXX_DEFAULT_VALUE(false);
+  bool from_here CXX_DEFAULT_VALUE(false);
+  bool connection_slot_occupied CXX_DEFAULT_VALUE(false);
+  bool force_type CXX_DEFAULT_VALUE(false);
+  ::std::int32_t forced_type CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+struct ConnectableConnectionDecision final {
+  ::rust::citymap::ConnectableConnectionStatus status;
+  ::std::int32_t relative_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_type CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+struct ConnectableRemovalDecision final {
+  ::std::int32_t updated_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_type CXX_DEFAULT_VALUE(0);
+  bool isolated CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
@@ -1334,6 +1389,10 @@ extern "C" {
 
 ::rust::citymap::RustCityMap *rust$citymap$cxxbridge1$192$new_city_map() noexcept;
 
+void rust$citymap$cxxbridge1$192$plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest *request, ::rust::citymap::ConnectableConnectionDecision *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$plan_connectable_removal(::std::int32_t current_direction, ::std::int32_t removed_direction, ::rust::citymap::ConnectableRemovalDecision *return$) noexcept;
+
 void rust$citymap$cxxbridge1$192$RustCityMap$load_city_map(::rust::citymap::RustCityMap &self, ::rust::String *path, ::rust::citymap::LoadCityResult *return$) noexcept;
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$commit_loaded_city_map(::rust::citymap::RustCityMap &self) noexcept;
@@ -1383,6 +1442,19 @@ bool rust$citymap$cxxbridge1$192$RustCityMap$save_to_file(::rust::citymap::RustC
 
 ::rust::Box<::rust::citymap::RustCityMap> new_city_map() noexcept {
   return ::rust::Box<::rust::citymap::RustCityMap>::from_raw(rust$citymap$cxxbridge1$192$new_city_map());
+}
+
+::rust::citymap::ConnectableConnectionDecision plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest request) noexcept {
+  ::rust::ManuallyDrop<::rust::citymap::ConnectableConnectionRequest> request$(::std::move(request));
+  ::rust::MaybeUninit<::rust::citymap::ConnectableConnectionDecision> return$;
+  rust$citymap$cxxbridge1$192$plan_connectable_connection(&request$.value, &return$.value);
+  return ::std::move(return$.value);
+}
+
+::rust::citymap::ConnectableRemovalDecision plan_connectable_removal(::std::int32_t current_direction, ::std::int32_t removed_direction) noexcept {
+  ::rust::MaybeUninit<::rust::citymap::ConnectableRemovalDecision> return$;
+  rust$citymap$cxxbridge1$192$plan_connectable_removal(current_direction, removed_direction, &return$.value);
+  return ::std::move(return$.value);
 }
 
 ::rust::citymap::LoadCityResult RustCityMap::load_city_map(::rust::String path) noexcept {

@@ -915,6 +915,10 @@ std::size_t align_of() {
 namespace rust {
   namespace citymap {
     struct RawTileData;
+    enum class ConnectableConnectionStatus : ::std::uint8_t;
+    struct ConnectableConnectionRequest;
+    struct ConnectableConnectionDecision;
+    struct ConnectableRemovalDecision;
     struct TimeStruct;
     struct RCOIFstruct;
     struct SimulationSnapshot;
@@ -958,6 +962,57 @@ struct RawTileData final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RawTileData
+
+#ifndef CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+#define CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+enum class ConnectableConnectionStatus : ::std::uint8_t {
+  Apply = 0,
+  AlreadyConnected = 1,
+  InvalidDirection = 2,
+};
+#endif // CXXBRIDGE1_ENUM_rust$citymap$ConnectableConnectionStatus
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+struct ConnectableConnectionRequest final {
+  ::std::int32_t from_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t from_y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t current_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t current_type CXX_DEFAULT_VALUE(0);
+  bool allow_diagonal CXX_DEFAULT_VALUE(false);
+  bool from_here CXX_DEFAULT_VALUE(false);
+  bool connection_slot_occupied CXX_DEFAULT_VALUE(false);
+  bool force_type CXX_DEFAULT_VALUE(false);
+  ::std::int32_t forced_type CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionRequest
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+struct ConnectableConnectionDecision final {
+  ::rust::citymap::ConnectableConnectionStatus status;
+  ::std::int32_t relative_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_type CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableConnectionDecision
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+struct ConnectableRemovalDecision final {
+  ::std::int32_t updated_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t updated_type CXX_DEFAULT_VALUE(0);
+  bool isolated CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
@@ -1300,6 +1355,10 @@ private:
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 
 ::rust::Box<::rust::citymap::RustCityMap> new_city_map() noexcept;
+
+::rust::citymap::ConnectableConnectionDecision plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest request) noexcept;
+
+::rust::citymap::ConnectableRemovalDecision plan_connectable_removal(::std::int32_t current_direction, ::std::int32_t removed_direction) noexcept;
 } // namespace citymap
 } // namespace rust
 

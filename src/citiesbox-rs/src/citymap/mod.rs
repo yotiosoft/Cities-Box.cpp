@@ -31,6 +31,40 @@ pub(crate) mod ffi {
         reservation: i32,
     }
 
+    #[derive(Debug)]
+    enum ConnectableConnectionStatus {
+        Apply = 0,
+        AlreadyConnected = 1,
+        InvalidDirection = 2,
+    }
+
+    struct ConnectableConnectionRequest {
+        from_x: i32,
+        from_y: i32,
+        to_x: i32,
+        to_y: i32,
+        current_direction: i32,
+        current_type: i32,
+        allow_diagonal: bool,
+        from_here: bool,
+        connection_slot_occupied: bool,
+        force_type: bool,
+        forced_type: i32,
+    }
+
+    struct ConnectableConnectionDecision {
+        status: ConnectableConnectionStatus,
+        relative_direction: i32,
+        updated_direction: i32,
+        updated_type: i32,
+    }
+
+    struct ConnectableRemovalDecision {
+        updated_direction: i32,
+        updated_type: i32,
+        isolated: bool,
+    }
+
     // C++ 側の構造体を定義（POD: Plain Old Data として）
     #[derive(Clone)]
     struct TimeStruct {
@@ -238,6 +272,15 @@ pub(crate) mod ffi {
 
         fn new_city_map() -> Box<RustCityMap>;
 
+        // 生ポインタやOpenSiv3D型を含まない接続状態の純粋計算
+        fn plan_connectable_connection(
+            request: ConnectableConnectionRequest,
+        ) -> ConnectableConnectionDecision;
+        fn plan_connectable_removal(
+            current_direction: i32,
+            removed_direction: i32,
+        ) -> ConnectableRemovalDecision;
+
         // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
         fn load_city_map(&mut self, path: String) -> LoadCityResult;
         fn commit_loaded_city_map(&mut self) -> bool;
@@ -318,6 +361,53 @@ pub(crate) mod ffi {
     }
 }
 
+fn plan_connectable_connection(
+    request: ffi::ConnectableConnectionRequest,
+) -> ffi::ConnectableConnectionDecision {
+    let decision = connectable::plan_connection(connectable::ConnectionRequest {
+        from: connectable::Coordinate {
+            x: request.from_x,
+            y: request.from_y,
+        },
+        to: connectable::Coordinate {
+            x: request.to_x,
+            y: request.to_y,
+        },
+        current_direction: request.current_direction,
+        current_type: request.current_type,
+        allow_diagonal: request.allow_diagonal,
+        from_here: request.from_here,
+        connection_slot_occupied: request.connection_slot_occupied,
+        forced_type: request.force_type.then_some(request.forced_type),
+    });
+    ffi::ConnectableConnectionDecision {
+        status: match decision.status {
+            connectable::ConnectionStatus::Apply => ffi::ConnectableConnectionStatus::Apply,
+            connectable::ConnectionStatus::AlreadyConnected => {
+                ffi::ConnectableConnectionStatus::AlreadyConnected
+            }
+            connectable::ConnectionStatus::InvalidDirection => {
+                ffi::ConnectableConnectionStatus::InvalidDirection
+            }
+        },
+        relative_direction: decision.relative_direction,
+        updated_direction: decision.updated_direction,
+        updated_type: decision.updated_type,
+    }
+}
+
+fn plan_connectable_removal(
+    current_direction: i32,
+    removed_direction: i32,
+) -> ffi::ConnectableRemovalDecision {
+    let decision = connectable::plan_removal(current_direction, removed_direction);
+    ffi::ConnectableRemovalDecision {
+        updated_direction: decision.updated_direction,
+        updated_type: decision.updated_type,
+        isolated: decision.isolated,
+    }
+}
+
 pub struct RustCityMap {
     // OpenSiv3Dに依存しない都市状態。simulation.rs はこの値だけを更新し、
     // 保存用のタイル・オブジェクト写像を参照しない。
@@ -371,6 +461,41 @@ fn new_city_map() -> Box<RustCityMap> {
 mod tests {
     use super::*;
     use std::time::{SystemTime, UNIX_EPOCH};
+
+    #[test]
+    fn connectable_bridge_uses_value_only_decisions() {
+        let connection = plan_connectable_connection(ffi::ConnectableConnectionRequest {
+            from_x: 3,
+            from_y: 4,
+            to_x: 4,
+            to_y: 4,
+            current_direction: connectable::direction_id::NORTH,
+            current_type: connectable::type_id::DEAD_END,
+            allow_diagonal: false,
+            from_here: false,
+            connection_slot_occupied: false,
+            force_type: false,
+            forced_type: connectable::type_id::DISABLED,
+        });
+        assert_eq!(connection.status, ffi::ConnectableConnectionStatus::Apply);
+        assert_eq!(
+            connection.relative_direction,
+            connectable::direction_id::EAST
+        );
+        assert_eq!(
+            connection.updated_direction,
+            connectable::direction_id::NORTH_EAST
+        );
+        assert_eq!(connection.updated_type, connectable::type_id::TURN);
+
+        let removal = plan_connectable_removal(
+            connectable::direction_id::NORTH_SOUTH,
+            connectable::direction_id::SOUTH,
+        );
+        assert_eq!(removal.updated_direction, connectable::direction_id::NORTH);
+        assert_eq!(removal.updated_type, connectable::type_id::DEAD_END);
+        assert!(!removal.isolated);
+    }
 
     #[test]
     fn save_json_uses_the_cpp_loader_compatible_schema() {

@@ -919,6 +919,9 @@ namespace rust {
     struct ConnectableConnectionRequest;
     struct ConnectableConnectionDecision;
     struct ConnectableRemovalDecision;
+    struct ConnectableNetworkNode;
+    struct ConnectableNetworkEdge;
+    struct ConnectableNetworkAnalysis;
     struct TimeStruct;
     struct RCOIFstruct;
     struct SimulationSnapshot;
@@ -1013,6 +1016,45 @@ struct ConnectableRemovalDecision final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+struct ConnectableNetworkNode final {
+  ::std::int32_t object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t connectable_kind CXX_DEFAULT_VALUE(0);
+  bool under_construction CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+struct ConnectableNetworkEdge final {
+  ::std::int32_t from_object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t from_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_direction CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
+struct ConnectableNetworkAnalysis final {
+  ::std::int32_t component_count CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::std::int32_t> component_ids;
+  ::rust::Vec<::std::int32_t> isolated_object_ids;
+  ::rust::Vec<::std::int32_t> unfinished_isolated_object_ids;
+  ::rust::Vec<::std::int32_t> duplicate_object_ids;
+  ::rust::Vec<::std::int32_t> invalid_edge_indices;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
@@ -1365,6 +1407,8 @@ bool connectable_categories_can_connect(::rust::Slice<::std::int32_t const> left
 bool connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right, ::std::int32_t hint) noexcept;
 
 ::std::int32_t connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept;
+
+::rust::citymap::ConnectableNetworkAnalysis analyze_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> nodes, ::rust::Vec<::rust::citymap::ConnectableNetworkEdge> edges) noexcept;
 } // namespace citymap
 } // namespace rust
 

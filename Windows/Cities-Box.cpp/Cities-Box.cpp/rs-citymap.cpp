@@ -948,6 +948,9 @@ namespace rust {
     struct ConnectableConnectionRequest;
     struct ConnectableConnectionDecision;
     struct ConnectableRemovalDecision;
+    struct ConnectableNetworkNode;
+    struct ConnectableNetworkEdge;
+    struct ConnectableNetworkAnalysis;
     struct TimeStruct;
     struct RCOIFstruct;
     struct SimulationSnapshot;
@@ -1042,6 +1045,45 @@ struct ConnectableRemovalDecision final {
   using IsRelocatable = ::std::true_type;
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableRemovalDecision
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+struct ConnectableNetworkNode final {
+  ::std::int32_t object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t connectable_kind CXX_DEFAULT_VALUE(0);
+  bool under_construction CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkNode
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+struct ConnectableNetworkEdge final {
+  ::std::int32_t from_object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_object_id CXX_DEFAULT_VALUE(0);
+  ::std::int32_t from_direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t to_direction CXX_DEFAULT_VALUE(0);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkEdge
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
+#define CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
+struct ConnectableNetworkAnalysis final {
+  ::std::int32_t component_count CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::std::int32_t> component_ids;
+  ::rust::Vec<::std::int32_t> isolated_object_ids;
+  ::rust::Vec<::std::int32_t> unfinished_isolated_object_ids;
+  ::rust::Vec<::std::int32_t> duplicate_object_ids;
+  ::rust::Vec<::std::int32_t> invalid_edge_indices;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$ConnectableNetworkAnalysis
 
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
 #define CXXBRIDGE1_STRUCT_rust$citymap$TimeStruct
@@ -1399,6 +1441,8 @@ bool rust$citymap$cxxbridge1$192$connectable_categories_match(::rust::Slice<::st
 
 ::std::int32_t rust$citymap$cxxbridge1$192$connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept;
 
+void rust$citymap$cxxbridge1$192$analyze_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *nodes, ::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *edges, ::rust::citymap::ConnectableNetworkAnalysis *return$) noexcept;
+
 void rust$citymap$cxxbridge1$192$RustCityMap$load_city_map(::rust::citymap::RustCityMap &self, ::rust::String *path, ::rust::citymap::LoadCityResult *return$) noexcept;
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$commit_loaded_city_map(::rust::citymap::RustCityMap &self) noexcept;
@@ -1473,6 +1517,14 @@ bool connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::ru
 
 ::std::int32_t connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept {
   return rust$citymap$cxxbridge1$192$connectable_crossing_type(first, second);
+}
+
+::rust::citymap::ConnectableNetworkAnalysis analyze_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> nodes, ::rust::Vec<::rust::citymap::ConnectableNetworkEdge> edges) noexcept {
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ConnectableNetworkNode>> nodes$(::std::move(nodes));
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ConnectableNetworkEdge>> edges$(::std::move(edges));
+  ::rust::MaybeUninit<::rust::citymap::ConnectableNetworkAnalysis> return$;
+  rust$citymap$cxxbridge1$192$analyze_connectable_network(&nodes$.value, &edges$.value, &return$.value);
+  return ::std::move(return$.value);
 }
 
 ::rust::citymap::LoadCityResult RustCityMap::load_city_map(::rust::String path) noexcept {
@@ -1660,6 +1712,24 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(::rust::Vec<::rust
 ::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$drop(::rust::Box<::rust::citymap::RustCityMap> *ptr) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$new(::rust::Vec<::rust::citymap::ConnectableNetworkNode> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$drop(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$len(::rust::Vec<::rust::citymap::ConnectableNetworkNode> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$capacity(::rust::Vec<::rust::citymap::ConnectableNetworkNode> const *ptr) noexcept;
+::rust::citymap::ConnectableNetworkNode const *cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$data(::rust::Vec<::rust::citymap::ConnectableNetworkNode> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$reserve_total(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$set_len(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$truncate(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *ptr, ::std::size_t len) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$new(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$drop(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$len(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$capacity(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> const *ptr) noexcept;
+::rust::citymap::ConnectableNetworkEdge const *cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$data(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$reserve_total(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$set_len(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$truncate(::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *ptr, ::std::size_t len) noexcept;
 
 void cxxbridge1$rust_vec$rust$citymap$TileRateState$new(::rust::Vec<::rust::citymap::TileRateState> const *ptr) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$TileRateState$drop(::rust::Vec<::rust::citymap::TileRateState> *ptr) noexcept;
@@ -1999,6 +2069,70 @@ void Box<::rust::citymap::RustCityMap>::allocation::dealloc(::rust::citymap::Rus
 template <>
 void Box<::rust::citymap::RustCityMap>::drop() noexcept {
   cxxbridge1$box$rust$citymap$RustCityMap$drop(this);
+}
+template <>
+Vec<::rust::citymap::ConnectableNetworkNode>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$new(this);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkNode>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::ConnectableNetworkNode>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::ConnectableNetworkNode>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$capacity(this);
+}
+template <>
+::rust::citymap::ConnectableNetworkNode const *Vec<::rust::citymap::ConnectableNetworkNode>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$data(this);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkNode>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkNode>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkNode>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkNode$truncate(this, len);
+}
+template <>
+Vec<::rust::citymap::ConnectableNetworkEdge>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$new(this);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkEdge>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::ConnectableNetworkEdge>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::ConnectableNetworkEdge>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$capacity(this);
+}
+template <>
+::rust::citymap::ConnectableNetworkEdge const *Vec<::rust::citymap::ConnectableNetworkEdge>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$data(this);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkEdge>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkEdge>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::ConnectableNetworkEdge>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$ConnectableNetworkEdge$truncate(this, len);
 }
 template <>
 Vec<::rust::citymap::TileRateState>::Vec() noexcept {

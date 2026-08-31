@@ -8,6 +8,7 @@ use std::path::{Path, PathBuf};
 mod connectable;
 mod load;
 mod models;
+mod network;
 mod rates;
 mod save;
 mod state;
@@ -63,6 +64,30 @@ pub(crate) mod ffi {
         updated_direction: i32,
         updated_type: i32,
         isolated: bool,
+    }
+
+    struct ConnectableNetworkNode {
+        object_id: i32,
+        x: i32,
+        y: i32,
+        connectable_kind: i32,
+        under_construction: bool,
+    }
+
+    struct ConnectableNetworkEdge {
+        from_object_id: i32,
+        to_object_id: i32,
+        from_direction: i32,
+        to_direction: i32,
+    }
+
+    struct ConnectableNetworkAnalysis {
+        component_count: i32,
+        component_ids: Vec<i32>,
+        isolated_object_ids: Vec<i32>,
+        unfinished_isolated_object_ids: Vec<i32>,
+        duplicate_object_ids: Vec<i32>,
+        invalid_edge_indices: Vec<i32>,
     }
 
     // C++ 側の構造体を定義（POD: Plain Old Data として）
@@ -283,6 +308,10 @@ pub(crate) mod ffi {
         fn connectable_categories_can_connect(left: &[i32], right: &[i32]) -> bool;
         fn connectable_categories_match(left: &[i32], right: &[i32], hint: i32) -> bool;
         fn connectable_crossing_type(first: i32, second: i32) -> i32;
+        fn analyze_connectable_network(
+            nodes: Vec<ConnectableNetworkNode>,
+            edges: Vec<ConnectableNetworkEdge>,
+        ) -> ConnectableNetworkAnalysis;
 
         // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
         fn load_city_map(&mut self, path: String) -> LoadCityResult;
@@ -362,6 +391,13 @@ pub(crate) mod ffi {
         // 保存まで実行
         fn save_to_file(&self, path: String) -> bool;
     }
+}
+
+fn analyze_connectable_network(
+    nodes: Vec<ffi::ConnectableNetworkNode>,
+    edges: Vec<ffi::ConnectableNetworkEdge>,
+) -> ffi::ConnectableNetworkAnalysis {
+    network::analyze(nodes, edges)
 }
 
 fn plan_connectable_connection(
@@ -532,6 +568,39 @@ mod tests {
             ),
             connectable::type_id::TRAIN_CROSSING
         );
+    }
+
+    #[test]
+    fn connectable_network_bridge_uses_value_only_snapshots() {
+        let analysis = analyze_connectable_network(
+            vec![
+                ffi::ConnectableNetworkNode {
+                    object_id: 11,
+                    x: 2,
+                    y: 3,
+                    connectable_kind: connectable::category_id::ROAD,
+                    under_construction: false,
+                },
+                ffi::ConnectableNetworkNode {
+                    object_id: 12,
+                    x: 3,
+                    y: 3,
+                    connectable_kind: connectable::category_id::ROAD,
+                    under_construction: false,
+                },
+            ],
+            vec![ffi::ConnectableNetworkEdge {
+                from_object_id: 11,
+                to_object_id: 12,
+                from_direction: connectable::direction_id::EAST,
+                to_direction: connectable::direction_id::WEST,
+            }],
+        );
+
+        assert_eq!(analysis.component_count, 1);
+        assert_eq!(analysis.component_ids, vec![0, 0]);
+        assert!(analysis.isolated_object_ids.is_empty());
+        assert!(analysis.invalid_edge_indices.is_empty());
     }
 
     #[test]

@@ -4,8 +4,6 @@
 //! Rust-side destination for connection rules while C++ continues to apply
 //! decisions to `Object*`, `Tile`, and addon instances.
 
-#![allow(dead_code)] // Activated through the C++/Rust boundary in a later phase.
-
 pub(crate) mod type_id {
     pub const DISABLED: i32 = 0;
     pub const NORMAL: i32 = 1;

@@ -950,9 +950,6 @@
     <ClInclude Include="..\..\..\src\CityMap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ConnectableBehavior.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\ConnectableObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

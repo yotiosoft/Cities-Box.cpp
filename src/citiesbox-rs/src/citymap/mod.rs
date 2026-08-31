@@ -280,6 +280,9 @@ pub(crate) mod ffi {
             current_direction: i32,
             removed_direction: i32,
         ) -> ConnectableRemovalDecision;
+        fn connectable_categories_can_connect(left: &[i32], right: &[i32]) -> bool;
+        fn connectable_categories_match(left: &[i32], right: &[i32], hint: i32) -> bool;
+        fn connectable_crossing_type(first: i32, second: i32) -> i32;
 
         // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
         fn load_city_map(&mut self, path: String) -> LoadCityResult;
@@ -408,6 +411,18 @@ fn plan_connectable_removal(
     }
 }
 
+fn connectable_categories_can_connect(left: &[i32], right: &[i32]) -> bool {
+    connectable::categories_can_connect(left, right)
+}
+
+fn connectable_categories_match(left: &[i32], right: &[i32], hint: i32) -> bool {
+    connectable::categories_match(left, right, hint)
+}
+
+fn connectable_crossing_type(first: i32, second: i32) -> i32 {
+    connectable::crossing_type(first, second)
+}
+
 pub struct RustCityMap {
     // OpenSiv3Dに依存しない都市状態。simulation.rs はこの値だけを更新し、
     // 保存用のタイル・オブジェクト写像を参照しない。
@@ -495,6 +510,28 @@ mod tests {
         assert_eq!(removal.updated_direction, connectable::direction_id::NORTH);
         assert_eq!(removal.updated_type, connectable::type_id::DEAD_END);
         assert!(!removal.isolated);
+
+        let road = [
+            connectable::category_id::CONNECTABLE,
+            connectable::category_id::ROAD,
+        ];
+        let other_road = [
+            connectable::category_id::CONNECTABLE,
+            connectable::category_id::ROAD,
+        ];
+        assert!(connectable_categories_can_connect(&road, &other_road));
+        assert!(connectable_categories_match(
+            &road,
+            &other_road,
+            connectable::category_id::CONNECTABLE
+        ));
+        assert_eq!(
+            connectable_crossing_type(
+                connectable::category_id::ROAD,
+                connectable::category_id::RAILROAD
+            ),
+            connectable::type_id::TRAIN_CROSSING
+        );
     }
 
     #[test]

@@ -6,7 +6,6 @@
 //
 
 #include "CityMap.hpp"
-#include "ConnectableBehavior.hpp"
 
 bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	cout << "into build connect type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
@@ -193,7 +192,7 @@ bool CityMap::m_put_train_crossing(CBAddon* addon, CoordinateStruct coordinate, 
         Object *other_type_connectable_object;
         // 道路＆線路 -> 踏切
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Road, CategoryID::Railroad);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Road, CategoryID::Railroad));
             other_type_connectable_object->setVisible(false);
             return true;
         }
@@ -202,7 +201,7 @@ bool CityMap::m_put_train_crossing(CBAddon* addon, CoordinateStruct coordinate, 
         Object *other_type_connectable_object;
         // 線路＆道路 -> 踏切
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Railroad, CategoryID::Road);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Railroad, CategoryID::Road));
             other_type_connectable_object->setVisible(false);
             return true;
         }
@@ -219,7 +218,7 @@ bool CityMap::m_put_bridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::
         Object *other_type_connectable_object;
         // 道路＆水路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Road, CategoryID::Waterway);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Road, CategoryID::Waterway));
             
             return true;
         }
@@ -228,7 +227,7 @@ bool CityMap::m_put_bridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::
         Object *other_type_connectable_object;
         // 線路＆水路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Waterway)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Railroad, CategoryID::Waterway);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Railroad, CategoryID::Waterway));
             
             return true;
         }
@@ -237,13 +236,13 @@ bool CityMap::m_put_bridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::
         Object *other_type_connectable_object;
         // 水路＆道路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Road)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Waterway, CategoryID::Road);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Waterway, CategoryID::Road));
             
             return true;
         }
         // 水路＆線路 -> 橋
         if ((other_type_connectable_object = m_tiles[coordinate.y][coordinate.x].hasCategory(CategoryID::Railroad)) != nullptr) {
-            type = ConnectableBehavior::crossingType(CategoryID::Waterway, CategoryID::Railroad);
+            type = static_cast<TypeID::Type>(rust::citymap::connectable_crossing_type(CategoryID::Waterway, CategoryID::Railroad));
             
             return true;
         }

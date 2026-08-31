@@ -1359,6 +1359,12 @@ private:
 ::rust::citymap::ConnectableConnectionDecision plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest request) noexcept;
 
 ::rust::citymap::ConnectableRemovalDecision plan_connectable_removal(::std::int32_t current_direction, ::std::int32_t removed_direction) noexcept;
+
+bool connectable_categories_can_connect(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right) noexcept;
+
+bool connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right, ::std::int32_t hint) noexcept;
+
+::std::int32_t connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept;
 } // namespace citymap
 } // namespace rust
 

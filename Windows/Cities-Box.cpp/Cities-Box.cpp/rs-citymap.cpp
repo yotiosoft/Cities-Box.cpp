@@ -1393,6 +1393,12 @@ void rust$citymap$cxxbridge1$192$plan_connectable_connection(::rust::citymap::Co
 
 void rust$citymap$cxxbridge1$192$plan_connectable_removal(::std::int32_t current_direction, ::std::int32_t removed_direction, ::rust::citymap::ConnectableRemovalDecision *return$) noexcept;
 
+bool rust$citymap$cxxbridge1$192$connectable_categories_can_connect(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right) noexcept;
+
+bool rust$citymap$cxxbridge1$192$connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right, ::std::int32_t hint) noexcept;
+
+::std::int32_t rust$citymap$cxxbridge1$192$connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept;
+
 void rust$citymap$cxxbridge1$192$RustCityMap$load_city_map(::rust::citymap::RustCityMap &self, ::rust::String *path, ::rust::citymap::LoadCityResult *return$) noexcept;
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$commit_loaded_city_map(::rust::citymap::RustCityMap &self) noexcept;
@@ -1455,6 +1461,18 @@ bool rust$citymap$cxxbridge1$192$RustCityMap$save_to_file(::rust::citymap::RustC
   ::rust::MaybeUninit<::rust::citymap::ConnectableRemovalDecision> return$;
   rust$citymap$cxxbridge1$192$plan_connectable_removal(current_direction, removed_direction, &return$.value);
   return ::std::move(return$.value);
+}
+
+bool connectable_categories_can_connect(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right) noexcept {
+  return rust$citymap$cxxbridge1$192$connectable_categories_can_connect(left, right);
+}
+
+bool connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::rust::Slice<::std::int32_t const> right, ::std::int32_t hint) noexcept {
+  return rust$citymap$cxxbridge1$192$connectable_categories_match(left, right, hint);
+}
+
+::std::int32_t connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept {
+  return rust$citymap$cxxbridge1$192$connectable_crossing_type(first, second);
 }
 
 ::rust::citymap::LoadCityResult RustCityMap::load_city_map(::rust::String path) noexcept {

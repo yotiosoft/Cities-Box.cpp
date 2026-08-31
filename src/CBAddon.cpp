@@ -6,7 +6,18 @@
 //
 
 #include "CBAddon.hpp"
-#include "ConnectableBehavior.hpp"
+#include <rs-citymap.h>
+
+namespace {
+	std::vector<std::int32_t> categoryValues(const Array<CategoryID::Type>& categories) {
+		std::vector<std::int32_t> values;
+		values.reserve(categories.size());
+		for (const auto category : categories) {
+			values.push_back(static_cast<std::int32_t>(category));
+		}
+		return values;
+	}
+}
 
 CBAddon::CBAddon() {
 }
@@ -308,7 +319,13 @@ bool CBAddon::isMatch(CBAddon* target_addon, CategoryID::Type hint) {
 		return true;
 	}
 
-	return ConnectableBehavior::categoriesMatch(m_addon_categories, target_addon->m_addon_categories, hint);
+	const auto own_categories = categoryValues(m_addon_categories);
+	const auto target_categories = categoryValues(target_addon->m_addon_categories);
+	return rust::citymap::connectable_categories_match(
+		rust::Slice<const std::int32_t>(own_categories.data(), own_categories.size()),
+		rust::Slice<const std::int32_t>(target_categories.data(), target_categories.size()),
+		static_cast<std::int32_t>(hint)
+	);
 }
 
 bool CBAddon::canConnect(CBAddon* target_addon) {
@@ -316,7 +333,12 @@ bool CBAddon::canConnect(CBAddon* target_addon) {
 		return false;
 	}
 
-	return ConnectableBehavior::categoriesCanConnect(m_addon_categories, target_addon->m_addon_categories);
+	const auto own_categories = categoryValues(m_addon_categories);
+	const auto target_categories = categoryValues(target_addon->m_addon_categories);
+	return rust::citymap::connectable_categories_can_connect(
+		rust::Slice<const std::int32_t>(own_categories.data(), own_categories.size()),
+		rust::Slice<const std::int32_t>(target_categories.data(), target_categories.size())
+	);
 }
 
 map<RateID::Type, EffectStruct> CBAddon::getEffects() {

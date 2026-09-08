@@ -42,6 +42,9 @@ public:
 	// ObjectID
 	void setObjectID(int arg_object_id);
 	int getObjectID();
+
+	// 接続先を値型のObjectIDと方向として取得
+	Array<ConnectableEdgeValue> getConnectableEdges();
 	
 	// 引数の座標上にこのオブジェクトが存在するか？
 	bool isOn(CoordinateStruct arg_coordinate);

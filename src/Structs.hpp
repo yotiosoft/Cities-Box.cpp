@@ -140,4 +140,10 @@ typedef struct ConnectStruct {
 	Array<pair<DirectionID::Type, Object*>> roadTypeConnect;
 } ConnectStruct;
 
+// Rust境界へ渡す前にポインタを除去した接続情報
+typedef struct ConnectableEdgeValue {
+	int to_object_id;
+	DirectionID::Type direction;
+} ConnectableEdgeValue;
+
 #endif /* Structs_hpp */

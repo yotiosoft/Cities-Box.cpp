@@ -95,6 +95,24 @@ int Object::getObjectID() {
 	return m_object_id;
 }
 
+Array<ConnectableEdgeValue> Object::getConnectableEdges() {
+	Array<ConnectableEdgeValue> edges;
+	for (const auto& row : m_connects) {
+		for (const auto& connect : row) {
+			for (const auto& road_type_connect : connect.roadTypeConnect) {
+				if (road_type_connect.second == nullptr || road_type_connect.second->isDeleted()) {
+					continue;
+				}
+				edges << ConnectableEdgeValue{
+					road_type_connect.second->getObjectID(),
+					road_type_connect.first
+				};
+			}
+		}
+	}
+	return edges;
+}
+
 // 引数の座標上にこのオブジェクトが存在するか？
 bool Object::isOn(CoordinateStruct arg_coordinate) {
 	int width  = arg_coordinate.x - m_start_coordinate.x;

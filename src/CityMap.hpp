@@ -156,7 +156,8 @@ private:
     map<String, Object*> m_common_objects;
 	int m_max_object_id = 0;
 	
-    Array<Object*> m_constructing_connectable_objects;
+    // 建設中状態は所有ポインタではなくObjectIDで追跡する
+    Array<int> m_constructing_connectable_objects;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

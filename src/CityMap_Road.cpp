@@ -47,7 +47,7 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
         
         // 工事中の状態に指定
-        m_constructing_connectable_objects << m_objects[objectID];
+        m_constructing_connectable_objects << objectID;
 
 		// 建設するタイル上の既存のオブジェクトを削除
         for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
@@ -178,8 +178,8 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             }
             
             // 工事中状態を撤回
-            m_constructing_connectable_objects.remove(m_objects[object_id]);
-            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p);
+            m_constructing_connectable_objects.remove(object_id);
+            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p->getObjectID());
 		}
 	}
 }
@@ -289,8 +289,52 @@ DirectionID::Type CityMap::m_set_road_direction(CoordinateStruct coordinate, CBA
 
 // 道路建設メニューを閉じたとき、どのタイルとも接続されていない道路(線路)は除去
 void CityMap::breakUnconnectedRoads() {
-    for (auto obj : m_constructing_connectable_objects) {
-        breaking(obj->getOriginCoordinate(), false, true, true);
+    rust::Vec<rust::citymap::ConnectableNetworkNode> nodes;
+    rust::Vec<rust::citymap::ConnectableNetworkEdge> edges;
+
+    for (const auto& [object_id, object] : m_objects) {
+        if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr
+            || !object->getAddonP()->isInCategories(CategoryID::Connectable)) {
+            continue;
+        }
+
+        const auto coordinate = object->getOriginCoordinate();
+        rust::citymap::ConnectableNetworkNode node;
+        node.object_id = object_id;
+        node.x = coordinate.x;
+        node.y = coordinate.y;
+        node.connectable_kind = static_cast<int>(m_get_connectable_CategoryID(object->getAddonP()));
+        node.under_construction = m_constructing_connectable_objects.contains(object_id);
+        nodes.push_back(std::move(node));
+
+        for (const auto& connection : object->getConnectableEdges()) {
+            rust::citymap::ConnectableNetworkEdge edge;
+            edge.from_object_id = object_id;
+            edge.to_object_id = connection.to_object_id;
+            edge.from_direction = static_cast<int>(connection.direction);
+            edge.to_direction = static_cast<int>(DirectionID::Disabled);
+            const auto target_it = m_objects.find(connection.to_object_id);
+            if (target_it != m_objects.end() && target_it->second != nullptr) {
+                for (const auto& reverse_connection : target_it->second->getConnectableEdges()) {
+                    if (reverse_connection.to_object_id == object_id) {
+                        edge.to_direction = static_cast<int>(reverse_connection.direction);
+                        break;
+                    }
+                }
+            }
+            edges.push_back(std::move(edge));
+        }
+    }
+
+    const auto analysis = rust::citymap::analyze_connectable_network(
+        std::move(nodes),
+        std::move(edges)
+    );
+    for (const auto object_id : analysis.unfinished_isolated_object_ids) {
+        const auto object_it = m_objects.find(object_id);
+        if (object_it != m_objects.end() && object_it->second != nullptr) {
+            breaking(object_it->second->getOriginCoordinate(), false, true, true);
+        }
     }
     
     // リストをクリア

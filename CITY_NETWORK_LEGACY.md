@@ -50,3 +50,15 @@ Do not reproduce the removed polygon placeholder as-is. Start from value types w
 The C++ boundary should exchange DTO snapshots and mutation results. It must not pass `Object*`, `Tile*`, `CBAddon*`, `Polygon`, `NavMesh`, or other OpenSiv3D types to Rust.
 
 Before making Rust graph state authoritative, preserve save compatibility and define how connections are reconstructed from the currently serialized object/tile data. Existing saves contain object IDs, TypeID, DirectionID, origins, and tile references, but no explicit edge list.
+
+## Current migration status
+
+Rust now provides a value-only network analysis API using object IDs, coordinates,
+connectable kinds, construction flags, and endpoint directions. When the connectable
+build menu closes, C++ converts its live object connections into this snapshot and
+uses Rust's unfinished-isolation result to select objects for removal.
+
+C++ still owns `Object`, `Tile`, and the live pointer-based connection lists. Edges
+are still reconstructed at the boundary and are not serialized, so existing save
+files remain unchanged. Making the Rust graph authoritative remains a separate
+future phase.

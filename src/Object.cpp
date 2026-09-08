@@ -7,6 +7,8 @@
 
 #include "Object.hpp"
 
+Array<int> remove_objects_list;
+
 Object::Object() {
 }
 

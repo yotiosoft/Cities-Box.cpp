@@ -62,6 +62,7 @@ public:
 	
 	// 特定のオブジェクトを削除
 	bool deleteObject(int arg_object_id);
+	bool deleteObject(Object* arg_object_p);
 	
 	// クリア
 	void clearAddons();				// addons, tiles, directionsだけをクリア（更新用）

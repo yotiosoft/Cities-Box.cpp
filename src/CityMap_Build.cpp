@@ -144,16 +144,12 @@ void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct 
             //for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
                 //for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
                     // オブジェクトの削除
-                    int erasing_object_id = object_struct.object_p->getObjectID();
-                    m_tiles[coordinate.y][coordinate.x].deleteObject(erasing_object_id);
-                    m_objects.erase(erasing_object_id);
+                    m_tiles[coordinate.y][coordinate.x].deleteObject(object_struct.object_p);
                     
                     // 草地タイルの設置
                     m_put_grass(coordinate);
                 //}
             //}
-            delete(object_struct.object_p);
-            
             continue;
         }
         
@@ -164,13 +160,22 @@ void CityMap::m_break_only_category(CategoryID::Type category, CoordinateStruct 
     }
 }
 void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis) {
+    Object* object = object_struct.object_p;
+    if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr) {
+        if (object != nullptr) {
+            m_tiles[coordinate.y][coordinate.x].deleteObject(object);
+        }
+        return;
+    }
+
     // 効果を削除
-    m_set_rate(object_struct.object_p, object_struct.relative_coordinate.origin, true);
+    m_set_rate(object, object_struct.relative_coordinate.origin, true);
 
-    int delete_object_id = object_struct.object_p->getObjectID();
     Array<CoordinateStruct> need_to_del_list;
+    Array<CategoryID::Type> category_ids = object->getAddonP()->getCategories();
+    const bool is_common_object = object->isCommonObject();
 
-    Size delete_object_required_tiles = object_struct.object_p->getAddonDirectionStruct().requiredTiles;
+    Size delete_object_required_tiles = object->getAddonDirectionStruct().requiredTiles;
     for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {
         for (int x = object_struct.relative_coordinate.origin.x; x < object_struct.relative_coordinate.origin.x + delete_object_required_tiles.x; x++) {
             // クリア処理
@@ -182,7 +187,7 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
 
 			// オブジェクトをタイルから削除
             Console << U"call deleteObject: " << x << U", " << y;
-            m_tiles[y][x].deleteObject(delete_object_id);
+            m_tiles[y][x].deleteObject(object);
 
             // 更地になったら芝生を置く
             // 要修正 : 共通の動作は一つの関数にまとめること
@@ -193,15 +198,21 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
             }
         }
     }
-    // クリア処理
-    // オブジェクト自体をm_objectsから除去
-    Array<CategoryID::Type> category_ids = object_struct.object_p->getAddonP()->getCategories();
-	if (deleteThis && !object_struct.object_p->isCommonObject()) {
-		delete(object_struct.object_p);
 
-		UnitaryTools::debugLog(U"before erase");
-		m_objects.erase(delete_object_id);
-		UnitaryTools::debugLog(U"after erase");
+    // 非共通オブジェクトは、形状変更後のサイズに依存せず全タイルから参照を外す。
+    // 実体は参照除去後、CityMap::draw() の末尾で一度だけ解放する。
+    if (!is_common_object) {
+        for (int y = 0; y < m_map_size.y; ++y) {
+            for (int x = 0; x < m_map_size.x; ++x) {
+                while (m_tiles[y][x].deleteObject(object)) {
+                }
+            }
+        }
+    }
+
+    // クリア処理
+	if (deleteThis && !is_common_object && !object->isDeleted()) {
+		object->setDeleted();
 	}
     
     // 必要に応じて周囲タイルも削除（周囲タイルにも影響する場合）

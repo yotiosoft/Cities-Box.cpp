@@ -214,6 +214,16 @@ bool Tile::deleteObject(int arg_object_id) {
 	return false;
 }
 
+bool Tile::deleteObject(Object* arg_object_p) {
+	for (auto it = m_objects.begin(); it != m_objects.end(); ++it) {
+		if (it->object_p == arg_object_p) {
+			m_objects.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
 // クリア
 void Tile::clearAddons() {
 	addons.clear();

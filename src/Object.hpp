@@ -11,7 +11,7 @@
 #include <Specific.hpp>
 #include "CBAddon.hpp"
 
-static Array<int> remove_objects_list;
+extern Array<int> remove_objects_list;
 
 class Object {
 public:

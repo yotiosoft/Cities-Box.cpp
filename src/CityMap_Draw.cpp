@@ -40,6 +40,7 @@ void CityMap::draw(CameraStruct camera, CursorStruct& cursor, bool window_size_c
 			m_objects.erase(removing_object_id);
 		}
 	}
+	remove_objects_list.clear();
 }
 
 PositionStruct CityMap::coordinateToPosition(CoordinateStruct coordinate, CameraStruct camera) {

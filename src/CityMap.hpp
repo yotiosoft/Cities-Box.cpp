@@ -110,6 +110,7 @@ private:
     
     // 道路を接続
     void m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id);
+    void m_register_connectable_object(Object* object, bool under_construction);
     
     // 効果の指定
     void m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);
@@ -155,9 +156,6 @@ private:
 	map<int, Object*> m_objects;
     map<String, Object*> m_common_objects;
 	int m_max_object_id = 0;
-	
-    // 建設中状態は所有ポインタではなくObjectIDで追跡する
-    Array<int> m_constructing_connectable_objects;
 	
 	CameraStruct m_camera_before;
 	pair<CoordinateStruct, CoordinateStruct> m_range;

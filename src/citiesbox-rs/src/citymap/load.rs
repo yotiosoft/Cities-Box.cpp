@@ -774,6 +774,8 @@ impl RustCityMap {
     }
 
     fn apply_loaded_data(&mut self, data: SaveDataJson) {
+        // 接続辺は現行セーブ形式に存在しないため、別の都市の実行時状態を持ち越さない。
+        self.connectable_network = super::network::ConnectableNetwork::default();
         self.version = data.version;
         self.addon_set_name = data.addon_set;
         self.city_name = data.city_name;

@@ -72,3 +72,5 @@ src/citiesbox-rs/target/
 # Map files
 *.bak
 Windows/Cities-Box.cpp/Cities-Box.cpp/App/data/maps/*
+
+Windows/Cities-Box.cpp/Cities-Box.cpp/App/*.log

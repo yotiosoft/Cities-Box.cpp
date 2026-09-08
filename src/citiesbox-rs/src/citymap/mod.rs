@@ -312,6 +312,10 @@ pub(crate) mod ffi {
             nodes: Vec<ConnectableNetworkNode>,
             edges: Vec<ConnectableNetworkEdge>,
         ) -> ConnectableNetworkAnalysis;
+        fn upsert_connectable_node(&mut self, node: ConnectableNetworkNode);
+        fn connect_connectable_nodes(&mut self, edge: ConnectableNetworkEdge) -> bool;
+        fn remove_connectable_node(&mut self, object_id: i32) -> bool;
+        fn take_unfinished_isolated_connectable_ids(&mut self) -> Vec<i32>;
 
         // セーブデータを一括で読み込み、C++側の構築成功後にRust状態へ反映する
         fn load_city_map(&mut self, path: String) -> LoadCityResult;
@@ -483,6 +487,9 @@ pub struct RustCityMap {
     pub tiles: Vec<Vec<RustTile>>,
 
     pending_load: Option<SaveDataJson>,
+
+    // 保存形式とは独立した、実行中の接続ネットワーク状態
+    connectable_network: network::ConnectableNetwork,
 }
 
 fn new_city_map() -> Box<RustCityMap> {
@@ -505,7 +512,27 @@ fn new_city_map() -> Box<RustCityMap> {
         objects: HashMap::new(),
         tiles: Vec::new(),
         pending_load: None,
+        connectable_network: network::ConnectableNetwork::default(),
     })
+}
+
+impl RustCityMap {
+    fn upsert_connectable_node(&mut self, node: ffi::ConnectableNetworkNode) {
+        self.connectable_network.upsert_node(node);
+    }
+
+    fn connect_connectable_nodes(&mut self, edge: ffi::ConnectableNetworkEdge) -> bool {
+        self.connectable_network.connect(edge)
+    }
+
+    fn remove_connectable_node(&mut self, object_id: i32) -> bool {
+        self.connectable_network.remove_node(object_id)
+    }
+
+    fn take_unfinished_isolated_connectable_ids(&mut self) -> Vec<i32> {
+        self.connectable_network
+            .take_unfinished_isolated_object_ids()
+    }
 }
 
 #[cfg(test)]

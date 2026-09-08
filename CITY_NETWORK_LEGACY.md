@@ -53,12 +53,14 @@ Before making Rust graph state authoritative, preserve save compatibility and de
 
 ## Current migration status
 
-Rust now provides a value-only network analysis API using object IDs, coordinates,
-connectable kinds, construction flags, and endpoint directions. When the connectable
-build menu closes, C++ converts its live object connections into this snapshot and
-uses Rust's unfinished-isolation result to select objects for removal.
+Rust now owns the runtime construction lifecycle for newly placed connectables using
+object IDs, coordinates, connectable kinds, construction flags, and endpoint
+directions. C++ sends node, connection, and removal mutations as value DTOs. When
+the connectable build menu closes, Rust returns unfinished isolated object IDs for
+C++ to remove.
 
-C++ still owns `Object`, `Tile`, and the live pointer-based connection lists. Edges
-are still reconstructed at the boundary and are not serialized, so existing save
-files remain unchanged. Making the Rust graph authoritative remains a separate
-future phase.
+C++ still owns `Object`, `Tile`, and the live pointer-based connection lists used for
+shape updates. Network edges are not serialized, so existing save files remain
+unchanged and runtime network state is cleared when a city is loaded. Reconstructing
+the complete graph for loaded cities and replacing the C++ connection lists remain
+separate future phases.

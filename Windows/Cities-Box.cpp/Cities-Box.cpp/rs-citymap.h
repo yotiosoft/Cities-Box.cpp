@@ -1366,6 +1366,10 @@ struct LoadCityResult final {
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
+  void upsert_connectable_node(::rust::citymap::ConnectableNetworkNode node) noexcept;
+  bool connect_connectable_nodes(::rust::citymap::ConnectableNetworkEdge edge) noexcept;
+  bool remove_connectable_node(::std::int32_t object_id) noexcept;
+  ::rust::Vec<::std::int32_t> take_unfinished_isolated_connectable_ids() noexcept;
   ::rust::citymap::LoadCityResult load_city_map(::rust::String path) noexcept;
   bool commit_loaded_city_map() noexcept;
   void clear_objects() noexcept;

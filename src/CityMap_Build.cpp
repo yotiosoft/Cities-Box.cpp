@@ -174,6 +174,9 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
     Array<CoordinateStruct> need_to_del_list;
     Array<CategoryID::Type> category_ids = object->getAddonP()->getCategories();
     const bool is_common_object = object->isCommonObject();
+	if (deleteThis && category_ids.contains(CategoryID::Connectable)) {
+		m_rust_core->remove_connectable_node(object->getObjectID());
+	}
 
     Size delete_object_required_tiles = object->getAddonDirectionStruct().requiredTiles;
     for (int y = object_struct.relative_coordinate.origin.y; y < object_struct.relative_coordinate.origin.y + delete_object_required_tiles.y; y++) {

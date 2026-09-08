@@ -150,5 +150,4 @@ void CityMap::freeMapAndAddons() {
 	m_objects.clear();
 	m_common_objects.clear();
 	m_addons.clear();
-	m_constructing_connectable_objects.clear();
 }

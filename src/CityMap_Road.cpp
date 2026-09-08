@@ -46,9 +46,6 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
         cout << "oc:" << origin_coordinate.x << "," << origin_coordinate.y << endl;
 		m_objects[objectID] = new ConnectableObject(objectID, selectedAddon, U"", type, direction, origin_coordinate);
         
-        // 工事中の状態に指定
-        m_constructing_connectable_objects << objectID;
-
 		// 建設するタイル上の既存のオブジェクトを削除
         for (int y = origin_coordinate.y; y < origin_coordinate.y + useTiles.y; y++) {
             for (int x = origin_coordinate.x; x < origin_coordinate.x + useTiles.x; x++) {
@@ -90,6 +87,9 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 			}
 		}
 		
+		// 建設中ノードをRustの接続ネットワークへ登録
+		m_register_connectable_object(m_objects[objectID], true);
+
 		// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
 		if (before_cursor.pressed && cursor.coordinate != before_cursor.coordinate) {
 			m_connect_objects(before_cursor.coordinate, cursor.coordinate, objectID);
@@ -142,10 +142,12 @@ bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_
 void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id) {
 	for (auto from_coordinate_object_struct : m_tiles[from.y][from.x].getObjectStructs()) {
 		if (from_coordinate_object_struct.object_p->getAddonP()->canConnect(m_objects[object_id]->getAddonP())) {
+            Object* from_object = from_coordinate_object_struct.object_p;
+            Object* to_object = m_objects[object_id];
             // 現在のマスに接続設定
             cout << "m_connect_objects: from " << from.x << "," << from.y << " to " << to.x << "," << to.y << endl;
             cout << "from_coordinate_object_struct: " << from_coordinate_object_struct.relative_coordinate.origin.x << "," << from_coordinate_object_struct.relative_coordinate.origin.y << endl;
-            from_coordinate_object_struct.object_p->connect(
+            from_object->connect(
                 CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
                 m_objects[object_id],                // 相手先から自分自身への接続を指定
                 true
@@ -163,7 +165,7 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             if (other_crossable_object) {
                 m_objects[object_id]->connectWithSpecifiedType(
                     CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
-                    from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
+                    from_object, // 自分自身から相手先への接続を指定
                     type,
                     false
                 );
@@ -172,16 +174,52 @@ void CityMap::m_connect_objects(CoordinateStruct from, CoordinateStruct to, int 
             else {
                 m_objects[object_id]->connect(
                     CoordinateStruct{ 0, 0 },            // 現状、1x1 の道路にしか対応していないため、ここは 0, 0 で固定
-                    from_coordinate_object_struct.object_p, // 自分自身から相手先への接続を指定
+                    from_object, // 自分自身から相手先への接続を指定
                     false
                 );
             }
             
-            // 工事中状態を撤回
-            m_constructing_connectable_objects.remove(object_id);
-            m_constructing_connectable_objects.remove(from_coordinate_object_struct.object_p->getObjectID());
+            if (!from_object->isDeleted() && !to_object->isDeleted()) {
+                m_register_connectable_object(from_object, false);
+                m_register_connectable_object(to_object, false);
+
+                rust::citymap::ConnectableNetworkEdge edge;
+                edge.from_object_id = from_object->getObjectID();
+                edge.to_object_id = to_object->getObjectID();
+                edge.from_direction = static_cast<int>(DirectionID::Disabled);
+                edge.to_direction = static_cast<int>(DirectionID::Disabled);
+                for (const auto& connection : from_object->getConnectableEdges()) {
+                    if (connection.to_object_id == edge.to_object_id) {
+                        edge.from_direction = static_cast<int>(connection.direction);
+                        break;
+                    }
+                }
+                for (const auto& connection : to_object->getConnectableEdges()) {
+                    if (connection.to_object_id == edge.from_object_id) {
+                        edge.to_direction = static_cast<int>(connection.direction);
+                        break;
+                    }
+                }
+                m_rust_core->connect_connectable_nodes(std::move(edge));
+            }
 		}
 	}
+}
+
+void CityMap::m_register_connectable_object(Object* object, bool under_construction) {
+    if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr
+        || !object->getAddonP()->isInCategories(CategoryID::Connectable)) {
+        return;
+    }
+
+    const auto coordinate = object->getOriginCoordinate();
+    rust::citymap::ConnectableNetworkNode node;
+    node.object_id = object->getObjectID();
+    node.x = coordinate.x;
+    node.y = coordinate.y;
+    node.connectable_kind = static_cast<int>(m_get_connectable_CategoryID(object->getAddonP()));
+    node.under_construction = under_construction;
+    m_rust_core->upsert_connectable_node(std::move(node));
 }
 
 // 踏切を設置（道路と線路が交差していれば）
@@ -289,56 +327,14 @@ DirectionID::Type CityMap::m_set_road_direction(CoordinateStruct coordinate, CBA
 
 // 道路建設メニューを閉じたとき、どのタイルとも接続されていない道路(線路)は除去
 void CityMap::breakUnconnectedRoads() {
-    rust::Vec<rust::citymap::ConnectableNetworkNode> nodes;
-    rust::Vec<rust::citymap::ConnectableNetworkEdge> edges;
-
-    for (const auto& [object_id, object] : m_objects) {
-        if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr
-            || !object->getAddonP()->isInCategories(CategoryID::Connectable)) {
-            continue;
-        }
-
-        const auto coordinate = object->getOriginCoordinate();
-        rust::citymap::ConnectableNetworkNode node;
-        node.object_id = object_id;
-        node.x = coordinate.x;
-        node.y = coordinate.y;
-        node.connectable_kind = static_cast<int>(m_get_connectable_CategoryID(object->getAddonP()));
-        node.under_construction = m_constructing_connectable_objects.contains(object_id);
-        nodes.push_back(std::move(node));
-
-        for (const auto& connection : object->getConnectableEdges()) {
-            rust::citymap::ConnectableNetworkEdge edge;
-            edge.from_object_id = object_id;
-            edge.to_object_id = connection.to_object_id;
-            edge.from_direction = static_cast<int>(connection.direction);
-            edge.to_direction = static_cast<int>(DirectionID::Disabled);
-            const auto target_it = m_objects.find(connection.to_object_id);
-            if (target_it != m_objects.end() && target_it->second != nullptr) {
-                for (const auto& reverse_connection : target_it->second->getConnectableEdges()) {
-                    if (reverse_connection.to_object_id == object_id) {
-                        edge.to_direction = static_cast<int>(reverse_connection.direction);
-                        break;
-                    }
-                }
-            }
-            edges.push_back(std::move(edge));
-        }
-    }
-
-    const auto analysis = rust::citymap::analyze_connectable_network(
-        std::move(nodes),
-        std::move(edges)
-    );
-    for (const auto object_id : analysis.unfinished_isolated_object_ids) {
+    const auto unfinished_object_ids = m_rust_core->take_unfinished_isolated_connectable_ids();
+    for (const auto object_id : unfinished_object_ids) {
         const auto object_it = m_objects.find(object_id);
         if (object_it != m_objects.end() && object_it->second != nullptr) {
             breaking(object_it->second->getOriginCoordinate(), false, true, true);
         }
     }
     
-    // リストをクリア
-    m_constructing_connectable_objects.clear();
 }
 
 // 交差可能なオブジェクトが存在するか否か

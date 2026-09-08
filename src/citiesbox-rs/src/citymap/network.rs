@@ -8,11 +8,13 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use super::ffi::{ConnectableNetworkAnalysis, ConnectableNetworkEdge, ConnectableNetworkNode};
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 struct NetworkNode {
     x: i32,
     y: i32,
     connectable_kind: i32,
+    direction_id: i32,
+    category_ids: Vec<i32>,
     under_construction: bool,
 }
 
@@ -41,6 +43,8 @@ impl ConnectableNetwork {
                 x: node.x,
                 y: node.y,
                 connectable_kind: node.connectable_kind,
+                direction_id: node.direction_id,
+                category_ids: node.category_ids,
                 under_construction,
             },
         );
@@ -99,6 +103,8 @@ impl ConnectableNetwork {
                 x: node.x,
                 y: node.y,
                 connectable_kind: node.connectable_kind,
+                direction_id: node.direction_id,
+                category_ids: node.category_ids.clone(),
                 under_construction: node.under_construction,
             })
             .collect();
@@ -119,6 +125,81 @@ impl ConnectableNetwork {
         unfinished
     }
 
+    pub(crate) fn rebuild(
+        &mut self,
+        nodes: Vec<ConnectableNetworkNode>,
+    ) -> ConnectableNetworkAnalysis {
+        self.nodes.clear();
+        self.edges.clear();
+        for node in nodes {
+            self.upsert_node(node);
+        }
+
+        let mut positions = BTreeMap::<(i32, i32), Vec<i32>>::new();
+        for (id, node) in &self.nodes {
+            positions.entry((node.x, node.y)).or_default().push(*id);
+        }
+        let object_ids = self.nodes.keys().copied().collect::<Vec<_>>();
+        for from_id in object_ids {
+            let Some(from) = self.nodes.get(&from_id).cloned() else {
+                continue;
+            };
+            for from_direction in atomic_directions(from.direction_id) {
+                let (dx, dy, to_direction) = direction_step(from_direction);
+                let Some(to_ids) = positions.get(&(from.x + dx, from.y + dy)) else {
+                    continue;
+                };
+                for &to_id in to_ids {
+                    let Some(to) = self.nodes.get(&to_id) else {
+                        continue;
+                    };
+                    if atomic_directions(to.direction_id).contains(&to_direction)
+                        && super::connectable::categories_can_connect(
+                            &from.category_ids,
+                            &to.category_ids,
+                        )
+                    {
+                        self.connect(ConnectableNetworkEdge {
+                            from_object_id: from_id,
+                            to_object_id: to_id,
+                            from_direction,
+                            to_direction,
+                        });
+                    }
+                }
+            }
+        }
+
+        self.analysis()
+    }
+
+    fn analysis(&self) -> ConnectableNetworkAnalysis {
+        let nodes = self
+            .nodes
+            .iter()
+            .map(|(object_id, node)| ConnectableNetworkNode {
+                object_id: *object_id,
+                x: node.x,
+                y: node.y,
+                connectable_kind: node.connectable_kind,
+                direction_id: node.direction_id,
+                category_ids: node.category_ids.clone(),
+                under_construction: node.under_construction,
+            })
+            .collect();
+        let edges = self
+            .edges
+            .iter()
+            .map(|((from, to), edge)| ConnectableNetworkEdge {
+                from_object_id: *from,
+                to_object_id: *to,
+                from_direction: edge.from_direction,
+                to_direction: edge.to_direction,
+            })
+            .collect();
+        analyze(nodes, edges)
+    }
+
     #[cfg(test)]
     fn edge(&self, from: i32, to: i32) -> Option<(i32, i32)> {
         let edge = self.edges.get(&(from.min(to), from.max(to)))?;
@@ -133,6 +214,121 @@ impl ConnectableNetwork {
     fn node_values(&self, object_id: i32) -> Option<(i32, i32, i32)> {
         let node = self.nodes.get(&object_id)?;
         Some((node.x, node.y, node.connectable_kind))
+    }
+}
+
+fn atomic_directions(direction: i32) -> Vec<i32> {
+    use super::connectable::direction_id as d;
+
+    let all = [
+        d::NORTH,
+        d::NORTHEAST,
+        d::EAST,
+        d::SOUTHEAST,
+        d::SOUTH,
+        d::SOUTHWEST,
+        d::WEST,
+        d::NORTHWEST,
+    ];
+    match direction {
+        d::NONE | d::DISABLED => Vec::new(),
+        d::NORTH => vec![d::NORTH],
+        d::SOUTH => vec![d::SOUTH],
+        d::EAST => vec![d::EAST],
+        d::WEST => vec![d::WEST],
+        d::EAST_WEST => vec![d::EAST, d::WEST],
+        d::NORTH_SOUTH => vec![d::NORTH, d::SOUTH],
+        d::SOUTH_WEST => vec![d::SOUTH, d::WEST],
+        d::NORTH_WEST => vec![d::NORTH, d::WEST],
+        d::SOUTH_EAST => vec![d::SOUTH, d::EAST],
+        d::NORTH_EAST => vec![d::NORTH, d::EAST],
+        d::SOUTH_EAST_WEST => vec![d::SOUTH, d::EAST, d::WEST],
+        d::NORTH_EAST_WEST => vec![d::NORTH, d::EAST, d::WEST],
+        d::NORTH_SOUTH_WEST => vec![d::NORTH, d::SOUTH, d::WEST],
+        d::NORTH_SOUTH_EAST => vec![d::NORTH, d::SOUTH, d::EAST],
+        d::ALL => vec![d::NORTH, d::EAST, d::SOUTH, d::WEST],
+        d::NORTHEAST | d::NORTHWEST | d::SOUTHEAST | d::SOUTHWEST => vec![direction],
+        d::OFFSHORE => all.to_vec(),
+        d::WITHOUT_SOUTHWEST_NORTHWEST => all
+            .into_iter()
+            .filter(|value| ![d::SOUTHWEST, d::NORTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_NORTHEAST_NORTHWEST => all
+            .into_iter()
+            .filter(|value| ![d::NORTHEAST, d::NORTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_SOUTHEAST_SOUTHWEST => all
+            .into_iter()
+            .filter(|value| ![d::SOUTHEAST, d::SOUTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_NORTHEAST_SOUTHEAST => all
+            .into_iter()
+            .filter(|value| ![d::NORTHEAST, d::SOUTHEAST].contains(value))
+            .collect(),
+        d::WITHOUT_EAST => all
+            .into_iter()
+            .filter(|value| ![d::NORTHEAST, d::EAST, d::SOUTHEAST].contains(value))
+            .collect(),
+        d::WITHOUT_SOUTH => all
+            .into_iter()
+            .filter(|value| ![d::SOUTHEAST, d::SOUTH, d::SOUTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_NORTH => all
+            .into_iter()
+            .filter(|value| ![d::NORTH, d::NORTHEAST, d::NORTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_WEST => all
+            .into_iter()
+            .filter(|value| ![d::SOUTHWEST, d::WEST, d::NORTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_NORTH_WEST_NORTHWEST => all
+            .into_iter()
+            .filter(|value| ![d::NORTH, d::WEST, d::NORTHWEST].contains(value))
+            .collect(),
+        d::WITHOUT_NORTH_NORTHEAST_EAST => all
+            .into_iter()
+            .filter(|value| ![d::NORTH, d::NORTHEAST, d::EAST].contains(value))
+            .collect(),
+        d::WITHOUT_SOUTH_SOUTHWEST_WEST => all
+            .into_iter()
+            .filter(|value| ![d::SOUTH, d::SOUTHWEST, d::WEST].contains(value))
+            .collect(),
+        d::WITHOUT_EAST_SOUTHEAST_SOUTH => all
+            .into_iter()
+            .filter(|value| ![d::EAST, d::SOUTHEAST, d::SOUTH].contains(value))
+            .collect(),
+        d::WITHOUT_NORTHWEST => all
+            .into_iter()
+            .filter(|value| *value != d::NORTHWEST)
+            .collect(),
+        d::WITHOUT_NORTHEAST => all
+            .into_iter()
+            .filter(|value| *value != d::NORTHEAST)
+            .collect(),
+        d::WITHOUT_SOUTHWEST => all
+            .into_iter()
+            .filter(|value| *value != d::SOUTHWEST)
+            .collect(),
+        d::WITHOUT_SOUTHEAST => all
+            .into_iter()
+            .filter(|value| *value != d::SOUTHEAST)
+            .collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn direction_step(direction: i32) -> (i32, i32, i32) {
+    use super::connectable::direction_id as d;
+    match direction {
+        d::NORTH => (0, -1, d::SOUTH),
+        d::SOUTH => (0, 1, d::NORTH),
+        d::EAST => (1, 0, d::WEST),
+        d::WEST => (-1, 0, d::EAST),
+        d::NORTHEAST => (1, -1, d::SOUTHWEST),
+        d::NORTHWEST => (-1, -1, d::SOUTHEAST),
+        d::SOUTHEAST => (1, 1, d::NORTHWEST),
+        d::SOUTHWEST => (-1, 1, d::NORTHEAST),
+        _ => (0, 0, d::DISABLED),
     }
 }
 
@@ -224,6 +420,8 @@ mod tests {
             x: object_id,
             y: 0,
             connectable_kind: 2,
+            direction_id: super::super::connectable::direction_id::NONE,
+            category_ids: vec![1, 2],
             under_construction,
         }
     }
@@ -327,5 +525,64 @@ mod tests {
         assert!(network.remove_node(1));
         assert!(network.edge(1, 2).is_none());
         assert!(!network.remove_node(1));
+    }
+
+    #[test]
+    fn rebuilds_reciprocal_cardinal_connections() {
+        use super::super::connectable::direction_id as d;
+        let mut network = ConnectableNetwork::default();
+        let mut west = node(1, false);
+        west.x = 4;
+        west.direction_id = d::EAST;
+        let mut east = node(2, false);
+        east.x = 5;
+        east.direction_id = d::WEST;
+
+        let analysis = network.rebuild(vec![west, east]);
+
+        assert_eq!(analysis.component_count, 1);
+        assert_eq!(network.edge(1, 2), Some((d::EAST, d::WEST)));
+    }
+
+    #[test]
+    fn rebuild_requires_reciprocal_direction_and_compatible_categories() {
+        use super::super::connectable::{category_id as c, direction_id as d};
+        let mut network = ConnectableNetwork::default();
+        let mut road = node(1, false);
+        road.x = 4;
+        road.direction_id = d::EAST;
+        let mut one_sided = node(2, false);
+        one_sided.x = 5;
+        one_sided.direction_id = d::EAST;
+        let mut water = node(3, false);
+        water.x = 5;
+        water.direction_id = d::WEST;
+        water.category_ids = vec![c::CONNECTABLE, c::WATERWAY];
+
+        let analysis = network.rebuild(vec![road, one_sided, water]);
+
+        assert_eq!(analysis.component_count, 3);
+        assert!(network.edge(1, 2).is_none());
+        assert!(network.edge(1, 3).is_none());
+    }
+
+    #[test]
+    fn rebuilds_diagonal_waterway_connections() {
+        use super::super::connectable::{category_id as c, direction_id as d};
+        let mut network = ConnectableNetwork::default();
+        let mut northwest = node(1, false);
+        northwest.x = 4;
+        northwest.y = 4;
+        northwest.direction_id = d::SOUTHEAST;
+        northwest.category_ids = vec![c::CONNECTABLE, c::WATERWAY];
+        let mut southeast = node(2, false);
+        southeast.x = 5;
+        southeast.y = 5;
+        southeast.direction_id = d::NORTHWEST;
+        southeast.category_ids = vec![c::CONNECTABLE, c::WATERWAY];
+
+        network.rebuild(vec![northwest, southeast]);
+
+        assert_eq!(network.edge(1, 2), Some((d::SOUTHEAST, d::NORTHWEST)));
     }
 }

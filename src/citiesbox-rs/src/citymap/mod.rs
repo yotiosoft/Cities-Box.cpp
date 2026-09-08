@@ -71,6 +71,8 @@ pub(crate) mod ffi {
         x: i32,
         y: i32,
         connectable_kind: i32,
+        direction_id: i32,
+        category_ids: Vec<i32>,
         under_construction: bool,
     }
 
@@ -312,6 +314,10 @@ pub(crate) mod ffi {
             nodes: Vec<ConnectableNetworkNode>,
             edges: Vec<ConnectableNetworkEdge>,
         ) -> ConnectableNetworkAnalysis;
+        fn rebuild_connectable_network(
+            &mut self,
+            nodes: Vec<ConnectableNetworkNode>,
+        ) -> ConnectableNetworkAnalysis;
         fn upsert_connectable_node(&mut self, node: ConnectableNetworkNode);
         fn connect_connectable_nodes(&mut self, edge: ConnectableNetworkEdge) -> bool;
         fn remove_connectable_node(&mut self, object_id: i32) -> bool;
@@ -517,6 +523,13 @@ fn new_city_map() -> Box<RustCityMap> {
 }
 
 impl RustCityMap {
+    fn rebuild_connectable_network(
+        &mut self,
+        nodes: Vec<ffi::ConnectableNetworkNode>,
+    ) -> ffi::ConnectableNetworkAnalysis {
+        self.connectable_network.rebuild(nodes)
+    }
+
     fn upsert_connectable_node(&mut self, node: ffi::ConnectableNetworkNode) {
         self.connectable_network.upsert_node(node);
     }
@@ -606,6 +619,11 @@ mod tests {
                     x: 2,
                     y: 3,
                     connectable_kind: connectable::category_id::ROAD,
+                    direction_id: connectable::direction_id::EAST,
+                    category_ids: vec![
+                        connectable::category_id::CONNECTABLE,
+                        connectable::category_id::ROAD,
+                    ],
                     under_construction: false,
                 },
                 ffi::ConnectableNetworkNode {
@@ -613,6 +631,11 @@ mod tests {
                     x: 3,
                     y: 3,
                     connectable_kind: connectable::category_id::ROAD,
+                    direction_id: connectable::direction_id::WEST,
+                    category_ids: vec![
+                        connectable::category_id::CONNECTABLE,
+                        connectable::category_id::ROAD,
+                    ],
                     under_construction: false,
                 },
             ],

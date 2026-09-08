@@ -192,6 +192,7 @@ bool CityMap::m_load_CBJ(String loadMapFilePath) {
 	m_max_object_id = staged.maxObjectID;
 	m_map_size = loadedMapSize;
 	m_map_file_path.swap(loadMapFilePath);
+	m_rebuild_connectable_network();
 	return true;
 }
 

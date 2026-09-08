@@ -218,8 +218,36 @@ void CityMap::m_register_connectable_object(Object* object, bool under_construct
     node.x = coordinate.x;
     node.y = coordinate.y;
     node.connectable_kind = static_cast<int>(m_get_connectable_CategoryID(object->getAddonP()));
+    node.direction_id = static_cast<int>(object->getDirectionID());
+    for (const auto category : object->getAddonP()->getCategories()) {
+        node.category_ids.push_back(static_cast<int>(category));
+    }
     node.under_construction = under_construction;
     m_rust_core->upsert_connectable_node(std::move(node));
+}
+
+void CityMap::m_rebuild_connectable_network() {
+    rust::Vec<rust::citymap::ConnectableNetworkNode> nodes;
+    for (const auto& [object_id, object] : m_objects) {
+        if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr
+            || !object->getAddonP()->isInCategories(CategoryID::Connectable)) {
+            continue;
+        }
+
+        const auto coordinate = object->getOriginCoordinate();
+        rust::citymap::ConnectableNetworkNode node;
+        node.object_id = object_id;
+        node.x = coordinate.x;
+        node.y = coordinate.y;
+        node.connectable_kind = static_cast<int>(m_get_connectable_CategoryID(object->getAddonP()));
+        node.direction_id = static_cast<int>(object->getDirectionID());
+        for (const auto category : object->getAddonP()->getCategories()) {
+            node.category_ids.push_back(static_cast<int>(category));
+        }
+        node.under_construction = false;
+        nodes.push_back(std::move(node));
+    }
+    m_rust_core->rebuild_connectable_network(std::move(nodes));
 }
 
 // 踏切を設置（道路と線路が交差していれば）

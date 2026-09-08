@@ -1053,6 +1053,8 @@ struct ConnectableNetworkNode final {
   ::std::int32_t x CXX_DEFAULT_VALUE(0);
   ::std::int32_t y CXX_DEFAULT_VALUE(0);
   ::std::int32_t connectable_kind CXX_DEFAULT_VALUE(0);
+  ::std::int32_t direction_id CXX_DEFAULT_VALUE(0);
+  ::rust::Vec<::std::int32_t> category_ids;
   bool under_construction CXX_DEFAULT_VALUE(false);
 
   using IsRelocatable = ::std::true_type;
@@ -1395,6 +1397,7 @@ struct LoadCityResult final {
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
+  ::rust::citymap::ConnectableNetworkAnalysis rebuild_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> nodes) noexcept;
   void upsert_connectable_node(::rust::citymap::ConnectableNetworkNode node) noexcept;
   bool connect_connectable_nodes(::rust::citymap::ConnectableNetworkEdge edge) noexcept;
   bool remove_connectable_node(::std::int32_t object_id) noexcept;
@@ -1446,6 +1449,8 @@ bool rust$citymap$cxxbridge1$192$connectable_categories_match(::rust::Slice<::st
 ::std::int32_t rust$citymap$cxxbridge1$192$connectable_crossing_type(::std::int32_t first, ::std::int32_t second) noexcept;
 
 void rust$citymap$cxxbridge1$192$analyze_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> *nodes, ::rust::Vec<::rust::citymap::ConnectableNetworkEdge> *edges, ::rust::citymap::ConnectableNetworkAnalysis *return$) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$rebuild_connectable_network(::rust::citymap::RustCityMap &self, ::rust::Vec<::rust::citymap::ConnectableNetworkNode> *nodes, ::rust::citymap::ConnectableNetworkAnalysis *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$RustCityMap$upsert_connectable_node(::rust::citymap::RustCityMap &self, ::rust::citymap::ConnectableNetworkNode *node) noexcept;
 
@@ -1536,6 +1541,13 @@ bool connectable_categories_match(::rust::Slice<::std::int32_t const> left, ::ru
   ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ConnectableNetworkEdge>> edges$(::std::move(edges));
   ::rust::MaybeUninit<::rust::citymap::ConnectableNetworkAnalysis> return$;
   rust$citymap$cxxbridge1$192$analyze_connectable_network(&nodes$.value, &edges$.value, &return$.value);
+  return ::std::move(return$.value);
+}
+
+::rust::citymap::ConnectableNetworkAnalysis RustCityMap::rebuild_connectable_network(::rust::Vec<::rust::citymap::ConnectableNetworkNode> nodes) noexcept {
+  ::rust::ManuallyDrop<::rust::Vec<::rust::citymap::ConnectableNetworkNode>> nodes$(::std::move(nodes));
+  ::rust::MaybeUninit<::rust::citymap::ConnectableNetworkAnalysis> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$rebuild_connectable_network(*this, &nodes$.value, &return$.value);
   return ::std::move(return$.value);
 }
 

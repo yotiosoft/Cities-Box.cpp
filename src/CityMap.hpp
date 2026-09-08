@@ -111,6 +111,7 @@ private:
     // 道路を接続
     void m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id);
     void m_register_connectable_object(Object* object, bool under_construction);
+    void m_rebuild_connectable_network();
     
     // 効果の指定
     void m_set_rate(Object* arg_object, CoordinateStruct arg_origin_coordinate, bool will_be_deleted);

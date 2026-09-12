@@ -37,6 +37,9 @@ namespace {
 }
 
 void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, bool from_here) {
+	if (isConnectedTo(arg_object_p)) {
+		return;
+	}
 	const auto from = m_start_coordinate + arg_connect_coordinate;
 	const auto to = arg_object_p->getOriginCoordinate();
 	const auto decision = planConnectionInRust(
@@ -52,6 +55,10 @@ void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object 
 	);
 
 	if (decision.status == rust::citymap::ConnectableConnectionStatus::AlreadyConnected) {
+		// ロード済みオブジェクトはDirectionIDだけ復元され、C++の接続一覧は空。
+		// 形状を変えずに相手への参照だけ復元する。
+		m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect
+			<< pair<DirectionID::Type, Object*>{static_cast<DirectionID::Type>(decision.relative_direction), arg_object_p};
 		return;
 	}
 
@@ -71,6 +78,9 @@ void ConnectableObject::connect(CoordinateStruct arg_connect_coordinate, Object 
 }
 
 void ConnectableObject::connectWithSpecifiedType(CoordinateStruct arg_connect_coordinate, Object *arg_object_p, TypeID::Type type, bool from_here) {
+	if (isConnectedTo(arg_object_p)) {
+		return;
+	}
 	const auto from = m_start_coordinate + arg_connect_coordinate;
 	const auto to = arg_object_p->getOriginCoordinate();
 	const auto decision = planConnectionInRust(
@@ -86,6 +96,8 @@ void ConnectableObject::connectWithSpecifiedType(CoordinateStruct arg_connect_co
 	);
 
 	if (decision.status == rust::citymap::ConnectableConnectionStatus::AlreadyConnected) {
+		m_connects[arg_connect_coordinate.y][arg_connect_coordinate.x].roadTypeConnect
+			<< pair<DirectionID::Type, Object*>{static_cast<DirectionID::Type>(decision.relative_direction), arg_object_p};
 		return;
 	}
 

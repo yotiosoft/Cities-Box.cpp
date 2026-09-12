@@ -273,20 +273,20 @@ fn remove_direction(current: i32, removed: i32) -> i32 {
 
 pub(crate) fn plan_connection(request: ConnectionRequest) -> ConnectionDecision {
     let relative = direction_from_difference(request.from, request.to, request.allow_diagonal);
-    if request.from_here
-        && request.connection_slot_occupied
-        && contains_direction(request.current_direction, relative)
-    {
+    if relative == direction_id::DISABLED {
         return ConnectionDecision {
-            status: ConnectionStatus::AlreadyConnected,
+            status: ConnectionStatus::InvalidDirection,
             relative_direction: relative,
             updated_direction: request.current_direction,
             updated_type: request.current_type,
         };
     }
-    if relative == direction_id::DISABLED {
+    // 保存済みDirectionIDは接続方向を保持しているが、ロード直後のC++側には
+    // 接続ポインタがまだない。ポインタ一覧ではなく方向状態を正として、
+    // 同じ方向を二重加算しない。
+    if contains_direction(request.current_direction, relative) {
         return ConnectionDecision {
-            status: ConnectionStatus::InvalidDirection,
+            status: ConnectionStatus::AlreadyConnected,
             relative_direction: relative,
             updated_direction: request.current_direction,
             updated_type: request.current_type,
@@ -441,9 +441,28 @@ mod tests {
         request.from_here = false;
         request.forced_type = Some(type_id::TRAIN_CROSSING);
         assert_eq!(
-            plan_connection(request).updated_type,
-            type_id::TRAIN_CROSSING
+            plan_connection(request).status,
+            ConnectionStatus::AlreadyConnected
         );
+    }
+
+    #[test]
+    fn persisted_direction_prevents_duplicate_connection_without_cpp_pointer() {
+        let request = ConnectionRequest {
+            from: Coordinate { x: 10, y: 10 },
+            to: Coordinate { x: 11, y: 10 },
+            current_direction: direction_id::EAST_WEST,
+            current_type: type_id::DEFAULT,
+            allow_diagonal: false,
+            from_here: false,
+            connection_slot_occupied: false,
+            forced_type: None,
+        };
+
+        let decision = plan_connection(request);
+        assert_eq!(decision.status, ConnectionStatus::AlreadyConnected);
+        assert_eq!(decision.updated_direction, direction_id::EAST_WEST);
+        assert_eq!(decision.updated_type, type_id::DEFAULT);
     }
 
     #[test]

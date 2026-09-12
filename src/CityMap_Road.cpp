@@ -14,6 +14,36 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 	if (m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasAddon(selectedAddon)) {
 		return m_update_connection_type(cursor, before_cursor, selectedAddon, needToBreak);
 	}
+
+	// 同じ接続カテゴリの道路等がある場合は、接続とObjectIDを保ったまま
+	// 描画に使用するアドオンだけを置き換える。
+	const auto selectedCategory = m_get_connectable_CategoryID_explicitly(selectedAddon);
+	for (auto* object : m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectsP(CategoryID::Connectable)) {
+		if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr
+			|| selectedCategory == CategoryID::Disabled
+			|| m_get_connectable_CategoryID_explicitly(object->getAddonP()) != selectedCategory) {
+			continue;
+		}
+
+		const auto type = object->getTypeID();
+		const auto direction = object->getDirectionID();
+		if (!selectedAddon->isCorrectCondition(type, direction)
+			|| object->getAddonP()->getUseTiles(type, direction) != selectedAddon->getUseTiles(type, direction)) {
+			return false;
+		}
+
+		const auto origin = object->getOriginCoordinate();
+		m_set_rate(object, origin, true);
+		object->replaceAddon(selectedAddon);
+		m_set_rate(object, origin, false);
+		m_register_connectable_object(object, false);
+
+		const bool updated = m_update_connection_type(cursor, before_cursor, selectedAddon, needToBreak);
+		if (updated) {
+			m_rust_core->charge_construction_cost();
+		}
+		return updated;
+	}
 	
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
@@ -110,22 +140,8 @@ bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_
 	// ObjectIDの決定
 	cout << "update connection type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
 	Object* object = m_tiles[cursor.coordinate.y][cursor.coordinate.x].getObjectP(selectedAddon->getName(NameMode::English), NameMode::English);
-
-	TypeID::Type type = m_set_road_type(cursor.coordinate, selectedAddon);
-	DirectionID::Type direction = m_set_road_direction(cursor.coordinate, selectedAddon);
-	
-	CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
-
-	CoordinateStruct origin_coordinate = cursor.coordinate;
-	if (direction == DirectionID::West) {
-		origin_coordinate.y -= useTiles.y - 1;
-	}
-	if (direction == DirectionID::East) {
-		origin_coordinate.x -= useTiles.x - 1;
-		origin_coordinate.y -= useTiles.y - 1;
-	}
-	else if (direction == DirectionID::South) {
-		origin_coordinate.y -= useTiles.y - 1;
+	if (object == nullptr) {
+		return false;
 	}
 	
 	// カーソルが移動前の座標から連続して押し続けて移動していれば、そのタイルと接続する
@@ -133,9 +149,6 @@ bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_
 		m_connect_objects(before_cursor.coordinate, cursor.coordinate, object->getObjectID());
 	}
 
-	// 効果を反映
-	m_set_rate(object, origin_coordinate, false);
-	
 	return true;
 }
 

@@ -354,6 +354,9 @@ CoordinateStruct CBAddon::getUseTiles(TypeID::Type typeID, DirectionID::Type dir
 }
 
 void CBAddon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, RelativeCoordinateStruct tilesCount, Color addColor, TimeStruct time) {
+	if (!isCorrectCondition(typeID, directionID)) {
+		return;
+	}
 	m_types[typeID].draw(time, directionID, position, tilesCount, addColor);
 }
 /*

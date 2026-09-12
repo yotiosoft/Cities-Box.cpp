@@ -69,6 +69,10 @@ AddonDirectionStruct Object::getAddonDirectionStruct() {
 	return m_addon_p->getDirectionStruct(m_type_id, m_direction_id);
 }
 
+void Object::replaceAddon(CBAddon* addon) {
+	m_addon_p = addon;
+}
+
 // TypeID
 TypeID::Type Object::getTypeID() {
 	return m_type_id;
@@ -113,6 +117,22 @@ Array<ConnectableEdgeValue> Object::getConnectableEdges() {
 		}
 	}
 	return edges;
+}
+
+bool Object::isConnectedTo(const Object* object) const {
+	if (object == nullptr) {
+		return false;
+	}
+	for (const auto& row : m_connects) {
+		for (const auto& connect : row) {
+			for (const auto& road_type_connect : connect.roadTypeConnect) {
+				if (road_type_connect.second == object) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 // 引数の座標上にこのオブジェクトが存在するか？

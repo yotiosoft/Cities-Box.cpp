@@ -32,6 +32,7 @@ public:
 	// アドオンを取得
 	CBAddon* getAddonP();
 	AddonDirectionStruct getAddonDirectionStruct();
+	void replaceAddon(CBAddon* addon);
 	
 	// TypeID
 	TypeID::Type getTypeID();
@@ -45,6 +46,7 @@ public:
 
 	// 接続先を値型のObjectIDと方向として取得
 	Array<ConnectableEdgeValue> getConnectableEdges();
+	bool isConnectedTo(const Object* object) const;
 	
 	// 引数の座標上にこのオブジェクトが存在するか？
 	bool isOn(CoordinateStruct arg_coordinate);

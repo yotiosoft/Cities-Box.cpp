@@ -230,45 +230,74 @@ pub(crate) fn direction_from_difference(
         (1, 0, _) => direction_id::EAST,
         (0, -1, _) => direction_id::NORTH,
         (0, 1, _) => direction_id::SOUTH,
-        (-1, -1, true) => direction_id::NORTH_WEST,
-        (1, -1, true) => direction_id::NORTH_EAST,
-        (1, 1, true) => direction_id::SOUTH_EAST,
-        (-1, 1, true) => direction_id::SOUTH_WEST,
+        (-1, -1, true) => direction_id::NORTHWEST,
+        (1, -1, true) => direction_id::NORTHEAST,
+        (1, 1, true) => direction_id::SOUTHEAST,
+        (-1, 1, true) => direction_id::SOUTHWEST,
         _ => direction_id::DISABLED,
     }
 }
 
-fn split_directions(direction: i32) -> ([i32; 4], usize) {
+fn split_directions(direction: i32) -> Vec<i32> {
     use direction_id as d;
+    let all = vec![
+        d::NORTH,
+        d::NORTHEAST,
+        d::EAST,
+        d::SOUTHEAST,
+        d::SOUTH,
+        d::SOUTHWEST,
+        d::WEST,
+        d::NORTHWEST,
+    ];
     match direction {
-        d::EAST_WEST => ([d::EAST, d::WEST, 0, 0], 2),
-        d::NORTH_SOUTH => ([d::NORTH, d::SOUTH, 0, 0], 2),
-        d::SOUTH_EAST_WEST => ([d::SOUTH, d::EAST, d::WEST, 0], 3),
-        d::NORTH_EAST_WEST => ([d::NORTH, d::EAST, d::WEST, 0], 3),
-        d::NORTH_SOUTH_WEST => ([d::NORTH, d::SOUTH, d::WEST, 0], 3),
-        d::NORTH_SOUTH_EAST => ([d::NORTH, d::SOUTH, d::EAST, 0], 3),
-        d::SOUTH_WEST => ([d::SOUTH, d::WEST, 0, 0], 2),
-        d::NORTH_WEST => ([d::NORTH, d::WEST, 0, 0], 2),
-        d::SOUTH_EAST => ([d::SOUTH, d::EAST, 0, 0], 2),
-        d::NORTH_EAST => ([d::NORTH, d::EAST, 0, 0], 2),
-        d::ALL => ([d::WEST, d::NORTH, d::EAST, d::SOUTH], 4),
-        _ => ([direction, 0, 0, 0], 1),
+        d::EAST_WEST => vec![d::EAST, d::WEST],
+        d::NORTH_SOUTH => vec![d::NORTH, d::SOUTH],
+        d::SOUTH_EAST_WEST => vec![d::SOUTH, d::EAST, d::WEST],
+        d::NORTH_EAST_WEST => vec![d::NORTH, d::EAST, d::WEST],
+        d::NORTH_SOUTH_WEST => vec![d::NORTH, d::SOUTH, d::WEST],
+        d::NORTH_SOUTH_EAST => vec![d::NORTH, d::SOUTH, d::EAST],
+        d::SOUTH_WEST => vec![d::SOUTH, d::WEST],
+        d::NORTH_WEST => vec![d::NORTH, d::WEST],
+        d::SOUTH_EAST => vec![d::SOUTH, d::EAST],
+        d::NORTH_EAST => vec![d::NORTH, d::EAST],
+        d::ALL => vec![d::WEST, d::NORTH, d::EAST, d::SOUTH],
+        d::OFFSHORE => all,
+        d::WITHOUT_SOUTHWEST_NORTHWEST => without(all, &[d::SOUTHWEST, d::NORTHWEST]),
+        d::WITHOUT_NORTHEAST_NORTHWEST => without(all, &[d::NORTHEAST, d::NORTHWEST]),
+        d::WITHOUT_SOUTHEAST_SOUTHWEST => without(all, &[d::SOUTHEAST, d::SOUTHWEST]),
+        d::WITHOUT_NORTHEAST_SOUTHEAST => without(all, &[d::NORTHEAST, d::SOUTHEAST]),
+        d::WITHOUT_EAST => without(all, &[d::NORTHEAST, d::EAST, d::SOUTHEAST]),
+        d::WITHOUT_SOUTH => without(all, &[d::SOUTHEAST, d::SOUTH, d::SOUTHWEST]),
+        d::WITHOUT_NORTH => without(all, &[d::NORTH, d::NORTHEAST, d::NORTHWEST]),
+        d::WITHOUT_WEST => without(all, &[d::SOUTHWEST, d::WEST, d::NORTHWEST]),
+        d::WITHOUT_NORTH_WEST_NORTHWEST => without(all, &[d::NORTH, d::WEST, d::NORTHWEST]),
+        d::WITHOUT_NORTH_NORTHEAST_EAST => without(all, &[d::NORTH, d::NORTHEAST, d::EAST]),
+        d::WITHOUT_SOUTH_SOUTHWEST_WEST => without(all, &[d::SOUTH, d::SOUTHWEST, d::WEST]),
+        d::WITHOUT_EAST_SOUTHEAST_SOUTH => without(all, &[d::EAST, d::SOUTHEAST, d::SOUTH]),
+        d::WITHOUT_NORTHWEST => without(all, &[d::NORTHWEST]),
+        d::WITHOUT_NORTHEAST => without(all, &[d::NORTHEAST]),
+        d::WITHOUT_SOUTHWEST => without(all, &[d::SOUTHWEST]),
+        d::WITHOUT_SOUTHEAST => without(all, &[d::SOUTHEAST]),
+        _ => vec![direction],
     }
 }
 
+fn without(mut directions: Vec<i32>, removed: &[i32]) -> Vec<i32> {
+    directions.retain(|direction| !removed.contains(direction));
+    directions
+}
+
 fn contains_direction(directions: i32, direction: i32) -> bool {
-    let (parts, count) = split_directions(directions);
-    parts[..count].contains(&direction)
+    split_directions(directions).contains(&direction)
 }
 
 fn add_direction(current: i32, added: i32) -> i32 {
-    let (parts, count) = split_directions(added);
-    current + parts[..count].iter().sum::<i32>()
+    current + split_directions(added).iter().sum::<i32>()
 }
 
 fn remove_direction(current: i32, removed: i32) -> i32 {
-    let (parts, count) = split_directions(removed);
-    current - parts[..count].iter().sum::<i32>()
+    current - split_directions(removed).iter().sum::<i32>()
 }
 
 pub(crate) fn plan_connection(request: ConnectionRequest) -> ConnectionDecision {
@@ -411,7 +440,7 @@ mod tests {
         );
         assert_eq!(
             direction_from_difference(Coordinate { x: 4, y: 4 }, Coordinate { x: 5, y: 5 }, true),
-            direction_id::SOUTH_EAST
+            direction_id::SOUTHEAST
         );
 
         let mut request = ConnectionRequest {
@@ -463,6 +492,27 @@ mod tests {
         assert_eq!(decision.status, ConnectionStatus::AlreadyConnected);
         assert_eq!(decision.updated_direction, direction_id::EAST_WEST);
         assert_eq!(decision.updated_type, type_id::DEFAULT);
+    }
+
+    #[test]
+    fn water_diagonal_uses_the_distinct_water_direction_id() {
+        assert_eq!(
+            direction_from_difference(Coordinate { x: 4, y: 4 }, Coordinate { x: 5, y: 5 }, true),
+            direction_id::SOUTHEAST
+        );
+        assert_ne!(direction_id::SOUTHEAST, direction_id::SOUTH_EAST);
+    }
+
+    #[test]
+    fn water_composite_detects_an_existing_atomic_direction() {
+        assert!(contains_direction(
+            direction_id::OFFSHORE,
+            direction_id::NORTHWEST
+        ));
+        assert!(!contains_direction(
+            direction_id::WITHOUT_NORTHWEST,
+            direction_id::NORTHWEST
+        ));
     }
 
     #[test]

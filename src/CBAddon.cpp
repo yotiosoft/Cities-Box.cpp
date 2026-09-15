@@ -6,6 +6,17 @@
 //
 
 #include "CBAddon.hpp"
+
+namespace {
+	DirectionID::Type addonDirection(TypeID::Type typeID, DirectionID::Type directionID) {
+		// 接続状態では四方向を All として保持するが、アドオン画像の
+		// IntersectionCross は回転不要のため None で定義されている。
+		if (typeID == TypeID::IntersectionCross && directionID == DirectionID::All) {
+			return DirectionID::None;
+		}
+		return directionID;
+	}
+}
 #include <rs-citymap.h>
 
 namespace {
@@ -252,7 +263,7 @@ DirectionID::Type CBAddon::getDirectionID(String typeName, int directionNum) {
 }
 
 AddonDirectionStruct CBAddon::getDirectionStruct(TypeID::Type arg_type_id, DirectionID::Type arg_direction_id) {
-	return m_types[arg_type_id].getDirectionStruct(arg_direction_id);
+	return m_types[arg_type_id].getDirectionStruct(addonDirection(arg_type_id, arg_direction_id));
 }
 
 bool CBAddon::isCorrectCondition(TypeID::Type type_id, DirectionID::Type direction_id) {
@@ -260,7 +271,7 @@ bool CBAddon::isCorrectCondition(TypeID::Type type_id, DirectionID::Type directi
         return false;
     }
     
-    if (m_types[type_id].getDirectionIDs().count(direction_id) == 0) {
+    if (m_types[type_id].getDirectionIDs().count(addonDirection(type_id, direction_id)) == 0) {
         return false;
     }
     
@@ -350,14 +361,15 @@ void CBAddon::drawIcon(PositionStruct position, PositionStruct leftTop, Size siz
 }
 
 CoordinateStruct CBAddon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {
-	return CoordinateStruct{m_types[typeID].getDirectionStruct(directionID).requiredTiles.x, m_types[typeID].getDirectionStruct(directionID).requiredTiles.y};
+	const auto addonDirectionID = addonDirection(typeID, directionID);
+	return CoordinateStruct{m_types[typeID].getDirectionStruct(addonDirectionID).requiredTiles.x, m_types[typeID].getDirectionStruct(addonDirectionID).requiredTiles.y};
 }
 
 void CBAddon::draw(TypeID::Type typeID, DirectionID::Type directionID, PositionStruct position, RelativeCoordinateStruct tilesCount, Color addColor, TimeStruct time) {
 	if (!isCorrectCondition(typeID, directionID)) {
 		return;
 	}
-	m_types[typeID].draw(time, directionID, position, tilesCount, addColor);
+	m_types[typeID].draw(time, addonDirection(typeID, directionID), position, tilesCount, addColor);
 }
 /*
 void CBAddon::m_load_layer_before141(int layer_num, JSONValue type, AddonType& arg_addon_type, Array<AddonLayer>& arg_layers) {

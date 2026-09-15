@@ -129,7 +129,7 @@ Array<CoordinateStruct> ConnectableObject::del() {
 			for (auto road_type_connect : connect.roadTypeConnect) {
 				// 接続先を更新：自分への接続を解除
 				// すでにそのオブジェクトが存在しなければスルー
-				if (road_type_connect.first == DirectionID::Disabled) {
+				if (road_type_connect.first == DirectionID::Disabled || road_type_connect.second == nullptr) {
 					continue;
 				}
 

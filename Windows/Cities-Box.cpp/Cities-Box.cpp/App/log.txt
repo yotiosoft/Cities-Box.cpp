@@ -208,8 +208,36 @@ m_load_obj(): TypeID: Default
 m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
+connect(): set roadtypeconect 16 / 5
 connect(): set roadtypeconect 1 / 7
 connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 6 / 4
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 10 / 4
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 15 / 5
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 10 / 4
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 12 / 5
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 7 / 4
+connect(): set roadtypeconect 16 / 5
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 16 / 5
+connect(): set roadtypeconect 15 / 5
 employment() at (1, 1): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 1): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 1): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -226,7 +254,7 @@ employment() at (4, 2): residents=7, workers=0, workplaces=[], students=0, schoo
 employment() at (5, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 2): residents=7, workers=1, workplaces=[farm#3359], students=0, schools=[]
 employment() at (8, 2): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (10, 2): residents=7, workers=1, workplaces=[commercial#488], students=0, schools=[]
+employment() at (10, 2): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (14, 2): residents=6, workers=0, workplaces=[], students=0, schools=[]
@@ -255,7 +283,7 @@ employment() at (5, 6): residents=7, workers=2, workplaces=[industrial#5100, com
 employment() at (7, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (10, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (13, 6): residents=7, workers=1, workplaces=[commercial#6997], students=0, schools=[]
+employment() at (13, 6): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 8): residents=2, workers=1, workplaces=[farm#1083], students=1, schools=[elementary#5528]
 employment() at (4, 8): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 8): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -340,11 +368,11 @@ employment() at (26, 29): residents=160, workers=71, workplaces=[farm#2402, farm
 employment() at (28, 29): residents=114, workers=61, workplaces=[commercial#644, farm#1751, industrial#4743, industrial#635, industrial#734, industrial#599, commercial#644, farm#2940, public#6058, farm#3115, commercial#927, office#5751, farm#1114, commercial#7295, farm#1098, industrial#619, farm#1753, industrial#4842, farm#2406, farm#3108, commercial#5664, farm#2506, office#5387, industrial#730, farm#2503, industrial#377, commercial#5438, industrial#328, farm#3434, commercial#5201, industrial#6343, industrial#418, commercial#5201, farm#1108, farm#2855, public#779, public#4694, industrial#756, industrial#6168, industrial#765, commercial#5212, public#785, farm#3189, public#6058, industrial#617, farm#3609, farm#2936, commercial#571, public#799, industrial#6173, commercial#684, farm#1294, commercial#5444, farm#3111, industrial#335, industrial#612, commercial#907, farm#2583, commercial#935, industrial#598, industrial#6169], students=13, schools=[elementary#3423, elementary#4694, elementary#5528, elementary#852, elementary#3423, elementary#4631, elementary#852, elementary#852, elementary#4694, elementary#5200, elementary#4631, elementary#3423, elementary#4631]
 employment() at (29, 29): residents=53, workers=26, workplaces=[commercial#951, industrial#762, public#6221, commercial#7297, public#6221, farm#3613, public#782, commercial#5212, public#775, commercial#959, farm#1121, industrial#762, industrial#6171, industrial#757, commercial#979, industrial#609, farm#3612, industrial#5101, farm#3528, farm#3109, commercial#5430, farm#3182, commercial#5443, commercial#7199, industrial#747, public#4710], students=3, schools=[elementary#4347, elementary#4631, elementary#6039]
 employment() at (31, 29): residents=27, workers=17, workplaces=[commercial#935, farm#1108, commercial#927, commercial#533, farm#1112, farm#3184, farm#3182, industrial#5721, farm#1091, public#4710, industrial#728, industrial#6347, industrial#599, farm#3362, farm#1091, industrial#626, industrial#5451], students=0, schools=[]
-employment() at (32, 29): residents=173, workers=5, workplaces=[industrial#690, industrial#594, farm#1112, industrial#690, farm#1749], students=0, schools=[]
+employment() at (32, 29): residents=29, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 29): residents=92, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 29): residents=166, workers=12, workplaces=[industrial#604, industrial#6173, farm#2774, industrial#6259, industrial#620, industrial#697, public#5679, commercial#5435, public#775, commercial#533, industrial#5264, industrial#361], students=1, schools=[elementary#3423]
 employment() at (37, 29): residents=92, workers=0, workplaces=[], students=0, schools=[]
-employment() at (38, 29): residents=3, workers=1, workplaces=[industrial#6172], students=0, schools=[]
+employment() at (38, 29): residents=40, workers=25, workplaces=[industrial#6172, farm#1097, farm#2505, industrial#6342, public#855, industrial#612, public#787, industrial#697, farm#2583, public#788, industrial#767, industrial#627, commercial#5431, commercial#7197, farm#1118, industrial#6349, farm#2106, farm#2851, commercial#6898, industrial#4606, farm#1084, farm#1117, farm#2854, farm#2503, industrial#361], students=2, schools=[elementary#7502, elementary#5528]
 employment() at (40, 29): residents=11, workers=4, workplaces=[commercial#481, industrial#639, commercial#927, industrial#5100], students=1, schools=[elementary#852]
 employment() at (41, 29): residents=140, workers=76, workplaces=[industrial#5537, industrial#5721, industrial#336, industrial#615, farm#1100, industrial#593, farm#1838, farm#2400, industrial#627, industrial#4673, commercial#5443, farm#1085, industrial#754, industrial#605, public#4694, industrial#697, farm#2505, farm#2936, commercial#5212, farm#1749, commercial#526, public#779, public#853, commercial#6897, farm#1114, commercial#5201, farm#1110, farm#1121, industrial#5264, farm#2406, industrial#747, farm#1114, commercial#5145, farm#1086, farm#3614, farm#1080, industrial#608, farm#3111, farm#3114, commercial#4952, commercial#993, commercial#7295, industrial#606, industrial#5100, industrial#744, commercial#994, farm#3429, farm#3182, farm#2503, industrial#740, public#5528, commercial#935, public#4694, industrial#5004, industrial#472, industrial#624, farm#3187, industrial#753, public#3935, industrial#635, public#800, industrial#6169, public#5976, office#4868, farm#1088, commercial#964, industrial#6256, public#798, commercial#7196, commercial#481, office#5388, commercial#964, public#6039, industrial#632, farm#3185, public#6329], students=7, schools=[elementary#7502, elementary#6039, elementary#4347, elementary#4347, elementary#3423, elementary#5948, elementary#5200]
 employment() at (22, 31): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -353,10 +381,10 @@ employment() at (25, 31): residents=175, workers=79, workplaces=[public#795, com
 employment() at (26, 31): residents=156, workers=50, workplaces=[industrial#751, farm#1098, industrial#632, farm#2110, commercial#7296, commercial#906, farm#2402, commercial#5212, commercial#488, farm#2771, office#4949, farm#1122, farm#1097, public#3423, industrial#730, industrial#5447, commercial#7199, commercial#7196, farm#3111, industrial#6165, industrial#5720, public#5528, farm#3189, farm#2936, farm#3109, commercial#993, commercial#6999, farm#2858, industrial#761, farm#1097, industrial#726, industrial#737, industrial#347, industrial#629, farm#1093, farm#1097, industrial#633, farm#3428, industrial#5723, farm#3182, commercial#5440, farm#3188, industrial#5448, commercial#883, industrial#606, office#5751, farm#1100, industrial#6173, farm#2406, farm#1104], students=4, schools=[elementary#6058, elementary#7502, elementary#4631, elementary#852]
 employment() at (28, 31): residents=21, workers=14, workplaces=[farm#2940, public#5528, commercial#507, industrial#5536, public#6221, farm#1104, industrial#4606, farm#2774, farm#1103, public#4347, farm#2587, farm#2851, farm#3108, farm#2403], students=1, schools=[elementary#4631]
 employment() at (29, 31): residents=101, workers=39, workplaces=[farm#3534, commercial#5429, farm#2852, commercial#6997, industrial#4743, farm#1097, farm#1083, industrial#758, commercial#7000, commercial#947, farm#1119, commercial#5443, industrial#753, office#5751, industrial#648, industrial#608, commercial#929, office#4868, commercial#5664, farm#2854, industrial#6254, commercial#979, farm#2506, industrial#5449, commercial#6899, public#779, industrial#751, commercial#883, farm#1101, industrial#6349, industrial#771, public#778, industrial#356, industrial#381, farm#3111, office#5666, commercial#5443, farm#2106, farm#3108], students=9, schools=[elementary#7502, elementary#5948, elementary#4406, elementary#852, elementary#6039, elementary#4694, elementary#4631, elementary#4694, elementary#6058]
-employment() at (31, 31): residents=167, workers=56, workplaces=[farm#2499, farm#3532, commercial#7197, industrial#5448, industrial#600, public#788, industrial#690, farm#1119, farm#1087, farm#3359, farm#2503, farm#2591, farm#1106, industrial#4842, farm#2106, public#5528, farm#3355, commercial#5430, farm#1111, commercial#7299, commercial#6897, farm#2944, farm#2944, farm#2940, industrial#797, farm#1122, industrial#336, commercial#6899, commercial#5430, commercial#6996, industrial#620, public#3935, public#795, public#7600, farm#2854, industrial#359, industrial#747, farm#1097, industrial#472, industrial#5451, farm#1088, industrial#745, farm#2110, industrial#598, farm#3532, industrial#328, farm#1085, farm#3181, commercial#526, commercial#6898, industrial#632, industrial#747, commercial#507, commercial#5434, industrial#6254, industrial#756], students=6, schools=[elementary#7502, elementary#4631, elementary#4406, elementary#852, elementary#6058, elementary#5528]
+employment() at (31, 31): residents=167, workers=57, workplaces=[farm#2499, farm#3532, commercial#7197, industrial#5448, industrial#600, public#788, industrial#690, farm#1119, farm#1087, farm#3359, farm#2503, farm#2591, farm#1106, industrial#4842, farm#2106, public#5528, farm#3355, commercial#5430, farm#1111, commercial#7299, commercial#6897, farm#2944, farm#2944, farm#2940, industrial#797, farm#1122, industrial#336, commercial#6899, commercial#5430, commercial#6996, industrial#620, public#3935, public#795, public#7600, farm#2854, industrial#359, industrial#747, farm#1097, industrial#472, industrial#5451, farm#1088, industrial#745, farm#2110, industrial#598, farm#3532, industrial#328, farm#1085, farm#3181, commercial#526, commercial#6898, industrial#632, industrial#747, commercial#507, commercial#5434, industrial#6254, industrial#756, commercial#883], students=6, schools=[elementary#7502, elementary#4631, elementary#4406, elementary#852, elementary#6058, elementary#5528]
 employment() at (32, 31): residents=176, workers=92, workplaces=[farm#1105, industrial#687, farm#3436, public#788, industrial#770, industrial#639, industrial#4673, commercial#644, farm#1094, industrial#635, public#4159, industrial#609, public#477, commercial#7297, public#4347, farm#1122, industrial#614, industrial#635, industrial#747, industrial#6167, public#794, industrial#727, industrial#751, industrial#758, commercial#965, public#6039, industrial#6166, farm#1101, industrial#602, farm#2851, farm#1096, industrial#5446, commercial#907, industrial#632, public#800, industrial#626, industrial#471, public#4406, public#7600, farm#2110, industrial#6171, commercial#571, commercial#5435, industrial#381, commercial#951, industrial#617, office#5388, commercial#7000, commercial#6998, public#780, farm#1565, commercial#883, industrial#609, commercial#7296, commercial#907, office#4869, commercial#964, industrial#337, industrial#339, industrial#754, public#794, industrial#756, public#3423, industrial#759, industrial#768, farm#3536, public#921, farm#1751, industrial#5005, industrial#6344, public#854, commercial#907, public#855, public#785, industrial#614, industrial#772, public#782, commercial#5431, farm#1094, industrial#471, commercial#481, industrial#418, farm#3185, industrial#356, industrial#471, farm#2859, industrial#5809, public#5976, industrial#4743, industrial#472, office#5751, industrial#336], students=17, schools=[elementary#6058, elementary#852, elementary#852, elementary#4347, elementary#4347, elementary#5948, elementary#5948, elementary#4406, elementary#852, elementary#4694, elementary#5200, elementary#5528, elementary#4406, elementary#3423, elementary#5528, elementary#4694, elementary#852]
 employment() at (34, 31): residents=103, workers=0, workplaces=[], students=0, schools=[]
-employment() at (35, 31): residents=-2, workers=0, workplaces=[], students=0, schools=[]
+employment() at (35, 31): residents=7, workers=2, workplaces=[industrial#674, farm#2583], students=2, schools=[elementary#7502, elementary#5948]
 employment() at (37, 31): residents=30, workers=18, workplaces=[farm#1102, industrial#5450, farm#2775, industrial#774, commercial#6998, farm#1099, farm#1751, farm#1122, industrial#726, farm#2405, industrial#6349, industrial#328, commercial#5436, farm#3108, industrial#5807, office#5751, farm#3185, industrial#762], students=4, schools=[elementary#5528, elementary#6039, elementary#6058, elementary#5200]
 employment() at (38, 31): residents=2, workers=2, workplaces=[industrial#401, farm#3609], students=0, schools=[]
 employment() at (40, 31): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -429,7 +457,7 @@ employment() at (51, 34): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (52, 34): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (53, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
-employment() at (56, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (56, 34): residents=7, workers=3, workplaces=[farm#1119, industrial#6255, industrial#614], students=1, schools=[elementary#5200]
 employment() at (58, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 34): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 34): residents=6, workers=1, workplaces=[commercial#7199], students=1, schools=[elementary#3423]
@@ -443,7 +471,7 @@ employment() at (53, 35): residents=5, workers=0, workplaces=[], students=0, sch
 employment() at (55, 35): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (56, 35): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (58, 35): residents=6, workers=0, workplaces=[], students=0, schools=[]
-employment() at (59, 35): residents=4, workers=1, workplaces=[commercial#4952], students=0, schools=[]
+employment() at (59, 35): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 35): residents=2, workers=1, workplaces=[farm#1080], students=0, schools=[]
 employment() at (62, 35): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 36): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -476,7 +504,7 @@ employment() at (5, 37): residents=5, workers=4, workplaces=[industrial#377, far
 employment() at (7, 37): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 37): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (10, 37): residents=7, workers=3, workplaces=[public#4694, industrial#4742, farm#2503], students=0, schools=[]
-employment() at (11, 37): residents=-2, workers=0, workplaces=[], students=0, schools=[]
+employment() at (11, 37): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 37): residents=6, workers=1, workplaces=[farm#3536], students=0, schools=[]
 employment() at (14, 37): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (16, 37): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -527,7 +555,7 @@ employment() at (19, 39): residents=0, workers=0, workplaces=[], students=0, sch
 employment() at (20, 39): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (22, 39): residents=89, workers=0, workplaces=[], students=0, schools=[]
 employment() at (23, 39): residents=85, workers=25, workplaces=[industrial#728, office#4869, farm#3429, industrial#5004, farm#2937, commercial#4865, industrial#6165, industrial#743, industrial#6166, farm#2944, farm#1103, farm#1118, industrial#6173, farm#3428, farm#1118, commercial#6899, industrial#659, farm#2021, public#4406, industrial#657, commercial#935, industrial#728, farm#1113, commercial#947, farm#2774], students=6, schools=[elementary#5528, elementary#5948, elementary#4694, elementary#4631, elementary#7502, elementary#4406]
-employment() at (25, 39): residents=9, workers=0, workplaces=[], students=0, schools=[]
+employment() at (25, 39): residents=27, workers=0, workplaces=[], students=0, schools=[]
 employment() at (26, 39): residents=9, workers=0, workplaces=[], students=0, schools=[]
 employment() at (28, 39): residents=129, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 39): residents=96, workers=11, workplaces=[commercial#6997, public#921, public#855, industrial#6173, industrial#734, farm#2506, industrial#737, farm#2591, farm#3358, farm#1294, farm#3532], students=1, schools=[elementary#4631]
@@ -564,7 +592,7 @@ employment() at (25, 40): residents=129, workers=0, workplaces=[], students=0, s
 employment() at (26, 40): residents=98, workers=22, workplaces=[public#777, industrial#743, industrial#4607, industrial#737, farm#1109, industrial#5446, commercial#951, commercial#5664, farm#1107, industrial#604, industrial#4674, commercial#947, industrial#624, commercial#7199, farm#1121, farm#2587, industrial#624, farm#2405, farm#1087, commercial#5664, farm#3529, industrial#4742], students=4, schools=[elementary#4347, elementary#4631, elementary#5200, elementary#5200]
 employment() at (28, 40): residents=59, workers=22, workplaces=[public#853, farm#2506, industrial#743, commercial#6997, farm#3614, industrial#618, commercial#6999, farm#2507, industrial#672, commercial#7297, public#6058, farm#2857, farm#1101, industrial#737, public#4406, commercial#947, farm#3114, industrial#4673, farm#2507, industrial#4674, industrial#727, industrial#5100], students=5, schools=[elementary#4631, elementary#5528, elementary#4347, elementary#3423, elementary#5948]
 employment() at (29, 40): residents=99, workers=1, workplaces=[industrial#5101], students=0, schools=[]
-employment() at (31, 40): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (31, 40): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 40): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 40): residents=7, workers=4, workplaces=[farm#2775, industrial#361, farm#1089, industrial#676], students=0, schools=[]
 employment() at (46, 41): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -602,7 +630,7 @@ employment() at (31, 42): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (32, 42): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 42): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (41, 42): residents=15, workers=0, workplaces=[], students=0, schools=[]
-employment() at (46, 42): residents=-2, workers=0, workplaces=[], students=0, schools=[]
+employment() at (46, 42): residents=4, workers=1, workplaces=[industrial#626], students=0, schools=[]
 employment() at (48, 42): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (49, 42): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (51, 42): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -646,7 +674,7 @@ employment() at (58, 43): residents=5, workers=1, workplaces=[public#5200], stud
 employment() at (59, 43): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 43): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 43): residents=3, workers=2, workplaces=[industrial#694, industrial#625], students=0, schools=[]
-employment() at (1, 45): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (1, 45): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (5, 45): residents=4, workers=2, workplaces=[industrial#359, farm#1753], students=0, schools=[]
@@ -679,7 +707,7 @@ employment() at (56, 45): residents=4, workers=1, workplaces=[farm#1103], studen
 employment() at (58, 45): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 45): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 45): residents=5, workers=1, workplaces=[public#776], students=1, schools=[elementary#4631]
-employment() at (62, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (62, 45): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 46): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
@@ -764,10 +792,10 @@ employment() at (51, 49): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (52, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (53, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 49): residents=5, workers=3, workplaces=[office#5388, industrial#5720, industrial#750], students=0, schools=[]
-employment() at (56, 49): residents=5, workers=0, workplaces=[], students=0, schools=[]
+employment() at (56, 49): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (58, 49): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 49): residents=5, workers=1, workplaces=[industrial#751], students=0, schools=[]
-employment() at (61, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (61, 49): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 49): residents=4, workers=3, workplaces=[industrial#743, office#5751, industrial#766], students=0, schools=[]
 employment() at (7, 51): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 51): residents=6, workers=1, workplaces=[farm#2502], students=2, schools=[elementary#5200, elementary#6039]
@@ -816,7 +844,7 @@ employment() at (46, 52): residents=98, workers=0, workplaces=[], students=0, sc
 employment() at (48, 52): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (49, 52): residents=24, workers=0, workplaces=[], students=0, schools=[]
 employment() at (51, 52): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (53, 52): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (53, 52): residents=-1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 52): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (56, 52): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (58, 52): residents=6, workers=0, workplaces=[], students=0, schools=[]
@@ -852,7 +880,7 @@ employment() at (7, 54): residents=5, workers=0, workplaces=[], students=0, scho
 employment() at (10, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 54): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
-employment() at (14, 54): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (14, 54): residents=7, workers=1, workplaces=[industrial#593], students=0, schools=[]
 employment() at (16, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (17, 54): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (19, 54): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1022,7 +1050,7 @@ employment() at (61, 59): residents=7, workers=4, workplaces=[farm#3609, industr
 employment() at (62, 59): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 60): residents=1, workers=0, workplaces=[], students=0, schools=[]
-employment() at (10, 60): residents=6, workers=0, workplaces=[], students=0, schools=[]
+employment() at (10, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 60): residents=7, workers=4, workplaces=[farm#2499, industrial#6171, industrial#6343, farm#1111], students=0, schools=[]
 employment() at (14, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1037,7 +1065,7 @@ employment() at (26, 60): residents=32, workers=0, workplaces=[], students=0, sc
 employment() at (28, 60): residents=91, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 60): residents=109, workers=7, workplaces=[industrial#5448, public#795, farm#2406, industrial#617, office#5486, public#5528, industrial#359], students=2, schools=[elementary#4347, elementary#5528]
 employment() at (31, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (32, 60): residents=3, workers=0, workplaces=[], students=0, schools=[]
+employment() at (32, 60): residents=3, workers=1, workplaces=[industrial#381], students=0, schools=[]
 employment() at (35, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 60): residents=65, workers=28, workplaces=[industrial#754, commercial#969, commercial#908, farm#1122, farm#2855, public#782, commercial#6997, industrial#639, industrial#771, industrial#674, public#799, farm#3185, farm#2591, farm#2402, industrial#5100, public#6058, commercial#6897, commercial#951, public#852, farm#3114, industrial#754, industrial#631, farm#1120, commercial#481, industrial#5448, industrial#5720, farm#3108, farm#2587], students=5, schools=[elementary#3423, elementary#5528, elementary#4406, elementary#5948, elementary#4347]
 employment() at (38, 60): residents=32, workers=10, workplaces=[industrial#5637, commercial#908, commercial#533, farm#3531, farm#2942, industrial#6172, industrial#6259, office#5486, farm#2775, farm#2768], students=2, schools=[elementary#6039, elementary#5200]
@@ -1078,7 +1106,7 @@ employment() at (35, 61): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (37, 61): residents=78, workers=0, workplaces=[], students=0, schools=[]
 employment() at (38, 61): residents=126, workers=0, workplaces=[], students=0, schools=[]
 employment() at (40, 61): residents=56, workers=0, workplaces=[], students=0, schools=[]
-employment() at (41, 61): residents=70, workers=20, workplaces=[farm#1103, commercial#6998, farm#1114, public#4631, public#6039, commercial#969, farm#3432, industrial#6166, farm#3358, commercial#883, farm#2407, farm#1103, farm#2591, farm#1108, industrial#5450, industrial#6165, farm#3355, commercial#1011, commercial#516, industrial#5721], students=5, schools=[elementary#852, elementary#4406, elementary#5948, elementary#3423, elementary#5200]
+employment() at (41, 61): residents=70, workers=21, workplaces=[farm#1103, commercial#6998, farm#1114, public#4631, public#6039, commercial#969, farm#3432, industrial#6166, farm#3358, commercial#883, farm#2407, farm#1103, farm#2591, farm#1108, industrial#5450, industrial#6165, farm#3355, commercial#1011, commercial#516, industrial#5721, farm#3187], students=5, schools=[elementary#852, elementary#4406, elementary#5948, elementary#3423, elementary#5200]
 employment() at (45, 61): residents=64, workers=0, workplaces=[], students=0, schools=[]
 employment() at (46, 61): residents=2, workers=1, workplaces=[industrial#753], students=0, schools=[]
 employment() at (48, 61): residents=1, workers=1, workplaces=[industrial#6169], students=0, schools=[]
@@ -1094,12 +1122,12 @@ employment() at (31, 67): residents=99, workers=0, workplaces=[], students=0, sc
 employment() at (32, 67): residents=111, workers=0, workplaces=[], students=0, schools=[]
 employment() at (33, 67): residents=81, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 67): residents=128, workers=0, workplaces=[], students=0, schools=[]
-employment() at (36, 67): residents=96, workers=27, workplaces=[farm#2940, farm#2583, farm#1090, public#7601, industrial#687, farm#2500, public#6336, farm#1098, public#5383, industrial#743, commercial#5430, industrial#640, farm#2944, commercial#927, farm#2405, industrial#753, farm#2852, industrial#6166, industrial#771, industrial#729, farm#1102, industrial#6173, farm#1749, farm#3181, farm#2500, farm#2858, industrial#753], students=2, schools=[elementary#7502, elementary#6058]
+employment() at (36, 67): residents=96, workers=26, workplaces=[farm#2940, farm#2583, farm#1090, public#7601, industrial#687, farm#2500, public#6336, farm#1098, public#5383, industrial#743, commercial#5430, industrial#640, farm#2944, commercial#927, farm#2405, industrial#753, farm#2852, industrial#6166, industrial#771, industrial#729, farm#1102, industrial#6173, farm#1749, farm#3181, farm#2500, industrial#6262], students=2, schools=[elementary#7502, elementary#6058]
 employment() at (37, 67): residents=44, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 68): residents=96, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 68): residents=127, workers=69, workplaces=[industrial#6256, industrial#6165, commercial#644, farm#3109, industrial#635, farm#3358, farm#2507, industrial#6256, industrial#5100, commercial#5435, commercial#6898, public#785, farm#3428, industrial#746, public#787, office#5387, industrial#5448, public#4622, industrial#768, industrial#740, farm#3363, industrial#694, farm#2500, commercial#4865, farm#3607, industrial#4606, farm#2767, public#786, commercial#929, public#799, industrial#747, industrial#640, commercial#7196, commercial#1011, industrial#760, public#7601, farm#2499, farm#3536, farm#1081, industrial#632, industrial#5447, industrial#4606, industrial#6167, farm#3532, public#777, farm#1085, farm#1095, commercial#7199, industrial#741, public#779, public#6336, farm#2773, office#4868, farm#1104, farm#1119, farm#1751, farm#2767, industrial#608, commercial#5201, farm#1091, industrial#727, commercial#951, industrial#6172, commercial#6898, farm#1084, commercial#5201, farm#3536, industrial#730, industrial#333], students=13, schools=[elementary#4347, elementary#5528, elementary#4631, elementary#852, elementary#5528, elementary#6039, elementary#5200, elementary#5948, elementary#4694, elementary#7502, elementary#7502, elementary#5200, elementary#3423]
 employment() at (33, 68): residents=113, workers=0, workplaces=[], students=0, schools=[]
-employment() at (35, 68): residents=88, workers=19, workplaces=[industrial#361, industrial#765, farm#1107, commercial#7199, farm#1090, public#477, public#6039, farm#3428, farm#2500, office#5388, farm#2589, farm#3436, industrial#361, public#6025, industrial#5446, farm#3536, commercial#6898, farm#3529, farm#2939], students=4, schools=[elementary#4347, elementary#4347, elementary#4694, elementary#4631]
+employment() at (35, 68): residents=23, workers=0, workplaces=[], students=0, schools=[]
 employment() at (36, 68): residents=129, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 68): residents=55, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 70): residents=126, workers=0, workplaces=[], students=0, schools=[]
@@ -1123,9 +1151,9 @@ employment() at (36, 73): residents=5, workers=0, workplaces=[], students=0, sch
 employment() at (37, 73): residents=7, workers=1, workplaces=[industrial#608], students=0, schools=[]
 employment() at (25, 74): residents=35, workers=0, workplaces=[], students=0, schools=[]
 employment() at (26, 74): residents=91, workers=0, workplaces=[], students=0, schools=[]
-employment() at (27, 74): residents=39, workers=0, workplaces=[], students=0, schools=[]
+employment() at (27, 74): residents=55, workers=1, workplaces=[industrial#5004], students=1, schools=[elementary#4406]
 employment() at (28, 74): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (29, 74): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (29, 74): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 74): residents=5, workers=1, workplaces=[industrial#377], students=0, schools=[]
 employment() at (36, 74): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 74): residents=4, workers=0, workplaces=[], students=0, schools=[]
@@ -1144,7 +1172,7 @@ employment() at (26, 77): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (28, 77): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 77): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 77): residents=1, workers=0, workplaces=[], students=0, schools=[]
-employment() at (32, 77): residents=-2, workers=0, workplaces=[], students=0, schools=[]
+employment() at (32, 77): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (33, 77): residents=3, workers=2, workplaces=[public#800, farm#1092], students=0, schools=[]
 employment() at (35, 77): residents=6, workers=0, workplaces=[], students=1, schools=[elementary#852]
 employment() at (36, 77): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -1181,7 +1209,7 @@ employment() at (36, 82): residents=3, workers=3, workplaces=[commercial#507, in
 employment() at (37, 82): residents=6, workers=1, workplaces=[farm#1105], students=1, schools=[elementary#852]
 employment() at (25, 83): residents=1, workers=1, workplaces=[farm#2768], students=0, schools=[]
 employment() at (26, 83): residents=6, workers=0, workplaces=[], students=0, schools=[]
-employment() at (28, 83): residents=4, workers=0, workplaces=[], students=0, schools=[]
+employment() at (28, 83): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 83): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 83): residents=4, workers=1, workplaces=[farm#2583], students=0, schools=[]
 employment() at (32, 83): residents=3, workers=1, workplaces=[industrial#339], students=0, schools=[]
@@ -1189,14 +1217,74 @@ employment() at (33, 83): residents=2, workers=0, workplaces=[], students=0, sch
 employment() at (35, 83): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (36, 83): residents=6, workers=3, workplaces=[farm#2940, farm#1118, farm#2939], students=2, schools=[elementary#4631, elementary#4631]
 employment() at (37, 83): residents=1, workers=0, workplaces=[], students=0, schools=[]
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 16 / 5
+connect(): set roadtypeconect 15 / 5
 connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 12 / 5
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 12 / 5
 connect(): set roadtypeconect 5 / 7
 connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 6 / 4
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 6 / 4
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 10 / 4
+connect(): set roadtypeconect 16 / 5
 connect(): set roadtypeconect 15 / 5
-before put
-after put
-before put
-after put
+connect(): set roadtypeconect 15 / 5
+connect(): set roadtypeconect 16 / 5
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 12 / 5
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 12 / 5
+connect(): set roadtypeconect 23 / 0
+connect(): set roadtypeconect 23 / 0
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 33 / 0
+connect(): set roadtypeconect 23 / 0
 employment() at (1, 1): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 1): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 1): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -1213,7 +1301,7 @@ employment() at (4, 2): residents=7, workers=0, workplaces=[], students=0, schoo
 employment() at (5, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 2): residents=7, workers=1, workplaces=[farm#3359], students=0, schools=[]
 employment() at (8, 2): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (10, 2): residents=7, workers=2, workplaces=[commercial#488, public#5383], students=0, schools=[]
+employment() at (10, 2): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 2): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (14, 2): residents=6, workers=0, workplaces=[], students=0, schools=[]
@@ -1242,7 +1330,7 @@ employment() at (5, 6): residents=7, workers=2, workplaces=[industrial#5100, com
 employment() at (7, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (10, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 6): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (13, 6): residents=7, workers=1, workplaces=[commercial#6997], students=0, schools=[]
+employment() at (13, 6): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 8): residents=2, workers=1, workplaces=[farm#1083], students=1, schools=[elementary#5528]
 employment() at (4, 8): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 8): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -1268,7 +1356,7 @@ employment() at (20, 15): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (22, 15): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (23, 15): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (17, 17): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (20, 17): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (20, 17): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (22, 17): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (23, 17): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (17, 18): residents=1, workers=0, workplaces=[], students=0, schools=[]
@@ -1313,7 +1401,7 @@ employment() at (37, 26): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (38, 26): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (40, 26): residents=4, workers=0, workplaces=[], students=1, schools=[elementary#4694]
 employment() at (41, 26): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (28, 27): residents=6, workers=1, workplaces=[farm#2857], students=1, schools=[elementary#4694]
+employment() at (28, 27): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 27): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 27): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 27): residents=0, workers=0, workplaces=[], students=0, schools=[]
@@ -1327,23 +1415,23 @@ employment() at (26, 29): residents=160, workers=71, workplaces=[farm#2402, farm
 employment() at (28, 29): residents=114, workers=61, workplaces=[commercial#644, farm#1751, industrial#4743, industrial#635, industrial#734, industrial#599, commercial#644, farm#2940, public#6058, farm#3115, commercial#927, office#5751, farm#1114, commercial#7295, farm#1098, industrial#619, farm#1753, industrial#4842, farm#2406, farm#3108, commercial#5664, farm#2506, office#5387, industrial#730, farm#2503, industrial#377, commercial#5438, industrial#328, farm#3434, commercial#5201, industrial#6343, industrial#418, commercial#5201, farm#1108, farm#2855, public#779, public#4694, industrial#756, industrial#6168, industrial#765, commercial#5212, public#785, farm#3189, public#6058, industrial#617, farm#3609, farm#2936, commercial#571, public#799, industrial#6173, commercial#684, farm#1294, commercial#5444, farm#3111, industrial#335, industrial#612, commercial#907, farm#2583, commercial#935, industrial#598, industrial#6169], students=13, schools=[elementary#3423, elementary#4694, elementary#5528, elementary#852, elementary#3423, elementary#4631, elementary#852, elementary#852, elementary#4694, elementary#5200, elementary#4631, elementary#3423, elementary#4631]
 employment() at (29, 29): residents=53, workers=26, workplaces=[commercial#951, industrial#762, public#6221, commercial#7297, public#6221, farm#3613, public#782, commercial#5212, public#775, commercial#959, farm#1121, industrial#762, industrial#6171, industrial#757, commercial#979, industrial#609, farm#3612, industrial#5101, farm#3528, farm#3109, commercial#5430, farm#3182, commercial#5443, commercial#7199, industrial#747, public#4710], students=3, schools=[elementary#4347, elementary#4631, elementary#6039]
 employment() at (31, 29): residents=27, workers=17, workplaces=[commercial#935, farm#1108, commercial#927, commercial#533, farm#1112, farm#3184, farm#3182, industrial#5721, farm#1091, public#4710, industrial#728, industrial#6347, industrial#599, farm#3362, farm#1091, industrial#626, industrial#5451], students=0, schools=[]
-employment() at (32, 29): residents=173, workers=5, workplaces=[industrial#690, industrial#594, farm#1112, industrial#690, farm#1749], students=0, schools=[]
+employment() at (32, 29): residents=29, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 29): residents=92, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 29): residents=166, workers=12, workplaces=[industrial#604, industrial#6173, farm#2774, industrial#6259, industrial#620, industrial#697, public#5679, commercial#5435, public#775, commercial#533, industrial#5264, industrial#361], students=1, schools=[elementary#3423]
 employment() at (37, 29): residents=92, workers=0, workplaces=[], students=0, schools=[]
-employment() at (38, 29): residents=3, workers=1, workplaces=[industrial#6172], students=0, schools=[]
+employment() at (38, 29): residents=40, workers=25, workplaces=[industrial#6172, farm#1097, farm#2505, industrial#6342, public#855, industrial#612, public#787, industrial#697, farm#2583, public#788, industrial#767, industrial#627, commercial#5431, commercial#7197, farm#1118, industrial#6349, farm#2106, farm#2851, commercial#6898, industrial#4606, farm#1084, farm#1117, farm#2854, farm#2503, industrial#361], students=2, schools=[elementary#7502, elementary#5528]
 employment() at (40, 29): residents=11, workers=4, workplaces=[commercial#481, industrial#639, commercial#927, industrial#5100], students=1, schools=[elementary#852]
 employment() at (41, 29): residents=140, workers=76, workplaces=[industrial#5537, industrial#5721, industrial#336, industrial#615, farm#1100, industrial#593, farm#1838, farm#2400, industrial#627, industrial#4673, commercial#5443, farm#1085, industrial#754, industrial#605, public#4694, industrial#697, farm#2505, farm#2936, commercial#5212, farm#1749, commercial#526, public#779, public#853, commercial#6897, farm#1114, commercial#5201, farm#1110, farm#1121, industrial#5264, farm#2406, industrial#747, farm#1114, commercial#5145, farm#1086, farm#3614, farm#1080, industrial#608, farm#3111, farm#3114, commercial#4952, commercial#993, commercial#7295, industrial#606, industrial#5100, industrial#744, commercial#994, farm#3429, farm#3182, farm#2503, industrial#740, public#5528, commercial#935, public#4694, industrial#5004, industrial#472, industrial#624, farm#3187, industrial#753, public#3935, industrial#635, public#800, industrial#6169, public#5976, office#4868, farm#1088, commercial#964, industrial#6256, public#798, commercial#7196, commercial#481, office#5388, commercial#964, public#6039, industrial#632, farm#3185, public#6329], students=7, schools=[elementary#7502, elementary#6039, elementary#4347, elementary#4347, elementary#3423, elementary#5948, elementary#5200]
 employment() at (22, 31): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (23, 31): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (25, 31): residents=175, workers=79, workplaces=[public#795, commercial#965, industrial#757, farm#2944, farm#1294, public#5948, industrial#690, farm#3606, commercial#929, public#7502, industrial#6169, farm#1083, farm#1098, farm#1088, public#4694, public#4694, industrial#632, industrial#6168, industrial#6256, commercial#6898, industrial#639, industrial#753, public#782, commercial#6997, farm#3362, commercial#6898, public#799, industrial#328, commercial#5443, farm#2021, industrial#768, industrial#681, industrial#5100, commercial#6997, farm#2858, farm#3114, farm#1095, industrial#797, public#4694, industrial#747, industrial#4842, farm#2402, farm#2942, farm#3114, public#5948, commercial#7295, farm#3112, farm#2106, farm#2936, public#800, industrial#6343, industrial#328, farm#1104, farm#1120, commercial#923, commercial#481, public#780, commercial#7196, farm#1093, industrial#737, commercial#6898, farm#1096, public#7600, farm#2775, farm#2503, public#7601, public#6221, farm#2590, farm#2936, industrial#602, industrial#4842, industrial#5446, farm#1115, public#795, industrial#5451, industrial#659, farm#3429, farm#3181, farm#3114], students=8, schools=[elementary#7502, elementary#5528, elementary#3423, elementary#6058, elementary#6039, elementary#6039, elementary#3423, elementary#4406]
-employment() at (26, 31): residents=156, workers=48, workplaces=[industrial#751, farm#1098, industrial#632, farm#2110, commercial#7296, commercial#906, farm#2402, commercial#5212, commercial#488, farm#2771, office#4949, farm#1122, public#3423, industrial#730, industrial#5447, commercial#7199, commercial#7196, farm#3111, industrial#6165, industrial#5720, public#5528, farm#3189, farm#2936, farm#3109, commercial#993, commercial#6999, farm#2858, industrial#761, industrial#726, industrial#737, industrial#347, industrial#629, farm#1093, industrial#633, farm#3428, industrial#5723, farm#3182, commercial#5440, farm#3188, industrial#5448, commercial#883, industrial#606, office#5751, farm#1100, industrial#6173, farm#2406, farm#1104, farm#2940], students=4, schools=[elementary#6058, elementary#7502, elementary#4631, elementary#852]
+employment() at (26, 31): residents=156, workers=51, workplaces=[industrial#751, farm#1098, industrial#632, farm#2110, commercial#7296, commercial#906, farm#2402, commercial#5212, commercial#488, farm#2771, office#4949, farm#1122, farm#1097, public#3423, industrial#730, industrial#5447, commercial#7199, commercial#7196, farm#3111, industrial#6165, industrial#5720, public#5528, farm#3189, farm#2936, farm#3109, commercial#993, commercial#6999, farm#2858, industrial#761, farm#1097, industrial#726, industrial#737, industrial#347, industrial#629, farm#1093, farm#1097, industrial#633, farm#3428, industrial#5723, farm#3182, commercial#5440, farm#3188, industrial#5448, commercial#883, industrial#606, office#5751, farm#1100, industrial#6173, farm#2406, farm#1104, farm#2110], students=4, schools=[elementary#6058, elementary#7502, elementary#4631, elementary#852]
 employment() at (28, 31): residents=21, workers=14, workplaces=[farm#2940, public#5528, commercial#507, industrial#5536, public#6221, farm#1104, industrial#4606, farm#2774, farm#1103, public#4347, farm#2587, farm#2851, farm#3108, farm#2403], students=1, schools=[elementary#4631]
-employment() at (29, 31): residents=101, workers=38, workplaces=[farm#3534, commercial#5429, farm#2852, commercial#6997, industrial#4743, farm#1083, industrial#758, commercial#7000, commercial#947, farm#1119, commercial#5443, industrial#753, office#5751, industrial#648, industrial#608, commercial#929, office#4868, commercial#5664, farm#2854, industrial#6254, commercial#979, farm#2506, industrial#5449, commercial#6899, public#779, industrial#751, commercial#883, farm#1101, industrial#6349, industrial#771, public#778, industrial#356, industrial#381, farm#3111, office#5666, commercial#5443, farm#2106, farm#3108], students=9, schools=[elementary#7502, elementary#5948, elementary#4406, elementary#852, elementary#6039, elementary#4694, elementary#4631, elementary#4694, elementary#6058]
-employment() at (31, 31): residents=167, workers=55, workplaces=[farm#2499, farm#3532, commercial#7197, industrial#5448, industrial#600, public#788, industrial#690, farm#1119, farm#1087, farm#3359, farm#2503, farm#2591, farm#1106, industrial#4842, farm#2106, public#5528, farm#3355, commercial#5430, farm#1111, commercial#7299, commercial#6897, farm#2944, farm#2944, farm#2940, industrial#797, farm#1122, industrial#336, commercial#6899, commercial#5430, commercial#6996, industrial#620, public#3935, public#795, public#7600, farm#2854, industrial#359, industrial#747, industrial#472, industrial#5451, farm#1088, industrial#745, farm#2110, industrial#598, farm#3532, industrial#328, farm#1085, farm#3181, commercial#526, commercial#6898, industrial#632, industrial#747, commercial#507, commercial#5434, industrial#6254, industrial#756], students=6, schools=[elementary#7502, elementary#4631, elementary#4406, elementary#852, elementary#6058, elementary#5528]
+employment() at (29, 31): residents=101, workers=39, workplaces=[farm#3534, commercial#5429, farm#2852, commercial#6997, industrial#4743, farm#1097, farm#1083, industrial#758, commercial#7000, commercial#947, farm#1119, commercial#5443, industrial#753, office#5751, industrial#648, industrial#608, commercial#929, office#4868, commercial#5664, farm#2854, industrial#6254, commercial#979, farm#2506, industrial#5449, commercial#6899, public#779, industrial#751, commercial#883, farm#1101, industrial#6349, industrial#771, public#778, industrial#356, industrial#381, farm#3111, office#5666, commercial#5443, farm#2106, farm#3108], students=9, schools=[elementary#7502, elementary#5948, elementary#4406, elementary#852, elementary#6039, elementary#4694, elementary#4631, elementary#4694, elementary#6058]
+employment() at (31, 31): residents=167, workers=57, workplaces=[farm#2499, farm#3532, commercial#7197, industrial#5448, industrial#600, public#788, industrial#690, farm#1119, farm#1087, farm#3359, farm#2503, farm#2591, farm#1106, industrial#4842, farm#2106, public#5528, farm#3355, commercial#5430, farm#1111, commercial#7299, commercial#6897, farm#2944, farm#2944, farm#2940, industrial#797, farm#1122, industrial#336, commercial#6899, commercial#5430, commercial#6996, industrial#620, public#3935, public#795, public#7600, farm#2854, industrial#359, industrial#747, farm#1097, industrial#472, industrial#5451, farm#1088, industrial#745, farm#2110, industrial#598, farm#3532, industrial#328, farm#1085, farm#3181, commercial#526, commercial#6898, industrial#632, industrial#747, commercial#507, commercial#5434, industrial#6254, industrial#756, commercial#883], students=6, schools=[elementary#7502, elementary#4631, elementary#4406, elementary#852, elementary#6058, elementary#5528]
 employment() at (32, 31): residents=176, workers=92, workplaces=[farm#1105, industrial#687, farm#3436, public#788, industrial#770, industrial#639, industrial#4673, commercial#644, farm#1094, industrial#635, public#4159, industrial#609, public#477, commercial#7297, public#4347, farm#1122, industrial#614, industrial#635, industrial#747, industrial#6167, public#794, industrial#727, industrial#751, industrial#758, commercial#965, public#6039, industrial#6166, farm#1101, industrial#602, farm#2851, farm#1096, industrial#5446, commercial#907, industrial#632, public#800, industrial#626, industrial#471, public#4406, public#7600, farm#2110, industrial#6171, commercial#571, commercial#5435, industrial#381, commercial#951, industrial#617, office#5388, commercial#7000, commercial#6998, public#780, farm#1565, commercial#883, industrial#609, commercial#7296, commercial#907, office#4869, commercial#964, industrial#337, industrial#339, industrial#754, public#794, industrial#756, public#3423, industrial#759, industrial#768, farm#3536, public#921, farm#1751, industrial#5005, industrial#6344, public#854, commercial#907, public#855, public#785, industrial#614, industrial#772, public#782, commercial#5431, farm#1094, industrial#471, commercial#481, industrial#418, farm#3185, industrial#356, industrial#471, farm#2859, industrial#5809, public#5976, industrial#4743, industrial#472, office#5751, industrial#336], students=17, schools=[elementary#6058, elementary#852, elementary#852, elementary#4347, elementary#4347, elementary#5948, elementary#5948, elementary#4406, elementary#852, elementary#4694, elementary#5200, elementary#5528, elementary#4406, elementary#3423, elementary#5528, elementary#4694, elementary#852]
 employment() at (34, 31): residents=103, workers=0, workplaces=[], students=0, schools=[]
-employment() at (35, 31): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (35, 31): residents=7, workers=2, workplaces=[industrial#674, farm#2583], students=2, schools=[elementary#7502, elementary#5948]
 employment() at (37, 31): residents=30, workers=18, workplaces=[farm#1102, industrial#5450, farm#2775, industrial#774, commercial#6998, farm#1099, farm#1751, farm#1122, industrial#726, farm#2405, industrial#6349, industrial#328, commercial#5436, farm#3108, industrial#5807, office#5751, farm#3185, industrial#762], students=4, schools=[elementary#5528, elementary#6039, elementary#6058, elementary#5200]
 employment() at (38, 31): residents=2, workers=2, workplaces=[industrial#401, farm#3609], students=0, schools=[]
 employment() at (40, 31): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -1416,8 +1504,8 @@ employment() at (51, 34): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (52, 34): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (53, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
-employment() at (56, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
-employment() at (58, 34): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (56, 34): residents=7, workers=3, workplaces=[farm#1119, industrial#6255, industrial#614], students=1, schools=[elementary#5200]
+employment() at (58, 34): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 34): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 34): residents=6, workers=1, workplaces=[commercial#7199], students=1, schools=[elementary#3423]
 employment() at (62, 34): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1430,7 +1518,7 @@ employment() at (53, 35): residents=5, workers=0, workplaces=[], students=0, sch
 employment() at (55, 35): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (56, 35): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (58, 35): residents=6, workers=0, workplaces=[], students=0, schools=[]
-employment() at (59, 35): residents=4, workers=1, workplaces=[commercial#4952], students=0, schools=[]
+employment() at (59, 35): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 35): residents=2, workers=1, workplaces=[farm#1080], students=0, schools=[]
 employment() at (62, 35): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 36): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -1461,9 +1549,9 @@ employment() at (2, 37): residents=4, workers=3, workplaces=[farm#1089, public#6
 employment() at (4, 37): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (5, 37): residents=5, workers=4, workplaces=[industrial#377, farm#3189, farm#3188, farm#3112], students=0, schools=[]
 employment() at (7, 37): residents=6, workers=0, workplaces=[], students=0, schools=[]
-employment() at (8, 37): residents=5, workers=0, workplaces=[], students=0, schools=[]
+employment() at (8, 37): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (10, 37): residents=7, workers=3, workplaces=[public#4694, industrial#4742, farm#2503], students=0, schools=[]
-employment() at (11, 37): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (11, 37): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 37): residents=6, workers=1, workplaces=[farm#3536], students=0, schools=[]
 employment() at (14, 37): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (16, 37): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1514,7 +1602,7 @@ employment() at (19, 39): residents=0, workers=0, workplaces=[], students=0, sch
 employment() at (20, 39): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (22, 39): residents=89, workers=0, workplaces=[], students=0, schools=[]
 employment() at (23, 39): residents=85, workers=25, workplaces=[industrial#728, office#4869, farm#3429, industrial#5004, farm#2937, commercial#4865, industrial#6165, industrial#743, industrial#6166, farm#2944, farm#1103, farm#1118, industrial#6173, farm#3428, farm#1118, commercial#6899, industrial#659, farm#2021, public#4406, industrial#657, commercial#935, industrial#728, farm#1113, commercial#947, farm#2774], students=6, schools=[elementary#5528, elementary#5948, elementary#4694, elementary#4631, elementary#7502, elementary#4406]
-employment() at (25, 39): residents=9, workers=0, workplaces=[], students=0, schools=[]
+employment() at (25, 39): residents=27, workers=0, workplaces=[], students=0, schools=[]
 employment() at (26, 39): residents=9, workers=0, workplaces=[], students=0, schools=[]
 employment() at (28, 39): residents=129, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 39): residents=96, workers=11, workplaces=[commercial#6997, public#921, public#855, industrial#6173, industrial#734, farm#2506, industrial#737, farm#2591, farm#3358, farm#1294, farm#3532], students=1, schools=[elementary#4631]
@@ -1551,7 +1639,7 @@ employment() at (25, 40): residents=129, workers=0, workplaces=[], students=0, s
 employment() at (26, 40): residents=98, workers=22, workplaces=[public#777, industrial#743, industrial#4607, industrial#737, farm#1109, industrial#5446, commercial#951, commercial#5664, farm#1107, industrial#604, industrial#4674, commercial#947, industrial#624, commercial#7199, farm#1121, farm#2587, industrial#624, farm#2405, farm#1087, commercial#5664, farm#3529, industrial#4742], students=4, schools=[elementary#4347, elementary#4631, elementary#5200, elementary#5200]
 employment() at (28, 40): residents=59, workers=22, workplaces=[public#853, farm#2506, industrial#743, commercial#6997, farm#3614, industrial#618, commercial#6999, farm#2507, industrial#672, commercial#7297, public#6058, farm#2857, farm#1101, industrial#737, public#4406, commercial#947, farm#3114, industrial#4673, farm#2507, industrial#4674, industrial#727, industrial#5100], students=5, schools=[elementary#4631, elementary#5528, elementary#4347, elementary#3423, elementary#5948]
 employment() at (29, 40): residents=99, workers=1, workplaces=[industrial#5101], students=0, schools=[]
-employment() at (31, 40): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (31, 40): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 40): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 40): residents=7, workers=4, workplaces=[farm#2775, industrial#361, farm#1089, industrial#676], students=0, schools=[]
 employment() at (46, 41): residents=5, workers=0, workplaces=[], students=0, schools=[]
@@ -1589,7 +1677,7 @@ employment() at (31, 42): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (32, 42): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (34, 42): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (41, 42): residents=15, workers=0, workplaces=[], students=0, schools=[]
-employment() at (46, 42): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (46, 42): residents=4, workers=1, workplaces=[industrial#626], students=0, schools=[]
 employment() at (48, 42): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (49, 42): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (51, 42): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1608,7 +1696,7 @@ employment() at (5, 43): residents=2, workers=1, workplaces=[farm#1103], student
 employment() at (7, 43): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 43): residents=1, workers=1, workplaces=[farm#1100], students=0, schools=[]
 employment() at (10, 43): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (11, 43): residents=4, workers=0, workplaces=[], students=0, schools=[]
+employment() at (11, 43): residents=4, workers=1, workplaces=[industrial#594], students=0, schools=[]
 employment() at (14, 43): residents=6, workers=3, workplaces=[industrial#626, industrial#619, farm#1118], students=0, schools=[]
 employment() at (16, 43): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (17, 43): residents=2, workers=1, workplaces=[farm#3184], students=0, schools=[]
@@ -1633,7 +1721,7 @@ employment() at (58, 43): residents=5, workers=1, workplaces=[public#5200], stud
 employment() at (59, 43): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 43): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 43): residents=3, workers=2, workplaces=[industrial#694, industrial#625], students=0, schools=[]
-employment() at (1, 45): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (1, 45): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (5, 45): residents=4, workers=2, workplaces=[industrial#359, farm#1753], students=0, schools=[]
@@ -1666,7 +1754,7 @@ employment() at (56, 45): residents=4, workers=1, workplaces=[farm#1103], studen
 employment() at (58, 45): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 45): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 45): residents=5, workers=1, workplaces=[public#776], students=1, schools=[elementary#4631]
-employment() at (62, 45): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (62, 45): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (1, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (2, 46): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (4, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
@@ -1685,7 +1773,7 @@ employment() at (34, 46): residents=128, workers=0, workplaces=[], students=0, s
 employment() at (35, 46): residents=129, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 46): residents=91, workers=0, workplaces=[], students=0, schools=[]
 employment() at (38, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
-employment() at (40, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (40, 46): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (41, 46): residents=95, workers=42, workplaces=[farm#3535, farm#3185, industrial#6172, public#778, farm#3428, industrial#774, commercial#951, industrial#6166, public#800, industrial#681, farm#1114, industrial#729, public#5679, industrial#335, industrial#627, farm#2499, industrial#735, farm#2771, farm#3428, industrial#616, farm#3108, farm#3434, industrial#5637, industrial#4607, industrial#636, industrial#697, farm#2589, farm#2586, industrial#754, farm#3363, office#5486, farm#3529, public#7602, public#4694, commercial#6899, industrial#762, industrial#759, commercial#964, industrial#6168, industrial#627, commercial#923, farm#3112], students=11, schools=[elementary#7502, elementary#3423, elementary#6039, elementary#4694, elementary#4631, elementary#4406, elementary#5200, elementary#4347, elementary#4347, elementary#3423, elementary#4631]
 employment() at (46, 46): residents=99, workers=0, workplaces=[], students=0, schools=[]
 employment() at (48, 46): residents=105, workers=0, workplaces=[], students=0, schools=[]
@@ -1695,7 +1783,7 @@ employment() at (52, 46): residents=2, workers=0, workplaces=[], students=0, sch
 employment() at (53, 46): residents=5, workers=3, workplaces=[industrial#5264, farm#2852, farm#3536], students=0, schools=[]
 employment() at (55, 46): residents=5, workers=1, workplaces=[industrial#735], students=0, schools=[]
 employment() at (56, 46): residents=3, workers=0, workplaces=[], students=0, schools=[]
-employment() at (58, 46): residents=1, workers=0, workplaces=[], students=0, schools=[]
+employment() at (58, 46): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 46): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 46): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 46): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1735,7 +1823,7 @@ employment() at (56, 48): residents=5, workers=1, workplaces=[office#5666], stud
 employment() at (58, 48): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 48): residents=1, workers=1, workplaces=[industrial#687], students=0, schools=[]
 employment() at (61, 48): residents=4, workers=0, workplaces=[], students=0, schools=[]
-employment() at (62, 48): residents=4, workers=0, workplaces=[], students=0, schools=[]
+employment() at (62, 48): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (16, 49): residents=6, workers=3, workplaces=[industrial#598, commercial#965, farm#3114], students=0, schools=[]
 employment() at (31, 49): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1751,10 +1839,10 @@ employment() at (51, 49): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (52, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (53, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 49): residents=5, workers=3, workplaces=[office#5388, industrial#5720, industrial#750], students=0, schools=[]
-employment() at (56, 49): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (58, 49): residents=7, workers=1, workplaces=[farm#2936], students=0, schools=[]
+employment() at (56, 49): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (58, 49): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 49): residents=5, workers=1, workplaces=[industrial#751], students=0, schools=[]
-employment() at (61, 49): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (61, 49): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 49): residents=4, workers=3, workplaces=[industrial#743, office#5751, industrial#766], students=0, schools=[]
 employment() at (7, 51): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 51): residents=6, workers=1, workplaces=[farm#2502], students=2, schools=[elementary#5200, elementary#6039]
@@ -1803,7 +1891,7 @@ employment() at (46, 52): residents=98, workers=0, workplaces=[], students=0, sc
 employment() at (48, 52): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (49, 52): residents=24, workers=0, workplaces=[], students=0, schools=[]
 employment() at (51, 52): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (53, 52): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (53, 52): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 52): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (56, 52): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (58, 52): residents=6, workers=0, workplaces=[], students=0, schools=[]
@@ -1819,7 +1907,7 @@ employment() at (70, 52): residents=1, workers=0, workplaces=[], students=0, sch
 employment() at (71, 52): residents=6, workers=2, workplaces=[farm#3185, industrial#5536], students=0, schools=[]
 employment() at (72, 52): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (75, 52): residents=4, workers=0, workplaces=[], students=0, schools=[]
-employment() at (76, 52): residents=2, workers=0, workplaces=[], students=0, schools=[]
+employment() at (76, 52): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (77, 52): residents=3, workers=2, workplaces=[public#4406, public#855], students=0, schools=[]
 employment() at (78, 52): residents=5, workers=1, workplaces=[farm#2403], students=0, schools=[]
 employment() at (79, 52): residents=1, workers=1, workplaces=[farm#3112], students=0, schools=[]
@@ -1830,7 +1918,7 @@ employment() at (49, 53): residents=119, workers=0, workplaces=[], students=0, s
 employment() at (51, 53): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (53, 53): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (55, 53): residents=2, workers=0, workplaces=[], students=1, schools=[elementary#5948]
-employment() at (56, 53): residents=6, workers=1, workplaces=[industrial#619], students=0, schools=[]
+employment() at (56, 53): residents=6, workers=2, workplaces=[industrial#619, commercial#488], students=0, schools=[]
 employment() at (58, 53): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (59, 53): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (61, 53): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -1839,7 +1927,7 @@ employment() at (7, 54): residents=5, workers=0, workplaces=[], students=0, scho
 employment() at (10, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 54): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
-employment() at (14, 54): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (14, 54): residents=7, workers=2, workplaces=[industrial#593, farm#2505], students=0, schools=[]
 employment() at (16, 54): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (17, 54): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (19, 54): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1951,7 +2039,7 @@ employment() at (38, 57): residents=5, workers=0, workplaces=[], students=0, sch
 employment() at (40, 57): residents=2, workers=0, workplaces=[], students=0, schools=[]
 employment() at (41, 57): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (45, 57): residents=3, workers=0, workplaces=[], students=0, schools=[]
-employment() at (46, 57): residents=5, workers=2, workplaces=[farm#2768, farm#3182], students=1, schools=[elementary#5528]
+employment() at (46, 57): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (48, 57): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (49, 57): residents=7, workers=1, workplaces=[farm#2502], students=1, schools=[elementary#4347]
 employment() at (51, 57): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -1980,7 +2068,7 @@ employment() at (29, 58): residents=95, workers=0, workplaces=[], students=0, sc
 employment() at (31, 58): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 58): residents=5, workers=1, workplaces=[farm#2936], students=0, schools=[]
 employment() at (34, 58): residents=31, workers=16, workplaces=[farm#1114, commercial#951, public#855, farm#1117, industrial#743, commercial#965, industrial#6167, public#921, commercial#7000, industrial#337, farm#1117, commercial#4865, farm#1080, industrial#728, commercial#951, farm#3112], students=3, schools=[elementary#5200, elementary#4347, elementary#852]
-employment() at (35, 58): residents=25, workers=0, workplaces=[], students=0, schools=[]
+employment() at (35, 58): residents=20, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 58): residents=5, workers=2, workplaces=[industrial#738, farm#2402], students=0, schools=[]
 employment() at (40, 58): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (41, 58): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -2009,7 +2097,7 @@ employment() at (61, 59): residents=7, workers=4, workplaces=[farm#3609, industr
 employment() at (62, 59): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (8, 60): residents=1, workers=0, workplaces=[], students=0, schools=[]
-employment() at (10, 60): residents=6, workers=0, workplaces=[], students=0, schools=[]
+employment() at (10, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 60): residents=7, workers=4, workplaces=[farm#2499, industrial#6171, industrial#6343, farm#1111], students=0, schools=[]
 employment() at (14, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -2024,7 +2112,7 @@ employment() at (26, 60): residents=32, workers=0, workplaces=[], students=0, sc
 employment() at (28, 60): residents=91, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 60): residents=109, workers=7, workplaces=[industrial#5448, public#795, farm#2406, industrial#617, office#5486, public#5528, industrial#359], students=2, schools=[elementary#4347, elementary#5528]
 employment() at (31, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (32, 60): residents=3, workers=0, workplaces=[], students=0, schools=[]
+employment() at (32, 60): residents=3, workers=1, workplaces=[industrial#381], students=0, schools=[]
 employment() at (35, 60): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 60): residents=65, workers=28, workplaces=[industrial#754, commercial#969, commercial#908, farm#1122, farm#2855, public#782, commercial#6997, industrial#639, industrial#771, industrial#674, public#799, farm#3185, farm#2591, farm#2402, industrial#5100, public#6058, commercial#6897, commercial#951, public#852, farm#3114, industrial#754, industrial#631, farm#1120, commercial#481, industrial#5448, industrial#5720, farm#3108, farm#2587], students=5, schools=[elementary#3423, elementary#5528, elementary#4406, elementary#5948, elementary#4347]
 employment() at (38, 60): residents=32, workers=10, workplaces=[industrial#5637, commercial#908, commercial#533, farm#3531, farm#2942, industrial#6172, industrial#6259, office#5486, farm#2775, farm#2768], students=2, schools=[elementary#6039, elementary#5200]
@@ -2043,7 +2131,7 @@ employment() at (59, 60): residents=2, workers=0, workplaces=[], students=0, sch
 employment() at (61, 60): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (62, 60): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (7, 61): residents=5, workers=0, workplaces=[], students=0, schools=[]
-employment() at (8, 61): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (8, 61): residents=7, workers=1, workplaces=[industrial#4742], students=0, schools=[]
 employment() at (10, 61): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (11, 61): residents=7, workers=0, workplaces=[], students=0, schools=[]
 employment() at (13, 61): residents=7, workers=0, workplaces=[], students=0, schools=[]
@@ -2065,7 +2153,7 @@ employment() at (35, 61): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (37, 61): residents=78, workers=0, workplaces=[], students=0, schools=[]
 employment() at (38, 61): residents=126, workers=0, workplaces=[], students=0, schools=[]
 employment() at (40, 61): residents=56, workers=0, workplaces=[], students=0, schools=[]
-employment() at (41, 61): residents=70, workers=20, workplaces=[farm#1103, commercial#6998, farm#1114, public#4631, public#6039, commercial#969, farm#3432, industrial#6166, farm#3358, commercial#883, farm#2407, farm#1103, farm#2591, farm#1108, industrial#5450, industrial#6165, farm#3355, commercial#1011, commercial#516, industrial#5721], students=5, schools=[elementary#852, elementary#4406, elementary#5948, elementary#3423, elementary#5200]
+employment() at (41, 61): residents=70, workers=21, workplaces=[farm#1103, commercial#6998, farm#1114, public#4631, public#6039, commercial#969, farm#3432, industrial#6166, farm#3358, commercial#883, farm#2407, farm#1103, farm#2591, farm#1108, industrial#5450, industrial#6165, farm#3355, commercial#1011, commercial#516, industrial#5721, farm#3187], students=5, schools=[elementary#852, elementary#4406, elementary#5948, elementary#3423, elementary#5200]
 employment() at (45, 61): residents=64, workers=0, workplaces=[], students=0, schools=[]
 employment() at (46, 61): residents=2, workers=1, workplaces=[industrial#753], students=0, schools=[]
 employment() at (48, 61): residents=1, workers=1, workplaces=[industrial#6169], students=0, schools=[]
@@ -2081,12 +2169,12 @@ employment() at (31, 67): residents=99, workers=0, workplaces=[], students=0, sc
 employment() at (32, 67): residents=111, workers=0, workplaces=[], students=0, schools=[]
 employment() at (33, 67): residents=81, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 67): residents=128, workers=0, workplaces=[], students=0, schools=[]
-employment() at (36, 67): residents=96, workers=27, workplaces=[farm#2940, farm#2583, farm#1090, public#7601, industrial#687, farm#2500, public#6336, farm#1098, public#5383, industrial#743, commercial#5430, industrial#640, farm#2944, commercial#927, farm#2405, industrial#753, farm#2852, industrial#6166, industrial#771, industrial#729, farm#1102, industrial#6173, farm#1749, farm#3181, farm#2500, farm#2858, industrial#753], students=2, schools=[elementary#7502, elementary#6058]
+employment() at (36, 67): residents=96, workers=26, workplaces=[farm#2940, farm#2583, farm#1090, public#7601, industrial#687, farm#2500, public#6336, farm#1098, public#5383, industrial#743, commercial#5430, industrial#640, farm#2944, commercial#927, farm#2405, industrial#753, farm#2852, industrial#6166, industrial#771, industrial#729, farm#1102, industrial#6173, farm#1749, farm#3181, farm#2500, industrial#6262], students=2, schools=[elementary#7502, elementary#6058]
 employment() at (37, 67): residents=44, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 68): residents=96, workers=0, workplaces=[], students=0, schools=[]
 employment() at (32, 68): residents=127, workers=69, workplaces=[industrial#6256, industrial#6165, commercial#644, farm#3109, industrial#635, farm#3358, farm#2507, industrial#6256, industrial#5100, commercial#5435, commercial#6898, public#785, farm#3428, industrial#746, public#787, office#5387, industrial#5448, public#4622, industrial#768, industrial#740, farm#3363, industrial#694, farm#2500, commercial#4865, farm#3607, industrial#4606, farm#2767, public#786, commercial#929, public#799, industrial#747, industrial#640, commercial#7196, commercial#1011, industrial#760, public#7601, farm#2499, farm#3536, farm#1081, industrial#632, industrial#5447, industrial#4606, industrial#6167, farm#3532, public#777, farm#1085, farm#1095, commercial#7199, industrial#741, public#779, public#6336, farm#2773, office#4868, farm#1104, farm#1119, farm#1751, farm#2767, industrial#608, commercial#5201, farm#1091, industrial#727, commercial#951, industrial#6172, commercial#6898, farm#1084, commercial#5201, farm#3536, industrial#730, industrial#333], students=13, schools=[elementary#4347, elementary#5528, elementary#4631, elementary#852, elementary#5528, elementary#6039, elementary#5200, elementary#5948, elementary#4694, elementary#7502, elementary#7502, elementary#5200, elementary#3423]
 employment() at (33, 68): residents=113, workers=0, workplaces=[], students=0, schools=[]
-employment() at (35, 68): residents=88, workers=19, workplaces=[industrial#361, industrial#765, farm#1107, commercial#7199, farm#1090, public#477, public#6039, farm#3428, farm#2500, office#5388, farm#2589, farm#3436, industrial#361, public#6025, industrial#5446, farm#3536, commercial#6898, farm#3529, farm#2939], students=4, schools=[elementary#4347, elementary#4347, elementary#4694, elementary#4631]
+employment() at (35, 68): residents=23, workers=0, workplaces=[], students=0, schools=[]
 employment() at (36, 68): residents=129, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 68): residents=55, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 70): residents=126, workers=0, workplaces=[], students=0, schools=[]
@@ -2102,7 +2190,7 @@ employment() at (36, 71): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (37, 71): residents=120, workers=0, workplaces=[], students=0, schools=[]
 employment() at (25, 73): residents=81, workers=0, workplaces=[], students=0, schools=[]
 employment() at (26, 73): residents=40, workers=12, workplaces=[commercial#993, farm#2403, industrial#668, public#7601, industrial#6174, farm#2851, farm#2499, commercial#927, industrial#5808, industrial#6348, farm#1100, industrial#6259], students=0, schools=[]
-employment() at (27, 73): residents=127, workers=4, workplaces=[industrial#6263, industrial#6168, commercial#5430, industrial#735], students=0, schools=[]
+employment() at (27, 73): residents=127, workers=5, workplaces=[industrial#6263, industrial#6168, commercial#5430, farm#1097, industrial#735], students=0, schools=[]
 employment() at (28, 73): residents=121, workers=37, workplaces=[commercial#571, commercial#7199, farm#2939, farm#1111, farm#1082, public#776, industrial#639, farm#1084, farm#2584, farm#1107, public#477, industrial#694, industrial#6343, industrial#5720, public#787, industrial#619, commercial#6898, farm#1838, farm#2405, farm#1753, public#4159, farm#2859, farm#1089, industrial#5448, farm#1098, industrial#5720, farm#1099, industrial#620, industrial#610, commercial#907, industrial#741, farm#3362, farm#1083, industrial#737, commercial#6898, industrial#5536, farm#3356], students=7, schools=[elementary#6058, elementary#6058, elementary#5528, elementary#5200, elementary#4694, elementary#6039, elementary#5200]
 employment() at (29, 73): residents=58, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 73): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -2110,9 +2198,9 @@ employment() at (36, 73): residents=5, workers=0, workplaces=[], students=0, sch
 employment() at (37, 73): residents=7, workers=1, workplaces=[industrial#608], students=0, schools=[]
 employment() at (25, 74): residents=35, workers=0, workplaces=[], students=0, schools=[]
 employment() at (26, 74): residents=91, workers=0, workplaces=[], students=0, schools=[]
-employment() at (27, 74): residents=39, workers=0, workplaces=[], students=0, schools=[]
+employment() at (27, 74): residents=55, workers=2, workplaces=[industrial#5004, industrial#401], students=1, schools=[elementary#4406]
 employment() at (28, 74): residents=7, workers=0, workplaces=[], students=0, schools=[]
-employment() at (29, 74): residents=7, workers=0, workplaces=[], students=0, schools=[]
+employment() at (29, 74): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (35, 74): residents=5, workers=1, workplaces=[industrial#377], students=0, schools=[]
 employment() at (36, 74): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (37, 74): residents=4, workers=0, workplaces=[], students=0, schools=[]
@@ -2131,7 +2219,7 @@ employment() at (26, 77): residents=7, workers=0, workplaces=[], students=0, sch
 employment() at (28, 77): residents=6, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 77): residents=4, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 77): residents=1, workers=0, workplaces=[], students=0, schools=[]
-employment() at (32, 77): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (32, 77): residents=5, workers=0, workplaces=[], students=0, schools=[]
 employment() at (33, 77): residents=3, workers=2, workplaces=[public#800, farm#1092], students=0, schools=[]
 employment() at (35, 77): residents=6, workers=0, workplaces=[], students=1, schools=[elementary#852]
 employment() at (36, 77): residents=2, workers=0, workplaces=[], students=0, schools=[]
@@ -2168,7 +2256,7 @@ employment() at (36, 82): residents=3, workers=3, workplaces=[commercial#507, in
 employment() at (37, 82): residents=6, workers=1, workplaces=[farm#1105], students=1, schools=[elementary#852]
 employment() at (25, 83): residents=1, workers=1, workplaces=[farm#2768], students=0, schools=[]
 employment() at (26, 83): residents=6, workers=0, workplaces=[], students=0, schools=[]
-employment() at (28, 83): residents=4, workers=0, workplaces=[], students=0, schools=[]
+employment() at (28, 83): residents=0, workers=0, workplaces=[], students=0, schools=[]
 employment() at (29, 83): residents=1, workers=0, workplaces=[], students=0, schools=[]
 employment() at (31, 83): residents=4, workers=1, workplaces=[farm#2583], students=0, schools=[]
 employment() at (32, 83): residents=3, workers=1, workplaces=[industrial#339], students=0, schools=[]
@@ -2176,5 +2264,9 @@ employment() at (33, 83): residents=2, workers=0, workplaces=[], students=0, sch
 employment() at (35, 83): residents=3, workers=0, workplaces=[], students=0, schools=[]
 employment() at (36, 83): residents=6, workers=3, workplaces=[farm#2940, farm#1118, farm#2939], students=2, schools=[elementary#4631, elementary#4631]
 employment() at (37, 83): residents=1, workers=0, workplaces=[], students=0, schools=[]
+before put
+after put
+before put
+after put
 before put
 after put

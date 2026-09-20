@@ -716,22 +716,38 @@ mod tests {
             true,
         );
         source.add_tile_object_ref(0, 0, 42, 0, 0, true);
+        source.add_object(
+            43,
+            "Two_lane_normal_road(white_line)".to_string(),
+            "".to_string(),
+            "IntersectionCross".to_string(),
+            "All".to_string(),
+            0,
+            0,
+            true,
+        );
+        source.add_tile_object_ref(0, 0, 43, 0, 0, true);
         assert!(source.save_to_file(path.to_string_lossy().into_owned()));
 
         let mut loaded = new_city_map();
         let result = loaded.load_city_map(path.to_string_lossy().into_owned());
         assert!(result.success, "{}", result.error_message);
-        assert_eq!(result.city.objects.len(), 1);
+        assert_eq!(result.city.objects.len(), 2);
         assert_eq!(result.city.objects[0].id, 42);
         assert_eq!(result.city.objects[0].type_name, "IntersectionT");
         assert_eq!(result.city.objects[0].direction_name, "NorthSouthEast");
-        assert_eq!(result.city.tiles[0].objects.len(), 1);
+        assert_eq!(result.city.objects[1].type_name, "IntersectionCross");
+        assert_eq!(result.city.objects[1].direction_name, "All");
+        assert_eq!(result.city.tiles[0].objects.len(), 2);
         assert_eq!(result.city.tiles[0].objects[0].object_id, 42);
 
         assert!(loaded.commit_loaded_city_map());
         let object = loaded.objects.get(&42).unwrap();
         assert_eq!(object.type_id, "IntersectionT");
         assert_eq!(object.direction_id, "NorthSouthEast");
+        let crossing = loaded.objects.get(&43).unwrap();
+        assert_eq!(crossing.type_id, "IntersectionCross");
+        assert_eq!(crossing.direction_id, "All");
         assert_eq!(loaded.tiles[0][0].object_structs[0].object_id, 42);
 
         let _ = std::fs::remove_file(path);

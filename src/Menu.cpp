@@ -132,7 +132,7 @@ void Menu::getSelectedAddon() {
 	
 }
 
-void Menu::update() {
+void Menu::update(const SimulationSnapshot& simulation) {
 	m_render.clear(Color(45, 52, 54));
 	ScopedRenderTarget2D rt(m_render);
 	
@@ -166,19 +166,15 @@ void Menu::update() {
 	(*m_font8)(U"I").draw(m_menu_buttons_pos.x + m_size.x-80+3+24, m_size.y-15+2, Color(Palette::White));
 	(*m_font8)(U"F").draw(m_menu_buttons_pos.x + m_size.x-80+3+32, m_size.y-15+2, Color(Palette::White));
 	
-	Rect(m_menu_buttons_pos.x + m_size.x-80, m_size.y-15, 8, -max(m_map->getDemand().residential*0.3, 1.0)).draw(Color(39, 174, 96));
-	Rect(m_menu_buttons_pos.x + m_size.x-80+8, m_size.y-15, 8, -max(m_map->getDemand().commercial*0.3, 1.0)).draw(Color(9, 132, 227));
-	Rect(m_menu_buttons_pos.x + m_size.x-80+16, m_size.y-15, 8, -max(m_map->getDemand().office*0.3, 1.0)).draw(Color(0, 206, 201));
-	Rect(m_menu_buttons_pos.x + m_size.x-80+24, m_size.y-15, 8, -max(m_map->getDemand().industrial*0.3, 1.0)).draw(Color(253, 203, 110));
-	Rect(m_menu_buttons_pos.x + m_size.x-80+32, m_size.y-15, 8, -max(m_map->getDemand().farm*0.3, 1.0)).draw(Color(211, 84, 0));
+	Rect(m_menu_buttons_pos.x + m_size.x-80, m_size.y-15, 8, -max(simulation.demand.residential*0.3, 1.0)).draw(Color(39, 174, 96));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+8, m_size.y-15, 8, -max(simulation.demand.commercial*0.3, 1.0)).draw(Color(9, 132, 227));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+16, m_size.y-15, 8, -max(simulation.demand.office*0.3, 1.0)).draw(Color(0, 206, 201));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+24, m_size.y-15, 8, -max(simulation.demand.industrial*0.3, 1.0)).draw(Color(253, 203, 110));
+	Rect(m_menu_buttons_pos.x + m_size.x-80+32, m_size.y-15, 8, -max(simulation.demand.farm*0.3, 1.0)).draw(Color(211, 84, 0));
 	
-	//population.draw(10, size.height-25);
-	//(*font16)(Format(map->getPopulation())).draw(10+30, size.height-25-3, Color(Palette::White));
-	 
-	//(*font16)(U"§ "+Format(map->getMoney())).draw(10+100, size.height-25-3, Color(Palette::White));
 }
 
-CBAddon* Menu::draw(bool& needUpdate) {
+CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 	m_render.draw(m_position.x, m_position.y);
 	
 	// ボタンが押されたときの動作
@@ -437,7 +433,7 @@ CBAddon* Menu::draw(bool& needUpdate) {
 	}
 
 	if (m_show_budget_menu) {
-		if (budgetMenu()) {
+		if (budgetMenu(simulation)) {
 			needUpdate = true;
 		}
 	}
@@ -445,20 +441,19 @@ CBAddon* Menu::draw(bool& needUpdate) {
 	return m_selected_addon;
 }
 
-bool Menu::budgetMenu() {
-	SimulationSnapshot snapshot = m_map->getSimulationSnapshot();
+bool Menu::budgetMenu(SimulationSnapshot& simulation) {
 	BudgetSettings budget{
-		snapshot.budget_police,
-		snapshot.budget_fire,
-		snapshot.budget_post,
-		snapshot.budget_education
+		simulation.budget_police,
+		simulation.budget_fire,
+		simulation.budget_post,
+		simulation.budget_education
 	};
 	TaxSettings tax{
-		snapshot.tax_residential,
-		snapshot.tax_commercial,
-		snapshot.tax_office,
-		snapshot.tax_industrial,
-		snapshot.tax_farm
+		simulation.tax_residential,
+		simulation.tax_commercial,
+		simulation.tax_office,
+		simulation.tax_industrial,
+		simulation.tax_farm
 	};
 
 	const int panelWidth = 360;
@@ -506,7 +501,7 @@ bool Menu::budgetMenu() {
 	drawRow(U"Farm", U"{:.1f}%"_fmt(tax.farm), 8, [&]{ decreaseTax(tax.farm); }, [&]{ increaseTax(tax.farm); });
 
 	if (changed) {
-		snapshot = m_map->setFinanceSettings(budget, tax);
+		simulation = m_map->setFinanceSettings(budget, tax);
 	}
 	return changed;
 }

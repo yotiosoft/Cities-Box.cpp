@@ -158,8 +158,6 @@ void CitiesBox() {
 			ScopedRenderTarget2D target(bufferTexture);
 			map.draw(camera, cursor, window_size_changed);
 			
-			menu.update();
-			
 			if (firstLoop) {
 				firstLoop = false;
 			}
@@ -182,6 +180,7 @@ void CitiesBox() {
 		// 日付が変わる時、需要度も更新する
 		simulation = map.updateWorld(1);
 		time = simulation.time;
+		menu.update(simulation);
 		
 		// Details Barの表示
 		detailsBar.printWeather();
@@ -192,7 +191,7 @@ void CitiesBox() {
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
-		selectedAddon = menu.draw(updateMap);
+		selectedAddon = menu.draw(updateMap, simulation);
 		menu.addonMenu();
 		
 		//font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);

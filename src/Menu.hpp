@@ -46,13 +46,13 @@ public:
 	void releaseBeforeButton(MenuMode::Type beforeSelectedButton);
 	
 	void getSelectedAddon();
-	void update();
-	CBAddon* draw(bool& needUpdate);
+	void update(const SimulationSnapshot& simulation);
+	CBAddon* draw(bool& needUpdate, SimulationSnapshot& simulation);
 	
 	void addonMenu();
 	
 	bool rateMenu();
-	bool budgetMenu();
+	bool budgetMenu(SimulationSnapshot& simulation);
 	
 private:
 	PositionStruct m_position;

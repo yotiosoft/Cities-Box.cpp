@@ -81,10 +81,6 @@ public:
 		return m_rust_core->simulation_snapshot();
 	}
 	SimulationSnapshot setFinanceSettings(BudgetSettings budget, TaxSettings tax);
-	// メニュー向け互換ラッパー。状態の所有・計算はRust側に限定する。
-	RCOIFstruct getDemand() {
-		return getSimulationSnapshot().demand;
-	}
 	
 private:
 	/* プライベート関数 */

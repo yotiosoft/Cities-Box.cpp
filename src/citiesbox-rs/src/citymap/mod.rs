@@ -6,6 +6,7 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 
 mod connectable;
+mod build;
 mod load;
 mod models;
 mod network;
@@ -15,6 +16,7 @@ mod state;
 
 use crate::simulation::SimulationState;
 use models::*;
+use build::plan_build;
 #[cfg(test)]
 use save::sidecar_path;
 
@@ -294,10 +296,49 @@ pub(crate) mod ffi {
         city: LoadedCityData,
     }
 
+    #[derive(Clone)]
+    struct BuildTile {
+        x: i32,
+        y: i32,
+        has_road: bool,
+        has_structure: bool,
+        has_connectable: bool,
+        has_nonconnectable_structure: bool,
+    }
+
+    #[derive(Clone)]
+    struct BuildOption {
+        direction: i32,
+        width: i32,
+        height: i32,
+        available: bool,
+    }
+
+    #[derive(Clone)]
+    struct BuildRequest {
+        x: i32,
+        y: i32,
+        map_width: i32,
+        map_height: i32,
+        connectable: bool,
+        put_type: bool,
+        crossable: bool,
+        tiles: Vec<BuildTile>,
+        options: Vec<BuildOption>,
+    }
+
+    struct BuildDecision {
+        allowed: bool,
+        direction: i32,
+        error_code: i32,
+        error_message: String,
+    }
+
     extern "Rust" {
         type RustCityMap;
 
         fn new_city_map() -> Box<RustCityMap>;
+        fn plan_build(request: BuildRequest) -> BuildDecision;
 
         // 生ポインタやOpenSiv3D型を含まない接続状態の純粋計算
         fn plan_connectable_connection(

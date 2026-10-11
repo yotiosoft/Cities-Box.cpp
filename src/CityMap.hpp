@@ -29,6 +29,7 @@ public:
 	bool load(String loadMapFilePath);
 	const String& getLastLoadError() const { return m_last_load_error; }
 	const String& getLastSaveError() const { return m_last_save_error; }
+	const String& getLastBuildError() const { return m_last_build_error; }
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
@@ -104,6 +105,7 @@ private:
     bool m_build_connectable_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
     bool m_update_connection_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
     bool m_build_building(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak);
+    rust::citymap::BuildDecision m_plan_build(CoordinateStruct coordinate, CBAddon* addon, bool connectable, TypeID::Type type, DirectionID::Type direction, bool crossable = false);
     
     // 道路を接続
     void m_connect_objects(CoordinateStruct from, CoordinateStruct to, int object_id);
@@ -118,7 +120,6 @@ private:
     void m_break_once(ObjectStruct &object_struct, CoordinateStruct coordinate, bool isTemporaryDelete, bool updateAroundTiles, bool deleteThis);
     
     // 道路の敷設の可否、TypeID, DirectionIDの設定
-    bool m_can_build_road_here(CoordinateStruct coordinate);
     TypeID::Type m_set_road_type(CoordinateStruct coordinate, CBAddon* addon);
     DirectionID::Type m_set_road_direction(CoordinateStruct coordinate, CBAddon* addon);
     
@@ -161,6 +162,7 @@ private:
 	String m_map_file_path;
 	String m_last_load_error;
 	String m_last_save_error;
+	String m_last_build_error;
 	
 	RateID::Type m_show_rate = RateID::None;
 };

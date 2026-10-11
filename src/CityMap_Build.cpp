@@ -9,12 +9,77 @@
 
 // アドオンの設置
 bool CityMap::build(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
+	m_last_build_error.clear();
+	const auto bounds = m_plan_build(cursor.coordinate, selectedAddon, false, TypeID::Disabled, DirectionID::Disabled);
+	if (bounds.error_code == 4) {
+		m_last_build_error = Unicode::FromUTF8(std::string(bounds.error_message.data(), bounds.error_message.size()));
+		return false;
+	}
 	if (selectedAddon->isInCategories(CategoryID::Connectable)) {
 		return m_build_connectable_type(cursor, before_cursor, selectedAddon, needToBreak);
 	}
 	else {
 		return m_build_building(cursor, before_cursor, selectedAddon, needToBreak);
 	}
+}
+
+rust::citymap::BuildDecision CityMap::m_plan_build(CoordinateStruct coordinate, CBAddon* addon, bool connectable, TypeID::Type type, DirectionID::Type direction, bool crossable) {
+	rust::citymap::BuildRequest request;
+	request.x = coordinate.x;
+	request.y = coordinate.y;
+	request.map_width = m_map_size.x;
+	request.map_height = m_map_size.y;
+	request.connectable = connectable;
+	request.put_type = addon->isInCategories(CategoryID::PutType);
+	request.crossable = crossable;
+	int radius = 1;
+	if (connectable) {
+		rust::citymap::BuildOption option;
+		option.direction = static_cast<int>(direction);
+		option.available = addon->isCorrectCondition(type, direction);
+		if (option.available) {
+			const auto size = addon->getUseTiles(type, direction);
+			option.width = size.x;
+			option.height = size.y;
+			radius = Max(radius, Max(size.x, size.y));
+		}
+		request.options.push_back(option);
+	} else if (!request.put_type) {
+		for (int i = 0; i < AROUND_TILES; ++i) {
+			rust::citymap::BuildOption option;
+			option.direction = static_cast<int>(AroundTiles[i].first);
+			option.available = addon->isCorrectCondition(TypeID::Normal, AroundTiles[i].first);
+			if (option.available) {
+				const auto size = addon->getUseTiles(TypeID::Normal, AroundTiles[i].first);
+				option.width = size.x;
+				option.height = size.y;
+				radius = Max(radius, Max(size.x, size.y));
+			}
+			request.options.push_back(option);
+		}
+	}
+	for (int y = Max(0, coordinate.y - radius); y <= Min(m_map_size.y - 1, coordinate.y + radius); ++y) {
+		for (int x = Max(0, coordinate.x - radius); x <= Min(m_map_size.x - 1, coordinate.x + radius); ++x) {
+			rust::citymap::BuildTile tile;
+			tile.x = x;
+			tile.y = y;
+			tile.has_road = false;
+			tile.has_structure = false;
+			tile.has_connectable = false;
+			tile.has_nonconnectable_structure = false;
+			for (const auto& entry : m_tiles[y][x].getObjectStructs()) {
+				if (!entry.object_p || entry.object_p->isDeleted() || !entry.object_p->getAddonP()) continue;
+				auto* existing = entry.object_p->getAddonP();
+				tile.has_road |= existing->isInCategories(CategoryID::Road);
+				tile.has_connectable |= existing->isInCategories(CategoryID::Connectable);
+				tile.has_structure |= !existing->isInCategories(CategoryID::Tile);
+				tile.has_nonconnectable_structure |= !existing->isInCategories(CategoryID::Tile)
+					&& !existing->isInCategories(CategoryID::Connectable);
+			}
+			request.tiles.push_back(tile);
+		}
+	}
+	return rust::citymap::plan_build(std::move(request));
 }
 
 bool CityMap::m_build_building(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
@@ -231,59 +296,15 @@ void CityMap::m_break_once(ObjectStruct &object_struct, CoordinateStruct coordin
 
 // 建物の建設の可否
 tuple<bool, TypeID::Type, DirectionID::Type> CityMap::m_can_build_building_here(CoordinateStruct coordinate, CBAddon* addon) {
-	TypeID::Type type_id = TypeID::Disabled;
-	DirectionID::Type direction_id = DirectionID::Disabled;
-	
-	// タイルの場合
 	if (addon->isInCategories(CategoryID::PutType)) {
-		type_id = TypeID::Normal;
-		direction_id = DirectionID::None;
-		return tuple<bool, TypeID::Type, DirectionID::Type>{true, type_id, direction_id};
+		return { true, TypeID::Normal, DirectionID::None };
 	}
-	
-	// 建物の場合
-	for (int i = 0; i < AROUND_TILES; i++) {
-		CoordinateStruct currentTile = { coordinate.x + AroundTiles[i].second.x, coordinate.y + AroundTiles[i].second.y };
-
-		for (ObjectStruct object_struct : m_tiles[currentTile.y][currentTile.x].getObjectStructs()) {
-			if (object_struct.object_p->getAddonP()->isInCategories(CategoryID::Road)) {
-				TypeID::Type ret_type_temp = TypeID::Normal;
-				DirectionID::Type ret_direction_temp = AroundTiles[i].first;
-
-				// 複数のタイルを使う場合、建てる方向に障害物などがないか確認する
-				bool cannotBuild = false;
-
-				int addX = 1, addY = 1;
-				if (ret_direction_temp == DirectionID::East) {
-					addX = -1;
-				}
-				else if (ret_direction_temp == DirectionID::South) {
-					addY = -1;
-				}
-
-				for (int y = 0; y < addon->getUseTiles(type_id, direction_id).y; y += addY) {
-					for (int x = 0; y < addon->getUseTiles(type_id, direction_id).x; x += addX) {
-						for (ObjectStruct object_struct_sub : m_tiles[coordinate.y][coordinate.x].getObjectStructs()) {
-							if (object_struct_sub.object_p->getAddonP()->isInCategories(CategoryID::Connectable)) {
-								cannotBuild = true;
-								break;
-							}
-						}
-						if (cannotBuild) break;
-					}
-					if (cannotBuild) break;
-				}
-
-				if (!cannotBuild) {
-					type_id = ret_type_temp;
-					direction_id = ret_direction_temp;
-					return tuple<bool, TypeID::Type, DirectionID::Type>{true, type_id, direction_id};
-				}
-			}
-		}
+	const auto decision = m_plan_build(coordinate, addon, false, TypeID::Normal, DirectionID::Disabled);
+	if (!decision.allowed) {
+		m_last_build_error = Unicode::FromUTF8(std::string(decision.error_message.data(), decision.error_message.size()));
+		return { false, TypeID::Disabled, DirectionID::Disabled };
 	}
-	
-	return tuple<bool, TypeID::Type, DirectionID::Type>{false, type_id, direction_id};
+	return { true, TypeID::Normal, static_cast<DirectionID::Type>(decision.direction) };
 }
 
 // 接続している周囲のタイルの向きを更新する

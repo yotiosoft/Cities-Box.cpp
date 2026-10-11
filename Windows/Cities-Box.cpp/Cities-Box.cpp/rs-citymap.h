@@ -944,6 +944,10 @@ namespace rust {
     struct LoadedTileData;
     struct LoadedCityData;
     struct LoadCityResult;
+    struct BuildTile;
+    struct BuildOption;
+    struct BuildRequest;
+    struct BuildDecision;
     struct RustCityMap;
   }
 }
@@ -1365,6 +1369,61 @@ struct LoadCityResult final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+struct BuildTile final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  bool has_road CXX_DEFAULT_VALUE(false);
+  bool has_structure CXX_DEFAULT_VALUE(false);
+  bool has_connectable CXX_DEFAULT_VALUE(false);
+  bool has_nonconnectable_structure CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+struct BuildOption final {
+  ::std::int32_t direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t height CXX_DEFAULT_VALUE(0);
+  bool available CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+struct BuildRequest final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_height CXX_DEFAULT_VALUE(0);
+  bool connectable CXX_DEFAULT_VALUE(false);
+  bool put_type CXX_DEFAULT_VALUE(false);
+  bool crossable CXX_DEFAULT_VALUE(false);
+  ::rust::Vec<::rust::citymap::BuildTile> tiles;
+  ::rust::Vec<::rust::citymap::BuildOption> options;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+struct BuildDecision final {
+  bool allowed CXX_DEFAULT_VALUE(false);
+  ::std::int32_t direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t error_code CXX_DEFAULT_VALUE(0);
+  ::rust::String error_message;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
@@ -1405,6 +1464,8 @@ private:
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 
 ::rust::Box<::rust::citymap::RustCityMap> new_city_map() noexcept;
+
+::rust::citymap::BuildDecision plan_build(::rust::citymap::BuildRequest request) noexcept;
 
 ::rust::citymap::ConnectableConnectionDecision plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest request) noexcept;
 

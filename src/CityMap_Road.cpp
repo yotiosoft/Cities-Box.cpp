@@ -9,6 +9,12 @@
 
 bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
 	cout << "into build connect type at " << cursor.coordinate.x << "," << cursor.coordinate.y << endl;
+	const auto position = cursor.coordinate;
+	const auto bounds = m_plan_build(position, selectedAddon, false, TypeID::Disabled, DirectionID::Disabled);
+	if (bounds.error_code == 4) {
+		m_last_build_error = Unicode::FromUTF8(std::string(bounds.error_message.data(), bounds.error_message.size()));
+		return false;
+	}
 	
 	// 同じアドオンが指定されたタイル上に存在するなら -> アドオンの変更は行わず、既存のアドオンのDirectionIDとTypeIDを変更
 	if (m_tiles[cursor.coordinate.y][cursor.coordinate.x].hasAddon(selectedAddon)) {
@@ -29,6 +35,8 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 		const auto direction = object->getDirectionID();
 		if (!selectedAddon->isCorrectCondition(type, direction)
 			|| object->getAddonP()->getUseTiles(type, direction) != selectedAddon->getUseTiles(type, direction)) {
+			const auto decision = m_plan_build(position, selectedAddon, true, TypeID::Disabled, DirectionID::Disabled, true);
+			m_last_build_error = Unicode::FromUTF8(std::string(decision.error_message.data(), decision.error_message.size()));
 			return false;
 		}
 
@@ -44,11 +52,10 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 		}
 		return updated;
 	}
-	
 	// ObjectIDの決定
 	int objectID = m_get_next_objectID();
 
-	if (m_can_build_road_here(cursor.coordinate)) {			// 設置可能なら...
+	// 設置可能なら...
         TypeID::Type type;
         DirectionID::Type direction;
         bool do_not_update_selected_addon_type = m_is_there_crossable_object(selectedAddon, cursor.coordinate);
@@ -56,6 +63,12 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
         // typeとdirectionを設置
         type = m_set_road_type(cursor.coordinate, selectedAddon);
         direction = m_set_road_direction(cursor.coordinate, selectedAddon);
+		const auto decision = m_plan_build(position, selectedAddon, true, type, direction,
+			m_is_there_crossable_object(selectedAddon, position));
+		if (!decision.allowed) {
+			m_last_build_error = Unicode::FromUTF8(std::string(decision.error_message.data(), decision.error_message.size()));
+			return false;
+		}
 		
 		CoordinateStruct useTiles = selectedAddon->getUseTiles(type, direction);
 		cout << "use tiles: " << useTiles.x << "," << useTiles.y << endl;
@@ -131,9 +144,6 @@ bool CityMap::m_build_connectable_type(CursorStruct cursor, CursorStruct before_
 		// 旧版と同じく、新しい道路等を1マス敷設するごとに資金を減らす
 		m_rust_core->charge_construction_cost();
 		return true;
-	}
-
-	return false;
 }
 
 bool CityMap::m_update_connection_type(CursorStruct cursor, CursorStruct before_cursor, CBAddon* selectedAddon, bool needToBreak) {
@@ -328,13 +338,6 @@ bool CityMap::m_put_bridge(CBAddon* addon, CoordinateStruct coordinate, TypeID::
     }
     
     return false;
-}
-
-bool CityMap::m_can_build_road_here(CoordinateStruct coordinate) {
-	if (coordinate.x >= 0 && coordinate.y >= 0 && coordinate.x <= m_map_size.x-1 && coordinate.y <= m_map_size.y) {
-		return true;
-	}
-	return false;
 }
 
 TypeID::Type CityMap::m_set_road_type(CoordinateStruct coordinate, CBAddon *addon) {

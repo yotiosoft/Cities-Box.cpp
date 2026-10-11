@@ -78,8 +78,9 @@ void CitiesBox() {
 	CBAddon* selectedAddon;
 	
 	// 前回左クリックしたときのマップ上の座標
-	CoordinateStruct beforeMousePressedCoordinate = {0, 0};
+	CoordinateStruct beforeMousePressedCoordinate = {-1, -1};
 	bool pressing = false;
+	bool buildErrorShown = false;
 	
 	// Rust側の都市状態（表示用スナップショット）
 	SimulationSnapshot simulation = map.getSimulationSnapshot();
@@ -205,7 +206,10 @@ void CitiesBox() {
 
 			// 設置モードなら設置
 			if (cursor.coordinate.x != beforeMousePressedCoordinate.x || cursor.coordinate.y != beforeMousePressedCoordinate.y) {
-				map.build(cursor, cursor_before, selectedAddon, true);
+				if (!map.build(cursor, cursor_before, selectedAddon, true) && !buildErrorShown && !map.getLastBuildError().isEmpty()) {
+					UnitaryTools::showErrorMessage(U"建設できません。", map.getLastBuildError());
+					buildErrorShown = true;
+				}
 				beforeMousePressedCoordinate = cursor.coordinate;
 				updateMap = true;
 				pressing = true;
@@ -215,6 +219,7 @@ void CitiesBox() {
 			if (!MouseL.pressed()) {
 				beforeMousePressedCoordinate = {-1, -1};
 				pressing = false;
+				buildErrorShown = false;
 			}
 		}
 		

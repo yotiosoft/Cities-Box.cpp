@@ -973,6 +973,10 @@ namespace rust {
     struct LoadedTileData;
     struct LoadedCityData;
     struct LoadCityResult;
+    struct BuildTile;
+    struct BuildOption;
+    struct BuildRequest;
+    struct BuildDecision;
     struct RustCityMap;
   }
 }
@@ -1394,6 +1398,61 @@ struct LoadCityResult final {
 };
 #endif // CXXBRIDGE1_STRUCT_rust$citymap$LoadCityResult
 
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+struct BuildTile final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  bool has_road CXX_DEFAULT_VALUE(false);
+  bool has_structure CXX_DEFAULT_VALUE(false);
+  bool has_connectable CXX_DEFAULT_VALUE(false);
+  bool has_nonconnectable_structure CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildTile
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+struct BuildOption final {
+  ::std::int32_t direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t height CXX_DEFAULT_VALUE(0);
+  bool available CXX_DEFAULT_VALUE(false);
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildOption
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+struct BuildRequest final {
+  ::std::int32_t x CXX_DEFAULT_VALUE(0);
+  ::std::int32_t y CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_width CXX_DEFAULT_VALUE(0);
+  ::std::int32_t map_height CXX_DEFAULT_VALUE(0);
+  bool connectable CXX_DEFAULT_VALUE(false);
+  bool put_type CXX_DEFAULT_VALUE(false);
+  bool crossable CXX_DEFAULT_VALUE(false);
+  ::rust::Vec<::rust::citymap::BuildTile> tiles;
+  ::rust::Vec<::rust::citymap::BuildOption> options;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildRequest
+
+#ifndef CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+#define CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+struct BuildDecision final {
+  bool allowed CXX_DEFAULT_VALUE(false);
+  ::std::int32_t direction CXX_DEFAULT_VALUE(0);
+  ::std::int32_t error_code CXX_DEFAULT_VALUE(0);
+  ::rust::String error_message;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_rust$citymap$BuildDecision
+
 #ifndef CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 #define CXXBRIDGE1_STRUCT_rust$citymap$RustCityMap
 struct RustCityMap final : public ::rust::Opaque {
@@ -1438,6 +1497,8 @@ extern "C" {
 ::std::size_t rust$citymap$cxxbridge1$192$RustCityMap$operator$alignof() noexcept;
 
 ::rust::citymap::RustCityMap *rust$citymap$cxxbridge1$192$new_city_map() noexcept;
+
+void rust$citymap$cxxbridge1$192$plan_build(::rust::citymap::BuildRequest *request, ::rust::citymap::BuildDecision *return$) noexcept;
 
 void rust$citymap$cxxbridge1$192$plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest *request, ::rust::citymap::ConnectableConnectionDecision *return$) noexcept;
 
@@ -1512,6 +1573,13 @@ void rust$citymap$cxxbridge1$192$RustCityMap$save_to_file_with_error(::rust::cit
 
 ::rust::Box<::rust::citymap::RustCityMap> new_city_map() noexcept {
   return ::rust::Box<::rust::citymap::RustCityMap>::from_raw(rust$citymap$cxxbridge1$192$new_city_map());
+}
+
+::rust::citymap::BuildDecision plan_build(::rust::citymap::BuildRequest request) noexcept {
+  ::rust::ManuallyDrop<::rust::citymap::BuildRequest> request$(::std::move(request));
+  ::rust::MaybeUninit<::rust::citymap::BuildDecision> return$;
+  rust$citymap$cxxbridge1$192$plan_build(&request$.value, &return$.value);
+  return ::std::move(return$.value);
 }
 
 ::rust::citymap::ConnectableConnectionDecision plan_connectable_connection(::rust::citymap::ConnectableConnectionRequest request) noexcept {
@@ -1761,6 +1829,24 @@ void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$drop(::rust::Vec<::rust::ci
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$reserve_total(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t new_cap) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$set_len(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t len) noexcept;
 void cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(::rust::Vec<::rust::citymap::LoadedTileData> *ptr, ::std::size_t len) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$BuildTile$new(::rust::Vec<::rust::citymap::BuildTile> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildTile$drop(::rust::Vec<::rust::citymap::BuildTile> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$BuildTile$len(::rust::Vec<::rust::citymap::BuildTile> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$BuildTile$capacity(::rust::Vec<::rust::citymap::BuildTile> const *ptr) noexcept;
+::rust::citymap::BuildTile const *cxxbridge1$rust_vec$rust$citymap$BuildTile$data(::rust::Vec<::rust::citymap::BuildTile> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildTile$reserve_total(::rust::Vec<::rust::citymap::BuildTile> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildTile$set_len(::rust::Vec<::rust::citymap::BuildTile> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildTile$truncate(::rust::Vec<::rust::citymap::BuildTile> *ptr, ::std::size_t len) noexcept;
+
+void cxxbridge1$rust_vec$rust$citymap$BuildOption$new(::rust::Vec<::rust::citymap::BuildOption> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildOption$drop(::rust::Vec<::rust::citymap::BuildOption> *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$BuildOption$len(::rust::Vec<::rust::citymap::BuildOption> const *ptr) noexcept;
+::std::size_t cxxbridge1$rust_vec$rust$citymap$BuildOption$capacity(::rust::Vec<::rust::citymap::BuildOption> const *ptr) noexcept;
+::rust::citymap::BuildOption const *cxxbridge1$rust_vec$rust$citymap$BuildOption$data(::rust::Vec<::rust::citymap::BuildOption> const *ptr) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildOption$reserve_total(::rust::Vec<::rust::citymap::BuildOption> *ptr, ::std::size_t new_cap) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildOption$set_len(::rust::Vec<::rust::citymap::BuildOption> *ptr, ::std::size_t len) noexcept;
+void cxxbridge1$rust_vec$rust$citymap$BuildOption$truncate(::rust::Vec<::rust::citymap::BuildOption> *ptr, ::std::size_t len) noexcept;
 
 ::rust::citymap::RustCityMap *cxxbridge1$box$rust$citymap$RustCityMap$alloc() noexcept;
 void cxxbridge1$box$rust$citymap$RustCityMap$dealloc(::rust::citymap::RustCityMap *) noexcept;
@@ -2110,6 +2196,70 @@ void Vec<::rust::citymap::LoadedTileData>::set_len(::std::size_t len) noexcept {
 template <>
 void Vec<::rust::citymap::LoadedTileData>::truncate(::std::size_t len) {
   return cxxbridge1$rust_vec$rust$citymap$LoadedTileData$truncate(this, len);
+}
+template <>
+Vec<::rust::citymap::BuildTile>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$BuildTile$new(this);
+}
+template <>
+void Vec<::rust::citymap::BuildTile>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::BuildTile>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::BuildTile>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$capacity(this);
+}
+template <>
+::rust::citymap::BuildTile const *Vec<::rust::citymap::BuildTile>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$data(this);
+}
+template <>
+void Vec<::rust::citymap::BuildTile>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::BuildTile>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::BuildTile>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$BuildTile$truncate(this, len);
+}
+template <>
+Vec<::rust::citymap::BuildOption>::Vec() noexcept {
+  cxxbridge1$rust_vec$rust$citymap$BuildOption$new(this);
+}
+template <>
+void Vec<::rust::citymap::BuildOption>::drop() noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$drop(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::BuildOption>::size() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$len(this);
+}
+template <>
+::std::size_t Vec<::rust::citymap::BuildOption>::capacity() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$capacity(this);
+}
+template <>
+::rust::citymap::BuildOption const *Vec<::rust::citymap::BuildOption>::data() const noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$data(this);
+}
+template <>
+void Vec<::rust::citymap::BuildOption>::reserve_total(::std::size_t new_cap) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$reserve_total(this, new_cap);
+}
+template <>
+void Vec<::rust::citymap::BuildOption>::set_len(::std::size_t len) noexcept {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$set_len(this, len);
+}
+template <>
+void Vec<::rust::citymap::BuildOption>::truncate(::std::size_t len) {
+  return cxxbridge1$rust_vec$rust$citymap$BuildOption$truncate(this, len);
 }
 template <>
 ::rust::citymap::RustCityMap *Box<::rust::citymap::RustCityMap>::allocation::alloc() noexcept {

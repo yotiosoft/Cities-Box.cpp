@@ -28,6 +28,7 @@ public:
 	// マップの読み込み
 	bool load(String loadMapFilePath);
 	const String& getLastLoadError() const { return m_last_load_error; }
+	const String& getLastSaveError() const { return m_last_save_error; }
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
@@ -159,6 +160,7 @@ private:
 	
 	String m_map_file_path;
 	String m_last_load_error;
+	String m_last_save_error;
 	
 	RateID::Type m_show_rate = RateID::None;
 };

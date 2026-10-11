@@ -8,12 +8,15 @@
 #include "CityMap.hpp"
 
 bool CityMap::save() {
+	m_last_save_error.clear();
+	try {
 	// C++側のObjectが、現在所有しているAddonだけを参照していることを
 	// Rust状態へ書き込む前に確認する。
 	map<int, String> objectAddonNames;
 	for (const auto& [id, object] : m_objects) {
 		if (object == nullptr || object->getAddonP() == nullptr) {
-			UnitaryTools::debugLog(U"save error: ObjectID {} のアドオン参照が無効です。"_fmt(id));
+			m_last_save_error = U"ObjectID {} のアドオン参照が無効です。"_fmt(id);
+			UnitaryTools::debugLog(U"save error: " + m_last_save_error);
 			return false;
 		}
 
@@ -21,7 +24,8 @@ bool CityMap::save() {
 		const auto addonIt = std::find_if(m_addons.begin(), m_addons.end(),
 			[addon](const auto& entry) { return entry.second == addon; });
 		if (addonIt == m_addons.end()) {
-			UnitaryTools::debugLog(U"save error: ObjectID {} が解放済みのアドオンを参照しています。"_fmt(id));
+			m_last_save_error = U"ObjectID {} が現在のアドオンセットにないアドオンを参照しています。"_fmt(id);
+			UnitaryTools::debugLog(U"save error: " + m_last_save_error);
 			return false;
 		}
 		objectAddonNames[id] = addonIt->first;
@@ -131,10 +135,19 @@ bool CityMap::save() {
     }
 
     // 6. 保存実行
-    return m_rust_core->save_to_file(m_map_file_path.toUTF8());
+    const rust::String error = m_rust_core->save_to_file_with_error(m_map_file_path.toUTF8());
+	if (!error.empty()) {
+		m_last_save_error = Unicode::FromUTF8(std::string(error.data(), error.size()));
+		return false;
+	}
+	return true;
 
-	//saveTextFile(map_file_path.toUTF8()+".cbj", map_file.get().toUTF8());
-	//map_file.save(map_file_path+U".cbj");
+	} catch (const std::exception& exception) {
+		m_last_save_error = U"保存処理中にエラーが発生しました: {}"_fmt(Unicode::FromUTF8(exception.what()));
+	} catch (...) {
+		m_last_save_error = U"保存処理中に不明なエラーが発生しました。";
+	}
+	return false;
 }
 
 void CityMap::freeMapAndAddons() {

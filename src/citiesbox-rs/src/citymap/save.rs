@@ -239,16 +239,38 @@ impl RustCityMap {
     }
 
     pub fn save_to_file(&self, path: String) -> bool {
+        self.save_to_file_with_error(path).is_empty()
+    }
+
+    pub fn save_to_file_with_error(&self, path: String) -> String {
         let json_str = self.generate_save_json();
         if json_str.is_empty() || json_str == "{}" {
-            return false;
+            return "セーブデータのJSONを生成できませんでした。".to_string();
         }
         let encrypted = self.apply_xor_encryption(json_str, "citiesboxmapdatafilexor");
         match atomic_write_with_backup(Path::new(&path), &encrypted) {
-            Ok(()) => true,
+            Ok(()) => String::new(),
             Err(error) => {
                 eprintln!("Failed to save map to {path}: {error}");
-                false
+                let detail = error.to_string();
+                let action = if detail.starts_with("copy backup:")
+                    || detail.starts_with("sync backup:")
+                    || detail.starts_with("replace backup:")
+                {
+                    "バックアップを作成できませんでした"
+                } else if detail.starts_with("replace save:") {
+                    "セーブファイルを更新できませんでした"
+                } else {
+                    "セーブファイルに書き込めませんでした"
+                };
+                let reason = match error.kind() {
+                    io::ErrorKind::PermissionDenied => "保存先へのアクセス権限を確認してください。",
+                    io::ErrorKind::StorageFull => "保存先の空き容量を確認してください。",
+                    io::ErrorKind::NotFound => "保存先のフォルダが存在するか確認してください。",
+                    io::ErrorKind::AlreadyExists => "一時ファイルが既に存在します。再度お試しください。",
+                    _ => "保存先やファイルの状態を確認してください。",
+                };
+                format!("{action}。{reason}\n詳細: {detail}")
             }
         }
     }

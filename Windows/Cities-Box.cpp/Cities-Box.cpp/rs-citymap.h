@@ -1392,6 +1392,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;
+  ::rust::String save_to_file_with_error(::rust::String path) const noexcept;
   ~RustCityMap() = delete;
 
 private:

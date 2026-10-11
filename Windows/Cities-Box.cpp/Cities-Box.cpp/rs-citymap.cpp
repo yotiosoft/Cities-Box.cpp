@@ -1421,6 +1421,7 @@ struct RustCityMap final : public ::rust::Opaque {
   void set_save_version(::std::int32_t version) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;
+  ::rust::String save_to_file_with_error(::rust::String path) const noexcept;
   ~RustCityMap() = delete;
 
 private:
@@ -1497,6 +1498,8 @@ void rust$citymap$cxxbridge1$192$RustCityMap$set_save_version(::rust::citymap::R
 void rust$citymap$cxxbridge1$192$RustCityMap$bulk_set_tiles(::rust::citymap::RustCityMap &self, ::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
 
 bool rust$citymap$cxxbridge1$192$RustCityMap$save_to_file(::rust::citymap::RustCityMap const &self, ::rust::String *path) noexcept;
+
+void rust$citymap$cxxbridge1$192$RustCityMap$save_to_file_with_error(::rust::citymap::RustCityMap const &self, ::rust::String *path, ::rust::String *return$) noexcept;
 } // extern "C"
 
 ::std::size_t RustCityMap::layout::size() noexcept {
@@ -1667,6 +1670,12 @@ void RustCityMap::bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData cons
 
 bool RustCityMap::save_to_file(::rust::String path) const noexcept {
   return rust$citymap$cxxbridge1$192$RustCityMap$save_to_file(*this, &path);
+}
+
+::rust::String RustCityMap::save_to_file_with_error(::rust::String path) const noexcept {
+  ::rust::MaybeUninit<::rust::String> return$;
+  rust$citymap$cxxbridge1$192$RustCityMap$save_to_file_with_error(*this, &path, &return$.value);
+  return ::std::move(return$.value);
 }
 } // namespace citymap
 } // namespace rust

@@ -400,6 +400,7 @@ pub(crate) mod ffi {
         fn bulk_set_tiles(&mut self, data: &[RawTileData], width: i32, height: i32);
         // 保存まで実行
         fn save_to_file(&self, path: String) -> bool;
+        fn save_to_file_with_error(&self, path: String) -> String;
     }
 }
 
@@ -988,6 +989,20 @@ mod tests {
 
         let _ = fs::remove_file(path);
         let _ = fs::remove_file(backup);
+    }
+
+    #[test]
+    fn save_error_identifies_missing_destination_folder() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir()
+            .join(format!("citiesbox-missing-folder-{}-{unique}", std::process::id()))
+            .join("city.cbj");
+        let city = new_city_map();
+        let error = city.save_to_file_with_error(path.to_string_lossy().into_owned());
+        assert!(error.contains("保存先のフォルダが存在するか確認してください。"));
     }
 
     fn windows_map_path(file_name: &str) -> PathBuf {

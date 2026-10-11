@@ -29,6 +29,7 @@ namespace UnitaryTools {
 	void saveTextFile(string filePath, FileStruct fs);
 
 	void debugInit();
+	void showErrorMessage(const String& title, const String& detail);
 	void debugLog(String str);
 	void debugLog(String func_name, String str);
 	void debugLog(String func_name, CoordinateStruct coordinate, String str);

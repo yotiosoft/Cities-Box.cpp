@@ -122,6 +122,11 @@ void UnitaryTools::saveTextFile(string filePath, FileStruct fs) {
 	ofs << "    folder_name : " << fs.folder_name << endl;
 }
 
+void UnitaryTools::showErrorMessage(const String& title, const String& detail) {
+	// ゲーム内UIへ移行する場合は、この表示処理を差し替える。
+	System::MessageBoxOK(detail.isEmpty() ? title : U"{}\n\n{}"_fmt(title, detail));
+}
+
 void UnitaryTools::debugInit() {
 	saveTextFile("log.txt", "");;
 }

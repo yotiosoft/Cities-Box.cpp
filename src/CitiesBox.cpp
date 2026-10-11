@@ -48,7 +48,7 @@ void CitiesBox() {
 	// マップとアドオンの読み込み
 	CityMap map;
 	if (!map.load(mapFilePath)) {
-		System::MessageBoxOK(U"マップの読み込みに失敗しました。\n\n{}"_fmt(map.getLastLoadError()));
+		UnitaryTools::showErrorMessage(U"マップの読み込みに失敗しました。", map.getLastLoadError());
 		return;
 	}
 	

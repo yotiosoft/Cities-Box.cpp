@@ -421,7 +421,7 @@ CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 	
 	if (m_button[U"save"].pushRelative(m_position)) {
 		if (!m_map->save()) {
-			System::MessageBoxOK(U"マップの保存に失敗しました。\n\n{}"_fmt(m_map->getLastSaveError()));
+			UnitaryTools::showErrorMessage(U"マップの保存に失敗しました。", m_map->getLastSaveError());
 		}
 		m_button[U"save"].release();
 	}

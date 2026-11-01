@@ -39,7 +39,7 @@ Array<FileStruct> specific::getAllFilesName(string folderPath, string extension)
 				newFS.file_path = folderPath+"/"+fileName;
 				
 				newFS.folder_path = folderPath;
-				newFS.folder_name = splitUTF8(folderPath, "/").back();
+				newFS.folder_name = UnitaryTools::splitUTF8(folderPath, "/").back();
 				newFS.file_name = fileName;
 				
 				retStr.push_back(newFS);

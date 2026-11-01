@@ -28,6 +28,7 @@ public:
 	
 	// 固有名称を取得
 	String getOriginalName();
+	void setOriginalName(const String& name) { m_original_name = name; }
 	
 	// アドオンを取得
 	CBAddon* getAddonP();

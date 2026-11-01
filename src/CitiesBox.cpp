@@ -84,6 +84,15 @@ void CitiesBox() {
 	CoordinateStruct beforeMousePressedCoordinate = {-1, -1};
 	bool pressing = false;
 	bool buildErrorShown = false;
+	CityMap::BuildingOverview buildingOverview;
+	bool showBuildingOverview = false;
+	bool editingBuildingName = false;
+	TextEditState buildingNameInput;
+	constexpr int overviewWidth = 280;
+	constexpr int overviewHeight = 200;
+	Vec2 overviewPosition{ 10, 65 };
+	CoordinateStruct overviewCoordinate{ -1, -1 };
+	Vec2 overviewTileOffset{ 32, 16 };
 	
 	// Rust側の都市状態（表示用スナップショット）
 	SimulationSnapshot simulation = map.getSimulationSnapshot();
@@ -197,6 +206,17 @@ void CitiesBox() {
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
 		selectedAddon = menu.draw(updateMap, simulation);
 		menu.addonMenu();
+		if (MouseL.down() && selectedAddon == nullptr && cursor.position.y < Scene::Height() - 140) {
+			const Rect panel(static_cast<int>(overviewPosition.x), static_cast<int>(overviewPosition.y), overviewWidth, overviewHeight);
+			if (!showBuildingOverview || !panel.mouseOver()) {
+				showBuildingOverview = map.getBuildingOverview(cursor.coordinate, buildingOverview);
+				editingBuildingName = false;
+				if (showBuildingOverview) {
+					overviewCoordinate = cursor.coordinate;
+					overviewTileOffset = Vec2{ cursor.position.x - cursor.position_per_tiles.x, cursor.position.y - cursor.position_per_tiles.y };
+				}
+			}
+		}
 		
 		//font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		
@@ -223,6 +243,57 @@ void CitiesBox() {
 				beforeMousePressedCoordinate = {-1, -1};
 				pressing = false;
 				buildErrorShown = false;
+			}
+		}
+
+		if (showBuildingOverview) {
+			const PositionStruct tilePosition = map.coordinateToPosition(overviewCoordinate, camera);
+			const Vec2 anchor{ tilePosition.x + overviewTileOffset.x, tilePosition.y + overviewTileOffset.y };
+			overviewPosition = Vec2{
+				Clamp(anchor.x - overviewWidth / 2, 8.0, static_cast<double>(Max(8, Scene::Width() - overviewWidth - 8))),
+				Clamp(anchor.y >= overviewHeight + 112 ? anchor.y - overviewHeight - 42 : anchor.y + 42,
+					65.0, static_cast<double>(Max(65, Scene::Height() - overviewHeight - 60)))
+			};
+			const int x = static_cast<int>(overviewPosition.x);
+			const int y = static_cast<int>(overviewPosition.y);
+			const Vec2 lineStart{
+				Clamp(anchor.x, static_cast<double>(x + 10), static_cast<double>(x + overviewWidth - 10)),
+				anchor.y >= y + overviewHeight / 2 ? static_cast<double>(y + overviewHeight) : static_cast<double>(y)
+			};
+			Line(lineStart, anchor).draw(5, Color(15, 28, 35));
+			Line(lineStart, anchor).draw(2, Color(109, 229, 222));
+			Circle(anchor, 8).draw(Color(15, 28, 35));
+			Circle(anchor, 6).draw(Palette::White);
+			Circle(anchor, 3).draw(Color(71, 184, 184));
+			Rect(x, y, overviewWidth, overviewHeight).draw(Color(26, 35, 44, 245));
+			Rect(x, y, overviewWidth, 3).draw(Color(71, 184, 184));
+			font12(buildingOverview.name).draw(x + 10, y + 11, Palette::White);
+			if (SimpleGUI::Button(U"×", Vec2(x + overviewWidth - 36, y + 7), 28)) {
+				showBuildingOverview = false;
+				editingBuildingName = false;
+			}
+			font12(U"種類: {}"_fmt(buildingOverview.type)).draw(x + 10, y + 40, Palette::White);
+			font12(U"人口: {} 人"_fmt(buildingOverview.population)).draw(x + 10, y + 60, Palette::White);
+			const auto& effects = buildingOverview.effects;
+			auto effectText = [&](RateID::Type rate, const String& label, int row) {
+				const auto it = effects.find(rate);
+				const int value = (it == effects.end()) ? 0 : it->second.influence;
+				font12(U"{}: {:+d}"_fmt(label, value)).draw(x + 10, y + 84 + row * 18, Palette::White);
+			};
+			effectText(RateID::CrimeRate, U"治安への影響", 0);
+			effectText(RateID::LandPrice, U"地価への影響", 1);
+			effectText(RateID::EducationRate, U"教育への影響", 2);
+			effectText(RateID::NoiseRate, U"騒音への影響", 3);
+			if (editingBuildingName) {
+				SimpleGUI::TextBox(buildingNameInput, Vec2(x + 10, y + 156), 178);
+				if (SimpleGUI::Button(U"保存", Vec2(x + 194, y + 156), 76) && map.renameBuilding(buildingOverview.objectID, buildingNameInput.text)) {
+					buildingOverview.name = buildingNameInput.text;
+					editingBuildingName = false;
+				}
+			}
+			else if (SimpleGUI::Button(U"建物名を編集", Vec2(x + 10, y + 156), overviewWidth - 20)) {
+				buildingNameInput.text = buildingOverview.name;
+				editingBuildingName = true;
 			}
 		}
 		

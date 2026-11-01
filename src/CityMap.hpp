@@ -20,6 +20,15 @@
 
 class CityMap {
 public:
+	struct BuildingOverview {
+		int objectID = -1;
+		String name;
+		String type;
+		int population = 0;
+		map<RateID::Type, EffectStruct> effects;
+	};
+	bool getBuildingOverview(CoordinateStruct coordinate, BuildingOverview& overview);
+	bool renameBuilding(int objectID, const String& name);
 	// コンストラクタ
 	CityMap()
 		: m_rust_core(rust::citymap::new_city_map()) // Rust側のオブジェクトを初期化

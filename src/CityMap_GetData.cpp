@@ -254,6 +254,29 @@ Array<CBAddon> CityMap::getAddon(CoordinateStruct coordinate) {
 	return retAddons;
 }
 
+bool CityMap::getBuildingOverview(CoordinateStruct coordinate, BuildingOverview& overview) {
+	if (coordinate.x < 0 || coordinate.y < 0 || coordinate.x >= m_map_size.x || coordinate.y >= m_map_size.y) return false;
+	Tile& tile = m_tiles[coordinate.y][coordinate.x];
+	for (Object* object : tile.getObjectsP(CategoryID::ObjectType)) {
+		if (object == nullptr || object->isDeleted() || object->getAddonP() == nullptr) continue;
+		CBAddon* addon = object->getAddonP();
+		overview.objectID = object->getObjectID();
+		overview.name = object->getOriginalName().isEmpty() ? addon->getName(NameMode::Japanese) : object->getOriginalName();
+		overview.type = addon->getName(NameMode::Japanese);
+		overview.population = addon->isInCategories(CategoryID::Residential) ? tile.residents : 0;
+		overview.effects = addon->getEffects();
+		return true;
+	}
+	return false;
+}
+
+bool CityMap::renameBuilding(int objectID, const String& name) {
+	auto it = m_objects.find(objectID);
+	if (it == m_objects.end() || it->second == nullptr || it->second->isDeleted() || name.isEmpty()) return false;
+	it->second->setOriginalName(name);
+	return true;
+}
+
 Size CityMap::getMapSize() {
 	return m_map_size;
 }

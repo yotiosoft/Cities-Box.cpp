@@ -73,6 +73,11 @@ String specific::getFontsDir() {
 }
 
 bool specific::openSaveData(String& file_path) {
-	file_path = U"./data/maps/Sample_City.cbd.cbj";
-	return true;
+	const Array<FileFilter> filters = { { U"セーブデータ", { U"cbj" } } };
+	if (const auto selected = Dialog::OpenFile(filters, specific::SaveDataFilePath)) {
+		file_path = selected.value();
+		return true;
+	}
+
+	return false;
 }

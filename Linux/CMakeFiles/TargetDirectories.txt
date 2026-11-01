@@ -1,3 +1,0 @@
-/home/ytani0323/git/Cities-Box.cpp/Linux/CMakeFiles/rebuild_cache.dir
-/home/ytani0323/git/Cities-Box.cpp/Linux/CMakeFiles/edit_cache.dir
-/home/ytani0323/git/Cities-Box.cpp/Linux/CMakeFiles/Cities-Box_Lin.dir

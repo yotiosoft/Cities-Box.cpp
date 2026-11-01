@@ -1,1 +1,5 @@
-./Cities-Box_Lin
+#!/usr/bin/env sh
+set -eu
+
+cd "$(dirname "$0")"
+exec ./Cities-Box_Lin

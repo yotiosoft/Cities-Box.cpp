@@ -74,3 +74,12 @@ src/citiesbox-rs/target/
 Windows/Cities-Box.cpp/Cities-Box.cpp/App/data/maps/*
 
 Windows/Cities-Box.cpp/Cities-Box.cpp/App/log.txt
+
+# Linux out-of-source CMake/Cargo build
+/Linux/build/
+
+# Legacy in-source CMake artifacts
+Linux/CMakeCache.txt
+Linux/CMakeFiles/
+Linux/cmake_install.cmake
+Linux/Cities-Box_Lin

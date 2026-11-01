@@ -1449,6 +1449,7 @@ struct RustCityMap final : public ::rust::Opaque {
   bool will_run_daily_update(::std::int32_t minutes_delta) const noexcept;
   ::rust::citymap::SimulationUpdate update_world(::std::int32_t minutes_delta, ::rust::Vec<::rust::citymap::ResidentialTileState> residential_tiles, ::rust::Vec<::rust::citymap::WorkPlaceTileState> work_place_tiles, ::rust::Vec<::rust::citymap::SchoolTileState> school_tiles, ::rust::Vec<::rust::citymap::DemandTileState> demand_tiles, ::rust::citymap::SpecialDemandState special_demand, ::rust::Vec<::rust::citymap::SimulationObjectState> simulation_objects) noexcept;
   void set_save_version(::std::int32_t version) noexcept;
+  void set_new_city_metadata(::rust::String city_name, ::rust::String addon_set_name) noexcept;
   void bulk_set_tiles(::rust::Slice<::rust::citymap::RawTileData const> data, ::std::int32_t width, ::std::int32_t height) noexcept;
   bool save_to_file(::rust::String path) const noexcept;
   ::rust::String save_to_file_with_error(::rust::String path) const noexcept;

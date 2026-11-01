@@ -436,6 +436,7 @@ pub(crate) mod ffi {
 
         // 基本情報の同期用
         fn set_save_version(&mut self, version: i32);
+        fn set_new_city_metadata(&mut self, city_name: String, addon_set_name: String);
 
         // スライス（配列の参照）として一括で受け取る
         fn bulk_set_tiles(&mut self, data: &[RawTileData], width: i32, height: i32);

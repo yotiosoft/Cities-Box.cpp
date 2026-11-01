@@ -27,6 +27,7 @@ public:
 
 	// マップの読み込み
 	bool load(String loadMapFilePath);
+	bool create(String mapFilePath, String cityName, Size mapSize);
 	const String& getLastLoadError() const { return m_last_load_error; }
 	const String& getLastSaveError() const { return m_last_save_error; }
 	const String& getLastBuildError() const { return m_last_build_error; }

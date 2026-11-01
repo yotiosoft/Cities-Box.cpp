@@ -7,7 +7,7 @@
 
 #include "TitleMenu.hpp"
 
-pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath) {
+pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath, bool& createMap, String& cityName, Size& mapSize) {
 	Scene::SetBackground(Color(50, 50, 50));
 	
 	ImageStruct* logo = &images.images["title_menu"]["logo"];
@@ -77,7 +77,42 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 			}*/
 		}
 		if (new_map_button.push()) {
-			return pair<bool, GeneralSetting>(false, general_setting);
+			new_map_button.release();
+			TextEditState nameInput;
+			TextEditState widthInput;
+			TextEditState heightInput;
+			nameInput.text = U"新しい都市";
+			widthInput.text = U"100";
+			heightInput.text = U"100";
+			String error;
+			while (System::Update()) {
+				const int left = Scene::Width() / 2 - 220;
+				font16(U"新しいマップ").draw(left, 80, Palette::White);
+				font16(U"都市名").draw(left, 140, Palette::White);
+				SimpleGUI::TextBox(nameInput, Vec2(left, 170), 440);
+				font16(U"幅（1～500）").draw(left, 230, Palette::White);
+				SimpleGUI::TextBox(widthInput, Vec2(left, 260), 200);
+				font16(U"高さ（1～500）").draw(left + 240, 230, Palette::White);
+				SimpleGUI::TextBox(heightInput, Vec2(left + 240, 260), 200);
+				font16(error).draw(left, 315, Palette::Orange);
+				if (SimpleGUI::Button(U"作成", Vec2(left, 370), 200)) {
+					const auto width = ParseOpt<int>(widthInput.text);
+					const auto height = ParseOpt<int>(heightInput.text);
+					if (nameInput.text.isEmpty() || !width || !height || *width < 1 || *width > 500 || *height < 1 || *height > 500) {
+						error = U"都市名と1～500のサイズを入力してください。";
+						continue;
+					}
+					Array<FileFilter> filters = { { U"セーブデータ", { U"cbj" } } };
+					if (const auto selected = Dialog::SaveFile(filters, specific::SaveDataFilePath)) {
+						filePath = selected.value();
+						cityName = nameInput.text;
+						mapSize = Size(*width, *height);
+						createMap = true;
+						return pair<bool, GeneralSetting>(true, general_setting);
+					}
+				}
+				if (SimpleGUI::Button(U"戻る", Vec2(left + 240, 370), 200)) break;
+			}
 		}
 		if (new_addon_button.push()) {
 			new_addon_button.release();

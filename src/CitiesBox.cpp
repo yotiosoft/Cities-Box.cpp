@@ -38,7 +38,10 @@ void CitiesBox() {
 	
 	// タイトルメニュー画面
 	String mapFilePath;
-	pair<bool, GeneralSetting> title_menu_ret = titleMenu(images, font16, mapFilePath);
+	bool createMap = false;
+	String cityName;
+	Size newMapSize{ 100, 100 };
+	pair<bool, GeneralSetting> title_menu_ret = titleMenu(images, font16, mapFilePath, createMap, cityName, newMapSize);
 	if (!title_menu_ret.first) {
 		return;				// タイトル画面でウィンドウを閉じたらプログラム終了
 	}
@@ -47,7 +50,7 @@ void CitiesBox() {
 	
 	// マップとアドオンの読み込み
 	CityMap map;
-	if (!map.load(mapFilePath)) {
+	if (!(createMap ? map.create(mapFilePath, cityName, newMapSize) : map.load(mapFilePath))) {
 		UnitaryTools::showErrorMessage(U"マップの読み込みに失敗しました。", map.getLastLoadError());
 		return;
 	}

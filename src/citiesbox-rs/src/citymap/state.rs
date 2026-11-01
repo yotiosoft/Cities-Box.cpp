@@ -1,6 +1,11 @@
 use super::*;
 
 impl RustCityMap {
+    pub(super) fn set_new_city_metadata(&mut self, city_name: String, addon_set_name: String) {
+        self.city_name = city_name;
+        self.addon_set_name = addon_set_name;
+    }
+
     pub(super) fn bulk_set_tiles(&mut self, data: &[ffi::RawTileData], width: i32, height: i32) {
         self.map_size = [width, height];
         // データを流し込む（統計やレート等は別途Setterを呼ぶか、一旦クリア）

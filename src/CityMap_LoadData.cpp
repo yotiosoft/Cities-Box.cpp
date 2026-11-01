@@ -49,6 +49,47 @@ bool CityMap::load(String loadMapFilePath) {
 	return false;
 }
 
+bool CityMap::create(String mapFilePath, String cityName, Size mapSize) {
+	m_last_load_error.clear();
+	if (cityName.isEmpty() || mapSize.x < 1 || mapSize.y < 1 || mapSize.x > 500 || mapSize.y > 500) {
+		m_last_load_error = U"都市名またはマップサイズが不正です。";
+		return false;
+	}
+	map<String, CBAddon*> addons;
+	m_load_addons(U"Normal", addons);
+	const auto grass = addons.find(U"tile_greenfield");
+	if (grass == addons.end()) {
+		for (auto& [name, addon] : addons) delete addon;
+		m_last_load_error = U"草原アドオンを読み込めませんでした。";
+		return false;
+	}
+	freeMapAndAddons();
+	m_addons.swap(addons);
+	m_map_size = mapSize;
+	m_map_file_path = mapFilePath;
+	m_tiles.resize(mapSize.y);
+	for (auto& row : m_tiles) row.resize(mapSize.x);
+	const int grassID = m_get_next_objectID();
+	auto* grassObject = new NormalObject(grassID, m_addons.at(U"tile_greenfield"), U"", TypeID::Normal, DirectionID::None, CoordinateStruct{ 0, 0 });
+	grassObject->setCommonObject();
+	m_objects[grassID] = grassObject;
+	m_common_objects[U"tile_greenfield"] = grassObject;
+	for (int y = 0; y < mapSize.y; ++y) {
+		for (int x = 0; x < mapSize.x; ++x) {
+			RelativeCoordinateStruct relative;
+			relative.origin = CoordinateStruct{ x, y };
+			relative.relative = CoordinateStruct{ 0, 0 };
+			m_tiles[y][x].addObject(grassObject, relative);
+		}
+	}
+	m_rust_core->set_new_city_metadata(cityName.toUTF8(), "Normal");
+	if (!save()) {
+		m_last_load_error = m_last_save_error;
+		return false;
+	}
+	return true;
+}
+
 bool CityMap::m_load_CBJ(String loadMapFilePath) {
 	auto loadResult = m_rust_core->load_city_map(loadMapFilePath.toUTF8());
 	if (!loadResult.success) {

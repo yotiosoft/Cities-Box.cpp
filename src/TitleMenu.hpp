@@ -14,7 +14,7 @@
 #include "AddonMaker.hpp"
 #include "GeneralSetting.hpp"
 
-pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath);
+pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String& filePath, bool& createMap, String& cityName, Size& mapSize);
 
 void developerScreen();
 

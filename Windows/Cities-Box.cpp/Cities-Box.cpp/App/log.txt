@@ -208,3 +208,55 @@ m_load_obj(): TypeID: Default
 m_load_obj(): TypeID: IntersectionT
 m_load_obj(): TypeID: IntersectionCross
 m_load_obj(): TypeID: Turn
+connect(): set roadtypeconect 2 / 7
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 12 / 5
+connect(): set roadtypeconect 17 / 6
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 11 / 4
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 3 / 3
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 10 / 4
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 5 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 8 / 5
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 14 / 3
+connect(): set roadtypeconect 9 / 7
+connect(): set roadtypeconect 11 / 4
+connect(): set roadtypeconect 1 / 7
+connect(): set roadtypeconect 6 / 4
+connect(): set roadtypeconect 9 / 7
+employment() at (5, 4): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (6, 4): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (3, 6): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (3, 7): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (5, 4): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (6, 4): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (3, 6): residents=0, workers=0, workplaces=[], students=0, schools=[]
+employment() at (3, 7): residents=0, workers=0, workplaces=[], students=0, schools=[]

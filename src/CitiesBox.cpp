@@ -206,7 +206,7 @@ void CitiesBox() {
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
 		selectedAddon = menu.draw(updateMap, simulation);
 		menu.addonMenu();
-		if (MouseL.down() && selectedAddon == nullptr && cursor.position.y < Scene::Height() - 140) {
+		if (MouseL.down() && selectedAddon == nullptr && cursor.position.y < Scene::Height() - 50) {
 			const Rect panel(static_cast<int>(overviewPosition.x), static_cast<int>(overviewPosition.y), overviewWidth, overviewHeight);
 			if (!showBuildingOverview || !panel.mouseOver()) {
 				showBuildingOverview = map.getBuildingOverview(cursor.coordinate, buildingOverview);

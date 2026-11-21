@@ -135,8 +135,27 @@ target_add_listed_link_options(
 target_add_listed_link_options(
     Siv3DApp ASYNCIFY_ADD ${SIV3D_ASYNCIFY_ADD})
 
+# .dataignore の各行を Emscripten の除外パターンとして渡す
+set(CITIES_BOX_DATA_IGNORE "${CITIES_BOX_WEB}/.dataignore")
+set(CITIES_BOX_PRELOAD_EXCLUDES)
+if(EXISTS "${CITIES_BOX_DATA_IGNORE}")
+    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+        "${CITIES_BOX_DATA_IGNORE}")
+    file(STRINGS "${CITIES_BOX_DATA_IGNORE}" CITIES_BOX_EXCLUDE_LINES)
+    foreach(CITIES_BOX_EXCLUDE_LINE IN LISTS CITIES_BOX_EXCLUDE_LINES)
+        string(STRIP "${CITIES_BOX_EXCLUDE_LINE}" CITIES_BOX_EXCLUDE_LINE)
+        if(CITIES_BOX_EXCLUDE_LINE STREQUAL "" OR
+           CITIES_BOX_EXCLUDE_LINE MATCHES "^#")
+            continue()
+        endif()
+        list(APPEND CITIES_BOX_PRELOAD_EXCLUDES
+            "--exclude-file=${CITIES_BOX_WEB}/${CITIES_BOX_EXCLUDE_LINE}")
+    endforeach()
+endif()
+
 target_link_options(Siv3DApp PRIVATE
     --no-export-dynamic
+    ${CITIES_BOX_PRELOAD_EXCLUDES}
     -sASYNCIFY=1
     -sUSE_WEBGPU=1
     --emrun

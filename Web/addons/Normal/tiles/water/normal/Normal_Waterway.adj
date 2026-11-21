@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Normal_Waterway",
   "jp_name": "普通の水路",
   "author": "",
@@ -57,16 +57,16 @@
       ]
     },
     {
-      "type_name": "Turn",
+      "type_name": "WaterTurn",
       "direction_names": [
-        "NorthEast",
-        "SouthEast",
-        "NorthWest",
-        "SouthWest"
+        "WithoutNorthNortheastEast",
+        "WithoutEastSoutheastSouth",
+        "WithoutSouthSouthwestWest",
+        "WithoutNorthWestNorthwest"
       ],
       "Directions": [
         {
-          "direction_name": "NorthEast",
+          "direction_name": "WithoutNorthNortheastEast",
           "size": {
             "width": 64,
             "height": 642
@@ -85,7 +85,7 @@
           }
         },
         {
-          "direction_name": "SouthEast",
+          "direction_name": "WithoutEastSoutheastSouth",
           "size": {
             "width": 64,
             "height": 64
@@ -104,7 +104,7 @@
           }
         },
         {
-          "direction_name": "NorthWest",
+          "direction_name": "WithoutSouthSouthwestWest",
           "size": {
             "width": 64,
             "height": 64
@@ -123,7 +123,7 @@
           }
         },
         {
-          "direction_name": "SouthWest",
+          "direction_name": "WithoutNorthWestNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -157,16 +157,16 @@
       ]
     },
     {
-      "type_name": "IntersectionT",
+      "type_name": "WaterIntersectionT",
       "direction_names": [
-        "NorthSouthEast",
-        "NorthSouthWest",
-        "NorthEastWest",
-        "SouthEastWest"
+        "WithoutWest",
+        "WithoutEast",
+        "WithoutSouth",
+        "WithoutNorth"
       ],
       "Directions": [
         {
-          "direction_name": "NorthSouthEast",
+          "direction_name": "WithoutWest",
           "size": {
             "width": 64,
             "height": 64
@@ -185,7 +185,7 @@
           }
         },
         {
-          "direction_name": "NorthSouthWest",
+          "direction_name": "WithoutEast",
           "size": {
             "width": 64,
             "height": 64
@@ -204,7 +204,7 @@
           }
         },
         {
-          "direction_name": "NorthEastWest",
+          "direction_name": "WithoutSouth",
           "size": {
             "width": 64,
             "height": 64
@@ -223,7 +223,7 @@
           }
         },
         {
-          "direction_name": "SouthEastWest",
+          "direction_name": "WithoutNorth",
           "size": {
             "width": 64,
             "height": 64
@@ -257,13 +257,13 @@
       ]
     },
     {
-      "type_name": "IntersectionCross",
+      "type_name": "WaterOffshore",
       "direction_names": [
-        "None"
+        "Offshore"
       ],
       "Directions": [
         {
-          "direction_name": "None",
+          "direction_name": "Offshore",
           "size": {
             "width": 64,
             "height": 64
@@ -299,14 +299,14 @@
     {
       "type_name": "WaterEstuary",
       "direction_names": [
-        "NorthSouthEast",
-        "NorthSouthWest",
-        "NorthEastWest",
-        "SouthEastWest"
+        "WithoutNortheastSoutheast",
+        "WithoutSouthwestNorthwest",
+        "WithoutNortheastNorthwest",
+        "WithoutSoutheastSouthwest"
       ],
       "Directions": [
         {
-          "direction_name": "NorthSouthEast",
+          "direction_name": "WithoutNortheastSoutheast",
           "size": {
             "width": 64,
             "height": 64
@@ -325,7 +325,7 @@
           }
         },
         {
-          "direction_name": "NorthSouthWest",
+          "direction_name": "WithoutSouthwestNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -344,7 +344,7 @@
           }
         },
         {
-          "direction_name": "NorthEastWest",
+          "direction_name": "WithoutNortheastNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -363,7 +363,7 @@
           }
         },
         {
-          "direction_name": "SouthEastWest",
+          "direction_name": "WithoutSoutheastSouthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -399,14 +399,14 @@
     {
       "type_name": "WaterIntersectionCrossWithoutOneCorner",
       "direction_names": [
-        "NorthEast",
-        "SouthEast",
-        "NorthWest",
-        "SouthWest"
+        "WithoutNortheast",
+        "WithoutSoutheast",
+        "WithoutNorthwest",
+        "WithoutSouthwest"
       ],
       "Directions": [
         {
-          "direction_name": "NorthEast",
+          "direction_name": "WithoutNortheast",
           "size": {
             "width": 64,
             "height": 64
@@ -425,7 +425,7 @@
           }
         },
         {
-          "direction_name": "SouthEast",
+          "direction_name": "WithoutSoutheast",
           "size": {
             "width": 64,
             "height": 64
@@ -444,7 +444,7 @@
           }
         },
         {
-          "direction_name": "NorthWest",
+          "direction_name": "WithoutNorthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -463,7 +463,7 @@
           }
         },
         {
-          "direction_name": "SouthWest",
+          "direction_name": "WithoutSouthwest",
           "size": {
             "width": 64,
             "height": 64
@@ -497,7 +497,7 @@
       ]
     },
     {
-      "type_name": "WaterIsolated",
+      "type_name": "Isolated",
       "direction_names": [
         "None"
       ],
@@ -537,7 +537,7 @@
       ]
     },
     {
-      "type_name": "RiverDeadEnd",
+      "type_name": "DeadEnd",
       "direction_names": [
         "North",
         "South",
@@ -637,7 +637,7 @@
       ]
     },
     {
-      "type_name": "RiverDefault",
+      "type_name": "Default",
       "direction_names": [
         "NorthSouth",
         "EastWest"
@@ -697,7 +697,7 @@
       ]
     },
     {
-      "type_name": "RiverIntersectionT",
+      "type_name": "IntersectionT",
       "direction_names": [
         "NorthSouthEast",
         "NorthSouthWest",
@@ -797,7 +797,7 @@
       ]
     },
     {
-      "type_name": "RiverIntersectionCross",
+      "type_name": "IntersectionCross",
       "direction_names": [
         "None"
       ],
@@ -837,7 +837,7 @@
       ]
     },
     {
-      "type_name": "RiverTurn",
+      "type_name": "Turn",
       "direction_names": [
         "NorthEast",
         "SouthEast",

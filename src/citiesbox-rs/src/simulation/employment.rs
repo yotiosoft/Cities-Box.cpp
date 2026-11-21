@@ -164,11 +164,13 @@ impl SimulationState {
                     let age = tile.ages[index];
                     if is_working_age(age)
                         && random.random_below((age / 10).max(1)) == 0
-                        && let Some(workplace) = workplaces.random_candidate(None, random)
-                        && workplaces.try_reserve(workplace)
                     {
-                        resident_workplaces[index] = Some(workplace);
-                        self.decrease_demand_for_new_worker(workplace.kind);
+                        if let Some(workplace) = workplaces.random_candidate(None, random) {
+                            if workplaces.try_reserve(workplace) {
+                                resident_workplaces[index] = Some(workplace);
+                                self.decrease_demand_for_new_worker(workplace.kind);
+                            }
+                        }
                     }
                 }
 
@@ -183,11 +185,12 @@ impl SimulationState {
                         UNIVERSITY => random.random_below(age.max(1)) == 0,
                         _ => false,
                     };
-                    if attends
-                        && let Some(school) = schools.random_candidate(Some(school_kind), random)
-                        && schools.try_reserve(school)
-                    {
-                        resident_schools[index] = Some(school);
+                    if attends {
+                        if let Some(school) = schools.random_candidate(Some(school_kind), random) {
+                            if schools.try_reserve(school) {
+                                resident_schools[index] = Some(school);
+                            }
+                        }
                     }
                 }
             }

@@ -1,0 +1,141 @@
+﻿{
+  "name": "small_police_station",
+  "jp_name": "小規模な警察署",
+  "author": "YotioSoft",
+  "summary": "この街の安全と平和を守るために必要な施設です。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_small_police_station.png",
+  "Categories": [
+    "object_type",
+    "public",
+    "police",
+    "police_station"
+  ],
+  "effects": {
+    "crime_rate": {
+      "influence": 10,
+      "grid": 10
+    },
+    "land_price": {
+      "influence": 8,
+      "grid": 8
+    }
+  },
+  "maximum_capacity": 83,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 64
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 64,
+            "y": 64
+          },
+          "bottom_right": {
+            "x": 128,
+            "y": 128
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 64,
+            "height": 64
+          },
+          "squares": {
+            "width": 1,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 64,
+            "y": 64
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "small_police_station.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "small_police_station__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
+      ]
+    }
+  ]
+}

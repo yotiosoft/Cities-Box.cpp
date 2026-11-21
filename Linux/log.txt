@@ -751,23 +751,3 @@ m_load_addons(): from ./addons/Normal/farms/Normaly_Rice-Farm/Normaly_Rice-Farm.
 m_load_addons(): from ./addons/Normal/farms/Normaly_Rice-Farm
 m_load_addons(): from ./addons/Normal/farms
 m_load_addons(): from ./addons/Normal
-connect(): set roadtypeconect 17 / 6
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connectWithSpecifiedType(): set roadtypeconect 1 / 9
-connect(): set roadtypeconect 3 / 9
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7
-connect(): set roadtypeconect 3 / 3
-connect(): set roadtypeconect 1 / 7

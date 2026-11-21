@@ -1,0 +1,4 @@
+/home/ytani/git/Cities-Box.cpp/Linux/build/CMakeFiles/citiesbox_rs_build.dir
+/home/ytani/git/Cities-Box.cpp/Linux/build/CMakeFiles/Cities-Box_Lin.dir
+/home/ytani/git/Cities-Box.cpp/Linux/build/CMakeFiles/edit_cache.dir
+/home/ytani/git/Cities-Box.cpp/Linux/build/CMakeFiles/rebuild_cache.dir

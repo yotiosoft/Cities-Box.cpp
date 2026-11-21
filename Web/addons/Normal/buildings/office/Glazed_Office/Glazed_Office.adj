@@ -1,0 +1,135 @@
+﻿{
+  "name": "Glazed_Office",
+  "jp_name": "ガラス張りのオフィス",
+  "author": "YotioSoft",
+  "summary": "日当たりの良い最近できた風のオフィスです。",
+  "version": 142,
+  "Belong_addon_set_name": [
+    "Normal"
+  ],
+  "icon": "icon_Glazed_Office.png",
+  "Categories": [
+    "object_type",
+    "office"
+  ],
+  "effects": {
+    "education_rate": {
+      "influence": 5,
+      "grid": 5
+    }
+  },
+  "maximum_capacity": 0,
+  "Types": [
+    {
+      "type_name": "Normal",
+      "direction_names": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "Directions": [
+        {
+          "direction_name": "North",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 96,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 113
+          }
+        },
+        {
+          "direction_name": "South",
+          "size": {
+            "width": 96,
+            "height": 111
+          },
+          "squares": {
+            "width": 2,
+            "height": 1
+          },
+          "top_left": {
+            "x": 0,
+            "y": 113
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 224
+          }
+        },
+        {
+          "direction_name": "East",
+          "size": {
+            "width": 96,
+            "height": 111
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 96,
+            "y": 113
+          },
+          "bottom_right": {
+            "x": 192,
+            "y": 224
+          }
+        },
+        {
+          "direction_name": "West",
+          "size": {
+            "width": 96,
+            "height": 112
+          },
+          "squares": {
+            "width": 1,
+            "height": 2
+          },
+          "top_left": {
+            "x": 0,
+            "y": 0
+          },
+          "bottom_right": {
+            "x": 96,
+            "y": 113
+          }
+        }
+      ],
+      "Layers": [
+        {
+          "image": "Glazed_Office.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Normal"
+          ]
+        },
+        {
+          "image": "Glazed_Office__night_mask.png",
+          "transparent_color": {
+            "R": 0,
+            "G": 0,
+            "B": 0
+          },
+          "layer_types": [
+            "Night"
+          ]
+        }
+      ]
+    }
+  ]
+}

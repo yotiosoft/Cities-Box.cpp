@@ -22,6 +22,10 @@ Windows/Cities-Box.cpp/Cities-Box.cpp/Intermediate/
 /Windows_old
 /skills/cities-box-project-context/
 
+# Web version
+*.wasm
+*.data
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore

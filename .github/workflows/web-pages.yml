@@ -1,0 +1,122 @@
+name: Build and publish Web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: web-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - name: Check out Cities Box
+        uses: actions/checkout@v4
+
+      - name: Check out the Siv3D Web fork
+        uses: actions/checkout@v4
+        with:
+          repository: nokotan/OpenSiv3D
+          ref: c04b342be2439a425b9e71a756a8490bb45a80bc
+          path: opensiv3d-for-web/OpenSiv3D
+          persist-credentials: false
+
+      - name: Install Emscripten 3.1.20
+        run: |
+          git clone --depth 1 https://github.com/emscripten-core/emsdk.git opensiv3d-for-web/emsdk
+          cd opensiv3d-for-web/emsdk
+          ./emsdk install 3.1.20
+          ./emsdk activate 3.1.20
+
+      - name: Install Boost 1.74 headers
+        run: |
+          curl -fL --retry 3 \
+            https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz \
+            -o "$RUNNER_TEMP/boost_1_74_0.tar.gz"
+          tar -xzf "$RUNNER_TEMP/boost_1_74_0.tar.gz" \
+            -C opensiv3d-for-web/OpenSiv3D/Dependencies
+          test -f opensiv3d-for-web/OpenSiv3D/Dependencies/boost_1_74_0/boost/process/child.hpp
+
+      - name: Install Rust 1.85.1 Web target
+        run: |
+          rustup toolchain install 1.85.1 --profile minimal --no-self-update
+          rustup target add --toolchain 1.85.1 wasm32-unknown-emscripten
+
+      - name: Build and install Siv3D Web
+        shell: bash
+        run: |
+          source opensiv3d-for-web/emsdk/emsdk_env.sh
+          embuilder.py build ogg vorbis
+          emcmake cmake \
+            -S opensiv3d-for-web/OpenSiv3D/Web \
+            -B opensiv3d-for-web/OpenSiv3D/Web/Build \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build opensiv3d-for-web/OpenSiv3D/Web/Build --parallel 4
+          cmake --install opensiv3d-for-web/OpenSiv3D/Web/Build
+
+      - name: Build Cities Box Web
+        env:
+          OPEN_SIV3D_WEB_ROOT: ${{ github.workspace }}/opensiv3d-for-web
+        run: Web/build.sh
+
+      - name: Prepare site root
+        shell: bash
+        run: |
+          mkdir -p site/sound
+          cp Web/Siv3DApp.html site/index.html
+          cp Web/Siv3DApp.js Web/Siv3DApp.wasm Web/Siv3DApp.data site/
+          cp -a Web/sound/BGM site/sound/
+          touch site/.nojekyll
+          test -s site/index.html
+          test -s site/Siv3DApp.data
+          test -s site/Siv3DApp.wasm
+          test "$(find site/sound/BGM -type f | wc -l)" -gt 0
+          test "$(stat -c %s site/Siv3DApp.data)" -lt 104857600
+
+      - name: Push site files to gh-pages
+        shell: bash
+        run: |
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
+            git fetch origin gh-pages:refs/remotes/origin/gh-pages
+            git worktree add -B gh-pages "$RUNNER_TEMP/gh-pages" origin/gh-pages
+          else
+            git worktree add --detach "$RUNNER_TEMP/gh-pages" HEAD
+            git -C "$RUNNER_TEMP/gh-pages" checkout --orphan gh-pages
+          fi
+          rsync -a --delete --exclude=.git site/ "$RUNNER_TEMP/gh-pages/"
+          git -C "$RUNNER_TEMP/gh-pages" config user.name 'github-actions[bot]'
+          git -C "$RUNNER_TEMP/gh-pages" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$RUNNER_TEMP/gh-pages" add --all
+          if ! git -C "$RUNNER_TEMP/gh-pages" diff --cached --quiet; then
+            git -C "$RUNNER_TEMP/gh-pages" commit -m "Deploy Web build from ${GITHUB_SHA}"
+            git -C "$RUNNER_TEMP/gh-pages" push origin HEAD:gh-pages
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

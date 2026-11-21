@@ -11,7 +11,13 @@ find_package(Siv3D REQUIRED)
 get_filename_component(CITIES_BOX_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/.." REALPATH)
 set(CITIES_BOX_SRC "${CITIES_BOX_ROOT}/src")
 set(CITIES_BOX_WEB "${CMAKE_CURRENT_SOURCE_DIR}")
-set(SIV3D_WEB_APP "/home/ytani/git/opensiv3d-for-web/OpenSiv3D/Web/App")
+if(NOT SIV3D_WEB_APP)
+    get_filename_component(SIV3D_WEB_APP
+        "${CITIES_BOX_ROOT}/../opensiv3d-for-web/OpenSiv3D/Web/App" REALPATH)
+endif()
+if(NOT EXISTS "${SIV3D_WEB_APP}/Templates/Embeddable/web-player.html")
+    message(FATAL_ERROR "Siv3D Web App templates not found: ${SIV3D_WEB_APP}")
+endif()
 set(CITIES_BOX_BRIDGE
     "${CITIES_BOX_ROOT}/Windows/Cities-Box.cpp/Cities-Box.cpp")
 set(CITIES_BOX_RUST_LIB

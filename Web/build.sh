@@ -29,13 +29,14 @@ if [[ ! -f "$siv3d_dir/Siv3DConfig.cmake" ]]; then
 fi
 
 export CC=emcc CXX=em++ AR=emar
-cargo +1.85.1 build --manifest-path "$rust_dir/Cargo.toml" \
+cargo +1.85.1 build --locked --manifest-path "$rust_dir/Cargo.toml" \
     --release --target wasm32-unknown-emscripten
 
 emcmake cmake -S "$web_dir" -B "$build_dir" \
     -G 'Unix Makefiles' \
     -DCMAKE_BUILD_TYPE=Release \
-    -DSiv3D_DIR="$siv3d_dir"
+    -DSiv3D_DIR="$siv3d_dir" \
+    -DSIV3D_WEB_APP="$sdk_root/OpenSiv3D/Web/App"
 cmake --build "$build_dir" --parallel "${BUILD_JOBS:-4}"
 
 echo "Built $web_dir/Siv3DApp.html"

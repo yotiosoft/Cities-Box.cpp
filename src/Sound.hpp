@@ -9,6 +9,9 @@
 #define Sound_hpp
 
 #include <Specific.hpp>
+#if SIV3D_PLATFORM(WEB)
+#include <Siv3D/AsyncHTTPTask.hpp>
+#endif
 
 class Sound {
 public:
@@ -28,8 +31,12 @@ private:
 	Array<FileStruct> m_sound_files;
 	Audio* m_audio_p = nullptr;
 	random_device m_rnd;
-	int m_playing_BGM_num;
-	double m_before_play_pos;
+	int m_playing_BGM_num = -1;
+	double m_before_play_pos = 0;
+#if SIV3D_PLATFORM(WEB)
+	AsyncHTTPTask m_bgm_download;
+	String m_pending_bgm_path;
+#endif
 };
 
 #endif /* Sound_hpp */

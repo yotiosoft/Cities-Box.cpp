@@ -153,6 +153,15 @@ if(EXISTS "${CITIES_BOX_DATA_IGNORE}")
     endforeach()
 endif()
 
+# BGM は個別配信し、ファイル名だけを小さな manifest に同梱する
+file(GLOB CITIES_BOX_BGM_FILES CONFIGURE_DEPENDS
+    RELATIVE "${CITIES_BOX_WEB}/sound/BGM"
+    "${CITIES_BOX_WEB}/sound/BGM/*.ogg"
+    "${CITIES_BOX_WEB}/sound/BGM/*.mp3")
+list(SORT CITIES_BOX_BGM_FILES)
+string(REPLACE ";" "\n" CITIES_BOX_BGM_LIST "${CITIES_BOX_BGM_FILES}")
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/bgm-list.txt" "${CITIES_BOX_BGM_LIST}\n")
+
 target_link_options(Siv3DApp PRIVATE
     --no-export-dynamic
     ${CITIES_BOX_PRELOAD_EXCLUDES}
@@ -171,7 +180,7 @@ target_link_options(Siv3DApp PRIVATE
     "--preload-file=${CITIES_BOX_WEB}/data@/data"
     "--preload-file=${CITIES_BOX_WEB}/addons@/addons"
     "--preload-file=${CITIES_BOX_WEB}/fonts@/fonts"
-    "--preload-file=${CITIES_BOX_WEB}/sound@/sound"
+    "--preload-file=${CMAKE_CURRENT_BINARY_DIR}/bgm-list.txt@/bgm-list.txt"
 )
 
 target_link_libraries(Siv3DApp PRIVATE

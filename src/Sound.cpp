@@ -8,7 +8,9 @@
 #include "Sound.hpp"
 #if SIV3D_PLATFORM(WEB)
 #include <Siv3D/SimpleHTTP.hpp>
+#include <Siv3D/FileSystem.hpp>
 #include <fstream>
+#include <iostream>
 #endif
 
 void Sound::searchSoundFiles(string filePath) {
@@ -23,6 +25,7 @@ void Sound::searchSoundFiles(string filePath) {
 			m_sound_files << file;
 		}
 	}
+	if (m_sound_files.empty()) { std::cerr << "BGM manifest is empty\n"; }
 #else
 	m_sound_files = specific::getAllFilesName(filePath, "mp3");
 	Array<FileStruct> ogg_files = specific::getAllFilesName(filePath, "ogg");
@@ -54,8 +57,11 @@ void Sound::playBGM(String filePath) {
 	m_before_play_pos = 0;
 #if SIV3D_PLATFORM(WEB)
 	// BGM ファイルは .data に含めず、必要な曲だけ取得する。
-	m_pending_bgm_path = filePath;
-	m_bgm_download = SimpleHTTP::SaveAsync(filePath, filePath);
+	// The HTTP URL is relative to the page, while the Emscripten FS needs
+	// an absolute destination to create the parent directory reliably.
+	m_pending_bgm_path = (filePath.size() >= 2 && filePath[0] == U'.' && filePath[1] == U'/')
+		? filePath.substr(1) : filePath;
+	m_bgm_download = SimpleHTTP::SaveAsync(filePath, m_pending_bgm_path);
 #else
 	m_audio_p = new Audio(filePath);
 	m_audio_p->play();
@@ -65,9 +71,21 @@ void Sound::playBGM(String filePath) {
 void Sound::playingBGM() {
 #if SIV3D_PLATFORM(WEB)
 	if (m_bgm_download && m_bgm_download.isReady()) {
-		if (m_bgm_download.isSucceeded()) {
+		const bool httpOK = m_bgm_download.getResponse().isOK();
+		const bool fileOK = FileSystem::Exists(m_pending_bgm_path)
+			&& FileSystem::FileSize(m_pending_bgm_path) > 0;
+		if (httpOK && fileOK) {
 			m_audio_p = new Audio(m_pending_bgm_path);
-			m_audio_p->play();
+			if (*m_audio_p) {
+				m_audio_p->play();
+			} else {
+				std::cerr << "BGM decode failed: " << m_pending_bgm_path.narrow() << "\n";
+				delete m_audio_p;
+				m_audio_p = nullptr;
+			}
+		} else {
+			std::cerr << "BGM download failed: " << m_pending_bgm_path.narrow()
+				<< " (HTTP OK: " << httpOK << ", file present: " << fileOK << ")\n";
 		}
 		m_bgm_download = AsyncHTTPTask{};
 		m_pending_bgm_path.clear();

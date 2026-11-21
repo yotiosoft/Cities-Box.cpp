@@ -83,7 +83,7 @@ Windows/Cities-Box.cpp/Cities-Box.cpp/App/log.txt
 /Linux/build/
 
 # Legacy in-source CMake artifacts
-Linux/CMakeCache.txt
-Linux/CMakeFiles/
-Linux/cmake_install.cmake
-Linux/Cities-Box_Lin
+/Linux/CMakeCache.txt
+/Linux/CMakeFiles/
+/Linux/cmake_install.cmake
+/Linux/Cities-Box_Lin

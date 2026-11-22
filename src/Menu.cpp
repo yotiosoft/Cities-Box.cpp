@@ -430,9 +430,9 @@ CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 	if (m_button[U"save"].pushRelative(m_position)) {
 		bool saveSucceeded = true;
 #if SIV3D_PLATFORM(WEB)
-		const Array<FileFilter> filters = { { U"セーブデータ", { U"cbj" } } };
-		if (const auto selected = Dialog::SaveFile(filters, specific::SaveDataFilePath)) {
-			saveSucceeded = m_map->saveAs(selected.value());
+		String savePath;
+		if (specific::selectSaveDataDestination(savePath, m_map->getMapFilePath())) {
+			saveSucceeded = m_map->saveAs(savePath);
 		}
 #else
 		saveSucceeded = m_map->save();

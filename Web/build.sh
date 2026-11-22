@@ -32,7 +32,18 @@ export CC=emcc CXX=em++ AR=emar
 cargo +1.85.1 build --locked --manifest-path "$rust_dir/Cargo.toml" \
     --release --target wasm32-unknown-emscripten
 
-emcmake cmake -S "$web_dir" -B "$build_dir" \
+cmake_fresh_args=()
+cmake_cache="$build_dir/CMakeCache.txt"
+expected_cxx="$emsdk_dir/upstream/emscripten/em++"
+if [[ -f "$cmake_cache" ]]; then
+    if ! grep -Fqx "CMAKE_CXX_COMPILER:FILEPATH=$expected_cxx" "$cmake_cache" && \
+        ! grep -Fqx "CMAKE_CXX_COMPILER:STRING=$expected_cxx" "$cmake_cache"; then
+        echo "Resetting Web CMake cache configured with a non-Emscripten compiler."
+        cmake_fresh_args=(--fresh)
+    fi
+fi
+
+emcmake cmake "${cmake_fresh_args[@]}" -S "$web_dir" -B "$build_dir" \
     -G 'Unix Makefiles' \
     -DCMAKE_BUILD_TYPE=Release \
     -DSiv3D_DIR="$siv3d_dir" \

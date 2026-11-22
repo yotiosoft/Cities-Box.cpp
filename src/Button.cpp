@@ -7,6 +7,23 @@
 
 #include "Button.hpp"
 
+bool Button::s_input_suppressed = false;
+
+bool Button::isInputSuppressed() {
+	if (!s_input_suppressed) {
+		return false;
+	}
+
+	// ダイアログを閉じたクリックがゲーム側へ伝播しないよう、
+	// 左ボタンを離したフレームまで入力を無視する。
+	if (MouseL.pressed() || MouseL.up()) {
+		return true;
+	}
+
+	s_input_suppressed = false;
+	return false;
+}
+
 Button::Button() {
 	m_active = false;
 }
@@ -139,6 +156,10 @@ void Button::putRelative(PositionStruct newPosition, PositionStruct leftTop) {
 }
 
 bool Button::push() {
+	if (isInputSuppressed()) {
+		return false;
+	}
+
 	if (m_hitbox.mouseOver()) {
 		if (MouseL.down()) {
 			m_active = !m_active;
@@ -150,6 +171,10 @@ bool Button::push() {
 }
 
 bool Button::pushRelative(PositionStruct leftTop) {
+	if (isInputSuppressed()) {
+		return false;
+	}
+
 	const Vec2 relativeCursor = Cursor::Pos() - Vec2{leftTop.x, leftTop.y};
 	if (m_hitbox.contains(relativeCursor)) {
 		if (MouseL.down()) {
@@ -167,4 +192,8 @@ bool Button::isActive() {
 
 void Button::release() {
 	m_active = false;
+}
+
+void Button::suppressInputUntilMouseRelease() {
+	s_input_suppressed = true;
 }

@@ -83,7 +83,7 @@ bool CityMap::create(String mapFilePath, String cityName, Size mapSize) {
 		}
 	}
 	m_rust_core->set_new_city_metadata(cityName.toUTF8(), "Normal");
-	if (!save()) {
+	if (!save(false)) {
 		m_last_load_error = m_last_save_error;
 		return false;
 	}

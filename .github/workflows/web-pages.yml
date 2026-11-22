@@ -68,6 +68,13 @@ jobs:
           OPEN_SIV3D_WEB_ROOT: ${{ github.workspace }}/opensiv3d-for-web
         run: Web/build.sh
 
+      - name: Add Google Tag Manager to the generated HTML
+        run: |
+          python3 Web/inject-html-head.py \
+            Web/Siv3DApp.html \
+            Web/templates/google-tag-manager.html
+          grep -q 'GTM-NS9DV2CV' Web/Siv3DApp.html
+
       - name: Prepare site root
         shell: bash
         run: |

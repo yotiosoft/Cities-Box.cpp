@@ -44,6 +44,7 @@ public:
 	bool push();
 	bool pushRelative(PositionStruct leftTop);
 	const Rect& getHitbox() const { return m_hitbox; }
+	static void suppressInputUntilMouseRelease();
 	
 	// アクティブかどうか
 	bool isActive();
@@ -68,6 +69,8 @@ private:
 	PositionStruct m_label_position;
 	
 	bool m_active;
+	static bool s_input_suppressed;
+	static bool isInputSuppressed();
 };
 
 #endif /* Button_hpp */

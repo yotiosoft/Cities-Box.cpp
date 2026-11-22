@@ -7,6 +7,8 @@ lib
 *.res
 *.entitlements
 *.html
+!Web/site/**/*.html
+!Web/templates/**/*.html
 *.obj
 *.log
 *.tlog

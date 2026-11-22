@@ -16,8 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
-    permissions:
-      contents: write
     steps:
       - name: Check out Cities Box
         uses: actions/checkout@v4
@@ -75,43 +73,22 @@ jobs:
             Web/templates/google-tag-manager.html
           grep -q 'GTM-NS9DV2CV' Web/Siv3DApp.html
 
-      - name: Prepare play directory
+      - name: Prepare Pages site
         shell: bash
         run: |
           mkdir -p site/play/sound
+          cp -a Web/site/. site/
           cp Web/Siv3DApp.html site/play/index.html
           cp Web/Siv3DApp.js Web/Siv3DApp.wasm Web/Siv3DApp.data site/play/
           cp -a Web/sound/BGM site/play/sound/
           touch site/.nojekyll
+          test -s site/index.html
+          test -s site/CNAME
           test -s site/play/index.html
           test -s site/play/Siv3DApp.data
           test -s site/play/Siv3DApp.wasm
           test "$(find site/play/sound/BGM -type f | wc -l)" -gt 0
           test "$(stat -c %s site/play/Siv3DApp.data)" -lt 104857600
-
-      - name: Push site files to gh-pages
-        shell: bash
-        run: |
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null; then
-            git fetch origin gh-pages:refs/remotes/origin/gh-pages
-            git worktree add -B gh-pages "$RUNNER_TEMP/gh-pages" origin/gh-pages
-          else
-            git worktree add --detach "$RUNNER_TEMP/gh-pages" HEAD
-            git -C "$RUNNER_TEMP/gh-pages" checkout --orphan gh-pages
-          fi
-          # Replace only the game directory; keep the homepage and other root files.
-          rsync -a --delete site/play/ "$RUNNER_TEMP/gh-pages/play/"
-          touch "$RUNNER_TEMP/gh-pages/.nojekyll"
-          git -C "$RUNNER_TEMP/gh-pages" config user.name 'github-actions[bot]'
-          git -C "$RUNNER_TEMP/gh-pages" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C "$RUNNER_TEMP/gh-pages" add --all
-          if ! git -C "$RUNNER_TEMP/gh-pages" diff --cached --quiet; then
-            git -C "$RUNNER_TEMP/gh-pages" commit -m "Deploy Web build from ${GITHUB_SHA}"
-            git -C "$RUNNER_TEMP/gh-pages" push origin HEAD:gh-pages
-          fi
-
-      - name: Include the complete gh-pages site
-        run: rsync -a --delete --exclude=.git "$RUNNER_TEMP/gh-pages/" site/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

@@ -1,0 +1,302 @@
+/* 全体に関して */
+body {
+    margin: 0px;
+    padding: 0px;
+
+    font-family: "ヒラギノ角ゴシック W2","Hiragino Kaku Gothic W4",
+        "Noto Sans CJK JP",
+        "YuGothic", YuGothic,
+        "Hiragino Sans",
+        "メイリオ", Meiryo,
+        "VL PGothic",
+        "Droid Sans Japanese",
+        "Takaoゴシック","TakaoGothic",
+        "ＭＳ Ｐゴシック", "MS PGothic",
+        "Nunito Sans",
+        sans-serif;
+
+    background-color: #eee;
+
+    text-align: center;
+    display: block;
+}
+
+a {
+    color: #0088cc;
+    text-decoration: none;
+}
+a:hover {
+    color: #00aaff;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* タイトル画面 */
+.title-catch-wrap {
+    top:0;
+    left:0;
+    z-index:-1;
+    width:100%;
+    height:100vh;
+
+    background-image: url("./img/title_background.png");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.title-catch {
+    background: rgba(50,50,50,0.5);
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.wrap {
+    width: 1310px;
+    min-height: 100%;
+    max-width: 100%;
+
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 120px;
+    box-sizing: border-box;
+
+    padding: 50px;
+
+    margin: 0px auto;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.title_wrap {
+    margin: 0px auto;
+    color: #fff;
+    text-align: left;
+}
+
+.title_wrap .main_text {
+    font-size: 2vw;
+}
+
+.title_wrap .sub_text {
+    font-size: 1vw;
+    color: #fff;
+    text-align: left;
+    display: inline-block;
+}
+
+.top_summary_wrap {
+    max-width: 350px;
+    min-width: 50%;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.top_summary_wrap img {
+    width: 100%;
+    height: auto;
+}
+
+.top_summary_wrap picture {
+    width: 100%;
+    height: auto;
+}
+
+/* メニュー */
+.menu {
+    width: 100%;
+    height: 110px;
+
+    padding-top: 30px;
+    padding-left: 30px;
+    position: fixed;
+    z-index: 1;
+
+    display: flex;
+    line-height: 110px;
+}
+
+.menu-buttons {
+    margin-left: 30px;
+    display: flex;
+}
+
+.menu-buttons a {
+    text-decoration-line: none;
+    color: #fff;
+    font-size: 26px;
+}
+
+.menu-button {
+    margin: 0px 10px 0px 10px;
+}
+
+#space {
+    width: 100%;
+    height: 20px;
+    background-color: #00aaff;
+}
+
+/* コンテンツ部 */
+.contents {
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 100px;
+
+    text-shadow: 1px 2px 3px #808080;
+
+    justify-content: center;
+}
+
+/* カラム */
+.column {
+    text-align: left;
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    max-width: 1100px;
+}
+
+.column .title {
+    font-size: 36px;
+}
+
+.column .text {
+    width: 50%;
+    text-align: left;
+}
+
+.column .text-full {
+    width: 100%;
+    text-align: left;
+}
+
+.column .summaries {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.column .summary-half {
+    margin-right: 50px;
+    max-width: 50%;
+}
+
+.column .image {
+    width: 50%;
+    text-align: center;
+    justify-self: center;
+}
+.column .right_text {
+    width: 50%;
+    text-align: left;
+}
+.column .image picture img {
+    width: 90%;
+}
+
+.simple-box-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.simple-box-wrap p {
+    margin-right: 50px;
+}
+.simple-box {
+    border-radius: 8px;
+    border: solid 1px #00aaff;
+    padding: 10px;
+
+    text-align: left;
+
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+.simple-box:hover {
+    background-color: #00aaff;
+
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+
+/* フッター */
+footer {
+    font-size: 14px;
+    font-family: system-ui;
+
+    background-image: url("./img/footer-skyline.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 100% auto;
+
+    padding-top: 15%;
+    padding-bottom: 0px;
+
+    width: 100%;
+}
+
+footer p {
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+@media screen and (max-width: 1000px) {
+    .top_summary_wrap {
+        display:none
+    }
+
+    .title_wrap .main_text {
+        font-size: 3vw;
+    }
+
+    .title_wrap .sub_text {
+        font-size: 2vw;
+        color: #fff;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .wrap {
+        margin-left: -10%;
+    }
+
+    .column .text {
+        width: 100%;
+    }
+    .column .image {
+        width: 100%;
+    }
+    .column .right_text {
+        width: 100%;
+    }
+    .column .summary-half {
+        width: 100%;
+        margin-right: 0px;
+    }
+}

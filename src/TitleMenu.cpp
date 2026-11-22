@@ -102,6 +102,13 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 						error = U"都市名と1～500のサイズを入力してください。";
 						continue;
 					}
+#if SIV3D_PLATFORM(WEB)
+					filePath = U"/tmp/New_City.cbj";
+					cityName = nameInput.text;
+					mapSize = Size(*width, *height);
+					createMap = true;
+					return pair<bool, GeneralSetting>(true, general_setting);
+#else
 					Array<FileFilter> filters = { { U"セーブデータ", { U"cbj" } } };
 					if (const auto selected = Dialog::SaveFile(filters, specific::SaveDataFilePath)) {
 						filePath = selected.value();
@@ -110,6 +117,7 @@ pair<bool, GeneralSetting> titleMenu(ImagesStruct& images, Font& font16, String&
 						createMap = true;
 						return pair<bool, GeneralSetting>(true, general_setting);
 					}
+#endif
 				}
 				if (SimpleGUI::Button(U"戻る", Vec2(left + 240, 370), 200)) break;
 			}

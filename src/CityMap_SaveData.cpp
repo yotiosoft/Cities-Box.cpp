@@ -17,7 +17,7 @@ bool CityMap::saveAs(String saveMapFilePath) {
 	return save();
 }
 
-bool CityMap::save() {
+bool CityMap::save([[maybe_unused]] bool exportToBrowser) {
 	m_last_save_error.clear();
 	try {
 	// C++側のObjectが、現在所有しているAddonだけを参照していることを
@@ -150,6 +150,12 @@ bool CityMap::save() {
 		m_last_save_error = Unicode::FromUTF8(std::string(error.data(), error.size()));
 		return false;
 	}
+#if SIV3D_PLATFORM(WEB)
+	if (exportToBrowser && !specific::exportSaveData(m_map_file_path)) {
+		m_last_save_error = U"保存データをブラウザへ出力できませんでした。";
+		return false;
+	}
+#endif
 	return true;
 
 	} catch (const std::exception& exception) {

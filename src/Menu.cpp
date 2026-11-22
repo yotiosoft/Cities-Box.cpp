@@ -142,29 +142,30 @@ void Menu::update(const SimulationSnapshot& simulation) {
 	const int roadX = cursorX + step + 10;
 	const int parkX = roadX + step * 8 + 10;
 	const int actionX = parkX + step * 4 + 10;
+	const int toolbarY = (m_size.y - UIConfig::scaleIcon(30)) / 2;
 
-	m_button[U"cursor"].putRelative(PositionStruct{cursorX, 0}, m_position);
+	m_button[U"cursor"].putRelative(PositionStruct{cursorX, toolbarY}, m_position);
 
-	m_button[U"road"].putRelative(PositionStruct{roadX, 0}, m_position);
-	m_button[U"train"].putRelative(PositionStruct{roadX + step, 0}, m_position);
-	m_button[U"residential"].putRelative(PositionStruct{roadX + step * 2, 0}, m_position);
-	m_button[U"commercial"].putRelative(PositionStruct{roadX + step * 3, 0}, m_position);
-	m_button[U"office"].putRelative(PositionStruct{roadX + step * 4, 0}, m_position);
-	m_button[U"industrial"].putRelative(PositionStruct{roadX + step * 5, 0}, m_position);
-	m_button[U"farm"].putRelative(PositionStruct{roadX + step * 6, 0}, m_position);
-	m_button[U"public"].putRelative(PositionStruct{roadX + step * 7, 0}, m_position);
+	m_button[U"road"].putRelative(PositionStruct{roadX, toolbarY}, m_position);
+	m_button[U"train"].putRelative(PositionStruct{roadX + step, toolbarY}, m_position);
+	m_button[U"residential"].putRelative(PositionStruct{roadX + step * 2, toolbarY}, m_position);
+	m_button[U"commercial"].putRelative(PositionStruct{roadX + step * 3, toolbarY}, m_position);
+	m_button[U"office"].putRelative(PositionStruct{roadX + step * 4, toolbarY}, m_position);
+	m_button[U"industrial"].putRelative(PositionStruct{roadX + step * 5, toolbarY}, m_position);
+	m_button[U"farm"].putRelative(PositionStruct{roadX + step * 6, toolbarY}, m_position);
+	m_button[U"public"].putRelative(PositionStruct{roadX + step * 7, toolbarY}, m_position);
 
-	m_button[U"park"].putRelative(PositionStruct{parkX, 0}, m_position);
-	m_button[U"ship"].putRelative(PositionStruct{parkX + step, 0}, m_position);
-	m_button[U"air_port"].putRelative(PositionStruct{parkX + step * 2, 0}, m_position);
-	m_button[U"tile"].putRelative(PositionStruct{parkX + step * 3, 0}, m_position);
+	m_button[U"park"].putRelative(PositionStruct{parkX, toolbarY}, m_position);
+	m_button[U"ship"].putRelative(PositionStruct{parkX + step, toolbarY}, m_position);
+	m_button[U"air_port"].putRelative(PositionStruct{parkX + step * 2, toolbarY}, m_position);
+	m_button[U"tile"].putRelative(PositionStruct{parkX + step * 3, toolbarY}, m_position);
 
-	m_button[U"information"].putRelative(PositionStruct{actionX, 0}, m_position);
-	m_button[U"rate"].putRelative(PositionStruct{actionX + step, 0}, m_position);
-	m_button[U"delete"].putRelative(PositionStruct{actionX + step * 2, 0}, m_position);
-	m_button[U"budget"].putRelative(PositionStruct{actionX + step * 3, 0}, m_position);
-	m_button[U"setting"].putRelative(PositionStruct{actionX + step * 4, 0}, m_position);
-	m_button[U"save"].putRelative(PositionStruct{actionX + step * 5, 0}, m_position);
+	m_button[U"information"].putRelative(PositionStruct{actionX, toolbarY}, m_position);
+	m_button[U"rate"].putRelative(PositionStruct{actionX + step, toolbarY}, m_position);
+	m_button[U"delete"].putRelative(PositionStruct{actionX + step * 2, toolbarY}, m_position);
+	m_button[U"budget"].putRelative(PositionStruct{actionX + step * 3, toolbarY}, m_position);
+	m_button[U"setting"].putRelative(PositionStruct{actionX + step * 4, toolbarY}, m_position);
+	m_button[U"save"].putRelative(PositionStruct{actionX + step * 5, toolbarY}, m_position);
 	
 	// RCOIFメータを表示
 	(*m_font8)(U"R").draw(m_menu_buttons_pos.x + m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
@@ -475,7 +476,8 @@ bool Menu::budgetMenu(SimulationSnapshot& simulation) {
 	const int panelWidth = 360;
 	const int rowHeight = 25;
 	const int panelHeight = 10 * rowHeight + 42;
-	const int left = m_position.x + m_menu_buttons_pos.x + 430;
+	const int budgetCenterX = m_position.x + static_cast<int>(m_button[U"budget"].getHitbox().center().x);
+	const int left = Clamp(budgetCenterX - panelWidth / 2, 0, Scene::Width() - panelWidth);
 	const int top = m_position.y - panelHeight;
 	Rect(left, top, panelWidth, panelHeight).draw(Color(45, 52, 54, 235));
 	(*m_font16)(U"予算・税金").draw(left + 12, top + 8);
@@ -527,9 +529,12 @@ void Menu::addonMenu() {
 		return;
 	}
 	
-	Rect(m_position.x+16, m_position.y-42, Scene::Width(), 42).draw(Color(9, 132, 227, 200));
-	Rect(m_position.x+16, m_position.y-80, Scene::Width(), 38).draw(Color(45, 52, 54, 200));
-	Rect(m_position.x, m_position.y-80, 16, 80).draw(Color(45, 52, 54, 200));
+	const int iconRowTop = m_position.y - UIConfig::AddonMenuIconRowHeight;
+	const int detailsTop = iconRowTop - UIConfig::AddonMenuDetailsHeight;
+	const int menuHeight = UIConfig::AddonMenuIconRowHeight + UIConfig::AddonMenuDetailsHeight;
+	Rect(m_position.x+16, iconRowTop, Scene::Width(), UIConfig::AddonMenuIconRowHeight).draw(Color(9, 132, 227, 200));
+	Rect(m_position.x+16, detailsTop, Scene::Width(), UIConfig::AddonMenuDetailsHeight).draw(Color(45, 52, 54, 200));
+	Rect(m_position.x, detailsTop, 16, menuHeight).draw(Color(45, 52, 54, 200));
 	
 	if (m_show_addons.size() > 0) {
 		int selectedI = -1, cursorI = -1;
@@ -538,14 +543,15 @@ void Menu::addonMenu() {
 			const int iconSize = UIConfig::AddonIconSize;
 			const int iconStep = UIConfig::AddonIconStep;
 			const int iconX = m_position.x + 30 + iconStep * i;
+			const int iconY = iconRowTop + (UIConfig::AddonMenuIconRowHeight - iconSize) / 2;
 			
-			bool cursorOn = (Cursor::Pos().x >= iconX && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < iconX+iconSize && Cursor::Pos().y <= m_position.y-40+iconSize);
+			bool cursorOn = (Cursor::Pos().x >= iconX && Cursor::Pos().y >= iconY && Cursor::Pos().x < iconX+iconSize && Cursor::Pos().y <= iconY+iconSize);
 			if (cursorOn || m_selected_addon_name == addonName) {
-				m_show_addons[i]->drawIcon(PositionStruct{iconX, m_position.y-37}, PositionStruct{0, 32}, Size(iconSize, iconSize));
+				m_show_addons[i]->drawIcon(PositionStruct{iconX, iconY}, PositionStruct{0, 32}, Size(iconSize, iconSize));
 				
 				if (MouseL.down() &&
 					Cursor::Pos().x >= m_position.x+30 && Cursor::Pos().x <= m_position.x-30+m_size.x &&
-					Cursor::Pos().y >= m_position.y-37 && Cursor::Pos().y <= m_position.y-37+iconSize) {
+					Cursor::Pos().y >= iconY && Cursor::Pos().y <= iconY+iconSize) {
 					if (m_selected_addon_name == addonName) {
 						m_selected_addon_name = U"";
 						m_selected_addon = nullptr;
@@ -563,48 +569,54 @@ void Menu::addonMenu() {
 				}
 			}
 			else {
-				m_show_addons[i]->drawIcon(PositionStruct{iconX, m_position.y-37}, PositionStruct{0, 0}, Size(iconSize, iconSize));
+				m_show_addons[i]->drawIcon(PositionStruct{iconX, iconY}, PositionStruct{0, 0}, Size(iconSize, iconSize));
 			}
 		}
 		
 		if (cursorI == selectedI && selectedI >= 0) {
 			// 名前と説明
 			String nameJP = m_show_addons[selectedI]->getName(NameMode::Japanese);
-			(*m_font16)(nameJP).draw(m_position.x+30, m_position.y-80+2);
-			(*m_font12)(m_show_addons[selectedI]->getSummary()).draw(m_position.x+30, m_position.y-60+2);
+			const int nameY = detailsTop + 4;
+			const int summaryY = nameY + static_cast<int>((*m_font16)(nameJP).region().h) + UIConfig::AddonMenuTextGap;
+			(*m_font16)(nameJP).draw(m_position.x+30, nameY);
+			(*m_font12)(m_show_addons[selectedI]->getSummary()).draw(m_position.x+30, summaryY);
 			
 			// 効果アイコン
 			::map<RateID::Type, EffectStruct> effects = m_show_addons[selectedI]->getEffects();
 			int i = 0;
-			int leftmost = (*m_font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
+			int leftmost = m_position.x + 50 + (*m_font16)(nameJP).region().w;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 				if (!m_effect_icons[effect->first].isEmpty()) {
-					m_effect_icons[effect->first].draw(leftmost+i*48, m_position.y-75);
-					(*m_font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, m_position.y-75);
+					m_effect_icons[effect->first].draw(leftmost+i*48, nameY);
+					(*m_font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, nameY);
 					i++;
 				}
 			}
 		}
 		else if (cursorI >= 0) {
 			String nameJP = m_show_addons[cursorI]->getName(NameMode::Japanese);
-			(*m_font16)(nameJP).draw(m_position.x+30, m_position.y-80+2);
-			(*m_font12)(m_show_addons[cursorI]->getSummary()).draw(m_position.x+30, m_position.y-60+2);
+			const int nameY = detailsTop + 4;
+			const int summaryY = nameY + static_cast<int>((*m_font16)(nameJP).region().h) + UIConfig::AddonMenuTextGap;
+			(*m_font16)(nameJP).draw(m_position.x+30, nameY);
+			(*m_font12)(m_show_addons[cursorI]->getSummary()).draw(m_position.x+30, summaryY);
 			
 			// 効果アイコン
 			::map<RateID::Type, EffectStruct> effects = m_show_addons[cursorI]->getEffects();
 			int i = 0;
-			int leftmost = (*m_font16)(nameJP).region(Scene::Width() / 2, Scene::Height() / 2).w+50;
+			int leftmost = m_position.x + 50 + (*m_font16)(nameJP).region().w;
 			for (auto effect = effects.begin(); effect != effects.end(); effect++) {
 				if (!m_effect_icons[effect->first].isEmpty()) {
-					m_effect_icons[effect->first].draw(leftmost+i*48, m_position.y-75);
-					(*m_font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, m_position.y-75);
+					m_effect_icons[effect->first].draw(leftmost+i*48, nameY);
+					(*m_font12)(U"{:+}"_fmt(effect->second.influence)).draw(leftmost+i*48+22, nameY);
 					i++;
 				}
 			}
 		}
 		
 		for (int i=0; i<(int)m_category_buttons.size(); i++) {
-			m_category_buttons[i].second.put(PositionStruct{0, m_position.y-37+16*i});
+			const int categoryIconSize = UIConfig::scaleIcon(16);
+			const int categoryY = iconRowTop + UIConfig::AddonCategoryButtonGap + i * (categoryIconSize + UIConfig::AddonCategoryButtonGap);
+			m_category_buttons[i].second.put(PositionStruct{0, categoryY});
 			
 			if (m_category_buttons[i].second.push()) {
 				if (m_category_buttons[i].second.isActive()) {
@@ -625,12 +637,18 @@ void Menu::addonMenu() {
 }
 
 bool Menu::rateMenu() {
-	Rect(m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2, m_position.y-32*3, 32*4, 32*3).draw(Color(100, 100, 100));
+	const int buttonStep = UIConfig::RatePopupButtonStep;
+	const int panelWidth = buttonStep * 4;
+	const int panelHeight = 32 * 3;
+	const int rateCenterX = m_position.x + static_cast<int>(m_button[U"rate"].getHitbox().center().x);
+	const int left = Clamp(rateCenterX - panelWidth / 2, 0, Scene::Width() - panelWidth);
+	const int top = m_position.y - panelHeight;
+	Rect(left, top, panelWidth, panelHeight).draw(Color(100, 100, 100));
 	
-	m_rate_button[RateID::LandPrice].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7, m_position.y-32*3+5});
-	m_rate_button[RateID::CrimeRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32, m_position.y-32*3+5});
-	m_rate_button[RateID::EducationRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32*2, m_position.y-32*3+5});
-	m_rate_button[RateID::HappinessRate].put(PositionStruct{m_menu_buttons_pos.x + m_position.x+495+35+16-32*4/2+7+32*3, m_position.y-32*3+5});
+	m_rate_button[RateID::LandPrice].put(PositionStruct{left + 7, top + 5});
+	m_rate_button[RateID::CrimeRate].put(PositionStruct{left + 7 + buttonStep, top + 5});
+	m_rate_button[RateID::EducationRate].put(PositionStruct{left + 7 + buttonStep * 2, top + 5});
+	m_rate_button[RateID::HappinessRate].put(PositionStruct{left + 7 + buttonStep * 3, top + 5});
 	
 	if (m_rate_button[RateID::LandPrice].push()) {
 		if (m_show_rate_id != RateID::LandPrice) {

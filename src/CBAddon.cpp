@@ -347,7 +347,10 @@ map<RateID::Type, EffectStruct> CBAddon::getEffects() {
 }
 
 void CBAddon::drawIcon(PositionStruct position, PositionStruct leftTop, Size size) {
-	m_icon_texture(leftTop.x, leftTop.y, size.x, size.y).draw(position.x, position.y);
+	constexpr int sourceIconSize = 32;
+	m_icon_texture(leftTop.x, leftTop.y, sourceIconSize, sourceIconSize)
+		.resized(size.x, size.y)
+		.draw(position.x, position.y);
 }
 
 CoordinateStruct CBAddon::getUseTiles(TypeID::Type typeID, DirectionID::Type directionID) {

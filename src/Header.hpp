@@ -43,6 +43,11 @@ namespace UIConfig {
 	inline constexpr int AddonIconSize = 40;
 	inline constexpr int AddonIconStep = 48;
 	inline constexpr int MenuBarHeight = 60;
+	inline constexpr int AddonMenuIconRowHeight = 52;
+	inline constexpr int AddonMenuDetailsHeight = 68;
+	inline constexpr int AddonMenuTextGap = 6;
+	inline constexpr int AddonCategoryButtonGap = 4;
+	inline constexpr int RatePopupButtonStep = 36;
 
 	constexpr int scaleIcon(const int size) {
 		return ((size * 3 + 1) / 2);
@@ -61,6 +66,11 @@ namespace UIConfig {
 	inline constexpr int AddonIconSize = 32;
 	inline constexpr int AddonIconStep = 32;
 	inline constexpr int MenuBarHeight = 60;
+	inline constexpr int AddonMenuIconRowHeight = 42;
+	inline constexpr int AddonMenuDetailsHeight = 38;
+	inline constexpr int AddonMenuTextGap = 2;
+	inline constexpr int AddonCategoryButtonGap = 0;
+	inline constexpr int RatePopupButtonStep = 32;
 
 	constexpr int scaleIcon(const int size) {
 		return size;

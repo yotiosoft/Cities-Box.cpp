@@ -58,15 +58,12 @@ p {
 
 .wrap {
     width: 1310px;
-    min-height: 100%;
     max-width: 100%;
 
     min-height: 100vh;
     position: relative;
-    padding-bottom: 120px;
+    padding: 50px 50px 140px;
     box-sizing: border-box;
-
-    padding: 50px;
 
     margin: 0px auto;
 
@@ -110,6 +107,56 @@ p {
 .top_summary_wrap picture {
     width: 100%;
     height: auto;
+}
+
+.play-button {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(60px, 5vh, 80px);
+    transform: translateX(-50%);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    width: min(520px, calc(100% - 40px));
+    padding: 18px 28px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    box-sizing: border-box;
+
+    color: #fff;
+    background: linear-gradient(135deg, #00aaff, #0078d4);
+    box-shadow: 0 10px 28px rgba(0, 80, 140, 0.45);
+    font-size: clamp(14px, 2vw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.play-button:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #18b5ff, #0088e8);
+    box-shadow: 0 14px 34px rgba(0, 80, 140, 0.55);
+    transform: translateX(-50%) translateY(-3px);
+}
+
+.play-button:focus-visible {
+    outline: 4px solid #fff;
+    outline-offset: 4px;
+}
+
+.play-button-arrow {
+    font-size: 1.25em;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.play-button:hover .play-button-arrow {
+    transform: translateX(4px);
 }
 
 /* メニュー */
@@ -283,7 +330,7 @@ footer p {
     }
 
     .wrap {
-        margin-left: -10%;
+        padding: 32px 24px 130px;
     }
 
     .column .text {

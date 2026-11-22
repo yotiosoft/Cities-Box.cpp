@@ -74,6 +74,7 @@ public:
 	
 	// マップ保存
 	bool save();
+	bool saveAs(String saveMapFilePath);
 	
 	// メモリ解放
 	void freeMapAndAddons();

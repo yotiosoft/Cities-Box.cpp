@@ -32,9 +32,9 @@ void CitiesBox() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
-	Font font12(12, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
-	Font font8(8, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font16(UIConfig::FontLarge, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
+	Font font12(UIConfig::FontMedium, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font8(UIConfig::FontSmall, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
 	
 	// タイトルメニュー画面
 	String mapFilePath;
@@ -90,7 +90,7 @@ void CitiesBox() {
 	TimeStruct time = simulation.time;
 	
 	// Details Barの設定
-	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
+	DetailsBar detailsBar(PositionStruct{Scene::Size().x-UIConfig::DetailsBarWidth, 10}, &font16);
 	
 	// BGMの再生（ランダム）
 	bgm.playBGM();
@@ -117,7 +117,7 @@ void CitiesBox() {
 			menu.set(PositionStruct{ 0, new_size.y - 50 }, Size(default_menu_size, 50), &map, &font8, &font12, &font16);
 
 			// Details Barの位置を変更
-			detailsBar.setPos(PositionStruct{ new_size.x - 450, 10 });
+			detailsBar.setPos(PositionStruct{ new_size.x - UIConfig::DetailsBarWidth, 10 });
 
 			before_window_size = new_size;
 			updateMap = true;
@@ -189,9 +189,9 @@ void CitiesBox() {
 		// Details Barの表示
 		detailsBar.printWeather();
 		detailsBar.printTemperature(simulation.temperature);
-		detailsBar.printTime(time);
 		detailsBar.printPopulation(simulation.population);
 		detailsBar.printMoney(simulation.money);
+		detailsBar.printTime(time);
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す

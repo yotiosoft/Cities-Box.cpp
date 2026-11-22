@@ -53,9 +53,10 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_show_budget_menu = false;
 	
 	// 効果テクスチャを用意
-	m_effect_icons[RateID::CrimeRate] = Texture{Icon(IconFont::Crime), 16};
-	m_effect_icons[RateID::EducationRate] = Texture{Icon(IconFont::Education), 16};
-	m_effect_icons[RateID::LandPrice] = Texture{Icon(IconFont::LandPrice), 16};
+	const int effectIconSize = UIConfig::scaleIcon(16);
+	m_effect_icons[RateID::CrimeRate] = Texture{Icon(IconFont::Crime), effectIconSize};
+	m_effect_icons[RateID::EducationRate] = Texture{Icon(IconFont::Education), effectIconSize};
+	m_effect_icons[RateID::LandPrice] = Texture{Icon(IconFont::LandPrice), effectIconSize};
 	/*
 	 m_effect_icons[U"durability"] = Texture(Icon(IconFont::Durability, 16));
 	m_effect_icons[U"firing_rate"] = Texture(Icon(IconFont::Firing, 16));
@@ -136,28 +137,34 @@ void Menu::update(const SimulationSnapshot& simulation) {
 	m_render.clear(Color(45, 52, 54));
 	ScopedRenderTarget2D rt(m_render);
 	
-	m_button[U"cursor"].putRelative(PositionStruct{m_menu_buttons_pos.x + 10, 0}, m_position);
-	 
-	m_button[U"road"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55, 0}, m_position);
-	m_button[U"train"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+35, 0}, m_position);
-	m_button[U"residential"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+70, 0}, m_position);
-	m_button[U"commercial"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+105, 0}, m_position);
-	m_button[U"office"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+140, 0}, m_position);
-	m_button[U"industrial"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+175, 0}, m_position);
-	m_button[U"farm"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+210, 0}, m_position);
-	m_button[U"public"].putRelative(PositionStruct{m_menu_buttons_pos.x + 55+245, 0}, m_position);
-	
-	m_button[U"park"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345, 0}, m_position);
-	m_button[U"ship"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+35, 0}, m_position);
-	m_button[U"air_port"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+70, 0}, m_position);
-	m_button[U"tile"].putRelative(PositionStruct{m_menu_buttons_pos.x + 345+105, 0}, m_position);
-	
-	m_button[U"information"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495, 0}, m_position);
-	m_button[U"rate"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+35, 0}, m_position);
-	m_button[U"delete"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+70, 0}, m_position);
-	m_button[U"budget"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+105, 0}, m_position);
-	m_button[U"setting"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+140, 0}, m_position);
-	m_button[U"save"].putRelative(PositionStruct{m_menu_buttons_pos.x + 495+175, 0}, m_position);
+	const int step = UIConfig::ToolbarIconStep;
+	const int cursorX = m_menu_buttons_pos.x + 10;
+	const int roadX = cursorX + step + 10;
+	const int parkX = roadX + step * 8 + 10;
+	const int actionX = parkX + step * 4 + 10;
+
+	m_button[U"cursor"].putRelative(PositionStruct{cursorX, 0}, m_position);
+
+	m_button[U"road"].putRelative(PositionStruct{roadX, 0}, m_position);
+	m_button[U"train"].putRelative(PositionStruct{roadX + step, 0}, m_position);
+	m_button[U"residential"].putRelative(PositionStruct{roadX + step * 2, 0}, m_position);
+	m_button[U"commercial"].putRelative(PositionStruct{roadX + step * 3, 0}, m_position);
+	m_button[U"office"].putRelative(PositionStruct{roadX + step * 4, 0}, m_position);
+	m_button[U"industrial"].putRelative(PositionStruct{roadX + step * 5, 0}, m_position);
+	m_button[U"farm"].putRelative(PositionStruct{roadX + step * 6, 0}, m_position);
+	m_button[U"public"].putRelative(PositionStruct{roadX + step * 7, 0}, m_position);
+
+	m_button[U"park"].putRelative(PositionStruct{parkX, 0}, m_position);
+	m_button[U"ship"].putRelative(PositionStruct{parkX + step, 0}, m_position);
+	m_button[U"air_port"].putRelative(PositionStruct{parkX + step * 2, 0}, m_position);
+	m_button[U"tile"].putRelative(PositionStruct{parkX + step * 3, 0}, m_position);
+
+	m_button[U"information"].putRelative(PositionStruct{actionX, 0}, m_position);
+	m_button[U"rate"].putRelative(PositionStruct{actionX + step, 0}, m_position);
+	m_button[U"delete"].putRelative(PositionStruct{actionX + step * 2, 0}, m_position);
+	m_button[U"budget"].putRelative(PositionStruct{actionX + step * 3, 0}, m_position);
+	m_button[U"setting"].putRelative(PositionStruct{actionX + step * 4, 0}, m_position);
+	m_button[U"save"].putRelative(PositionStruct{actionX + step * 5, 0}, m_position);
 	
 	// RCOIFメータを表示
 	(*m_font8)(U"R").draw(m_menu_buttons_pos.x + m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
@@ -420,7 +427,16 @@ CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 	}
 	
 	if (m_button[U"save"].pushRelative(m_position)) {
-		if (!m_map->save()) {
+		bool saveSucceeded = true;
+#if SIV3D_PLATFORM(WEB)
+		const Array<FileFilter> filters = { { U"セーブデータ", { U"cbj" } } };
+		if (const auto selected = Dialog::SaveFile(filters, specific::SaveDataFilePath)) {
+			saveSucceeded = m_map->saveAs(selected.value());
+		}
+#else
+		saveSucceeded = m_map->save();
+#endif
+		if (!saveSucceeded) {
 			UnitaryTools::showErrorMessage(U"マップの保存に失敗しました。", m_map->getLastSaveError());
 		}
 		m_button[U"save"].release();
@@ -519,14 +535,17 @@ void Menu::addonMenu() {
 		int selectedI = -1, cursorI = -1;
 		for (int i=0; i<(int)m_show_addons.size(); i++) {
 			String addonName = m_show_addons[i]->getName(NameMode::English);
+			const int iconSize = UIConfig::AddonIconSize;
+			const int iconStep = UIConfig::AddonIconStep;
+			const int iconX = m_position.x + 30 + iconStep * i;
 			
-			bool cursorOn = (Cursor::Pos().x >= 30+32*i && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < 30+32*(i+1) && Cursor::Pos().y <= m_position.y-40+32);
+			bool cursorOn = (Cursor::Pos().x >= iconX && Cursor::Pos().y >= m_position.y-40 && Cursor::Pos().x < iconX+iconSize && Cursor::Pos().y <= m_position.y-40+iconSize);
 			if (cursorOn || m_selected_addon_name == addonName) {
-				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 32}, Size(32, 32));
+				m_show_addons[i]->drawIcon(PositionStruct{iconX, m_position.y-37}, PositionStruct{0, 32}, Size(iconSize, iconSize));
 				
 				if (MouseL.down() &&
 					Cursor::Pos().x >= m_position.x+30 && Cursor::Pos().x <= m_position.x-30+m_size.x &&
-					Cursor::Pos().y >= m_position.y-37 && Cursor::Pos().y <= m_position.y-37+32) {
+					Cursor::Pos().y >= m_position.y-37 && Cursor::Pos().y <= m_position.y-37+iconSize) {
 					if (m_selected_addon_name == addonName) {
 						m_selected_addon_name = U"";
 						m_selected_addon = nullptr;
@@ -544,7 +563,7 @@ void Menu::addonMenu() {
 				}
 			}
 			else {
-				m_show_addons[i]->drawIcon(PositionStruct{m_position.x+30+32*i, m_position.y-37}, PositionStruct{0, 0}, Size(32, 32));
+				m_show_addons[i]->drawIcon(PositionStruct{iconX, m_position.y-37}, PositionStruct{0, 0}, Size(iconSize, iconSize));
 			}
 		}
 		

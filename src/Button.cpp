@@ -63,26 +63,30 @@ void Button::set(ImageStruct& image, int newSize, String newLabel, Font& newFont
 
 void Button::set(IconFont::ID iconID) {
 	m_size = Size(64, 64);
-	m_button_texture = Texture{Icon(iconID), m_size.x};
+	const int iconSize = UIConfig::scaleIcon(m_size.x);
+	m_button_texture = Texture{Icon(iconID), iconSize};
+	m_shift = PositionStruct{ -(iconSize - m_size.x) / 2, -(iconSize - m_size.y) / 2 };
 	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift) {
 	m_size = Size(newSize, newSize);
-	m_icon_size = Size(newIconSize, newIconSize);
-	m_button_texture = Texture{Icon(iconID), m_icon_size.x};
-	m_shift = newShift;
+	const int iconSize = UIConfig::scaleIcon(newIconSize);
+	m_icon_size = Size(iconSize, iconSize);
+	m_button_texture = Texture{Icon(iconID), iconSize};
+	m_shift = PositionStruct{ newShift.x - (iconSize - newIconSize) / 2, newShift.y - (iconSize - newIconSize) / 2 };
 	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont) {
 	m_size = Size(newSize, newSize);
-	m_icon_size = Size(newIconSize, newIconSize);
-	m_button_texture = Texture{Icon(iconID), m_icon_size.x};
+	const int iconSize = UIConfig::scaleIcon(newIconSize);
+	m_icon_size = Size(iconSize, iconSize);
+	m_button_texture = Texture{Icon(iconID), iconSize};
 	m_button_mode = ButtonMode::IconMode;
 	m_font = newFont;
 	m_label = newLabel;
-	m_shift = newShift;
+	m_shift = PositionStruct{ newShift.x - (iconSize - newIconSize) / 2, newShift.y - (iconSize - newIconSize) / 2 };
 }
 
 void Button::put(PositionStruct newPosition) {

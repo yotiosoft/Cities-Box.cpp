@@ -33,15 +33,16 @@ namespace UIConfig {
 	inline constexpr int FontLarge = 24;
 	inline constexpr int FontMedium = 18;
 	inline constexpr int FontSmall = 12;
-	inline constexpr int DetailsBarWidth = 680;
+	inline constexpr int DetailsBarWidth = 720;
 	inline constexpr int DetailsIconSize = 30;
-	inline constexpr int DetailsItemGap = 16;
-	inline constexpr int DetailsTemperatureTextGap = 8;
-	inline constexpr int DetailsPopulationTextGap = 12;
-	inline constexpr int DetailsTimeTextGap = 10;
+	inline constexpr int DetailsItemGap = 20;
+	inline constexpr int DetailsTemperatureTextGap = 4;
+	inline constexpr int DetailsPopulationTextGap = 16;
+	inline constexpr int DetailsTimeTextGap = 16;
 	inline constexpr int ToolbarIconStep = 50;
 	inline constexpr int AddonIconSize = 40;
 	inline constexpr int AddonIconStep = 48;
+	inline constexpr int MenuBarHeight = 60;
 
 	constexpr int scaleIcon(const int size) {
 		return ((size * 3 + 1) / 2);
@@ -59,6 +60,7 @@ namespace UIConfig {
 	inline constexpr int ToolbarIconStep = 35;
 	inline constexpr int AddonIconSize = 32;
 	inline constexpr int AddonIconStep = 32;
+	inline constexpr int MenuBarHeight = 60;
 
 	constexpr int scaleIcon(const int size) {
 		return size;

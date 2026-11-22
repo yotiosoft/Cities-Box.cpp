@@ -124,6 +124,8 @@ set(SIV3D_ASYNCIFY_IMPORTS
     siv3dGetClipboardText
     siv3dDecodeImageFromFile
     siv3dSleepUntilWaked
+    citiesBoxSelectSaveDestination
+    citiesBoxExportSaveData
     invoke_v
     invoke_vi
 )

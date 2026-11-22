@@ -6,6 +6,7 @@
 //
 
 #include "UnitaryTools.hpp"
+#include "Button.hpp"
 
 Array<string> UnitaryTools::splitUTF8(string str, string separator) {
 	auto separatorLength = separator.length();
@@ -125,6 +126,7 @@ void UnitaryTools::saveTextFile(string filePath, FileStruct fs) {
 void UnitaryTools::showErrorMessage(const String& title, const String& detail) {
 	// ゲーム内UIへ移行する場合は、この表示処理を差し替える。
 	System::MessageBoxOK(detail.isEmpty() ? title : U"{}\n\n{}"_fmt(title, detail));
+	Button::suppressInputUntilMouseRelease();
 }
 
 void UnitaryTools::debugInit() {

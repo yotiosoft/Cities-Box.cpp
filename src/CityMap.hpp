@@ -31,6 +31,7 @@ public:
 	const String& getLastLoadError() const { return m_last_load_error; }
 	const String& getLastSaveError() const { return m_last_save_error; }
 	const String& getLastBuildError() const { return m_last_build_error; }
+	const String& getMapFilePath() const { return m_map_file_path; }
 	
 	// カテゴリに当てはまるアドオンの一覧を返す
 	Array<CBAddon*> getFitAddons(Array<CategoryID::Type> selectedCategories);
@@ -73,7 +74,7 @@ public:
 	void setShowRate(RateID::Type effect_id);
 	
 	// マップ保存
-	bool save();
+	bool save(bool exportToBrowser = true);
 	bool saveAs(String saveMapFilePath);
 	
 	// メモリ解放

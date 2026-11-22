@@ -33,6 +33,8 @@ namespace specific {
 	void changeCursor();
 
 	bool openSaveData(String& file_path);
+	bool selectSaveDataDestination(String& file_path, const String& suggested_file_name);
+	bool exportSaveData(const String& file_path);
 	
 	const String SaveDataFilePath = U"./data/maps/";
 }

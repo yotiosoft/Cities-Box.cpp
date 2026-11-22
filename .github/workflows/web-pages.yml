@@ -92,7 +92,9 @@ jobs:
             git worktree add --detach "$RUNNER_TEMP/gh-pages" HEAD
             git -C "$RUNNER_TEMP/gh-pages" checkout --orphan gh-pages
           fi
-          rsync -a --delete --exclude=.git site/ "$RUNNER_TEMP/gh-pages/"
+          # Replace only the game directory; keep the homepage and other root files.
+          rsync -a --delete site/play/ "$RUNNER_TEMP/gh-pages/play/"
+          touch "$RUNNER_TEMP/gh-pages/.nojekyll"
           git -C "$RUNNER_TEMP/gh-pages" config user.name 'github-actions[bot]'
           git -C "$RUNNER_TEMP/gh-pages" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git -C "$RUNNER_TEMP/gh-pages" add --all
@@ -100,6 +102,9 @@ jobs:
             git -C "$RUNNER_TEMP/gh-pages" commit -m "Deploy Web build from ${GITHUB_SHA}"
             git -C "$RUNNER_TEMP/gh-pages" push origin HEAD:gh-pages
           fi
+
+      - name: Include the complete gh-pages site
+        run: rsync -a --delete --exclude=.git "$RUNNER_TEMP/gh-pages/" site/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

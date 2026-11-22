@@ -28,6 +28,56 @@
 
 using namespace std;
 
+namespace UIConfig {
+#if SIV3D_PLATFORM(WEB)
+	inline constexpr int FontLarge = 24;
+	inline constexpr int FontMedium = 18;
+	inline constexpr int FontSmall = 12;
+	inline constexpr int DetailsBarWidth = 720;
+	inline constexpr int DetailsIconSize = 30;
+	inline constexpr int DetailsItemGap = 20;
+	inline constexpr int DetailsTemperatureTextGap = 4;
+	inline constexpr int DetailsPopulationTextGap = 16;
+	inline constexpr int DetailsTimeTextGap = 16;
+	inline constexpr int ToolbarIconStep = 50;
+	inline constexpr int AddonIconSize = 40;
+	inline constexpr int AddonIconStep = 48;
+	inline constexpr int MenuBarHeight = 60;
+	inline constexpr int AddonMenuIconRowHeight = 52;
+	inline constexpr int AddonMenuDetailsHeight = 68;
+	inline constexpr int AddonMenuTextGap = 6;
+	inline constexpr int AddonCategoryButtonGap = 4;
+	inline constexpr int RatePopupButtonStep = 36;
+
+	constexpr int scaleIcon(const int size) {
+		return ((size * 3 + 1) / 2);
+	}
+#else
+	inline constexpr int FontLarge = 16;
+	inline constexpr int FontMedium = 12;
+	inline constexpr int FontSmall = 8;
+	inline constexpr int DetailsBarWidth = 450;
+	inline constexpr int DetailsIconSize = 20;
+	inline constexpr int DetailsItemGap = 10;
+	inline constexpr int DetailsTemperatureTextGap = 0;
+	inline constexpr int DetailsPopulationTextGap = 10;
+	inline constexpr int DetailsTimeTextGap = 5;
+	inline constexpr int ToolbarIconStep = 35;
+	inline constexpr int AddonIconSize = 32;
+	inline constexpr int AddonIconStep = 32;
+	inline constexpr int MenuBarHeight = 60;
+	inline constexpr int AddonMenuIconRowHeight = 42;
+	inline constexpr int AddonMenuDetailsHeight = 38;
+	inline constexpr int AddonMenuTextGap = 2;
+	inline constexpr int AddonCategoryButtonGap = 0;
+	inline constexpr int RatePopupButtonStep = 32;
+
+	constexpr int scaleIcon(const int size) {
+		return size;
+	}
+#endif
+}
+
 class CityMap;
 class CBAddon;
 

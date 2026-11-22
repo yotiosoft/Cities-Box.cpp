@@ -32,9 +32,9 @@ void CitiesBox() {
 	bgm.searchSoundFiles("./sound/BGM");
 	
 	// フォントの宣言
-	Font font16(16, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
-	Font font12(12, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
-	Font font8(8, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font16(UIConfig::FontLarge, U"{}/NotoSansCJKjp/NotoSansCJKjp-Bold.otf"_fmt(specific::getFontsDir()));
+	Font font12(UIConfig::FontMedium, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
+	Font font8(UIConfig::FontSmall, U"{}/NotoSansCJKjp/NotoSansCJKjp-Regular.otf"_fmt(specific::getFontsDir()));
 	
 	// タイトルメニュー画面
 	String mapFilePath;
@@ -74,7 +74,7 @@ void CitiesBox() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-50}, Size(Scene::Width(), 50), &map, &font8, &font12, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-UIConfig::MenuBarHeight}, Size(Scene::Width(), UIConfig::MenuBarHeight), &map, &font8, &font12, &font16);
     const int default_menu_size = Scene::Width();
 	
 	// 選択されたアドオン
@@ -90,7 +90,7 @@ void CitiesBox() {
 	TimeStruct time = simulation.time;
 	
 	// Details Barの設定
-	DetailsBar detailsBar(PositionStruct{Scene::Size().x-450, 10}, &font16);
+	DetailsBar detailsBar(PositionStruct{Scene::Size().x-UIConfig::DetailsBarWidth, 10}, &font16);
 	
 	// BGMの再生（ランダム）
 	bgm.playBGM();
@@ -114,10 +114,10 @@ void CitiesBox() {
 			bufferTexture = RenderTexture(new_size.x, new_size.y, Color(30, 30, 30));
 
 			// メニューを再設置
-			menu.set(PositionStruct{ 0, new_size.y - 50 }, Size(default_menu_size, 50), &map, &font8, &font12, &font16);
+			menu.set(PositionStruct{ 0, new_size.y - UIConfig::MenuBarHeight }, Size(default_menu_size, UIConfig::MenuBarHeight), &map, &font8, &font12, &font16);
 
 			// Details Barの位置を変更
-			detailsBar.setPos(PositionStruct{ new_size.x - 450, 10 });
+			detailsBar.setPos(PositionStruct{ new_size.x - UIConfig::DetailsBarWidth, 10 });
 
 			before_window_size = new_size;
 			updateMap = true;
@@ -189,9 +189,9 @@ void CitiesBox() {
 		// Details Barの表示
 		detailsBar.printWeather();
 		detailsBar.printTemperature(simulation.temperature);
-		detailsBar.printTime(time);
 		detailsBar.printPopulation(simulation.population);
 		detailsBar.printMoney(simulation.money);
+		detailsBar.printTime(time);
 		
 		// メニュー及びアドオン選択メニューの表示
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
@@ -201,7 +201,7 @@ void CitiesBox() {
 		//font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		
 		// マップ上でクリックされたらアドオンを設置
-		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-60-80) {
+		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-UIConfig::MenuBarHeight-80) {
 			// 除去モードなら除去
 			if (selectedAddon->isInCategories(CategoryID::Tile)) {
 				map.breaking(cursor.coordinate, false, true, true);

@@ -7,6 +7,16 @@
 
 #include "CityMap.hpp"
 
+bool CityMap::saveAs(String saveMapFilePath) {
+	if (saveMapFilePath.isEmpty()) {
+		m_last_save_error = U"保存先が指定されていません。";
+		return false;
+	}
+
+	m_map_file_path = std::move(saveMapFilePath);
+	return save();
+}
+
 bool CityMap::save() {
 	m_last_save_error.clear();
 	try {

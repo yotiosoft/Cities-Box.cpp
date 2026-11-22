@@ -43,6 +43,7 @@ public:
 	// 押されたかどうか
 	bool push();
 	bool pushRelative(PositionStruct leftTop);
+	const Rect& getHitbox() const { return m_hitbox; }
 	
 	// アクティブかどうか
 	bool isActive();
@@ -56,6 +57,7 @@ private:
 	ButtonMode m_button_mode;
 	
 	PositionStruct m_position;
+	Rect m_hitbox;
 	Size m_size;
 	Size m_icon_size;
 	

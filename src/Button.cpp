@@ -63,73 +63,83 @@ void Button::set(ImageStruct& image, int newSize, String newLabel, Font& newFont
 
 void Button::set(IconFont::ID iconID) {
 	m_size = Size(64, 64);
-	m_button_texture = Texture{Icon(iconID), m_size.x};
+	const int iconSize = UIConfig::scaleIcon(m_size.x);
+	m_button_texture = Texture{Icon(iconID), iconSize};
+	m_shift = PositionStruct{ -(iconSize - m_size.x) / 2, -(iconSize - m_size.y) / 2 };
 	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift) {
 	m_size = Size(newSize, newSize);
-	m_icon_size = Size(newIconSize, newIconSize);
-	m_button_texture = Texture{Icon(iconID), m_icon_size.x};
-	m_shift = newShift;
+	const int iconSize = UIConfig::scaleIcon(newIconSize);
+	m_icon_size = Size(iconSize, iconSize);
+	m_button_texture = Texture{Icon(iconID), iconSize};
+	m_shift = PositionStruct{ newShift.x - (iconSize - newIconSize) / 2, newShift.y - (iconSize - newIconSize) / 2 };
 	m_button_mode = ButtonMode::IconMode;
 }
 
 void Button::set(IconFont::ID iconID, int newSize, int newIconSize, PositionStruct newShift, String newLabel, Font& newFont) {
 	m_size = Size(newSize, newSize);
-	m_icon_size = Size(newIconSize, newIconSize);
-	m_button_texture = Texture{Icon(iconID), m_icon_size.x};
+	const int iconSize = UIConfig::scaleIcon(newIconSize);
+	m_icon_size = Size(iconSize, iconSize);
+	m_button_texture = Texture{Icon(iconID), iconSize};
 	m_button_mode = ButtonMode::IconMode;
 	m_font = newFont;
 	m_label = newLabel;
-	m_shift = newShift;
+	m_shift = PositionStruct{ newShift.x - (iconSize - newIconSize) / 2, newShift.y - (iconSize - newIconSize) / 2 };
 }
 
 void Button::put(PositionStruct newPosition) {
 	m_position = newPosition;
-	
-	if (Cursor::Pos().x >= m_position.x && Cursor::Pos().y >= m_position.y && Cursor::Pos().x <= m_position.x+m_size.x && Cursor::Pos().y <= m_position.y+m_size.y) {
-		Rect(m_position.x, m_position.y, m_size.x, m_size.y).draw(Color(9, 132, 227, 128));
+	const PositionStruct drawPosition = (m_button_mode == ButtonMode::IconMode)
+		? PositionStruct{m_position.x + m_shift.x, m_position.y + m_shift.y}
+		: m_position;
+	const Size hitboxSize = (m_button_mode == ButtonMode::IconMode)
+		? m_button_texture.size()
+		: m_size;
+	m_hitbox = Rect(drawPosition.x, drawPosition.y, hitboxSize.x, hitboxSize.y);
+
+	if (m_hitbox.mouseOver()) {
+		m_hitbox.draw(Color(9, 132, 227, 128));
 		
 		if (m_label.length() > 0) {
-			m_font(m_label).draw(m_position.x+m_size.x/2-m_font(m_label).region(Scene::Width()/2, Scene::Height()/2).w/2, m_position.y+m_size.y);
+			m_font(m_label).draw(m_hitbox.center().x-m_font(m_label).region().w/2, m_hitbox.y+m_hitbox.h);
 		}
 	}
 	if (m_active) {
-		Rect(m_position.x, m_position.y, m_size.x, m_size.y).draw(Color(9, 132, 227));
+		m_hitbox.draw(Color(9, 132, 227));
 	}
-	
-	if (m_button_mode == ButtonMode::IconMode) {
-		m_position.x += m_shift.x;
-		m_position.y += m_shift.y;
-	}
-	m_button_texture.draw(m_position.x, m_position.y);
+
+	m_button_texture.draw(drawPosition.x, drawPosition.y);
 }
 
 void Button::putRelative(PositionStruct newPosition, PositionStruct leftTop) {
 	m_position = newPosition;
-	
-	if (Cursor::Pos().x-leftTop.x >= m_position.x && Cursor::Pos().y-leftTop.y >= m_position.y &&
-		Cursor::Pos().x-leftTop.x <= m_position.x+m_size.x && Cursor::Pos().y-leftTop.y <= m_position.y+m_size.y) {
-		Rect(m_position.x, m_position.y, m_size.x, m_size.y).draw(Color(9, 132, 227, 128));
+	const PositionStruct drawPosition = (m_button_mode == ButtonMode::IconMode)
+		? PositionStruct{m_position.x + m_shift.x, m_position.y + m_shift.y}
+		: m_position;
+	const Size hitboxSize = (m_button_mode == ButtonMode::IconMode)
+		? m_button_texture.size()
+		: m_size;
+	m_hitbox = Rect(drawPosition.x, drawPosition.y, hitboxSize.x, hitboxSize.y);
+	const Vec2 relativeCursor = Cursor::Pos() - Vec2{leftTop.x, leftTop.y};
+
+	if (m_hitbox.contains(relativeCursor)) {
+		m_hitbox.draw(Color(9, 132, 227, 128));
 		
 		if (m_label.length() > 0) {
-			m_font(m_label).draw(m_position.x+m_size.x/2-m_font(m_label).region(Scene::Width()/2, Scene::Height()/2).w/2, m_position.y+m_size.y);
+			m_font(m_label).draw(m_hitbox.center().x-m_font(m_label).region().w/2, m_hitbox.y+m_hitbox.h);
 		}
 	}
 	if (m_active) {
-		Rect(m_position.x, m_position.y, m_size.x, m_size.y).draw(Color(9, 132, 227));
+		m_hitbox.draw(Color(9, 132, 227));
 	}
-	
-	if (m_button_mode == ButtonMode::IconMode) {
-		m_position.x += m_shift.x;
-		m_position.y += m_shift.y;
-	}
-	m_button_texture.draw(m_position.x, m_position.y);
+
+	m_button_texture.draw(drawPosition.x, drawPosition.y);
 }
 
 bool Button::push() {
-	if (Cursor::Pos().x >= m_position.x && Cursor::Pos().y >= m_position.y && Cursor::Pos().x <= m_position.x+m_size.x && Cursor::Pos().y <= m_position.y+m_size.y) {
+	if (m_hitbox.mouseOver()) {
 		if (MouseL.down()) {
 			m_active = !m_active;
 			return true;
@@ -140,8 +150,8 @@ bool Button::push() {
 }
 
 bool Button::pushRelative(PositionStruct leftTop) {
-	if (Cursor::Pos().x-leftTop.x >= m_position.x && Cursor::Pos().y-leftTop.y >= m_position.y &&
-		Cursor::Pos().x-leftTop.x <= m_position.x+m_size.x && Cursor::Pos().y-leftTop.y <= m_position.y+m_size.y) {
+	const Vec2 relativeCursor = Cursor::Pos() - Vec2{leftTop.x, leftTop.y};
+	if (m_hitbox.contains(relativeCursor)) {
 		if (MouseL.down()) {
 			m_active = !m_active;
 			return true;

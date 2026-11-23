@@ -6,8 +6,9 @@
 //
 
 #include "Menu.hpp"
+#include "Sound.hpp"
 
-void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16) {
+void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Sound* newSound, Font* newFont8, Font* newFont12, Font* newFont16) {
 	m_position = newPosition;
 	m_size = newSize;
 	
@@ -16,6 +17,7 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_font16 = newFont16;
 	
 	m_map = newMap;
+	m_sound = newSound;
 	
 	m_selected_addon = nullptr;
 	
@@ -40,6 +42,7 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	m_button[U"delete"].set(IconFont::Delete, 30, 30, PositionStruct{0, 2});
 	m_button[U"budget"].set(IconFont::Budget, 30, 26, PositionStruct{-1, 4});
 	m_button[U"setting"].set(IconFont::Setting, 30, 28, PositionStruct{1, 1});
+	m_button[U"bgm"].set(IconFont::Music, 30, 28, PositionStruct{1, 1});
 	m_button[U"save"].set(IconFont::Save, 30, 30, PositionStruct{2, 2});
 	
 	m_menu_mode = MenuMode::None;
@@ -51,6 +54,8 @@ void Menu::set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* 
 	
 	m_show_rate_menu = false;
 	m_show_budget_menu = false;
+	m_show_bgm_menu = false;
+	m_bgm_scroll = 0;
 	
 	// 効果テクスチャを用意
 	const int effectIconSize = UIConfig::scaleIcon(16);
@@ -142,6 +147,8 @@ void Menu::update(const SimulationSnapshot& simulation) {
 	const int roadX = cursorX + step + 10;
 	const int parkX = roadX + step * 8 + 10;
 	const int actionX = parkX + step * 4 + 10;
+	const int demandX = m_menu_buttons_pos.x + m_size.x - 80;
+	const int actionStep = Min(step, Max(30, (demandX - actionX - 30) / 6));
 	const int toolbarY = (m_size.y - UIConfig::scaleIcon(30)) / 2;
 
 	m_button[U"cursor"].putRelative(PositionStruct{cursorX, toolbarY}, m_position);
@@ -161,11 +168,12 @@ void Menu::update(const SimulationSnapshot& simulation) {
 	m_button[U"tile"].putRelative(PositionStruct{parkX + step * 3, toolbarY}, m_position);
 
 	m_button[U"information"].putRelative(PositionStruct{actionX, toolbarY}, m_position);
-	m_button[U"rate"].putRelative(PositionStruct{actionX + step, toolbarY}, m_position);
-	m_button[U"delete"].putRelative(PositionStruct{actionX + step * 2, toolbarY}, m_position);
-	m_button[U"budget"].putRelative(PositionStruct{actionX + step * 3, toolbarY}, m_position);
-	m_button[U"setting"].putRelative(PositionStruct{actionX + step * 4, toolbarY}, m_position);
-	m_button[U"save"].putRelative(PositionStruct{actionX + step * 5, toolbarY}, m_position);
+	m_button[U"rate"].putRelative(PositionStruct{actionX + actionStep, toolbarY}, m_position);
+	m_button[U"delete"].putRelative(PositionStruct{actionX + actionStep * 2, toolbarY}, m_position);
+	m_button[U"budget"].putRelative(PositionStruct{actionX + actionStep * 3, toolbarY}, m_position);
+	m_button[U"setting"].putRelative(PositionStruct{actionX + actionStep * 4, toolbarY}, m_position);
+	m_button[U"bgm"].putRelative(PositionStruct{actionX + actionStep * 5, toolbarY}, m_position);
+	m_button[U"save"].putRelative(PositionStruct{actionX + actionStep * 6, toolbarY}, m_position);
 	
 	// RCOIFメータを表示
 	(*m_font8)(U"R").draw(m_menu_buttons_pos.x + m_size.x-80+3, m_size.y-15+2, Color(Palette::White));
@@ -419,11 +427,35 @@ CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 	
 	if (m_button[U"rate"].pushRelative(m_position)) {
 		m_show_rate_menu = !m_show_rate_menu;
+		if (m_show_rate_menu) {
+			m_show_budget_menu = false;
+			m_show_bgm_menu = false;
+			m_button[U"budget"].release();
+			m_button[U"bgm"].release();
+		}
 		needUpdate = true;
 	}
 
 	if (m_button[U"budget"].pushRelative(m_position)) {
 		m_show_budget_menu = !m_show_budget_menu;
+		if (m_show_budget_menu) {
+			m_show_rate_menu = false;
+			m_show_bgm_menu = false;
+			m_button[U"rate"].release();
+			m_button[U"bgm"].release();
+		}
+		needUpdate = true;
+	}
+
+	if (m_button[U"bgm"].pushRelative(m_position)) {
+		m_show_bgm_menu = !m_show_bgm_menu;
+		m_bgm_scroll = 0;
+		if (m_show_bgm_menu) {
+			m_show_rate_menu = false;
+			m_show_budget_menu = false;
+			m_button[U"rate"].release();
+			m_button[U"budget"].release();
+		}
 		needUpdate = true;
 	}
 	
@@ -454,8 +486,98 @@ CBAddon* Menu::draw(bool& needUpdate, SimulationSnapshot& simulation) {
 			needUpdate = true;
 		}
 	}
-	
+
 	return m_selected_addon;
+}
+
+bool Menu::isPointerOverPopup() const {
+	return m_show_bgm_menu && m_bgm_popup_rect.mouseOver();
+}
+
+bool Menu::bgmMenu() {
+	if (!m_show_bgm_menu || !m_sound) {
+		return false;
+	}
+
+	const int panelWidth = 300;
+	const int headerHeight = 42;
+	const int toggleHeight = 38;
+	const int rowHeight = 32;
+	const int maxVisibleRows = 6;
+	const int trackCount = static_cast<int>(m_sound->getBGMCount());
+	const int visibleRows = Min(Max(trackCount, 1), maxVisibleRows);
+	const int panelHeight = headerHeight + toggleHeight + visibleRows * rowHeight + 12;
+	const int bgmCenterX = m_position.x + static_cast<int>(m_button[U"bgm"].getHitbox().center().x);
+	const int left = Clamp(bgmCenterX - panelWidth / 2, 0, Scene::Width() - panelWidth);
+	const int top = m_position.y - panelHeight;
+	m_bgm_popup_rect = Rect(left, top, panelWidth, panelHeight);
+	m_bgm_popup_rect.draw(Color(45, 52, 54, 245));
+	m_bgm_popup_rect.drawFrame(1, Color(95, 102, 104));
+
+	(*m_font16)(U"BGM設定").draw(left + 14, top + 9);
+
+	const Rect toggleRow(left + 10, top + headerHeight, panelWidth - 20, toggleHeight - 4);
+	if (toggleRow.mouseOver()) {
+		toggleRow.draw(Color(65, 72, 74));
+	}
+	(*m_font12)(U"BGM").draw(left + 16, toggleRow.y + 8);
+	const Rect toggle(left + panelWidth - 76, toggleRow.y + 5, 54, 24);
+	toggle.draw(m_sound->isBGMEnabled() ? Color(9, 132, 227) : Color(90, 95, 96));
+	(*m_font12)(m_sound->isBGMEnabled() ? U"ON" : U"OFF").drawAt(toggle.center());
+
+	bool changed = false;
+	if (toggleRow.leftClicked()) {
+		m_sound->setBGMEnabled(!m_sound->isBGMEnabled());
+		changed = true;
+	}
+
+	const int listTop = top + headerHeight + toggleHeight;
+	const Rect listRect(left + 10, listTop, panelWidth - 20, visibleRows * rowHeight);
+	const int maxScroll = Max(trackCount - visibleRows, 0);
+	if (listRect.mouseOver() && maxScroll > 0) {
+		const double wheel = Mouse::Wheel();
+		if (wheel > 0) {
+			m_bgm_scroll = Max(m_bgm_scroll - 1, 0);
+		} else if (wheel < 0) {
+			m_bgm_scroll = Min(m_bgm_scroll + 1, maxScroll);
+		}
+	}
+	m_bgm_scroll = Clamp(m_bgm_scroll, 0, maxScroll);
+
+	if (trackCount == 0) {
+		(*m_font12)(U"再生できる曲がありません").draw(left + 16, listTop + 8, Color(190));
+	} else {
+		for (int row = 0; row < visibleRows; ++row) {
+			const int index = m_bgm_scroll + row;
+			if (index >= trackCount) {
+				break;
+			}
+			const Rect trackRow(left + 10, listTop + row * rowHeight, panelWidth - 30, rowHeight);
+			const bool selected = (index == m_sound->getPlayingBGMIndex());
+			if (selected) {
+				trackRow.draw(Color(9, 132, 227, 150));
+			} else if (trackRow.mouseOver()) {
+				trackRow.draw(Color(75, 82, 84));
+			}
+			(*m_font12)(selected ? U"▶ " : U"  ").draw(trackRow.x + 6, trackRow.y + 7);
+			(*m_font12)(m_sound->getBGMTitle(static_cast<size_t>(index))).draw(trackRow.x + 28, trackRow.y + 7);
+			if (trackRow.leftClicked()) {
+				m_sound->playBGM(static_cast<size_t>(index));
+				changed = true;
+			}
+		}
+	}
+
+	if (maxScroll > 0) {
+		const Rect scrollTrack(left + panelWidth - 14, listTop, 4, visibleRows * rowHeight);
+		scrollTrack.draw(Color(75, 82, 84));
+		const int thumbHeight = Max(20, scrollTrack.h * visibleRows / trackCount);
+		const int thumbTravel = scrollTrack.h - thumbHeight;
+		const int thumbY = scrollTrack.y + (thumbTravel * m_bgm_scroll / maxScroll);
+		Rect(scrollTrack.x, thumbY, scrollTrack.w, thumbHeight).draw(Color(160, 166, 168));
+	}
+
+	return changed;
 }
 
 bool Menu::budgetMenu(SimulationSnapshot& simulation) {

@@ -62,6 +62,7 @@ namespace IconFont {
 		Delete				= 0xf12d,
 		Budget				= 0xf53c,
 		Setting				= 0xf013,
+		Music				= 0xf001,
 		Save				= 0xf0c7,
 		
 		Crime				= 0xf6de,

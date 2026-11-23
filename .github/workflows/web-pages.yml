@@ -72,6 +72,8 @@ jobs:
             Web/Siv3DApp.html \
             Web/templates/google-tag-manager.html
           grep -q 'GTM-NS9DV2CV' Web/Siv3DApp.html
+          grep -q 'id="siv3d-app-script"' Web/Siv3DApp.html
+          grep -q 'document.getElementById("siv3d-app-script")' Web/Siv3DApp.html
 
       - name: Prepare Pages site
         shell: bash

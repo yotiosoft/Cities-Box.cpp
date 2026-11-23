@@ -74,7 +74,7 @@ void CitiesBox() {
 	
 	// メニュー
 	Menu menu;
-	menu.set(PositionStruct{0, Scene::Height()-UIConfig::MenuBarHeight}, Size(Scene::Width(), UIConfig::MenuBarHeight), &map, &font8, &font12, &font16);
+	menu.set(PositionStruct{0, Scene::Height()-UIConfig::MenuBarHeight}, Size(Scene::Width(), UIConfig::MenuBarHeight), &map, &bgm, &font8, &font12, &font16);
     const int default_menu_size = Scene::Width();
 	
 	// 選択されたアドオン
@@ -114,7 +114,7 @@ void CitiesBox() {
 			bufferTexture = RenderTexture(new_size.x, new_size.y, Color(30, 30, 30));
 
 			// メニューを再設置
-			menu.set(PositionStruct{ 0, new_size.y - UIConfig::MenuBarHeight }, Size(default_menu_size, UIConfig::MenuBarHeight), &map, &font8, &font12, &font16);
+			menu.set(PositionStruct{ 0, new_size.y - UIConfig::MenuBarHeight }, Size(default_menu_size, UIConfig::MenuBarHeight), &map, &bgm, &font8, &font12, &font16);
 
 			// Details Barの位置を変更
 			detailsBar.setPos(PositionStruct{ new_size.x - UIConfig::DetailsBarWidth, 10 });
@@ -197,11 +197,15 @@ void CitiesBox() {
 		// アドオンが選択されたら、選択されたアドオンのポインタを返す
 		selectedAddon = menu.draw(updateMap, simulation);
 		menu.addonMenu();
+		if (menu.bgmMenu()) {
+			updateMap = true;
+		}
 		
 		//font16(U"{:04d}"_fmt(time.year)+U"/"+U"{:02d}"_fmt(time.month)+U"/"+U"{:02d}"_fmt(time.date)+U" "+U"{:02d}"_fmt(time.hour)+U":"+U"{:02d}"_fmt(time.minutes)).draw(230, Scene::Height()-25-3);
 		
 		// マップ上でクリックされたらアドオンを設置
-		if (selectedAddon != nullptr && MouseL.pressed() && cursor.position.y <= Scene::Height()-UIConfig::MenuBarHeight-80) {
+		if (selectedAddon != nullptr && MouseL.pressed() && !menu.isPointerOverPopup()
+			&& cursor.position.y <= Scene::Height()-UIConfig::MenuBarHeight-80) {
 			// 除去モードなら除去
 			if (selectedAddon->isInCategories(CategoryID::Tile)) {
 				map.breaking(cursor.coordinate, false, true, true);

@@ -13,6 +13,8 @@
 #include "Button.hpp"
 #include "CityMap.hpp"
 
+class Sound;
+
 namespace MenuMode {
 	enum Type {
 		None = -1,
@@ -41,7 +43,7 @@ namespace MenuMode {
 
 class Menu {
 public:
-	void set(PositionStruct newPosition, Size newSize, CityMap* newMap, Font* newFont8, Font* newFont12, Font* newFont16);
+	void set(PositionStruct newPosition, Size newSize, CityMap* newMap, Sound* newSound, Font* newFont8, Font* newFont12, Font* newFont16);
 	
 	void releaseBeforeButton(MenuMode::Type beforeSelectedButton);
 	
@@ -53,6 +55,8 @@ public:
 	
 	bool rateMenu();
 	bool budgetMenu(SimulationSnapshot& simulation);
+	bool bgmMenu();
+	bool isPointerOverPopup() const;
 	
 private:
 	PositionStruct m_position;
@@ -74,6 +78,7 @@ private:
 	Font* m_font16;
 	
 	CityMap* m_map;
+	Sound* m_sound;
 	
 	::map<RateID::Type, Texture> m_effect_icons;
 	
@@ -84,6 +89,9 @@ private:
 	
 	bool m_show_rate_menu;
 	bool m_show_budget_menu;
+	bool m_show_bgm_menu;
+	int m_bgm_scroll;
+	Rect m_bgm_popup_rect;
 	RateID::Type m_show_rate_id;
 	
 };

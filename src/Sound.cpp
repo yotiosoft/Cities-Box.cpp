@@ -13,6 +13,10 @@
 #include <iostream>
 #endif
 
+Sound::~Sound() {
+	delete m_audio_p;
+}
+
 void Sound::searchSoundFiles(string filePath) {
 #if SIV3D_PLATFORM(WEB)
 	// HTTP ではディレクトリ一覧を取得できないため、ビルド時の一覧を使う。
@@ -36,7 +40,7 @@ void Sound::searchSoundFiles(string filePath) {
 }
 
 void Sound::playBGM() {
-	if (m_sound_files.empty()) {
+	if (!m_bgm_enabled || m_sound_files.empty()) {
 		return;
 	}
 	int next = m_playing_BGM_num;
@@ -49,6 +53,64 @@ void Sound::playBGM() {
 	}
 	m_playing_BGM_num = next;
 	playBGM(Unicode::Widen(m_sound_files[next].file_path));
+}
+
+void Sound::playBGM(size_t index) {
+	if (index >= m_sound_files.size()) {
+		return;
+	}
+	m_playing_BGM_num = static_cast<int>(index);
+	if (m_bgm_enabled) {
+		playBGM(Unicode::Widen(m_sound_files[index].file_path));
+	} else {
+		delete m_audio_p;
+		m_audio_p = nullptr;
+		m_before_play_pos = 0;
+#if SIV3D_PLATFORM(WEB)
+		m_bgm_download = AsyncHTTPTask{};
+		m_pending_bgm_path.clear();
+#endif
+	}
+}
+
+void Sound::setBGMEnabled(bool enabled) {
+	if (m_bgm_enabled == enabled) {
+		return;
+	}
+
+	m_bgm_enabled = enabled;
+	if (!enabled) {
+		if (m_audio_p) {
+			m_audio_p->pause();
+		}
+		return;
+	}
+
+	if (m_audio_p) {
+		m_audio_p->play();
+	} else if (m_playing_BGM_num >= 0) {
+		playBGM(static_cast<size_t>(m_playing_BGM_num));
+	} else {
+		playBGM();
+	}
+}
+
+String Sound::getBGMTitle(size_t index) const {
+	if (index >= m_sound_files.size()) {
+		return U"";
+	}
+
+	string title = m_sound_files[index].file_path;
+	const size_t slash = title.find_last_of("/\\");
+	if (slash != string::npos) {
+		title = title.substr(slash + 1);
+	}
+	const size_t dot = title.find_last_of('.');
+	if (dot != string::npos) {
+		title = title.substr(0, dot);
+	}
+	replace(title.begin(), title.end(), '_', ' ');
+	return Unicode::Widen(title);
 }
 
 void Sound::playBGM(String filePath) {
@@ -64,7 +126,9 @@ void Sound::playBGM(String filePath) {
 	m_bgm_download = SimpleHTTP::SaveAsync(filePath, m_pending_bgm_path);
 #else
 	m_audio_p = new Audio(filePath);
-	m_audio_p->play();
+	if (m_bgm_enabled) {
+		m_audio_p->play();
+	}
 #endif
 }
 
@@ -77,7 +141,9 @@ void Sound::playingBGM() {
 		if (httpOK && fileOK) {
 			m_audio_p = new Audio(m_pending_bgm_path);
 			if (*m_audio_p) {
-				m_audio_p->play();
+				if (m_bgm_enabled) {
+					m_audio_p->play();
+				}
 			} else {
 				std::cerr << "BGM decode failed: " << m_pending_bgm_path.narrow() << "\n";
 				delete m_audio_p;
@@ -91,7 +157,7 @@ void Sound::playingBGM() {
 		m_pending_bgm_path.clear();
 	}
 #endif
-	if (!m_audio_p) {
+	if (!m_bgm_enabled || !m_audio_p) {
 		return;
 	}
 	if (m_before_play_pos > 0 && m_audio_p->posSec() == 0) {
